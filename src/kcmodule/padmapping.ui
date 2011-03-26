@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PadMapping</class>
+ <widget class="QWidget" name="PadMapping">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>308</width>
+    <height>159</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Pad Mapping</string>
+  </property>
+  <property name="locale">
+   <locale language="English" country="UnitedKingdom"/>
+  </property>
+  <layout class="QFormLayout" name="formLayout">
+   <property name="horizontalSpacing">
+    <number>10</number>
+   </property>
+   <property name="verticalSpacing">
+    <number>10</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QLabel" name="rotationLabel">
+     <property name="text">
+      <string comment="Rotation of the tablet pad">Rotation:</string>
+     </property>
+     <property name="buddy">
+      <cstring>rotationComboBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="KComboBox" name="rotationComboBox">
+     <property name="toolTip">
+      <string>Select the rotation of the tablet device.</string>
+     </property>
+     <item>
+      <property name="text">
+       <string comment="no pad rotation">none</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string comment="rotate the pad counter clock wise">couter clockwise</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string comment="rotate the tablet clockwise">clockwise</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string comment="pad rotation up side down (180°)">half</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="areaLabel">
+     <property name="text">
+      <string>Working Area:</string>
+     </property>
+     <property name="buddy">
+      <cstring>topX</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="KIntSpinBox" name="topX">
+       <property name="toolTip">
+        <string>Top left point of the tablet working area</string>
+       </property>
+       <property name="maximum">
+        <number>99999</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="KIntSpinBox" name="topY">
+       <property name="toolTip">
+        <string>Top right point of the tablet working area</string>
+       </property>
+       <property name="maximum">
+        <number>99999</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="KIntSpinBox" name="bottomX">
+       <property name="toolTip">
+        <string>Bottom left point of the tablet working area</string>
+       </property>
+       <property name="maximum">
+        <number>99999</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="KIntSpinBox" name="bottomY">
+       <property name="toolTip">
+        <string>Bottom right point of the tablet working area</string>
+       </property>
+       <property name="maximum">
+        <number>99999</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>rotationComboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>PadMapping</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>206</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>264</x>
+     <y>19</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>topY</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PadMapping</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>218</x>
+     <y>60</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>254</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bottomY</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PadMapping</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>205</x>
+     <y>86</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>223</x>
+     <y>120</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bottomX</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PadMapping</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>131</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>87</x>
+     <y>110</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>topX</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PadMapping</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>107</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>40</x>
+     <y>77</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>profileChanged()</slot>
+ </slots>
+</ui>

@@ -1,0 +1,1036 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PadButtonWidget</class>
+ <widget class="QWidget" name="PadButtonWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>536</width>
+    <height>721</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Pad Buttons</string>
+  </property>
+  <property name="locale">
+   <locale language="English" country="UnitedKingdom"/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="buttonGroupBox">
+     <property name="title">
+      <string>Express Keys</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="button1Label">
+          <property name="text">
+           <string>Button 1:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button1ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="KComboBox" name="button1ComboBox">
+          <property name="toolTip">
+           <string>Set the action for Button 1</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="button1ActionLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="button2Label">
+          <property name="text">
+           <string>Button 2:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button2ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="KComboBox" name="button2ComboBox">
+          <property name="toolTip">
+           <string>Set the action for Button 2</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="button2ActionLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="button3Label">
+          <property name="text">
+           <string>Button 3:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button3ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="KComboBox" name="button3ComboBox">
+          <property name="toolTip">
+           <string>Set the action for Button 3</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="button3ActionLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="button4Label">
+          <property name="text">
+           <string>Button 4:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button4ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="KComboBox" name="button4ComboBox">
+          <property name="toolTip">
+           <string>Set the action for Button 4</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QLabel" name="button4ActionLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="button5Label">
+          <property name="text">
+           <string>Button 5:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button5ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="KComboBox" name="button5ComboBox">
+          <property name="toolTip">
+           <string>Set the action for Button 5</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="QLabel" name="button5ActionLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="padImage">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QFormLayout" name="formLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="button6Label">
+          <property name="text">
+           <string>Button 6:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button6ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="KComboBox" name="button6ComboBox">
+          <property name="toolTip">
+           <string>Set the action for Button 6</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="button6ActionLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="button7Label">
+          <property name="text">
+           <string>Button 7:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button7ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="KComboBox" name="button7ComboBox">
+          <property name="toolTip">
+           <string>Set the action for Button 7</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="button7ActionLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="button8Label">
+          <property name="text">
+           <string>Button 8:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button8ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="KComboBox" name="button8ComboBox">
+          <property name="toolTip">
+           <string>Set the action for Button 8</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="button8ActionLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="button9Label">
+          <property name="text">
+           <string>Button 9:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button9ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="KComboBox" name="button9ComboBox">
+          <property name="toolTip">
+           <string>Set the action for Button 9</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QLabel" name="button9ActionLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="button10Label">
+          <property name="text">
+           <string>Button 10:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button10ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="KComboBox" name="button10ComboBox">
+          <property name="toolTip">
+           <string>Set the action for Button 10</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="QLabel" name="button10ActionLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="tochStripGroupBox">
+     <property name="title">
+      <string>Touch Strip</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="horizontalSpacing">
+       <number>10</number>
+      </property>
+      <property name="verticalSpacing">
+       <number>5</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="stripLUpLabel">
+        <property name="text">
+         <string>Strip Left Up:</string>
+        </property>
+        <property name="buddy">
+         <cstring>stripLUpComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2">
+       <widget class="KComboBox" name="stripLUpComboBox">
+        <property name="toolTip">
+         <string>Set the up action for the left strip</string>
+        </property>
+        <property name="maxVisibleItems">
+         <number>20</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>296</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="stripRUpLabel">
+        <property name="text">
+         <string>Strip Right Up:</string>
+        </property>
+        <property name="buddy">
+         <cstring>stripRUpComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5" colspan="2">
+       <widget class="KComboBox" name="stripRUpComboBox">
+        <property name="toolTip">
+         <string>Set the up action for the right strip</string>
+        </property>
+        <property name="maxVisibleItems">
+         <number>20</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="2">
+       <widget class="QLabel" name="stripLUpActionLabel">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="buddy">
+         <cstring>stripLUpComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5" colspan="2">
+       <widget class="QLabel" name="stripRUpActionLabel">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="buddy">
+         <cstring>stripRUpComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QLabel" name="stripLDnLabel">
+        <property name="text">
+         <string>Strip Left Down:</string>
+        </property>
+        <property name="buddy">
+         <cstring>stripLDnComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4" colspan="2">
+       <widget class="QLabel" name="stripRDnLabel">
+        <property name="text">
+         <string>Strip Right Down:</string>
+        </property>
+        <property name="buddy">
+         <cstring>stripRDnComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="6">
+       <widget class="KComboBox" name="stripRDnComboBox">
+        <property name="toolTip">
+         <string>Set the down action for the right strip</string>
+        </property>
+        <property name="maxVisibleItems">
+         <number>20</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="stripLDnActionLabel">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="buddy">
+         <cstring>stripLDnComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="6">
+       <widget class="QLabel" name="stripRDnActionLabel">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="buddy">
+         <cstring>stripRDnComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="KComboBox" name="stripLDnComboBox">
+        <property name="toolTip">
+         <string>Set the down action for the left strip</string>
+        </property>
+        <property name="maxVisibleItems">
+         <number>20</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="tochRingGroupBox">
+     <property name="title">
+      <string>Touch Ring</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="horizontalSpacing">
+       <number>10</number>
+      </property>
+      <property name="verticalSpacing">
+       <number>5</number>
+      </property>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="4">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>124</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="8">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="7">
+       <widget class="KComboBox" name="ringDnComboBox">
+        <property name="toolTip">
+         <string>Set the down action for the touch ring</string>
+        </property>
+        <property name="maxVisibleItems">
+         <number>20</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="KComboBox" name="ringUpComboBox">
+        <property name="toolTip">
+         <string>Set the up action for the touch ring</string>
+        </property>
+        <property name="maxVisibleItems">
+         <number>20</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="ringUpLabeL">
+        <property name="text">
+         <string>Ring Up:</string>
+        </property>
+        <property name="buddy">
+         <cstring>ringUpComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLabel" name="ringDnLabel">
+        <property name="text">
+         <string>Ring Down:</string>
+        </property>
+        <property name="buddy">
+         <cstring>ringDnComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="7">
+       <widget class="QLabel" name="ringDnActionLabel">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="ringUpActionLabel">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="wheelGroupBox">
+     <property name="title">
+      <string>Wheel</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="horizontalSpacing">
+       <number>10</number>
+      </property>
+      <property name="verticalSpacing">
+       <number>5</number>
+      </property>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="4">
+       <spacer name="horizontalSpacer_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>124</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="8">
+       <spacer name="horizontalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="7">
+       <widget class="KComboBox" name="wheelDnComboBox">
+        <property name="toolTip">
+         <string>Set the down action for the wheel</string>
+        </property>
+        <property name="maxVisibleItems">
+         <number>20</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="KComboBox" name="wheelUpComboBox">
+        <property name="toolTip">
+         <string>Set the up action for the wheel</string>
+        </property>
+        <property name="maxVisibleItems">
+         <number>20</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="wheelUpLabeL">
+        <property name="text">
+         <string comment="Action when the Wheel is used upwards">Up:</string>
+        </property>
+        <property name="buddy">
+         <cstring>wheelUpComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLabel" name="wheelDnLabel">
+        <property name="text">
+         <string comment="Action when the Wheel is used downwards">Down:</string>
+        </property>
+        <property name="buddy">
+         <cstring>wheelDnComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="7">
+       <widget class="QLabel" name="wheelDnActionLabel">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="wheelUpActionLabel">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>button1ComboBox</tabstop>
+  <tabstop>button2ComboBox</tabstop>
+  <tabstop>button3ComboBox</tabstop>
+  <tabstop>button4ComboBox</tabstop>
+  <tabstop>button5ComboBox</tabstop>
+  <tabstop>button6ComboBox</tabstop>
+  <tabstop>button7ComboBox</tabstop>
+  <tabstop>button8ComboBox</tabstop>
+  <tabstop>button9ComboBox</tabstop>
+  <tabstop>button10ComboBox</tabstop>
+  <tabstop>stripLUpComboBox</tabstop>
+  <tabstop>stripLDnComboBox</tabstop>
+  <tabstop>stripRUpComboBox</tabstop>
+  <tabstop>stripRDnComboBox</tabstop>
+  <tabstop>ringUpComboBox</tabstop>
+  <tabstop>ringDnComboBox</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>stripLUpComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>214</x>
+     <y>364</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>331</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>stripLDnComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>214</x>
+     <y>418</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>stripRUpComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>516</x>
+     <y>364</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>632</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>stripRDnComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>516</x>
+     <y>418</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>385</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ringDnComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>486</x>
+     <y>514</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>633</x>
+     <y>479</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ringUpComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>514</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>476</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button6ComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>65</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>57</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button7ComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>116</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>632</x>
+     <y>116</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button8ComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>167</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>631</x>
+     <y>177</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button9ComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>218</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>634</x>
+     <y>230</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button10ComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>269</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>632</x>
+     <y>288</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button5ComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>159</x>
+     <y>269</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>290</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button4ComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>159</x>
+     <y>218</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button3ComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>159</x>
+     <y>167</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>178</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button2ComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>100</x>
+     <y>114</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button1ComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>117</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>55</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>wheelUpComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>609</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>665</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>wheelDnComboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>PadButtonWidget</receiver>
+   <slot>selectKeyFunction(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>461</x>
+     <y>609</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>539</x>
+     <y>667</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>selectKeyFunction(int)</slot>
+ </slots>
+</ui>

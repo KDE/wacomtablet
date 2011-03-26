@@ -1,0 +1,53 @@
+[Desktop Entry]
+Exec=kcmshell4 kcm_wacomtablet
+Icon=input-tablet
+Type=Service
+X-KDE-ServiceTypes=KCModule
+DocPath=kcontrol/wacomtablet/index.html
+
+X-KDE-Library=kcm_wacomtablet
+X-KDE-ParentApp=kcontrol
+
+X-KDE-System-Settings-Parent-Category=keyboard-and-mouse
+X-KDE-System-Settings-Parent-Category-V2=input-devices
+
+Name=Graphic Tablet
+Name[en_GB]=Graphic Tablet
+Name[es]=Tableta gráfica
+Name[et]=Graafikalaud
+Name[km]=ក្រាហ្វិក​របស់​ Tablet​
+Name[nb]=Tegneplate
+Name[nds]=Grafiktablettfehler
+Name[nl]=Grafisch tablet
+Name[pa]=ਗਰਾਫਿਕਸ ਟੈਬਲੇਟ
+Name[pt]=Tablete Gráfica
+Name[pt_BR]=Mesa digitalizadora gráfica
+Name[ro]=Planșetă grafică
+Name[ru]=Графический планшет
+Name[sv]=Grafisk ritplatta
+Name[th]=แท็บเล็ตกราฟิก
+Name[uk]=Графічний планшет
+Name[x-test]=xxGraphic Tabletxx
+Name[zh_TW]=圖形平板裝置
+
+Comment=Wacom Tablet Settings
+Comment[en_GB]=Wacom Tablet Settings
+Comment[es]=Preferencias del tablet Wacom
+Comment[et]=Wacomi graafikalaua seadistused
+Comment[km]=ការ​កំណត់​ Wacom Tablet
+Comment[nb]=Innstillinger for Wacom skriveplate
+Comment[nds]=Wacom-Tablett instellen
+Comment[nl]=Wacom tablet-instellingen
+Comment[pa]=ਵਕੋਮ ਟੈਬਲੇਟ ਸੈਟਿੰਗ
+Comment[pt]=Configuração da Tablete Wacom
+Comment[pt_BR]=Configurações da mesa digitalizadora Wacom
+Comment[ro]=Configurări pentru planșeta Wacom
+Comment[ru]=Настройка планшета Wacom
+Comment[sv]=Inställningar av Wacom ritplatta
+Comment[th]=การตั้งค่าแท็บเล็ตของ Wacom
+Comment[tr]=Wacom Tablet Ayarları
+Comment[uk]=Параметри планшетів Wacom
+Comment[x-test]=xxWacom Tablet Settingsxx
+Comment[zh_TW]=Wacom 平板裝置設定
+
+X-KDE-Keywords=Tablet,Input Devices,Wacom,Stylus

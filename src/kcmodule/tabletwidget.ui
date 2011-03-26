@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TabletWidget</class>
+ <widget class="QWidget" name="TabletWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>646</width>
+    <height>522</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Graphic Tablet Settings</string>
+  </property>
+  <property name="locale">
+   <locale language="English" country="UnitedKingdom"/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" name="profileLayout">
+     <item>
+      <widget class="QLabel" name="profileLabel">
+       <property name="text">
+        <string>Select Profile:</string>
+       </property>
+       <property name="buddy">
+        <cstring>profileSelector</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KComboBox" name="profileSelector">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KAnimatedButton" name="addProfileButton">
+       <property name="toolTip">
+        <string>Creates a new default profile</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonIconOnly</enum>
+       </property>
+       <property name="icons" stdset="0">
+        <string>document-new</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KAnimatedButton" name="delProfileButton">
+       <property name="toolTip">
+        <string>Deletes the current profile</string>
+       </property>
+       <property name="icons" stdset="0">
+        <string>edit-delete-page</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="KTabWidget" name="deviceTabWidget"/>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KAnimatedButton</class>
+   <extends>QToolButton</extends>
+   <header>kanimatedbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>ktabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>profileSelector</tabstop>
+  <tabstop>addProfileButton</tabstop>
+  <tabstop>delProfileButton</tabstop>
+  <tabstop>deviceTabWidget</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

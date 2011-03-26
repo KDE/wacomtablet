@@ -1,0 +1,24 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="org.kde.Wacom">
+    <signal name="tabletAdded">
+    </signal>
+    <signal name="tabletRemoved">
+    </signal>
+    <signal name="profileChanged">
+      <arg type="s" name="profile" direction="out"/>
+    </signal>
+    <method name="tabletAvailable">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="setProfile">
+      <arg type="s" name="profile" direction="in"/>
+    </method>
+    <method name="profile">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="profileList">
+      <arg type="as" direction="out"/>
+    </method>
+  </interface>
+</node>

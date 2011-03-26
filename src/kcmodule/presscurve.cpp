@@ -1,0 +1,217 @@
+/*
+ * Copyright 2009 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "presscurve.h"
+
+//Qt includes
+#include <QtGui/QPainter>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QResizeEvent>
+#include <QtGui/QTabletEvent>
+
+using namespace Wacom;
+
+PressCurve::PressCurve(QWidget *parent) :
+        QWidget(parent),
+        m_pointSize(10),
+        m_pointColor(Qt::red),
+        m_curveColor(Qt::black),
+        m_presssure(0),
+        m_pressAreaColor(Qt::blue)
+{
+    setBackgroundRole(QPalette::Base);
+    setAutoFillBackground(true);
+}
+
+void PressCurve::setControlPoints(qreal p1, qreal p2, qreal p3, qreal p4)
+{
+    // change y values upside down (xsetwacom has 0,0 in the lower left QWidget in the upper left)
+    p2 = 100 - p2;
+    p4 = 100 - p4;
+    m_cP1 = QPointF((p1 / 100.0) * width() , (p2 / 100.0) * height());
+    m_cP2 = QPointF((p3 / 100.0) * width() , (p4 / 100.0) * height());
+}
+
+void PressCurve::mousePressEvent(QMouseEvent * event)
+{
+    setNearestPoint(event->posF());
+}
+
+void PressCurve::mouseMoveEvent(QMouseEvent * event)
+{
+    moveControlPoint(event->posF());
+    update();
+}
+
+void PressCurve::mouseReleaseEvent(QMouseEvent * event)
+{
+    Q_UNUSED(event);
+    m_activePoint = 0;
+}
+
+void PressCurve::resizeEvent(QResizeEvent * event)
+{
+    // avoid unpredictable ratio on first initialisation
+    if (event->oldSize().width() == -1) {
+        return;
+    }
+
+    qreal xRatio = (qreal)event->size().width() / (qreal)event->oldSize().width();
+    qreal yRatio = (qreal)event->size().height() / (qreal)event->oldSize().height();
+
+    m_cP1.setX(m_cP1.x() * xRatio);
+    m_cP1.setY(m_cP1.y() * yRatio);
+    m_cP2.setX(m_cP2.x() * xRatio);
+    m_cP2.setY(m_cP2.y() * yRatio);
+}
+
+void PressCurve::tabletEvent(QTabletEvent * event)
+{
+    event->accept();
+    m_presssure = event->pressure();
+
+    if (event->pressure() == 0) {
+        m_activePoint = 0;
+    }
+
+    if (m_activePoint > 0) {
+        moveControlPoint(event->pos());
+    }
+
+    else if (event->pressure() > 0) {
+        setNearestPoint(event->pos());
+    }
+
+    update();
+}
+
+void PressCurve::setNearestPoint(const QPointF & pos)
+{
+    qreal d1 = QLineF(pos, m_cP1).length();
+    qreal d2 = QLineF(pos, m_cP2).length();
+
+    if (d1 <  m_pointSize) {
+        m_activePoint = 1;
+    } else if (d2 < m_pointSize) {
+        m_activePoint = 2;
+    }
+}
+
+void PressCurve::moveControlPoint(const QPointF & pos)
+{
+    int x;
+    int y;
+
+    if (pos.x() > width()) {
+        x = width();
+    } else if (pos.x() < 0) {
+        x = 0;
+    } else {
+        x = pos.x();
+    }
+
+    if (pos.y() > height()) {
+        y = height();
+    } else if (pos.y() < 0) {
+        y = 0;
+    } else {
+        y = pos.y();
+    }
+
+    switch (m_activePoint) {
+    case 1:
+        m_cP1 = QPoint(x, y);
+        m_cP2 = QPoint(y, x);   // seems xsetwacom is expecting to be both controllpoints the same with switches xy values
+        // makes no sense to me, but otherwise the wacom driver complains
+        // the wacom_utility does it the same way though
+        break;
+    case 2:
+        m_cP2 = QPoint(x, y);
+        m_cP1 = QPoint(y, x);   // see above
+        break;
+    }
+
+    // build string with controlpoints as used in xsetwacom settings
+    int p1 = (m_cP1.x() / width()) * 100.0;
+    int p2 = (m_cP1.y() / height()) * 100.0;
+    int p3 = (m_cP2.x() / width()) * 100.0;
+    int p4 = (m_cP2.y() / height()) * 100.0;
+
+    //change y values upside down
+    p2 = 100 - p2;
+    p4 = 100 - p4;
+    QString pointsString = QString::fromLatin1("%1 %2 %3 %4").arg(p1).arg(p2).arg(p3).arg(p4);
+
+    emit controlPointsChanged(pointsString);
+}
+
+void PressCurve::paintEvent(QPaintEvent * event)
+{
+    Q_UNUSED(event);
+
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.translate( + 0.5, + 0.5);
+
+    // draw the background grid
+    int yStep = height() / 10;
+    int xStep = width() / 10;
+    painter.setPen(QColor(Qt::gray));
+
+    for (int i = 1; i < 10;i++) {
+        painter.drawLine(i * xStep, 0, i * xStep, height());
+        painter.drawLine(0, i * yStep, width(), i * yStep);
+    }
+
+    // draw controllpoint lines
+    painter.setPen(QColor(Qt::gray));
+    painter.drawLine(m_cP1, QPoint(0, height()));
+    painter.drawLine(m_cP2, QPoint(width(), 0));
+
+    // create presscurve
+    QPainterPath curvePath;
+    curvePath.moveTo(0, height());
+    curvePath.cubicTo(m_cP1, m_cP2, QPoint(width(), 0));
+
+    //create polygon for the area below the curve
+    QPainterPath areaBelowCurve(curvePath);
+    areaBelowCurve.lineTo(width(), height());
+    areaBelowCurve.lineTo(0, height());
+    QRectF clearRect(m_presssure * width(), 0, width(), height());
+    QPainterPath subtract;
+    subtract.addRect(clearRect);
+    areaBelowCurve.subtracted(subtract);
+
+    //draw below curve area
+    painter.setPen(QPen());
+    painter.setBrush(Qt::blue);
+    painter.drawPath(areaBelowCurve.subtracted(subtract));
+
+    // draw presscurve
+    QPen curvePen;
+    curvePen.setWidth(2);
+    curvePen.setColor(m_curveColor);
+    painter.setPen(curvePen);
+    painter.setBrush(QBrush());
+    painter.drawPath(curvePath);
+
+    // draw controllpoints
+    painter.setPen(m_pointColor);
+    painter.setBrush(m_pointColor);
+    painter.drawEllipse(m_cP1, m_pointSize, m_pointSize);
+    painter.drawEllipse(m_cP2, m_pointSize, m_pointSize);
+}

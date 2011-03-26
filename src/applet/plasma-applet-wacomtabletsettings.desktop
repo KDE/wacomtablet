@@ -1,0 +1,55 @@
+[Desktop Entry]
+Name=Wacom Tablet Settings
+Name[en_GB]=Wacom Tablet Settings
+Name[es]=Preferencias del tablet Wacom
+Name[et]=Wacomi graafikalaua seadistused
+Name[km]=ការ​កំណត់​ Wacom Tablet​
+Name[nb]=Innstillinger for Wacom tegneplate
+Name[nds]=Wacom-Tablett instellen
+Name[nl]=Wacom tablet-instellingen
+Name[pa]=ਵਕੋਮ ਟੈਬਲੇਟ ਸੈਟਿੰਗ
+Name[pt]=Configuração da Tablete Wacom
+Name[pt_BR]=Configurações da mesa digitalizadora Wacom
+Name[ro]=Configurări pentru planșeta Wacom
+Name[ru]=Настройка планшета Wacom
+Name[sv]=Inställningar av Wacom ritplatta
+Name[th]=การตั้งค่าแท็บเล็ตของ Wacom
+Name[tr]=Wacom Tablet Ayarları
+Name[uk]=Параметри планшетів Wacom
+Name[x-test]=xxWacom Tablet Settingsxx
+Name[zh_TW]=Wacom 平板裝置設定
+Comment=Hotplugging and profile support for Wacom tablets
+Comment[en_GB]=Hotplugging and profile support for Wacom tablets
+Comment[es]=Conexión en caliente e implementación de perfiles para tablets Wacom
+Comment[et]=Wacomi graafikalaudade jooksva ühendamise ja profiilide toetus
+Comment[km]=Hotplugging និង​ទម្រង់​គាំទ្រ​ Wacom tablets
+Comment[nb]=Tilkobling og profilstøtte for Wacom skriveplater
+Comment[nl]=Hotpluggen en profielondersteuning voor Wacom-tabletten
+Comment[pt]=Suporte de Detecção da Ligação e de Perfis das Tabletes Wacom
+Comment[pt_BR]=Suporte a detecção de conexão e de perfis das mesas digitalizadoras Wacom
+Comment[ro]=Suport pentru atașare și profiluri pentru planșete Wacom
+Comment[ru]=Поддержка «горячего» подключения и профилей для планшетов Wacom
+Comment[sv]=Anslutning under körning och profilstöd för Wacom ritplattor
+Comment[th]=การสนับสนุนโพรไฟล์และการเสียบและถอดสำหรับ tablet ของ Wacom
+Comment[uk]=Підтримка з’єднання та профілювання планшетів Wacom
+Comment[x-test]=xxHotplugging and profile support for Wacom tabletsxx
+Comment[zh_TW]=Wacom 手寫板的熱插拔與設定檔支援
+Icon=input-tablet
+Type=Service
+X-KDE-ServiceTypes=Plasma/Applet
+
+X-KDE-Library=plasma_applet_wacomtabletsettings
+X-KDE-PluginInfo-Author=Jörg Ehrichs
+X-KDE-PluginInfo-Email=joerg.ehrichs@gmx.de
+X-KDE-PluginInfo-Name=org.kde.WacomTabletSettings
+X-KDE-PluginInfo-Version=1.2.2
+X-KDE-PluginInfo-Website=http://www.etricceline.de
+X-KDE-PluginInfo-Category=System Information
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+
+X-Plasma-Requires-FileDialog=Unused
+X-Plasma-Requires-LaunchApp=Required
+X-Plasma-NotificationArea=true
+

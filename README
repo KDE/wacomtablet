@@ -1,0 +1,91 @@
+KDE 4 KCModule
+
+This module implements a GUI for the Wacom Linux Drivers and extends it
+with profile support to handle different button / pen layouts per profile.
+
+For hardware support have a look at http://www.linuxwacom.sourceforge.net
+
+Easy profile switching is added via a small plasma applet.
+In addition a daemon running in the background helps with hotplug support.
+
+All tablets can be set up as long as they are found via xorg.conf or HAL configuration.
+
+Components:
+* kded:
+	runs in the background, detects a connected tablet and applies the pad button / stylus profile
+
+* kcontrol module:
+	unified gui to set-up the buttons and other aspects of the tablet
+
+* plasma-applet:
+	optional applet for easy switching between different profiles
+
+Dependencies:
+* wacom tablet driver especially the xsetwacom tool
+
+#################################################################
+# install with
+
+mkdir build
+cd build
+cmake ../ -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` -DCMAKE_BUILD_TYPE=release
+make
+make install
+
+# start with 
+
+kcmshell4 kcm_wacomtablet
+
+or have a look in the system settings where the keyboard and mouse settings are
+
+##################################################################
+# Add missing tablet devices
+
+If your device is not recognized by this program but you can set it up via the xsetwacom driver.
+You can add the missing lines yourself.
+
+All you need is the tabletID.
+
+------------------------------------------------
+Step 1) Get real internal Tablet name
+
+xsetwacom list dev
+
+for my Wacom Bamboo:
+Wacom Bamboo eraser ERASER    
+Wacom Bamboo cursor CURSOR    
+Wacom Bamboo pad PAD       
+Wacom Bamboo     STYLUS 
+
+------------------------------------------------
+Step 2) Then you need the Tablet ID
+
+xsetwacom get "Wacom Bamboo" tabletid
+
+for my Wacom Bamboo:
+101
+
+------------------------------------------------
+Step 3) Transform it into Hexadecimal
+
+For my Wacom Bamboo: 0065
+
+------------------------------------------------
+Step 4) Add a new section into the right datafile
+look at /usr/share/kde4/apps/wacomtablet/data/
+
+for the Wacom Bamboo the right file is: wacom_devicelist
+
+Add a new entry
+
+for my Wacom Bamboo:
+
+[0065]
+model=MTE_450        # try to google for it but not used right now
+layout=bl_6          # can be empty if no button layout is available that exists (see images dir)
+name=Wacom Bamboo    # name as found above
+padbuttons=4         # available buttons on the pad
+wheel=no             
+touchring=yes
+touchstripl=no
+touchstripr=no
