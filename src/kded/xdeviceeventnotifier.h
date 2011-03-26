@@ -70,6 +70,16 @@ signals:
       * @param deviceid X11 id of the device
       */
     void deviceRemoved(int deviceid);
+    
+    /**
+     * When the screen is rotated by RandR this signal is emitted
+     * Connect to this signal to rotate the tablet together with it
+     * @param tabletRotation @arg 0 none
+     *                       @arg 1 ccw
+     *                       @arg 2 cw
+     *                       @arg 3 half
+     * */
+    void screenRotated(int tabletRotation);
 
 private:
         /**

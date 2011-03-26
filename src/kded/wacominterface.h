@@ -20,8 +20,7 @@
 
 #include "deviceinterface.h"
 
-namespace Wacom
-{
+namespace Wacom {
 
 /**
   * This class implements the backend for the wacom-tools settings and thus the handling of xsetwacom.
@@ -35,8 +34,7 @@ namespace Wacom
   * @see Wacom::DeviceHandler
   * @see http://linuxwacom.sourceforge.net/index.php/howto/xsetwacom
   */
-class WacomInterface : public DeviceInterface
-{
+class WacomInterface : public DeviceInterface {
 public:
     /**
       * Default constructor
@@ -55,7 +53,7 @@ public:
       * @param section the used section we apply (pad/stylus/eraser/cursor)
       * @param gtprofile the KConfig profile for the tablet that should be applied
       */
-    void applyProfile(const QString & device, const QString & section, KConfigGroup *gtprofile) const;
+    void applyProfile( const QString &device, const QString &section, KConfigGroup *gtprofile );
 
     /**
       * Writes a single configuration for the tablet
@@ -64,7 +62,7 @@ public:
       * @param param parameter name
       * @param value value the parameter is set to
       */
-    void setConfiguration(const QString & device, const QString & param, const QString & value) const;
+    void setConfiguration( const QString &device, const QString &param, const QString &value );
 
     /**
       * Returns the current value for a specific tablet setting
@@ -74,7 +72,7 @@ public:
       *
       * @return the value as string
       */
-    QString getConfiguration(const QString & device, const QString & param) const;
+    QString getConfiguration( const QString &device, const QString &param ) const;
 
     /**
       * Returns the factory default value for a specific tablet setting
@@ -84,7 +82,10 @@ public:
       *
       * @return the factory default value as string
       */
-    QString getDefaultConfiguration(const QString & device, const QString & param) const;
+    QString getDefaultConfiguration( const QString &device, const QString &param ) const;
+
+private:
+    bool m_applyArea;
 };
 
 }

@@ -13,7 +13,9 @@ target_link_libraries(kded_wacomtablet
                        ${KDE4_KDEUI_LIBS}
                        ${KDE4_SOLID_LIBS}
                        ${X11_X11_LIB}
-                       ${X11_Xinput_LIB})
+                       ${X11_Xinput_LIB}
+                       ${X11_Xrandr_LIB}
+                       ${X11_LIBRARIES})
 
 install(TARGETS kded_wacomtablet DESTINATION ${PLUGIN_INSTALL_DIR})
 

@@ -103,7 +103,6 @@ namespace Wacom
             Pad_Disable,        /**< disables the button */
             Pad_Button,         /**< button action */
             Pad_Keystroke,      /**< keystroke function action */
-            Pad_QuoteDbl,       /**< returns a string */
         };
 
         /** Enumeration for all available tablet pen button actions (stylus/eraser) */
@@ -112,20 +111,10 @@ namespace Wacom
             Pen_LeftClick,      /**< left click action */
             Pen_MiddleClick,    /**< middle click action */
             Pen_RightClick,     /**< right click action */
-            Pen_DoubleClick,    /**< double click action */
             Pen_Button,         /**< button action */
             Pen_Keystroke,      /**< keystroke function action */
-            Pen_QuoteDbl,       /**< returns a string */
             Pen_ModeToggle,     /**< toggle between absolute/relative cursor */
-            Pen_ScreenToggle,   /**< toggle active screen */
             Pen_DisplayToggle   /**< toggle display (Twinview/single screen) */
-        };
-
-        /** Enumeration for the screen config of the tablet device */
-        enum TwinView {
-            TwinView_None,      /**< disables Twinview Support */
-            TwinView_Vertical,  /**< Vertical monitor alignment */
-            TwinView_Horizontal /**< Horizontal monitor alignment */
         };
 
         /**

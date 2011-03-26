@@ -44,7 +44,7 @@ public:
       * @param section the sued section we apply (pad/stylus/eraser)
       * @param gtprofile the KConfig profile for the tablet that should be applied
       */
-    virtual void applyProfile(const QString & device, const QString & section, KConfigGroup *gtprofile) const = 0;
+    virtual void applyProfile(const QString & device, const QString & section, KConfigGroup *gtprofile) = 0;
 
     /**
       * writes a single configuration for the tablet
@@ -53,7 +53,7 @@ public:
       * @param param parameter name
       * @param value value the parameter is set to
       */
-    virtual void setConfiguration(const QString & device, const QString & param, const QString & value) const = 0;
+    virtual void setConfiguration(const QString & device, const QString & param, const QString & value) = 0;
 
     /**
       * returns the current value for a specific tablet setting

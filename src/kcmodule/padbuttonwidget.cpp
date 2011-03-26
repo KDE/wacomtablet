@@ -19,7 +19,6 @@
 #include "ui_padbuttonwidget.h"
 #include "selectkeybutton.h"
 #include "selectkeystroke.h"
-#include "selectquotetext.h"
 #include "profilemanagement.h"
 
 //KDE includes
@@ -175,7 +174,6 @@ void PadButtonWidget::fillComboBox(KComboBox *comboBox)
     comboBox->addItem(i18nc("Disable button function", "Disable"), ProfileManagement::Pad_Disable);
     comboBox->addItem(i18nc("Indicates the use of one of the standard buttons (1-32)", "Button..."), ProfileManagement::Pad_Button);
     comboBox->addItem(i18nc("Indicates the use of a specific key/keystroke", "Keystroke..."), ProfileManagement::Pad_Keystroke);
-    comboBox->addItem(i18nc("Refers to a special way of entering text as function", "QuoteDbl..."), ProfileManagement::Pad_QuoteDbl);
     comboBox->blockSignals(false);
 }
 
@@ -194,23 +192,23 @@ void PadButtonWidget::saveToProfile()
     padConfig.writeEntry("Button9",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button9ComboBox->currentIndex(), m_ui->button9ActionLabel->text()));
     padConfig.writeEntry("Button10", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button10ComboBox->currentIndex(), m_ui->button10ActionLabel->text()));
 
-    padConfig.writeEntry("StripLUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripLUpComboBox->currentIndex(), m_ui->stripLUpActionLabel->text()));
-    padConfig.writeEntry("StripLDn", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripLDnComboBox->currentIndex(), m_ui->stripLDnActionLabel->text()));
+    padConfig.writeEntry("StripLeftUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripLUpComboBox->currentIndex(), m_ui->stripLUpActionLabel->text()));
+    padConfig.writeEntry("StripLeftDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripLDnComboBox->currentIndex(), m_ui->stripLDnActionLabel->text()));
 
-    padConfig.writeEntry("StripRUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripRUpComboBox->currentIndex(), m_ui->stripRUpActionLabel->text()));
-    padConfig.writeEntry("StripRDn", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripRDnComboBox->currentIndex(), m_ui->stripRDnActionLabel->text()));
+    padConfig.writeEntry("StripRightUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripRUpComboBox->currentIndex(), m_ui->stripRUpActionLabel->text()));
+    padConfig.writeEntry("StripRightDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripRDnComboBox->currentIndex(), m_ui->stripRDnActionLabel->text()));
 
     if (m_ui->ringUpComboBox->isVisible()) {
-        padConfig.writeEntry("RelWUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->text()));
-        padConfig.writeEntry("RelWDn", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->text()));
-        padConfig.writeEntry("AbsWUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->text()));
-        padConfig.writeEntry("AbsWDn", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->text()));
+        padConfig.writeEntry("RelWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->text()));
+        padConfig.writeEntry("RelWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->text()));
+        padConfig.writeEntry("AbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->text()));
+        padConfig.writeEntry("AbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->text()));
     }
     if (m_ui->wheelUpComboBox->isVisible()) {
-        padConfig.writeEntry("RelWUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->text()));
-        padConfig.writeEntry("RelWDn", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->text()));
-        padConfig.writeEntry("AbsWUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->text()));
-        padConfig.writeEntry("AbsWDn", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->text()));
+        padConfig.writeEntry("RelWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->text()));
+        padConfig.writeEntry("RelWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->text()));
+        padConfig.writeEntry("AbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->text()));
+        padConfig.writeEntry("AbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->text()));
     }
 
     padConfig.sync();
@@ -245,7 +243,7 @@ void PadButtonWidget::loadFromProfile()
         buttonActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
     }
 
-    readEntry = padConfig.readEntry("RelWUp");           //RelWUp and AbsWUp are the same for now
+    readEntry = padConfig.readEntry("RelWheelUp");           //RelWUp and AbsWUp are the same for now
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->wheelUpComboBox->blockSignals(true);
     m_ui->wheelUpComboBox->setCurrentIndex(modeSwitch);
@@ -256,7 +254,7 @@ void PadButtonWidget::loadFromProfile()
     m_ui->ringUpComboBox->blockSignals(false);
     m_ui->ringUpActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
-    readEntry = padConfig.readEntry("RelWDn");           //RelWUp and AbsWUp are the same for now
+    readEntry = padConfig.readEntry("RelWheelDown");           //RelWUp and AbsWUp are the same for now
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->wheelDnComboBox->blockSignals(true);
     m_ui->wheelDnComboBox->setCurrentIndex(modeSwitch);
@@ -267,26 +265,26 @@ void PadButtonWidget::loadFromProfile()
     m_ui->ringDnComboBox->blockSignals(false);
     m_ui->ringDnActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
-    readEntry = padConfig.readEntry("StripLDn");
+    readEntry = padConfig.readEntry("StripLeftDown");
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->stripLDnComboBox->blockSignals(true);
     m_ui->stripLDnComboBox->setCurrentIndex(modeSwitch);
     m_ui->stripLDnComboBox->blockSignals(false);
     m_ui->stripLDnActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
-    readEntry = padConfig.readEntry("StripLUp");
+    readEntry = padConfig.readEntry("StripLeftUp");
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->stripLUpComboBox->blockSignals(true);
     m_ui->stripLUpComboBox->setCurrentIndex(modeSwitch);
     m_ui->stripLUpComboBox->blockSignals(false);
     m_ui->stripLUpActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
-    readEntry = padConfig.readEntry("StripRDn");
+    readEntry = padConfig.readEntry("StripRightDown");
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->stripRDnComboBox->blockSignals(true);
     m_ui->stripRDnComboBox->setCurrentIndex(modeSwitch);
     m_ui->stripRDnComboBox->blockSignals(false);
     m_ui->stripRDnActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
-    readEntry = padConfig.readEntry("StripRUp");
+    readEntry = padConfig.readEntry("StripRightUp");
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->stripRUpComboBox->blockSignals(true);
     m_ui->stripRUpComboBox->setCurrentIndex(modeSwitch);
@@ -323,7 +321,6 @@ void PadButtonWidget::selectKeyFunction(int selection)
 
     QPointer <SelectKeyButton> skb = new SelectKeyButton(this);
     QPointer <SelectKeyStroke> sks = new SelectKeyStroke(this);
-    QPointer <SelectQuoteText> sqt = new SelectQuoteText(this);
     int ret;
 
     switch ((ProfileManagement::PadButton)selection) {
@@ -343,14 +340,6 @@ void PadButtonWidget::selectKeyFunction(int selection)
         }
         break;
 
-    case ProfileManagement::Pad_QuoteDbl:
-        ret = sqt->exec();
-
-        if (ret == QDialog::Accepted) {
-            buttonActionLabel->setText(sqt->quoteText());
-        }
-        break;
-
     case ProfileManagement::Pad_Disable:
         buttonActionLabel->setText(QString());
         break;
@@ -360,5 +349,4 @@ void PadButtonWidget::selectKeyFunction(int selection)
 
     delete skb;
     delete sks;
-    delete sqt;
 }

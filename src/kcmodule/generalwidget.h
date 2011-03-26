@@ -29,6 +29,8 @@ class QDBusInterface;
 
 namespace Wacom
 {
+class ProfileManagement;
+
 /**
   * This class shows some general information about the detected tablet device.
   *
@@ -45,24 +47,50 @@ public:
       * Default constructor
       *
       * @param deviceInterface Connection to the tablet daemon DBus /Device Interface
+      * @param profileManager Handles the connection to the config files
       * @param parent the parent widget
       */
-    explicit GeneralWidget(QDBusInterface *deviceInterface, QWidget *parent = 0);
+    explicit GeneralWidget(QDBusInterface *deviceInterface, ProfileManagement *profileManager, QWidget *parent = 0);
 
     /**
       * default destructor
       */
     ~GeneralWidget();
 
+    /**
+      * Saves all values to the current profile
+      */
+    void saveToProfile();
+
 public slots:
     /**
       * When called the widget information will be refreshed
       */
     void reloadWidget();
+    
+    /**
+      * Called whenever the profile is switched or the widget needs to be reinitialized.
+      *
+      * Updates all values on the widget to the values from the profile.
+      */
+    void loadFromProfile();
+
+    /**
+      * Called whenever a value is changed.
+      * Fires the changed() signal afterwards to inform the main widget that unsaved changes are available.
+      */
+    void profileChanged();
+
+signals:
+    /**
+      * Used to inform the main widget that unsaved changes in the current profile are available.
+      */
+    void changed();
 
 private:
     Ui::GeneralWidget *m_ui;              /**< Handler to the generalwidget.ui file */
     QDBusInterface    *m_deviceInterface; /**< Connection to the tablet daemon DBus /Device Interface */
+    ProfileManagement *m_profileManagement; /**< Handler for the profile config connection */
 };
 
 }

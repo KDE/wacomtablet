@@ -154,7 +154,6 @@ private:
     GeneralWidget      *m_generalPage;         /**< Widget that shows some basic information about the tablet */
     PadButtonWidget    *m_padButtonPage;       /**< Widget for the pad button settings */
     PadMapping         *m_padMappingPage;      /**< Widget for the pad rotation and working area */
-    ScreenWidget       *m_screenPage;          /**< Widget for screen settings */
     PenWidget          *m_stylusPage;          /**< Widget for the stylus pen settings */
     PenWidget          *m_eraserPage;          /**< Widget for the eraser pen settings */
     bool                m_profileChanged;      /**< True if the profile was changed and not saved yet */

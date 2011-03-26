@@ -32,7 +32,7 @@
 using namespace Wacom;
 
 WacomInterface::WacomInterface()
-        : DeviceInterface()
+    : DeviceInterface()
 {
 
 }
@@ -41,77 +41,93 @@ WacomInterface::~WacomInterface()
 {
 }
 
-void WacomInterface::applyProfile(const QString & device, const QString & section, KConfigGroup *gtprofile) const
+void WacomInterface::applyProfile( const QString &device, const QString &section, KConfigGroup *gtprofile )
 {
-    KConfigGroup deviceGroup(gtprofile, section);
+    KConfigGroup deviceGroup( gtprofile, section );
+    m_applyArea = false;
 
-    foreach(const QString &key, deviceGroup.keyList()) {
-        setConfiguration(device, key, deviceGroup.readEntry(key));
+    foreach( const QString & key, deviceGroup.keyList() ) {
+        setConfiguration( device, key, deviceGroup.readEntry( key ) );
     }
 }
 
-void WacomInterface::setConfiguration(const QString & device, const QString & param, const QString & value) const
+void WacomInterface::setConfiguration( const QString &device, const QString &param, const QString &value )
 {
-    if(value.isEmpty()) {
+    if( value.isEmpty() ) {
         return;
     }
-    
-    QString modifiedParam = param;
-    QString cmd = QString::fromLatin1("xsetwacom set \"%1\" %2 \"%3\"").arg(device).arg(modifiedParam.replace(QRegExp( QLatin1String( "^[0-9]") ), QLatin1String( "" ) )).arg(value);
+
+    if( value == QString::fromLatin1( "0ChangeArea" ) ) {
+        if( param == QString::fromLatin1( "true" ) ) {
+            m_applyArea = true;
+        }
+        else {
+            m_applyArea = false;
+        }
+    }
+
+    QString cmd;
+    if( value == QString::fromLatin1( "Area" ) && !m_applyArea) {
+        cmd = QString::fromLatin1( "xsetwacom set \"%1\" ResetArea 0" ).arg( device );
+    }
+    else {
+        QString modifiedParam = param;
+        cmd = QString::fromLatin1( "xsetwacom set \"%1\" %2 \"%3\"" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^button([0-9])" ) ), QLatin1String( "button\\1" ) ) ).arg( value );
+    }
 
     QProcess setConf;
-    setConf.start(cmd);
+    setConf.start( cmd );
 
-    if (!setConf.waitForStarted()) {
+    if( !setConf.waitForStarted() ) {
         return;
     }
 
-    if (!setConf.waitForFinished()) {
+    if( !setConf.waitForFinished() ) {
         return;
     }
-    
+
     QByteArray errorOutput = setConf.readAll();
-    
-    if(!errorOutput.isEmpty()) {
+
+    if( !errorOutput.isEmpty() ) {
         kDebug() << cmd;
         kDebug() << errorOutput;
     }
 }
 
-QString WacomInterface::getConfiguration(const QString & device, const QString & param) const
+QString WacomInterface::getConfiguration( const QString &device, const QString &param ) const
 {
     QString modifiedParam = param;
-    QString cmd = QString::fromLatin1("xsetwacom get \"%1\" %2").arg(device).arg(modifiedParam.replace(QRegExp( QLatin1String( "^[0-9]") ), QLatin1String( "" ) ));
+    QString cmd = QString::fromLatin1( "xsetwacom get \"%1\" %2" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^button([0-9])" ) ), QLatin1String( "button \\1" ) ) );
     QProcess getConf;
-    getConf.start(cmd);
+    getConf.start( cmd );
 
-    if (!getConf.waitForStarted()) {
+    if( !getConf.waitForStarted() ) {
         return QString();
     }
 
-    if (!getConf.waitForFinished()) {
+    if( !getConf.waitForFinished() ) {
         return QString();
     }
 
-    QString result = QLatin1String(getConf.readAll());
-    return result.remove(QLatin1Char( '\n' ));
+    QString result = QLatin1String( getConf.readAll() );
+    return result.remove( QLatin1Char( '\n' ) );
 }
 
-QString WacomInterface::getDefaultConfiguration(const QString & device, const QString & param) const
+QString WacomInterface::getDefaultConfiguration( const QString &device, const QString &param ) const
 {
     QString modifiedParam = param;
-    QString cmd = QString::fromLatin1("xsetwacom getdefault \"%1\" %2").arg(device).arg(modifiedParam.replace(QRegExp( QLatin1String( "^[0-9]") ), QLatin1String( "" ) ));
+    QString cmd = QString::fromLatin1( "xsetwacom get \"%1\" %2" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^button([0-9])" ) ), QLatin1String( "button \\1" ) ) );
     QProcess getConf;
-    getConf.start(cmd);
+    getConf.start( cmd );
 
-    if (!getConf.waitForStarted()) {
+    if( !getConf.waitForStarted() ) {
         return QString();
     }
 
-    if (!getConf.waitForFinished()) {
+    if( !getConf.waitForFinished() ) {
         return QString();
     }
 
-    QString result = QLatin1String(getConf.readAll());
-    return result.remove(QLatin1Char( '\n' ));
+    QString result = QLatin1String( getConf.readAll() );
+    return result.remove( QLatin1Char( '\n' ) );
 }

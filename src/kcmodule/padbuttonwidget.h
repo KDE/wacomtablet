@@ -86,7 +86,8 @@ public slots:
       * Opens a new dialogue for the buttons to select the button function.
       * Fires the changed() signal afterwards to inform the main widget that unsaved changes are available
       *
-      * @param selection button index @see WacomInterface::PenButton Enumaration
+      * @param selection button index
+      * @see WacomInterface::PenButton Enumaration
       */
     void selectKeyFunction(int selection);
 

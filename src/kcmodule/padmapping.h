@@ -26,6 +26,8 @@ namespace Ui
 class PadMapping;
 }
 
+class QDBusInterface;
+
 namespace Wacom
 {
 class ProfileManagement;
@@ -42,10 +44,11 @@ public:
     /**
       * default constructor
       *
+      * @param deviceInterface Connection to the tablet daemon DBus /Device Interface
       * @param profileManager Handles the connection to the config files
       * @param parent the parent widget
       */
-    explicit PadMapping(ProfileManagement *profileManager, QWidget *parent = 0);
+    explicit PadMapping(QDBusInterface *deviceInterface, ProfileManagement *profileManager, QWidget *parent = 0);
 
     /**
       * default destructor
@@ -76,6 +79,11 @@ public slots:
       * Fires the changed() signal afterwards to inform the main widget that unsaved changes are available.
       */
     void profileChanged();
+    
+    /**
+     * This opens a fullscreen dialog for the calibration of the tablet.
+     */
+    void showCalibrationDialog();
 
 signals:
     /**
@@ -85,6 +93,7 @@ signals:
 
 private:
     Ui::PadMapping      *m_ui;                /**< Handler to the padmapping.ui file */
+    QDBusInterface      *m_deviceInterface;   /**< Connection to the tablet daemon DBus /Device Interface */
     ProfileManagement   *m_profileManagement; /**< Handler for the profile config connection */
 };
 

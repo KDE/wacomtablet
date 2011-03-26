@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>409</width>
-    <height>601</height>
+    <width>468</width>
+    <height>510</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3">
+  <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
     <widget class="QGroupBox" name="groupBox_Cursor">
      <property name="title">
@@ -54,7 +54,8 @@
         <item>
          <widget class="QRadioButton" name="radioButton_Relative">
           <property name="toolTip">
-           <string>The mouse cursor can be moved freely. The tablet working space does not represent the screen space</string>
+           <string>The mouse cursor can be moved freely. The tablet working space does not represent the screen space
+ The speed of the mouse is the same as specified for any other mouse pointer. This can be changed in the mouse setting section</string>
           </property>
           <property name="text">
            <string comment="relative pen movement (mouse mode)">Relative</string>
@@ -63,20 +64,20 @@
         </item>
        </layout>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="labelSpeed">
+      <item row="2" column="0">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>Relative Speed:</string>
+         <string>Threshold:</string>
         </property>
         <property name="buddy">
-         <cstring>speedSlider</cstring>
+         <cstring>thresholdSlider</cstring>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item row="2" column="1">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QSlider" name="speedSlider">
+         <widget class="QSlider" name="thresholdSlider">
           <property name="minimumSize">
            <size>
             <width>250</width>
@@ -84,16 +85,18 @@
            </size>
           </property>
           <property name="toolTip">
-           <string>This represents the cursor speed when the mode is set to relative</string>
+           <string>Set the minimum pressure necessary to generate a Button event for the stylus/tip, eraser, or touch.
+ The pressure levels of all tablets are normalized to 2048 levels irregardless of the actual hardware supported levels. 
+This parameter is independent of the PressureCurve parameter.</string>
           </property>
           <property name="minimum">
-           <number>1</number>
+           <number>0</number>
           </property>
           <property name="maximum">
-           <number>11</number>
+           <number>50</number>
           </property>
           <property name="value">
-           <number>6</number>
+           <number>27</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -102,24 +105,24 @@
            <enum>QSlider::TicksBelow</enum>
           </property>
           <property name="tickInterval">
-           <number>1</number>
+           <number>5</number>
           </property>
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QLabel" name="labelSlow">
+           <widget class="QLabel" name="labelSlow_2">
             <property name="text">
              <string comment="slow movement of the cursor (minimal value)">Slow</string>
             </property>
             <property name="buddy">
-             <cstring>speedSlider</cstring>
+             <cstring>thresholdSlider</cstring>
             </property>
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_2">
+           <spacer name="horizontalSpacer_4">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -135,12 +138,12 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="labelFast">
+           <widget class="QLabel" name="labelFast_2">
             <property name="text">
              <string comment="fast movement of the cursor (maximal value)">Fast</string>
             </property>
             <property name="buddy">
-             <cstring>speedSlider</cstring>
+             <cstring>thresholdSlider</cstring>
             </property>
            </widget>
           </item>
@@ -148,7 +151,7 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="0">
+      <item row="3" column="0">
        <widget class="QLabel" name="labelPressure">
         <property name="text">
          <string>Pressure:</string>
@@ -158,7 +161,7 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="3" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
          <widget class="QLabel" name="pressureValue">
@@ -183,7 +186,7 @@
         <item>
          <widget class="QPushButton" name="pressureButton">
           <property name="toolTip">
-           <string>Defines the pressure sensitivity of the tip</string>
+           <string>Defines the pressure sensitivity with a bezier curve</string>
           </property>
           <property name="text">
            <string>Edit Press Curve...</string>
@@ -429,7 +432,7 @@
  <tabstops>
   <tabstop>radioButton_Absolute</tabstop>
   <tabstop>radioButton_Relative</tabstop>
-  <tabstop>speedSlider</tabstop>
+  <tabstop>thresholdSlider</tabstop>
   <tabstop>pressureButton</tabstop>
   <tabstop>clickSlider</tabstop>
   <tabstop>button1ComboBox</tabstop>
@@ -467,22 +470,6 @@
     <hint type="destinationlabel">
      <x>2</x>
      <y>53</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>speedSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>PenWidget</receiver>
-   <slot>profileChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>235</x>
-     <y>93</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>2</x>
-     <y>103</y>
     </hint>
    </hints>
   </connection>

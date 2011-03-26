@@ -20,7 +20,6 @@
 #include "ui_penwidget.h"
 #include "selectkeybutton.h"
 #include "selectkeystroke.h"
-#include "selectquotetext.h"
 #include "presscurvedialog.h"
 #include "profilemanagement.h"
 
@@ -72,18 +71,18 @@ void PenWidget::saveToProfile()
     penConfig.writeEntry("Button1", m_profileManagement->transformButtonToConfig((ProfileManagement::PenButton) m_ui->button1ComboBox->itemData(m_ui->button1ComboBox->currentIndex()).toInt(), m_buttonConfig.value(QLatin1String("button1ActionLabel"))));
     penConfig.writeEntry("Button2", m_profileManagement->transformButtonToConfig((ProfileManagement::PenButton) m_ui->button2ComboBox->itemData(m_ui->button2ComboBox->currentIndex()).toInt(), m_buttonConfig.value(QLatin1String("button2ActionLabel"))));
     penConfig.writeEntry("Button3", m_profileManagement->transformButtonToConfig((ProfileManagement::PenButton) m_ui->button3ComboBox->itemData(m_ui->button3ComboBox->currentIndex()).toInt(), m_buttonConfig.value(QLatin1String("button3ActionLabel"))));
-    //penConfig.writeEntry("Accel", m_ui->speedSlider->value());
-    penConfig.writeEntry("ClickForce", m_ui->clickSlider->value());
+    penConfig.writeEntry("TapTime", m_ui->clickSlider->value());
     //penConfig.writeEntry("CursorProx", "Button 6");
     if (m_ui->radioButton_Absolute->isChecked()) {
         penConfig.writeEntry("Mode", "absolute");
     } else {
         penConfig.writeEntry("Mode", "relative");
     }
-    penConfig.writeEntry("PressCurve", m_ui->pressureValue->text());
+    penConfig.writeEntry("PressureCurve", m_ui->pressureValue->text());
+    
+    penConfig.writeEntry("Threshold", m_ui->thresholdSlider->value());
     //penConfig.writeEntry("RawFilter", "Button 9");
     //penConfig.writeEntry("RawSample", "Button 10");
-    penConfig.writeEntry("SpeedLevel", m_ui->speedSlider->value());
     //penConfig.writeEntry("Suppress", "Button 12");
 
     penConfig.sync();
@@ -107,8 +106,7 @@ void PenWidget::loadFromProfile()
         m_ui->radioButton_Relative->setChecked(true);
     }
 
-    m_ui->speedSlider->setValue(penConfig.readEntry("SpeedLevel").toInt());
-    m_ui->pressureValue->setText(penConfig.readEntry("PressCurve"));
+    m_ui->pressureValue->setText(penConfig.readEntry("PressureCurve"));
 
     QString readEntry;
     ProfileManagement::PenButton modeSwitch;
@@ -138,7 +136,9 @@ void PenWidget::loadFromProfile()
     m_buttonConfig.insert(QLatin1String("button3ActionLabel"), m_ui->button3ActionLabel->text());
 
     //Double Click Distance
-    m_ui->clickSlider->setValue(penConfig.readEntry("ClickForce").toInt());
+    m_ui->clickSlider->setValue(penConfig.readEntry("TapTime").toInt());
+    
+    m_ui->thresholdSlider->setValue(penConfig.readEntry("Threshold").toInt());
 }
 
 void PenWidget::profileChanged()
@@ -166,7 +166,6 @@ void PenWidget::selectKeyFunction(int selection)
 
     QPointer <SelectKeyButton> skb = new SelectKeyButton(this);
     QPointer <SelectKeyStroke> sks = new SelectKeyStroke(this);
-    QPointer <SelectQuoteText> sqt = new SelectQuoteText(this);
     int ret;
 
     //returns the saved enum data for this index
@@ -188,11 +187,6 @@ void PenWidget::selectKeyFunction(int selection)
         m_buttonConfig.insert(senderName, QLatin1String("button 2"));
         break;
 
-    case ProfileManagement::Pen_DoubleClick:
-        buttonActionLabel->setText( cb->currentText() );
-        m_buttonConfig.insert(senderName, QLatin1String("dblclick 1"));
-        break;
-
     case ProfileManagement::Pen_Button:
         ret = skb->exec();
 
@@ -210,23 +204,9 @@ void PenWidget::selectKeyFunction(int selection)
         }
         break;
 
-    case ProfileManagement::Pen_QuoteDbl:
-        ret = sqt->exec();
-
-        if (ret == QDialog::Accepted) {
-            buttonActionLabel->setText(sqt->quoteText());
-            m_buttonConfig.insert(senderName, sqt->quoteText());
-        }
-        break;
-
     case ProfileManagement::Pen_ModeToggle:
         buttonActionLabel->setText( cb->currentText() );
         m_buttonConfig.insert(senderName, QLatin1String("modetoggle"));
-        break;
-
-    case ProfileManagement::Pen_ScreenToggle:
-        buttonActionLabel->setText( cb->currentText() );
-        m_buttonConfig.insert(senderName, QLatin1String("screentoggle"));
         break;
 
     case ProfileManagement::Pen_DisplayToggle:
@@ -244,7 +224,6 @@ void PenWidget::selectKeyFunction(int selection)
 
     delete skb;
     delete sks;
-    delete sqt;
 }
 
 void PenWidget::changePressCurve()
@@ -291,12 +270,9 @@ void PenWidget::fillComboBox(KComboBox *comboBox)
     comboBox->addItem(i18nc("Left mouse click", "Left Click"), ProfileManagement::Pen_LeftClick);
     comboBox->addItem(i18nc("Middle mouse click", "Middle Click"), ProfileManagement::Pen_MiddleClick);
     comboBox->addItem(i18nc("Right mouse click", "Right Click"), ProfileManagement::Pen_RightClick);
-    comboBox->addItem(i18nc("Left mouse double click", "Double Click"), ProfileManagement::Pen_DoubleClick);
     comboBox->addItem(i18nc("Indicates the use of one of the standard buttons (1-32)", "Button..."), ProfileManagement::Pen_Button);
     comboBox->addItem(i18nc("Indicates the use of a specific key/keystroke", "Keystroke..."), ProfileManagement::Pen_Keystroke);
-    comboBox->addItem(i18nc("Refers to a special way of entering text as function", "QuoteDbl..."), ProfileManagement::Pen_QuoteDbl);
     comboBox->addItem(i18nc("Function to toggle between absolute/relative mousemode", "Mode Toggle"), ProfileManagement::Pen_ModeToggle);
-    comboBox->addItem(i18nc("Function to toggle between different screen modes", "Screen Toggle"), ProfileManagement::Pen_ScreenToggle);
     comboBox->addItem(i18nc("Function to toggle between single/multi display support", "Display Toggle"), ProfileManagement::Pen_DisplayToggle);
     comboBox->blockSignals(false);
 }

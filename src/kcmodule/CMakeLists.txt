@@ -9,11 +9,10 @@ set( kcm_tablet_SRCS
      presscurve.cpp
      presscurvedialog.cpp
      profilemanagement.cpp
-     screenwidget.cpp
      selectkeybutton.cpp
      selectkeystroke.cpp
-     selectquotetext.cpp
      tabletwidget.cpp
+     calibrationdialog.cpp
 )
 
 kde4_add_ui_files( kcm_tablet_SRCS
@@ -24,10 +23,8 @@ kde4_add_ui_files( kcm_tablet_SRCS
                    padbuttonwidget.ui
                    presscurvedialog.ui
                    saveprofile.ui
-                   screenwidget.ui
                    selectkeybutton.ui
                    selectkeystroke.ui
-                   selectquotetext.ui
                    tabletwidget.ui
 )
 
@@ -37,6 +34,10 @@ target_link_libraries( kcm_wacomtablet
                        ${KDE4_KDECORE_LIBS}
                        ${KDE4_KDEUI_LIBS}
                        ${KDE4_KIO_LIBS}
+                       ${X11_X11_LIB}
+                       ${X11_Xinput_LIB}
+                       ${X11_LIBRARIES}
+                       ${X11_Xrandr_LIB}
 )
 
 install(TARGETS kcm_wacomtablet DESTINATION ${PLUGIN_INSTALL_DIR} )

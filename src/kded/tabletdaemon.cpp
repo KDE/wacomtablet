@@ -104,11 +104,13 @@ TabletDaemon::TabletDaemon(QObject *parent, const QVariantList &args)
     d->xEventNotifier->start();
     connect(d->xEventNotifier, SIGNAL(deviceAdded(int)), this, SLOT(deviceAdded(int)));
     connect(d->xEventNotifier, SIGNAL(deviceRemoved(int)), this, SLOT(deviceRemoved(int)));
+    connect(d->xEventNotifier, SIGNAL(screenRotated(int)), this, SLOT(screenRotated(int)));
 
     //check for devices on startup
     int deviceid = findTabletDevice();
-    if(deviceid != 0)
+    if(deviceid != 0) {
         deviceAdded(deviceid);
+    }
 
     d->initPhase = false;
 }
@@ -284,4 +286,13 @@ int TabletDaemon::findTabletDevice()
     XFreeDeviceList(info);
 
     return deviceId;
+}
+
+void TabletDaemon::screenRotated(int screenRotation)
+{
+    Q_D(const TabletDaemon);
+    
+    QString padName = d->deviceHandler->padName();
+    
+    d->deviceHandler->setConfiguration(padName, QLatin1String("Rotate"), QString::fromLatin1("%1").arg(screenRotation));
 }

@@ -53,7 +53,7 @@
        <property name="toolButtonStyle">
         <enum>Qt::ToolButtonIconOnly</enum>
        </property>
-       <property name="icons" stdset="0">
+       <property name="icons">
         <string>document-new</string>
        </property>
       </widget>
@@ -63,7 +63,7 @@
        <property name="toolTip">
         <string>Deletes the current profile</string>
        </property>
-       <property name="icons" stdset="0">
+       <property name="icons">
         <string>edit-delete-page</string>
        </property>
       </widget>
@@ -71,20 +71,24 @@
     </layout>
    </item>
    <item>
-    <widget class="KTabWidget" name="deviceTabWidget"/>
+    <widget class="KTabWidget" name="deviceTabWidget">
+     <property name="documentMode">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KAnimatedButton</class>
    <extends>QToolButton</extends>
    <header>kanimatedbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KTabWidget</class>

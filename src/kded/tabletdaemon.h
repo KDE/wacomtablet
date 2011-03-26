@@ -161,6 +161,13 @@ private Q_SLOTS:
       *
       */
     void deviceRemoved(int deviceid);
+    
+    /**
+     * Rotates the tablet when the screen is rotated
+     * 
+     * @param screenRotation Integer values for the screen rotations
+     */
+    void screenRotated(int screenRotation);
 
     /**
       * Notify about an error.

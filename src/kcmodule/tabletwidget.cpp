@@ -24,7 +24,6 @@
 #include "generalwidget.h"
 #include "padbuttonwidget.h"
 #include "padmapping.h"
-#include "screenwidget.h"
 #include "penwidget.h"
 
 //KDE includes
@@ -59,7 +58,6 @@ TabletWidget::~TabletWidget()
     delete m_generalPage;
     delete m_padButtonPage;
     delete m_padMappingPage;
-    delete m_screenPage;
     delete m_stylusPage;
     delete m_eraserPage;
 }
@@ -75,10 +73,9 @@ void TabletWidget::init()
 
     m_profileManagement = new ProfileManagement(m_deviceInterface);
 
-    m_generalPage = new GeneralWidget(m_deviceInterface);
+    m_generalPage = new GeneralWidget(m_deviceInterface, m_profileManagement);
     m_padButtonPage = new PadButtonWidget(m_profileManagement);
-    m_padMappingPage = new PadMapping(m_profileManagement);
-    m_screenPage = new ScreenWidget(m_profileManagement);
+    m_padMappingPage = new PadMapping(m_deviceInterface, m_profileManagement);
     m_stylusPage = new PenWidget(m_profileManagement);
     m_eraserPage = new PenWidget(m_profileManagement);
     m_eraserPage->isStylus(false);
@@ -91,9 +88,9 @@ void TabletWidget::init()
     connect(m_ui->profileSelector, SIGNAL(currentIndexChanged(const QString)), SLOT(switchProfile(const QString)));
     connect(m_padButtonPage, SIGNAL(changed()), SLOT(profileChanged()));
     connect(m_padMappingPage, SIGNAL(changed()), SLOT(profileChanged()));
-    connect(m_screenPage, SIGNAL(changed()), SLOT(profileChanged()));
     connect(m_stylusPage, SIGNAL(changed()), SLOT(profileChanged()));
     connect(m_eraserPage, SIGNAL(changed()), SLOT(profileChanged()));
+    connect(m_generalPage, SIGNAL(changed()), SLOT(profileChanged()));
     //DBus signals
     connect(m_tabletInterface, SIGNAL(tabletAdded()), SLOT(loadTabletInformation()));
     connect(m_tabletInterface, SIGNAL(tabletRemoved()), SLOT(loadTabletInformation()));
@@ -128,7 +125,6 @@ void TabletWidget::loadTabletInformation()
     m_generalPage->reloadWidget();
     m_padButtonPage->reloadWidget();
     m_padMappingPage->reloadWidget();
-    m_screenPage->reloadWidget();
     m_stylusPage->reloadWidget();
     m_eraserPage->reloadWidget();
 
@@ -159,12 +155,11 @@ void TabletWidget::loadTabletInformation()
 
     // add all tab pages
     m_ui->deviceTabWidget->addTab(m_generalPage, i18nc("Basic overview page for the tablet hardware", "General"));
+    m_ui->deviceTabWidget->addTab(m_padMappingPage, i18n("Pad Mapping"));
     QDBusReply<bool> hasPadButtons = m_deviceInterface->call(QLatin1String( "hasPadButtons" ));
     if (hasPadButtons) {
         m_ui->deviceTabWidget->addTab(m_padButtonPage, i18n("Pad Buttons"));
     }
-    m_ui->deviceTabWidget->addTab(m_padMappingPage, i18n("Pad Mapping"));
-    m_ui->deviceTabWidget->addTab(m_screenPage, i18n("Screen Setup"));
     m_ui->deviceTabWidget->addTab(m_stylusPage, i18n("Stylus"));
     m_ui->deviceTabWidget->addTab(m_eraserPage, i18n("Eraser"));
 
@@ -214,9 +209,9 @@ void TabletWidget::delProfile()
 
 void TabletWidget::saveProfile()
 {
+    m_generalPage->saveToProfile();
     m_padButtonPage->saveToProfile();
     m_padMappingPage->saveToProfile();
-    m_screenPage->saveToProfile();
     m_stylusPage->saveToProfile();
     m_eraserPage->saveToProfile();
 
@@ -246,9 +241,9 @@ void TabletWidget::switchProfile(const QString &profile)
 
     m_profileManagement->setProfileName(profile);
 
+    m_generalPage->loadFromProfile();
     m_padButtonPage->loadFromProfile();
     m_padMappingPage->loadFromProfile();
-    m_screenPage->loadFromProfile();
     m_stylusPage->loadFromProfile();
     m_eraserPage->loadFromProfile();
 
@@ -260,9 +255,9 @@ void TabletWidget::switchProfile(const QString &profile)
 
 void TabletWidget::reloadProfile()
 {
+    m_generalPage->loadFromProfile();
     m_padButtonPage->loadFromProfile();
     m_padMappingPage->loadFromProfile();
-    m_screenPage->loadFromProfile();
     m_stylusPage->loadFromProfile();
     m_eraserPage->loadFromProfile();
 

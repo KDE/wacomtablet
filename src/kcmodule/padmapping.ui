@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>308</width>
-    <height>159</height>
+    <width>452</width>
+    <height>351</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,103 +16,199 @@
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <property name="horizontalSpacing">
-    <number>10</number>
-   </property>
-   <property name="verticalSpacing">
-    <number>10</number>
-   </property>
-   <item row="0" column="0">
-    <widget class="QLabel" name="rotationLabel">
-     <property name="text">
-      <string comment="Rotation of the tablet pad">Rotation:</string>
-     </property>
-     <property name="buddy">
-      <cstring>rotationComboBox</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="KComboBox" name="rotationComboBox">
-     <property name="toolTip">
-      <string>Select the rotation of the tablet device.</string>
-     </property>
-     <item>
-      <property name="text">
-       <string comment="no pad rotation">none</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string comment="rotate the pad counter clock wise">couter clockwise</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string comment="rotate the tablet clockwise">clockwise</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string comment="pad rotation up side down (180°)">half</string>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="areaLabel">
-     <property name="text">
-      <string>Working Area:</string>
-     </property>
-     <property name="buddy">
-      <cstring>topX</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <layout class="QGridLayout" name="gridLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
-      <widget class="KIntSpinBox" name="topX">
-       <property name="toolTip">
-        <string>Top left point of the tablet working area</string>
+      <widget class="QLabel" name="rotationLabel">
+       <property name="text">
+        <string comment="Rotation of the tablet pad">Rotation:</string>
        </property>
-       <property name="maximum">
-        <number>99999</number>
+       <property name="buddy">
+        <cstring>rotationComboBox</cstring>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="KIntSpinBox" name="topY">
+      <widget class="KComboBox" name="rotationComboBox">
        <property name="toolTip">
-        <string>Top right point of the tablet working area</string>
+        <string>Select the rotation of the tablet device.</string>
        </property>
-       <property name="maximum">
-        <number>99999</number>
-       </property>
+       <item>
+        <property name="text">
+         <string comment="no pad rotation">none</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string comment="rotate the pad counter clock wise">couter clockwise</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string comment="rotate the tablet clockwise">clockwise</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string comment="pad rotation up side down (180°)">half</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="KIntSpinBox" name="bottomX">
-       <property name="toolTip">
-        <string>Bottom left point of the tablet working area</string>
+      <widget class="QLabel" name="labelScreenN0">
+       <property name="text">
+        <string>Map to output:</string>
        </property>
-       <property name="maximum">
-        <number>99999</number>
+       <property name="buddy">
+        <cstring>screenComboBox</cstring>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="KIntSpinBox" name="bottomY">
-       <property name="toolTip">
-        <string>Bottom right point of the tablet working area</string>
-       </property>
-       <property name="maximum">
-        <number>99999</number>
-       </property>
-      </widget>
+      <widget class="KComboBox" name="screenComboBox"/>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="workingAreaBox">
+     <property name="toolTip">
+      <string>If enabled, the working area can be changed.
+ If disabled the default values from xorg are used</string>
+     </property>
+     <property name="title">
+      <string>Adjust Working Area</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <property name="labelAlignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+      <item row="0" column="0">
+       <widget class="KPushButton" name="calibrateButton">
+        <property name="toolTip">
+         <string>Opens a fullscreen window to calibrate the tablet.</string>
+        </property>
+        <property name="text">
+         <string>Calibrate Tablet</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>161</width>
+          <height>147</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="0">
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="1">
+         <widget class="KIntSpinBox" name="topX">
+          <property name="toolTip">
+           <string>Top left point of the tablet working area</string>
+          </property>
+          <property name="maximum">
+           <number>99999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="KIntSpinBox" name="topY">
+          <property name="toolTip">
+           <string>Top right point of the tablet working area</string>
+          </property>
+          <property name="maximum">
+           <number>99999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="3">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="3" column="3">
+         <widget class="KIntSpinBox" name="bottomY">
+          <property name="toolTip">
+           <string>Bottom right point of the tablet working area</string>
+          </property>
+          <property name="maximum">
+           <number>99999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="4" column="2">
+         <widget class="KIntSpinBox" name="bottomX">
+          <property name="toolTip">
+           <string>Bottom left point of the tablet working area</string>
+          </property>
+          <property name="maximum">
+           <number>99999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" rowspan="3" colspan="2">
+         <widget class="QLabel" name="label">
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+          <property name="text">
+           <string>Working
+Area</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -121,6 +217,11 @@
    <class>KIntSpinBox</class>
    <extends>QSpinBox</extends>
    <header>knuminput.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KComboBox</class>
@@ -153,8 +254,8 @@
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>218</x>
-     <y>60</y>
+     <x>73</x>
+     <y>170</y>
     </hint>
     <hint type="destinationlabel">
      <x>254</x>
@@ -169,8 +270,8 @@
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>205</x>
-     <y>86</y>
+     <x>271</x>
+     <y>241</y>
     </hint>
     <hint type="destinationlabel">
      <x>223</x>
@@ -185,8 +286,8 @@
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>131</x>
-     <y>75</y>
+     <x>205</x>
+     <y>268</y>
     </hint>
     <hint type="destinationlabel">
      <x>87</x>
@@ -201,8 +302,8 @@
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>107</x>
-     <y>58</y>
+     <x>139</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>40</x>
@@ -210,8 +311,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>calibrateButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PadMapping</receiver>
+   <slot>showCalibrationDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>108</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>84</x>
+     <y>351</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>profileChanged()</slot>
+  <slot>showCalibrationDialog()</slot>
  </slots>
 </ui>

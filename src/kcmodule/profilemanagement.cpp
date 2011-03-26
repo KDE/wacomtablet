@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * Copyright 2011 Jörg Ehrichs <joerg.ehichs@gmx.de>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -44,8 +44,10 @@ void ProfileManagement::createNewProfile(const QString & profilename)
     QDBusReply<QString> deviceName  = m_deviceInterface->call(QLatin1String( "deviceName" ));
     m_deviceName = deviceName;
     QDBusReply<QString> padName = m_deviceInterface->call(QLatin1String( "padName" ));
+    QDBusReply<QString> stylusName = m_deviceInterface->call(QLatin1String( "stylusName" ));
+    QDBusReply<QString> eraserName = m_deviceInterface->call(QLatin1String( "eraserName" ));
 
-    if(m_deviceName.isEmpty() || !padName.isValid())
+    if(m_deviceName.isEmpty() || !padName.isValid() || !stylusName.isValid() || !eraserName.isValid())
     {
         kDebug() << "no device information are found. Can't create a new profile";
         return;
@@ -71,69 +73,71 @@ void ProfileManagement::createNewProfile(const QString & profilename)
     padGroup->writeEntry("Button8", "8");
     padGroup->writeEntry("Button9", "9");
     padGroup->writeEntry("Button10", "10");
-    padGroup->writeEntry("StripLUp", "11");
-    padGroup->writeEntry("StripLDn", "12");
-    padGroup->writeEntry("StripRUp", "13");
-    padGroup->writeEntry("StripRDn", "14");
-    padGroup->writeEntry("RelWUp", "15");
-    padGroup->writeEntry("RelWDn", "16");
-    padGroup->writeEntry("AbsWUp", "15");
-    padGroup->writeEntry("AbsWDn", "16");
-    //padGroup->writeEntry("TPCButton", "On");
+    padGroup->writeEntry("StripLeftUp", "11");
+    padGroup->writeEntry("StripLeftDown", "12");
+    padGroup->writeEntry("StripRightUp", "13");
+    padGroup->writeEntry("StripRightDown", "14");
+    padGroup->writeEntry("RelWheelUp", "15");
+    padGroup->writeEntry("RelWheelDown", "16");
+    padGroup->writeEntry("AbsWheelUp", "15");
+    padGroup->writeEntry("AbsWheelDown", "16");
     padGroup->writeEntry("Rotate", "none");
-
-
-    // @bug The xf86-input-wacom driver does not have the getDefault call for its xsetwacom tool
-    // Thus here I check if the return value is indeed an integer. otherwise I retry with the normal get call
-    // This fix helps to get meaningfull numbers for the working area on devices used by the new xorg 1.7 server
-
-    bool isInt;
-    QString getCallname(QLatin1String( "getDefaultConfiguration" )); // name of the function we use. either getDefaultConfiguration or just getConfiguration
-
-    QDBusReply<QString> topX = m_deviceInterface->call(getCallname, QString(padName), QLatin1String( "TopX" ));
-    if (topX.isValid()) {
-        // now check if the returned value is indeed an integer
-        QString topXCheck = topX.value();
-        topXCheck.toInt(&isInt);
-
-        if(isInt) {
-            // ok it is an integer just proceed as usual with the other calls
-            padGroup->writeEntry("TopX", topX.value());
-        } else {
-            // it is not an integer thus the getDefaultConfiguration is not supported here
-            // lets switch to the normal get calls with this and the other calls
-            qDebug() << "not integer found ... seems to be an error on my side";
-            getCallname = QLatin1String( "getConfiguration" );
-
-            QDBusReply<QString> topX = m_deviceInterface->call(getCallname, QString(padName), QLatin1String( "TopX" ));
-            if (topX.isValid()) {
-                padGroup->writeEntry("TopX", topX.value());
-            } else {
-                padGroup->writeEntry("TopX", "0");
-            }
-        }
+    
+    QDBusReply<QString> tpcbutton = m_deviceInterface->call(QLatin1String( "getConfiguration" ), QString(padName), QLatin1String( "TabletPCButton" ));
+    if (tpcbutton.isValid()) {
+            padGroup->writeEntry("TabletPCButton", tpcbutton.value());
     } else {
-        padGroup->writeEntry("TopX", "0");
+            padGroup->writeEntry("TabletPCButton", "on");
+    }
+    
+    QDBusReply<QString> touch = m_deviceInterface->call(QLatin1String( "getConfiguration" ), QString(padName), QLatin1String( "Touch" ));
+    if (touch.isValid()) {
+            padGroup->writeEntry("Touch", touch.value());
+    } else {
+            padGroup->writeEntry("Touch", "on");
+    }
+    
+    QDBusReply<QString> gesture = m_deviceInterface->call(QLatin1String( "getConfiguration" ), QString(padName), QLatin1String( "Gesture" ));
+    if (gesture.isValid()) {
+            padGroup->writeEntry("Gesture", gesture.value());
+    } else {
+            padGroup->writeEntry("Gesture", "on");
+    }
+    
+    QDBusReply<QString> zoomDistance = m_deviceInterface->call(QLatin1String( "getConfiguration" ), QString(padName), QLatin1String( "ZoomDistance" ));
+    if (zoomDistance.isValid()) {
+            padGroup->writeEntry("ZoomDistance", zoomDistance.value());
+    } else {
+            padGroup->writeEntry("ZoomDistance", "50");
+    }
+    
+    QDBusReply<QString> scrollDistance = m_deviceInterface->call(QLatin1String( "getConfiguration" ), QString(padName), QLatin1String( "ScrollDistance" ));
+    if (scrollDistance.isValid()) {
+            padGroup->writeEntry("ScrollDistance", scrollDistance.value());
+    } else {
+            padGroup->writeEntry("ScrollDistance", "50");
+    }
+    
+    QDBusReply<QString> capacity = m_deviceInterface->call(QLatin1String( "getConfiguration" ), QString(padName), QLatin1String( "Capacity" ));
+    if (capacity.isValid()) {
+            padGroup->writeEntry("Capacity", capacity.value());
+    } else {
+            padGroup->writeEntry("Capacity", "-1");
+    }
+    
+    QDBusReply<QString> proximity = m_deviceInterface->call(QLatin1String( "getConfiguration" ), QString(padName), QLatin1String( "CursorProximity" ));
+    if (proximity.isValid()) {
+            padGroup->writeEntry("CursorProximity", proximity.value());
+    } else {
+            padGroup->writeEntry("CursorProximity", "-1");
     }
 
-
-    QDBusReply<QString> topY = m_deviceInterface->call(getCallname, QString(padName), QLatin1String( "TopY" ));
-    if (topY.isValid()) {
-        padGroup->writeEntry("TopY", topY.value());
+    padGroup->writeEntry("0ChangeArea", "false");
+    QDBusReply<QString> area = m_deviceInterface->call(QLatin1String( "getConfiguration" ), QString(padName), QLatin1String( "Area" ));
+    if (area.isValid()) {
+            padGroup->writeEntry("Area", area.value());
     } else {
-        padGroup->writeEntry("TopY", "0");
-    }
-    QDBusReply<QString> bottomX = m_deviceInterface->call(getCallname, QString(padName), QLatin1String( "BottomX" ));
-    if (bottomX.isValid()) {
-        padGroup->writeEntry("BottomX", bottomX.value());
-    } else {
-        padGroup->writeEntry("BottomX", "0");
-    }
-    QDBusReply<QString> bottomY = m_deviceInterface->call(getCallname, QString(padName), QLatin1String( "BottomY" ));
-    if (bottomY.isValid()) {
-        padGroup->writeEntry("BottomY", bottomY.value());
-    } else {
-        padGroup->writeEntry("BottomY", "0");
+            padGroup->writeEntry("Area", "0 0 0 0");
     }
 
     padGroup->sync();
@@ -147,19 +151,15 @@ void ProfileManagement::createNewProfile(const QString & profilename)
     stylusGroup->writeEntry("Button1", "1");
     stylusGroup->writeEntry("Button2", "2");
     stylusGroup->writeEntry("Button3", "3");
-    //stylusGroup->writeEntry("Suppress", "todo");
-    //stylusGroup->writeEntry("RawSample", "todo");
-    stylusGroup->writeEntry("PressCurve", "0 0 100 100");
     stylusGroup->writeEntry("Mode", "absolute");
-    stylusGroup->writeEntry("CursorProx", "42"); //@todo get/set values that give a better feeling for it.Might have a bug in my wacom-tools because its alwas -1 here
+    stylusGroup->writeEntry("PressureCurve", "0 0 100 100");
+    stylusGroup->writeEntry("TapTime", "250");
+    stylusGroup->writeEntry("Threshold", "27");
+    
     //stylusGroup->writeEntry("RawFilter", "todo");
-    stylusGroup->writeEntry("SpeedLevel", "6");
-    stylusGroup->writeEntry("ClickForce", "6");
-    stylusGroup->writeEntry("0TwinView", "none");
-    stylusGroup->writeEntry("1TVResolution0", "0 0");
-    stylusGroup->writeEntry("1TVResolution1", "0 0");
-    stylusGroup->writeEntry("mmonitor", "1");
-    stylusGroup->writeEntry("Screen_No", "-1");
+    //eraserGroup->writeEntry("Suppress", "todo");
+    //eraserGroup->writeEntry("RawSample", "todo");
+    //stylusGroup->writeEntry("MapToOutput", "todo"); // don't specify a default output. A selection can be made via the gui if the user whats to change it from the default output to something else
 
     stylusGroup->sync();
     profileGroup->sync();
@@ -172,19 +172,15 @@ void ProfileManagement::createNewProfile(const QString & profilename)
     eraserGroup->writeEntry("Button1", "1");
     eraserGroup->writeEntry("Button2", "2");
     eraserGroup->writeEntry("Button3", "3");
+    eraserGroup->writeEntry("Mode", "absolute");
+    eraserGroup->writeEntry("PressureCurve", "0 0 100 100");
+    eraserGroup->writeEntry("TapTime", "250");
+    eraserGroup->writeEntry("Threshold", "27");
+    
+    //stylusGroup->writeEntry("RawFilter", "todo");
     //eraserGroup->writeEntry("Suppress", "todo");
     //eraserGroup->writeEntry("RawSample", "todo");
-    eraserGroup->writeEntry("PressCurve", "0 0 100 100");
-    eraserGroup->writeEntry("Mode", "absolute");
-    //eraserGroup->writeEntry("CursorProx", "42"); //@todo get/set values that give a better feeling for it.Might have a bug in my wacom-tools because its alwas -1 here
-    //eraserGroup->writeEntry("RawFilter", "todo");
-    eraserGroup->writeEntry("SpeedLevel", "6");
-    eraserGroup->writeEntry("ClickForce", "6");
-    eraserGroup->writeEntry("0TwinView", "none");
-    eraserGroup->writeEntry("1TVResolution0", "0 0");
-    eraserGroup->writeEntry("1TVResolution1", "0 0");
-    eraserGroup->writeEntry("mmonitor", "1");
-    eraserGroup->writeEntry("Screen_No", "-1");
+    //stylusGroup->writeEntry("MapToOutput", "todo"); // don't specify a default output. A selection can be made via the gui if the user whats to change it from the default output to something else
 
     eraserGroup->sync();
     profileGroup->sync();
@@ -245,12 +241,7 @@ ProfileManagement::PadButton ProfileManagement::getPadButtonFunction(const QStri
     if (isNumber) {
         return Pad_Button;
     }
-
-    if (buttonParam.contains( QLatin1String( "quotedbl" ), Qt::CaseInsensitive)) {
-        return Pad_QuoteDbl;
-    }
-
-    if (buttonParam.contains( QLatin1String( "core key" ), Qt::CaseInsensitive)) {
+    if (buttonParam.contains( QLatin1String( "key" ), Qt::CaseInsensitive)) {
         return Pad_Keystroke;
     }
 
@@ -258,11 +249,7 @@ ProfileManagement::PadButton ProfileManagement::getPadButtonFunction(const QStri
 }
 
 ProfileManagement::PenButton ProfileManagement::getPenButtonFunction(const QString & buttonParam)
-{
-    if (buttonParam.contains( QLatin1String( "dblclick 1" ))) {
-        return Pen_DoubleClick;
-    }
-    
+{    
     if (buttonParam.contains( QLatin1String( "1" ), Qt::CaseInsensitive)) {
         return Pen_LeftClick;
     }
@@ -281,10 +268,6 @@ ProfileManagement::PenButton ProfileManagement::getPenButtonFunction(const QStri
         return Pen_Button;
     }
 
-    if (buttonParam.contains( QLatin1String( "quotedbl" ), Qt::CaseInsensitive)) {
-        return Pen_QuoteDbl;
-    }
-
     if (buttonParam.contains( QLatin1String( "modetoggle" ), Qt::CaseInsensitive)) {
         return Pen_ModeToggle;
     }
@@ -293,11 +276,7 @@ ProfileManagement::PenButton ProfileManagement::getPenButtonFunction(const QStri
         return Pen_DisplayToggle;
     }
 
-    if (buttonParam.contains( QLatin1String( "screentoggle" ), Qt::CaseInsensitive)) {
-        return Pen_ScreenToggle;
-    }
-
-    if (buttonParam.contains( QLatin1String( "core key" ), Qt::CaseInsensitive)) {
+    if (buttonParam.contains( QLatin1String( "key" ), Qt::CaseInsensitive)) {
         return Pen_Keystroke;
     }
 
@@ -316,13 +295,9 @@ QString ProfileManagement::transformButtonToConfig(PadButton mode, const QString
         configString.remove(QLatin1String( "button " ), Qt::CaseInsensitive);
         break;
     case Pad_Keystroke:
-        configString = QString::fromLatin1("core key %1").arg(buttonParam);
+        configString = QString::fromLatin1("key %1").arg(buttonParam);
         configString.replace(QLatin1String( "\\s*" ), QLatin1String( " " ));
         configString = configString.toLower();
-        break;
-    case Pad_QuoteDbl:
-        configString = QString::fromLatin1("core key quotedbl %1 quotedbl").arg(buttonParam);
-        configString.replace(QLatin1Char( '"' ), QLatin1Char( '\"' ));
         break;
     }
 
@@ -332,8 +307,7 @@ QString ProfileManagement::transformButtonToConfig(PadButton mode, const QString
 QString ProfileManagement::transformButtonFromConfig(PadButton mode, QString & buttonParam)
 {
     Q_UNUSED(mode);
-    buttonParam.remove(QLatin1String( "core key" ), Qt::CaseInsensitive);
-    buttonParam.remove(QRegExp( QLatin1String( "\\s?quotedbl\\s?" ), Qt::CaseInsensitive));
+    buttonParam.remove(QLatin1String( "key" ), Qt::CaseInsensitive);
     buttonParam.remove(QLatin1String( "button " ), Qt::CaseInsensitive);
     return buttonParam;
 }
@@ -358,21 +332,12 @@ QString ProfileManagement::transformButtonToConfig(PenButton mode, const QString
     case Pen_RightClick:
         configString = QLatin1String("3");
         break;
-    case Pen_DoubleClick:
-        configString = QLatin1String("dblclick 1");
-        break;
     case Pen_Keystroke:
-        configString = QString::fromLatin1("core key %1").arg(buttonParam);
+        configString = QString::fromLatin1("key %1").arg(buttonParam);
         configString = configString.toLower();
-        break;
-    case Pen_QuoteDbl:
-        configString = QString::fromLatin1("core key quotedbl %1 quotedbl").arg(buttonParam);
         break;
     case Pen_ModeToggle:
         configString = QLatin1String("modetoggle");
-        break;
-    case Pen_ScreenToggle:
-        configString = QLatin1String("screentoggle");
         break;
     case Pen_DisplayToggle:
         configString = QLatin1String("displaytoggle");
@@ -385,8 +350,7 @@ QString ProfileManagement::transformButtonToConfig(PenButton mode, const QString
 QString ProfileManagement::transformButtonFromConfig(PenButton mode, QString & buttonParam)
 {
     Q_UNUSED(mode);
-    buttonParam.remove(QLatin1String( "core key" ), Qt::CaseInsensitive);
-    buttonParam.replace(QRegExp( QLatin1String( "\\s?quotedbl\\s?" ), Qt::CaseInsensitive), QLatin1String( "\"" ));
+    buttonParam.remove(QLatin1String( "key" ), Qt::CaseInsensitive);
     buttonParam.remove(QLatin1String( "button " ), Qt::CaseInsensitive);
     return buttonParam;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * Copyright 2010, 2011 Jörg Ehrichs <joerg.ehichs@gmx.de>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -30,8 +30,11 @@
 #include <X11/Xatom.h>
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XInput2.h>
+#include <X11/extensions/Xrandr.h>
 
 using namespace Wacom;
+
+Rotation r = 0;
 
 XDeviceEventNotifier::XDeviceEventNotifier(QWidget *parent) :
         QWidget(parent)
@@ -69,19 +72,50 @@ bool XDeviceEventNotifier::x11Event(XEvent * event)
             for (int i = 0; i < hev->num_info; i++)
             {
                 if (info[i].flags & XISlaveRemoved) {
-                    //kDebug() << "Device removed with id: " << info[i].deviceid;
+                    kDebug() << "Device removed with id: " << info[i].deviceid;
                     emit deviceRemoved(info[i].deviceid);
                 }
 
                 if (info[i].flags & XISlaveAdded) {
                     if(isTabletDevice(info[i].deviceid)) {
-                        //kDebug() << "Wacom Tablet Device added with id: " << info[i].deviceid;
+                        kDebug() << "Wacom Tablet Device added with id: " << info[i].deviceid;
                         emit deviceAdded(info[i].deviceid);
                     }
                 }
             }
 
             XFreeEventData(QX11Info::display(), cookie);
+        }
+    }
+    else {
+      
+      int m_eventBase;
+      int m_errorBase;
+      
+      XRRQueryExtension(QX11Info::display(), &m_eventBase, &m_errorBase);
+      
+      if (event->type == m_eventBase + RRScreenChangeNotify) {
+            XRRUpdateConfiguration(event);
+            Rotation old_r = r;
+
+            XRRRotations(QX11Info::display(), DefaultScreen(QX11Info::display()), &r);
+
+            if (old_r != r) {
+                switch (r) {
+                        case RR_Rotate_0:
+                                emit screenRotated(0);
+                                break;
+                        case RR_Rotate_90:
+                               emit screenRotated(1);
+                               break;
+                        case RR_Rotate_180:
+                               emit screenRotated(3);
+                               break;
+                        case RR_Rotate_270:
+                               emit screenRotated(2);
+                               break;
+                }
+            }
         }
     }
 
@@ -100,6 +134,12 @@ int XDeviceEventNotifier::registerForNewDeviceEvent(Display* display)
     evmask.mask = mask;
 
     XISelectEvents(display, DefaultRootWindow(display), &evmask, 1);
+    
+    //register RandR events
+    int rrmask = RRScreenChangeNotifyMask;
+
+    XRRSelectInput(display, DefaultRootWindow(display), 0);
+    XRRSelectInput(display, DefaultRootWindow(display), rrmask); 
 
     return 0;
 }
