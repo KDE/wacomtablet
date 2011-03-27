@@ -17,11 +17,14 @@
 
 #include "calibrationdialog.h"
 
-#include <QMouseEvent>
-#include <QPainter>
-#include <QDebug>
+//KDE includes
+#include <KDE/KLocalizedString>
 
 //Qt includes
+#include <QtGui/QLabel>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPainter>
 #include <QtGui/QX11Info>
 
 // X11 includes
@@ -44,6 +47,14 @@ CalibrationDialog::CalibrationDialog( const QString &padname ) :
     m_shiftTop = frameGap;
 
     getMaxTabletArea();
+
+    QLabel *showInfo = new QLabel();
+    showInfo->setText( i18n( "Please tab into all four corners to calibrate the tablet.\nPress escape to cancel the process." ) );
+    showInfo->setAlignment( Qt::AlignCenter );
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget( showInfo );
+
+    setLayout(mainLayout);
 }
 
 QRect CalibrationDialog::calibratedArea()
