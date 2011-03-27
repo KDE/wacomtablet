@@ -23,11 +23,15 @@
 
 //KDE includes
 #include <KDE/KDebug>
+#include <KDE/KSharedConfigPtr>
+#include <KDE/KConfigGroup>
 
 //Qt includes
 #include <QtCore/QStringList>
 #include <QtGui/QDialog>
 #include <QtGui/QDesktopWidget>
+#include <QtDBus/QDBusMessage>
+#include <QtDBus/QDBusConnection>
 #include <QtDBus/QDBusInterface>
 #include <QtDBus/QDBusReply>
 
@@ -46,7 +50,7 @@ using namespace Wacom;
 PadMapping::PadMapping( QDBusInterface *deviceInterface, ProfileManagement *profileManager, QWidget *parent )
     : QWidget( parent ),
       m_ui( new Ui::PadMapping ),
-        m_deviceInterface(deviceInterface),
+      m_deviceInterface( deviceInterface ),
       m_profileManagement( profileManager )
 {
     m_ui->setupUi( this );
@@ -129,9 +133,24 @@ void PadMapping::reloadWidget()
 
 void PadMapping::showCalibrationDialog()
 {
-    QDBusReply<QString> padName = m_deviceInterface->call(QLatin1String( "padName" ));
+    // disable compositing if available
+    KSharedConfigPtr mKWinConfig = KSharedConfig::openConfig( QLatin1String( "kwinrc") );
+    KConfigGroup config( mKWinConfig, QLatin1String( "Compositing") );
+    bool oldstate = config.readEntry( QLatin1String( "Enabled"), false );
 
-    CalibrationDialog cdlg(padName);
+    if( oldstate ) {
+        config.writeEntry( QLatin1String( "Enabled"), false );
+        mKWinConfig->sync();
+
+        QDBusMessage message = QDBusMessage::createSignal( QLatin1String( "/KWin"),
+                               QLatin1String( "org.kde.KWin"),
+                               QLatin1String( "reloadConfig") );
+        QDBusConnection::sessionBus().send( message );
+    }
+
+    QDBusReply<QString> padName = m_deviceInterface->call( QLatin1String( "padName" ) );
+
+    CalibrationDialog cdlg( padName );
 
     cdlg.exec();
 
@@ -140,4 +159,15 @@ void PadMapping::showCalibrationDialog()
     m_ui->topY->setValue( newCalibration.y() );
     m_ui->bottomX->setValue( newCalibration.width() );
     m_ui->bottomY->setValue( newCalibration.height() );
+
+
+    if( oldstate ) {
+        config.writeEntry( QLatin1String( "Enabled"), true );
+        mKWinConfig->sync();
+
+        QDBusMessage message = QDBusMessage::createSignal( QLatin1String( "/KWin"),
+                               QLatin1String( "org.kde.KWin"),
+                               QLatin1String( "reloadConfig") );
+        QDBusConnection::sessionBus().send( message );
+    }
 }
