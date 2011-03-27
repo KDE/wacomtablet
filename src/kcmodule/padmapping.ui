@@ -327,6 +327,38 @@ Area</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>screenComboBox</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>PadMapping</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>42</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>47</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>workingAreaBox</sender>
+   <signal>clicked()</signal>
+   <receiver>PadMapping</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>181</x>
+     <y>77</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>450</x>
+     <y>78</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>profileChanged()</slot>

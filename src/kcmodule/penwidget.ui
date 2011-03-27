@@ -448,8 +448,8 @@ This parameter is independent of the PressureCurve parameter.</string>
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>292</x>
-     <y>59</y>
+     <x>223</x>
+     <y>55</y>
     </hint>
     <hint type="destinationlabel">
      <x>338</x>
@@ -464,8 +464,8 @@ This parameter is independent of the PressureCurve parameter.</string>
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>210</x>
-     <y>59</y>
+     <x>149</x>
+     <y>55</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -480,8 +480,8 @@ This parameter is independent of the PressureCurve parameter.</string>
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>389</x>
-     <y>287</y>
+     <x>406</x>
+     <y>219</y>
     </hint>
     <hint type="destinationlabel">
      <x>714</x>
@@ -496,8 +496,8 @@ This parameter is independent of the PressureCurve parameter.</string>
    <slot>selectKeyFunction(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>164</x>
-     <y>391</y>
+     <x>152</x>
+     <y>314</y>
     </hint>
     <hint type="destinationlabel">
      <x>712</x>
@@ -512,8 +512,8 @@ This parameter is independent of the PressureCurve parameter.</string>
    <slot>selectKeyFunction(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>164</x>
-     <y>442</y>
+     <x>152</x>
+     <y>360</y>
     </hint>
     <hint type="destinationlabel">
      <x>713</x>
@@ -528,8 +528,8 @@ This parameter is independent of the PressureCurve parameter.</string>
    <slot>selectKeyFunction(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>164</x>
-     <y>493</y>
+     <x>152</x>
+     <y>406</y>
     </hint>
     <hint type="destinationlabel">
      <x>713</x>
@@ -544,12 +544,28 @@ This parameter is independent of the PressureCurve parameter.</string>
    <slot>changePressCurve()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>384</x>
-     <y>211</y>
+     <x>455</x>
+     <y>149</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
      <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>thresholdSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PenWidget</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>125</x>
+     <y>74</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>101</y>
     </hint>
    </hints>
   </connection>
