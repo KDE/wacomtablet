@@ -57,6 +57,10 @@ void WacomInterface::setConfiguration( const QString &device, const QString &par
         return;
     }
 
+    if( value == QString::fromLatin1( "RotateWithScreen" ) ) {
+        return;
+    }
+
     if( value == QString::fromLatin1( "0ChangeArea" ) ) {
         if( param == QString::fromLatin1( "true" ) ) {
             m_applyArea = true;

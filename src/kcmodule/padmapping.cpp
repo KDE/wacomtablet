@@ -80,6 +80,13 @@ void PadMapping::saveToProfile()
         padConfig.writeEntry( QLatin1String( "MapToOutput" ), m_ui->screenComboBox->currentText() );
     }
 
+    if( m_ui->xrandrRotationCheckBox->isChecked() ) {
+        padConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "true" );
+    }
+    else {
+        padConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "false" );
+    }
+
     if( m_ui->workingAreaBox->isChecked() ) {
         padConfig.writeEntry( QLatin1String( "0ChangeArea" ), "true" );
     }
@@ -99,6 +106,10 @@ void PadMapping::loadFromProfile()
 
     //@DEBUG write out rotation settings name not index numbers
     m_ui->rotationComboBox->setCurrentIndex( padConfig.readEntry( QLatin1String( "Rotate" ) ).toInt() );
+
+    if( padConfig.readEntry( QLatin1String( "RotateWithScreen" ) ) == QLatin1String( "true" ) ) {
+        m_ui->xrandrRotationCheckBox->setChecked( true );
+    }
 
     int index = m_ui->screenComboBox->findText( padConfig.readEntry( QLatin1String( "MapToOutput" ) ) );
     m_ui->screenComboBox->setCurrentIndex( index );

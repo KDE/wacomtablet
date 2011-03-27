@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>452</width>
-    <height>351</height>
+    <height>307</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -56,7 +56,17 @@
        </item>
       </widget>
      </item>
-     <item row="1" column="0">
+     <item row="1" column="1">
+      <widget class="QCheckBox" name="xrandrRotationCheckBox">
+       <property name="toolTip">
+        <string>If enabled the tablet is automatically rotated together with the screen</string>
+       </property>
+       <property name="text">
+        <string>Rotate tablet with screen</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
       <widget class="QLabel" name="labelScreenN0">
        <property name="text">
         <string>Map to output:</string>
@@ -66,8 +76,12 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="KComboBox" name="screenComboBox"/>
+     <item row="2" column="1">
+      <widget class="KComboBox" name="screenComboBox">
+       <property name="toolTip">
+        <string>Select the XRandR display which will be used to map the tablet area on it.</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -115,7 +129,7 @@
         <item row="0" column="1">
          <widget class="KIntSpinBox" name="topX">
           <property name="toolTip">
-           <string>Top left point of the tablet working area</string>
+           <string>X-Coordinate of the top left point</string>
           </property>
           <property name="maximum">
            <number>99999</number>
@@ -125,7 +139,7 @@
         <item row="1" column="0">
          <widget class="KIntSpinBox" name="topY">
           <property name="toolTip">
-           <string>Top right point of the tablet working area</string>
+           <string>Y-Coordinate of the top right point</string>
           </property>
           <property name="maximum">
            <number>99999</number>
@@ -161,7 +175,7 @@
         <item row="3" column="3">
          <widget class="KIntSpinBox" name="bottomY">
           <property name="toolTip">
-           <string>Bottom right point of the tablet working area</string>
+           <string>Height of the used tablet area</string>
           </property>
           <property name="maximum">
            <number>99999</number>
@@ -184,7 +198,7 @@
         <item row="4" column="2">
          <widget class="KIntSpinBox" name="bottomX">
           <property name="toolTip">
-           <string>Bottom left point of the tablet working area</string>
+           <string>Width of the tablet area</string>
           </property>
           <property name="maximum">
            <number>99999</number>
@@ -255,7 +269,7 @@ Area</string>
    <hints>
     <hint type="sourcelabel">
      <x>73</x>
-     <y>170</y>
+     <y>196</y>
     </hint>
     <hint type="destinationlabel">
      <x>254</x>
@@ -271,7 +285,7 @@ Area</string>
    <hints>
     <hint type="sourcelabel">
      <x>271</x>
-     <y>241</y>
+     <y>267</y>
     </hint>
     <hint type="destinationlabel">
      <x>223</x>
@@ -287,7 +301,7 @@ Area</string>
    <hints>
     <hint type="sourcelabel">
      <x>205</x>
-     <y>268</y>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>87</x>
@@ -303,7 +317,7 @@ Area</string>
    <hints>
     <hint type="sourcelabel">
      <x>139</x>
-     <y>143</y>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
      <x>40</x>
@@ -318,12 +332,12 @@ Area</string>
    <slot>showCalibrationDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>108</x>
-     <y>103</y>
+     <x>119</x>
+     <y>141</y>
     </hint>
     <hint type="destinationlabel">
      <x>84</x>
-     <y>351</y>
+     <y>306</y>
     </hint>
    </hints>
   </connection>
@@ -334,8 +348,8 @@ Area</string>
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>138</x>
-     <y>42</y>
+     <x>172</x>
+     <y>81</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -350,12 +364,28 @@ Area</string>
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>181</x>
-     <y>77</y>
+     <x>185</x>
+     <y>165</y>
     </hint>
     <hint type="destinationlabel">
      <x>450</x>
      <y>78</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>xrandrRotationCheckBox</sender>
+   <signal>clicked()</signal>
+   <receiver>PadMapping</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>142</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>452</x>
+     <y>44</y>
     </hint>
    </hints>
   </connection>
