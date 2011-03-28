@@ -351,6 +351,9 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
         <property name="text">
          <string>Cursor Proximity:</string>
         </property>
+        <property name="buddy">
+         <cstring>cursorProximityBox</cstring>
+        </property>
        </widget>
       </item>
       <item row="1" column="4" rowspan="2">
@@ -533,7 +536,7 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
    <slot>selectKeyFunction(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>152</x>
+     <x>146</x>
      <y>314</y>
     </hint>
     <hint type="destinationlabel">
@@ -549,7 +552,7 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
    <slot>selectKeyFunction(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>152</x>
+     <x>146</x>
      <y>360</y>
     </hint>
     <hint type="destinationlabel">
@@ -565,7 +568,7 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
    <slot>selectKeyFunction(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>152</x>
+     <x>146</x>
      <y>406</y>
     </hint>
     <hint type="destinationlabel">
@@ -603,6 +606,38 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
     <hint type="destinationlabel">
      <x>2</x>
      <y>101</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tabletPCButtonCheckBox</sender>
+   <signal>clicked()</signal>
+   <receiver>PenWidget</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>348</x>
+     <y>299</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>465</x>
+     <y>315</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cursorProximityBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PenWidget</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>339</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>466</x>
+     <y>365</y>
     </hint>
    </hints>
   </connection>
