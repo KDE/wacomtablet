@@ -237,13 +237,16 @@ This parameter is independent of the PressureCurve parameter.</string>
          <number>1</number>
         </property>
         <property name="maximum">
-         <number>21</number>
+         <number>1000</number>
+        </property>
+        <property name="singleStep">
+         <number>50</number>
         </property>
         <property name="pageStep">
-         <number>5</number>
+         <number>50</number>
         </property>
         <property name="value">
-         <number>6</number>
+         <number>250</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -252,7 +255,7 @@ This parameter is independent of the PressureCurve parameter.</string>
          <enum>QSlider::TicksBelow</enum>
         </property>
         <property name="tickInterval">
-         <number>1</number>
+         <number>50</number>
         </property>
        </widget>
       </item>
@@ -261,7 +264,7 @@ This parameter is independent of the PressureCurve parameter.</string>
         <item>
          <widget class="QLabel" name="labelClickDistOff">
           <property name="text">
-           <string comment="doubleclick with the tip disabled">Off</string>
+           <string comment="doubleclick with the tip disabled">Short</string>
           </property>
           <property name="buddy">
            <cstring>clickSlider</cstring>
@@ -287,7 +290,7 @@ This parameter is independent of the PressureCurve parameter.</string>
         <item>
          <widget class="QLabel" name="labelClickDistLarge">
           <property name="text">
-           <string comment="large distance between two tip clicks to still count is as double click">Large</string>
+           <string comment="large distance between two tip clicks to still count is as double click">Long</string>
           </property>
           <property name="buddy">
            <cstring>clickSlider</cstring>
