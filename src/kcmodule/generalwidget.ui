@@ -26,26 +26,43 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QLabel" name="tabletImage">
-          <property name="minimumSize">
-           <size>
-            <width>128</width>
-            <height>128</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>128</width>
-            <height>128</height>
-           </size>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignHCenter|Qt::AlignTop</set>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QLabel" name="tabletImage">
+            <property name="minimumSize">
+             <size>
+              <width>128</width>
+              <height>128</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>128</width>
+              <height>128</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignHCenter|Qt::AlignTop</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>28</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </item>
         <item>
          <layout class="QFormLayout" name="formLayout">
@@ -132,22 +149,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="touchGroupBox">
      <property name="title">
-      <string>Settings</string>
+      <string>Touch Settings</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QCheckBox" name="tabletPCButtonCheckBox">
-        <property name="toolTip">
-         <string>If on, the stylus must be in contact with the screen for a stylus side button to work. 
-If off, stylus buttons will work once the stylus is in proximity of the tablet (regardless of whether it is touching the screen)</string>
-        </property>
-        <property name="text">
-         <string>Tablet PC button</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QCheckBox" name="touchEventsCheckBox">
         <property name="toolTip">
@@ -191,23 +197,6 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
           <property name="fieldGrowthPolicy">
            <enum>QFormLayout::ExpandingFieldsGrow</enum>
           </property>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label">
-            <property name="toolTip">
-             <string>Minimum distance for a zoom gesture (default is 50).</string>
-            </property>
-            <property name="text">
-             <string>Zoom Distance:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="KIntSpinBox" name="zoomDistanceBox">
-            <property name="maximum">
-             <number>200</number>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_2">
             <property name="toolTip">
@@ -220,6 +209,23 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
           </item>
           <item row="1" column="1">
            <widget class="KIntSpinBox" name="scrollDistanceBox">
+            <property name="maximum">
+             <number>200</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="toolTip">
+             <string>Minimum distance for a zoom gesture (default is 50).</string>
+            </property>
+            <property name="text">
+             <string>Zoom Distance:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="KIntSpinBox" name="zoomDistanceBox">
             <property name="maximum">
              <number>200</number>
             </property>
@@ -257,22 +263,6 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
  <resources/>
  <connections>
   <connection>
-   <sender>tabletPCButtonCheckBox</sender>
-   <signal>clicked()</signal>
-   <receiver>GeneralWidget</receiver>
-   <slot>profileChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>73</x>
-     <y>215</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>35</x>
-     <y>172</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>touchEventsCheckBox</sender>
    <signal>clicked()</signal>
    <receiver>GeneralWidget</receiver>
@@ -305,22 +295,6 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
    </hints>
   </connection>
   <connection>
-   <sender>zoomDistanceBox</sender>
-   <signal>valueChanged(QString)</signal>
-   <receiver>GeneralWidget</receiver>
-   <slot>profileChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>190</x>
-     <y>293</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>406</x>
-     <y>174</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>scrollDistanceBox</sender>
    <signal>valueChanged(QString)</signal>
    <receiver>GeneralWidget</receiver>
@@ -333,6 +307,22 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
     <hint type="destinationlabel">
      <x>-1</x>
      <y>308</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>zoomDistanceBox</sender>
+   <signal>valueChanged(QString)</signal>
+   <receiver>GeneralWidget</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>190</x>
+     <y>293</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>406</x>
+     <y>174</y>
     </hint>
    </hints>
   </connection>

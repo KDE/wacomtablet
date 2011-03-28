@@ -304,25 +304,7 @@ This parameter is independent of the PressureCurve parameter.</string>
      <property name="title">
       <string>Button Settings</string>
      </property>
-     <layout class="QFormLayout" name="formLayout_2">
-      <property name="fieldGrowthPolicy">
-       <enum>QFormLayout::ExpandingFieldsGrow</enum>
-      </property>
-      <property name="horizontalSpacing">
-       <number>-1</number>
-      </property>
-      <property name="verticalSpacing">
-       <number>-1</number>
-      </property>
-      <property name="leftMargin">
-       <number>10</number>
-      </property>
-      <property name="rightMargin">
-       <number>10</number>
-      </property>
-      <property name="bottomMargin">
-       <number>10</number>
-      </property>
+     <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="labelButtonTip">
         <property name="text">
@@ -343,10 +325,44 @@ This parameter is independent of the PressureCurve parameter.</string>
         </property>
        </widget>
       </item>
+      <item row="0" column="3" colspan="2">
+       <widget class="QCheckBox" name="tabletPCButtonCheckBox">
+        <property name="toolTip">
+         <string>If on, the stylus must be in contact with the screen for a stylus side button to work. 
+If off, stylus buttons will work once the stylus is in proximity of the tablet (regardless of whether it is touching the screen)</string>
+        </property>
+        <property name="text">
+         <string>Tablet PC button</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="1">
        <widget class="QLabel" name="button1ActionLabel">
         <property name="text">
          <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3" rowspan="2">
+       <widget class="QLabel" name="label_2">
+        <property name="toolTip">
+         <string>Minimum motion before sending a scroll gesture (default is 20).</string>
+        </property>
+        <property name="text">
+         <string>Cursor Proximity:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4" rowspan="2">
+       <widget class="KIntSpinBox" name="cursorProximityBox">
+        <property name="toolTip">
+         <string>Sets cursor distance for proximity-out in distance from the tablet.  (default is 10 for Intuos series, 42 for Graphire series).</string>
+        </property>
+        <property name="minimum">
+         <number>-1</number>
+        </property>
+        <property name="maximum">
+         <number>200</number>
         </property>
        </widget>
       </item>
@@ -369,6 +385,22 @@ This parameter is independent of the PressureCurve parameter.</string>
          <number>20</number>
         </property>
        </widget>
+      </item>
+      <item row="2" column="2">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::MinimumExpanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>146</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item row="3" column="1">
        <widget class="QLabel" name="button2ActionLabel">
@@ -423,6 +455,11 @@ This parameter is independent of the PressureCurve parameter.</string>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

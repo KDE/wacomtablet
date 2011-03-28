@@ -492,6 +492,7 @@ void DeviceHandler::applyProfile(KConfigGroup *gtprofile)
     d->curDevice->applyProfile(d->internalPadName, QLatin1String( "pad" ), gtprofile);
     d->curDevice->applyProfile(d->internalStylusName, QLatin1String( "stylus" ), gtprofile);
     d->curDevice->applyProfile(d->internalEraserName, QLatin1String( "eraser" ), gtprofile);
+    d->curDevice->applyProfile(d->internalTouchName, QLatin1String( "touch" ), gtprofile);
     //d->curDevice->applyProfile(d->internalCursorName, "cursor", gtprofile);
 }
 

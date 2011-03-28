@@ -81,60 +81,12 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     padGroup->writeEntry( "AbsWheelUp", "15" );
     padGroup->writeEntry( "AbsWheelDown", "16" );
 
-    QDBusReply<QString> tpcbutton = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( padName ), QLatin1String( "TabletPCButton" ) );
-    if( tpcbutton.isValid() ) {
-        padGroup->writeEntry( "TabletPCButton", tpcbutton.value() );
-    }
-    else {
-        padGroup->writeEntry( "TabletPCButton", "on" );
-    }
-
-    QDBusReply<QString> touch = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( padName ), QLatin1String( "Touch" ) );
-    if( touch.isValid() ) {
-        padGroup->writeEntry( "Touch", touch.value() );
-    }
-    else {
-        padGroup->writeEntry( "Touch", "on" );
-    }
-
-    QDBusReply<QString> gesture = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( padName ), QLatin1String( "Gesture" ) );
-    if( gesture.isValid() ) {
-        padGroup->writeEntry( "Gesture", gesture.value() );
-    }
-    else {
-        padGroup->writeEntry( "Gesture", "on" );
-    }
-
-    QDBusReply<QString> zoomDistance = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( padName ), QLatin1String( "ZoomDistance" ) );
-    if( zoomDistance.isValid() ) {
-        padGroup->writeEntry( "ZoomDistance", zoomDistance.value() );
-    }
-    else {
-        padGroup->writeEntry( "ZoomDistance", "50" );
-    }
-
-    QDBusReply<QString> scrollDistance = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( padName ), QLatin1String( "ScrollDistance" ) );
-    if( scrollDistance.isValid() ) {
-        padGroup->writeEntry( "ScrollDistance", scrollDistance.value() );
-    }
-    else {
-        padGroup->writeEntry( "ScrollDistance", "50" );
-    }
-
     QDBusReply<QString> capacity = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( padName ), QLatin1String( "Capacity" ) );
     if( capacity.isValid() ) {
         padGroup->writeEntry( "Capacity", capacity.value() );
     }
     else {
         padGroup->writeEntry( "Capacity", "-1" );
-    }
-
-    QDBusReply<QString> proximity = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( padName ), QLatin1String( "CursorProximity" ) );
-    if( proximity.isValid() ) {
-        padGroup->writeEntry( "CursorProximity", proximity.value() );
-    }
-    else {
-        padGroup->writeEntry( "CursorProximity", "-1" );
     }
 
     padGroup->sync();
@@ -160,12 +112,29 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     stylusGroup->writeEntry( "Rotate", "none" );
     stylusGroup->writeEntry( "0ChangeArea", "false" );
-    QDBusReply<QString> stylusArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( padName ), QLatin1String( "Area" ) );
+
+    QDBusReply<QString> stylusArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( stylusName ), QLatin1String( "Area" ) );
     if( stylusArea.isValid() ) {
         stylusGroup->writeEntry( "Area", stylusArea.value() );
     }
     else {
         stylusGroup->writeEntry( "Area", "0 0 0 0" );
+    }
+
+    QDBusReply<QString> stylusTpcButton = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( stylusName ), QLatin1String( "TabletPCButton" ) );
+    if( stylusTpcButton.isValid() ) {
+        stylusGroup->writeEntry( "TabletPCButton", stylusTpcButton.value() );
+    }
+    else {
+        stylusGroup->writeEntry( "TabletPCButton", "on" );
+    }
+
+    QDBusReply<QString> stylusProximity = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( stylusName ), QLatin1String( "CursorProximity" ) );
+    if( stylusProximity.isValid() ) {
+        stylusGroup->writeEntry( "CursorProximity", stylusProximity.value() );
+    }
+    else {
+        stylusGroup->writeEntry( "CursorProximity", "-1" );
     }
 
     stylusGroup->sync();
@@ -191,12 +160,29 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     eraserGroup->writeEntry( "Rotate", "none" );
     eraserGroup->writeEntry( "0ChangeArea", "false" );
-    QDBusReply<QString> eraserArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( padName ), QLatin1String( "Area" ) );
+
+    QDBusReply<QString> eraserArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( eraserName ), QLatin1String( "Area" ) );
     if( eraserArea.isValid() ) {
         eraserGroup->writeEntry( "Area", eraserArea.value() );
     }
     else {
         eraserGroup->writeEntry( "Area", "0 0 0 0" );
+    }
+
+    QDBusReply<QString> eraserTpcButton = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( eraserName ), QLatin1String( "TabletPCButton" ) );
+    if( eraserTpcButton.isValid() ) {
+        eraserGroup->writeEntry( "TabletPCButton", eraserTpcButton.value() );
+    }
+    else {
+        eraserGroup->writeEntry( "TabletPCButton", "on" );
+    }
+
+    QDBusReply<QString> eraserProximity = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( eraserName ), QLatin1String( "CursorProximity" ) );
+    if( eraserProximity.isValid() ) {
+        eraserGroup->writeEntry( "CursorProximity", eraserProximity.value() );
+    }
+    else {
+        eraserGroup->writeEntry( "CursorProximity", "-1" );
     }
 
     eraserGroup->sync();
@@ -215,12 +201,44 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
         touchGroup->writeEntry( "Rotate", "none" );
         touchGroup->writeEntry( "0ChangeArea", "false" );
-        QDBusReply<QString> touchArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( padName ), QLatin1String( "Area" ) );
+        QDBusReply<QString> touchArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "Area" ) );
         if( touchArea.isValid() ) {
             touchGroup->writeEntry( "Area", touchArea.value() );
         }
         else {
             touchGroup->writeEntry( "Area", "0 0 0 0" );
+        }
+
+        QDBusReply<QString> touch = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "Touch" ) );
+        if( touch.isValid() ) {
+            touchGroup->writeEntry( "Touch", touch.value() );
+        }
+        else {
+            touchGroup->writeEntry( "Touch", "on" );
+        }
+
+        QDBusReply<QString> gesture = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "Gesture" ) );
+        if( gesture.isValid() ) {
+            touchGroup->writeEntry( "Gesture", gesture.value() );
+        }
+        else {
+            touchGroup->writeEntry( "Gesture", "on" );
+        }
+
+        QDBusReply<QString> zoomDistance = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "ZoomDistance" ) );
+        if( zoomDistance.isValid() ) {
+            touchGroup->writeEntry( "ZoomDistance", zoomDistance.value() );
+        }
+        else {
+            touchGroup->writeEntry( "ZoomDistance", "50" );
+        }
+
+        QDBusReply<QString> scrollDistance = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "ScrollDistance" ) );
+        if( scrollDistance.isValid() ) {
+            touchGroup->writeEntry( "ScrollDistance", scrollDistance.value() );
+        }
+        else {
+            touchGroup->writeEntry( "ScrollDistance", "50" );
         }
 
         delete touchGroup;

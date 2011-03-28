@@ -49,14 +49,7 @@ GeneralWidget::~GeneralWidget()
 
 void GeneralWidget::saveToProfile()
 {
-    KConfigGroup padConfig = m_profileManagement->configGroup(QLatin1String( "pad" ));
-
-    if(m_ui->tabletPCButtonCheckBox->isChecked() ) {
-        padConfig.writeEntry("TabletPCButton", "on");
-    }
-    else {
-        padConfig.writeEntry("TabletPCButton", "off");
-    }
+    KConfigGroup padConfig = m_profileManagement->configGroup(QLatin1String( "touch" ));
     
     if(m_ui->touchEventsCheckBox->isChecked() ) {
         padConfig.writeEntry("Touch", "on");
@@ -80,17 +73,9 @@ void GeneralWidget::saveToProfile()
 
 void GeneralWidget::loadFromProfile()
 {
-    KConfigGroup padConfig = m_profileManagement->configGroup(QLatin1String( "pad" ));
+    KConfigGroup touchConfig = m_profileManagement->configGroup(QLatin1String( "touch" ));
     
-    QString tabletPCButton = padConfig.readEntry( QLatin1String("TabletPCButton" ));
-    if(tabletPCButton == QLatin1String("on")) {
-        m_ui->tabletPCButtonCheckBox->setChecked(true);
-    }
-    else {
-        m_ui->tabletPCButtonCheckBox->setChecked(false);
-    }
-    
-    QString touch = padConfig.readEntry(QLatin1String("Touch"));
+    QString touch = touchConfig.readEntry(QLatin1String("Touch"));
     if(touch == QLatin1String("on")) {
         m_ui->touchEventsCheckBox->setChecked(true);
     }
@@ -98,7 +83,7 @@ void GeneralWidget::loadFromProfile()
         m_ui->touchEventsCheckBox->setChecked(false);
     }
     
-    QString gesture = padConfig.readEntry(QLatin1String("Gesture"));
+    QString gesture = touchConfig.readEntry(QLatin1String("Gesture"));
     if(gesture == QLatin1String("on")) {
         m_ui->gesturesCheckBox->setChecked(true);
     }
@@ -106,10 +91,10 @@ void GeneralWidget::loadFromProfile()
         m_ui->gesturesCheckBox->setChecked(false);
     }
     
-    int zoomDistance = padConfig.readEntry(QLatin1String("ZoomDistance")).toInt();
+    int zoomDistance = touchConfig.readEntry(QLatin1String("ZoomDistance")).toInt();
     m_ui->zoomDistanceBox->setValue(zoomDistance);
     
-    int scrollDistance = padConfig.readEntry(QLatin1String("ScrollDistance")).toInt();
+    int scrollDistance = touchConfig.readEntry(QLatin1String("ScrollDistance")).toInt();
     m_ui->scrollDistanceBox->setValue(scrollDistance);
 }
 
@@ -133,4 +118,12 @@ void GeneralWidget::reloadWidget()
     m_ui->comapnyName->setText(companyName);
     m_ui->tabletName->setText(deviceName);
     m_ui->deviceList->setText(inputDevices.value().join( QLatin1String( "\n" )));
+
+    // show or hide touch settings
+    QDBusReply<QString> touchName = m_deviceInterface->call( QLatin1String( "touchName" ) );
+
+    QString validName = touchName.value();
+    if( validName.isEmpty() ) {
+        m_ui->touchGroupBox->hide();
+    }
 }
