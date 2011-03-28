@@ -214,7 +214,6 @@ void TabletDaemon::setProfile( const QString &profile )
 
         generalGroup.writeEntry( "lastprofile", profile );
     }
-
 }
 
 QString TabletDaemon::profile() const
@@ -254,9 +253,6 @@ int TabletDaemon::findTabletDevice()
     XDeviceInfo *info = XListInputDevices( QX11Info::display(), &ndevices );
 
     for( int i = 0; i < ndevices; i++ ) {
-        //if (info[i].use == IsXPointer || info[i].use == IsXKeyboard || info[i].use == IsXExtensionPointer)
-        //    continue;
-
         uint wacom_prop = XInternAtom( QX11Info::display(), "Wacom Tool Type", True );
 
         XDevice *dev = XOpenDevice( QX11Info::display(), info[i].id );
@@ -295,12 +291,19 @@ void TabletDaemon::screenRotated( int screenRotation )
 
     KConfigGroup deviceGroup = KConfigGroup( d->profilesConfig, d->deviceHandler->deviceName() );
     KConfigGroup configGroup = KConfigGroup( &deviceGroup, d->curProfile );
-    KConfigGroup padConfig( &configGroup, QLatin1String( "pad" ) );
+    KConfigGroup stylusConfig( &configGroup, QLatin1String( "stylus" ) );
 
-    if( padConfig.readEntry( QLatin1String( "RotateWithScreen" ) ) == QLatin1String( "true" ) ) {
+    if( stylusConfig.readEntry( QLatin1String( "RotateWithScreen" ) ) == QLatin1String( "true" ) ) {
 
-        QString padName = d->deviceHandler->padName();
+        QString stylusName = d->deviceHandler->stylusName();
+        QString eraserName = d->deviceHandler->eraserName();
+        QString touchName = d->deviceHandler->touchName();
 
-        d->deviceHandler->setConfiguration( padName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( screenRotation ) );
+        d->deviceHandler->setConfiguration( stylusName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( screenRotation ) );
+        d->deviceHandler->setConfiguration( eraserName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( screenRotation ) );
+
+        if(!touchName.isEmpty()) {
+            d->deviceHandler->setConfiguration( touchName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( screenRotation ) );
+        }
     }
 }

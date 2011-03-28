@@ -85,6 +85,8 @@ public slots:
      */
     void showCalibrationDialog();
 
+    void switchCalibrationTool();
+
 signals:
     /**
       * Used to inform the main widget that unsaved changes in the current profile are available.
@@ -95,6 +97,9 @@ private:
     Ui::PadMapping      *m_ui;                /**< Handler to the padmapping.ui file */
     QDBusInterface      *m_deviceInterface;   /**< Connection to the tablet daemon DBus /Device Interface */
     ProfileManagement   *m_profileManagement; /**< Handler for the profile config connection */
+
+    QRect m_stylusArea;                       /**< Calibrated area for the stylus/eraser tool */
+    QRect m_touchArea;                        /**< Calibrated area for the touch tool */
 };
 
 }

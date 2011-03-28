@@ -54,15 +54,6 @@ PadMapping::PadMapping( QDBusInterface *deviceInterface, ProfileManagement *prof
       m_profileManagement( profileManager )
 {
     m_ui->setupUi( this );
-
-    XRRScreenResources *sr = XRRGetScreenResources( QX11Info::display(), RootWindow( QX11Info::display(), DefaultScreen( QX11Info::display() ) ) );
-
-    for( int i = 0; i < sr->noutput; ++i ) {
-        XRROutputInfo *output = XRRGetOutputInfo( QX11Info::display(), sr, sr->outputs[i] );
-        m_ui->screenComboBox->addItem( QString::fromLatin1( output->name ) );
-        XRRFreeOutputInfo( output );
-    }
-    XRRFreeScreenResources( sr );
 }
 
 PadMapping::~PadMapping()
@@ -72,54 +63,138 @@ PadMapping::~PadMapping()
 
 void PadMapping::saveToProfile()
 {
-    KConfigGroup padConfig = m_profileManagement->configGroup( QLatin1String( "pad" ) );
+    // save current calibration area to the right temp rect
+    if( m_ui->toolCombobox->currentIndex() == 0 ) {
+        m_stylusArea.setX( m_ui->topX->value() );
+        m_stylusArea.setY( m_ui->topY->value() );
+        m_stylusArea.setWidth( m_ui->bottomX->value() );
+        m_stylusArea.setHeight( m_ui->bottomY->value() );
+    }
+    else {
+        m_touchArea.setX( m_ui->topX->value() );
+        m_touchArea.setY( m_ui->topY->value() );
+        m_touchArea.setWidth( m_ui->bottomX->value() );
+        m_touchArea.setHeight( m_ui->bottomY->value() );
+    }
 
-    //@DEBUG write out rotation settings name not index numbers
-    padConfig.writeEntry( QLatin1String( "Rotate" ), m_ui->rotationComboBox->currentIndex() );
+    // read in from stylus.
+    // values for stylus/eraser/touch will be the same
+    KConfigGroup stylusConfig = m_profileManagement->configGroup( QLatin1String( "stylus" ) );
+    KConfigGroup eraserConfig = m_profileManagement->configGroup( QLatin1String( "eraser" ) );
+
+    stylusConfig.writeEntry( QLatin1String( "Rotate" ), m_ui->rotationComboBox->currentIndex() );
+    eraserConfig.writeEntry( QLatin1String( "Rotate" ), m_ui->rotationComboBox->currentIndex() );
+
     if( !m_ui->screenComboBox->currentText().isEmpty() ) {
-        padConfig.writeEntry( QLatin1String( "MapToOutput" ), m_ui->screenComboBox->currentText() );
+        stylusConfig.writeEntry( QLatin1String( "MapToOutput" ), m_ui->screenComboBox->currentText() );
+        eraserConfig.writeEntry( QLatin1String( "MapToOutput" ), m_ui->screenComboBox->currentText() );
     }
 
     if( m_ui->xrandrRotationCheckBox->isChecked() ) {
-        padConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "true" );
+        stylusConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "true" );
+        eraserConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "true" );
     }
     else {
-        padConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "false" );
+        stylusConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "false" );
+        eraserConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "false" );
     }
 
     if( m_ui->workingAreaBox->isChecked() ) {
-        padConfig.writeEntry( QLatin1String( "0ChangeArea" ), "true" );
+        stylusConfig.writeEntry( QLatin1String( "0ChangeArea" ), "true" );
+        eraserConfig.writeEntry( QLatin1String( "0ChangeArea" ), "true" );
     }
     else {
-        padConfig.writeEntry( QLatin1String( "0ChangeArea" ), "false" );
+        stylusConfig.writeEntry( QLatin1String( "0ChangeArea" ), "false" );
+        eraserConfig.writeEntry( QLatin1String( "0ChangeArea" ), "false" );
     }
 
-    padConfig.writeEntry( QLatin1String( "Area" ), QString::fromLatin1( "%1 %2 %3 %4" ).arg( m_ui->topX->value() ).arg( m_ui->topY->value() )
-                          .arg( m_ui->bottomX->value() ).arg( m_ui->bottomY->value() ) );
+    stylusConfig.writeEntry( QLatin1String( "Area" ), QString::fromLatin1( "%1 %2 %3 %4" )
+                             .arg( m_stylusArea.x() ).arg( m_stylusArea.y() )
+                             .arg( m_stylusArea.width() ).arg( m_stylusArea.height() ) );
+    eraserConfig.writeEntry( QLatin1String( "Area" ), QString::fromLatin1( "%1 %2 %3 %4" )
+                             .arg( m_stylusArea.x() ).arg( m_stylusArea.y() )
+                             .arg( m_stylusArea.width() ).arg( m_stylusArea.height() ) );
 
-    padConfig.sync();
+    stylusConfig.sync();
+    eraserConfig.sync();
+
+    // if we have a touch device, update these values too
+    QDBusReply<QString> touchName = m_deviceInterface->call( QLatin1String( "touchName" ) );
+
+    QString validName = touchName.value();
+    if( !validName.isEmpty() ) {
+        KConfigGroup touchConfig = m_profileManagement->configGroup( QLatin1String( "touch" ) );
+        touchConfig.writeEntry( QLatin1String( "Rotate" ), m_ui->rotationComboBox->currentIndex() );
+
+        if( !m_ui->screenComboBox->currentText().isEmpty() ) {
+            touchConfig.writeEntry( QLatin1String( "MapToOutput" ), m_ui->screenComboBox->currentText() );
+        }
+
+        if( m_ui->xrandrRotationCheckBox->isChecked() ) {
+            touchConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "true" );
+        }
+        else {
+            touchConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "false" );
+        }
+
+        if( m_ui->workingAreaBox->isChecked() ) {
+            touchConfig.writeEntry( QLatin1String( "0ChangeArea" ), "true" );
+        }
+        else {
+            touchConfig.writeEntry( QLatin1String( "0ChangeArea" ), "false" );
+        }
+
+        touchConfig.writeEntry( QLatin1String( "Area" ), QString::fromLatin1( "%1 %2 %3 %4" )
+                                .arg( m_touchArea.x() ).arg( m_touchArea.y() )
+                                .arg( m_touchArea.width() ).arg( m_touchArea.height() ) );
+
+        touchConfig.sync();
+    }
 }
 
 void PadMapping::loadFromProfile()
 {
-    KConfigGroup padConfig = m_profileManagement->configGroup( QLatin1String( "pad" ) );
+    // read in from stylus.
+    // values for stylus/eraser/touch will be the same
+    KConfigGroup stylusConfig = m_profileManagement->configGroup( QLatin1String( "stylus" ) );
 
-    //@DEBUG write out rotation settings name not index numbers
-    m_ui->rotationComboBox->setCurrentIndex( padConfig.readEntry( QLatin1String( "Rotate" ) ).toInt() );
+    m_ui->rotationComboBox->setCurrentIndex( stylusConfig.readEntry( QLatin1String( "Rotate" ) ).toInt() );
 
-    if( padConfig.readEntry( QLatin1String( "RotateWithScreen" ) ) == QLatin1String( "true" ) ) {
+    if( stylusConfig.readEntry( QLatin1String( "RotateWithScreen" ) ) == QLatin1String( "true" ) ) {
         m_ui->xrandrRotationCheckBox->setChecked( true );
     }
 
-    int index = m_ui->screenComboBox->findText( padConfig.readEntry( QLatin1String( "MapToOutput" ) ) );
+    int index = m_ui->screenComboBox->findText( stylusConfig.readEntry( QLatin1String( "MapToOutput" ) ) );
     m_ui->screenComboBox->setCurrentIndex( index );
 
 
-    if( padConfig.readEntry( QLatin1String( "0ChangeArea" ) ) == QLatin1String( "true" ) ) {
+    if( stylusConfig.readEntry( QLatin1String( "0ChangeArea" ) ) == QLatin1String( "true" ) ) {
         m_ui->workingAreaBox->setChecked( true );
     }
 
-    QString workingArea = padConfig.readEntry( QLatin1String( "Area" ) );
+    // check if we have a touch tool available
+    // this means we want to calibrate the tablet area in two different ways
+    QDBusReply<QString> touchName = m_deviceInterface->call( QLatin1String( "touchName" ) );
+
+    QString validName = touchName.value();
+    if( !validName.isEmpty() ) {
+        KConfigGroup touchConfig = m_profileManagement->configGroup( QLatin1String( "touch" ) );
+
+        QString workingArea = touchConfig.readEntry( QLatin1String( "Area" ) );
+        QStringList waList = workingArea.split( QLatin1String( " " ) );
+
+        if( waList.size() != 4 ) {
+            kDebug() << "Error while parsing touch Area settings. Entry must have 4 ints seperated by a space. For example: 0 0 100 100";
+            return;
+        }
+
+        m_touchArea.setX( waList.at( 0 ).toInt() );
+        m_touchArea.setY( waList.at( 1 ).toInt() );
+        m_touchArea.setWidth( waList.at( 2 ).toInt() );
+        m_touchArea.setHeight( waList.at( 3 ).toInt() );
+    }
+
+    QString workingArea = stylusConfig.readEntry( QLatin1String( "Area" ) );
     QStringList waList = workingArea.split( QLatin1String( " " ) );
 
     if( waList.size() != 4 ) {
@@ -127,10 +202,16 @@ void PadMapping::loadFromProfile()
         return;
     }
 
-    m_ui->topX->setValue( waList.at( 0 ).toInt() );
-    m_ui->topY->setValue( waList.at( 1 ).toInt() );
-    m_ui->bottomX->setValue( waList.at( 2 ).toInt() );
-    m_ui->bottomY->setValue( waList.at( 3 ).toInt() );
+    m_stylusArea.setX( waList.at( 0 ).toInt() );
+    m_stylusArea.setY( waList.at( 1 ).toInt() );
+    m_stylusArea.setWidth( waList.at( 2 ).toInt() );
+    m_stylusArea.setHeight( waList.at( 3 ).toInt() );
+
+    // default to stylus/areaser area
+    m_ui->topX->setValue( m_stylusArea.x() );
+    m_ui->topY->setValue( m_stylusArea.y() );
+    m_ui->bottomX->setValue( m_stylusArea.width() );
+    m_ui->bottomY->setValue( m_stylusArea.height() );
 }
 
 void PadMapping::profileChanged()
@@ -140,28 +221,58 @@ void PadMapping::profileChanged()
 
 void PadMapping::reloadWidget()
 {
+    // get a list of all available XRandR screens.
+    XRRScreenResources *sr = XRRGetScreenResources( QX11Info::display(), RootWindow( QX11Info::display(), DefaultScreen( QX11Info::display() ) ) );
+
+    m_ui->screenComboBox->blockSignals( true );
+    for( int i = 0; i < sr->noutput; ++i ) {
+        XRROutputInfo *output = XRRGetOutputInfo( QX11Info::display(), sr, sr->outputs[i] );
+        m_ui->screenComboBox->addItem( QString::fromLatin1( output->name ) );
+        XRRFreeOutputInfo( output );
+    }
+    m_ui->screenComboBox->blockSignals( false );
+    XRRFreeScreenResources( sr );
+
+    // check if the connected tabled has touch features
+    // hides the tool selection box if no touch is available
+    // helps to reduce the ui clutter for "normal" tablets
+    QDBusReply<QString> touchName = m_deviceInterface->call( QLatin1String( "touchName" ) );
+
+    QString validName = touchName.value();
+    if( validName.isEmpty() ) {
+        m_ui->toolLabel->hide();
+        m_ui->toolCombobox->hide();
+    }
 }
 
 void PadMapping::showCalibrationDialog()
 {
     // disable compositing if available
-    KSharedConfigPtr mKWinConfig = KSharedConfig::openConfig( QLatin1String( "kwinrc") );
-    KConfigGroup config( mKWinConfig, QLatin1String( "Compositing") );
-    bool oldstate = config.readEntry( QLatin1String( "Enabled"), false );
+    KSharedConfigPtr mKWinConfig = KSharedConfig::openConfig( QLatin1String( "kwinrc" ) );
+    KConfigGroup config( mKWinConfig, QLatin1String( "Compositing" ) );
+    bool oldstate = config.readEntry( QLatin1String( "Enabled" ), false );
 
     if( oldstate ) {
-        config.writeEntry( QLatin1String( "Enabled"), false );
+        config.writeEntry( QLatin1String( "Enabled" ), false );
         mKWinConfig->sync();
 
-        QDBusMessage message = QDBusMessage::createSignal( QLatin1String( "/KWin"),
-                               QLatin1String( "org.kde.KWin"),
-                               QLatin1String( "reloadConfig") );
+        QDBusMessage message = QDBusMessage::createSignal( QLatin1String( "/KWin" ),
+                               QLatin1String( "org.kde.KWin" ),
+                               QLatin1String( "reloadConfig" ) );
         QDBusConnection::sessionBus().send( message );
     }
 
-    QDBusReply<QString> padName = m_deviceInterface->call( QLatin1String( "padName" ) );
+    QString toolName;
+    if( m_ui->toolCombobox->currentIndex() == 0 ) {
+        QDBusReply<QString> stylusName = m_deviceInterface->call( QLatin1String( "stylusName" ) );
+        toolName = stylusName.value();
+    }
+    else {
+        QDBusReply<QString> touchName = m_deviceInterface->call( QLatin1String( "touchName" ) );
+        toolName = touchName.value();
+    }
 
-    CalibrationDialog cdlg( padName );
+    CalibrationDialog cdlg( toolName );
 
     cdlg.exec();
 
@@ -173,12 +284,38 @@ void PadMapping::showCalibrationDialog()
 
 
     if( oldstate ) {
-        config.writeEntry( QLatin1String( "Enabled"), true );
+        config.writeEntry( QLatin1String( "Enabled" ), true );
         mKWinConfig->sync();
 
-        QDBusMessage message = QDBusMessage::createSignal( QLatin1String( "/KWin"),
-                               QLatin1String( "org.kde.KWin"),
-                               QLatin1String( "reloadConfig") );
+        QDBusMessage message = QDBusMessage::createSignal( QLatin1String( "/KWin" ),
+                               QLatin1String( "org.kde.KWin" ),
+                               QLatin1String( "reloadConfig" ) );
         QDBusConnection::sessionBus().send( message );
+    }
+}
+
+void PadMapping::switchCalibrationTool()
+{
+    if( m_ui->toolCombobox->currentIndex() == 1 ) {
+        m_stylusArea.setX( m_ui->topX->value() );
+        m_stylusArea.setY( m_ui->topY->value() );
+        m_stylusArea.setWidth( m_ui->bottomX->value() );
+        m_stylusArea.setHeight( m_ui->bottomY->value() );
+
+        m_ui->topX->setValue( m_touchArea.x());
+        m_ui->topY->setValue( m_touchArea.y());
+        m_ui->bottomX->setValue( m_touchArea.width());
+        m_ui->bottomY->setValue( m_touchArea.height());
+    }
+    else {
+        m_touchArea.setX( m_ui->topX->value() );
+        m_touchArea.setY( m_ui->topY->value() );
+        m_touchArea.setWidth( m_ui->bottomX->value() );
+        m_touchArea.setHeight( m_ui->bottomY->value() );
+
+        m_ui->topX->setValue( m_stylusArea.x());
+        m_ui->topY->setValue( m_stylusArea.y());
+        m_ui->bottomX->setValue( m_stylusArea.width());
+        m_ui->bottomY->setValue( m_stylusArea.height());
     }
 }

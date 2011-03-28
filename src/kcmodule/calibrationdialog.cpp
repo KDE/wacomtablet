@@ -33,15 +33,17 @@
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XInput2.h>
 
+using namespace Wacom;
+
 const int frameGap = 10;
 const int boxwidth = 100;
 
-CalibrationDialog::CalibrationDialog( const QString &padname ) :
+CalibrationDialog::CalibrationDialog( const QString &toolname ) :
     QDialog( )
 {
     setWindowState( Qt::WindowFullScreen );
 
-    m_padName = padname;
+    m_toolName = toolname;
     m_drawCross = 0;
     m_shiftLeft = frameGap;
     m_shiftTop = frameGap;
@@ -155,7 +157,7 @@ void CalibrationDialog::getMaxTabletArea()
 
     XDeviceInfo *info = XListInputDevices( dpy, &ndevices );
     for( int i = 0; i < ndevices; i++ ) {
-        if( info[i].name == m_padName.toLatin1() ) {
+        if( info[i].name == m_toolName.toLatin1() ) {
             dev = XOpenDevice( dpy, info[i].id );
             break;
         }
@@ -202,10 +204,8 @@ void CalibrationDialog::getMaxTabletArea()
                            PropModeReplace, dataOld, nitems );
 
     XFlush( dpy );
+
     free( data );
-
     XFreeDeviceList( info );
-
-
     XCloseDevice( QX11Info::display(), dev );
 }
