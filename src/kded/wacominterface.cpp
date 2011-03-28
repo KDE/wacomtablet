@@ -57,17 +57,18 @@ void WacomInterface::setConfiguration( const QString &device, const QString &par
         return;
     }
 
-    if( value == QString::fromLatin1( "RotateWithScreen" ) ) {
+    if( param == QString::fromLatin1( "RotateWithScreen" ) ) {
         return;
     }
 
-    if( value == QString::fromLatin1( "0ChangeArea" ) ) {
-        if( param == QString::fromLatin1( "true" ) ) {
+    if( param == QString::fromLatin1( "0ChangeArea" ) ) {
+        if( value == QString::fromLatin1( "true" ) ) {
             m_applyArea = true;
         }
         else {
             m_applyArea = false;
         }
+        return;
     }
 
     QString cmd;
@@ -76,7 +77,7 @@ void WacomInterface::setConfiguration( const QString &device, const QString &par
     }
     else {
         QString modifiedParam = param;
-        cmd = QString::fromLatin1( "xsetwacom set \"%1\" %2 \"%3\"" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^button([0-9])" ) ), QLatin1String( "button\\1" ) ) ).arg( value );
+        cmd = QString::fromLatin1( "xsetwacom set \"%1\" %2 \"%3\"" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^Button([0-9])" ) ), QLatin1String( "Button \\1" ) ) ).arg( value );
     }
 
     QProcess setConf;
@@ -101,7 +102,7 @@ void WacomInterface::setConfiguration( const QString &device, const QString &par
 QString WacomInterface::getConfiguration( const QString &device, const QString &param ) const
 {
     QString modifiedParam = param;
-    QString cmd = QString::fromLatin1( "xsetwacom get \"%1\" %2" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^button([0-9])" ) ), QLatin1String( "button \\1" ) ) );
+    QString cmd = QString::fromLatin1( "xsetwacom get \"%1\" %2" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^Button([0-9])" ) ), QLatin1String( "Button \\1" ) ) );
     QProcess getConf;
     getConf.start( cmd );
 
