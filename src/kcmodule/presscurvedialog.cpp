@@ -83,7 +83,7 @@ void PressCurveDialog::updateControlPoints(const QString & points)
         return;
     }
 
-    m_deviceInterface->call(QLatin1String( "setConfiguration" ), m_device, QLatin1String( "PressCurve" ), points);
+    m_deviceInterface->call(QLatin1String( "setConfiguration" ), m_device, QLatin1String( "PressureCurve" ), points);
 }
 
 void PressCurveDialog::accept()
