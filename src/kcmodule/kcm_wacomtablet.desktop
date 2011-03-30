@@ -12,6 +12,7 @@ X-KDE-System-Settings-Parent-Category=keyboard-and-mouse
 X-KDE-System-Settings-Parent-Category-V2=input-devices
 
 Name=Graphic Tablet
+Name[da]=Grafiktegneplade
 Name[en_GB]=Graphic Tablet
 Name[es]=Tableta gráfica
 Name[et]=Graafikalaud
@@ -31,6 +32,7 @@ Name[x-test]=xxGraphic Tabletxx
 Name[zh_TW]=圖形平板裝置
 
 Comment=Wacom Tablet Settings
+Comment[da]=Indstillinger for Wacom tegneplade
 Comment[en_GB]=Wacom Tablet Settings
 Comment[es]=Preferencias del tablet Wacom
 Comment[et]=Wacomi graafikalaua seadistused
