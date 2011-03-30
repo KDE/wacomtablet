@@ -49,53 +49,10 @@ GeneralWidget::~GeneralWidget()
 
 void GeneralWidget::saveToProfile()
 {
-    KConfigGroup padConfig = m_profileManagement->configGroup(QLatin1String( "touch" ));
-    
-    if(m_ui->touchEventsCheckBox->isChecked() ) {
-        padConfig.writeEntry("Touch", "on");
-    }
-    else {
-        padConfig.writeEntry("Touch", "off");
-    }
-    
-    if(m_ui->gesturesCheckBox->isChecked() ) {
-        padConfig.writeEntry("Gesture", "on");
-    }
-    else {
-        padConfig.writeEntry("Gesture", "off");
-    }
-
-    padConfig.writeEntry("ZoomDistance", m_ui->zoomDistanceBox->value());
-    padConfig.writeEntry("ScrollDistance", m_ui->scrollDistanceBox->value());
-    
-    padConfig.sync();
 }
 
 void GeneralWidget::loadFromProfile()
 {
-    KConfigGroup touchConfig = m_profileManagement->configGroup(QLatin1String( "touch" ));
-    
-    QString touch = touchConfig.readEntry(QLatin1String("Touch"));
-    if(touch == QLatin1String("on")) {
-        m_ui->touchEventsCheckBox->setChecked(true);
-    }
-    else {
-        m_ui->touchEventsCheckBox->setChecked(false);
-    }
-    
-    QString gesture = touchConfig.readEntry(QLatin1String("Gesture"));
-    if(gesture == QLatin1String("on")) {
-        m_ui->gesturesCheckBox->setChecked(true);
-    }
-    else {
-        m_ui->gesturesCheckBox->setChecked(false);
-    }
-    
-    int zoomDistance = touchConfig.readEntry(QLatin1String("ZoomDistance")).toInt();
-    m_ui->zoomDistanceBox->setValue(zoomDistance);
-    
-    int scrollDistance = touchConfig.readEntry(QLatin1String("ScrollDistance")).toInt();
-    m_ui->scrollDistanceBox->setValue(scrollDistance);
 }
 
 void GeneralWidget::profileChanged()
@@ -118,12 +75,4 @@ void GeneralWidget::reloadWidget()
     m_ui->comapnyName->setText(companyName);
     m_ui->tabletName->setText(deviceName);
     m_ui->deviceList->setText(inputDevices.value().join( QLatin1String( "\n" )));
-
-    // show or hide touch settings
-    QDBusReply<QString> touchName = m_deviceInterface->call( QLatin1String( "touchName" ) );
-
-    QString validName = touchName.value();
-    if( validName.isEmpty() ) {
-        m_ui->touchGroupBox->hide();
-    }
 }

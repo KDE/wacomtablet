@@ -13,6 +13,7 @@ set( kcm_tablet_SRCS
      selectkeystroke.cpp
      tabletwidget.cpp
      calibrationdialog.cpp
+     touchwidget.cpp
 )
 
 kde4_add_ui_files( kcm_tablet_SRCS
@@ -26,6 +27,7 @@ kde4_add_ui_files( kcm_tablet_SRCS
                    selectkeybutton.ui
                    selectkeystroke.ui
                    tabletwidget.ui
+                   touchwidget.ui
 )
 
 kde4_add_plugin(kcm_wacomtablet ${kcm_tablet_SRCS})
