@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Wacom Tablet Settings
+Name[da]=Indstillinger for Wacom tegneplade
 Name[en_GB]=Wacom Tablet Settings
 Name[es]=Preferencias del tablet Wacom
 Name[et]=Wacomi graafikalaua seadistused
@@ -19,6 +20,7 @@ Name[uk]=Параметри планшетів Wacom
 Name[x-test]=xxWacom Tablet Settingsxx
 Name[zh_TW]=Wacom 平板裝置設定
 Comment=Hotplugging and profile support for Wacom tablets
+Comment[da]=Hotplugging- og profilunderstøttelse til Wacom tegneplader
 Comment[en_GB]=Hotplugging and profile support for Wacom tablets
 Comment[es]=Conexión en caliente e implementación de perfiles para tablets Wacom
 Comment[et]=Wacomi graafikalaudade jooksva ühendamise ja profiilide toetus

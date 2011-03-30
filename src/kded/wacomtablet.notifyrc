@@ -1,6 +1,7 @@
 [Global]
 IconName=input-tablet
 Comment=Wacom Tablet
+Comment[da]=Wacom tegneplade
 Comment[en_GB]=Wacom Tablet
 Comment[es]=Tablet Wacom
 Comment[et]=Wacomi graafikalaud
@@ -20,6 +21,7 @@ Comment[uk]=Планшет Wacom
 Comment[x-test]=xxWacom Tabletxx
 Comment[zh_TW]=Wacom 平板裝置
 Name=WacomTablet
+Name[da]=Wacom tegneplade
 Name[en_GB]=WacomTablet
 Name[es]=WacomTablet
 Name[et]=Wacomi graafikalaud
@@ -41,6 +43,7 @@ Name[zh_TW]=Wacom 平板裝置
 
 [Event/tabletAdded]
 Name=New tablet connected
+Name[da]=Ny tegneplade tilsluttet
 Name[en_GB]=New tablet connected
 Name[es]=Nuevo tablet conectado
 Name[et]=Uus graafikalaud on ühendatud
@@ -60,6 +63,7 @@ Name[uk]=З’єднано новий планшет
 Name[x-test]=xxNew tablet connectedxx
 Name[zh_TW]=新的平板裝置已連線
 Comment=New graphic tablet connected
+Comment[da]=Ny grafiktegneplade tilsluttet
 Comment[en_GB]=New graphic tablet connected
 Comment[es]=Nueva tableta gráfica conectada
 Comment[et]=Uus graafikalaud on ühendatud
@@ -81,6 +85,7 @@ Action=Popup
 
 [Event/tabletRemoved]
 Name=Tablet removed
+Name[da]=Tegneplade fjernet
 Name[en_GB]=Tablet removed
 Name[es]=Tableta retirada
 Name[et]=Graafikalaud on eemaldatud
@@ -100,6 +105,7 @@ Name[uk]=Вилучено планшет
 Name[x-test]=xxTablet removedxx
 Name[zh_TW]=平板裝置已移除
 Comment=Graphic tablet removed
+Comment[da]=Grafiktegneplade fjernet
 Comment[en_GB]=Graphic tablet removed
 Comment[es]=Tableta gráfica retirada
 Comment[et]=Graafikalaud on eemaldatud
@@ -121,6 +127,7 @@ Action=Popup
 
 [Event/tabletError]
 Name=A tablet error
+Name[da]=Tegnepladefejl
 Name[en_GB]=A tablet error
 Name[es]=Error de la tableta
 Name[et]=Graafikalaua tõrge
@@ -140,6 +147,7 @@ Name[uk]=Помилка планшета
 Name[x-test]=xxA tablet errorxx
 Name[zh_TW]=平板裝置錯誤
 Comment=An error occurred with the tablet
+Comment[da]=Der opstod en fejl med tegnepladen
 Comment[en_GB]=An error occurred with the tablet
 Comment[es]=Ha ocurrido un error con la tableta
 Comment[et]=Graafikalauaga tekkist tõrge
