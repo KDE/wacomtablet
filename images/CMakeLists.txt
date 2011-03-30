@@ -7,4 +7,5 @@ install( FILES
                bl_6.png
                bl_7.png
                bl_8.png
+               pen.png
                DESTINATION  ${DATA_INSTALL_DIR}/wacomtablet/images )

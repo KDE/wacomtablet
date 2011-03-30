@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * Copyright 2009,2010,2011 Jörg Ehrichs <joerg.ehichs@gmx.de>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -59,14 +59,6 @@ public:
     ~PenWidget();
 
     /**
-      * Defines if the widget is used for the stylus or the eraser side of the pen.
-      * default is stylus set false for eraser
-      *
-      * @param setStylus @c true for stylus (default) @c false for eraser.
-      */
-    void isStylus(bool setStylus);
-
-    /**
       * Saves all values to the current profile
       */
     void saveToProfile();
@@ -104,7 +96,14 @@ public slots:
       * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
       * directly in the dialogue as well
       */
-    void changePressCurve();
+    void changeEraserPressCurve();
+
+    /**
+      * Opens a dialogue that allows the visual selection of the presscurve
+      * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
+      * directly in the dialogue as well
+      */
+    void changeTipPressCurve();
 
 signals:
     /**
@@ -124,7 +123,6 @@ private:
 
     Ui::PenWidget     *m_ui;                /**< Handler to the penwidget.ui file */
     ProfileManagement *m_profileManagement; /**< Handler for the profile config connection */
-    bool               m_stylus;            /**< Widget used for the stylus or the eraser side of the pen? */
     QMap<QString,QString> m_buttonConfig;   /**< Saves for each KCombobox the values selected and used in a way xsetwacom needs it */
 };
 

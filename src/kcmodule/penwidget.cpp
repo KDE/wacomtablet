@@ -1,5 +1,5 @@
 /*
- * Copyright 2009,2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * Copyright 2009,2010,2011 Jörg Ehrichs <joerg.ehichs@gmx.de>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -40,13 +40,17 @@ using namespace Wacom;
 PenWidget::PenWidget( ProfileManagement *profileManager, QWidget *parent )
     : QWidget( parent ),
       m_ui( new Ui::PenWidget ),
-      m_profileManagement( profileManager ),
-      m_stylus( true )
+      m_profileManagement( profileManager )
 {
     m_ui->setupUi( this );
-    fillComboBox( m_ui->button1ComboBox );
     fillComboBox( m_ui->button2ComboBox );
     fillComboBox( m_ui->button3ComboBox );
+
+    m_ui->penLabel->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/pen.png"))));
+
+    //TODO Don't show double click slider box
+    // does not work yet
+    m_ui->DblClickBox->hide();
 }
 
 PenWidget::~PenWidget()
@@ -54,82 +58,69 @@ PenWidget::~PenWidget()
     delete m_ui;
 }
 
-void PenWidget::isStylus( bool setStylus )
-{
-    m_stylus = setStylus;
-}
-
 void PenWidget::saveToProfile()
 {
-    KConfigGroup penConfig;
-    if( m_stylus ) {
-        penConfig = m_profileManagement->configGroup( QLatin1String( "stylus" ) );
-    }
-    else {
-        penConfig = m_profileManagement->configGroup( QLatin1String( "eraser" ) );
-    }
+    KConfigGroup stylusConfig = m_profileManagement->configGroup( QLatin1String( "stylus" ) );
+    KConfigGroup eraserConfig = m_profileManagement->configGroup( QLatin1String( "eraser" ) );
 
-    penConfig.writeEntry( "Button1", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button1ComboBox->itemData( m_ui->button1ComboBox->currentIndex() ).toInt(), m_buttonConfig.value( QLatin1String( "button1ActionLabel" ) ) ) );
-    penConfig.writeEntry( "Button2", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button2ComboBox->itemData( m_ui->button2ComboBox->currentIndex() ).toInt(), m_buttonConfig.value( QLatin1String( "button2ActionLabel" ) ) ) );
-    penConfig.writeEntry( "Button3", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button3ComboBox->itemData( m_ui->button3ComboBox->currentIndex() ).toInt(), m_buttonConfig.value( QLatin1String( "button3ActionLabel" ) ) ) );
-    penConfig.writeEntry( "TapTime", m_ui->clickSlider->value() );
+    // eraser feel / tip feel
+    eraserConfig.writeEntry( "Threshold", m_ui->eraserSlider->value() );
+    eraserConfig.writeEntry( "PressureCurve", m_ui->eraserPressureButton->property( "curve" ).toString() );
+    stylusConfig.writeEntry( "Threshold", m_ui->tipSlider->value() );
+    stylusConfig.writeEntry( "PressureCurve", m_ui->tipPressureButton->property( "curve" ).toString() );
+
+    // button 2 and 3 config
+    eraserConfig.writeEntry( "Button2", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button2ComboBox->itemData( m_ui->button2ComboBox->currentIndex() ).toInt(), m_buttonConfig.value( QLatin1String( "button2ActionLabel" ) ) ) );
+    eraserConfig.writeEntry( "Button3", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button3ComboBox->itemData( m_ui->button3ComboBox->currentIndex() ).toInt(), m_buttonConfig.value( QLatin1String( "button3ActionLabel" ) ) ) );
+    stylusConfig.writeEntry( "Button2", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button2ComboBox->itemData( m_ui->button2ComboBox->currentIndex() ).toInt(), m_buttonConfig.value( QLatin1String( "button2ActionLabel" ) ) ) );
+    stylusConfig.writeEntry( "Button3", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button3ComboBox->itemData( m_ui->button3ComboBox->currentIndex() ).toInt(), m_buttonConfig.value( QLatin1String( "button3ActionLabel" ) ) ) );
+
+    stylusConfig.writeEntry( "DoubleClickInterval", m_ui->doubleClickSlider->value() );
+    eraserConfig.writeEntry( "DoubleClickInterval", m_ui->doubleClickSlider->value() );
 
     if( m_ui->radioButton_Absolute->isChecked() ) {
-        penConfig.writeEntry( "Mode", "absolute" );
+        stylusConfig.writeEntry( "Mode", "absolute" );
+        eraserConfig.writeEntry( "Mode", "absolute" );
     }
     else {
-        penConfig.writeEntry( "Mode", "relative" );
+        stylusConfig.writeEntry( "Mode", "relative" );
+        eraserConfig.writeEntry( "Mode", "relative" );
     }
-    penConfig.writeEntry( "PressureCurve", m_ui->pressureValue->text() );
 
-    penConfig.writeEntry( "Threshold", m_ui->thresholdSlider->value() );
+    stylusConfig.writeEntry( "CursorProximity", m_ui->cursorProxInput->value() );
+    eraserConfig.writeEntry( "CursorProximity", m_ui->cursorProxInput->value() );
 
-    if( m_ui->tabletPCButtonCheckBox->isChecked() ) {
-        penConfig.writeEntry( "TabletPCButton", "on" );
+    if( m_ui->tpcCheckBox->isChecked() ) {
+        stylusConfig.writeEntry( "TabletPCButton", "on" );
+        eraserConfig.writeEntry( "TabletPCButton", "on" );
     }
     else {
-        penConfig.writeEntry( "TabletPCButton", "off" );
+        stylusConfig.writeEntry( "TabletPCButton", "off" );
+        eraserConfig.writeEntry( "TabletPCButton", "off" );
     }
 
-    penConfig.writeEntry( "CursorProximity", m_ui->cursorProximityBox->value() );
-
-    penConfig.sync();
+    stylusConfig.sync();
+    eraserConfig.sync();
 }
 
 void PenWidget::loadFromProfile()
 {
-    KConfigGroup penConfig;
-    if( m_stylus ) {
-        penConfig = m_profileManagement->configGroup( QLatin1String( "stylus" ) );
-    }
-    else {
-        penConfig = m_profileManagement->configGroup( QLatin1String( "eraser" ) );
-    }
+    KConfigGroup stylusConfig = m_profileManagement->configGroup( QLatin1String( "stylus" ) );
+    KConfigGroup eraserConfig = m_profileManagement->configGroup( QLatin1String( "eraser" ) );
 
-    // Cursor Settings
-    if( penConfig.readEntry( "Mode" ).toInt() == 1 || penConfig.readEntry( "Mode" ) == QLatin1String( "absolute" ) ) {
-        m_ui->radioButton_Absolute->setChecked( true );
-        m_ui->radioButton_Relative->setChecked( false );
-    }
-    else {
-        m_ui->radioButton_Absolute->setChecked( false );
-        m_ui->radioButton_Relative->setChecked( true );
-    }
+    // eraser feel / tip feel
+    m_ui->eraserSlider->setValue( eraserConfig.readEntry( "Threshold" ).toInt() );
+    m_ui->eraserPressureButton->setProperty( "curve", eraserConfig.readEntry( "PressureCurve" ) );
+    m_ui->tipSlider->setValue( stylusConfig.readEntry( "Threshold" ).toInt() );
+    m_ui->tipPressureButton->setProperty( "curve", stylusConfig.readEntry( "PressureCurve" ) );
 
-    m_ui->pressureValue->setText( penConfig.readEntry( "PressureCurve" ) );
-
+    // button 2 and 3 config
     QString readEntry;
     ProfileManagement::PenButton modeSwitch;
 
-    readEntry = penConfig.readEntry( "Button1" );
-    modeSwitch = m_profileManagement->getPenButtonFunction( readEntry );
-    m_ui->button1ComboBox->blockSignals( true );
-    m_ui->button1ComboBox->setCurrentIndex( modeSwitch );
-    m_ui->button1ComboBox->blockSignals( false );
-    m_ui->button1ActionLabel->setText( m_profileManagement->transformButtonFromConfig( modeSwitch, readEntry ) );
-    m_buttonConfig.insert( QLatin1String( "button1ActionLabel" ), m_ui->button1ActionLabel->text() );
-
-    readEntry = penConfig.readEntry( "Button2" );
+    // we show only stylus button config
+    // later these settings are saved for stylus and erase and thus both are always the same
+    readEntry = stylusConfig.readEntry( "Button2" );
     modeSwitch = m_profileManagement->getPenButtonFunction( readEntry );
     m_ui->button2ComboBox->blockSignals( true );
     m_ui->button2ComboBox->setCurrentIndex( modeSwitch );
@@ -137,7 +128,7 @@ void PenWidget::loadFromProfile()
     m_ui->button2ActionLabel->setText( m_profileManagement->transformButtonFromConfig( modeSwitch, readEntry ) );
     m_buttonConfig.insert( QLatin1String( "button2ActionLabel" ), m_ui->button2ActionLabel->text() );
 
-    readEntry = penConfig.readEntry( "Button3" );
+    readEntry = stylusConfig.readEntry( "Button3" );
     modeSwitch = m_profileManagement->getPenButtonFunction( readEntry );
     m_ui->button3ComboBox->blockSignals( true );
     m_ui->button3ComboBox->setCurrentIndex( modeSwitch );
@@ -146,19 +137,28 @@ void PenWidget::loadFromProfile()
     m_buttonConfig.insert( QLatin1String( "button3ActionLabel" ), m_ui->button3ActionLabel->text() );
 
     //Double Click Distance
-    m_ui->clickSlider->setValue( penConfig.readEntry( "TapTime" ).toInt() );
+    m_ui->doubleClickSlider->setValue( stylusConfig.readEntry( "DoubleClickInterval" ).toInt() );
 
-    m_ui->thresholdSlider->setValue( penConfig.readEntry( "Threshold" ).toInt() );
-
-    QString tabletPCButton = penConfig.readEntry( QLatin1String( "TabletPCButton" ) );
-    if( tabletPCButton == QLatin1String( "on" ) ) {
-        m_ui->tabletPCButtonCheckBox->setChecked( true );
+    // Cursor Settings
+    if( stylusConfig.readEntry( "Mode" ).toInt() == 1 || stylusConfig.readEntry( "Mode" ) == QLatin1String( "absolute" ) ) {
+        m_ui->radioButton_Absolute->setChecked( true );
+        m_ui->radioButton_Relative->setChecked( false );
     }
     else {
-        m_ui->tabletPCButtonCheckBox->setChecked( false );
+        m_ui->radioButton_Absolute->setChecked( false );
+        m_ui->radioButton_Relative->setChecked( true );
     }
 
-    m_ui->cursorProximityBox->setValue( penConfig.readEntry( QLatin1String( "CursorProximity" ) ).toInt() );
+    m_ui->cursorProxInput->setValue( stylusConfig.readEntry( QLatin1String( "CursorProximity" ) ).toInt() );
+
+    // hover click settings
+    QString tabletPCButton = stylusConfig.readEntry( QLatin1String( "TabletPCButton" ) );
+    if( tabletPCButton == QLatin1String( "on" ) ) {
+        m_ui->tpcCheckBox->setChecked( true );
+    }
+    else {
+        m_ui->tpcCheckBox->setChecked( false );
+    }
 }
 
 void PenWidget::profileChanged()
@@ -246,40 +246,67 @@ void PenWidget::selectKeyFunction( int selection )
     delete sks;
 }
 
-void PenWidget::changePressCurve()
+void PenWidget::changeEraserPressCurve()
 {
-
     QPointer <PressCurveDialog> selectPC = new PressCurveDialog( this );
 
     QDBusInterface *deviceInterface = new QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Device" ), QLatin1String( "org.kde.WacomDevice" ) );
 
     QDBusReply<QString>  deviceName;
     if( deviceInterface->isValid() ) {
-        if( m_stylus ) {
-            deviceName = deviceInterface->call( QLatin1String( "stylusName" ) );
-        }
-        else {
-            deviceName = deviceInterface->call( QLatin1String( "eraserName" ) );
-        }
+        deviceName = deviceInterface->call( QLatin1String( "eraserName" ) );
 
         if( deviceName.isValid() ) {
             selectPC->setDeviceHandler( deviceInterface, deviceName );
         }
     }
 
-    selectPC->setControllPoints( m_ui->pressureValue->text() );
+    selectPC->setControllPoints( m_ui->eraserPressureButton->property( "curve" ).toString() );
 
     int ret = selectPC->exec();
 
     if( ret == KDialog::Accepted ) {
-        m_ui->pressureValue->setText( selectPC->getControllPoints() );
+        m_ui->eraserPressureButton->setProperty( "curve", selectPC->getControllPoints() );
 
         emit changed();
     }
     else {
         // reset the current pressurecurve to what is specified in the profile
         // rather than stick to the curve the user declined in the dialogue
-        deviceInterface->call( QLatin1String( "setConfiguration" ), QString( deviceName ), QLatin1String( "PressCurve" ), m_ui->pressureValue->text() );
+        deviceInterface->call( QLatin1String( "setConfiguration" ), QString( deviceName ), QLatin1String( "PressCurve" ), m_ui->eraserPressureButton->property( "curve" ).toString() );
+    }
+    delete selectPC;
+    delete deviceInterface;
+}
+
+void PenWidget::changeTipPressCurve()
+{
+    QPointer <PressCurveDialog> selectPC = new PressCurveDialog( this );
+
+    QDBusInterface *deviceInterface = new QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Device" ), QLatin1String( "org.kde.WacomDevice" ) );
+
+    QDBusReply<QString>  deviceName;
+    if( deviceInterface->isValid() ) {
+        deviceName = deviceInterface->call( QLatin1String( "stylusName" ) );
+
+        if( deviceName.isValid() ) {
+            selectPC->setDeviceHandler( deviceInterface, deviceName );
+        }
+    }
+
+    selectPC->setControllPoints( m_ui->tipPressureButton->property( "curve" ).toString() );
+
+    int ret = selectPC->exec();
+
+    if( ret == KDialog::Accepted ) {
+        m_ui->tipPressureButton->setProperty( "curve", selectPC->getControllPoints() );
+
+        emit changed();
+    }
+    else {
+        // reset the current pressurecurve to what is specified in the profile
+        // rather than stick to the curve the user declined in the dialogue
+        deviceInterface->call( QLatin1String( "setConfiguration" ), QString( deviceName ), QLatin1String( "PressCurve" ), m_ui->tipPressureButton->property( "curve" ).toString() );
     }
     delete selectPC;
     delete deviceInterface;

@@ -102,13 +102,12 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     stylusGroup->writeEntry( "Button3", "3" );
     stylusGroup->writeEntry( "Mode", "absolute" );
     stylusGroup->writeEntry( "PressureCurve", "0 0 100 100" );
-    stylusGroup->writeEntry( "TapTime", "250" );
     stylusGroup->writeEntry( "Threshold", "27" );
 
     //stylusGroup->writeEntry("RawFilter", "todo");
     //eraserGroup->writeEntry("Suppress", "todo");
     //eraserGroup->writeEntry("RawSample", "todo");
-    //stylusGroup->writeEntry("MapToOutput", "todo"); // don't specify a default output. A selection can be made via the gui if the user whats to change it from the default output to something else
+    //stylusGroup->writeEntry("MapToOutput", "todo"); // don't specify a default output. A selection can be made via the gui if the user wants to change it from the default output to something else
 
     stylusGroup->writeEntry( "Rotate", "none" );
     stylusGroup->writeEntry( "0ChangeArea", "false" );
@@ -150,13 +149,12 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     eraserGroup->writeEntry( "Button3", "3" );
     eraserGroup->writeEntry( "Mode", "absolute" );
     eraserGroup->writeEntry( "PressureCurve", "0 0 100 100" );
-    eraserGroup->writeEntry( "TapTime", "250" );
     eraserGroup->writeEntry( "Threshold", "27" );
 
     //stylusGroup->writeEntry("RawFilter", "todo");
     //eraserGroup->writeEntry("Suppress", "todo");
     //eraserGroup->writeEntry("RawSample", "todo");
-    //stylusGroup->writeEntry("MapToOutput", "todo"); // don't specify a default output. A selection can be made via the gui if the user whats to change it from the default output to something else
+    //stylusGroup->writeEntry("MapToOutput", "todo"); // don't specify a default output. A selection can be made via the gui if the user wants to change it from the default output to something else
 
     eraserGroup->writeEntry( "Rotate", "none" );
     eraserGroup->writeEntry( "0ChangeArea", "false" );
@@ -240,6 +238,8 @@ void ProfileManagement::createNewProfile( const QString &profilename )
         else {
             touchGroup->writeEntry( "ScrollDistance", "50" );
         }
+
+        touchGroup->writeEntry( "TapTime", "250" );
 
         delete touchGroup;
     }

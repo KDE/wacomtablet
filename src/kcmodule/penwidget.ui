@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>468</width>
-    <height>510</height>
+    <width>749</width>
+    <height>455</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,87 +16,238 @@
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4">
+  <layout class="QVBoxLayout" name="verticalLayout_6">
    <item>
-    <widget class="QGroupBox" name="groupBox_Cursor">
-     <property name="title">
-      <string>Cursor Settings</string>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <property name="spacing">
+      <number>10</number>
      </property>
-     <layout class="QFormLayout" name="formLayout">
-      <property name="fieldGrowthPolicy">
-       <enum>QFormLayout::ExpandingFieldsGrow</enum>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="labelCursorMode">
-        <property name="text">
-         <string comment="Toggle between absolute/relative penmode">Mode:</string>
+     <item row="0" column="0" rowspan="3">
+      <layout class="QVBoxLayout" name="verticalLayout_8">
+       <property name="spacing">
+        <number>-1</number>
+       </property>
+       <item>
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="penLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>300</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="1">
+      <widget class="QGroupBox" name="eraserBox">
+       <property name="title">
+        <string>Eraser Feel</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>2</number>
         </property>
-        <property name="buddy">
-         <cstring>radioButton_Absolute</cstring>
+        <property name="margin">
+         <number>8</number>
         </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QRadioButton" name="radioButton_Absolute">
-          <property name="toolTip">
-           <string>The mouse cursor will move exactly to the position on the tablet.</string>
-          </property>
-          <property name="text">
-           <string comment="absolute pen movement (pen mode)">Absolute</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButton_Relative">
-          <property name="toolTip">
-           <string>The mouse cursor can be moved freely. The tablet working space does not represent the screen space
- The speed of the mouse is the same as specified for any other mouse pointer. This can be changed in the mouse setting section</string>
-          </property>
-          <property name="text">
-           <string comment="relative pen movement (mouse mode)">Relative</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Threshold:</string>
-        </property>
-        <property name="buddy">
-         <cstring>thresholdSlider</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <widget class="QSlider" name="thresholdSlider">
-          <property name="minimumSize">
-           <size>
-            <width>250</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="toolTip">
-           <string>Set the minimum pressure necessary to generate a Button event for the stylus/tip, eraser, or touch.
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QSlider" name="eraserSlider">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Set the minimum pressure necessary to generate a Button event for the stylus/tip, eraser, or touch.
  The pressure levels of all tablets are normalized to 2048 levels irregardless of the actual hardware supported levels. 
 This parameter is independent of the PressureCurve parameter.</string>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>2000</number>
+            </property>
+            <property name="singleStep">
+             <number>20</number>
+            </property>
+            <property name="value">
+             <number>27</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksBelow</enum>
+            </property>
+            <property name="tickInterval">
+             <number>250</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLabel" name="labelSlow_2">
+              <property name="text">
+               <string comment="slow movement of the cursor (minimal value)">Soft</string>
+              </property>
+              <property name="buddy">
+               <cstring>eraserSlider</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::MinimumExpanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelFast_2">
+              <property name="text">
+               <string comment="fast movement of the cursor (maximal value)">Firm</string>
+              </property>
+              <property name="buddy">
+               <cstring>eraserSlider</cstring>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="eraserPressureButton">
+            <property name="toolTip">
+             <string>Defines the pressure sensitivity with a bezier curve</string>
+            </property>
+            <property name="text">
+             <string>Edit Press Curve...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QGroupBox" name="DblClickBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>Double Click Distance</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="margin">
+         <number>8</number>
+        </property>
+        <item>
+         <widget class="QSlider" name="doubleClickSlider">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>The time difference between two tip clicks that still counts as double click</string>
           </property>
           <property name="minimum">
-           <number>0</number>
+           <number>1</number>
           </property>
           <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="singleStep">
+           <number>50</number>
+          </property>
+          <property name="pageStep">
            <number>50</number>
           </property>
           <property name="value">
-           <number>27</number>
+           <number>250</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -105,24 +256,24 @@ This parameter is independent of the PressureCurve parameter.</string>
            <enum>QSlider::TicksBelow</enum>
           </property>
           <property name="tickInterval">
-           <number>5</number>
+           <number>50</number>
           </property>
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QLabel" name="labelSlow_2">
+           <widget class="QLabel" name="labelClickDistOff">
             <property name="text">
-             <string comment="slow movement of the cursor (minimal value)">Slow</string>
+             <string comment="doubleclick with the tip disabled">Small</string>
             </property>
             <property name="buddy">
-             <cstring>thresholdSlider</cstring>
+             <cstring>doubleClickSlider</cstring>
             </property>
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_4">
+           <spacer name="horizontalSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -138,322 +289,343 @@ This parameter is independent of the PressureCurve parameter.</string>
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="labelFast_2">
+           <widget class="QLabel" name="labelClickDistLarge">
             <property name="text">
-             <string comment="fast movement of the cursor (maximal value)">Fast</string>
+             <string comment="large distance between two tip clicks to still count is as double click">Big</string>
             </property>
             <property name="buddy">
-             <cstring>thresholdSlider</cstring>
+             <cstring>doubleClickSlider</cstring>
             </property>
            </widget>
           </item>
          </layout>
         </item>
-       </layout>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="labelPressure">
-        <property name="text">
-         <string>Pressure:</string>
-        </property>
-        <property name="buddy">
-         <cstring>pressureButton</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
-         <widget class="QLabel" name="pressureValue">
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QGroupBox" name="buttonGroupBox">
+       <property name="title">
+        <string>Button Settings</string>
+       </property>
+       <layout class="QFormLayout" name="formLayout_3">
+        <property name="margin">
+         <number>8</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="labelButton3">
+          <property name="text">
+           <string>Button 3:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button3ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="KComboBox" name="button3ComboBox">
+          <property name="toolTip">
+           <string>Action defined by the 3rd stylus button</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="button3ActionLabel">
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="labelButton2">
+          <property name="text">
+           <string>Button 2:</string>
+          </property>
+          <property name="buddy">
+           <cstring>button2ComboBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="KComboBox" name="button2ComboBox">
+          <property name="toolTip">
+           <string>Action defined by the 2nd stylus button</string>
+          </property>
+          <property name="maxVisibleItems">
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="button2ActionLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="1" column="2" rowspan="2">
+      <widget class="QGroupBox" name="groupBox_Cursor">
+       <property name="title">
+        <string>Cursor Settings</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <property name="horizontalSpacing">
+         <number>-1</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>10</number>
+        </property>
+        <property name="margin">
+         <number>8</number>
+        </property>
+        <item row="1" column="0" colspan="2">
+         <widget class="QRadioButton" name="radioButton_Absolute">
+          <property name="toolTip">
+           <string>The mouse cursor will move exactly to the position on the tablet.</string>
+          </property>
+          <property name="text">
+           <string comment="absolute pen movement (pen mode)">Absolute (Pen Mode)</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
          <spacer name="horizontalSpacer_3">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>198</width>
+            <height>21</height>
            </size>
           </property>
          </spacer>
         </item>
-        <item>
-         <widget class="QPushButton" name="pressureButton">
+        <item row="4" column="0" colspan="2">
+         <widget class="QRadioButton" name="radioButton_Relative">
           <property name="toolTip">
-           <string>Defines the pressure sensitivity with a bezier curve</string>
+           <string>The mouse cursor can be moved freely. The tablet working space does not represent the screen space
+ The speed of the mouse is the same as specified for any other mouse pointer. This can be changed in the mouse setting section</string>
           </property>
           <property name="text">
-           <string>Edit Press Curve...</string>
+           <string comment="relative pen movement (mouse mode)">Relative (Mouse Mode)</string>
           </property>
          </widget>
         </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox_TipClick">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="title">
-      <string>Tip Double Click Distance</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>10</number>
-      </property>
-      <property name="rightMargin">
-       <number>10</number>
-      </property>
-      <property name="bottomMargin">
-       <number>10</number>
-      </property>
-      <item>
-       <widget class="QSlider" name="clickSlider">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string>The time difference between two tip clicks that still counts as double click</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>1000</number>
-        </property>
-        <property name="singleStep">
-         <number>50</number>
-        </property>
-        <property name="pageStep">
-         <number>50</number>
-        </property>
-        <property name="value">
-         <number>250</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="tickPosition">
-         <enum>QSlider::TicksBelow</enum>
-        </property>
-        <property name="tickInterval">
-         <number>50</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="labelClickDistOff">
-          <property name="text">
-           <string comment="doubleclick with the tip disabled">Short</string>
-          </property>
-          <property name="buddy">
-           <cstring>clickSlider</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
+        <item row="5" column="0">
+         <spacer name="horizontalSpacer_6">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::MinimumExpanding</enum>
-          </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>198</width>
+            <height>21</height>
            </size>
           </property>
          </spacer>
         </item>
-        <item>
-         <widget class="QLabel" name="labelClickDistLarge">
-          <property name="text">
-           <string comment="large distance between two tip clicks to still count is as double click">Long</string>
+        <item row="2" column="1">
+         <widget class="QCheckBox" name="tpcCheckBox">
+          <property name="toolTip">
+           <string>If enabled pressing a button is recognized when the pen is above the tablet. If disabled the click and tap function is active</string>
           </property>
-          <property name="buddy">
-           <cstring>clickSlider</cstring>
+          <property name="text">
+           <string>use Hover Click</string>
           </property>
          </widget>
         </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Cursor Proximity:</string>
+          </property>
+          <property name="buddy">
+           <cstring>cursorProxInput</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="KIntNumInput" name="cursorProxInput">
+          <property name="toolTip">
+           <string>Sets cursor distance for proximity-out in distance from the tablet.</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
-      </item>
-     </layout>
-    </widget>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="title">
+        <string>Tip Feel</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <property name="margin">
+         <number>8</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <widget class="QSlider" name="tipSlider">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Set the minimum pressure necessary to generate a Button event for the stylus/tip, eraser, or touch.
+ The pressure levels of all tablets are normalized to 2048 levels irregardless of the actual hardware supported levels. 
+This parameter is independent of the PressureCurve parameter.</string>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>2000</number>
+            </property>
+            <property name="singleStep">
+             <number>20</number>
+            </property>
+            <property name="value">
+             <number>27</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksBelow</enum>
+            </property>
+            <property name="tickInterval">
+             <number>250</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLabel" name="labelSlow_3">
+              <property name="text">
+               <string comment="slow movement of the cursor (minimal value)">Soft</string>
+              </property>
+              <property name="buddy">
+               <cstring>tipSlider</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::MinimumExpanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelFast_3">
+              <property name="text">
+               <string comment="fast movement of the cursor (maximal value)">Firm</string>
+              </property>
+              <property name="buddy">
+               <cstring>tipSlider</cstring>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <spacer name="horizontalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="tipPressureButton">
+            <property name="toolTip">
+             <string>Defines the pressure sensitivity with a bezier curve</string>
+            </property>
+            <property name="text">
+             <string>Edit Press Curve...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
-    <widget class="QGroupBox" name="buttonGroupBox">
-     <property name="title">
-      <string>Button Settings</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="labelButtonTip">
-        <property name="text">
-         <string>Tip:</string>
-        </property>
-        <property name="buddy">
-         <cstring>button1ComboBox</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="KComboBox" name="button1ComboBox">
-        <property name="toolTip">
-         <string>Action defined by the stylus tip</string>
-        </property>
-        <property name="maxVisibleItems">
-         <number>20</number>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3" colspan="2">
-       <widget class="QCheckBox" name="tabletPCButtonCheckBox">
-        <property name="toolTip">
-         <string>If on, the stylus must be in contact with the screen for a stylus side button to work. 
-If off, stylus buttons will work once the stylus is in proximity of the tablet (regardless of whether it is touching the screen)</string>
-        </property>
-        <property name="text">
-         <string>Tablet PC button</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="button1ActionLabel">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3" rowspan="2">
-       <widget class="QLabel" name="label_2">
-        <property name="toolTip">
-         <string>Minimum motion before sending a scroll gesture (default is 20).</string>
-        </property>
-        <property name="text">
-         <string>Cursor Proximity:</string>
-        </property>
-        <property name="buddy">
-         <cstring>cursorProximityBox</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4" rowspan="2">
-       <widget class="KIntSpinBox" name="cursorProximityBox">
-        <property name="toolTip">
-         <string>Sets cursor distance for proximity-out in distance from the tablet.  (default is 10 for Intuos series, 42 for Graphire series).</string>
-        </property>
-        <property name="minimum">
-         <number>-1</number>
-        </property>
-        <property name="maximum">
-         <number>200</number>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="labelButton2">
-        <property name="text">
-         <string>Button 2:</string>
-        </property>
-        <property name="buddy">
-         <cstring>button2ComboBox</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="KComboBox" name="button2ComboBox">
-        <property name="toolTip">
-         <string>Action defined by the 2nd stylus button</string>
-        </property>
-        <property name="maxVisibleItems">
-         <number>20</number>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::MinimumExpanding</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>146</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLabel" name="button2ActionLabel">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="labelButton3">
-        <property name="text">
-         <string>Button 3:</string>
-        </property>
-        <property name="buddy">
-         <cstring>button3ComboBox</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="KComboBox" name="button3ComboBox">
-        <property name="toolTip">
-         <string>Action defined by the 3rd stylus button</string>
-        </property>
-        <property name="maxVisibleItems">
-         <number>20</number>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QLabel" name="button3ActionLabel">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_2">
+    <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>28</height>
+       <height>11</height>
       </size>
      </property>
     </spacer>
@@ -462,41 +634,76 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
   </customwidget>
+  <customwidget>
+   <class>KIntNumInput</class>
+   <extends>QWidget</extends>
+   <header>knuminput.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>radioButton_Absolute</tabstop>
-  <tabstop>radioButton_Relative</tabstop>
-  <tabstop>thresholdSlider</tabstop>
-  <tabstop>pressureButton</tabstop>
-  <tabstop>clickSlider</tabstop>
-  <tabstop>button1ComboBox</tabstop>
-  <tabstop>button2ComboBox</tabstop>
+  <tabstop>eraserSlider</tabstop>
+  <tabstop>eraserPressureButton</tabstop>
   <tabstop>button3ComboBox</tabstop>
+  <tabstop>button2ComboBox</tabstop>
+  <tabstop>tipSlider</tabstop>
+  <tabstop>tipPressureButton</tabstop>
+  <tabstop>doubleClickSlider</tabstop>
+  <tabstop>cursorProxInput</tabstop>
+  <tabstop>radioButton_Absolute</tabstop>
+  <tabstop>tpcCheckBox</tabstop>
+  <tabstop>radioButton_Relative</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>radioButton_Relative</sender>
-   <signal>toggled(bool)</signal>
+   <sender>eraserSlider</sender>
+   <signal>valueChanged(int)</signal>
    <receiver>PenWidget</receiver>
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>223</x>
-     <y>55</y>
+     <x>154</x>
+     <y>53</y>
     </hint>
     <hint type="destinationlabel">
-     <x>338</x>
-     <y>0</y>
+     <x>2</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tipSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PenWidget</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>80</x>
+     <y>349</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleClickSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>PenWidget</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>677</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>746</x>
+     <y>52</y>
     </hint>
    </hints>
   </connection>
@@ -507,60 +714,28 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>149</x>
-     <y>55</y>
+     <x>547</x>
+     <y>242</y>
     </hint>
     <hint type="destinationlabel">
-     <x>2</x>
-     <y>53</y>
+     <x>748</x>
+     <y>189</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>clickSlider</sender>
-   <signal>valueChanged(int)</signal>
+   <sender>radioButton_Relative</sender>
+   <signal>toggled(bool)</signal>
    <receiver>PenWidget</receiver>
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>406</x>
-     <y>219</y>
+     <x>560</x>
+     <y>300</y>
     </hint>
     <hint type="destinationlabel">
-     <x>714</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>button1ComboBox</sender>
-   <signal>activated(int)</signal>
-   <receiver>PenWidget</receiver>
-   <slot>selectKeyFunction(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>146</x>
-     <y>314</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>712</x>
-     <y>49</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>button2ComboBox</sender>
-   <signal>activated(int)</signal>
-   <receiver>PenWidget</receiver>
-   <slot>selectKeyFunction(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>146</x>
-     <y>360</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>713</x>
-     <y>103</y>
+     <x>748</x>
+     <y>249</y>
     </hint>
    </hints>
   </connection>
@@ -571,76 +746,92 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
    <slot>selectKeyFunction(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>146</x>
-     <y>406</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>713</x>
-     <y>152</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pressureButton</sender>
-   <signal>clicked()</signal>
-   <receiver>PenWidget</receiver>
-   <slot>changePressCurve()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>455</x>
-     <y>149</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>3</x>
-     <y>208</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>thresholdSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>PenWidget</receiver>
-   <slot>profileChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>125</x>
-     <y>74</y>
+     <x>166</x>
+     <y>199</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
-     <y>101</y>
+     <y>201</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>tabletPCButtonCheckBox</sender>
-   <signal>clicked()</signal>
+   <sender>button2ComboBox</sender>
+   <signal>activated(int)</signal>
    <receiver>PenWidget</receiver>
-   <slot>profileChanged()</slot>
+   <slot>selectKeyFunction(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>348</x>
-     <y>299</y>
+     <x>159</x>
+     <y>239</y>
     </hint>
     <hint type="destinationlabel">
-     <x>465</x>
-     <y>315</y>
+     <x>3</x>
+     <y>248</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>cursorProximityBox</sender>
+   <sender>eraserPressureButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PenWidget</receiver>
+   <slot>changeEraserPressCurve()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>320</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>311</x>
+     <y>2</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tipPressureButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PenWidget</receiver>
+   <slot>changeTipPressCurve()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>323</x>
+     <y>405</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>321</x>
+     <y>436</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cursorProxInput</sender>
    <signal>valueChanged(int)</signal>
    <receiver>PenWidget</receiver>
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>339</y>
+     <x>698</x>
+     <y>205</y>
     </hint>
     <hint type="destinationlabel">
-     <x>466</x>
-     <y>365</y>
+     <x>749</x>
+     <y>220</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tpcCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>PenWidget</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>690</x>
+     <y>269</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>747</x>
+     <y>288</y>
     </hint>
    </hints>
   </connection>
@@ -648,6 +839,9 @@ If off, stylus buttons will work once the stylus is in proximity of the tablet (
  <slots>
   <slot>profileChanged()</slot>
   <slot>selectKeyFunction(int)</slot>
-  <slot>changePressCurve()</slot>
+  <slot>changeEraserPressCurve()</slot>
+  <slot>showPenModeSettings()</slot>
+  <slot>showMouseModeSettings()</slot>
+  <slot>changeTipPressCurve()</slot>
  </slots>
 </ui>

@@ -154,8 +154,7 @@ private:
     GeneralWidget      *m_generalPage;         /**< Widget that shows some basic information about the tablet */
     PadButtonWidget    *m_padButtonPage;       /**< Widget for the pad button settings */
     PadMapping         *m_padMappingPage;      /**< Widget for the pad rotation and working area */
-    PenWidget          *m_stylusPage;          /**< Widget for the stylus pen settings */
-    PenWidget          *m_eraserPage;          /**< Widget for the eraser pen settings */
+    PenWidget          *m_penPage;             /**< Widget for the pen settings (stylus/eraser) */
     bool                m_profileChanged;      /**< True if the profile was changed and not saved yet */
     QPointer<QWidget>   m_deviceError;         /**< Shows the error widget */
 };
