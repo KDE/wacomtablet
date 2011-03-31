@@ -18,6 +18,16 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
+[0003]
+model=PTU-600
+layout=bl_3
+name=Wacom Cintiq Partner
+padbuttons=10
+wheel=no
+touchring=no
+touchstripl=yes
+touchstripr=yes
+
 [0010]
 model=ET_0405
 layout=unknown
@@ -85,6 +95,36 @@ name=Wacom Graphire4 6x8
 padbuttons=2
 wheel=yes
 touchring=no
+touchstripl=no
+touchstripr=no
+
+[0017]
+model=CTE_450
+layout=bl_5
+name=Wacom BambooFun 4x5
+padbuttons=4
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+
+[0018]
+model=CTE_650
+layout=bl_5
+name=Wacom BambooFun 6x8
+padbuttons=4
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+
+[0019]
+model=CTE_631
+layout=bl_6
+name=Wacom Bamboo1 Medium
+padbuttons=4
+wheel=no
+touchring=yes
 touchstripl=no
 touchstripr=no
 
@@ -226,46 +266,16 @@ padbuttons=0
 wheel=no
 touchring=no
 touchstripl=no
-touchstripr=no
 
-[00BC]
-model=PTK-540WL
-layout=bl_4
-name=Wacom Intuos4 WL
+[003F]
+model=DTZ-21ux
+layout=unknown
+name=Wacom Cintiq 21UX
 padbuttons=8
 wheel=no
-touchring=yes
-touchstripl=no
-touchstripr=no
-
-[00C0]
-model=MODEL_DTF720
-layout=unknown
-name=Wacom DTF720
-padbuttons=0
-wheel=no
 touchring=no
-touchstripl=no
-touchstripr=no
-
-[00C4]
-model=MODEL_DTF521
-layout=unknown
-name=Wacom DTF521
-padbuttons=0
-wheel=no
-touchring=no
-touchstripl=no
-touchstripr=no
-
-[00C7]
-model=MODEL_DTU1931
-layout=unknown
-name=Wacom DTU1931
-padbuttons=0
-wheel=no
-touchring=no
-touchstripl=no
+touchstripl=yes
+touchstripr=yes
 touchstripr=no
 
 [0041]
@@ -378,16 +388,6 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
-[0069]
-model=CTF_430-U
-layout=unknown
-name=Wacom Bamboo1
-padbuttons=4
-wheel=no
-touchring=yes
-touchstripl=no
-touchstripr=no
-
 [0065]
 model=MTE_450
 layout=bl_6
@@ -398,55 +398,15 @@ touchring=yes
 touchstripl=no
 touchstripr=no
 
-[0017]
-model=CTE_450
-layout=bl_5
-name=Wacom BambooFun 4x5
-padbuttons=4
+[0069]
+model=CTF_430-U
+layout=unknown
+name=Wacom Bamboo one
+padbuttons=o
 wheel=no
 touchring=yes
 touchstripl=no
 touchstripr=no
-
-[0018]
-model=CTE_650
-layout=bl_5
-name=Wacom BambooFun 6x8
-padbuttons=4
-wheel=no
-touchring=yes
-touchstripl=no
-touchstripr=no
-
-[0019]
-model=CTE_631
-layout=bl_6
-name=Wacom Bamboo1 Medium
-padbuttons=4
-wheel=no
-touchring=yes
-touchstripl=no
-touchstripr=no
-
-[00D1]
-model=CTH-460
-layout=bl_8
-name=Wacom BambooFun 2FG 4x5
-padbuttons=4
-wheel=no
-touchring=no
-touchstripl=no
-touchstripr=no
-
-[0003]
-model=PTU-600
-layout=bl_3
-name=Wacom Cintiq Partner
-padbuttons=10
-wheel=no
-touchring=no
-touchstripl=yes
-touchstripr=yes
 
 [0090]
 model=TPC-090
@@ -478,35 +438,15 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
-[003F]
-model=DTZ-21ux
+[009F]
+model=unknown
 layout=unknown
-name=Wacom Cintiq 21UX
-padbuttons=8
-wheel=no
-touchring=no
-touchstripl=yes
-touchstripr=yes
-
-[00C5]
-model=DTZ-20wsx
-layout=unknown
-name=Wacom Cintiq 20WSX
+name=Wacom CapPlus
 padbuttons=0
 wheel=no
 touchring=no
 touchstripl=no
 touchstripr=no
-
-[00C6]
-model=DTZ-12wx
-layout=unknown
-name=Wacom Cintiq 12WX
-padbuttons=10
-wheel=no
-touchring=no
-touchstripl=yes
-touchstripr=yes
 
 [00B0]
 model=PTZ-430
@@ -587,7 +527,6 @@ wheel=no
 touchring=yes
 touchstripl=no
 touchstripr=no
-touchstripr=no
 
 [00B9]
 model=PTK-640
@@ -597,6 +536,167 @@ padbuttons=9
 wheel=no
 touchring=yes
 touchstripl=no
+touchstripr=no
+
+[00BA]
+model=unknwon
+layout=bl_4
+name=Wacom Intuos4 8x13
+padbuttons=9
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+
+[00BB]
+model=unknwon
+layout=bl_4
+name=Wacom Intuos4 12x19
+padbuttons=9
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+
+[00BC]
+model=PTK-540WL
+layout=bl_4
+name=Wacom Intuos4 WL USB
+padbuttons=8
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+
+[00BD]
+model=unknwon
+layout=bl_4
+name=Wacom Intuos4 WL Bluetooth
+padbuttons=8
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+
+[00C0]
+model=MODEL_DTF720
+layout=unknown
+name=Wacom DTF720
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00C2]
+model=unknwon
+layout=unknown
+name=Wacom DTF720a
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00C4]
+model=MODEL_DTF521
+layout=unknown
+name=Wacom DTF521
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00C5]
+model=DTZ-20wsx
+layout=unknown
+name=Wacom Cintiq 20WSX
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00C6]
+model=DTZ-12wx
+layout=unknown
+name=Wacom Cintiq 12WX
+padbuttons=10
+wheel=no
+touchring=no
+touchstripl=yes
+touchstripr=yes
+
+[00C7]
+model=MODEL_DTU1931
+layout=unknown
+name=Wacom DTU1931
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00CC]
+model=unknown
+layout=unknown
+name=Wacom Cintiq 21UX2
+padbuttons=10
+wheel=no
+touchring=no
+touchstripl=yes
+touchstripr=yes
+
+[00CE]
+model=unknown
+layout=unknown
+name=Wacom DTU2231
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00D0]
+model=CTT-460
+layout=bl_8
+name=Bamboo Touch
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00D1]
+model=CTH-460
+layout=bl_8
+name=Bamboo Pen & Touch
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00D2]
+model=CTH-461
+layout=bl_8
+name=Bamboo Craft
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00D3]
+model=CTH-661
+layout=bl_8
+name=Bamboo Fun
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
 
 [00D4]
 model=CTL-460
@@ -606,6 +706,67 @@ padbuttons=0
 wheel=no
 touchring=no
 touchstrip1=no
+touchstripr=no
+
+[00D6]
+model=CTH-460/K
+layout=bl_8
+name=Wacom Bamboo Pen & Touch
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00D7]
+model=CTH-461/S
+layout=bl_8
+name=Bamboo Fun Small
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00D8]
+model=CTH-661/S1
+layout=bl_8
+name=Bamboo Comic Medium
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00DA]
+model=CTH-461/L
+layout=bl_8
+name=Bamboo P & T Special Edition Small
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00DB]
+model=CTH-661/L
+layout=bl_8
+name=Bamboo P & T Special Edition Medium
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00E2]
+model=unknown
+layout=unknown
+name=Serial Wacom Tablet (Lenovo X201)
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
 
 [00E3]
 model=unknown
@@ -615,3 +776,14 @@ padbuttons=0
 wheel=no
 touchring=no
 touchstripl=no
+touchstripr=no
+
+[00F0]
+model=unknown
+layout=unknown
+name=DTU1631
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no

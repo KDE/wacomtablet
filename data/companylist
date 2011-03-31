@@ -1,3 +1,8 @@
+[wacom-default]
+name=Unknown company
+listfile=default_devicelist
+driver=wacom-tools
+
 [056a]
 name=Wacom Co., Ltd
 listfile=wacom_devicelist
@@ -13,7 +18,17 @@ name=Toshiba
 listfile=toshiba_devicelist
 driver=wacom-tools
 
-[wacom-default]
-name=Unknown company
-listfile=default_devicelist
+[17ef]
+name=Lenovo
+listfile=lenovo_devicelist
 driver=wacom-tools
+
+[1b96]
+name=N-Trig
+listfile=ntrig_devicelist
+driver=wacom-tools
+
+[08ca]
+name=Aiptek
+listfile=aiptek_devicelist
+driver=aiptek
