@@ -14,6 +14,7 @@ set( kcm_tablet_SRCS
      tabletwidget.cpp
      calibrationdialog.cpp
      touchwidget.cpp
+     tabletarea.cpp
 )
 
 kde4_add_ui_files( kcm_tablet_SRCS

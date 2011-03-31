@@ -59,6 +59,7 @@ TabletWidget::~TabletWidget()
     delete m_generalPage;
     delete m_padButtonPage;
     delete m_padMappingPage;
+    delete m_touchMappingPage;
     delete m_penPage;
     delete m_touchPage;
 }
@@ -77,6 +78,9 @@ void TabletWidget::init()
     m_generalPage = new GeneralWidget( m_deviceInterface, m_profileManagement );
     m_padButtonPage = new PadButtonWidget( m_profileManagement );
     m_padMappingPage = new PadMapping( m_deviceInterface, m_profileManagement );
+    m_padMappingPage->setTool( 0 );
+    m_touchMappingPage = new PadMapping( m_deviceInterface, m_profileManagement );
+    m_touchMappingPage->setTool( 1 );
     m_penPage = new PenWidget( m_profileManagement );
     m_touchPage = new TouchWidget( m_profileManagement );
     m_ui->setupUi( this );
@@ -88,6 +92,7 @@ void TabletWidget::init()
     connect( m_ui->profileSelector, SIGNAL( currentIndexChanged( const QString ) ), SLOT( switchProfile( const QString ) ) );
     connect( m_padButtonPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
     connect( m_padMappingPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
+    connect( m_touchMappingPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
     connect( m_penPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
     connect( m_touchPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
     connect( m_generalPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
@@ -125,6 +130,7 @@ void TabletWidget::loadTabletInformation()
     m_generalPage->reloadWidget();
     m_padButtonPage->reloadWidget();
     m_padMappingPage->reloadWidget();
+    m_touchMappingPage->reloadWidget();
     m_penPage->reloadWidget();
     m_touchPage->reloadWidget();
 
@@ -169,6 +175,9 @@ void TabletWidget::loadTabletInformation()
     }
 
     m_ui->deviceTabWidget->addTab( m_padMappingPage, i18n( "Pad Mapping" ) );
+    if( !touchName.isEmpty() ) {
+        m_ui->deviceTabWidget->addTab( m_touchMappingPage, i18n( "Touch Mapping" ) );
+    }
 
     // switch to the current active profile
     QDBusReply<QString> profile = m_tabletInterface->call( QLatin1String( "profile" ) );
@@ -220,6 +229,7 @@ void TabletWidget::saveProfile()
     m_generalPage->saveToProfile();
     m_padButtonPage->saveToProfile();
     m_padMappingPage->saveToProfile();
+    m_touchMappingPage->saveToProfile();
     m_penPage->saveToProfile();
     m_touchPage->saveToProfile();
 
@@ -252,6 +262,7 @@ void TabletWidget::switchProfile( const QString &profile )
     m_generalPage->loadFromProfile();
     m_padButtonPage->loadFromProfile();
     m_padMappingPage->loadFromProfile();
+    m_touchMappingPage->loadFromProfile();
     m_penPage->loadFromProfile();
     m_touchPage->loadFromProfile();
 
@@ -266,6 +277,7 @@ void TabletWidget::reloadProfile()
     m_generalPage->loadFromProfile();
     m_padButtonPage->loadFromProfile();
     m_padMappingPage->loadFromProfile();
+    m_touchMappingPage->loadFromProfile();
     m_penPage->loadFromProfile();
     m_touchPage->loadFromProfile();
 

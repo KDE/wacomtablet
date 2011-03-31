@@ -31,6 +31,7 @@ class QDBusInterface;
 namespace Wacom
 {
 class ProfileManagement;
+class TabletArea;
 
 /**
   * This class implements the widget to change the pad mapping
@@ -54,6 +55,8 @@ public:
       * default destructor
       */
     ~PadMapping();
+
+    void setTool(int tool);
 
     /**
       * Saves all values to the current profile
@@ -85,8 +88,6 @@ public slots:
      */
     void showCalibrationDialog();
 
-    void switchCalibrationTool();
-
 signals:
     /**
       * Used to inform the main widget that unsaved changes in the current profile are available.
@@ -98,8 +99,8 @@ private:
     QDBusInterface      *m_deviceInterface;   /**< Connection to the tablet daemon DBus /Device Interface */
     ProfileManagement   *m_profileManagement; /**< Handler for the profile config connection */
 
-    QRect m_stylusArea;                       /**< Calibrated area for the stylus/eraser tool */
-    QRect m_touchArea;                        /**< Calibrated area for the touch tool */
+    int m_tool;
+    TabletArea *m_tabletArea;
 };
 
 }
