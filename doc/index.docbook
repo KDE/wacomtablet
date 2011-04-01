@@ -1,0 +1,406 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY tablet "<application>KCM Tablet</application>">
+  <!ENTITY kappname "&tablet;">
+  <!ENTITY package "kcontrol">
+  <!ENTITY kappversion "1.2"><!--Application version. Use this variable everywhere it's needed.-->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE">
+]>
+<book lang="&language;">
+    <bookinfo>
+    <title>The &tablet; Handbook</title>
+
+    <authorgroup>
+	<author>
+	    <firstname>Jörg</firstname>
+	    <surname>Ehrichs</surname>
+	    <affiliation>
+		<address><email>joerg.ehrichs@gmx.de</email></address>
+	    </affiliation>
+	</author>
+	<!-- TRANS:ROLES_OF_TRANSLATORS -->
+    </authorgroup>
+    <copyright>
+	<year>2009</year>
+	<holder>Jörg Ehrichs</holder>
+    </copyright>
+
+    <legalnotice>&FDLNotice;</legalnotice>
+
+    <date>2010-02-28</date><!-- Date of (re)writing, or update.-->
+    <releaseinfo>&kappversion;</releaseinfo><!-- Application version number. Use the variable definitions within header to change this value.-->
+
+    <abstract>
+	<para>This is the documentation for the &kde; &systemsettings; module that configures graphic tablets.</para>
+    </abstract>
+
+    <keywordset>
+	<keyword>KDE</keyword><!-- do not change this! -->
+	<keyword>System Settings</keyword>
+	<keyword>Wacom</keyword>
+	<keyword>Tablet</keyword>
+    </keywordset>
+
+    </bookinfo>
+
+    <chapter id="introduction">
+    <title>Wacom Tablet Settings</title>
+    <para>
+	The tablet &systemsettings; module handles all setting for your graphic tablet. All tablets supported by
+	the <ulink url="http://linuxwacom.sourceforge.net">&Linux; Wacom driver</ulink> project are handled by this settings interface.
+	Make sure your tablet is detected either via xorg.conf or HAL and works in general. Refer to the <link linkend="detection">tablet detection</link> section for more information.
+    </para>
+    <important>
+	<para>
+	    The <application>wacom-tools</application> or the <application>xf86-input-wacom</application> driver must be installed on your computer and <command>xsetwacom</command> must be available
+	    in order to make this module work correctly.
+	</para>
+    </important>
+    <para>
+	The module is split into various tab pages that handle all aspects of your tablet and the pen:
+	<link linkend="tablet-profiles">Profiles</link>,
+	<link linkend="tablet-general">General Information</link>,
+	<link linkend="pad-buttons">Pad Buttons</link>,
+        <link linkend="pad-mapping">Pad Mapping</link>,
+	<link linkend="screen-setup">Screen Setup</link>,
+	<link linkend="stylus">Stylus Settings</link> and
+	<link linkend="eraser">Eraser Settings</link>.
+    </para>
+    <sect1 id="tablet-profiles">
+	<title>Profile Management</title>
+	
+	<para>
+	    This is the small drop down box with the two buttons next to it. You can create new profiles and delete already existing ones.
+	    Each profile is saved and specified for the currently connected tablet. If you create a new profile, it automatically creates one
+	    with the default settings as returned by the wacom-tools.
+	</para>
+	
+	<para>
+	    Here you can specify different profiles for your settings.
+	    For example if you like to have a different behavior of the pen when you use it
+	    as a mouse replacement for your day to day work or using it as pen to draw something.
+	</para>
+	<para>
+	    Each profile can be changed on the fly and directly changes the behavior of your tablet input.
+	</para>
+	<note>
+	    <para>
+		The <link linkend="kded">kded tablet daemon</link> must be running in the background to be able to change the profiles and apply them to the tablet.
+		All the work is done by the daemon. The &systemsettings; module just change the profile settings for it.
+	    </para>
+	</note>
+    </sect1>
+      
+    <sect1 id="tablet-general">
+	<title>General Tablet Settings and Information</title>
+	
+	<para>
+	    Shows some general Information about the detected tablet.
+	    Beside the name and company of your tablet an image is shown and all detected input devices are listed.
+	</para>
+	
+	<note>
+	    <para>
+		The tablet must be connected and the <link linkend="kded">kded</link> must be running to allow the module to work correctly.
+	    </para>
+	    <para>
+                See the <link linkend="troubles">Detection problems</link> section for further help on the tablet detection.
+	    </para>
+	</note>
+    </sect1>
+    
+    <sect1 id="pad-buttons">
+	<title>Pad Button Settings</title>
+	
+	<para>
+	    Here you can set different actions for each pad button, the touch ring or touch strip on your tablet if available.
+	</para>
+	<para>
+	    Available actions are:
+	    <itemizedlist>
+		<listitem>
+		    <para><guilabel>Disable</guilabel> :
+			disables the button.
+		    </para>
+		</listitem>
+		
+		<listitem>
+		    <para><guilabel>Button</guilabel> :
+			emulates a general button event press.
+		    </para>
+		</listitem>
+		
+		<listitem>
+		    <para><guilabel>Keystroke</guilabel> :
+			emulates a keystroke or special key press (for example <keycap>F1</keycap> or <keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo>).
+		    </para>
+		</listitem>
+		
+		<listitem>
+		    <para><guilabel>QuoteDbl</guilabel> :
+			emulates a text string. For example you could print <quote>Hello World</quote> at the current cursor position.
+		    </para>
+		</listitem>
+	    </itemizedlist>
+	</para>
+    </sect1>
+
+    <sect1 id="pad-mapping">
+        <title>Pad Mapping Settings</title>
+
+        <para>
+            This pages change the behavior of the tablet working area. It can be rotated and reduced in size.
+        </para>
+        <para>
+            The <guilabel>Working area</guilabel> spans the whole tablet by default. The <guilabel>Top X/Y</guilabel> and <guilabel>Bottom X/Y</guilabel> coordinates can be changed to change the aspect ratio of the tablet and thus match
+            the screen ratio.
+        </para>
+    </sect1>
+    
+    <sect1 id="screen-setup">
+	<title>Screen Setup</title>
+	
+	<para>
+	    This will setup your tablet to match your screens. The multi monitor setup is realized via Nvidia TwinView support.
+	</para>
+	<para>	
+	    <itemizedlist>
+		<listitem>
+		    <para><guilabel>TwinView</guilabel> :
+			Nvidia TwinView option. Select how to connect your multi monitor setup.
+			You need to specify the right screen resolutions as well, otherwise it won't work as you expect.
+		    </para>
+		</listitem>
+		
+		<listitem>
+		    <para><guilabel>Resolution</guilabel> :
+			Specifies the Meta Mode for the monitors.
+		    </para>
+		</listitem>
+		
+		<listitem>
+		    <para><guilabel>Multi Monitor</guilabel> :
+			Turns on/off across monitor movement in multi-monitor desktop.
+		    </para>
+		</listitem>
+		
+		<listitem>
+		    <para><guilabel>Map to screen</guilabel> :
+			Maps the cursor to a specific monitor if across monitor movement is switched off.
+		    </para>
+		</listitem>
+	    </itemizedlist>
+	</para>
+
+        <note><para>
+            The button actions screen toggle and display toggle change the multi monitor behavior on the fly. See the <link linkend="stylus">stylus</link> section for more information.
+        </para></note>
+    </sect1>
+    
+    <sect1 id="stylus">
+	<title>Stylus Settings</title>
+	
+	<para>
+	    The pen that is used together with the tablet has two different sides, the main side is called stylus.
+	    With this dialog you can change any aspect of the stylus side and the buttons on the pen to adjust them to your needs.
+	</para>
+	
+	<sect2 id="cursor-settings"><title>Cursor Settings</title>
+	    <para>
+	    <itemizedlist>
+		<listitem>
+		    <para><guilabel>Mode</guilabel> :
+			Change the pen mode between absolute and relative input.
+			Relative acts more like a mouse while absolute is like a pen on the paper position.
+		    </para>
+		</listitem>
+		
+		<listitem>
+		    <para><guilabel>Speed</guilabel> :
+			Sets relative cursor movement speed
+		    </para>
+		</listitem>
+		
+		<listitem>
+		    <para><guilabel>Threshold</guilabel> :
+			Sets tip/eraser pressure threshold.
+		    </para>
+		</listitem>
+		
+		<listitem>
+		    <para><guilabel>Pressure</guilabel> :
+			Change the press curve. The curve is shown in a new dialog and you can change the Bézier curve with the
+			red dots. The curve defines how the pressure of the pen is translated.
+		    </para>
+		    <note><para>
+			Use your pen inside the press curve dialog to see the changes in the press curve directly.
+			A blue area below the curve shows the applied pressure of the pen.
+		    </para></note>
+		</listitem>
+	    </itemizedlist>
+	    </para>
+	</sect2>
+	
+	<sect2 id="tip-double-click-distance"><title>Tip Double Click Distance</title>
+	    <para>
+		Defines how fast you need to tap the tip of the pen on the tablet to be recognize it as a double click instead
+		of two single clicks.
+	    </para>
+	</sect2>
+	
+	<sect2 id="pen-button-settings"><title>Button Settings</title>
+	    <para>
+		This lets you map the tip and the two additional buttons on your pen with different actions.
+	    </para>
+	    <para>
+		Available actions are:
+		<itemizedlist>
+		    <listitem>
+			<para><guilabel>Disable</guilabel> :
+			    disables the button.
+			</para>
+		    </listitem>
+		    
+		    <listitem>
+			<para><guilabel>Button</guilabel> :
+			    emulates a general button event press.
+			</para>
+		    </listitem>
+		    
+		    <listitem>
+			<para><guilabel>Left Click</guilabel> :
+			    emulates a left mouse button click event.
+			</para>
+		    </listitem>
+		    
+		    <listitem>
+			<para><guilabel>Middle Click</guilabel> :
+			    emulates a middle mouse button click event.
+			</para>
+		    </listitem>
+		    
+		    <listitem>
+			<para><guilabel>Right Click</guilabel> :
+			    emulates a right mouse button click event.
+			</para>
+		    </listitem>
+		    
+		    <listitem>
+			<para><guilabel>Double Click</guilabel> :
+			    emulates a double click event.
+			</para>
+		    </listitem>
+		    
+		    <listitem>
+			<para><guilabel>Keystroke</guilabel> :
+			    emulates a keystroke or special key press (for example <keycap>F1</keycap> or <keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo>).
+			</para>
+		    </listitem>
+		    
+		    <listitem>
+			<para><guilabel>QuoteDbl</guilabel> :
+			    emulates a text string. For example you could print <quote>Hello World</quote> at the current cursor position.
+			</para>
+		    </listitem>
+		    
+		    <listitem>
+			<para><guilabel>Mode Toggle</guilabel> :
+			    change the pen mode between absolute and relative input.
+			    Relative acts more like a mouse while absolute is like a pen on the paper position.
+			</para>
+		    </listitem>
+		    
+		    <listitem>
+			<para><guilabel>Screen Toggle</guilabel> : 
+			    If more than one screen is connected and TwinView is deactivated this allows you to switch the current used screen.
+			</para>
+		    </listitem>
+		    
+		    <listitem>
+			<para><guilabel>Display Toggle</guilabel> : 
+			    Toggles between multi monitor and single monitor mode. Thus allows to move from one screen to another.
+			</para>
+		    </listitem>
+		</itemizedlist>
+	    </para>
+	</sect2>
+    </sect1>
+    
+    <sect1 id="eraser">
+	<title>Eraser Settings</title>
+	
+	<para>
+	    If you turn around the pen it will be recognized as eraser instead as pen. This allows to change the settings independent to the stylus side.
+	    All parameters are as described in the <link linkend="stylus">stylus</link> section.
+	</para>
+    </sect1>
+    </chapter>
+    
+    <chapter id="kded">
+    <title>Tablet daemon</title>
+    <para>
+        The tablet daemon runs in the background and does the ground work. Detecting the tablet and set it up with the selected profiles.
+        If the daemon is not running the &systemsettings; module and the plasma applet cannot work properly and the tablet cannot be used with the profiles.
+    </para>
+
+    <sect1 id="detection">
+        <title>Tablet detection</title>
+        <para>
+            The detection of the <hardware>tablet device</hardware> is done in several ways.
+            <application>Solid</application> is used in the first step and does the hotplug support.
+            If Solid fails the next steps are <command>xsetwacom list dev</command>, <command>lsusb</command> and <command>xinput --list</command>.
+        </para>
+        <para>
+            Should none of the commands above return the name of the tablet, it is not supported and cannot be used by this module.
+        </para>
+    </sect1>
+    <sect1 id="troubles">
+        <title>Detection problems</title>
+        <para>
+            If the tablet is not detected check the <ulink url="http://linuxwacom.sourceforge.net">&Linux; Wacom driver</ulink> page if your tablet is supported.
+            Furthermore check via <command>lsusb</command> if you can find your tablet.
+        </para>
+        <para>
+            If HAL does not handle the detection add the tablet to your <filename>/etc/X11/xorg.conf</filename> file and restart the x-server.
+        </para>
+        <para>
+            In case of a serial device (Tablet PC and such) check if <command>xinput --list</command> lists your input devices (Stylus/Eraser/Pad).
+            Should they be listed take a look at the internal tablet device id via <command>xsetwacom get "Name of your pad or stylus" TabletID</command>.
+            If an id is returned please mail all the necessary information to the author.
+        </para>
+        <note>
+        <para>
+            Hotplug support is only available if the tablet is found via <application>Solid</application> and its notification API.
+        </para>
+        <para>
+            <application>Solid</application> checks if the value for the entry <command>input.x11_options.Type</command> is <command>pen</command>,
+            <command>stylus</command>, <command>eraser</command> or <command>cursor</command> or if the value for the entry <command>input.x11_driver</command> is <command>wacom</command>.
+        </para>
+        <para>
+            Please mail the author if your tablet is detected by Solid but with other values to enhance the tablet support.
+        </para>
+        </note>
+    </sect1>
+    </chapter>
+
+    <chapter id="applet">
+    <title>Tablet plasma applet</title>
+    <para>
+        The tablet applet makes it possible to change the available profiles on the fly. Furthermore you can change the pad rotation and switch between absolute/relative mode
+        of the stylus/eraser regardless of the current profile settings.
+    </para>
+    <para>
+        It is not necessary to add the plasmoid for this module to work. The default profile will be activated by the  <link linkend="kded">tablet daemon</link> as soon as it
+        detects your tablet even if the plasmoid is not used. The plasmoid is just a visual helper to switch easily between the profiles.
+    </para>
+    </chapter>
+    <chapter id="credits"><title>Credits and License</title> 
+    <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+    &underFDL;
+
+    &underGPL;
+    
+    </chapter>
+</book>
