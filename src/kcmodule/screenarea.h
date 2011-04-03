@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TABLETAREA_H
-#define TABLETAREA_H
+#ifndef SCREENAREA_H
+#define SCREENAREA_H
 
 #include <QWidget>
 #include <QRect>
@@ -24,45 +24,35 @@
 
 namespace Wacom {
 
-class TabletArea : public QWidget {
+class ScreenArea : public QWidget
+{
     Q_OBJECT
 public:
-    explicit TabletArea( QWidget *parent = 0 );
+    explicit ScreenArea(QWidget *parent = 0);
 
-    void setTool( QString toolName );
-
-    QRect getOriginalArea();
-    QString getOriginalAreaString();
     QRect getSelectedArea();
     QString getSelectedAreaString();
 
-    void setSelection( QString area );
-
-public slots:
     void resetSelection();
+    void setSelection(QString area);
 
-protected:
-    void paintEvent( QPaintEvent *event );
-    void mouseMoveEvent( QMouseEvent *event );
-    void mousePressEvent( QMouseEvent *event );
-    void mouseReleaseEvent( QMouseEvent *event );
+ protected:
+     void paintEvent(QPaintEvent *event);
+     void mouseMoveEvent ( QMouseEvent * event );
+     void mousePressEvent ( QMouseEvent * event );
+     void mouseReleaseEvent ( QMouseEvent * event );
 
 signals:
-    void selectedArea( QString area );
+    void selectedArea(QString area);
 
-private:
-    /**
-     * @brief Get tablet width/height from xinput
-    */
-    void getMaxTabletArea();
+ private:
     void setupWidget();
     void updateDragHandle();
 
-    QString m_toolName;
-
-    QRectF m_origialArea;   // [tablet units]
+    QRectF m_virtualScreen;
     qreal m_scaling;        // scaling factor between tablet/widget units
-    QRectF m_selectedArea;  // [widget units]
+    QList<QRectF> m_screens;
+    QRectF m_selectedArea;
 
     QRectF m_dragHandleLeft;
     QRectF m_dragHandleRight;
@@ -72,7 +62,9 @@ private:
     bool m_dragMode;
     int m_mode;
     QPoint m_dragPoint;
+
 };
 
 }
-#endif // TABLETAREA_H
+
+#endif // SCREENAREA_H

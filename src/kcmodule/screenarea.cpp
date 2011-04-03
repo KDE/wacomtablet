@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "tabletarea.h"
+#include "screenarea.h"
 
 #include <QtGui/QMouseEvent>
 #include <QtGui/QCursor>
@@ -23,77 +23,58 @@
 #include <QtGui/QPen>
 #include <QtGui/QBrush>
 
+#include <QApplication>
+#include <QDesktopWidget>
+
 #include <QtCore/QDebug>
-
-#include <QtGui/QX11Info>
-
-// X11 includes
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
-#include <X11/extensions/XInput.h>
-#include <X11/extensions/XInput2.h>
 
 using namespace Wacom;
 
 const qreal handleSize = 6;
 const int tabletGap = 20;
 
-TabletArea::TabletArea( QWidget *parent ) :
+ScreenArea::ScreenArea( QWidget *parent ) :
     QWidget( parent )
 {
     setMouseTracking( true );
 
     setMinimumWidth( 400 + 2 * tabletGap );
     setMaximumWidth( 400 + 2 * tabletGap );
-}
 
-void TabletArea::setTool( QString toolName )
-{
-    m_toolName = toolName;
     setupWidget();
 }
 
-QRect TabletArea::getOriginalArea()
+QRect ScreenArea::getSelectedArea()
 {
-    return m_origialArea.toRect();
+    QRectF selectedArea;
+
+    selectedArea.setX( (m_selectedArea.x()-tabletGap) / m_scaling );
+    selectedArea.setY( (m_selectedArea.y()-tabletGap) / m_scaling );
+    selectedArea.setWidth( m_selectedArea.width() / m_scaling );
+    selectedArea.setHeight( m_selectedArea.height() / m_scaling );
+
+    return selectedArea.toRect();
 }
 
-QString TabletArea::getOriginalAreaString()
+QString ScreenArea::getSelectedAreaString()
 {
-    int x = ( m_origialArea.x());
-    int y = ( m_origialArea.y() );
-    int width = m_origialArea.width();
-    int height = m_origialArea.height();
+    QRect selectedArea;
 
-    QString area = QString::fromLatin1( "%1 %2 %3 %4" ).arg( x ).arg( y ).arg( width ).arg( height );
+    selectedArea.setX( (m_selectedArea.x()-tabletGap) / m_scaling );
+    selectedArea.setY( (m_selectedArea.y()-tabletGap) / m_scaling );
+    selectedArea.setWidth( m_selectedArea.width() / m_scaling );
+    selectedArea.setHeight( m_selectedArea.height() / m_scaling );
+
+    QString area = QString::fromLatin1( "%1 %2 %3 %4" )
+                   .arg( selectedArea.x() )
+                   .arg( selectedArea.y() )
+                   .arg( selectedArea.width() )
+                   .arg( selectedArea.height() );
 
     return area;
 }
 
-QRect TabletArea::getSelectedArea()
-{
-    QRect area;
-    area.setX( m_selectedArea.x() / m_scaling );
-    area.setY( m_selectedArea.y() / m_scaling );
-    area.setWidth( m_selectedArea.width() / m_scaling );
-    area.setHeight( m_selectedArea.height() / m_scaling );
-
-    return area;
-}
-
-QString TabletArea::getSelectedAreaString()
-{
-    int x = ( m_selectedArea.x() - tabletGap ) / m_scaling;
-    int y = ( m_selectedArea.y() - tabletGap ) / m_scaling;
-    int width = m_selectedArea.width() / m_scaling;
-    int height = m_selectedArea.height() / m_scaling;
-
-    QString area = QString::fromLatin1( "%1 %2 %3 %4" ).arg( x ).arg( y ).arg( width ).arg( height );
-
-    return area;
-}
-
-void TabletArea::resetSelection()
+void ScreenArea::resetSelection()
 {
     m_selectedArea = QRect( rect().x() + tabletGap,
                             rect().y() + tabletGap,
@@ -104,20 +85,20 @@ void TabletArea::resetSelection()
     update();
 }
 
-void TabletArea::setSelection( QString area )
+void ScreenArea::setSelection( QString area )
 {
     QStringList list = area.split( QLatin1String(" ") );
 
-    m_selectedArea.setX( list.at( 0 ).toInt() * m_scaling + tabletGap );
-    m_selectedArea.setY( list.at( 1 ).toInt() * m_scaling + tabletGap );
-    m_selectedArea.setWidth( list.at( 2 ).toInt() * m_scaling );
-    m_selectedArea.setHeight( list.at( 3 ).toInt() * m_scaling );
+    m_selectedArea.setX( list.at( 0 ).toInt()*m_scaling + tabletGap );
+    m_selectedArea.setY( list.at( 1 ).toInt()*m_scaling + tabletGap );
+    m_selectedArea.setWidth( list.at( 2 ).toInt()*m_scaling );
+    m_selectedArea.setHeight( list.at( 3 ).toInt()*m_scaling );
 
     updateDragHandle();
     update();
 }
 
-void TabletArea::paintEvent( QPaintEvent *event )
+void ScreenArea::paintEvent( QPaintEvent *event )
 {
     Q_UNUSED( event );
 
@@ -133,10 +114,19 @@ void TabletArea::paintEvent( QPaintEvent *event )
 
     painter.setPen( Qt::black );
     painter.setBrush( Qt::transparent );
-    painter.drawRect( rect().x() + tabletGap,
-                      rect().y() + tabletGap,
-                      rect().width() - 2 * tabletGap,
-                      rect().height() - 2 * tabletGap );
+    painter.drawRect( m_virtualScreen );
+
+    for( int i = 0; i < m_screens.size(); i++ ) {
+        QRectF screen = m_screens.at( i );
+        painter.drawRect( screen.x()*m_scaling + tabletGap,
+                          screen.y()*m_scaling + tabletGap,
+                          screen.width() * m_scaling,
+                          screen.height() * m_scaling );
+
+        painter.drawText( screen.x()*m_scaling + tabletGap + screen.width() * m_scaling / 2,
+                          screen.y()*m_scaling + tabletGap + screen.height() * m_scaling / 2,
+                          QString::fromLatin1( "%1" ).arg( i + 1 ) );
+    }
 
     painter.setPen( pen );
 
@@ -146,15 +136,9 @@ void TabletArea::paintEvent( QPaintEvent *event )
     painter.drawRect( m_dragHandleRight );
     painter.drawRect( m_dragHandleTop );
     painter.drawRect( m_dragHandleBottom );
-
-    // draw area info in the middle
-    painter.setPen(Qt::black);
-    painter.drawText(rect().width()/2 - 50, rect().height()/2 -15, getOriginalAreaString());
-    painter.setPen(Qt::darkRed);
-    painter.drawText(rect().width()/2 - 50, rect().height()/2 +15, getSelectedAreaString());
 }
 
-void TabletArea::mouseMoveEvent( QMouseEvent *event )
+void ScreenArea::mouseMoveEvent( QMouseEvent *event )
 {
     if( !m_dragMode ) {
         if( m_dragHandleLeft.contains( event->pos() )
@@ -177,45 +161,45 @@ void TabletArea::mouseMoveEvent( QMouseEvent *event )
     if( m_dragMode ) {
         switch( m_mode ) {
         case 1:
-            if( event->x() > 0 && event->x() < width() ) {
+            if( event->x() >= tabletGap && event->x() <= width() - tabletGap ) {
                 m_selectedArea.setX( event->x() );
             }
             break;
         case 2:
-            if( event->x() > 0 && event->x() < width() ) {
+            if( event->x() >= tabletGap && event->x() <= width() - tabletGap ) {
 
                 m_selectedArea.setWidth( event->x() - m_selectedArea.x() );
             }
             break;
         case 3:
-            if( event->y() > 0 && event->y() < height() ) {
+            if( event->y() >= tabletGap && event->y() <= height() - tabletGap ) {
                 m_selectedArea.setY( event->y() );
             }
             break;
         case 4:
-            if( event->y() > 0 && event->y() < height() ) {
+            if( event->y() >= tabletGap && event->y() <= height() - tabletGap ) {
                 qreal newHeight = event->y() - m_selectedArea.y();
 
-                if( newHeight > m_origialArea.height() * m_scaling ) {
-                    newHeight = m_origialArea.height() * m_scaling;
+                if( newHeight > m_virtualScreen.height() ) {
+                    newHeight = m_virtualScreen.height();
                 }
                 m_selectedArea.setHeight( newHeight );
             }
             break;
         case 5:
-            if( event->x() > 0 && event->x() < width()
-                && event->y() > 0 && event->y() < height() ) {
+            if( event->x() >= tabletGap && event->x() <= width() - tabletGap
+                && event->y() >= tabletGap && event->y() <= height() - tabletGap ) {
 
                 qreal newX = m_selectedArea.x() + event->pos().x() - m_dragPoint.x();
 
-                if( newX >= 0 && newX + m_selectedArea.width() < rect().width() ) {
+                if( newX >= tabletGap && newX + m_selectedArea.width() <= rect().width() - tabletGap ) {
                     m_selectedArea.setX( newX );
                     m_selectedArea.setWidth( m_selectedArea.width() + event->pos().x() - m_dragPoint.x() );
                 }
 
                 qreal newXY = m_selectedArea.y() + event->pos().y() - m_dragPoint.y();
 
-                if( newXY >= 0 && newXY + m_selectedArea.height() < rect().height() ) {
+                if( newXY >= tabletGap && newXY + m_selectedArea.height() <= rect().height() - tabletGap ) {
                     m_selectedArea.setY( newXY );
                     m_selectedArea.setHeight( m_selectedArea.height() + event->pos().y() - m_dragPoint.y() );
                 }
@@ -225,12 +209,12 @@ void TabletArea::mouseMoveEvent( QMouseEvent *event )
         }
 
         // cap tablet width / height
-        if( m_selectedArea.height() > m_origialArea.height() * m_scaling ) {
-            m_selectedArea.setHeight( m_origialArea.height() * m_scaling );
+        if( m_selectedArea.height() > m_virtualScreen.height() ) {
+            m_selectedArea.setHeight( m_virtualScreen.height() );
         }
 
-        if( m_selectedArea.width() > m_origialArea.width() * m_scaling ) {
-            m_selectedArea.setWidth( m_origialArea.width() * m_scaling );
+        if( m_selectedArea.width() > m_virtualScreen.width() ) {
+            m_selectedArea.setWidth( m_virtualScreen.width() );
         }
 
         updateDragHandle();
@@ -240,7 +224,7 @@ void TabletArea::mouseMoveEvent( QMouseEvent *event )
     }
 }
 
-void TabletArea::mousePressEvent( QMouseEvent *event )
+void ScreenArea::mousePressEvent( QMouseEvent *event )
 {
     if( !m_dragMode ) {
         m_mode = 0;
@@ -270,34 +254,48 @@ void TabletArea::mousePressEvent( QMouseEvent *event )
     }
 }
 
-void TabletArea::mouseReleaseEvent( QMouseEvent *event )
+void ScreenArea::mouseReleaseEvent( QMouseEvent *event )
 {
-    Q_UNUSED(event);
-
     m_dragMode = false;
     m_mode = 0;
 }
 
-void TabletArea::setupWidget()
+void ScreenArea::setupWidget()
 {
-    // original area from xinput
-    getMaxTabletArea();
+    QRectF virtualScreen;
 
-    m_scaling = ( width() - 2 * tabletGap ) / m_origialArea.width();
+    if( QApplication::desktop()->isVirtualDesktop() ) {
+        int num = QApplication::desktop()->numScreens();
 
-    setMaximumHeight( m_origialArea.height() * m_scaling + 2 * tabletGap );
-    setMinimumHeight( m_origialArea.height() * m_scaling + 2 * tabletGap );
+        for( int i = 0; i < num; i++ ) {
+            QRect screen = QApplication::desktop()->screenGeometry( i );
 
-    m_selectedArea = QRect( rect().x() + tabletGap,
-                            rect().y() + tabletGap,
-                            rect().width() - 2 * tabletGap,
-                            rect().height() - 2 * tabletGap );
+            m_screens.append( screen );
+
+            virtualScreen = virtualScreen.united( screen );
+        }
+    }
+    else {
+        virtualScreen = QApplication::desktop()->screenGeometry( 0 );
+        m_screens.append( virtualScreen );
+    }
+
+    m_scaling = ( width() - 2 * tabletGap ) / virtualScreen.width();
+
+    m_virtualScreen.setX( tabletGap );
+    m_virtualScreen.setY( tabletGap );
+    m_virtualScreen.setWidth( virtualScreen.width() * m_scaling );
+    m_virtualScreen.setHeight( virtualScreen.height() * m_scaling );
+
+    setMaximumHeight( m_virtualScreen.height() + 2 * tabletGap );
+    setMinimumHeight( m_virtualScreen.height() + 2 * tabletGap );
+
+    m_selectedArea = m_virtualScreen;
 
     updateDragHandle();
-    update();
 }
 
-void TabletArea::updateDragHandle()
+void ScreenArea::updateDragHandle()
 {
     m_dragHandleLeft.setX( m_selectedArea.x() - handleSize / 2 );
     m_dragHandleLeft.setY( m_selectedArea.y() + m_selectedArea.height() / 2 - handleSize / 2 );
@@ -320,63 +318,3 @@ void TabletArea::updateDragHandle()
     m_dragHandleBottom.setHeight( handleSize );
 }
 
-void TabletArea::getMaxTabletArea()
-{
-    int ndevices;
-    XDevice *dev = NULL;
-    Display *dpy = QX11Info::display();
-
-    XDeviceInfo *info = XListInputDevices( dpy, &ndevices );
-    for( int i = 0; i < ndevices; i++ ) {
-        if( info[i].name == m_toolName.toLatin1() ) {
-            dev = XOpenDevice( dpy, info[i].id );
-            break;
-        }
-    }
-
-    Atom prop, type;
-    int format;
-    unsigned char *data = NULL;
-    unsigned char *dataOld = NULL;
-    unsigned long nitems, bytes_after;
-    long *ldata;
-
-    prop = XInternAtom( dpy, "Wacom Tablet Area", True );
-
-    XGetDeviceProperty( dpy, dev, prop, 0, 1000, False, AnyPropertyType,
-                        &type, &format, &nitems, &bytes_after, &dataOld );
-
-    XGetDeviceProperty( dpy, dev, prop, 0, 1000, False, AnyPropertyType,
-                        &type, &format, &nitems, &bytes_after, &data );
-
-    ldata = ( long * )data;
-
-    // first reset to default values
-    ldata[0] = -1;
-    ldata[1] = -1;
-    ldata[2] = -1;
-    ldata[3] = -1;
-
-    XChangeDeviceProperty( dpy, dev, prop, type, format,
-                           PropModeReplace, data, nitems );
-
-    // Now get the defaults
-    XGetDeviceProperty( dpy, dev, prop, 0, 1000, False, AnyPropertyType,
-                        &type, &format, &nitems, &bytes_after, &data );
-
-    ldata = ( long * )data;
-    m_origialArea.setX( ldata[0] );
-    m_origialArea.setX( ldata[1] );
-    m_origialArea.setWidth( ldata[2] );
-    m_origialArea.setHeight( ldata[3] );
-
-    // and apply the old values again
-    XChangeDeviceProperty( dpy, dev, prop, type, format,
-                           PropModeReplace, dataOld, nitems );
-
-    XFlush( dpy );
-
-    free( data );
-    XFreeDeviceList( info );
-    XCloseDevice( QX11Info::display(), dev );
-}

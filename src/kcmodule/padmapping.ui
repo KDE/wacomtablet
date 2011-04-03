@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>413</width>
-    <height>342</height>
+    <width>508</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,165 +16,182 @@
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QGroupBox" name="groupBox">
-         <property name="title">
-          <string>Orientation</string>
-         </property>
-         <layout class="QFormLayout" name="formLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="rotationLabel">
-            <property name="text">
-             <string comment="Rotation of the tablet pad">Rotation:</string>
-            </property>
-            <property name="buddy">
-             <cstring>rotationComboBox</cstring>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="KComboBox" name="rotationComboBox">
-            <property name="toolTip">
-             <string>Select the rotation of the tablet device.</string>
-            </property>
-            <item>
-             <property name="text">
-              <string comment="no pad rotation">none</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string comment="rotate the pad counter clock wise">couter clockwise</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string comment="rotate the tablet clockwise">clockwise</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string comment="pad rotation up side down (180°)">half</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="1" column="0" colspan="2">
-           <widget class="QCheckBox" name="xrandrRotationCheckBox">
-            <property name="toolTip">
-             <string>If enabled the tablet is automatically rotated together with the screen</string>
-            </property>
-            <property name="text">
-             <string>Rotate with screen</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
-          <string>Screen Area</string>
-         </property>
-         <layout class="QFormLayout" name="formLayout_2">
-          <property name="labelAlignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Orientation</string>
+       </property>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="rotationLabel">
+          <property name="text">
+           <string comment="Rotation of the tablet pad">Rotation:</string>
           </property>
-          <property name="horizontalSpacing">
-           <number>10</number>
+          <property name="buddy">
+           <cstring>rotationComboBox</cstring>
           </property>
-          <property name="verticalSpacing">
-           <number>-1</number>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="KComboBox" name="rotationComboBox">
+          <property name="toolTip">
+           <string>Select the rotation of the tablet device.</string>
           </property>
-          <property name="margin">
-           <number>8</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QRadioButton" name="radioButton">
-            <property name="text">
-             <string>Map to output</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="KComboBox" name="screenComboBox">
-            <property name="toolTip">
-             <string>Select the XRandR display which will be used to map the tablet area on it.</string>
-            </property>
-            <item>
-             <property name="text">
-              <string>---</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QRadioButton" name="radioButton_2">
-            <property name="text">
-             <string>Part of the Screen</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_3">
-         <property name="title">
-          <string>Tablet Area</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QRadioButton" name="fullTablet">
-            <property name="text">
-             <string>Full tablet</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="partOfTablet">
-            <property name="text">
-             <string>Part of the Tablet</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBox">
-            <property name="text">
-             <string>Force Proportions</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="KPushButton" name="calibrateButton">
-           <property name="toolTip">
-            <string>Opens a fullscreen window to calibrate the tablet.</string>
-           </property>
            <property name="text">
-            <string>Calibrate</string>
+            <string comment="no pad rotation">none</string>
            </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
+          </item>
+          <item>
+           <property name="text">
+            <string comment="rotate the pad counter clock wise">couter clockwise</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string comment="rotate the tablet clockwise">clockwise</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string comment="pad rotation up side down (180°)">half</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QCheckBox" name="xrandrRotationCheckBox">
+          <property name="toolTip">
+           <string>If enabled the tablet is automatically rotated together with the screen</string>
+          </property>
+          <property name="text">
+           <string>Rotate with screen</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="title">
+        <string>Screen Area</string>
+       </property>
+       <layout class="QFormLayout" name="formLayout_2">
+        <property name="labelAlignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="horizontalSpacing">
+         <number>10</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>-1</number>
+        </property>
+        <property name="margin">
+         <number>8</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QRadioButton" name="mapToScreen">
+          <property name="text">
+           <string>Map to output</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="KComboBox" name="screenComboBox">
+          <property name="toolTip">
+           <string>Select the XRandR display which will be used to map the tablet area on it.</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>---</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QRadioButton" name="partOfScreen">
+          <property name="text">
+           <string>Part of the Screen</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="title">
+        <string>Tablet Area</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QRadioButton" name="fullTablet">
+          <property name="text">
+           <string>Full tablet</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="partOfTablet">
+          <property name="text">
+           <string>Part of the Tablet</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox">
+          <property name="text">
+           <string>Force Proportions</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="KPushButton" name="calibrateButton">
+       <property name="toolTip">
+        <string>Opens a fullscreen window to calibrate the tablet.</string>
+       </property>
+       <property name="text">
+        <string>Calibrate</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>59</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QGroupBox" name="screenAreaBox">
+       <property name="title">
+        <string>Screen Area</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5"/>
+      </widget>
      </item>
      <item>
       <widget class="QGroupBox" name="tabletAreaBox">
@@ -184,30 +201,17 @@
        <layout class="QVBoxLayout" name="verticalLayout"/>
       </widget>
      </item>
-     <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
     </layout>
    </item>
    <item>
-    <spacer name="verticalSpacer_3">
+    <spacer name="horizontalSpacer_3">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Horizontal</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>20</width>
-       <height>59</height>
+       <width>190</width>
+       <height>20</height>
       </size>
      </property>
     </spacer>
@@ -261,7 +265,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>radioButton</sender>
+   <sender>mapToScreen</sender>
    <signal>toggled(bool)</signal>
    <receiver>PadMapping</receiver>
    <slot>profileChanged()</slot>
@@ -277,7 +281,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>radioButton_2</sender>
+   <sender>partOfScreen</sender>
    <signal>toggled(bool)</signal>
    <receiver>PadMapping</receiver>
    <slot>profileChanged()</slot>

@@ -22,6 +22,7 @@
 #include "calibrationdialog.h"
 
 #include "tabletarea.h"
+#include "screenarea.h"
 
 //KDE includes
 #include <KDE/KDebug>
@@ -56,6 +57,13 @@ PadMapping::PadMapping( QDBusInterface *deviceInterface, ProfileManagement *prof
       m_profileManagement( profileManager )
 {
     m_ui->setupUi( this );
+
+    m_screenArea = new ScreenArea();
+
+    m_ui->screenAreaBox->layout()->addWidget( m_screenArea );
+
+    connect( m_screenArea, SIGNAL( selectedArea( QString ) ), this, SLOT( profileChanged() ) );
+    connect(m_ui->mapToScreen, SIGNAL(clicked()), m_screenArea, SLOT(resetSelection()));
 }
 
 PadMapping::~PadMapping()
@@ -83,6 +91,7 @@ void PadMapping::setTool( int tool )
     m_ui->tabletAreaBox->layout()->addWidget( m_tabletArea );
 
     connect( m_tabletArea, SIGNAL( selectedArea( QString ) ), this, SLOT( profileChanged() ) );
+    connect(m_ui->fullTablet, SIGNAL(clicked()), m_tabletArea, SLOT(resetSelection()));
 }
 
 void PadMapping::saveToProfile()
@@ -122,6 +131,9 @@ void PadMapping::saveToProfile()
         stylusConfig.writeEntry( QLatin1String( "Area" ), m_tabletArea->getSelectedAreaString() );
         eraserConfig.writeEntry( QLatin1String( "Area" ), m_tabletArea->getSelectedAreaString() );
 
+        stylusConfig.writeEntry( QLatin1String( "ScreenSpace" ), m_screenArea->getSelectedAreaString() );
+        eraserConfig.writeEntry( QLatin1String( "ScreenSpace" ), m_screenArea->getSelectedAreaString() );
+
         stylusConfig.sync();
         eraserConfig.sync();
     }
@@ -151,6 +163,7 @@ void PadMapping::saveToProfile()
         }
 
         touchConfig.writeEntry( QLatin1String( "Area" ), m_tabletArea->getSelectedAreaString() );
+        touchConfig.writeEntry( QLatin1String( "ScreenSpace" ), m_screenArea->getSelectedAreaString() );
 
         touchConfig.sync();
     }
@@ -185,6 +198,9 @@ void PadMapping::loadFromProfile()
     QString workingArea = config.readEntry( QLatin1String( "Area" ) );
 
     m_tabletArea->setSelection( workingArea );
+
+    QString screenArea = config.readEntry( QLatin1String( "ScreenSpace" ) );
+    m_screenArea->setSelection( screenArea );
 }
 
 void PadMapping::profileChanged()

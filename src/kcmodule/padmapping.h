@@ -32,6 +32,7 @@ namespace Wacom
 {
 class ProfileManagement;
 class TabletArea;
+class ScreenArea;
 
 /**
   * This class implements the widget to change the pad mapping
@@ -101,6 +102,7 @@ private:
 
     int m_tool;
     TabletArea *m_tabletArea;
+    ScreenArea *m_screenArea;
 };
 
 }
