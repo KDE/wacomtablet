@@ -85,7 +85,8 @@ public:
     QString getDefaultConfiguration( const QString &device, const QString &param ) const;
 
 private:
-    bool m_applyArea;
+    void mapTabletToScreen(const QString &device, const QString & screenArea);
+
 };
 
 }
