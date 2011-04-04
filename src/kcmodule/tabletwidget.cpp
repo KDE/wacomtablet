@@ -129,7 +129,9 @@ void TabletWidget::loadTabletInformation()
     m_profileManagement->reload();
     m_generalPage->reloadWidget();
     m_padButtonPage->reloadWidget();
+    m_padMappingPage->setTool(0);
     m_padMappingPage->reloadWidget();
+    m_touchMappingPage->setTool(1);
     m_touchMappingPage->reloadWidget();
     m_penPage->reloadWidget();
     m_touchPage->reloadWidget();

@@ -87,6 +87,10 @@ void ScreenArea::resetSelection()
 
 void ScreenArea::setSelection( QString area )
 {
+    if(area.isEmpty()) {
+        return;
+    }
+
     QStringList list = area.split( QLatin1String(" ") );
 
     m_selectedArea.setX( list.at( 0 ).toInt()*m_scaling + tabletGap );

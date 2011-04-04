@@ -60,7 +60,7 @@ QRect TabletArea::getOriginalArea()
 
 QString TabletArea::getOriginalAreaString()
 {
-    int x = ( m_origialArea.x());
+    int x = ( m_origialArea.x() );
     int y = ( m_origialArea.y() );
     int width = m_origialArea.width();
     int height = m_origialArea.height();
@@ -106,7 +106,11 @@ void TabletArea::resetSelection()
 
 void TabletArea::setSelection( QString area )
 {
-    QStringList list = area.split( QLatin1String(" ") );
+    if(area.isEmpty()) {
+        return;
+    }
+
+    QStringList list = area.split( QLatin1String( " " ) );
 
     m_selectedArea.setX( list.at( 0 ).toInt() * m_scaling + tabletGap );
     m_selectedArea.setY( list.at( 1 ).toInt() * m_scaling + tabletGap );
@@ -148,10 +152,10 @@ void TabletArea::paintEvent( QPaintEvent *event )
     painter.drawRect( m_dragHandleBottom );
 
     // draw area info in the middle
-    painter.setPen(Qt::black);
-    painter.drawText(rect().width()/2 - 50, rect().height()/2 -15, getOriginalAreaString());
-    painter.setPen(Qt::darkRed);
-    painter.drawText(rect().width()/2 - 50, rect().height()/2 +15, getSelectedAreaString());
+    painter.setPen( Qt::black );
+    painter.drawText( rect().width() / 2 - 50, rect().height() / 2 - 15, getOriginalAreaString() );
+    painter.setPen( Qt::darkRed );
+    painter.drawText( rect().width() / 2 - 50, rect().height() / 2 + 15, getSelectedAreaString() );
 }
 
 void TabletArea::mouseMoveEvent( QMouseEvent *event )
@@ -272,7 +276,7 @@ void TabletArea::mousePressEvent( QMouseEvent *event )
 
 void TabletArea::mouseReleaseEvent( QMouseEvent *event )
 {
-    Q_UNUSED(event);
+    Q_UNUSED( event );
 
     m_dragMode = false;
     m_mode = 0;
@@ -332,6 +336,10 @@ void TabletArea::getMaxTabletArea()
             dev = XOpenDevice( dpy, info[i].id );
             break;
         }
+    }
+
+    if( !dev ) {
+        return;
     }
 
     Atom prop, type;
