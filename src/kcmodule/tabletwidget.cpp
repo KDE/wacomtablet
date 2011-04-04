@@ -78,9 +78,7 @@ void TabletWidget::init()
     m_generalPage = new GeneralWidget( m_deviceInterface, m_profileManagement );
     m_padButtonPage = new PadButtonWidget( m_profileManagement );
     m_padMappingPage = new PadMapping( m_deviceInterface, m_profileManagement );
-    m_padMappingPage->setTool( 0 );
     m_touchMappingPage = new PadMapping( m_deviceInterface, m_profileManagement );
-    m_touchMappingPage->setTool( 1 );
     m_penPage = new PenWidget( m_profileManagement );
     m_touchPage = new TouchWidget( m_profileManagement );
     m_ui->setupUi( this );

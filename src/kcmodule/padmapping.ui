@@ -149,7 +149,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox">
+         <widget class="QCheckBox" name="forceProportions">
           <property name="text">
            <string>Force Proportions</string>
           </property>
@@ -345,7 +345,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox</sender>
+   <sender>forceProportions</sender>
    <signal>toggled(bool)</signal>
    <receiver>PadMapping</receiver>
    <slot>profileChanged()</slot>

@@ -92,11 +92,9 @@ void PenWidget::saveToProfile()
 
     if( m_ui->tpcCheckBox->isChecked() ) {
         stylusConfig.writeEntry( "TabletPCButton", "on" );
-        eraserConfig.writeEntry( "TabletPCButton", "on" );
     }
     else {
         stylusConfig.writeEntry( "TabletPCButton", "off" );
-        eraserConfig.writeEntry( "TabletPCButton", "off" );
     }
 
     stylusConfig.sync();

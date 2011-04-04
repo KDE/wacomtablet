@@ -107,10 +107,12 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     //stylusGroup->writeEntry("RawFilter", "todo");
     //eraserGroup->writeEntry("Suppress", "todo");
     //eraserGroup->writeEntry("RawSample", "todo");
-    //stylusGroup->writeEntry("MapToOutput", "todo"); // don't specify a default output. A selection can be made via the gui if the user wants to change it from the default output to something else
 
     stylusGroup->writeEntry( "Rotate", "none" );
-    stylusGroup->writeEntry( "0ChangeArea", "false" );
+    stylusGroup->writeEntry( "0ForceProportions", "false" );
+    stylusGroup->writeEntry( "0ScreenMapping", "randr" );
+    stylusGroup->writeEntry( "0TabletArea", "full" );
+    //stylusGroup->writeEntry("MapToOutput", "todo"); // if we don't specify, xsetwacom will use a default one
 
     QDBusReply<QString> stylusArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( stylusName ), QLatin1String( "Area" ) );
     if( stylusArea.isValid() ) {
@@ -154,10 +156,12 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     //stylusGroup->writeEntry("RawFilter", "todo");
     //eraserGroup->writeEntry("Suppress", "todo");
     //eraserGroup->writeEntry("RawSample", "todo");
-    //stylusGroup->writeEntry("MapToOutput", "todo"); // don't specify a default output. A selection can be made via the gui if the user wants to change it from the default output to something else
 
     eraserGroup->writeEntry( "Rotate", "none" );
-    eraserGroup->writeEntry( "0ChangeArea", "false" );
+    eraserGroup->writeEntry( "0ForceProportions", "false" );
+    eraserGroup->writeEntry( "0ScreenMapping", "randr" );
+    eraserGroup->writeEntry( "0TabletArea", "full" );
+    //eraserGroup->writeEntry("MapToOutput", "todo"); // if we don't specify, xsetwacom will use a default one
 
     QDBusReply<QString> eraserArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( eraserName ), QLatin1String( "Area" ) );
     if( eraserArea.isValid() ) {
@@ -165,14 +169,6 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     }
     else {
         eraserGroup->writeEntry( "Area", "0 0 0 0" );
-    }
-
-    QDBusReply<QString> eraserTpcButton = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( eraserName ), QLatin1String( "TabletPCButton" ) );
-    if( eraserTpcButton.isValid() ) {
-        eraserGroup->writeEntry( "TabletPCButton", eraserTpcButton.value() );
-    }
-    else {
-        eraserGroup->writeEntry( "TabletPCButton", "on" );
     }
 
     QDBusReply<QString> eraserProximity = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( eraserName ), QLatin1String( "CursorProximity" ) );
@@ -198,7 +194,11 @@ void ProfileManagement::createNewProfile( const QString &profilename )
         KConfigGroup *touchGroup = new KConfigGroup( profileGroup, "touch" );
 
         touchGroup->writeEntry( "Rotate", "none" );
-        touchGroup->writeEntry( "0ChangeArea", "false" );
+        touchGroup->writeEntry( "0ForceProportions", "false" );
+        touchGroup->writeEntry( "0ScreenMapping", "randr" );
+        touchGroup->writeEntry( "0TabletArea", "full" );
+        //touchGroup->writeEntry("MapToOutput", "todo"); // if we don't specify, xsetwacom will use a default one
+
         QDBusReply<QString> touchArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "Area" ) );
         if( touchArea.isValid() ) {
             touchGroup->writeEntry( "Area", touchArea.value() );

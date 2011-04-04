@@ -293,7 +293,7 @@ void TabletDaemon::screenRotated( int screenRotation )
     KConfigGroup configGroup = KConfigGroup( &deviceGroup, d->curProfile );
     KConfigGroup stylusConfig( &configGroup, QLatin1String( "stylus" ) );
 
-    if( stylusConfig.readEntry( QLatin1String( "RotateWithScreen" ) ) == QLatin1String( "true" ) ) {
+    if( stylusConfig.readEntry( QLatin1String( "0RotateWithScreen" ) ) == QLatin1String( "true" ) ) {
 
         QString stylusName = d->deviceHandler->stylusName();
         QString eraserName = d->deviceHandler->eraserName();

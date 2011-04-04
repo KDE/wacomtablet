@@ -63,7 +63,7 @@ PadMapping::PadMapping( QDBusInterface *deviceInterface, ProfileManagement *prof
     m_ui->screenAreaBox->layout()->addWidget( m_screenArea );
 
     connect( m_screenArea, SIGNAL( selectedArea( QString ) ), this, SLOT( profileChanged() ) );
-    connect(m_ui->mapToScreen, SIGNAL(clicked()), m_screenArea, SLOT(resetSelection()));
+    connect( m_ui->mapToScreen, SIGNAL( clicked() ), m_screenArea, SLOT( resetSelection() ) );
 }
 
 PadMapping::~PadMapping()
@@ -91,7 +91,7 @@ void PadMapping::setTool( int tool )
     m_ui->tabletAreaBox->layout()->addWidget( m_tabletArea );
 
     connect( m_tabletArea, SIGNAL( selectedArea( QString ) ), this, SLOT( profileChanged() ) );
-    connect(m_ui->fullTablet, SIGNAL(clicked()), m_tabletArea, SLOT(resetSelection()));
+    connect( m_ui->fullTablet, SIGNAL( clicked() ), m_tabletArea, SLOT( resetSelection() ) );
 }
 
 void PadMapping::saveToProfile()
@@ -102,16 +102,31 @@ void PadMapping::saveToProfile()
         KConfigGroup stylusConfig = m_profileManagement->configGroup( QLatin1String( "stylus" ) );
         KConfigGroup eraserConfig = m_profileManagement->configGroup( QLatin1String( "eraser" ) );
 
+        // ##################
+        // Orientation
+        // ##################
         stylusConfig.writeEntry( QLatin1String( "Rotate" ), m_ui->rotationComboBox->currentIndex() );
         eraserConfig.writeEntry( QLatin1String( "Rotate" ), m_ui->rotationComboBox->currentIndex() );
 
         if( m_ui->xrandrRotationCheckBox->isChecked() ) {
-            stylusConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "true" );
-            eraserConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "true" );
+            stylusConfig.writeEntry( QLatin1String( "0RotateWithScreen" ), "true" );
+            eraserConfig.writeEntry( QLatin1String( "0RotateWithScreen" ), "true" );
         }
         else {
-            stylusConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "false" );
-            eraserConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "false" );
+            stylusConfig.writeEntry( QLatin1String( "0RotateWithScreen" ), "false" );
+            eraserConfig.writeEntry( QLatin1String( "0RotateWithScreen" ), "false" );
+        }
+
+        // ##################
+        // Screen Area
+        // ##################
+        if( m_ui->mapToScreen->isChecked() ) {
+            stylusConfig.writeEntry( QLatin1String( "0ScreenMapping" ), "randr" );
+            eraserConfig.writeEntry( QLatin1String( "0ScreenMapping" ), "randr" );
+        }
+        else {
+            stylusConfig.writeEntry( QLatin1String( "0ScreenMapping" ), "matrix" );
+            eraserConfig.writeEntry( QLatin1String( "0ScreenMapping" ), "matrix" );
         }
 
         if( !m_ui->screenComboBox->currentText().isEmpty()  || m_ui->screenComboBox->currentIndex() != 0 ) {
@@ -119,20 +134,32 @@ void PadMapping::saveToProfile()
             eraserConfig.writeEntry( QLatin1String( "MapToOutput" ), m_ui->screenComboBox->currentText() );
         }
 
+        stylusConfig.writeEntry( QLatin1String( "ScreenSpace" ), m_screenArea->getSelectedAreaString() );
+        eraserConfig.writeEntry( QLatin1String( "ScreenSpace" ), m_screenArea->getSelectedAreaString() );
+
+        // ##################
+        // Tablet Area
+        // ##################
         if( m_ui->fullTablet->isChecked() ) {
-            stylusConfig.writeEntry( QLatin1String( "0ChangeArea" ), "true" );
-            eraserConfig.writeEntry( QLatin1String( "0ChangeArea" ), "true" );
+            stylusConfig.writeEntry( QLatin1String( "0TabletArea" ), "full" );
+            eraserConfig.writeEntry( QLatin1String( "0TabletArea" ), "full" );
         }
         else {
-            stylusConfig.writeEntry( QLatin1String( "0ChangeArea" ), "false" );
-            eraserConfig.writeEntry( QLatin1String( "0ChangeArea" ), "false" );
+            stylusConfig.writeEntry( QLatin1String( "0TabletArea" ), "part" );
+            eraserConfig.writeEntry( QLatin1String( "0TabletArea" ), "part" );
         }
 
         stylusConfig.writeEntry( QLatin1String( "Area" ), m_tabletArea->getSelectedAreaString() );
         eraserConfig.writeEntry( QLatin1String( "Area" ), m_tabletArea->getSelectedAreaString() );
 
-        stylusConfig.writeEntry( QLatin1String( "ScreenSpace" ), m_screenArea->getSelectedAreaString() );
-        eraserConfig.writeEntry( QLatin1String( "ScreenSpace" ), m_screenArea->getSelectedAreaString() );
+        if( m_ui->forceProportions->isChecked() ) {
+            stylusConfig.writeEntry( QLatin1String( "0ForceProportions" ), "true" );
+            eraserConfig.writeEntry( QLatin1String( "0ForceProportions" ), "true" );
+        }
+        else {
+            stylusConfig.writeEntry( QLatin1String( "0ForceProportions" ), "false" );
+            eraserConfig.writeEntry( QLatin1String( "0ForceProportions" ), "false" );
+        }
 
         stylusConfig.sync();
         eraserConfig.sync();
@@ -142,19 +169,38 @@ void PadMapping::saveToProfile()
         // values for stylus/eraser/touch will be the same
         KConfigGroup touchConfig = m_profileManagement->configGroup( QLatin1String( "touch" ) );
 
+        // ##################
+        // Orientation
+        // ##################
         touchConfig.writeEntry( QLatin1String( "Rotate" ), m_ui->rotationComboBox->currentIndex() );
 
         if( m_ui->xrandrRotationCheckBox->isChecked() ) {
-            touchConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "true" );
+            touchConfig.writeEntry( QLatin1String( "0RotateWithScreen" ), "true" );
         }
         else {
-            touchConfig.writeEntry( QLatin1String( "RotateWithScreen" ), "false" );
+            touchConfig.writeEntry( QLatin1String( "0RotateWithScreen" ), "false" );
+        }
+
+        // ##################
+        // Screen Area
+        // ##################
+
+        if( m_ui->mapToScreen->isChecked() ) {
+            touchConfig.writeEntry( QLatin1String( "0ScreenMapping" ), "randr" );
+        }
+        else {
+            touchConfig.writeEntry( QLatin1String( "0ScreenMapping" ), "matrix" );
         }
 
         if( !m_ui->screenComboBox->currentText().isEmpty()  || m_ui->screenComboBox->currentIndex() != 0 ) {
             touchConfig.writeEntry( QLatin1String( "MapToOutput" ), m_ui->screenComboBox->currentText() );
         }
 
+        touchConfig.writeEntry( QLatin1String( "ScreenSpace" ), m_screenArea->getSelectedAreaString() );
+
+        // ##################
+        // Tablet Area
+        // ##################
         if( m_ui->fullTablet->isChecked() ) {
             touchConfig.writeEntry( QLatin1String( "0ChangeArea" ), "true" );
         }
@@ -163,7 +209,13 @@ void PadMapping::saveToProfile()
         }
 
         touchConfig.writeEntry( QLatin1String( "Area" ), m_tabletArea->getSelectedAreaString() );
-        touchConfig.writeEntry( QLatin1String( "ScreenSpace" ), m_screenArea->getSelectedAreaString() );
+
+        if( m_ui->forceProportions->isChecked() ) {
+            touchConfig.writeEntry( QLatin1String( "0ForceProportions" ), "true" );
+        }
+        else {
+            touchConfig.writeEntry( QLatin1String( "0ForceProportions" ), "false" );
+        }
 
         touchConfig.sync();
     }
@@ -182,25 +234,42 @@ void PadMapping::loadFromProfile()
         config = m_profileManagement->configGroup( QLatin1String( "touch" ) );
     }
 
+    // ##################
+    // Orientation
+    // ##################
     m_ui->rotationComboBox->setCurrentIndex( config.readEntry( QLatin1String( "Rotate" ) ).toInt() );
 
-    if( config.readEntry( QLatin1String( "RotateWithScreen" ) ) == QLatin1String( "true" ) ) {
+    if( config.readEntry( QLatin1String( "0RotateWithScreen" ) ) == QLatin1String( "true" ) ) {
         m_ui->xrandrRotationCheckBox->setChecked( true );
     }
 
+    // ##################
+    // Screen Area
+    // ##################
     int index = m_ui->screenComboBox->findText( config.readEntry( QLatin1String( "MapToOutput" ) ) );
     m_ui->screenComboBox->setCurrentIndex( index );
 
-    if( config.readEntry( QLatin1String( "0ChangeArea" ) ) == QLatin1String( "true" ) ) {
-        m_ui->partOfTablet->setChecked( true );
+    if( config.readEntry( QLatin1String( "0ScreenMapping" ) ) == QLatin1String( "matrix" ) ) {
+        m_ui->partOfScreen->setChecked( true );
     }
-
-    QString workingArea = config.readEntry( QLatin1String( "Area" ) );
-
-    m_tabletArea->setSelection( workingArea );
 
     QString screenArea = config.readEntry( QLatin1String( "ScreenSpace" ) );
     m_screenArea->setSelection( screenArea );
+
+    // ##################
+    // Tablet Area
+    // ##################
+
+    if( config.readEntry( QLatin1String( "0TabletArea" ) ) == QLatin1String( "full" ) ) {
+        m_ui->fullTablet->setChecked( true );
+    }
+
+    if( config.readEntry( QLatin1String( "0ForceProportions" ) ) == QLatin1String( "true" ) ) {
+        m_ui->forceProportions->setChecked( true );
+    }
+
+    QString workingArea = config.readEntry( QLatin1String( "Area" ) );
+    m_tabletArea->setSelection( workingArea );
 }
 
 void PadMapping::profileChanged()
