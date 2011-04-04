@@ -64,6 +64,13 @@ PadMapping::PadMapping( QDBusInterface *deviceInterface, ProfileManagement *prof
 
     connect( m_screenArea, SIGNAL( selectedArea( QString ) ), this, SLOT( profileChanged() ) );
     connect( m_ui->mapToScreen, SIGNAL( clicked() ), m_screenArea, SLOT( resetSelection() ) );
+
+    connect( m_ui->mapToScreen, SIGNAL( toggled( bool ) ), m_ui->screenAreaBox, SLOT( setDisabled( bool ) ) );
+    connect( m_screenArea, SIGNAL( selectedArea( QString ) ), this, SLOT( updateTabletArea() ) );
+    connect( m_ui->forceProportions, SIGNAL( clicked() ), this, SLOT( updateTabletArea() ) );
+
+    connect( m_ui->forceProportions, SIGNAL( clicked(bool) ), this, SLOT( setForceProportions(bool)) );
+    connect( m_ui->fullTablet, SIGNAL(clicked(bool)), this, SLOT(setFullTabletUsage(bool)));
 }
 
 PadMapping::~PadMapping()
@@ -92,6 +99,10 @@ void PadMapping::setTool( int tool )
 
     connect( m_tabletArea, SIGNAL( selectedArea( QString ) ), this, SLOT( profileChanged() ) );
     connect( m_ui->fullTablet, SIGNAL( clicked() ), m_tabletArea, SLOT( resetSelection() ) );
+
+    connect( m_ui->fullTablet, SIGNAL( toggled( bool ) ), m_ui->tabletAreaBox, SLOT( setDisabled( bool ) ) );
+    connect( m_tabletArea, SIGNAL( sizeChanged( bool ) ), m_ui->forceProportions, SLOT( setChecked( bool ) ) );
+    connect( m_ui->forceProportions, SIGNAL( toggled( bool ) ), m_ui->tabletAreaBox, SLOT( setDisabled( bool ) ) );
 }
 
 void PadMapping::saveToProfile()
@@ -251,6 +262,10 @@ void PadMapping::loadFromProfile()
 
     if( config.readEntry( QLatin1String( "0ScreenMapping" ) ) == QLatin1String( "matrix" ) ) {
         m_ui->partOfScreen->setChecked( true );
+        m_ui->screenAreaBox->setEnabled( true );
+    }
+    else {
+        m_ui->screenAreaBox->setEnabled( false );
     }
 
     QString screenArea = config.readEntry( QLatin1String( "ScreenSpace" ) );
@@ -262,10 +277,13 @@ void PadMapping::loadFromProfile()
 
     if( config.readEntry( QLatin1String( "0TabletArea" ) ) == QLatin1String( "full" ) ) {
         m_ui->fullTablet->setChecked( true );
+        m_ui->tabletAreaBox->setEnabled( false );
     }
 
     if( config.readEntry( QLatin1String( "0ForceProportions" ) ) == QLatin1String( "true" ) ) {
         m_ui->forceProportions->setChecked( true );
+        m_ui->partOfTablet->setChecked( true ); // this disables fullTablet, both is not possible
+        m_ui->tabletAreaBox->setEnabled( true );
     }
 
     QString workingArea = config.readEntry( QLatin1String( "Area" ) );
@@ -341,5 +359,64 @@ void PadMapping::showCalibrationDialog()
                                QLatin1String( "org.kde.KWin" ),
                                QLatin1String( "reloadConfig" ) );
         QDBusConnection::sessionBus().send( message );
+    }
+}
+
+void PadMapping::updateTabletArea()
+{
+    // check if force proportions is set
+    if( m_ui->forceProportions->isChecked() ) {
+        QRect screenArea = m_screenArea->getSelectedArea();
+        QRect maxTabletArea = m_tabletArea->getOriginalArea();
+
+        qreal scale;
+        qreal maxHeight;
+        qreal maxWidth;
+
+        if( screenArea.width() > screenArea.height() ) {
+            // I assume all tablets have a higher width than height
+            scale = ( qreal )maxTabletArea.width() / ( qreal )screenArea.width();
+            maxHeight = ( qreal )screenArea.height() * scale;
+            maxWidth = maxTabletArea.width();
+
+            if( maxHeight > maxTabletArea.height() ) {
+                scale = ( qreal )maxTabletArea.height() / ( qreal )screenArea.height();
+                maxWidth = ( qreal )screenArea.width() * scale;
+                maxHeight = maxTabletArea.height();
+            }
+
+            m_tabletArea->setSelection( maxTabletArea.width(), maxHeight );
+
+        }
+        else {
+            scale = ( qreal )maxTabletArea.height() / ( qreal )screenArea.height();
+            maxWidth = ( qreal )screenArea.width() * scale;
+            maxHeight = maxTabletArea.height();
+
+            if( maxWidth > maxTabletArea.width() ) {
+                scale = ( qreal )maxTabletArea.width() / ( qreal )screenArea.width();
+                maxHeight = ( qreal )screenArea.height() * scale;
+                maxWidth = maxTabletArea.width();
+            }
+
+        }
+
+        m_tabletArea->setSelection( maxWidth, maxHeight );
+    }
+}
+
+void PadMapping::setFullTabletUsage( bool useFullArea )
+{
+    if( useFullArea ) {
+        m_ui->forceProportions->setChecked( false );
+        m_ui->tabletAreaBox->setEnabled( false );
+    }
+}
+
+void PadMapping::setForceProportions( bool useProportionalArea )
+{
+    if( useProportionalArea ) {
+        m_ui->partOfTablet->setChecked( true );
+        m_ui->tabletAreaBox->setEnabled( true );
     }
 }

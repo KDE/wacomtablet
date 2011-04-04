@@ -37,6 +37,7 @@ public:
     QString getSelectedAreaString();
 
     void setSelection( QString area );
+    void setSelection( qreal width, qreal height );
 
 public slots:
     void resetSelection();
@@ -49,6 +50,7 @@ protected:
 
 signals:
     void selectedArea( QString area );
+    void sizeChanged(bool changed);
 
 private:
     /**

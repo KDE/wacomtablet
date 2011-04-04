@@ -89,11 +89,17 @@ public slots:
      */
     void showCalibrationDialog();
 
+    void updateTabletArea();
+
 signals:
     /**
       * Used to inform the main widget that unsaved changes in the current profile are available.
       */
     void changed();
+
+private slots:
+    void setFullTabletUsage(bool useFullArea);
+    void setForceProportions(bool useProportionalArea);
 
 private:
     Ui::PadMapping      *m_ui;                /**< Handler to the padmapping.ui file */

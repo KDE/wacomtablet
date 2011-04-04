@@ -108,11 +108,6 @@
           <property name="toolTip">
            <string>Select the XRandR display which will be used to map the tablet area on it.</string>
           </property>
-          <item>
-           <property name="text">
-            <string>---</string>
-           </property>
-          </item>
          </widget>
         </item>
         <item row="1" column="0">

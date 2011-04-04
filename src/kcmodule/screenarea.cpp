@@ -48,8 +48,8 @@ QRect ScreenArea::getSelectedArea()
 {
     QRectF selectedArea;
 
-    selectedArea.setX( (m_selectedArea.x()-tabletGap) / m_scaling );
-    selectedArea.setY( (m_selectedArea.y()-tabletGap) / m_scaling );
+    selectedArea.setX(( m_selectedArea.x() - tabletGap ) / m_scaling );
+    selectedArea.setY(( m_selectedArea.y() - tabletGap ) / m_scaling );
     selectedArea.setWidth( m_selectedArea.width() / m_scaling );
     selectedArea.setHeight( m_selectedArea.height() / m_scaling );
 
@@ -60,8 +60,8 @@ QString ScreenArea::getSelectedAreaString()
 {
     QRect selectedArea;
 
-    selectedArea.setX( (m_selectedArea.x()-tabletGap) / m_scaling );
-    selectedArea.setY( (m_selectedArea.y()-tabletGap) / m_scaling );
+    selectedArea.setX(( m_selectedArea.x() - tabletGap ) / m_scaling );
+    selectedArea.setY(( m_selectedArea.y() - tabletGap ) / m_scaling );
     selectedArea.setWidth( m_selectedArea.width() / m_scaling );
     selectedArea.setHeight( m_selectedArea.height() / m_scaling );
 
@@ -87,11 +87,11 @@ void ScreenArea::resetSelection()
 
 void ScreenArea::setSelection( QString area )
 {
-    if(area.isEmpty()) {
+    if( area.isEmpty() ) {
         return;
     }
 
-    QStringList list = area.split( QLatin1String(" ") );
+    QStringList list = area.split( QLatin1String( " " ) );
 
     m_selectedArea.setX( list.at( 0 ).toInt()*m_scaling + tabletGap );
     m_selectedArea.setY( list.at( 1 ).toInt()*m_scaling + tabletGap );
@@ -132,14 +132,16 @@ void ScreenArea::paintEvent( QPaintEvent *event )
                           QString::fromLatin1( "%1" ).arg( i + 1 ) );
     }
 
-    painter.setPen( pen );
+    if( isEnabled() ) {
+        painter.setPen( pen );
 
-    // draw drag handles
-    painter.setBrush( Qt::red );
-    painter.drawRect( m_dragHandleLeft );
-    painter.drawRect( m_dragHandleRight );
-    painter.drawRect( m_dragHandleTop );
-    painter.drawRect( m_dragHandleBottom );
+        // draw drag handles
+        painter.setBrush( Qt::red );
+        painter.drawRect( m_dragHandleLeft );
+        painter.drawRect( m_dragHandleRight );
+        painter.drawRect( m_dragHandleTop );
+        painter.drawRect( m_dragHandleBottom );
+    }
 }
 
 void ScreenArea::mouseMoveEvent( QMouseEvent *event )
@@ -168,26 +170,44 @@ void ScreenArea::mouseMoveEvent( QMouseEvent *event )
             if( event->x() >= tabletGap && event->x() <= width() - tabletGap ) {
                 m_selectedArea.setX( event->x() );
             }
+            else if( event->x() < tabletGap ) {
+                m_selectedArea.setX( tabletGap );
+            }
+            else if( event->x() > width() - tabletGap ) {
+                m_selectedArea.setX( width() - tabletGap );
+            }
             break;
         case 2:
             if( event->x() >= tabletGap && event->x() <= width() - tabletGap ) {
-
                 m_selectedArea.setWidth( event->x() - m_selectedArea.x() );
+            }
+            else if( event->x() < tabletGap ) {
+                m_selectedArea.setWidth( tabletGap - m_selectedArea.x() );
+            }
+            else if( event->x() > width() - tabletGap ) {
+                m_selectedArea.setWidth( width() - tabletGap - m_selectedArea.x() );
             }
             break;
         case 3:
             if( event->y() >= tabletGap && event->y() <= height() - tabletGap ) {
                 m_selectedArea.setY( event->y() );
             }
+            else if( event->y() < tabletGap ) {
+                m_selectedArea.setY( tabletGap );
+            }
+            else if( event->y() > width() - tabletGap ) {
+                m_selectedArea.setY( height() - tabletGap );
+            }
             break;
         case 4:
             if( event->y() >= tabletGap && event->y() <= height() - tabletGap ) {
-                qreal newHeight = event->y() - m_selectedArea.y();
-
-                if( newHeight > m_virtualScreen.height() ) {
-                    newHeight = m_virtualScreen.height();
-                }
-                m_selectedArea.setHeight( newHeight );
+                m_selectedArea.setHeight( event->y() - m_selectedArea.y() );
+            }
+            else if( event->y() < tabletGap ) {
+                m_selectedArea.setHeight( tabletGap - m_selectedArea.y() );
+            }
+            else if( event->y() > height() - tabletGap ) {
+                m_selectedArea.setHeight( height() - tabletGap - m_selectedArea.y() );
             }
             break;
         case 5:

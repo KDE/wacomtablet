@@ -106,7 +106,7 @@ void TabletArea::resetSelection()
 
 void TabletArea::setSelection( QString area )
 {
-    if(area.isEmpty()) {
+    if( area.isEmpty() ) {
         return;
     }
 
@@ -116,6 +116,17 @@ void TabletArea::setSelection( QString area )
     m_selectedArea.setY( list.at( 1 ).toInt() * m_scaling + tabletGap );
     m_selectedArea.setWidth( list.at( 2 ).toInt() * m_scaling );
     m_selectedArea.setHeight( list.at( 3 ).toInt() * m_scaling );
+
+    updateDragHandle();
+    update();
+}
+
+void TabletArea::setSelection( qreal width, qreal height )
+{
+    //m_selectedArea.setX( 0 + tabletGap );
+    //m_selectedArea.setY( 0 + tabletGap );
+    m_selectedArea.setWidth( width * m_scaling );
+    m_selectedArea.setHeight( height * m_scaling );
 
     updateDragHandle();
     update();
@@ -144,12 +155,14 @@ void TabletArea::paintEvent( QPaintEvent *event )
 
     painter.setPen( pen );
 
-    // draw drag handles
-    painter.setBrush( Qt::red );
-    painter.drawRect( m_dragHandleLeft );
-    painter.drawRect( m_dragHandleRight );
-    painter.drawRect( m_dragHandleTop );
-    painter.drawRect( m_dragHandleBottom );
+    if( isEnabled() ) {
+        // draw drag handles
+        painter.setBrush( Qt::red );
+        painter.drawRect( m_dragHandleLeft );
+        painter.drawRect( m_dragHandleRight );
+        painter.drawRect( m_dragHandleTop );
+        painter.drawRect( m_dragHandleBottom );
+    }
 
     // draw area info in the middle
     painter.setPen( Qt::black );
@@ -183,17 +196,19 @@ void TabletArea::mouseMoveEvent( QMouseEvent *event )
         case 1:
             if( event->x() > 0 && event->x() < width() ) {
                 m_selectedArea.setX( event->x() );
+                emit sizeChanged( false );
             }
             break;
         case 2:
             if( event->x() > 0 && event->x() < width() ) {
-
                 m_selectedArea.setWidth( event->x() - m_selectedArea.x() );
+                emit sizeChanged( false );
             }
             break;
         case 3:
             if( event->y() > 0 && event->y() < height() ) {
                 m_selectedArea.setY( event->y() );
+                emit sizeChanged( false );
             }
             break;
         case 4:
@@ -204,6 +219,7 @@ void TabletArea::mouseMoveEvent( QMouseEvent *event )
                     newHeight = m_origialArea.height() * m_scaling;
                 }
                 m_selectedArea.setHeight( newHeight );
+                emit sizeChanged( false );
             }
             break;
         case 5:
