@@ -79,9 +79,14 @@ void WacomInterface::applyProfile( const QString &device, const QString &section
         setConfiguration( device, key, deviceGroup.readEntry( key ) );
     }
 
-    // apply the MapToOutput at the end.
-    // this ensures we rotated the device beforehand
-    mapTabletToScreen(device, deviceGroup.readEntry( QLatin1String( "0ScreenSpace" ) ));
+    if( section == QLatin1String( "cursor" ) ) {
+        setCursorSettings( device, gtprofile );
+    }
+    else {
+        // apply the MapToOutput at the end.
+        // this ensures we rotated the device beforehand
+        mapTabletToScreen( device, deviceGroup.readEntry( QLatin1String( "0ScreenSpace" ) ) );
+    }
 }
 
 void WacomInterface::setConfiguration( const QString &device, const QString &param, const QString &value )
@@ -154,7 +159,7 @@ QString WacomInterface::getDefaultConfiguration( const QString &device, const QS
     return result.remove( QLatin1Char( '\n' ) );
 }
 
-void WacomInterface:: mapTabletToScreen( const QString &device, const QString &screenArea )
+void WacomInterface::mapTabletToScreen( const QString &device, const QString &screenArea )
 {
     //what we need is the Coordinate Transformation Matrix
     // in the normal case where the whole screen is used we end up with a 3x3 identity matrix
@@ -166,7 +171,7 @@ void WacomInterface:: mapTabletToScreen( const QString &device, const QString &s
 
     QStringList screenList = screenArea.split( QLatin1String( " " ) );
 
-    if(screenList.isEmpty() || screenList.size() != 4) {
+    if( screenList.isEmpty() || screenList.size() != 4 ) {
         kError() << "mapTabletToScreen :: can't parse ScreenSpace entry => device:" << device;
         return;
     }
@@ -232,9 +237,9 @@ void WacomInterface:: mapTabletToScreen( const QString &device, const QString &s
     /* XI1 expects 32 bit properties (including float) as long,
      * regardless of architecture */
     float fmatrix[9] = { 1, 0, 0,
-                        0, 1, 0,
-                        0, 0, 1
-                      };
+                         0, 1, 0,
+                         0, 0, 1
+                       };
     fmatrix[2] = offsetX;
     fmatrix[5] = offsetY;
     fmatrix[0] = w;
@@ -259,4 +264,89 @@ void WacomInterface:: mapTabletToScreen( const QString &device, const QString &s
     XFreeDeviceList( info );
     XCloseDevice( QX11Info::display(), dev );
 
+}
+
+void WacomInterface::setCursorSettings( const QString &device, KConfigGroup *gtprofile )
+{
+    int ndevices;
+    XDevice *dev = NULL;
+    Display *dpy = QX11Info::display();
+
+    XDeviceInfo *info = XListInputDevices( dpy, &ndevices );
+    for( int i = 0; i < ndevices; i++ ) {
+        if( info[i].name == device.toLatin1() ) {
+            dev = XOpenDevice( dpy, info[i].id );
+            break;
+        }
+    }
+
+    Atom constDecel_prop = XInternAtom( dpy, "Device Accel Constant Deceleration", True );
+    Atom adaptiveDecel_prop = XInternAtom( dpy, "Device Accel Adaptive Deceleration", True );
+    Atom velocityScaling_prop = XInternAtom( dpy, "Device Accel Velocity Scaling", True );
+    Atom type;
+    int format;
+    unsigned long nitems, bytes_after;
+    float *data;
+
+    if( !constDecel_prop ||  !adaptiveDecel_prop || !velocityScaling_prop) {
+        kError() << "mapTabletToScreen :: No properties on device " << device << "to change cursor speed";
+        return;
+    }
+
+    // set Constant Deceleration
+    XGetDeviceProperty( dpy, dev, constDecel_prop, 0, 9, False,
+                        AnyPropertyType, &type, &format, &nitems,
+                        &bytes_after, ( unsigned char ** )&data );
+
+    if( format != 32 || type != XInternAtom( dpy, "FLOAT", True ) ) {
+        return;
+    }
+
+    QString cursorSpeed = gtprofile->readEntry("ConstantDeceleration","1.0");
+
+    kDebug() << "setCursorSettings :: set ConstantDeceleration to " << cursorSpeed;
+
+    XChangeDeviceProperty( dpy, dev, constDecel_prop, type, format,
+                           PropModeReplace,
+                           (unsigned char *)cursorSpeed.toLatin1().data(),
+                           nitems );
+
+
+    // set Adaptive Deceleration
+    XGetDeviceProperty( dpy, dev, adaptiveDecel_prop, 0, 9, False,
+                        AnyPropertyType, &type, &format, &nitems,
+                        &bytes_after, ( unsigned char ** )&data );
+
+    if( format != 32 || type != XInternAtom( dpy, "FLOAT", True ) ) {
+        return;
+    }
+
+    cursorSpeed = gtprofile->readEntry("AdaptiveDeceleration","1.0");
+    kDebug() << "setCursorSettings :: set AdaptiveDeceleration to " << cursorSpeed;
+
+    XChangeDeviceProperty( dpy, dev, adaptiveDecel_prop, type, format,
+                           PropModeReplace,
+                           (unsigned char *)cursorSpeed.toLatin1().data(),
+                           nitems );
+
+    // set Velocity Scaling
+    XGetDeviceProperty( dpy, dev, velocityScaling_prop, 0, 9, False,
+                        AnyPropertyType, &type, &format, &nitems,
+                        &bytes_after, ( unsigned char ** )&data );
+
+    if( format != 32 || type != XInternAtom( dpy, "FLOAT", True ) ) {
+        return;
+    }
+
+    cursorSpeed = gtprofile->readEntry("VelocityScaling","1.0");
+    kDebug() << "setCursorSettings :: set VelocityScaling to " << cursorSpeed.toLatin1().data();
+
+    XChangeDeviceProperty( dpy, dev, velocityScaling_prop, type, format,
+                           PropModeReplace,
+                           (unsigned char *)cursorSpeed.toLatin1().data(),
+                           nitems );
+    XFree( data );
+    XFlush( dpy );
+    XFreeDeviceList( info );
+    XCloseDevice( QX11Info::display(), dev );
 }

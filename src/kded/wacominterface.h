@@ -87,6 +87,8 @@ public:
 private:
     void mapTabletToScreen(const QString &device, const QString & screenArea);
 
+    void setCursorSettings(const QString &device, KConfigGroup *gtprofile);
+
 };
 
 }

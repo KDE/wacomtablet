@@ -51,6 +51,13 @@ PenWidget::PenWidget( ProfileManagement *profileManager, QWidget *parent )
     //TODO Don't show double click slider box
     // does not work yet
     m_ui->DblClickBox->hide();
+    // same for the mouse speed options
+    m_ui->label->hide();
+    m_ui->cursorProximity->hide();
+    m_ui->label_2->hide();
+    m_ui->cursorAcceleration->hide();
+    m_ui->label_3->hide();
+    m_ui->cursorSpeed->hide();
 }
 
 PenWidget::~PenWidget()
@@ -87,9 +94,6 @@ void PenWidget::saveToProfile()
         eraserConfig.writeEntry( "Mode", "relative" );
     }
 
-    stylusConfig.writeEntry( "CursorProximity", m_ui->cursorProxInput->value() );
-    eraserConfig.writeEntry( "CursorProximity", m_ui->cursorProxInput->value() );
-
     if( m_ui->tpcCheckBox->isChecked() ) {
         stylusConfig.writeEntry( "TabletPCButton", "on" );
     }
@@ -99,6 +103,14 @@ void PenWidget::saveToProfile()
 
     stylusConfig.sync();
     eraserConfig.sync();
+
+    // now save the cursor specific settings
+    KConfigGroup cursorConfig = m_profileManagement->configGroup( QLatin1String( "cursor" ) );
+
+    cursorConfig.writeEntry( "CursorProximity", m_ui->cursorProximity->value() );
+    cursorConfig.writeEntry( "VelocityScaling", m_ui->cursorAcceleration->value() );
+    cursorConfig.writeEntry( "ConstantDeceleration", m_ui->cursorSpeed->value() );
+    cursorConfig.writeEntry( "AdaptiveDeceleration", m_ui->cursorSpeed->value() );
 }
 
 void PenWidget::loadFromProfile()
@@ -147,8 +159,6 @@ void PenWidget::loadFromProfile()
         m_ui->radioButton_Relative->setChecked( true );
     }
 
-    m_ui->cursorProxInput->setValue( stylusConfig.readEntry( QLatin1String( "CursorProximity" ) ).toInt() );
-
     // hover click settings
     QString tabletPCButton = stylusConfig.readEntry( QLatin1String( "TabletPCButton" ) );
     if( tabletPCButton == QLatin1String( "on" ) ) {
@@ -157,6 +167,14 @@ void PenWidget::loadFromProfile()
     else {
         m_ui->tpcCheckBox->setChecked( false );
     }
+
+    //load the cursor settings
+    KConfigGroup cursorConfig = m_profileManagement->configGroup( QLatin1String( "cursor" ) );
+
+    m_ui->cursorProximity->setValue( cursorConfig.readEntry( QLatin1String( "CursorProximity" ) ).toInt() );
+    m_ui->cursorAcceleration->setValue( cursorConfig.readEntry( QLatin1String( "VelocityScaling" ) ).toFloat() );
+    m_ui->cursorSpeed->setValue( cursorConfig.readEntry( QLatin1String( "ConstantDeceleration" ) ).toFloat() );
+    m_ui->cursorSpeed->setValue( cursorConfig.readEntry( QLatin1String( "AdaptiveDeceleration" ) ).toFloat() );
 }
 
 void PenWidget::profileChanged()

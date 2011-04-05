@@ -104,15 +104,10 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     stylusGroup->writeEntry( "PressureCurve", "0 0 100 100" );
     stylusGroup->writeEntry( "Threshold", "27" );
 
-    //stylusGroup->writeEntry("RawFilter", "todo");
-    //eraserGroup->writeEntry("Suppress", "todo");
-    //eraserGroup->writeEntry("RawSample", "todo");
-
     stylusGroup->writeEntry( "Rotate", "none" );
     stylusGroup->writeEntry( "0ForceProportions", "false" );
     stylusGroup->writeEntry( "0ScreenMapping", "randr" );
     stylusGroup->writeEntry( "0TabletArea", "full" );
-    //stylusGroup->writeEntry("MapToOutput", "todo"); // if we don't specify, xsetwacom will use a default one
 
     QDBusReply<QString> stylusArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( stylusName ), QLatin1String( "Area" ) );
     if( stylusArea.isValid() ) {
@@ -128,14 +123,6 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     }
     else {
         stylusGroup->writeEntry( "TabletPCButton", "on" );
-    }
-
-    QDBusReply<QString> stylusProximity = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( stylusName ), QLatin1String( "CursorProximity" ) );
-    if( stylusProximity.isValid() ) {
-        stylusGroup->writeEntry( "CursorProximity", stylusProximity.value() );
-    }
-    else {
-        stylusGroup->writeEntry( "CursorProximity", "-1" );
     }
 
     stylusGroup->sync();
@@ -171,19 +158,10 @@ void ProfileManagement::createNewProfile( const QString &profilename )
         eraserGroup->writeEntry( "Area", "0 0 0 0" );
     }
 
-    QDBusReply<QString> eraserProximity = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( eraserName ), QLatin1String( "CursorProximity" ) );
-    if( eraserProximity.isValid() ) {
-        eraserGroup->writeEntry( "CursorProximity", eraserProximity.value() );
-    }
-    else {
-        eraserGroup->writeEntry( "CursorProximity", "-1" );
-    }
-
     eraserGroup->sync();
     profileGroup->sync();
     deviceGroup->sync();
     delete eraserGroup;
-
 
     // also add section for the touch if we have a touch tool
     QDBusReply<QString> touchName = m_deviceInterface->call( QLatin1String( "touchName" ) );
@@ -197,7 +175,6 @@ void ProfileManagement::createNewProfile( const QString &profilename )
         touchGroup->writeEntry( "0ForceProportions", "false" );
         touchGroup->writeEntry( "0ScreenMapping", "randr" );
         touchGroup->writeEntry( "0TabletArea", "full" );
-        //touchGroup->writeEntry("MapToOutput", "todo"); // if we don't specify, xsetwacom will use a default one
 
         QDBusReply<QString> touchArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "Area" ) );
         if( touchArea.isValid() ) {
@@ -242,6 +219,27 @@ void ProfileManagement::createNewProfile( const QString &profilename )
         touchGroup->writeEntry( "TapTime", "250" );
 
         delete touchGroup;
+    }
+
+    // also add section for the cursor if we have it
+    QDBusReply<QString> cursorName = m_deviceInterface->call( QLatin1String( "cursorName" ) );
+
+    QString validCursorName = cursorName.value();
+    if( !validCursorName.isEmpty() ) {
+        KConfigGroup *cursorGroup = new KConfigGroup( profileGroup, "cursor" );
+
+        QDBusReply<QString> cursorProximity = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( validCursorName ), QLatin1String( "CursorProximity" ) );
+        if( cursorProximity.isValid() ) {
+            cursorGroup->writeEntry( "CursorProximity", cursorProximity.value() );
+        }
+        else {
+            cursorGroup->writeEntry( "CursorProximity", "42" );
+        }
+        cursorGroup->writeEntry( "VelocityScaling", "1" );
+        cursorGroup->writeEntry( "ConstantDeceleration", "1.0" );
+        cursorGroup->writeEntry( "AdaptiveDeceleration", "1.0" );
+
+        delete cursorGroup;
     }
 
     delete profileGroup;
