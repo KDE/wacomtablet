@@ -195,6 +195,20 @@ public slots:
     void selectRelativeMode(bool state);
 
     /**
+      * Sets the Touch mode on
+      *
+      * @param state if true touch i eneabled, if false touch is disabled
+      */
+    void setTouchModeOn(bool state);
+
+    /**
+      * Sets the Touch mode off
+      *
+      * @param state if true touch i eneabled, if false touch is disabled
+      */
+    void setTouchModeOff(bool state);
+
+    /**
       * Called via DBus from the daemon when Solid detects a new tablet.
       *
       * Updates the @c m_applet TabletApplet with the new values.
@@ -248,12 +262,15 @@ private:
     QString                m_padName;             /**< Internal cache of the tablet pad name */
     QString                m_stylusName;          /**< Internal cache of the tablet stylus name */
     QString                m_eraserName;          /**< Internal cache of the tablet eraser name */
+    QString                m_touchName;          /**< Internal cache of the tablet touch name */
 
     Plasma::Label         *m_deviceName;          /**< Internal cache of the tablet name */
     Plasma::Label         *m_errorMsg;            /**< Error message if no tablet or the daemon is not available */
     Plasma::ComboBox      *m_comboBoxProfile;     /**< The Combox for the profile selection */
     Plasma::RadioButton   *m_radioButtonAbsolute; /**< The Radiobutton to select the pen absolute mode */
     Plasma::RadioButton   *m_radioButtonRelative; /**< The Radiobutton to select the pen relative mode */
+    Plasma::RadioButton   *m_radioButtonTouchOn;  /**< The Radiobutton to select the pen absolute mode */
+    Plasma::RadioButton   *m_radioButtonTouchOff; /**< The Radiobutton to select the pen relative mode */
 };
 
 }
