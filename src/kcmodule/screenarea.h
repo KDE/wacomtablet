@@ -18,9 +18,10 @@
 #ifndef SCREENAREA_H
 #define SCREENAREA_H
 
-#include <QWidget>
-#include <QRect>
-#include <QRectF>
+//Qt includes
+#include <QtGui/QWidget>
+#include <QtCore/QRect>
+#include <QtCore/QRectF>
 
 namespace Wacom {
 
@@ -33,8 +34,11 @@ public:
     QRect getSelectedArea();
     QString getSelectedAreaString();
 
-    void resetSelection();
     void setSelection(QString area);
+
+public slots:
+    void setScreenNumber(int screen);
+    void resetSelection();
 
  protected:
      void paintEvent(QPaintEvent *event);

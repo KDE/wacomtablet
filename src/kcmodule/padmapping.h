@@ -57,6 +57,15 @@ public:
       */
     ~PadMapping();
 
+    /**
+      * Sets the used tool for this mapping widget
+      *
+      * As the pad and touch tool are physically two different devices both should be calibrated on its own.
+      * Here the used tool is selected.
+      *
+      * @param tool @arg @c 0 stylus/eraser and thus pad calibration
+      *             @arg @c 1 touch tool calibration
+      */
     void setTool(int tool);
 
     /**
@@ -89,6 +98,12 @@ public slots:
      */
     void showCalibrationDialog();
 
+    /**
+      * Updates the tablet area when the selected screen area is changed
+      *
+      * Only changes the tablet are if @c force @c proportions is activated.
+      * This ensures the full screen area is mapped onto the tablet without loosing the proportions
+      */
     void updateTabletArea();
 
 signals:
@@ -98,17 +113,28 @@ signals:
     void changed();
 
 private slots:
+    /**
+      * When the full tablet usage is selected this ensures the force proportions and tabletarea box is disabled
+      */
     void setFullTabletUsage(bool useFullArea);
+
+    /**
+      * When force proportion is toggled and full tablet still set partOftablet and adjust the tabletarea widget
+      */
     void setForceProportions(bool useProportionalArea);
+
+    void setFullScreenUsage(bool fullScreen);
+    void setPartOfScreenUsage(bool partOfScreen);
+    void setMapToScreenUsage(bool mapToScreen);
 
 private:
     Ui::PadMapping      *m_ui;                /**< Handler to the padmapping.ui file */
     QDBusInterface      *m_deviceInterface;   /**< Connection to the tablet daemon DBus /Device Interface */
     ProfileManagement   *m_profileManagement; /**< Handler for the profile config connection */
 
-    int m_tool;
-    TabletArea *m_tabletArea;
-    ScreenArea *m_screenArea;
+    int m_tool;                               /**< The used tool for this widget (0=stylus/eraser and 1=touch tool) */
+    TabletArea          *m_tabletArea;        /**< Widget to interactively change the used tablet area */
+    ScreenArea          *m_screenArea;        /**< Widget to interactively change the used screen area */
 };
 
 }

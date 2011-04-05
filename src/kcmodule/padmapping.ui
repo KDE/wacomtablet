@@ -93,27 +93,46 @@
         <property name="margin">
          <number>8</number>
         </property>
-        <item row="0" column="0">
+        <item row="1" column="0">
          <widget class="QRadioButton" name="mapToScreen">
+          <property name="toolTip">
+           <string>Map to a specific screen</string>
+          </property>
           <property name="text">
-           <string>Map to output</string>
+           <string>Map to screen</string>
           </property>
           <property name="checked">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="1" column="1">
          <widget class="KComboBox" name="screenComboBox">
           <property name="toolTip">
            <string>Select the XRandR display which will be used to map the tablet area on it.</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item row="2" column="0">
          <widget class="QRadioButton" name="partOfScreen">
+          <property name="toolTip">
+           <string>Specify the used screen space manually</string>
+          </property>
           <property name="text">
            <string>Part of the Screen</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QRadioButton" name="fullScreen">
+          <property name="toolTip">
+           <string>Map to the full screen area</string>
+          </property>
+          <property name="text">
+           <string>Full screen</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -128,6 +147,9 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QRadioButton" name="fullTablet">
+          <property name="toolTip">
+           <string>Use the complete tablet area to map the screen space on it</string>
+          </property>
           <property name="text">
            <string>Full tablet</string>
           </property>
@@ -138,6 +160,9 @@
         </item>
         <item>
          <widget class="QRadioButton" name="partOfTablet">
+          <property name="toolTip">
+           <string>Use only a part of the tablet to map the screen space on it</string>
+          </property>
           <property name="text">
            <string>Part of the Tablet</string>
           </property>
@@ -145,6 +170,9 @@
         </item>
         <item>
          <widget class="QCheckBox" name="forceProportions">
+          <property name="toolTip">
+           <string>Force the tabletare to keep the shape of the used screen area.</string>
+          </property>
           <property name="text">
            <string>Force Proportions</string>
           </property>
@@ -182,6 +210,9 @@
     <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
       <widget class="QGroupBox" name="screenAreaBox">
+       <property name="toolTip">
+        <string>Select the scren area that should be mapped onto the tablet. Use the drag handles to change the selected area.</string>
+       </property>
        <property name="title">
         <string>Screen Area</string>
        </property>
@@ -190,6 +221,9 @@
      </item>
      <item>
       <widget class="QGroupBox" name="tabletAreaBox">
+       <property name="toolTip">
+        <string>Select the tablet area that should be used to map the srceen space on it. Use the drag handles to change the selected area.</string>
+       </property>
        <property name="title">
         <string>Tablet Area</string>
        </property>
@@ -225,6 +259,18 @@
    <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>rotationComboBox</tabstop>
+  <tabstop>xrandrRotationCheckBox</tabstop>
+  <tabstop>fullScreen</tabstop>
+  <tabstop>mapToScreen</tabstop>
+  <tabstop>screenComboBox</tabstop>
+  <tabstop>partOfScreen</tabstop>
+  <tabstop>fullTablet</tabstop>
+  <tabstop>partOfTablet</tabstop>
+  <tabstop>forceProportions</tabstop>
+  <tabstop>calibrateButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
@@ -266,8 +312,8 @@
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>27</x>
-     <y>139</y>
+     <x>43</x>
+     <y>174</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -282,8 +328,8 @@
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>29</x>
-     <y>171</y>
+     <x>45</x>
+     <y>202</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -298,8 +344,8 @@
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>166</x>
-     <y>138</y>
+     <x>232</x>
+     <y>177</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -314,8 +360,8 @@
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>22</x>
-     <y>238</y>
+     <x>34</x>
+     <y>268</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -330,8 +376,8 @@
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>26</x>
-     <y>261</y>
+     <x>38</x>
+     <y>293</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -346,8 +392,8 @@
    <slot>profileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>26</x>
-     <y>287</y>
+     <x>38</x>
+     <y>318</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -362,12 +408,28 @@
    <slot>showCalibrationDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>47</x>
-     <y>319</y>
+     <x>52</x>
+     <y>353</y>
     </hint>
     <hint type="destinationlabel">
      <x>-2</x>
      <y>336</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fullScreen</sender>
+   <signal>clicked()</signal>
+   <receiver>PadMapping</receiver>
+   <slot>profileChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>63</x>
+     <y>141</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>207</y>
     </hint>
    </hints>
   </connection>

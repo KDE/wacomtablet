@@ -60,7 +60,6 @@ void WacomInterface::applyProfile( const QString &device, const QString &section
     // first get the general options of the interface
     bool m_forceProportion = false;
     bool m_fullTabletArea = false;
-    bool m_screenRandRSelection = true;
 
     if( deviceGroup.readEntry( QLatin1String( "0ForceProportions" ) ) == QLatin1String( "true" ) ) {
         m_forceProportion = true;
@@ -76,36 +75,18 @@ void WacomInterface::applyProfile( const QString &device, const QString &section
         m_fullTabletArea = false;
     }
 
-    if( deviceGroup.readEntry( QLatin1String( "0ScreenMapping" ) ) == QLatin1String( "randr" ) ) {
-        m_screenRandRSelection = true;
-    }
-    else {
-        m_screenRandRSelection = false;
-    }
-
     foreach( const QString & key, deviceGroup.keyList() ) {
         setConfiguration( device, key, deviceGroup.readEntry( key ) );
     }
 
     // apply the MapToOutput at the end.
     // this ensures we rotated the device beforehand
-    if( m_screenRandRSelection ) {
-        setConfiguration( device, QLatin1String( "MapToOutput" ), deviceGroup.readEntry( QLatin1String( "MapToOutput" ) ) );
-    }
-    // if we don't choose the simple inbuild randr selection t generate the calibrationmatrix
-    // we create one on our own based on the user selected screen area
-    else {
-        mapTabletToScreen(device, deviceGroup.readEntry( QLatin1String( "ScreenSpace" ) ));
-    }
+    mapTabletToScreen(device, deviceGroup.readEntry( QLatin1String( "0ScreenSpace" ) ));
 }
 
 void WacomInterface::setConfiguration( const QString &device, const QString &param, const QString &value )
 {
     if( value.isEmpty() ) {
-        return;
-    }
-
-    if( param == QString::fromLatin1( "ScreenSpace" ) ) {
         return;
     }
 

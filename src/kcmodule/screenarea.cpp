@@ -22,11 +22,8 @@
 #include <QtGui/QPainter>
 #include <QtGui/QPen>
 #include <QtGui/QBrush>
-
-#include <QApplication>
-#include <QDesktopWidget>
-
-#include <QtCore/QDebug>
+#include <QtGui/QApplication>
+#include <QtGui/QDesktopWidget>
 
 using namespace Wacom;
 
@@ -38,8 +35,8 @@ ScreenArea::ScreenArea( QWidget *parent ) :
 {
     setMouseTracking( true );
 
-    setMinimumWidth( 400 + 2 * tabletGap );
-    setMaximumWidth( 400 + 2 * tabletGap );
+    setMinimumWidth( 600 + 2 * tabletGap );
+    setMaximumWidth( 600 + 2 * tabletGap );
 
     setupWidget();
 }
@@ -102,6 +99,19 @@ void ScreenArea::setSelection( QString area )
     update();
 }
 
+void ScreenArea::setScreenNumber( int screen )
+{
+    QRect selectedScreen = QApplication::desktop()->screenGeometry( screen );
+
+    m_selectedArea.setX( selectedScreen.x()*m_scaling + tabletGap );
+    m_selectedArea.setY( selectedScreen.y()*m_scaling + tabletGap );
+    m_selectedArea.setWidth( selectedScreen.width()*m_scaling );
+    m_selectedArea.setHeight( selectedScreen.height()*m_scaling );
+
+    updateDragHandle();
+    update();
+}
+
 void ScreenArea::paintEvent( QPaintEvent *event )
 {
     Q_UNUSED( event );
@@ -142,6 +152,19 @@ void ScreenArea::paintEvent( QPaintEvent *event )
         painter.drawRect( m_dragHandleTop );
         painter.drawRect( m_dragHandleBottom );
     }
+
+    // paint selected screen size below the screen box
+    painter.setPen( Qt::darkRed );
+    painter.setBrush( Qt::darkRed );
+
+    QRect screnArea = getSelectedArea();
+    QString selectedArea = QString::fromLatin1( "%1 %2, %3x%4" )
+                           .arg( screnArea.x() )
+                           .arg( screnArea.y() )
+                           .arg( screnArea.width() )
+                           .arg( screnArea.height() );
+
+    painter.drawText( rect().width() / 2 - 100, rect().height(), selectedArea );
 }
 
 void ScreenArea::mouseMoveEvent( QMouseEvent *event )
@@ -280,6 +303,8 @@ void ScreenArea::mousePressEvent( QMouseEvent *event )
 
 void ScreenArea::mouseReleaseEvent( QMouseEvent *event )
 {
+    Q_UNUSED( event );
+
     m_dragMode = false;
     m_mode = 0;
 }

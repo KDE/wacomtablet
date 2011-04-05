@@ -22,9 +22,6 @@
 #include <QtGui/QPainter>
 #include <QtGui/QPen>
 #include <QtGui/QBrush>
-
-#include <QtCore/QDebug>
-
 #include <QtGui/QX11Info>
 
 // X11 includes
@@ -123,8 +120,6 @@ void TabletArea::setSelection( QString area )
 
 void TabletArea::setSelection( qreal width, qreal height )
 {
-    //m_selectedArea.setX( 0 + tabletGap );
-    //m_selectedArea.setY( 0 + tabletGap );
     m_selectedArea.setWidth( width * m_scaling );
     m_selectedArea.setHeight( height * m_scaling );
 

@@ -18,9 +18,10 @@
 #ifndef TABLETAREA_H
 #define TABLETAREA_H
 
-#include <QWidget>
-#include <QRect>
-#include <QRectF>
+//Qt includes
+#include <QtGui/QWidget>
+#include <QtCore/QRect>
+#include <QtCore/QRectF>
 
 namespace Wacom {
 
@@ -54,7 +55,7 @@ signals:
 
 private:
     /**
-     * @brief Get tablet width/height from xinput
+     * Get tablet width/height from xinput
     */
     void getMaxTabletArea();
     void setupWidget();
