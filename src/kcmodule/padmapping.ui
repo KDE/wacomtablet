@@ -171,7 +171,7 @@
         <item>
          <widget class="QCheckBox" name="forceProportions">
           <property name="toolTip">
-           <string>Force the tabletare to keep the shape of the used screen area.</string>
+           <string>Force the tablet to keep the shape of the used screen area.</string>
           </property>
           <property name="text">
            <string>Force Proportions</string>
@@ -211,7 +211,7 @@
      <item>
       <widget class="QGroupBox" name="screenAreaBox">
        <property name="toolTip">
-        <string>Select the scren area that should be mapped onto the tablet. Use the drag handles to change the selected area.</string>
+        <string>Select the screen area that should be mapped onto the tablet. Use the drag handles to change the selected area.</string>
        </property>
        <property name="title">
         <string>Screen Area</string>
@@ -222,7 +222,7 @@
      <item>
       <widget class="QGroupBox" name="tabletAreaBox">
        <property name="toolTip">
-        <string>Select the tablet area that should be used to map the srceen space on it. Use the drag handles to change the selected area.</string>
+        <string>Select the tablet area that should be used to map the screen space on it. Use the drag handles to change the selected area.</string>
        </property>
        <property name="title">
         <string>Tablet Area</string>
