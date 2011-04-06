@@ -92,7 +92,7 @@ public slots:
     /**
       * called when the user discards his changes
       */
-    void recejct();
+    void reject();
 
 private:
     Ui::PressCurveDialog *m_ui;              /**< Handler to the presscurvedialog.ui file */

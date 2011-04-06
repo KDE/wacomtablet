@@ -90,7 +90,7 @@ void PressCurveDialog::accept()
 {
     done(KDialog::Accepted);
 }
-void PressCurveDialog::recejct()
+void PressCurveDialog::reject()
 {
     done(KDialog::Rejected);
 }
