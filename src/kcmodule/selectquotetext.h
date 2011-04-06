@@ -51,7 +51,7 @@ public:
       *
       * @return the text from the KLineEdit field
       */
-    QString quoteText();
+    QString quoteText() const;
 
 private slots:
     /**

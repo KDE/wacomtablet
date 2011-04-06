@@ -255,6 +255,7 @@ void TabletWidget::switchProfile( const QString &profile )
         if( ret == KDialog::Accepted ) {
             saveProfile();
         }
+	delete saveDialog;
     }
 
     m_profileManagement->setProfileName( profile );

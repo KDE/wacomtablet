@@ -39,7 +39,7 @@ SelectQuoteText::~SelectQuoteText()
     delete ui;
 }
 
-QString SelectQuoteText::quoteText()
+QString SelectQuoteText::quoteText() const 
 {
     return m_quoteText;
 }
