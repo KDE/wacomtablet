@@ -84,6 +84,16 @@ public:
       */
     QString getDefaultConfiguration( const QString &device, const QString &param ) const;
 
+    /**
+      * Toggles the touch tool on/off
+      */
+    void toggleTouch(const QString & touchDevice);
+
+    /**
+      * Toggles the stylus/eraser to absolute/relative mode
+      */
+    void togglePenMode(const QString & device);
+
 private:
     void mapTabletToScreen(const QString &device, const QString & screenArea);
 

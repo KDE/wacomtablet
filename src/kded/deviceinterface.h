@@ -74,6 +74,16 @@ public:
       * @return the factory default value as string
       */
     virtual QString getDefaultConfiguration(const QString & device, const QString & param) const = 0;
+
+    /**
+      * Toggles the touch tool on/off
+      */
+    virtual void toggleTouch(const QString & touchDevice)= 0;
+
+    /**
+      * Toggles the stylus/eraser to absolute/relative mode
+      */
+    virtual void togglePenMode(const QString & device) = 0;
 };
 
 }

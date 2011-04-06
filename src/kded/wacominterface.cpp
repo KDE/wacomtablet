@@ -159,6 +159,30 @@ QString WacomInterface::getDefaultConfiguration( const QString &device, const QS
     return result.remove( QLatin1Char( '\n' ) );
 }
 
+void WacomInterface::toggleTouch(const QString & touchDevice)
+{
+    QString touchMode = getConfiguration(touchDevice, QLatin1String("Touch"));
+
+    if(touchMode == QLatin1String("off")) {
+        setConfiguration(touchDevice, QLatin1String("Touch"), QLatin1String("on"));
+    }
+    else {
+        setConfiguration(touchDevice, QLatin1String("Touch"), QLatin1String("off"));
+    }
+}
+
+void WacomInterface::togglePenMode(const QString & device)
+{
+    QString touchMode = getConfiguration(device, QLatin1String("Mode"));
+
+    if(touchMode == QLatin1String("Absolute")) {
+        setConfiguration(device, QLatin1String("Mode"), QLatin1String("Relative"));
+    }
+    else {
+        setConfiguration(device, QLatin1String("Mode"), QLatin1String("Absolute"));
+    }
+}
+
 void WacomInterface::mapTabletToScreen( const QString &device, const QString &screenArea )
 {
     //what we need is the Coordinate Transformation Matrix
@@ -288,7 +312,7 @@ void WacomInterface::setCursorSettings( const QString &device, KConfigGroup *gtp
     unsigned long nitems, bytes_after;
     float *data;
 
-    if( !constDecel_prop ||  !adaptiveDecel_prop || !velocityScaling_prop) {
+    if( !constDecel_prop ||  !adaptiveDecel_prop || !velocityScaling_prop ) {
         kError() << "mapTabletToScreen :: No properties on device " << device << "to change cursor speed";
         return;
     }
@@ -302,13 +326,13 @@ void WacomInterface::setCursorSettings( const QString &device, KConfigGroup *gtp
         return;
     }
 
-    QString cursorSpeed = gtprofile->readEntry("ConstantDeceleration","1.0");
+    QString cursorSpeed = gtprofile->readEntry( "ConstantDeceleration", "1.0" );
 
     kDebug() << "setCursorSettings :: set ConstantDeceleration to " << cursorSpeed;
 
     XChangeDeviceProperty( dpy, dev, constDecel_prop, type, format,
                            PropModeReplace,
-                           (unsigned char *)cursorSpeed.toLatin1().data(),
+                           ( unsigned char * )cursorSpeed.toLatin1().data(),
                            nitems );
 
 
@@ -321,12 +345,12 @@ void WacomInterface::setCursorSettings( const QString &device, KConfigGroup *gtp
         return;
     }
 
-    cursorSpeed = gtprofile->readEntry("AdaptiveDeceleration","1.0");
+    cursorSpeed = gtprofile->readEntry( "AdaptiveDeceleration", "1.0" );
     kDebug() << "setCursorSettings :: set AdaptiveDeceleration to " << cursorSpeed;
 
     XChangeDeviceProperty( dpy, dev, adaptiveDecel_prop, type, format,
                            PropModeReplace,
-                           (unsigned char *)cursorSpeed.toLatin1().data(),
+                           ( unsigned char * )cursorSpeed.toLatin1().data(),
                            nitems );
 
     // set Velocity Scaling
@@ -338,12 +362,12 @@ void WacomInterface::setCursorSettings( const QString &device, KConfigGroup *gtp
         return;
     }
 
-    cursorSpeed = gtprofile->readEntry("VelocityScaling","1.0");
+    cursorSpeed = gtprofile->readEntry( "VelocityScaling", "1.0" );
     kDebug() << "setCursorSettings :: set VelocityScaling to " << cursorSpeed.toLatin1().data();
 
     XChangeDeviceProperty( dpy, dev, velocityScaling_prop, type, format,
                            PropModeReplace,
-                           (unsigned char *)cursorSpeed.toLatin1().data(),
+                           ( unsigned char * )cursorSpeed.toLatin1().data(),
                            nitems );
     XFree( data );
     XFlush( dpy );

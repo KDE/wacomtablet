@@ -109,7 +109,6 @@ public:
 
 public Q_SLOTS:
 
-
     Q_SCRIPTABLE DeviceInformation getAllInformation() const;
 
     /**
@@ -244,6 +243,16 @@ public Q_SLOTS:
       * @bug "xsetwacom getDefault device param" is not supported by the xf86-input-wacom driver right now
       */
     Q_SCRIPTABLE QString getDefaultConfiguration(const QString & device, const QString & param) const;
+
+    /**
+      * Toggles the touch tool on/off
+      */
+    Q_SCRIPTABLE void toggleTouch();
+
+    /**
+      * Toggles the stylus/eraser to absolute/relative mode
+      */
+    Q_SCRIPTABLE void togglePenMode();
 
 private:
 

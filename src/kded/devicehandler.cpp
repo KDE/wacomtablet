@@ -539,3 +539,31 @@ QString DeviceHandler::getDefaultConfiguration( const QString &device, const QSt
 
     return d->curDevice->getDefaultConfiguration( device, param );
 }
+
+void DeviceHandler::toggleTouch( )
+{
+    Q_D( DeviceHandler );
+
+    if( !d->curDevice || d->internalTouchName.isEmpty() ) {
+        return;
+    }
+
+    d->curDevice->toggleTouch(d->internalTouchName);
+}
+
+void DeviceHandler::togglePenMode( )
+{
+    Q_D( DeviceHandler );
+
+    if( !d->curDevice ) {
+        return;
+    }
+
+    if(!d->internalStylusName.isEmpty()) {
+        d->curDevice->togglePenMode(d->internalStylusName );
+    }
+
+    if(!d->internalEraserName.isEmpty()) {
+        d->curDevice->togglePenMode(d->internalEraserName );
+    }
+}

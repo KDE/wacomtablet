@@ -31,6 +31,8 @@
 #include <KDE/KLocalizedString>
 #include <KDE/KIconLoader>
 #include <KDE/KSharedConfig>
+#include <KDE/KActionCollection>
+#include <KDE/KAction>
 #include <KDE/KDebug>
 
 //Qt includes
@@ -62,6 +64,7 @@ public:
     int                 deviceid;        /**< current conencted tablet deviceid. id comes from x11 */
     QString             curProfile;      /**< currently active profile */
     bool                initPhase;       /**< used to suppress the tablet add notification on kded loading. */
+    KActionCollection   *actionCollection; /**< Collection of all global actions */
 };
 }
 
@@ -111,6 +114,8 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
     }
 
     d->initPhase = false;
+
+    setupActions();
 }
 
 TabletDaemon::~TabletDaemon()
@@ -121,6 +126,7 @@ TabletDaemon::~TabletDaemon()
     delete this->d_ptr->xEventNotifier;
     delete this->d_ptr->deviceHandler;
     delete this->d_ptr->iconLoader;
+    delete this->d_ptr->actionCollection;
     delete this->d_ptr;
 }
 
@@ -285,6 +291,25 @@ int TabletDaemon::findTabletDevice()
     return deviceId;
 }
 
+void TabletDaemon::setupActions()
+{
+    Q_D( TabletDaemon );
+
+    d->actionCollection = new KActionCollection( this );
+
+    KAction *action = d->actionCollection->addAction(QLatin1String("toggle-touch-mode"));
+    action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
+    action->setIcon( KIcon( QLatin1String( "input-tablet" ) ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::ALT + Qt::Key_T ) );
+    connect( action, SIGNAL( triggered() ), this, SLOT( actionToggleTouch() ) );
+
+    action = d->actionCollection->addAction(QLatin1String("toggle-stylus-mode"));
+    action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
+    action->setIcon( KIcon( QLatin1String( "input-tablet" ) ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::ALT + Qt::Key_S ) );
+    connect( action, SIGNAL( triggered() ), this, SLOT( actionTogglePenMode() ) );
+}
+
 void TabletDaemon::screenRotated( int screenRotation )
 {
     Q_D( const TabletDaemon );
@@ -302,8 +327,22 @@ void TabletDaemon::screenRotated( int screenRotation )
         d->deviceHandler->setConfiguration( stylusName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( screenRotation ) );
         d->deviceHandler->setConfiguration( eraserName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( screenRotation ) );
 
-        if(!touchName.isEmpty()) {
+        if( !touchName.isEmpty() ) {
             d->deviceHandler->setConfiguration( touchName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( screenRotation ) );
         }
     }
+}
+
+void TabletDaemon::actionToggleTouch()
+{
+    Q_D( const TabletDaemon );
+
+    d->deviceHandler->toggleTouch();
+}
+
+void TabletDaemon::actionTogglePenMode()
+{
+    Q_D( const TabletDaemon );
+
+    d->deviceHandler->togglePenMode();
 }

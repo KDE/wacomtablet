@@ -176,6 +176,20 @@ private Q_SLOTS:
       */
     void notifyError(const QString &message) const;
 
+    /**
+      * Called when the global shortcut is used
+      *
+      * Toggles the touch tool on/off
+      */
+    void actionToggleTouch();
+
+    /**
+      * Called when the global shortcut is used
+      *
+      * Toggles the stylus/eraser to absolute/relative mode
+      */
+    void actionTogglePenMode();
+
 private:
     Q_DECLARE_PRIVATE(TabletDaemon)
 
@@ -186,6 +200,14 @@ private:
       * @return int x11 device id of the wirst detected wacom tablet
       */
     int findTabletDevice();
+
+    /**
+      * Setup the global actions
+      *
+      * This includes toggling the touch tool on/off, changes the stylus mode
+      * and cycle through the available profiles
+      */
+    void setupActions();
 
     TabletDaemonPrivate *const d_ptr; /**< d-pointer for this class */
 };
