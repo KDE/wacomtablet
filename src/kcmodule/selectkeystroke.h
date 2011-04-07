@@ -52,7 +52,7 @@ public:
       *
       * @return untranslated plaintext string of the keystroke for xsetwacom
       */
-    QString keyStroke();
+    QString keyStroke() const;
 
 private slots:
     /**

@@ -62,7 +62,7 @@ SelectKeyStroke::~SelectKeyStroke()
     delete ui;
 }
 
-QString SelectKeyStroke::keyStroke()
+QString SelectKeyStroke::keyStroke() const
 {
     return m_keyStroke;
 }

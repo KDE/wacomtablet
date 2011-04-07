@@ -52,7 +52,7 @@ public:
       *
       * @return button selection as sting "Button i"
       */
-    QString keyButton();
+    QString keyButton() const;
 
 private slots:
     /**

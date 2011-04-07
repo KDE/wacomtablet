@@ -44,7 +44,7 @@ SelectKeyButton::~SelectKeyButton()
     delete ui;
 }
 
-QString SelectKeyButton::keyButton()
+QString SelectKeyButton::keyButton() const
 {
     return m_keyButton;
 }
