@@ -40,6 +40,7 @@
 #include <X11/Xatom.h>
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XInput2.h>
+#include <X11/Xutil.h>
 
 using namespace Wacom;
 
@@ -79,14 +80,10 @@ void WacomInterface::applyProfile( const QString &device, const QString &section
         setConfiguration( device, key, deviceGroup.readEntry( key ) );
     }
 
-    if( section == QLatin1String( "cursor" ) ) {
-        setCursorSettings( device, gtprofile );
-    }
-    else {
-        // apply the MapToOutput at the end.
-        // this ensures we rotated the device beforehand
-        mapTabletToScreen( device, deviceGroup.readEntry( QLatin1String( "0ScreenSpace" ) ) );
-    }
+    // apply the MapToOutput at the end.
+    // this ensures we rotated the device beforehand
+    mapTabletToScreen( device, deviceGroup.readEntry( QLatin1String( "0ScreenSpace" ) ) );
+
 }
 
 void WacomInterface::setConfiguration( const QString &device, const QString &param, const QString &value )
@@ -159,27 +156,27 @@ QString WacomInterface::getDefaultConfiguration( const QString &device, const QS
     return result.remove( QLatin1Char( '\n' ) );
 }
 
-void WacomInterface::toggleTouch(const QString & touchDevice)
+void WacomInterface::toggleTouch( const QString &touchDevice )
 {
-    QString touchMode = getConfiguration(touchDevice, QLatin1String("Touch"));
+    QString touchMode = getConfiguration( touchDevice, QLatin1String( "Touch" ) );
 
-    if(touchMode == QLatin1String("off")) {
-        setConfiguration(touchDevice, QLatin1String("Touch"), QLatin1String("on"));
+    if( touchMode == QLatin1String( "off" ) ) {
+        setConfiguration( touchDevice, QLatin1String( "Touch" ), QLatin1String( "on" ) );
     }
     else {
-        setConfiguration(touchDevice, QLatin1String("Touch"), QLatin1String("off"));
+        setConfiguration( touchDevice, QLatin1String( "Touch" ), QLatin1String( "off" ) );
     }
 }
 
-void WacomInterface::togglePenMode(const QString & device)
+void WacomInterface::togglePenMode( const QString &device )
 {
-    QString touchMode = getConfiguration(device, QLatin1String("Mode"));
+    QString touchMode = getConfiguration( device, QLatin1String( "Mode" ) );
 
-    if(touchMode == QLatin1String("Absolute")) {
-        setConfiguration(device, QLatin1String("Mode"), QLatin1String("Relative"));
+    if( touchMode == QLatin1String( "Absolute" ) ) {
+        setConfiguration( device, QLatin1String( "Mode" ), QLatin1String( "Relative" ) );
     }
     else {
-        setConfiguration(device, QLatin1String("Mode"), QLatin1String("Absolute"));
+        setConfiguration( device, QLatin1String( "Mode" ), QLatin1String( "Absolute" ) );
     }
 }
 
@@ -288,89 +285,4 @@ void WacomInterface::mapTabletToScreen( const QString &device, const QString &sc
     XFreeDeviceList( info );
     XCloseDevice( QX11Info::display(), dev );
 
-}
-
-void WacomInterface::setCursorSettings( const QString &device, KConfigGroup *gtprofile )
-{
-    int ndevices;
-    XDevice *dev = NULL;
-    Display *dpy = QX11Info::display();
-
-    XDeviceInfo *info = XListInputDevices( dpy, &ndevices );
-    for( int i = 0; i < ndevices; i++ ) {
-        if( info[i].name == device.toLatin1() ) {
-            dev = XOpenDevice( dpy, info[i].id );
-            break;
-        }
-    }
-
-    Atom constDecel_prop = XInternAtom( dpy, "Device Accel Constant Deceleration", True );
-    Atom adaptiveDecel_prop = XInternAtom( dpy, "Device Accel Adaptive Deceleration", True );
-    Atom velocityScaling_prop = XInternAtom( dpy, "Device Accel Velocity Scaling", True );
-    Atom type;
-    int format;
-    unsigned long nitems, bytes_after;
-    float *data;
-
-    if( !constDecel_prop ||  !adaptiveDecel_prop || !velocityScaling_prop ) {
-        kError() << "mapTabletToScreen :: No properties on device " << device << "to change cursor speed";
-        return;
-    }
-
-    // set Constant Deceleration
-    XGetDeviceProperty( dpy, dev, constDecel_prop, 0, 9, False,
-                        AnyPropertyType, &type, &format, &nitems,
-                        &bytes_after, ( unsigned char ** )&data );
-
-    if( format != 32 || type != XInternAtom( dpy, "FLOAT", True ) ) {
-        return;
-    }
-
-    QString cursorSpeed = gtprofile->readEntry( "ConstantDeceleration", "1.0" );
-
-    kDebug() << "setCursorSettings :: set ConstantDeceleration to " << cursorSpeed;
-
-    XChangeDeviceProperty( dpy, dev, constDecel_prop, type, format,
-                           PropModeReplace,
-                           ( unsigned char * )cursorSpeed.toLatin1().data(),
-                           nitems );
-
-
-    // set Adaptive Deceleration
-    XGetDeviceProperty( dpy, dev, adaptiveDecel_prop, 0, 9, False,
-                        AnyPropertyType, &type, &format, &nitems,
-                        &bytes_after, ( unsigned char ** )&data );
-
-    if( format != 32 || type != XInternAtom( dpy, "FLOAT", True ) ) {
-        return;
-    }
-
-    cursorSpeed = gtprofile->readEntry( "AdaptiveDeceleration", "1.0" );
-    kDebug() << "setCursorSettings :: set AdaptiveDeceleration to " << cursorSpeed;
-
-    XChangeDeviceProperty( dpy, dev, adaptiveDecel_prop, type, format,
-                           PropModeReplace,
-                           ( unsigned char * )cursorSpeed.toLatin1().data(),
-                           nitems );
-
-    // set Velocity Scaling
-    XGetDeviceProperty( dpy, dev, velocityScaling_prop, 0, 9, False,
-                        AnyPropertyType, &type, &format, &nitems,
-                        &bytes_after, ( unsigned char ** )&data );
-
-    if( format != 32 || type != XInternAtom( dpy, "FLOAT", True ) ) {
-        return;
-    }
-
-    cursorSpeed = gtprofile->readEntry( "VelocityScaling", "1.0" );
-    kDebug() << "setCursorSettings :: set VelocityScaling to " << cursorSpeed.toLatin1().data();
-
-    XChangeDeviceProperty( dpy, dev, velocityScaling_prop, type, format,
-                           PropModeReplace,
-                           ( unsigned char * )cursorSpeed.toLatin1().data(),
-                           nitems );
-    XFree( data );
-    XFlush( dpy );
-    XFreeDeviceList( info );
-    XCloseDevice( QX11Info::display(), dev );
 }

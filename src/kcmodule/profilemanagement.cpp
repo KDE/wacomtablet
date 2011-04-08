@@ -221,27 +221,6 @@ void ProfileManagement::createNewProfile( const QString &profilename )
         delete touchGroup;
     }
 
-    // also add section for the cursor if we have it
-    QDBusReply<QString> cursorName = m_deviceInterface->call( QLatin1String( "cursorName" ) );
-
-    QString validCursorName = cursorName.value();
-    if( !validCursorName.isEmpty() ) {
-        KConfigGroup *cursorGroup = new KConfigGroup( profileGroup, "cursor" );
-
-        QDBusReply<QString> cursorProximity = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( validCursorName ), QLatin1String( "CursorProximity" ) );
-        if( cursorProximity.isValid() ) {
-            cursorGroup->writeEntry( "CursorProximity", cursorProximity.value() );
-        }
-        else {
-            cursorGroup->writeEntry( "CursorProximity", "42" );
-        }
-        cursorGroup->writeEntry( "VelocityScaling", "1" );
-        cursorGroup->writeEntry( "ConstantDeceleration", "1.0" );
-        cursorGroup->writeEntry( "AdaptiveDeceleration", "1.0" );
-
-        delete cursorGroup;
-    }
-
     delete profileGroup;
     delete deviceGroup;
 }

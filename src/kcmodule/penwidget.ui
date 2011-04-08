@@ -387,45 +387,8 @@ This parameter is independent of the PressureCurve parameter.</string>
        <property name="title">
         <string>Cursor Settings</string>
        </property>
-       <layout class="QFormLayout" name="formLayout">
-        <property name="fieldGrowthPolicy">
-         <enum>QFormLayout::ExpandingFieldsGrow</enum>
-        </property>
-        <item row="0" column="0">
-         <widget class="QRadioButton" name="radioButton_Absolute">
-          <property name="toolTip">
-           <string>The mouse cursor will move exactly to the position on the tablet.</string>
-          </property>
-          <property name="text">
-           <string comment="absolute pen movement (pen mode)">Absolute (Pen Mode)</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QCheckBox" name="tpcCheckBox">
-          <property name="toolTip">
-           <string>If enabled pressing a button is recognized when the pen is above the tablet. If disabled the click and tap function is active</string>
-          </property>
-          <property name="text">
-           <string>use Hover Click</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="2">
-         <widget class="QRadioButton" name="radioButton_Relative">
-          <property name="toolTip">
-           <string>The mouse cursor can be moved freely. The tablet working space does not represent the screen space
- The speed of the mouse is the same as specified for any other mouse pointer. This can be changed in the mouse setting section</string>
-          </property>
-          <property name="text">
-           <string comment="relative pen movement (mouse mode)">Relative (Mouse Mode)</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QLabel" name="label">
@@ -471,81 +434,57 @@ This parameter is independent of the PressureCurve parameter.</string>
           </item>
          </layout>
         </item>
-        <item row="4" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
-          <item>
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Cursor Acceleration:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_8">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="KDoubleNumInput" name="cursorAcceleration">
-            <property name="value">
-             <double>10.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>30.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>1.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-         </layout>
+        <item>
+         <widget class="QCheckBox" name="tpcCheckBox">
+          <property name="toolTip">
+           <string>If enabled pressing a button is recognized when the pen is above the tablet. If disabled the click and tap function is active</string>
+          </property>
+          <property name="text">
+           <string>use Hover Click</string>
+          </property>
+         </widget>
         </item>
-        <item row="5" column="1">
-         <layout class="QHBoxLayout" name="horizontalLayout_8">
-          <item>
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Cursor Speed:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_9">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="KDoubleNumInput" name="cursorSpeed">
-            <property name="value">
-             <double>1.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>10.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.100000000000000</double>
-            </property>
-           </widget>
-          </item>
-         </layout>
+        <item>
+         <spacer name="verticalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
-        <item row="6" column="0">
+        <item>
+         <widget class="QRadioButton" name="radioButton_Absolute">
+          <property name="toolTip">
+           <string>The mouse cursor will move exactly to the position on the tablet.</string>
+          </property>
+          <property name="text">
+           <string comment="absolute pen movement (pen mode)">Absolute (Pen Mode)</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButton_Relative">
+          <property name="toolTip">
+           <string>The mouse cursor can be moved freely. The tablet working space does not represent the screen space
+ The speed of the mouse is the same as specified for any other mouse pointer. This can be changed in the mouse setting section</string>
+          </property>
+          <property name="text">
+           <string comment="relative pen movement (mouse mode)">Relative (Mouse Mode)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer_4">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -705,11 +644,6 @@ This parameter is independent of the PressureCurve parameter.</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KDoubleNumInput</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
@@ -729,7 +663,6 @@ This parameter is independent of the PressureCurve parameter.</string>
   <tabstop>tipPressureButton</tabstop>
   <tabstop>doubleClickSlider</tabstop>
   <tabstop>radioButton_Absolute</tabstop>
-  <tabstop>tpcCheckBox</tabstop>
   <tabstop>radioButton_Relative</tabstop>
  </tabstops>
  <resources/>

@@ -57,7 +57,7 @@ PenWidget::PenWidget( ProfileManagement *profileManager, QWidget *parent )
     m_ui->label_2->hide();
     m_ui->cursorAcceleration->hide();
     m_ui->label_3->hide();
-    m_ui->cursorSpeed->hide();
+    m_ui->cursorThreshold->hide();
 }
 
 PenWidget::~PenWidget()
@@ -108,9 +108,6 @@ void PenWidget::saveToProfile()
     KConfigGroup cursorConfig = m_profileManagement->configGroup( QLatin1String( "cursor" ) );
 
     cursorConfig.writeEntry( "CursorProximity", m_ui->cursorProximity->value() );
-    cursorConfig.writeEntry( "VelocityScaling", m_ui->cursorAcceleration->value() );
-    cursorConfig.writeEntry( "ConstantDeceleration", m_ui->cursorSpeed->value() );
-    cursorConfig.writeEntry( "AdaptiveDeceleration", m_ui->cursorSpeed->value() );
 }
 
 void PenWidget::loadFromProfile()
@@ -168,13 +165,7 @@ void PenWidget::loadFromProfile()
         m_ui->tpcCheckBox->setChecked( false );
     }
 
-    //load the cursor settings
-    KConfigGroup cursorConfig = m_profileManagement->configGroup( QLatin1String( "cursor" ) );
-
     m_ui->cursorProximity->setValue( cursorConfig.readEntry( QLatin1String( "CursorProximity" ) ).toInt() );
-    m_ui->cursorAcceleration->setValue( cursorConfig.readEntry( QLatin1String( "VelocityScaling" ) ).toFloat() );
-    m_ui->cursorSpeed->setValue( cursorConfig.readEntry( QLatin1String( "ConstantDeceleration" ) ).toFloat() );
-    m_ui->cursorSpeed->setValue( cursorConfig.readEntry( QLatin1String( "AdaptiveDeceleration" ) ).toFloat() );
 }
 
 void PenWidget::profileChanged()
