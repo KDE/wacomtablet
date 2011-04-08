@@ -51,13 +51,6 @@ PenWidget::PenWidget( ProfileManagement *profileManager, QWidget *parent )
     //TODO Don't show double click slider box
     // does not work yet
     m_ui->DblClickBox->hide();
-    // same for the mouse speed options
-    m_ui->label->hide();
-    m_ui->cursorProximity->hide();
-    m_ui->label_2->hide();
-    m_ui->cursorAcceleration->hide();
-    m_ui->label_3->hide();
-    m_ui->cursorThreshold->hide();
 }
 
 PenWidget::~PenWidget()
@@ -114,6 +107,7 @@ void PenWidget::loadFromProfile()
 {
     KConfigGroup stylusConfig = m_profileManagement->configGroup( QLatin1String( "stylus" ) );
     KConfigGroup eraserConfig = m_profileManagement->configGroup( QLatin1String( "eraser" ) );
+    KConfigGroup cursorConfig = m_profileManagement->configGroup( QLatin1String( "cursor" ) );
 
     // eraser feel / tip feel
     m_ui->eraserSlider->setValue( eraserConfig.readEntry( "Threshold" ).toInt() );

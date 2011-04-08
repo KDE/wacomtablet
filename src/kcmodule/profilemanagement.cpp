@@ -175,6 +175,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
         touchGroup->writeEntry( "0ForceProportions", "false" );
         touchGroup->writeEntry( "0ScreenMapping", "randr" );
         touchGroup->writeEntry( "0TabletArea", "full" );
+        touchGroup->writeEntry( "Mode", "absolute" );
 
         QDBusReply<QString> touchArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "Area" ) );
         if( touchArea.isValid() ) {
