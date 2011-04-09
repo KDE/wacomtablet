@@ -778,6 +778,16 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
+[00E6]
+model=unknown
+layout=unknown
+name=Serial Wacom Tablet (Lenovo X220)
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
 [00F0]
 model=unknown
 layout=unknown
