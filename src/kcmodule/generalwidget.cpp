@@ -50,12 +50,12 @@ GeneralWidget::GeneralWidget(QDBusInterface *deviceInterface, ProfileManagement 
     m_actionCollection = new KActionCollection(this, KComponentData("wacomtablet"));
     m_actionCollection->setConfigGlobal(true);
 
-    KAction *action = m_actionCollection->addAction(QLatin1String("toggle-touch-mode"));
+    KAction *action = m_actionCollection->addAction(QLatin1String("Toggle touch tool"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
     action->setIcon( KIcon( QLatin1String( "input-tablet" ) ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_T ) );
 
-    action = m_actionCollection->addAction(QLatin1String("toggle-stylus-mode"));
+    action = m_actionCollection->addAction(QLatin1String("Toggle stylus mode"));
     action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
     action->setIcon( KIcon( QLatin1String( "draw-path" ) ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ));

@@ -299,12 +299,12 @@ void TabletDaemon::setupActions()
     //if someone adds another action also add it to kcmodule/generalwidget.cpp
     d->actionCollection = new KActionCollection( this, d->applicationData );
 
-    KAction *action = d->actionCollection->addAction(QLatin1String("toggle-touch-mode"));
+    KAction *action = d->actionCollection->addAction(QLatin1String("Toggle touch tool"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_T ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( actionToggleTouch() ) );
 
-    action = d->actionCollection->addAction(QLatin1String("toggle-stylus-mode"));
+    action = d->actionCollection->addAction(QLatin1String("Toggle stylus mode"));
     action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( actionTogglePenMode() ) );
