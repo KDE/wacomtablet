@@ -126,7 +126,7 @@ void TouchWidget::loadFromProfile()
     int scrollDistance = touchConfig.readEntry( QLatin1String( "ScrollDistance" ) ).toInt();
     m_ui->scrollDistanceBox->setValue( scrollDistance );
 
-    int tapTime = touchConfig.readEntry( QLatin1String( "ScrollDistance" ) ).toInt();
+    int tapTime = touchConfig.readEntry( QLatin1String( "TapTime" ) ).toInt();
     m_ui->tapTimeBox->setValue( tapTime );
 }
 
