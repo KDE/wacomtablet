@@ -31,6 +31,7 @@
 #include <KDE/KLocalizedString>
 #include <KDE/KIconLoader>
 #include <KDE/KSharedConfig>
+#include <KDE/KComponentData>
 #include <KDE/KActionCollection>
 #include <KDE/KAction>
 #include <KDE/KDebug>
@@ -295,18 +296,17 @@ void TabletDaemon::setupActions()
 {
     Q_D( TabletDaemon );
 
-    d->actionCollection = new KActionCollection( this );
+    //if someone adds another action also add it to kcmodule/generalwidget.cpp
+    d->actionCollection = new KActionCollection( this, d->applicationData );
 
     KAction *action = d->actionCollection->addAction(QLatin1String("toggle-touch-mode"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
-    action->setIcon( KIcon( QLatin1String( "input-tablet" ) ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::ALT + Qt::Key_T ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_T ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( actionToggleTouch() ) );
 
     action = d->actionCollection->addAction(QLatin1String("toggle-stylus-mode"));
     action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
-    action->setIcon( KIcon( QLatin1String( "input-tablet" ) ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::ALT + Qt::Key_S ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ) );
     connect( action, SIGNAL( triggered() ), this, SLOT( actionTogglePenMode() ) );
 }
 

@@ -23,11 +23,17 @@
 //KDE includes
 #include <KDE/KStandardDirs>
 #include <KDE/KIcon>
+#include <KDE/KComponentData>
+#include <KDE/KShortcutsEditor>
+#include <KDE/KActionCollection>
+#include <KDE/KAction>
 
 //Qt includes
 #include <QtCore/QStringList>
 #include <QtDBus/QDBusInterface>
 #include <QtDBus/QDBusReply>
+
+#include <QDebug>
 
 using namespace Wacom;
 
@@ -35,11 +41,30 @@ GeneralWidget::GeneralWidget(QDBusInterface *deviceInterface, ProfileManagement 
         : QWidget(parent),
         m_ui(new Ui::GeneralWidget),
         m_deviceInterface(deviceInterface),
-        m_profileManagement(profileManager)
+        m_profileManagement(profileManager),
+        m_shortcutEditor(0)
 {
     m_ui->setupUi(this);
 
-    reloadWidget();
+    //if someone adds another action also add it to kded/tabletdeamon.cpp
+    m_actionCollection = new KActionCollection(this, KComponentData("wacomtablet"));
+    m_actionCollection->setConfigGlobal(true);
+
+    KAction *action = m_actionCollection->addAction(QLatin1String("toggle-touch-mode"));
+    action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
+    action->setIcon( KIcon( QLatin1String( "input-tablet" ) ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_T ) );
+
+    action = m_actionCollection->addAction(QLatin1String("toggle-stylus-mode"));
+    action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
+    action->setIcon( KIcon( QLatin1String( "draw-path" ) ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ));
+    m_shortcutEditor = new KShortcutsEditor(this, KShortcutsEditor::GlobalAction);
+    m_shortcutEditor->addCollection(m_actionCollection, i18n("Wacom Tablet Settings"));
+
+    m_ui->shortcutGroupBox->layout()->addWidget(m_shortcutEditor);
+
+    connect(m_shortcutEditor, SIGNAL(keyChange()), this, SLOT(profileChanged()));
 }
 
 GeneralWidget::~GeneralWidget()
@@ -49,6 +74,7 @@ GeneralWidget::~GeneralWidget()
 
 void GeneralWidget::saveToProfile()
 {
+    m_shortcutEditor->save();
 }
 
 void GeneralWidget::loadFromProfile()

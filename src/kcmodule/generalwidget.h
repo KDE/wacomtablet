@@ -26,6 +26,8 @@ class GeneralWidget;
 }
 
 class QDBusInterface;
+class KActionCollection;
+class KShortcutsEditor;
 
 namespace Wacom
 {
@@ -88,9 +90,11 @@ signals:
     void changed();
 
 private:
-    Ui::GeneralWidget *m_ui;              /**< Handler to the generalwidget.ui file */
-    QDBusInterface    *m_deviceInterface; /**< Connection to the tablet daemon DBus /Device Interface */
+    Ui::GeneralWidget *m_ui;                /**< Handler to the generalwidget.ui file */
+    QDBusInterface    *m_deviceInterface;   /**< Connection to the tablet daemon DBus /Device Interface */
     ProfileManagement *m_profileManagement; /**< Handler for the profile config connection */
+    KActionCollection  *m_actionCollection;
+    KShortcutsEditor   *m_shortcutEditor;
 };
 
 }

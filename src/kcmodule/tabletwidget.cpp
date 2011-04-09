@@ -81,6 +81,7 @@ void TabletWidget::init()
     m_touchMappingPage = new PadMapping( m_deviceInterface, m_profileManagement );
     m_penPage = new PenWidget( m_profileManagement );
     m_touchPage = new TouchWidget( m_profileManagement );
+
     m_ui->setupUi( this );
     m_ui->addProfileButton->setIcon( KIcon( QLatin1String( "document-new" ) ) );
     m_ui->delProfileButton->setIcon( KIcon( QLatin1String( "edit-delete-page" ) ) );
