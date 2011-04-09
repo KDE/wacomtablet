@@ -24,13 +24,15 @@
 //KDE includes
 #include <KDE/KComboBox>
 #include <KDE/KStandardDirs>
-#include <KDE/KKeySequenceWidget>
+#include <KDE/KGlobalAccel>
+#include <kglobalshortcutinfo.h>
 #include <KDE/KDebug>
 
 //Qt includes
 #include <QtGui/QPixmap>
 #include <QtGui/QDialog>
 #include <QtGui/QLabel>
+#include <QtGui/QKeySequence>
 #include <QtCore/QPointer>
 #include <QtDBus/QDBusInterface>
 #include <QtDBus/QDBusReply>
@@ -181,34 +183,34 @@ void PadButtonWidget::saveToProfile()
 {
     KConfigGroup padConfig = m_profileManagement->configGroup(QLatin1String( "pad" ));
 
-    padConfig.writeEntry("Button1",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button1ComboBox->currentIndex(), m_ui->button1ActionLabel->text()));
-    padConfig.writeEntry("Button2",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button2ComboBox->currentIndex(), m_ui->button2ActionLabel->text()));
-    padConfig.writeEntry("Button3",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button3ComboBox->currentIndex(), m_ui->button3ActionLabel->text()));
-    padConfig.writeEntry("Button4",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button4ComboBox->currentIndex(), m_ui->button4ActionLabel->text()));
-    padConfig.writeEntry("Button5",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button5ComboBox->currentIndex(), m_ui->button5ActionLabel->text()));
-    padConfig.writeEntry("Button6",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button6ComboBox->currentIndex(), m_ui->button6ActionLabel->text()));
-    padConfig.writeEntry("Button7",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button7ComboBox->currentIndex(), m_ui->button7ActionLabel->text()));
-    padConfig.writeEntry("Button8",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button8ComboBox->currentIndex(), m_ui->button8ActionLabel->text()));
-    padConfig.writeEntry("Button9",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button9ComboBox->currentIndex(), m_ui->button9ActionLabel->text()));
-    padConfig.writeEntry("Button10", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button10ComboBox->currentIndex(), m_ui->button10ActionLabel->text()));
+    padConfig.writeEntry("Button1",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button1ComboBox->currentIndex(), m_ui->button1ActionLabel->property("KeySquence").toString()));
+    padConfig.writeEntry("Button2",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button2ComboBox->currentIndex(), m_ui->button2ActionLabel->property("KeySquence").toString()));
+    padConfig.writeEntry("Button3",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button3ComboBox->currentIndex(), m_ui->button3ActionLabel->property("KeySquence").toString()));
+    padConfig.writeEntry("Button4",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button4ComboBox->currentIndex(), m_ui->button4ActionLabel->property("KeySquence").toString()));
+    padConfig.writeEntry("Button5",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button5ComboBox->currentIndex(), m_ui->button5ActionLabel->property("KeySquence").toString()));
+    padConfig.writeEntry("Button6",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button6ComboBox->currentIndex(), m_ui->button6ActionLabel->property("KeySquence").toString()));
+    padConfig.writeEntry("Button7",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button7ComboBox->currentIndex(), m_ui->button7ActionLabel->property("KeySquence").toString()));
+    padConfig.writeEntry("Button8",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button8ComboBox->currentIndex(), m_ui->button8ActionLabel->property("KeySquence").toString()));
+    padConfig.writeEntry("Button9",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button9ComboBox->currentIndex(), m_ui->button9ActionLabel->property("KeySquence").toString()));
+    padConfig.writeEntry("Button10", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button10ComboBox->currentIndex(), m_ui->button10ActionLabel->property("KeySquence").toString()));
 
-    padConfig.writeEntry("StripLeftUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripLUpComboBox->currentIndex(), m_ui->stripLUpActionLabel->text()));
-    padConfig.writeEntry("StripLeftDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripLDnComboBox->currentIndex(), m_ui->stripLDnActionLabel->text()));
+    padConfig.writeEntry("StripLeftUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripLUpComboBox->currentIndex(), m_ui->stripLUpActionLabel->property("KeySquence").toString()));
+    padConfig.writeEntry("StripLeftDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripLDnComboBox->currentIndex(), m_ui->stripLDnActionLabel->property("KeySquence").toString()));
 
-    padConfig.writeEntry("StripRightUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripRUpComboBox->currentIndex(), m_ui->stripRUpActionLabel->text()));
-    padConfig.writeEntry("StripRightDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripRDnComboBox->currentIndex(), m_ui->stripRDnActionLabel->text()));
+    padConfig.writeEntry("StripRightUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripRUpComboBox->currentIndex(), m_ui->stripRUpActionLabel->property("KeySquence").toString()));
+    padConfig.writeEntry("StripRightDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripRDnComboBox->currentIndex(), m_ui->stripRDnActionLabel->property("KeySquence").toString()));
 
     if (m_ui->ringUpComboBox->isVisible()) {
-        padConfig.writeEntry("RelWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->text()));
-        padConfig.writeEntry("RelWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->text()));
-        padConfig.writeEntry("AbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->text()));
-        padConfig.writeEntry("AbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->text()));
+        padConfig.writeEntry("RelWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->property("KeySquence").toString()));
+        padConfig.writeEntry("RelWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->property("KeySquence").toString()));
+        padConfig.writeEntry("AbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->property("KeySquence").toString()));
+        padConfig.writeEntry("AbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->property("KeySquence").toString()));
     }
     if (m_ui->wheelUpComboBox->isVisible()) {
-        padConfig.writeEntry("RelWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->text()));
-        padConfig.writeEntry("RelWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->text()));
-        padConfig.writeEntry("AbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->text()));
-        padConfig.writeEntry("AbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->text()));
+        padConfig.writeEntry("RelWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->property("KeySquence").toString()));
+        padConfig.writeEntry("RelWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->property("KeySquence").toString()));
+        padConfig.writeEntry("AbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->property("KeySquence").toString()));
+        padConfig.writeEntry("AbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->property("KeySquence").toString()));
     }
 
     padConfig.sync();
@@ -240,7 +242,8 @@ void PadButtonWidget::loadFromProfile()
         buttonComboBox->blockSignals(true);
         buttonComboBox->setCurrentIndex(modeSwitch);
         buttonComboBox->blockSignals(false);
-        buttonActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+        buttonActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+        buttonActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
     }
 
     readEntry = padConfig.readEntry("RelWheelUp");           //RelWUp and AbsWUp are the same for now
@@ -252,44 +255,48 @@ void PadButtonWidget::loadFromProfile()
     m_ui->ringUpComboBox->blockSignals(true);
     m_ui->ringUpComboBox->setCurrentIndex(modeSwitch);
     m_ui->ringUpComboBox->blockSignals(false);
-    m_ui->ringUpActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    m_ui->ringUpActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    m_ui->ringUpActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
     readEntry = padConfig.readEntry("RelWheelDown");           //RelWUp and AbsWUp are the same for now
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->wheelDnComboBox->blockSignals(true);
     m_ui->wheelDnComboBox->setCurrentIndex(modeSwitch);
     m_ui->wheelDnComboBox->blockSignals(false);
-    m_ui->wheelDnActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    m_ui->wheelDnActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
     m_ui->ringDnComboBox->blockSignals(true);
     m_ui->ringDnComboBox->setCurrentIndex(modeSwitch);
     m_ui->ringDnComboBox->blockSignals(false);
-    m_ui->ringDnActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    m_ui->ringDnActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    m_ui->ringDnActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
     readEntry = padConfig.readEntry("StripLeftDown");
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->stripLDnComboBox->blockSignals(true);
     m_ui->stripLDnComboBox->setCurrentIndex(modeSwitch);
     m_ui->stripLDnComboBox->blockSignals(false);
-    m_ui->stripLDnActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    m_ui->stripLDnActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
     readEntry = padConfig.readEntry("StripLeftUp");
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->stripLUpComboBox->blockSignals(true);
     m_ui->stripLUpComboBox->setCurrentIndex(modeSwitch);
     m_ui->stripLUpComboBox->blockSignals(false);
-    m_ui->stripLUpActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    m_ui->stripLUpActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    m_ui->stripLUpActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
     readEntry = padConfig.readEntry("StripRightDown");
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->stripRDnComboBox->blockSignals(true);
     m_ui->stripRDnComboBox->setCurrentIndex(modeSwitch);
     m_ui->stripRDnComboBox->blockSignals(false);
-    m_ui->stripRDnActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    m_ui->stripRDnActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
     readEntry = padConfig.readEntry("StripRightUp");
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->stripRUpComboBox->blockSignals(true);
     m_ui->stripRUpComboBox->setCurrentIndex(modeSwitch);
     m_ui->stripRUpComboBox->blockSignals(false);
-    m_ui->stripRUpActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    m_ui->stripRUpActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    m_ui->stripRUpActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 }
 
 void PadButtonWidget::reloadWidget()
@@ -329,6 +336,7 @@ void PadButtonWidget::selectKeyFunction(int selection)
 
         if (ret == QDialog::Accepted) {
             buttonActionLabel->setText(skb->keyButton());
+            buttonActionLabel->setProperty("KeySquence", skb->keyButton());
         }
         break;
 
@@ -336,12 +344,14 @@ void PadButtonWidget::selectKeyFunction(int selection)
         ret = sks->exec();
 
         if (ret == KDialog::Accepted) {
-            buttonActionLabel->setText(sks->keyStroke());
+            buttonActionLabel->setText(transformShortcut(sks->keyStroke()));
+            buttonActionLabel->setProperty("KeySquence", sks->keyStroke());
         }
         break;
 
     case ProfileManagement::Pad_Disable:
-        buttonActionLabel->setText(QString());
+        buttonActionLabel->clear();
+        buttonActionLabel->setProperty("KeySquence", QString());
         break;
     }
 
@@ -349,4 +359,22 @@ void PadButtonWidget::selectKeyFunction(int selection)
 
     delete skb;
     delete sks;
+}
+
+QString PadButtonWidget::transformShortcut(QString sequence)
+{
+    QString transform = sequence;
+    transform.replace( QRegExp( QLatin1String( "^\\s" ) ), QLatin1String( "" ) );
+    transform.replace( QRegExp( QLatin1String( "\\s" ) ), QLatin1String( "+" ) );
+
+    QList< KGlobalShortcutInfo > list = KGlobalAccel::getGlobalShortcutsByKey( QKeySequence(transform) );
+
+    if(!list.isEmpty()) {
+        return list.at(0).uniqueName();
+    }
+    else {
+        sequence.replace( QRegExp( QLatin1String( "([^\\s])\\+" ) ), QLatin1String( "\\1 " ) );
+        sequence = sequence.toLower();
+        return sequence;
+    }
 }

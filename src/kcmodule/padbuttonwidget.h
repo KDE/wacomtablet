@@ -107,6 +107,17 @@ private:
       */
     void fillComboBox(KComboBox *comboBox);
 
+    /**
+      * Is the @p sequence represents a global shortcut, the corresponding unique name will be returned
+      * The unique name is than shown in the widget rather than the kryptic keys.
+      * If no global shortcut exist, simply return the sequence again
+      *
+      * @param sequence used shortkey to transform
+      *
+      * @return global unique shortcut name or used key sequence
+      */
+    QString transformShortcut(QString sequence);
+
     Ui::PadButtonWidget *m_ui;                /**< Handler to the padbuttonwidget.ui file */
     ProfileManagement   *m_profileManagement; /**< Handler for the profile config connection */
 };

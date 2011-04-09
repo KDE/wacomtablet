@@ -25,7 +25,8 @@
 
 //KDE includes
 #include <KDE/KStandardDirs>
-#include <KDE/KKeySequenceWidget>
+#include <KDE/KGlobalAccel>
+#include <kglobalshortcutinfo.h>
 #include <KDE/KDebug>
 
 //Qt includes
@@ -70,10 +71,10 @@ void PenWidget::saveToProfile()
     stylusConfig.writeEntry( "PressureCurve", m_ui->tipPressureButton->property( "curve" ).toString() );
 
     // button 2 and 3 config
-    eraserConfig.writeEntry( "Button2", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button2ComboBox->itemData( m_ui->button2ComboBox->currentIndex() ).toInt(), m_buttonConfig.value( QLatin1String( "button2ActionLabel" ) ) ) );
-    eraserConfig.writeEntry( "Button3", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button3ComboBox->itemData( m_ui->button3ComboBox->currentIndex() ).toInt(), m_buttonConfig.value( QLatin1String( "button3ActionLabel" ) ) ) );
-    stylusConfig.writeEntry( "Button2", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button2ComboBox->itemData( m_ui->button2ComboBox->currentIndex() ).toInt(), m_buttonConfig.value( QLatin1String( "button2ActionLabel" ) ) ) );
-    stylusConfig.writeEntry( "Button3", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button3ComboBox->itemData( m_ui->button3ComboBox->currentIndex() ).toInt(), m_buttonConfig.value( QLatin1String( "button3ActionLabel" ) ) ) );
+    eraserConfig.writeEntry( "Button2", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button2ComboBox->itemData( m_ui->button2ComboBox->currentIndex() ).toInt(), m_ui->button2ActionLabel->property("KeySquence").toString() ) );
+    eraserConfig.writeEntry( "Button3", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button3ComboBox->itemData( m_ui->button3ComboBox->currentIndex() ).toInt(), m_ui->button3ActionLabel->property("KeySquence").toString() ) );
+    stylusConfig.writeEntry( "Button2", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button2ComboBox->itemData( m_ui->button2ComboBox->currentIndex() ).toInt(), m_ui->button2ActionLabel->property("KeySquence").toString() ) );
+    stylusConfig.writeEntry( "Button3", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button3ComboBox->itemData( m_ui->button3ComboBox->currentIndex() ).toInt(), m_ui->button3ActionLabel->property("KeySquence").toString() ) );
 
     stylusConfig.writeEntry( "DoubleClickInterval", m_ui->doubleClickSlider->value() );
     eraserConfig.writeEntry( "DoubleClickInterval", m_ui->doubleClickSlider->value() );
@@ -127,7 +128,8 @@ void PenWidget::loadFromProfile()
     m_ui->button2ComboBox->setCurrentIndex( modeSwitch );
     m_ui->button2ComboBox->blockSignals( false );
     m_ui->button2ActionLabel->setText( m_profileManagement->transformButtonFromConfig( modeSwitch, readEntry ) );
-    m_buttonConfig.insert( QLatin1String( "button2ActionLabel" ), m_ui->button2ActionLabel->text() );
+    m_ui->button2ActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    m_ui->button2ActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
     readEntry = stylusConfig.readEntry( "Button3" );
     modeSwitch = m_profileManagement->getPenButtonFunction( readEntry );
@@ -135,7 +137,8 @@ void PenWidget::loadFromProfile()
     m_ui->button3ComboBox->setCurrentIndex( modeSwitch );
     m_ui->button3ComboBox->blockSignals( false );
     m_ui->button3ActionLabel->setText( m_profileManagement->transformButtonFromConfig( modeSwitch, readEntry ) );
-    m_buttonConfig.insert( QLatin1String( "button3ActionLabel" ), m_ui->button3ActionLabel->text() );
+    m_ui->button3ActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    m_ui->button3ActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
     //Double Click Distance
     m_ui->doubleClickSlider->setValue( stylusConfig.readEntry( "DoubleClickInterval" ).toInt() );
@@ -195,49 +198,49 @@ void PenWidget::selectKeyFunction( int selection )
     switch( selectionEnum ) {
     case ProfileManagement::Pen_LeftClick:
         buttonActionLabel->setText( cb->currentText() );
-        m_buttonConfig.insert( senderName, QLatin1String( "button 1" ) );
+        buttonActionLabel->setProperty("KeySquence", cb->currentText());
         break;
 
     case ProfileManagement::Pen_RightClick:
         buttonActionLabel->setText( cb->currentText() );
-        m_buttonConfig.insert( senderName, QLatin1String( "button 3" ) );
+        buttonActionLabel->setProperty("KeySquence", cb->currentText());
         break;
 
     case ProfileManagement::Pen_MiddleClick:
         buttonActionLabel->setText( cb->currentText() );
-        m_buttonConfig.insert( senderName, QLatin1String( "button 2" ) );
+        buttonActionLabel->setProperty("KeySquence", cb->currentText());
         break;
 
     case ProfileManagement::Pen_Button:
         ret = skb->exec();
 
         if( ret == QDialog::Accepted ) {
-            buttonActionLabel->setText( skb->keyButton() );
-            m_buttonConfig.insert( senderName, skb->keyButton() );
+            buttonActionLabel->setText( transformShortcut(skb->keyButton()) );
+            buttonActionLabel->setProperty("KeySquence", skb->keyButton());
         }
         break;
 
     case ProfileManagement::Pen_Keystroke:
         ret = sks->exec();
         if( ret == KDialog::Accepted ) {
-            buttonActionLabel->setText( sks->keyStroke() );
-            m_buttonConfig.insert( senderName, sks->keyStroke() );
+            buttonActionLabel->setText( transformShortcut(sks->keyStroke()) );
+            buttonActionLabel->setProperty("KeySquence", sks->keyStroke());
         }
         break;
 
     case ProfileManagement::Pen_ModeToggle:
         buttonActionLabel->setText( cb->currentText() );
-        m_buttonConfig.insert( senderName, QLatin1String( "modetoggle" ) );
+        buttonActionLabel->setProperty("KeySquence", cb->currentText());
         break;
 
     case ProfileManagement::Pen_DisplayToggle:
         buttonActionLabel->setText( cb->currentText() );
-        m_buttonConfig.insert( senderName, QLatin1String( "displaytoggle" ) );
+        buttonActionLabel->setProperty("KeySquence", cb->currentText());
         break;
 
     case ProfileManagement::Pen_Disable:
         buttonActionLabel->setText( QString() );
-        m_buttonConfig.insert( senderName, QString() );
+        buttonActionLabel->setProperty("KeySquence", QString());
         break;
     }
 
@@ -325,4 +328,22 @@ void PenWidget::fillComboBox( KComboBox *comboBox )
     comboBox->addItem( i18nc( "Function to toggle between absolute/relative mousemode", "Mode Toggle" ), ProfileManagement::Pen_ModeToggle );
     comboBox->addItem( i18nc( "Function to toggle between single/multi display support", "Display Toggle" ), ProfileManagement::Pen_DisplayToggle );
     comboBox->blockSignals( false );
+}
+
+QString PenWidget::transformShortcut(QString sequence)
+{
+    QString transform = sequence;
+    transform.replace( QRegExp( QLatin1String( "^\\s" ) ), QLatin1String( "" ) );
+    transform.replace( QRegExp( QLatin1String( "\\s" ) ), QLatin1String( "+" ) );
+
+    QList< KGlobalShortcutInfo > list = KGlobalAccel::getGlobalShortcutsByKey( QKeySequence(transform) );
+
+    if(!list.isEmpty()) {
+        return list.at(0).uniqueName();
+    }
+    else {
+        sequence.replace( QRegExp( QLatin1String( "([^\\s])\\+" ) ), QLatin1String( "\\1 " ) );
+        sequence = sequence.toLower();
+        return sequence;
+    }
 }

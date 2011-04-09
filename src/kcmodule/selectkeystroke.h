@@ -65,6 +65,8 @@ private slots:
       */
     void slotOkClicked();
 
+    void findGlobalShortcut(QKeySequence sequence);
+
 private:
     Ui::SelectKeyStroke *ui; /**< Ui designer file for this object */
     QString m_keyStroke;     /**< Cached and parsed string of the keystroke */
