@@ -8,11 +8,17 @@ For hardware support have a look at http://www.linuxwacom.sourceforge.net
 Easy profile switching is added via a small plasma applet.
 In addition a daemon running in the background helps with hotplug support.
 
-All tablets can be set up as long as they are found via xorg.conf or HAL configuration.
+All tablets can be set up as long as they are found with the wacom kernal module.
+
+Check with
+$ xsetwacom list devices
+if your device is correctly recognized first. If it dosn't show up here I can't configure it.
 
 Components:
 * kded:
 	runs in the background, detects a connected tablet and applies the pad button / stylus profile
+	detects xrandr rotation and rotates the tablet with it
+	apply global shortcuts for the the touch on/off stylus feature
 
 * kcontrol module:
 	unified gui to set-up the buttons and other aspects of the tablet
@@ -22,6 +28,15 @@ Components:
 
 Dependencies:
 * wacom tablet driver especially the xsetwacom tool
+* xserver-xorg-input-wacom >= 0.10.11
+
+* kdelibs5-dev
+* kdebase-workspace-dev
+* xorg-dev
+* xserver-xorg-dev
+* libxi-dev
+* libxinerama-dev
+* x11proto-xinerama-dev
 
 #################################################################
 # install with
@@ -32,10 +47,16 @@ cmake ../ -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` -DCMAKE_BUILD_TYPE=relea
 make
 make install
 
-# start with 
+#################################################################
+# start with
 
-kcmshell4 kcm_wacomtablet
+First the background daemon must be running. You can logout/login or restart the kded with
+$ kquitapp kded
+$ kded
 
+Afterwards you get a notice when you plugin your device and can configure it via
+
+$kcmshell4 kcm_wacomtablet
 or have a look in the system settings where the keyboard and mouse settings are
 
 ##################################################################
