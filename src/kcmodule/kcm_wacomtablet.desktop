@@ -12,6 +12,7 @@ X-KDE-System-Settings-Parent-Category=keyboard-and-mouse
 X-KDE-System-Settings-Parent-Category-V2=input-devices
 
 Name=Graphic Tablet
+Name[bs]=Grafički tablet
 Name[da]=Grafiktegneplade
 Name[en_GB]=Graphic Tablet
 Name[es]=Tableta gráfica

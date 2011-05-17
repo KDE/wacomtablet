@@ -10,6 +10,7 @@ X-KDE-Kded-load-on-demand=false
 X-KDE-Kded-phase=1
 
 Name=Wacom Tablet
+Name[bs]=Wacom tablet
 Name[da]=Wacom tegneplade
 Name[en_GB]=Wacom Tablet
 Name[es]=Tablet Wacom
