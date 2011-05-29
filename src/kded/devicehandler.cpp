@@ -469,7 +469,7 @@ QString DeviceHandler::name( const QString &name ) const
     if( name.contains( QLatin1String( "stylus" ) ) ) {
         return d->internalStylusName;
     }
-    if( name.contains( QLatin1String( "erser" ) ) ) {
+    if( name.contains( QLatin1String( "eraser" ) ) ) {
         return d->internalEraserName;
     }
     if( name.contains( QLatin1String( "cursor" ) ) ) {
