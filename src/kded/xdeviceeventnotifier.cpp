@@ -63,7 +63,9 @@ bool XDeviceEventNotifier::x11Event(XEvent * event)
 
     if (cookie->type == GenericEvent && cookie->evtype == XI_HierarchyChanged)
     {
-        //if(XGetEventData(QX11Info::display(), cookie))
+        XGetEventData(QX11Info::display(), cookie);
+
+        if(cookie->data)
         {
             XIHierarchyEvent * hev = (XIHierarchyEvent *)cookie->data;
             XIHierarchyInfo *info = (XIHierarchyInfo *)hev->info;
@@ -84,6 +86,9 @@ bool XDeviceEventNotifier::x11Event(XEvent * event)
             }
 
             XFreeEventData(QX11Info::display(), cookie);
+        }
+        else {
+            kDebug() << "Error couldn't retrieve XGetEventData";
         }
     }
     else {
