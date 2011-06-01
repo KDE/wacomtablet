@@ -63,7 +63,8 @@ bool XDeviceEventNotifier::x11Event(XEvent * event)
 
     if (cookie->type == GenericEvent && cookie->evtype == XI_HierarchyChanged)
     {
-        XGetEventData(QX11Info::display(), cookie);
+        bool ownEventData = false;
+        ownEventData = XGetEventData(QX11Info::display(), cookie);
 
         if(cookie->data)
         {
@@ -84,8 +85,11 @@ bool XDeviceEventNotifier::x11Event(XEvent * event)
                     }
                 }
             }
-
-            XFreeEventData(QX11Info::display(), cookie);
+            
+            // only free event data if I own the resource if a different resource called XGetEventData the data will not be set free again here
+            if(ownEventData) {
+	        XFreeEventData(QX11Info::display(), cookie);
+	    }
         }
         else {
             kDebug() << "Error couldn't retrieve XGetEventData";
