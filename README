@@ -8,7 +8,7 @@ For hardware support have a look at http://www.linuxwacom.sourceforge.net
 Easy profile switching is added via a small plasma applet.
 In addition a daemon running in the background helps with hotplug support.
 
-All tablets can be set up as long as they are found with the wacom kernal module.
+All tablets can be set up as long as they are found with the wacom kernel module.
 
 Check with
 $ xsetwacom list devices
@@ -37,6 +37,7 @@ Dependencies:
 * libxi-dev
 * libxinerama-dev
 * x11proto-xinerama-dev
+* libxrandr-dev
 
 #################################################################
 # install with
