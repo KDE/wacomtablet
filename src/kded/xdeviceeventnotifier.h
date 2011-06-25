@@ -22,6 +22,17 @@
 
 namespace Wacom
 {
+
+/**
+  * Simple enumeration to save the tablet rotation
+  */
+enum TabletRotation {
+    NONE,       /**< no rotation */
+    CCW,        /**< rotate counter clockwise -90° */
+    CW,         /**< rotate clockwise +90° */
+    HALF        /**< rotate half 180° */
+};
+
 /**
   * This eventhandler is used to catch X11 events for conected and removed devices
   *
@@ -74,12 +85,13 @@ signals:
     /**
      * When the screen is rotated by RandR this signal is emitted
      * Connect to this signal to rotate the tablet together with it
+     *
      * @param tabletRotation @arg 0 none
      *                       @arg 1 ccw
      *                       @arg 2 cw
      *                       @arg 3 half
      * */
-    void screenRotated(int tabletRotation);
+    void screenRotated(TabletRotation tabletRotation);
 
 private:
         /**

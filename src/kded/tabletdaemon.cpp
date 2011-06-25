@@ -21,8 +21,6 @@
 #include "wacomdeviceadaptor.h"
 #include "../version.h"
 
-#include "xdeviceeventnotifier.h"
-
 // KDE includes
 #include <KDE/KPluginFactory>
 #include <KDE/KAboutData>
@@ -106,7 +104,7 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
     d->xEventNotifier->start();
     connect( d->xEventNotifier, SIGNAL( deviceAdded( int ) ), this, SLOT( deviceAdded( int ) ) );
     connect( d->xEventNotifier, SIGNAL( deviceRemoved( int ) ), this, SLOT( deviceRemoved( int ) ) );
-    connect( d->xEventNotifier, SIGNAL( screenRotated( int ) ), this, SLOT( screenRotated( int ) ) );
+    connect( d->xEventNotifier, SIGNAL( screenRotated( TabletRotation ) ), this, SLOT( screenRotated( TabletRotation ) ) );
 
     //check for devices on startup
     int deviceid = findTabletDevice();
@@ -310,7 +308,7 @@ void TabletDaemon::setupActions()
     connect( action, SIGNAL( triggered() ), this, SLOT( actionTogglePenMode() ) );
 }
 
-void TabletDaemon::screenRotated( int screenRotation )
+void TabletDaemon::screenRotated( TabletRotation screenRotation )
 {
     Q_D( const TabletDaemon );
 
@@ -318,17 +316,38 @@ void TabletDaemon::screenRotated( int screenRotation )
     KConfigGroup configGroup = KConfigGroup( &deviceGroup, d->curProfile );
     KConfigGroup stylusConfig( &configGroup, QLatin1String( "stylus" ) );
 
+    kDebug() << "xRandR screen rotation detected.";
+
     if( stylusConfig.readEntry( QLatin1String( "0RotateWithScreen" ) ) == QLatin1String( "true" ) ) {
+
+        QString rotatecmd;
+
+        switch(screenRotation) {
+        case NONE:
+            rotatecmd = QLatin1String("none");
+            break;
+        case CW:
+            rotatecmd = QLatin1String("cw");
+            break;
+        case CCW:
+            rotatecmd = QLatin1String("ccw");
+            break;
+        case HALF:
+            rotatecmd = QLatin1String("half");
+            break;
+        }
+
+        kDebug() << "Rotate tablet :: " << rotatecmd;
 
         QString stylusName = d->deviceHandler->stylusName();
         QString eraserName = d->deviceHandler->eraserName();
         QString touchName = d->deviceHandler->touchName();
 
-        d->deviceHandler->setConfiguration( stylusName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( screenRotation ) );
-        d->deviceHandler->setConfiguration( eraserName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( screenRotation ) );
+        d->deviceHandler->setConfiguration( stylusName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
+        d->deviceHandler->setConfiguration( eraserName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
 
         if( !touchName.isEmpty() ) {
-            d->deviceHandler->setConfiguration( touchName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( screenRotation ) );
+            d->deviceHandler->setConfiguration( touchName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
         }
     }
 }

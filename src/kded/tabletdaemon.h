@@ -18,6 +18,8 @@
 #ifndef TABLETDAEMON_H
 #define TABLETDAEMON_H
 
+#include "xdeviceeventnotifier.h"
+
 //KDE includes
 #include <KDE/KDEDModule>
 
@@ -167,7 +169,7 @@ private Q_SLOTS:
      * 
      * @param screenRotation Integer values for the screen rotations
      */
-    void screenRotated(int screenRotation);
+    void screenRotated(TabletRotation screenRotation);
 
     /**
       * Notify about an error.
