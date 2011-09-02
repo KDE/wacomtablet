@@ -97,7 +97,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     // write default config for the stylus
     KConfigGroup *stylusGroup = new KConfigGroup( profileGroup, "stylus" );
 
-    stylusGroup->writeEntry( "Button1", "1" );
+    //stylusGroup->writeEntry( "Button1", "1" ); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick) 
     stylusGroup->writeEntry( "Button2", "2" );
     stylusGroup->writeEntry( "Button3", "3" );
     stylusGroup->writeEntry( "Mode", "absolute" );
@@ -133,7 +133,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     // write default config for the eraser
     KConfigGroup *eraserGroup = new KConfigGroup( profileGroup, "eraser" );
 
-    eraserGroup->writeEntry( "Button1", "1" );
+    //eraserGroup->writeEntry( "Button1", "1" ); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick) 
     eraserGroup->writeEntry( "Button2", "2" );
     eraserGroup->writeEntry( "Button3", "3" );
     eraserGroup->writeEntry( "Mode", "absolute" );
