@@ -99,9 +99,10 @@ void PenWidget::saveToProfile()
     eraserConfig.sync();
 
     // now save the cursor specific settings
-    KConfigGroup cursorConfig = m_profileManagement->configGroup( QLatin1String( "cursor" ) );
+    //KConfigGroup cursorConfig = m_profileManagement->configGroup( QLatin1String( "cursor" ) );
 
-    cursorConfig.writeEntry( "CursorProximity", m_ui->cursorProximity->value() );
+    //cursorConfig.writeEntry( "CursorProximity", m_ui->cursorProximity->value() );
+    // does not work and cause a lot of troubles with wacom mouse devices
 }
 
 void PenWidget::loadFromProfile()
@@ -162,7 +163,7 @@ void PenWidget::loadFromProfile()
         m_ui->tpcCheckBox->setChecked( false );
     }
 
-    m_ui->cursorProximity->setValue( cursorConfig.readEntry( QLatin1String( "CursorProximity" ) ).toInt() );
+    //m_ui->cursorProximity->setValue( cursorConfig.readEntry( QLatin1String( "CursorProximity" ) ).toInt() );
 }
 
 void PenWidget::profileChanged()

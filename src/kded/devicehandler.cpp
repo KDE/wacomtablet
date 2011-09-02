@@ -205,7 +205,8 @@ bool DeviceHandler::findXInputDevice()
                         d->internalEraserName = QString::fromLatin1( info[i].name );
                     }
                     else if( deviceType.contains( QLatin1String( "cursor" ), Qt::CaseInsensitive ) ) {
-                        d->internalCursorName = QString::fromLatin1( info[i].name );
+                        //d->internalCursorName = QString::fromLatin1( info[i].name );
+                        // removed, beacause it is not used currently, and cause a lot of trouble with wacom mouse devices
                     }
                     else if( deviceType.contains( QLatin1String( "touch" ),  Qt::CaseInsensitive ) ) {
                         d->internalTouchName = QString::fromLatin1( info[i].name );

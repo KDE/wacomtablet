@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>581</width>
-    <height>455</height>
+    <height>459</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -389,52 +389,6 @@ This parameter is independent of the PressureCurve parameter.</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Cursor Proximity:</string>
-            </property>
-            <property name="buddy">
-             <cstring>cursorProximity</cstring>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="KIntNumInput" name="cursorProximity">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string>Sets cursor distance for proximity-out in distance from the tablet.</string>
-            </property>
-            <property name="minimum">
-             <number>-1</number>
-            </property>
-            <property name="maximum">
-             <number>1000</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
          <widget class="QCheckBox" name="tpcCheckBox">
           <property name="toolTip">
            <string>If enabled pressing a button is recognized when the pen is above the tablet. If disabled the click and tap function is active</string>
@@ -648,11 +602,6 @@ This parameter is independent of the PressureCurve parameter.</string>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
   </customwidget>
-  <customwidget>
-   <class>KIntNumInput</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
-  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>eraserSlider</tabstop>
@@ -808,22 +757,6 @@ This parameter is independent of the PressureCurve parameter.</string>
     <hint type="destinationlabel">
      <x>321</x>
      <y>436</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cursorProximity</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>PenWidget</receiver>
-   <slot>profileChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>698</x>
-     <y>205</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>749</x>
-     <y>220</y>
     </hint>
    </hints>
   </connection>
