@@ -62,7 +62,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     // write default config for the pad
     KConfigGroup *padGroup = new KConfigGroup( profileGroup, "pad" );
 
-    padGroup->writeEntry( "Button1", "1" );
+    //padGroup->writeEntry( "Button1", "1" );
     padGroup->writeEntry( "Button2", "2" );
     padGroup->writeEntry( "Button3", "3" );
     padGroup->writeEntry( "Button4", "4" );
@@ -80,14 +80,6 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     padGroup->writeEntry( "RelWheelDown", "16" );
     padGroup->writeEntry( "AbsWheelUp", "15" );
     padGroup->writeEntry( "AbsWheelDown", "16" );
-
-    QDBusReply<QString> capacity = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( padName ), QLatin1String( "Capacity" ) );
-    if( capacity.isValid() ) {
-        padGroup->writeEntry( "Capacity", capacity.value() );
-    }
-    else {
-        padGroup->writeEntry( "Capacity", "-1" );
-    }
 
     padGroup->sync();
     profileGroup->sync();

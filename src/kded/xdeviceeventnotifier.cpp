@@ -114,13 +114,13 @@ bool XDeviceEventNotifier::x11Event(XEvent * event)
                                 emit screenRotated(NONE);
                                 break;
                         case RR_Rotate_90:
-                               emit screenRotated(CW);
+                               emit screenRotated(CCW);
                                break;
                         case RR_Rotate_180:
                                emit screenRotated(HALF);
                                break;
                         case RR_Rotate_270:
-                               emit screenRotated(CCW);
+                               emit screenRotated(CW);
                                break;
                 }
             }

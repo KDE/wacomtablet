@@ -47,12 +47,12 @@
           </item>
           <item>
            <property name="text">
-            <string comment="rotate the pad counter clock wise">couter clockwise</string>
+            <string comment="rotate the tablet clockwise">clockwise</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string comment="rotate the tablet clockwise">clockwise</string>
+            <string comment="rotate the pad counter clock wise">couter clockwise</string>
            </property>
           </item>
           <item>
@@ -249,14 +249,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

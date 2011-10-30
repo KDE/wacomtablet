@@ -76,8 +76,8 @@ void PenWidget::saveToProfile()
     stylusConfig.writeEntry( "Button2", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button2ComboBox->itemData( m_ui->button2ComboBox->currentIndex() ).toInt(), m_ui->button2ActionLabel->property("KeySquence").toString() ) );
     stylusConfig.writeEntry( "Button3", m_profileManagement->transformButtonToConfig(( ProfileManagement::PenButton ) m_ui->button3ComboBox->itemData( m_ui->button3ComboBox->currentIndex() ).toInt(), m_ui->button3ActionLabel->property("KeySquence").toString() ) );
 
-    stylusConfig.writeEntry( "DoubleClickInterval", m_ui->doubleClickSlider->value() );
-    eraserConfig.writeEntry( "DoubleClickInterval", m_ui->doubleClickSlider->value() );
+    //stylusConfig.writeEntry( "DoubleClickInterval", m_ui->doubleClickSlider->value() );
+    //eraserConfig.writeEntry( "DoubleClickInterval", m_ui->doubleClickSlider->value() );
 
     if( m_ui->radioButton_Absolute->isChecked() ) {
         stylusConfig.writeEntry( "Mode", "absolute" );
@@ -142,7 +142,7 @@ void PenWidget::loadFromProfile()
     m_ui->button3ActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
     //Double Click Distance
-    m_ui->doubleClickSlider->setValue( stylusConfig.readEntry( "DoubleClickInterval" ).toInt() );
+    //m_ui->doubleClickSlider->setValue( stylusConfig.readEntry( "DoubleClickInterval" ).toInt() );
 
     // Cursor Settings
     if( stylusConfig.readEntry( "Mode" ).toInt() == 1 || stylusConfig.readEntry( "Mode" ) == QLatin1String( "absolute" ) ) {

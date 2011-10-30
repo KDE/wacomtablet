@@ -97,6 +97,22 @@ void WacomInterface::setConfiguration( const QString &device, const QString &par
     }
 
     QString modifiedParam = param;
+
+    // small *hack* to cope with linux button settings
+    // button 4,5,6,7 are not buttons but scrolling
+    // hus button 4 is in reality button 8
+    QRegExp rx(QLatin1String( "^Button([0-9])" ));
+    int pos = 0;
+
+    if ((pos = rx.indexIn(modifiedParam, pos)) != -1) {
+        QString button = rx.cap(1);
+        int buttonNumber = button.toInt();
+        if(buttonNumber >= 4) {
+            buttonNumber += 4;
+            modifiedParam = QString(QLatin1String("Button%1")).arg(buttonNumber);
+        }
+    }
+
     QString  cmd = QString::fromLatin1( "xsetwacom set \"%1\" %2 \"%3\"" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^Button([0-9])" ) ), QLatin1String( "Button \\1" ) ) ).arg( value );
 
     QProcess setConf;
@@ -121,6 +137,22 @@ void WacomInterface::setConfiguration( const QString &device, const QString &par
 QString WacomInterface::getConfiguration( const QString &device, const QString &param ) const
 {
     QString modifiedParam = param;
+
+    // small *hack* to cope with linux button settings
+    // button 4,5,6,7 are not buttons but scrolling
+    // hus button 4 is in reality button 8
+    QRegExp rx(QLatin1String( "^Button([0-9])" ));
+    int pos = 0;
+
+    while ((pos = rx.indexIn(modifiedParam, pos)) != -1) {
+        QString button = rx.cap(1);
+        int buttonNumber = button.toInt();
+        if(buttonNumber >= 4) {
+            buttonNumber += 4;
+            modifiedParam = QString(QLatin1String("Button%1")).arg(buttonNumber);
+        }
+    }
+
     QString cmd = QString::fromLatin1( "xsetwacom get \"%1\" %2" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^Button([0-9])" ) ), QLatin1String( "Button \\1" ) ) );
     QProcess getConf;
     getConf.start( cmd );
@@ -140,7 +172,23 @@ QString WacomInterface::getConfiguration( const QString &device, const QString &
 QString WacomInterface::getDefaultConfiguration( const QString &device, const QString &param ) const
 {
     QString modifiedParam = param;
-    QString cmd = QString::fromLatin1( "xsetwacom get \"%1\" %2" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^button([0-9])" ) ), QLatin1String( "button \\1" ) ) );
+    
+    // small *hack* to cope with linux button settings
+    // button 4,5,6,7 are not buttons but scrolling
+    // hus button 4 is in reality button 8
+    QRegExp rx(QLatin1String( "^Button([0-9])" ));
+    int pos = 0;
+
+    while ((pos = rx.indexIn(modifiedParam, pos)) != -1) {
+        QString button = rx.cap(1);
+        int buttonNumber = button.toInt();
+        if(buttonNumber >= 4) {
+            buttonNumber += 4;
+            modifiedParam = QString(QLatin1String("Button%1")).arg(buttonNumber);
+        }
+    }
+    
+    QString cmd = QString::fromLatin1( "xsetwacom get \"%1\" %2" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^Button([0-9])" ) ), QLatin1String( "Button \\1" ) ) );
     QProcess getConf;
     getConf.start( cmd );
 
@@ -182,7 +230,7 @@ void WacomInterface::togglePenMode( const QString &device )
 
 void WacomInterface::mapTabletToScreen( const QString &device, const QString &screenArea )
 {
-    //what we need is the Coordinate Transformation Matrix
+    // what we need is the Coordinate Transformation Matrix
     // in the normal case where the whole screen is used we end up with a 3x3 identity matrix
 
     //in our case we want to change that
@@ -197,7 +245,7 @@ void WacomInterface::mapTabletToScreen( const QString &device, const QString &sc
         return;
     }
 
-    // read in what the suer whants to use
+    // read in what the user wants to use
     int screenX = screenList.at( 0 ).toInt();
     int screenY = screenList.at( 1 ).toInt();
     int screenW = screenList.at( 2 ).toInt();
