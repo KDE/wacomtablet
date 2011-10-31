@@ -262,6 +262,7 @@ void WacomInterface::mapTabletToScreen( const QString &device, const QString &sc
 
         virtualScreen = virtualScreen.united( screen );
     }
+    kDebug() << "virtual screen" << virtualScreen;
 
     // and now the values of the new matrix
 

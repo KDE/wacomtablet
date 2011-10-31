@@ -349,6 +349,8 @@ void TabletDaemon::screenRotated( TabletRotation screenRotation )
         if( !touchName.isEmpty() ) {
             d->deviceHandler->setConfiguration( touchName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
         }
+
+        setProfile(profile());
     }
 }
 
