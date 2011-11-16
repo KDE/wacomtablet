@@ -52,7 +52,7 @@
           </item>
           <item>
            <property name="text">
-            <string comment="rotate the pad counter clock wise">couter clockwise</string>
+            <string comment="rotate the pad counter clock wise">counter clockwise</string>
            </property>
           </item>
           <item>
