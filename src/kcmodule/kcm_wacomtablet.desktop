@@ -67,6 +67,7 @@ Comment[x-test]=xxWacom Tablet Settingsxx
 Comment[zh_TW]=Wacom 平板裝置設定
 
 X-KDE-Keywords=Tablet,Input Devices,Wacom,Stylus
+X-KDE-Keywords[cs]=Tablet,Vstupní zařízení,Wacom,Stylus
 X-KDE-Keywords[da]=Tablet,input-enheder,Wacom,stylus,tegneplade
 X-KDE-Keywords[el]=Πινάκιο,συσκευές εισόδου,Wacom,γραφίδα
 X-KDE-Keywords[es]=Tablet,Dispositivos de entrada,Wacom,Stylus
