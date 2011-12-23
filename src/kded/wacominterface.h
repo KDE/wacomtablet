@@ -62,7 +62,7 @@ public:
       * @param param parameter name
       * @param value value the parameter is set to
       */
-    void setConfiguration( const QString &device, const QString &param, const QString &value );
+    void setConfiguration( const QString &device, const QString &param, const QString &value, bool activateButtonMapping = false );
 
     /**
       * Returns the current value for a specific tablet setting

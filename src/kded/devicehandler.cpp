@@ -59,6 +59,8 @@ public:
     QString            internalTouchName;    /**< Internal name of the touch device */
     bool               isDeviceAvailable;    /**< Is a tabled device connected or not? */
     bool               hasPadButtons;        /**< Does the tablet device has buttons that can be configured? */
+    QMap<QString,QString> buttonMapping;     /**< Map the hardwarebuttons 1-X to its kernel numbering scheme
+                                                  @see http://sourceforge.net/mailarchive/message.php?msg_id=27512095 */
 };
 }
 
@@ -150,6 +152,7 @@ void DeviceHandler::clearDeviceInformation()
     d->curDevice = 0;
     d->isDeviceAvailable = false;
     d->hasPadButtons = false;
+    d->buttonMapping.clear();
 }
 
 bool DeviceHandler::findXInputDevice()
@@ -325,6 +328,15 @@ bool DeviceHandler::setDeviceInformation( const QString &companyId, const QStrin
     d->deviceModel = deviceGroup.readEntry( "model" );
     d->deviceName = deviceGroup.readEntry( "name" );
 
+    int i=1;
+    QString key = QLatin1String("hwbutton1");
+    while(deviceGroup.hasKey(key)) {
+        d->buttonMapping.insert( QString::number(i), deviceGroup.readEntry( key ));
+        i++;
+        key = QLatin1String("hwbutton");
+        key.append(QString::number(i));
+    }
+
     if( deviceGroup.readEntry( "padbuttons" )  != QLatin1String( "0" ) ||
         deviceGroup.readEntry( "wheel" )       != QLatin1String( "no" ) ||
         deviceGroup.readEntry( "touchring" )   != QLatin1String( "no" ) ||
@@ -346,6 +358,7 @@ void DeviceHandler::selectDeviceBackend( const QString &backendName )
     //@TODO add switch statement to handle other backends too
     if( backendName == QLatin1String( "wacom-tools" ) ) {
         d->curDevice = new WacomInterface();
+        d->curDevice->setButtonMapping(d->buttonMapping);
     }
 
     if( !d->curDevice ) {

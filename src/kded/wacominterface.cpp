@@ -58,8 +58,13 @@ void WacomInterface::applyProfile( const QString &device, const QString &section
 {
     KConfigGroup deviceGroup( gtprofile, section );
 
+    bool useButtonMapping = false;
+    if(section == QLatin1String("pad")) {
+        useButtonMapping = true;
+    }
+
     foreach( const QString & key, deviceGroup.keyList() ) {
-        setConfiguration( device, key, deviceGroup.readEntry( key ) );
+        setConfiguration( device, key, deviceGroup.readEntry( key ), useButtonMapping );
     }
 
     //this will invert touch gesture scrolling (up/down)
@@ -79,7 +84,7 @@ void WacomInterface::applyProfile( const QString &device, const QString &section
     mapTabletToScreen( device, deviceGroup.readEntry( QLatin1String( "0ScreenSpace" ) ) );
 }
 
-void WacomInterface::setConfiguration( const QString &device, const QString &param, const QString &value )
+void WacomInterface::setConfiguration( const QString &device, const QString &param, const QString &value, bool activateButtonMapping )
 {
     if( value.isEmpty() ) {
         return;
@@ -95,18 +100,20 @@ void WacomInterface::setConfiguration( const QString &device, const QString &par
         modifiedParam.remove(0,1);
     }
 
-    // small *hack* to cope with linux button settings
-    // button 4,5,6,7 are not buttons but scrolling
-    // thus button 4 is in reality button 8
-    QRegExp rx(QLatin1String( "^Button([0-9]*)" ));
-    int pos = 0;
+    // Here we translate the hardware button number which go from 1-X
+    // to the real numebrs as used by the kernel driver
+    // the mapping is read from the wacom_devicelist as hwbutton1=1 etc entries
+    // this is necessary to cope with some changes where for example the Pen& Touch devices have hw Button 2 as kernel Button 9 etc
+    // also often button 4 is button 8 because 4-7 are used for scrolling
+    if(activateButtonMapping) {
+        QRegExp rx(QLatin1String( "^Button([0-9]*)" ));
+        int pos = 0;
 
-    if ((pos = rx.indexIn(modifiedParam, pos)) != -1) {
-        QString button = rx.cap(1);
-        int buttonNumber = button.toInt();
-        if(buttonNumber >= 4) {
-            buttonNumber += 4;
-            modifiedParam = QString(QLatin1String("Button%1")).arg(buttonNumber);
+        if ((pos = rx.indexIn(modifiedParam, pos)) != -1) {
+            QString hwButtonNumber = rx.cap(1);
+            QString kernelButtonNumber = m_buttonMapping.value(hwButtonNumber);
+            if(!kernelButtonNumber.isEmpty())
+                modifiedParam = QString(QLatin1String("Button%1")).arg(kernelButtonNumber);
         }
     }
 

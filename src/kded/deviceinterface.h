@@ -53,7 +53,7 @@ public:
       * @param param parameter name
       * @param value value the parameter is set to
       */
-    virtual void setConfiguration(const QString & device, const QString & param, const QString & value) = 0;
+    virtual void setConfiguration(const QString & device, const QString & param, const QString & value, bool activateButtonMapping = false) = 0;
 
     /**
       * returns the current value for a specific tablet setting
@@ -84,6 +84,11 @@ public:
       * Toggles the stylus/eraser to absolute/relative mode
       */
     virtual void togglePenMode(const QString & device) = 0;
+
+    void setButtonMapping(QMap<QString, QString> mapping) { m_buttonMapping = mapping; }
+
+protected:
+    QMap<QString, QString> m_buttonMapping; /**< @see DeviceHandlerPrivate::buttonMapping */
 };
 
 }
