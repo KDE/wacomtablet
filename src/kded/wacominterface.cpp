@@ -58,32 +58,25 @@ void WacomInterface::applyProfile( const QString &device, const QString &section
 {
     KConfigGroup deviceGroup( gtprofile, section );
 
-    // first get the general options of the interface
-    bool m_forceProportion = false;
-    bool m_fullTabletArea = false;
-
-    if( deviceGroup.readEntry( QLatin1String( "0ForceProportions" ) ) == QLatin1String( "true" ) ) {
-        m_forceProportion = true;
-    }
-    else {
-        m_forceProportion = false;
-    }
-
-    if( deviceGroup.readEntry( QLatin1String( "0TabletArea" ) ) == QLatin1String( "true" ) ) {
-        m_fullTabletArea = true;
-    }
-    else {
-        m_fullTabletArea = false;
-    }
-
     foreach( const QString & key, deviceGroup.keyList() ) {
         setConfiguration( device, key, deviceGroup.readEntry( key ) );
+    }
+
+    //this will invert touch gesture scrolling (up/down)
+    if(deviceGroup.hasKey(QLatin1String( "0InvertScroll" ))) {
+        if( deviceGroup.readEntry( QLatin1String( "0InvertScroll" ) ) == QLatin1String( "true" ) ) {
+            setConfiguration(device, QLatin1String( "Button 4" ), QLatin1String("5"));
+            setConfiguration(device, QLatin1String( "Button 5" ), QLatin1String("4"));
+        }
+        else {
+            setConfiguration(device, QLatin1String( "Button 4" ), QLatin1String("4"));
+            setConfiguration(device, QLatin1String( "Button 5" ), QLatin1String("5"));
+        }
     }
 
     // apply the MapToOutput at the end.
     // this ensures we rotated the device beforehand
     mapTabletToScreen( device, deviceGroup.readEntry( QLatin1String( "0ScreenSpace" ) ) );
-
 }
 
 void WacomInterface::setConfiguration( const QString &device, const QString &param, const QString &value )
@@ -95,13 +88,17 @@ void WacomInterface::setConfiguration( const QString &device, const QString &par
     if( param.startsWith( QLatin1String( "0" ) ) ) {
         return;
     }
-
     QString modifiedParam = param;
+    // this part is for the AbsWheelUp/Down the X in the  config ensures it is set after
+    // the button mapping we remove the X again to send the command to xsetwacom
+    if( modifiedParam.startsWith( QLatin1String( "X" ) ) ) {
+        modifiedParam.remove(0,1);
+    }
 
     // small *hack* to cope with linux button settings
     // button 4,5,6,7 are not buttons but scrolling
-    // hus button 4 is in reality button 8
-    QRegExp rx(QLatin1String( "^Button([0-9])" ));
+    // thus button 4 is in reality button 8
+    QRegExp rx(QLatin1String( "^Button([0-9]*)" ));
     int pos = 0;
 
     if ((pos = rx.indexIn(modifiedParam, pos)) != -1) {
@@ -128,8 +125,9 @@ void WacomInterface::setConfiguration( const QString &device, const QString &par
 
     QByteArray errorOutput = setConf.readAll();
 
+    kDebug() << cmd;
+
     if( !errorOutput.isEmpty() ) {
-        kDebug() << cmd;
         kDebug() << errorOutput;
     }
 }
@@ -265,7 +263,6 @@ void WacomInterface::mapTabletToScreen( const QString &device, const QString &sc
     kDebug() << "virtual screen" << virtualScreen;
 
     // and now the values of the new matrix
-
     qreal w = ( qreal )screenW / ( qreal )virtualScreen.width();
     qreal h = ( qreal )screenH / ( qreal )virtualScreen.height();
 

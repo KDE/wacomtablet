@@ -201,16 +201,12 @@ void PadButtonWidget::saveToProfile()
     padConfig.writeEntry("StripRightDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripRDnComboBox->currentIndex(), m_ui->stripRDnActionLabel->property("KeySquence").toString()));
 
     if (m_ui->ringUpComboBox->isVisible()) {
-        padConfig.writeEntry("RelWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->property("KeySquence").toString()));
-        padConfig.writeEntry("RelWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->property("KeySquence").toString()));
-        padConfig.writeEntry("AbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->property("KeySquence").toString()));
-        padConfig.writeEntry("AbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->property("KeySquence").toString()));
+        padConfig.writeEntry("XAbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->property("KeySquence").toString()));
+        padConfig.writeEntry("XAbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->property("KeySquence").toString()));
     }
     if (m_ui->wheelUpComboBox->isVisible()) {
-        padConfig.writeEntry("RelWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->property("KeySquence").toString()));
-        padConfig.writeEntry("RelWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->property("KeySquence").toString()));
-        padConfig.writeEntry("AbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->property("KeySquence").toString()));
-        padConfig.writeEntry("AbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->property("KeySquence").toString()));
+        padConfig.writeEntry("XAbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->property("KeySquence").toString()));
+        padConfig.writeEntry("XAbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->property("KeySquence").toString()));
     }
 
     padConfig.sync();
@@ -246,7 +242,7 @@ void PadButtonWidget::loadFromProfile()
         buttonActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
     }
 
-    readEntry = padConfig.readEntry("RelWheelUp");           //RelWUp and AbsWUp are the same for now
+    readEntry = padConfig.readEntry("XAbsWheelUp");           //RelWUp is ignored for now
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->wheelUpComboBox->blockSignals(true);
     m_ui->wheelUpComboBox->setCurrentIndex(modeSwitch);
@@ -258,7 +254,7 @@ void PadButtonWidget::loadFromProfile()
     m_ui->ringUpActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
     m_ui->ringUpActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
-    readEntry = padConfig.readEntry("RelWheelDown");           //RelWUp and AbsWUp are the same for now
+    readEntry = padConfig.readEntry("XAbsWheelDown");           //RelWDown is ignored for now
     modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
     m_ui->wheelDnComboBox->blockSignals(true);
     m_ui->wheelDnComboBox->setCurrentIndex(modeSwitch);

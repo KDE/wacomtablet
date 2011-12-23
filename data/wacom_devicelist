@@ -758,6 +758,16 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
+[00DE]
+model=CTH-470/K
+layout=bl_8
+name=Wacom Bamboo Pen & Touch
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
 [00E2]
 model=unknown
 layout=unknown

@@ -53,13 +53,13 @@ void TouchWidget::saveToProfile()
         touchConfig.writeEntry( "Touch", "off" );
     }
 
-    if( m_ui->touchEventsCheckBox->isChecked() ) {
+    if( m_ui->scrollDirection->isChecked() ) {
         touchConfig.writeEntry( "0InvertScroll", "on" );
         touchConfig.writeEntry( "Button4", "5" );
         touchConfig.writeEntry( "Button5", "4" );
     }
     else {
-        touchConfig.writeEntry( "InvertScroll", "off" );
+        touchConfig.writeEntry( "0InvertScroll", "off" );
         touchConfig.writeEntry( "Button4", "4" );
         touchConfig.writeEntry( "Button5", "5" );
     }
@@ -109,7 +109,7 @@ void TouchWidget::loadFromProfile()
         m_ui->radioButton_Absolute->setChecked( true );
     }
     else {
-        m_ui->radioButton_Relative->setChecked( false );
+        m_ui->radioButton_Relative->setChecked( true );
     }
 
     QString gesture = touchConfig.readEntry( QLatin1String( "Gesture" ) );

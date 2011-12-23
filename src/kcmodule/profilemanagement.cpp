@@ -76,10 +76,10 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     padGroup->writeEntry( "StripLeftDown", "12" );
     padGroup->writeEntry( "StripRightUp", "13" );
     padGroup->writeEntry( "StripRightDown", "14" );
-    padGroup->writeEntry( "RelWheelUp", "15" );
-    padGroup->writeEntry( "RelWheelDown", "16" );
-    padGroup->writeEntry( "AbsWheelUp", "15" );
-    padGroup->writeEntry( "AbsWheelDown", "16" );
+    //padGroup->writeEntry( "RelWheelUp", "15" ); //RelWheelUp/Down cause a button setting bug in the driver
+    //padGroup->writeEntry( "RelWheelDown", "16" );
+    padGroup->writeEntry( "XAbsWheelUp", "4" ); // The added X esures this will be set after the button mapping
+    padGroup->writeEntry( "XAbsWheelDown", "5" );
 
     padGroup->sync();
     profileGroup->sync();

@@ -329,7 +329,10 @@ void ScreenArea::setupWidget()
         m_screens.append( virtualScreen );
     }
 
-    m_scaling = ( width() - 2 * tabletGap ) / virtualScreen.width();
+    if(virtualScreen.width() > virtualScreen.height())
+        m_scaling = ( width() - 2 * tabletGap ) / virtualScreen.width();
+    else
+        m_scaling = ( height() - 2 * tabletGap ) / virtualScreen.height();
 
     m_virtualScreen.setX( tabletGap );
     m_virtualScreen.setY( tabletGap );
