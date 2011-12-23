@@ -111,3 +111,42 @@ wheel=no
 touchring=yes
 touchstripl=no
 touchstripr=no
+hwbutton1=1          # these mag the physical button numbers to what the XServer likes to name them
+hwbutton2=2          # see below for more information
+hwbutton3=3
+hwbutton4=8
+
+--------------------------------------------------------------------
+hwbuttonX explanantion:
+
+Kernels >= 2.6.38 renamed the buttons for some reason.
+
+xsetwacom does not work with the pysical hardware button numbers 1-X
+but rather with the real numbers as seen by the XServer
+
+In case you run into trouble with the buttons do the following:
+* deinstall the kded/kcm ;)
+* disconnect/reconnect the tablet
+* run xev in the terminal
+* move the mouse over the new window
+* press the hardware buttons and write down what button xev sees
+
+and now update the wacom_device list accordingly
+
+for the new Pen & touch tablets before the kernel 2.6.38 we got
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
+
+for kernels >= 2.6.38 we get 
+hwbutton1=3
+hwbutton2=8
+hwbutton3=9
+hwbutton4=1
+
+
+
+
+
+
