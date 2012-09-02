@@ -19,6 +19,8 @@
 #include "tabletwidget.h"
 #include "../version.h"
 
+#include "aboutdata.h"
+
 // KDE includes
 #include <KDE/KCModuleLoader>
 #include <KDE/KPluginFactory>
@@ -44,19 +46,19 @@ KCMWacomTablet::KCMWacomTablet(QWidget *parent, const QVariantList &)
     m_layout = new QVBoxLayout(this);
     m_layout->setMargin(0);
 
+    m_about = new AboutData("kcm_wacomtablet", ki18n("Graphic Tablet Configuration"),
+                            kcm_version, ki18n("A configurator for graphic tablets"),
+                            ki18n("In this module you can configure your Wacom tablet profiles"));
+    setAboutData(m_about);
     setButtons(Apply | Help);
 
-    KAboutData *about =
-        new KAboutData("kcm_wacomtablet", "wacomtablet", ki18n("Graphic Tablet Configuration"),
-                       kcm_version, ki18n("A configurator for graphic tablets"),
-                       KAboutData::License_GPL, ki18n("(c), 2009,2010 Jörg Ehrichs"),
-                       ki18n("In this module you can configure your Wacom tablet profiles"));
-
-    about->addAuthor(ki18n("Jörg Ehrichs"), ki18n("Maintainer") , "joerg.ehrichs@gmx.de");
-
-    setAboutData(about);
-
     initModule();
+}
+
+
+KCMWacomTablet::~KCMWacomTablet()
+{
+    delete m_about;
 }
 
 

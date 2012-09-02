@@ -22,16 +22,15 @@
 
 namespace Ui
 {
-class GeneralWidget;
+    class GeneralWidget;
 }
 
 class QDBusInterface;
-class KActionCollection;
-class KShortcutsEditor;
 
 namespace Wacom
 {
-class ProfileManagement;
+    class ProfileManagement;
+    class GeneralWidgetPrivate;
 
 /**
   * This class shows some general information about the detected tablet device.
@@ -48,11 +47,9 @@ public:
     /**
       * Default constructor
       *
-      * @param deviceInterface Connection to the tablet daemon DBus /Device Interface
-      * @param profileManager Handles the connection to the config files
       * @param parent the parent widget
       */
-    explicit GeneralWidget(QDBusInterface *deviceInterface, ProfileManagement *profileManager, QWidget *parent = 0);
+    explicit GeneralWidget(QWidget* parent = 0);
 
     /**
       * default destructor
@@ -69,7 +66,7 @@ public slots:
       * When called the widget information will be refreshed
       */
     void reloadWidget();
-    
+
     /**
       * Called whenever the profile is switched or the widget needs to be reinitialized.
       *
@@ -90,13 +87,9 @@ signals:
     void changed();
 
 private:
-    Ui::GeneralWidget *m_ui;                /**< Handler to the generalwidget.ui file */
-    QDBusInterface    *m_deviceInterface;   /**< Connection to the tablet daemon DBus /Device Interface */
-    ProfileManagement *m_profileManagement; /**< Handler for the profile config connection */
-    KActionCollection  *m_actionCollection;
-    KShortcutsEditor   *m_shortcutEditor;
-};
+    Q_DECLARE_PRIVATE( GeneralWidget )
+    GeneralWidgetPrivate *const d_ptr; /**< d-pointer for this class */
 
-}
-
+}; // CLASS
+}  // NAMESPACE
 #endif // GENERALWIDGET_H

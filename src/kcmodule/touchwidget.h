@@ -27,13 +27,14 @@ class TouchWidget;
 
 namespace Wacom
 {
-class ProfileManagement;
+class TouchWidgetPrivate;
+
 
 class TouchWidget : public QWidget
 {
     Q_OBJECT
 public:
-    TouchWidget(ProfileManagement *profileManager, QWidget *parent = 0);
+    TouchWidget(QWidget *parent = 0);
     /**
       * default destructor
       */
@@ -70,9 +71,10 @@ signals:
     void changed();
 
 private:
-    Ui::TouchWidget *m_ui;              /**< Handler to the generalwidget.ui file */
-    ProfileManagement *m_profileManagement; /**< Handler for the profile config connection */
-};
 
-}
+    Q_DECLARE_PRIVATE( TouchWidget )
+    TouchWidgetPrivate *const d_ptr; /**< d-pointer for this class */
+
+}; // CLASS
+}  // NAMESPACE
 #endif // TOUCHWIDGET_H

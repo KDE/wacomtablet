@@ -20,6 +20,13 @@
 
 #include "profilemanagement.h"
 
+// common includes
+#include "property.h"
+#include "deviceprofile.h"
+
+// stdlib
+#include <memory>
+
 //Qt includes
 #include <QtCore/QStringList>
 #include <QtDBus/QDBusInterface>
@@ -27,107 +34,125 @@
 
 using namespace Wacom;
 
-TouchWidget::TouchWidget( ProfileManagement *profileManager, QWidget *parent )
-    : QWidget( parent ),
-      m_ui( new Ui::TouchWidget ),
-      m_profileManagement( profileManager )
+namespace Wacom {
+/**
+  * Private class for the d-pointer.
+  */
+class TouchWidgetPrivate {
+    public:
+        std::auto_ptr<Ui::TouchWidget>  m_ui;                /**< Handler to the touchwidget.ui file */
+}; // CLASS
+}  // NAMESPACE
+
+
+TouchWidget::TouchWidget( QWidget *parent )
+    : QWidget( parent ), d_ptr(new TouchWidgetPrivate)
 {
-    m_ui->setupUi( this );
+    Q_D( TouchWidget );
+
+    d->m_ui = std::auto_ptr<Ui::TouchWidget>(new Ui::TouchWidget);
+    d->m_ui->setupUi( this );
 
     reloadWidget();
 }
 
 TouchWidget::~TouchWidget()
 {
-    delete m_ui;
+    delete this->d_ptr;
 }
+
+
 
 void TouchWidget::saveToProfile()
 {
-    KConfigGroup touchConfig = m_profileManagement->configGroup( QLatin1String( "touch" ) );
+    Q_D( TouchWidget );
 
-    if( m_ui->touchEventsCheckBox->isChecked() ) {
-        touchConfig.writeEntry( "Touch", "on" );
+    DeviceProfile touchProfile = ProfileManagement::instance().loadDeviceProfile( QLatin1String( "touch" ) );
+
+    if( d->m_ui->touchEventsCheckBox->isChecked() ) {
+        touchProfile.setProperty( Property::Touch, QLatin1String("on") );
     }
     else {
-        touchConfig.writeEntry( "Touch", "off" );
+        touchProfile.setProperty( Property::Touch, QLatin1String("off") );
     }
 
-    if( m_ui->scrollDirection->isChecked() ) {
-        touchConfig.writeEntry( "0InvertScroll", "on" );
-        touchConfig.writeEntry( "Button4", "5" );
-        touchConfig.writeEntry( "Button5", "4" );
+    if( d->m_ui->scrollDirection->isChecked() ) {
+        touchProfile.setProperty( Property::InvertScroll, QLatin1String("on") );
+        touchProfile.setProperty( Property::Button4, QLatin1String("5") );
+        touchProfile.setProperty( Property::Button5, QLatin1String("4") );
     }
     else {
-        touchConfig.writeEntry( "0InvertScroll", "off" );
-        touchConfig.writeEntry( "Button4", "4" );
-        touchConfig.writeEntry( "Button5", "5" );
+        touchProfile.setProperty( Property::InvertScroll, QLatin1String("off") );
+        touchProfile.setProperty( Property::Button4, QLatin1String("4") );
+        touchProfile.setProperty( Property::Button5, QLatin1String("5") );
     }
-    if( m_ui->radioButton_Absolute->isChecked() ) {
-        touchConfig.writeEntry( "Mode", "absolute" );
-    }
-    else {
-        touchConfig.writeEntry( "Mode", "relative" );
-    }
-
-    if( m_ui->gesturesCheckBox->isChecked() ) {
-        touchConfig.writeEntry( "Gesture", "on" );
+    if( d->m_ui->radioButton_Absolute->isChecked() ) {
+        touchProfile.setProperty( Property::Mode, QLatin1String("absolute") );
     }
     else {
-        touchConfig.writeEntry( "Gesture", "off" );
+        touchProfile.setProperty( Property::Mode, QLatin1String("relative") );
     }
 
-    touchConfig.writeEntry( "ZoomDistance", m_ui->zoomDistanceBox->value() );
-    touchConfig.writeEntry( "ScrollDistance", m_ui->scrollDistanceBox->value() );
-    touchConfig.writeEntry( "TapTime", m_ui->tapTimeBox->value() );
+    if( d->m_ui->gesturesCheckBox->isChecked() ) {
+        touchProfile.setProperty( Property::Gesture, QLatin1String("on") );
+    }
+    else {
+        touchProfile.setProperty( Property::Gesture, QLatin1String("off") );
+    }
 
-    touchConfig.sync();
+    touchProfile.setProperty( Property::ZoomDistance, QString::number(d->m_ui->zoomDistanceBox->value()) );
+    touchProfile.setProperty( Property::ScrollDistance, QString::number(d->m_ui->scrollDistanceBox->value()) );
+    touchProfile.setProperty( Property::TapTime, QString::number(d->m_ui->tapTimeBox->value()) );
+
+    ProfileManagement::instance().saveDeviceProfile(touchProfile);
 }
 
 void TouchWidget::loadFromProfile()
 {
-    KConfigGroup touchConfig = m_profileManagement->configGroup( QLatin1String( "touch" ) );
+    Q_D( TouchWidget );
 
-    QString touch = touchConfig.readEntry( QLatin1String( "Touch" ) );
+    DeviceProfile touchProfile = ProfileManagement::instance().loadDeviceProfile( QLatin1String( "touch" ) );
+
+    QString touch = touchProfile.getProperty( Property::Touch );
     if( touch == QLatin1String( "on" ) ) {
-        m_ui->touchEventsCheckBox->setChecked( true );
+        d->m_ui->touchEventsCheckBox->setChecked( true );
     }
     else {
-        m_ui->touchEventsCheckBox->setChecked( false );
+        d->m_ui->touchEventsCheckBox->setChecked( false );
     }
 
-    QString scrollDirection = touchConfig.readEntry( QLatin1String( "0InvertScroll" ) );
+    QString scrollDirection = touchProfile.getProperty( Property::InvertScroll );
     if( scrollDirection == QLatin1String( "on" ) ) {
-        m_ui->scrollDirection->setChecked( true );
+        d->m_ui->scrollDirection->setChecked( true );
     }
     else {
-        m_ui->scrollDirection->setChecked( false );
+        d->m_ui->scrollDirection->setChecked( false );
     }
 
-    QString fingerMode = touchConfig.readEntry( QLatin1String( "Mode" ) );
+    QString fingerMode = touchProfile.getProperty( Property::Mode );
     if( fingerMode == QLatin1String( "absolute" ) ) {
-        m_ui->radioButton_Absolute->setChecked( true );
+        d->m_ui->radioButton_Absolute->setChecked( true );
     }
     else {
-        m_ui->radioButton_Relative->setChecked( true );
+        d->m_ui->radioButton_Relative->setChecked( true );
     }
 
-    QString gesture = touchConfig.readEntry( QLatin1String( "Gesture" ) );
+    QString gesture = touchProfile.getProperty( Property::Gesture );
     if( gesture == QLatin1String( "on" ) ) {
-        m_ui->gesturesCheckBox->setChecked( true );
+        d->m_ui->gesturesCheckBox->setChecked( true );
     }
     else {
-        m_ui->gesturesCheckBox->setChecked( false );
+        d->m_ui->gesturesCheckBox->setChecked( false );
     }
 
-    int zoomDistance = touchConfig.readEntry( QLatin1String( "ZoomDistance" ) ).toInt();
-    m_ui->zoomDistanceBox->setValue( zoomDistance );
+    int zoomDistance = touchProfile.getProperty( Property::ZoomDistance ).toInt();
+    d->m_ui->zoomDistanceBox->setValue( zoomDistance );
 
-    int scrollDistance = touchConfig.readEntry( QLatin1String( "ScrollDistance" ) ).toInt();
-    m_ui->scrollDistanceBox->setValue( scrollDistance );
+    int scrollDistance = touchProfile.getProperty( Property::ScrollDistance ).toInt();
+    d->m_ui->scrollDistanceBox->setValue( scrollDistance );
 
-    int tapTime = touchConfig.readEntry( QLatin1String( "TapTime" ) ).toInt();
-    m_ui->tapTimeBox->setValue( tapTime );
+    int tapTime = touchProfile.getProperty( Property::TapTime ).toInt();
+    d->m_ui->tapTimeBox->setValue( tapTime );
 }
 
 void TouchWidget::profileChanged()
@@ -135,6 +160,4 @@ void TouchWidget::profileChanged()
     emit changed();
 }
 
-void TouchWidget::reloadWidget()
-{
-}
+void TouchWidget::reloadWidget() { }

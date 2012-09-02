@@ -90,27 +90,12 @@ private slots:
       */
     void configAccepted();
 
-    /**
-      * Gets called when the org.kde.Wacom Service will be registered to the dbus
-      *
-      * Happens when the kded is started
-      */
-    void serviceAvailable();
-
-    /**
-      * Gets called when the org.kde.Wacom Service will be unregistered from the dbus
-      *
-      * Happens when the kded is stopped
-      */
-    void serviceUnavailable();
-
 private:
     TabletApplet   *m_applet;           /**< The content widget for this applet. Contains all important values and functions */
     KCModuleProxy  *m_settingsWidget;   /**< Embedded KCM modules in the configuration dialog */
     QDBusInterface *m_tabletInterface;  /**< DBus /Tablet interface to the daemon */
     QDBusServiceWatcher *m_watcher;     /**< Watches over the conencted dbus service, changes the applet status when the service gets available / unavailable */
-};
 
-}
-
-#endif
+}; // CLASS
+}  // NAMESPACE
+#endif // HEADER PROTECTION

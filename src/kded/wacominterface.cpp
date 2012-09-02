@@ -15,12 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 #include "wacominterface.h"
 #include "devicehandler.h"
+#include "deviceprofile.h"
+#include "deviceprofilexsetwacomadaptor.h"
+#include "property.h"
 
 //KDE includes
-#include <KDE/KConfigGroup>
-#include <KDE/KSharedConfig>
 #include <KDE/KStandardDirs>
 #include <KDE/KDebug>
 
@@ -54,51 +56,59 @@ WacomInterface::~WacomInterface()
 {
 }
 
-void WacomInterface::applyProfile( const QString &device, const QString &section, KConfigGroup *gtprofile )
+void WacomInterface::applyProfile( const QString& device, const QString& section, const TabletProfile& gtprofile )
 {
-    KConfigGroup deviceGroup( gtprofile, section );
+    DeviceProfile                 deviceProfile = gtprofile.getDevice(section);
+    DeviceProfileXsetwacomAdaptor profileAdapter(deviceProfile);
 
     bool useButtonMapping = false;
     if(section == QLatin1String("pad")) {
         useButtonMapping = true;
     }
 
-    foreach( const QString & key, deviceGroup.keyList() ) {
-        setConfiguration( device, key, deviceGroup.readEntry( key ), useButtonMapping );
+    // get all xsetwacom properties supported by the device profile
+    // this will also make sure that they are set in the correct order
+    foreach( const XsetwacomProperty& property, profileAdapter.getXsetwacomProperties()) {
+        setConfiguration( device, property.id(), profileAdapter.getXsetwacomProperty( property ), useButtonMapping);
     }
 
+// disable X11 macros for now as they collide with our properties
+// TODO: All the X11 code in here should be moved into a X11 util class
+#pragma push_macro("Button4")
+#pragma push_macro("Button5")
+#undef Button4
+#undef Button5
     //this will invert touch gesture scrolling (up/down)
-    if(deviceGroup.hasKey(QLatin1String( "0InvertScroll" ))) {
-        if( deviceGroup.readEntry( QLatin1String( "0InvertScroll" ) ) == QLatin1String( "true" ) ) {
-            setConfiguration(device, QLatin1String( "Button 4" ), QLatin1String("5"));
-            setConfiguration(device, QLatin1String( "Button 5" ), QLatin1String("4"));
-        }
-        else {
-            setConfiguration(device, QLatin1String( "Button 4" ), QLatin1String("4"));
-            setConfiguration(device, QLatin1String( "Button 5" ), QLatin1String("5"));
-        }
+    if ( deviceProfile.getInvertScroll() == QLatin1String( "true" ) ) {
+        setConfiguration(device, Property::Button4, QLatin1String("5"));
+        setConfiguration(device, Property::Button5, QLatin1String("4"));
     }
-
+    else {
+        setConfiguration(device, Property::Button4, QLatin1String("4"));
+        setConfiguration(device, Property::Button5, QLatin1String("5"));
+    }
+#pragma pop_macro("Button5")
+#pragma pop_macro("Button4")
+    
     // apply the MapToOutput at the end.
     // this ensures we rotated the device beforehand
-    mapTabletToScreen( device, deviceGroup.readEntry( QLatin1String( "0ScreenSpace" ) ) );
+    mapTabletToScreen( device, deviceProfile.getScreenSpace() );
 }
 
-void WacomInterface::setConfiguration( const QString &device, const QString &param, const QString &value, bool activateButtonMapping )
+void WacomInterface::setConfiguration( const QString& device, const Property& property, const QString& value, bool activateButtonMapping )
 {
     if( value.isEmpty() ) {
         return;
     }
 
-    if( param.startsWith( QLatin1String( "0" ) ) ) {
+    const XsetwacomProperty* xsetproperty = XsetwacomProperty::map(property);
+
+    if (xsetproperty == NULL) {
+        kError() << QString::fromLatin1("Can not set unsupported property '%1' to '%2' using xsetwacom!").arg(property.key()).arg(value);
         return;
     }
-    QString modifiedParam = param;
-    // this part is for the AbsWheelUp/Down the X in the  config ensures it is set after
-    // the button mapping we remove the X again to send the command to xsetwacom
-    if( modifiedParam.startsWith( QLatin1String( "X" ) ) ) {
-        modifiedParam.remove(0,1);
-    }
+
+    QString modifiedParam = xsetproperty->key();
 
     // Here we translate the hardware button number which go from 1-X
     // to the real numebrs as used by the kernel driver
@@ -106,7 +116,7 @@ void WacomInterface::setConfiguration( const QString &device, const QString &par
     // this is necessary to cope with some changes where for example the Pen& Touch devices have hw Button 2 as kernel Button 9 etc
     // also often button 4 is button 8 because 4-7 are used for scrolling
     if(activateButtonMapping) {
-        QRegExp rx(QLatin1String( "^Button([0-9]*)" ));
+        QRegExp rx(QLatin1String( "^Button\\s*([0-9]+)$" ));
         int pos = 0;
 
         if ((pos = rx.indexIn(modifiedParam, pos)) != -1) {
@@ -139,9 +149,16 @@ void WacomInterface::setConfiguration( const QString &device, const QString &par
     }
 }
 
-QString WacomInterface::getConfiguration( const QString &device, const QString &param ) const
+QString WacomInterface::getConfiguration( const QString& device, const Property& property ) const
 {
-    QString modifiedParam = param;
+    const XsetwacomProperty* xsetproperty = XsetwacomProperty::map(property);
+
+    if (xsetproperty == NULL) {
+        kError() << QString::fromLatin1("Can not get unsupported property '%1' using xsetwacom!").arg(property.key());
+        return QString();
+    }
+
+    QString modifiedParam = xsetproperty->key();
 
     // small *hack* to cope with linux button settings
     // button 4,5,6,7 are not buttons but scrolling
@@ -174,62 +191,32 @@ QString WacomInterface::getConfiguration( const QString &device, const QString &
     return result.remove( QLatin1Char( '\n' ) );
 }
 
-QString WacomInterface::getDefaultConfiguration( const QString &device, const QString &param ) const
+QString WacomInterface::getDefaultConfiguration( const QString &device, const Property &property ) const
 {
-    QString modifiedParam = param;
-    
-    // small *hack* to cope with linux button settings
-    // button 4,5,6,7 are not buttons but scrolling
-    // hus button 4 is in reality button 8
-    QRegExp rx(QLatin1String( "^Button([0-9])" ));
-    int pos = 0;
-
-    while ((pos = rx.indexIn(modifiedParam, pos)) != -1) {
-        QString button = rx.cap(1);
-        int buttonNumber = button.toInt();
-        if(buttonNumber >= 4) {
-            buttonNumber += 4;
-            modifiedParam = QString(QLatin1String("Button%1")).arg(buttonNumber);
-        }
-    }
-    
-    QString cmd = QString::fromLatin1( "xsetwacom get \"%1\" %2" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^Button([0-9])" ) ), QLatin1String( "Button \\1" ) ) );
-    QProcess getConf;
-    getConf.start( cmd );
-
-    if( !getConf.waitForStarted() ) {
-        return QString();
-    }
-
-    if( !getConf.waitForFinished() ) {
-        return QString();
-    }
-
-    QString result = QLatin1String( getConf.readAll() );
-    return result.remove( QLatin1Char( '\n' ) );
+    return getConfiguration(device, property);
 }
 
 void WacomInterface::toggleTouch( const QString &touchDevice )
 {
-    QString touchMode = getConfiguration( touchDevice, QLatin1String( "Touch" ) );
+    QString touchMode = getConfiguration( touchDevice, Property::Touch );
 
-    if( touchMode == QLatin1String( "off" ) ) {
-        setConfiguration( touchDevice, QLatin1String( "Touch" ), QLatin1String( "on" ) );
+    if( touchMode.compare( QLatin1String( "off" ), Qt::CaseInsensitive) == 0 ) {
+        setConfiguration( touchDevice, Property::Touch, QLatin1String( "on" ) );
     }
     else {
-        setConfiguration( touchDevice, QLatin1String( "Touch" ), QLatin1String( "off" ) );
+        setConfiguration( touchDevice, Property::Touch, QLatin1String( "off" ) );
     }
 }
 
 void WacomInterface::togglePenMode( const QString &device )
 {
-    QString touchMode = getConfiguration( device, QLatin1String( "Mode" ) );
+    QString touchMode = getConfiguration( device, Property::Mode );
 
-    if( touchMode == QLatin1String( "Absolute" ) ) {
-        setConfiguration( device, QLatin1String( "Mode" ), QLatin1String( "Relative" ) );
+    if( touchMode.compare( QLatin1String( "Absolute" ), Qt::CaseInsensitive ) == 0 ) {
+        setConfiguration( device, Property::Mode, QLatin1String( "Relative" ) );
     }
     else {
-        setConfiguration( device, QLatin1String( "Mode" ), QLatin1String( "Absolute" ) );
+        setConfiguration( device, Property::Mode, QLatin1String( "Absolute" ) );
     }
 }
 
@@ -246,7 +233,7 @@ void WacomInterface::mapTabletToScreen( const QString &device, const QString &sc
     QStringList screenList = screenArea.split( QLatin1String( " " ) );
 
     if( screenList.isEmpty() || screenList.size() != 4 ) {
-        kError() << "mapTabletToScreen :: can't parse ScreenSpace entry => device:" << device;
+        kError() << "mapTabletToScreen :: can't parse ScreenSpace entry '" << screenArea << "' => device:" << device;
         return;
     }
 

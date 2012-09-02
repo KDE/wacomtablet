@@ -15,8 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "property.h"
 #include "tabletapplet.h"
 #include "wacomtabletsettings.h"
+
+// common includes
+#include "dbustabletinterface.h"
+#include "dbusdeviceinterface.h"
 
 //KDE inculdes
 #include <KDE/KIconLoader>
@@ -66,8 +71,6 @@ const QDBusArgument &operator>>( const QDBusArgument &argument, Wacom::DeviceInf
 
 TabletApplet::TabletApplet( WacomTabletSettings *tabletSettings ) :
     m_tabletSettings( tabletSettings ),
-    m_tabletInterface( 0 ),
-    m_deviceInterface( 0 ),
     m_widget( 0 ),
     m_deviceName( 0 )
 {
@@ -92,8 +95,6 @@ TabletApplet::~TabletApplet()
     //delete m_widget;
 
     delete m_tabletSettings;
-    delete m_tabletInterface;
-    delete m_deviceInterface;
 }
 
 QGraphicsWidget *TabletApplet::dialog()
@@ -101,49 +102,39 @@ QGraphicsWidget *TabletApplet::dialog()
     return m_widget;
 }
 
-void TabletApplet::connectDBus()
+void TabletApplet::onDBusConnected()
 {
-    delete m_tabletInterface;
-    delete m_deviceInterface;
+    DBusTabletInterface::resetInterface();
+    DBusDeviceInterface::resetInterface();
 
-    m_tabletInterface = new QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Tablet" ), QLatin1String( "org.kde.Wacom" ) );
-    m_deviceInterface = new QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Device" ), QLatin1String( "org.kde.WacomDevice" ) );
-
-    if( !m_tabletInterface->isValid() || !m_deviceInterface->isValid() ) {
-        disconnectDBus();
+    if( !DBusTabletInterface::instance().isValid() || !DBusDeviceInterface::instance().isValid() ) {
+        onDBusDisconnected();
         return;
     }
-    else {
-        //DBus signals
-        connect( m_tabletInterface, SIGNAL( tabletAdded() ), this, SLOT( onTabletAdded() ) );
-        connect( m_tabletInterface, SIGNAL( tabletRemoved() ), this, SLOT( onTabletRemoved() ) );
-        connect( m_tabletInterface, SIGNAL( profileChanged( const QString ) ), this, SLOT( setProfile( const QString ) ) );
 
-        QDBusReply<bool> isAvailable = m_tabletInterface->call( QLatin1String( "tabletAvailable" ) );
+    connect( &DBusTabletInterface::instance(), SIGNAL( tabletAdded() ), this, SLOT( onTabletAdded() ) );
+    connect( &DBusTabletInterface::instance(), SIGNAL( tabletRemoved() ), this, SLOT( onTabletRemoved() ) );
+    connect( &DBusTabletInterface::instance(), SIGNAL( profileChanged( const QString ) ), this, SLOT( setProfile( const QString ) ) );
 
-        if( isAvailable ) {
-            onTabletAdded();
-        }
-        else {
-            onTabletRemoved();
-        }
+    QDBusReply<bool> isAvailable = DBusTabletInterface::instance().tabletAvailable();
+
+    if( isAvailable ) {
+        onTabletAdded();
+    } else {
+        onTabletRemoved();
     }
 }
 
-void TabletApplet::disconnectDBus()
+void TabletApplet::onDBusDisconnected()
 {
-    delete m_tabletInterface;
-    m_tabletInterface = 0;
-    delete m_deviceInterface;
-    m_deviceInterface = 0;
-
-    showError( i18n( "D-Bus connection to the kded daemon not available.\n\nPlease start the Wacom tablet daemon.\nThe daemon is responsible for tablet detection and profile support." ) );
-
+    showError( i18n( "D-Bus connection to the kded daemon not available.\n\n"
+                     "Please start the Wacom tablet daemon.\n"
+                     "The daemon is responsible for tablet detection and profile support." ) );
 }
 
 void TabletApplet::updateWidget()
 {
-    QDBusReply<Wacom::DeviceInformation> deviceInfo  = m_deviceInterface->call( QLatin1String( "getAllInformation" ) );
+    QDBusReply<Wacom::DeviceInformation> deviceInfo = DBusDeviceInterface::instance().getAllInformation();
 
     if( deviceInfo.isValid() ) {
         m_deviceName->setText( deviceInfo.value().deviceName );
@@ -159,7 +150,7 @@ void TabletApplet::updateWidget()
 void TabletApplet::updateProfile()
 {
     //get list of all profiles
-    QDBusReply<QStringList> profileList  = m_tabletInterface->call( QLatin1String( "profileList" ) );
+    QDBusReply<QStringList> profileList = DBusTabletInterface::instance().profileList();
 
     //fill comboBox
     m_comboBoxProfile->blockSignals( true );
@@ -168,13 +159,14 @@ void TabletApplet::updateProfile()
     nativeBox->addItems( profileList );
 
     //set current profile
-    QDBusReply<QString> profileName  = m_tabletInterface->call( QLatin1String( "profile" ) );
+    QDBusReply<QString> profileName = DBusTabletInterface::instance().profile();
 
     int index = nativeBox->findText( profileName );
     nativeBox->setCurrentIndex( index );
     m_comboBoxProfile->blockSignals( false );
 
-    QDBusReply<QString> stylusMode  = m_deviceInterface->call( QLatin1String( "getConfiguration" ), m_stylusName, QLatin1String( "Mode" ) );
+    QDBusReply<QString> stylusMode = DBusDeviceInterface::instance().getConfiguration(m_stylusName, Property::Mode.key());
+    
     if( stylusMode.isValid() ) {
         if( QString( stylusMode ).contains( QLatin1String( "absolute" )) || QString( stylusMode ).contains( QLatin1String( "Absolute" )) ) {
             m_radioButtonRelative->setChecked( false );
@@ -194,7 +186,8 @@ void TabletApplet::updateProfile()
         m_radioButtonTouchOn->setEnabled(true);
         m_radioButtonTouchOff->setEnabled(true);
 
-        QDBusReply<QString> touchMode  = m_deviceInterface->call( QLatin1String( "getConfiguration" ), m_touchName, QLatin1String( "Touch" ) );
+        QDBusReply<QString> touchMode = DBusDeviceInterface::instance().getConfiguration(m_touchName, Property::Touch.key());
+        
         if( touchMode.isValid() ) {
             if( QString( touchMode ).contains( QLatin1String( "on" ) ) ) {
                 m_radioButtonTouchOff->setChecked( false );
@@ -221,35 +214,35 @@ void TabletApplet::setProfile( const QString &name )
 
 void TabletApplet::switchProfile( const QString &name )
 {
-    m_tabletInterface->call( QLatin1String( "setProfile" ), name );
+    DBusTabletInterface::instance().setProfile(name);
 }
 
 void TabletApplet::rotateNorm()
 {
-    m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_padName, QLatin1String( "Rotate" ), QLatin1String( "NONE" ) );
+    DBusDeviceInterface::instance().setConfiguration(m_padName, Property::Rotate.key(), QLatin1String("NONE"));
 }
 
 void TabletApplet::rotateCw()
 {
-    m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_padName, QLatin1String( "Rotate" ), QLatin1String( "CW" ) );
+    DBusDeviceInterface::instance().setConfiguration(m_padName, Property::Rotate.key(), QLatin1String("CW"));
 }
 
 void TabletApplet::rotateCcw()
 {
-    m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_padName, QLatin1String( "Rotate" ), QLatin1String( "CCW" ) );
+    DBusDeviceInterface::instance().setConfiguration(m_padName, Property::Rotate.key(), QLatin1String("CCW"));
 }
 
 void TabletApplet::rotateHalf()
 {
-    m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_padName, QLatin1String( "Rotate" ), QLatin1String( "HALF" ) );
+    DBusDeviceInterface::instance().setConfiguration(m_padName, Property::Rotate.key(), QLatin1String("HALF"));
 }
 
 void TabletApplet::selectAbsoluteMode( bool state )
 {
     if( state ) {
         m_radioButtonRelative->setChecked( false );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_stylusName, QLatin1String( "Mode" ), QLatin1String( "absolute" ) );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_eraserName, QLatin1String( "Mode" ), QLatin1String( "absolute" ) );
+        DBusDeviceInterface::instance().setConfiguration(m_stylusName, Property::Mode.key(), QLatin1String( "absolute" ));
+        DBusDeviceInterface::instance().setConfiguration(m_eraserName, Property::Mode.key(), QLatin1String( "absolute" ));
     }
 }
 
@@ -257,8 +250,8 @@ void TabletApplet::selectRelativeMode( bool state )
 {
     if( state ) {
         m_radioButtonAbsolute->setChecked( false );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_stylusName, QLatin1String( "Mode" ), QLatin1String( "relative" ) );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_eraserName, QLatin1String( "Mode" ), QLatin1String( "relative" ) );
+        DBusDeviceInterface::instance().setConfiguration(m_stylusName, Property::Mode.key(), QLatin1String( "relative" ));
+        DBusDeviceInterface::instance().setConfiguration(m_eraserName, Property::Mode.key(), QLatin1String( "relative" ));
     }
 }
 
@@ -267,7 +260,7 @@ void TabletApplet::setTouchModeOn( bool state )
     if( state ) {
         m_radioButtonTouchOn->setChecked( true );
         m_radioButtonTouchOff->setChecked( false );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_touchName, QLatin1String( "Touch" ), QLatin1String( "on" ) );
+        DBusDeviceInterface::instance().setConfiguration(m_touchName, Property::Touch.key(), QLatin1String( "on" ));
     }
 }
 
@@ -276,7 +269,7 @@ void TabletApplet::setTouchModeOff( bool state )
     if( state ) {
         m_radioButtonTouchOn->setChecked( false );
         m_radioButtonTouchOff->setChecked( true );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_touchName, QLatin1String( "Touch" ), QLatin1String( "off" ) );
+        DBusDeviceInterface::instance().setConfiguration(m_touchName, Property::Touch.key(), QLatin1String( "off" ));
     }
 }
 

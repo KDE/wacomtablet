@@ -16,6 +16,7 @@
  */
 
 #include "xdeviceeventnotifier.h"
+#include "x11utils.h"
 
 // KDE includes
 #include <KDE/KApplication>
@@ -45,7 +46,6 @@ void XDeviceEventNotifier::start()
 {
     if( KApplication::kApplication() != NULL ) {
         registerForNewDeviceEvent(QX11Info::display());
-
         KApplication::kApplication()->installX11EventFilter(this);
     }
 }
@@ -57,82 +57,88 @@ void XDeviceEventNotifier::stop()
     }
 }
 
-bool XDeviceEventNotifier::x11Event(XEvent * event)
+bool XDeviceEventNotifier::x11Event(XEvent* event)
 {
     XGenericEventCookie *cookie = &event->xcookie;
 
-    if (cookie->type == GenericEvent && cookie->evtype == XI_HierarchyChanged)
-    {
-        bool ownEventData = false;
-        ownEventData = XGetEventData(QX11Info::display(), cookie);
+    if (cookie->type == GenericEvent && cookie->evtype == XI_HierarchyChanged) {
+        handleX11InputEvent(event);
 
-        if(cookie->data)
-        {
-            XIHierarchyEvent * hev = (XIHierarchyEvent *)cookie->data;
-            XIHierarchyInfo *info = (XIHierarchyInfo *)hev->info;
-
-            for (int i = 0; i < hev->num_info; i++)
-            {
-                if (info[i].flags & XISlaveRemoved) {
-                    kDebug() << "Device removed with id: " << info[i].deviceid;
-                    emit deviceRemoved(info[i].deviceid);
-                }
-
-                if (info[i].flags & XISlaveAdded) {
-                    if(isTabletDevice(info[i].deviceid)) {
-                        kDebug() << "Wacom Tablet Device added with id: " << info[i].deviceid;
-                        emit deviceAdded(info[i].deviceid);
-                    }
-                }
-            }
-            
-            // only free event data if I own the resource if a different resource called XGetEventData the data will not be set free again here
-            if(ownEventData) {
-	        XFreeEventData(QX11Info::display(), cookie);
-	    }
-        }
-        else {
-            kDebug() << "Error couldn't retrieve XGetEventData";
-        }
-    }
-    else {
-      
-      int m_eventBase;
-      int m_errorBase;
-      
-      XRRQueryExtension(QX11Info::display(), &m_eventBase, &m_errorBase);
-      
-      if (event->type == m_eventBase + RRScreenChangeNotify) {
-            XRRUpdateConfiguration(event);
-            Rotation old_r = r;
-
-            XRRRotations(QX11Info::display(), DefaultScreen(QX11Info::display()), &r);
-
-            if (old_r != r) {
-                switch (r) {
-                        case RR_Rotate_0:
-                                emit screenRotated(NONE);
-                                break;
-                        case RR_Rotate_90:
-                               emit screenRotated(CCW);
-                               break;
-                        case RR_Rotate_180:
-                               emit screenRotated(HALF);
-                               break;
-                        case RR_Rotate_270:
-                               emit screenRotated(CW);
-                               break;
-                }
-            }
-        }
+    } else {
+        handleX11ScreenEvent(event);
     }
 
     return QWidget::x11Event(event);
 }
 
+void XDeviceEventNotifier::handleX11InputEvent(XEvent* event)
+{
+    XGenericEventCookie *cookie       = &event->xcookie;
+    bool                 ownEventData = XGetEventData(QX11Info::display(), cookie);
+
+    if(cookie->data)
+    {
+        XIHierarchyEvent * hev = (XIHierarchyEvent *)cookie->data;
+        XIHierarchyInfo *info = (XIHierarchyInfo *)hev->info;
+
+        for (int i = 0; i < hev->num_info; i++)
+        {
+            if (info[i].flags & XISlaveRemoved) {
+                kDebug() << "Device removed with id: " << info[i].deviceid;
+                emit deviceRemoved(info[i].deviceid);
+
+            } else if (info[i].flags & XISlaveAdded && X11Utils::isTabletDevice(info[i].deviceid)) {
+                kDebug() << "Wacom Tablet Device added with id: " << info[i].deviceid;
+                emit deviceAdded(info[i].deviceid);
+            }
+        }
+
+        // only free event data if I own the resource if a different resource called XGetEventData the data will not be set free again here
+        if(ownEventData) {
+            XFreeEventData(QX11Info::display(), cookie);
+        }
+    }
+    else {
+        kDebug() << "Error couldn't retrieve XGetEventData";
+    }
+}
+
+
+void XDeviceEventNotifier::handleX11ScreenEvent(XEvent* event)
+{
+    int m_eventBase;
+    int m_errorBase;
+
+    XRRQueryExtension(QX11Info::display(), &m_eventBase, &m_errorBase);
+
+    if (event->type == m_eventBase + RRScreenChangeNotify) {
+        XRRUpdateConfiguration(event);
+        Rotation old_r = r;
+
+        XRRRotations(QX11Info::display(), DefaultScreen(QX11Info::display()), &r);
+
+        if (old_r != r) {
+            switch (r) {
+                    case RR_Rotate_0:
+                            emit screenRotated(NONE);
+                            break;
+                    case RR_Rotate_90:
+                           emit screenRotated(CCW);
+                           break;
+                    case RR_Rotate_180:
+                           emit screenRotated(HALF);
+                           break;
+                    case RR_Rotate_270:
+                           emit screenRotated(CW);
+                           break;
+            }
+        }
+    }
+}
+
+
 int XDeviceEventNotifier::registerForNewDeviceEvent(Display* display)
 {
-
     XIEventMask evmask;
     unsigned char mask[2] = { 0, 0 };
 
@@ -142,7 +148,7 @@ int XDeviceEventNotifier::registerForNewDeviceEvent(Display* display)
     evmask.mask = mask;
 
     XISelectEvents(display, DefaultRootWindow(display), &evmask, 1);
-    
+
     //register RandR events
     int rrmask = RRScreenChangeNotifyMask;
 
@@ -150,32 +156,4 @@ int XDeviceEventNotifier::registerForNewDeviceEvent(Display* display)
     XRRSelectInput(display, DefaultRootWindow(display), rrmask); 
 
     return 0;
-}
-
-bool XDeviceEventNotifier::isTabletDevice(int deviceid)
-{
-    bool isWacomtablet = false;
-    Atom wacom_prop = XInternAtom(QX11Info::display(), "Wacom Tool Type", True);
-
-    XDevice *dev = XOpenDevice(QX11Info::display(), deviceid);
-
-    if (dev)
-    {
-        int natoms;
-        Atom *atoms = XListDeviceProperties(QX11Info::display(), dev, &natoms);
-        if (natoms) {
-            int j;
-            for (j = 0; j < natoms; j++) {
-                if (atoms[j] == wacom_prop) {
-                    isWacomtablet = true;
-                    break;
-                }
-            }
-        }
-
-        XFree(atoms);
-        XCloseDevice(QX11Info::display(), dev);
-    }
-
-    return isWacomtablet;
 }

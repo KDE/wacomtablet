@@ -34,7 +34,8 @@ kde4_add_ui_files( kcm_tablet_SRCS
 
 kde4_add_plugin(kcm_wacomtablet ${kcm_tablet_SRCS})
 
-target_link_libraries( kcm_wacomtablet  
+target_link_libraries( kcm_wacomtablet
+                       wacom_common
                        ${KDE4_KDECORE_LIBS}
                        ${KDE4_KDEUI_LIBS}
                        ${KDE4_KIO_LIBS}

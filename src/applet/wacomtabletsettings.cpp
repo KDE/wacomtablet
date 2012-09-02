@@ -52,7 +52,7 @@ WacomTabletSettings::WacomTabletSettings(QObject *parent, const QVariantList &ar
 
 WacomTabletSettings::~WacomTabletSettings()
 {
-    //delete m_applet;
+    delete m_applet;
 }
 
 void WacomTabletSettings::init()
@@ -66,11 +66,12 @@ void WacomTabletSettings::init()
     m_watcher = new QDBusServiceWatcher( QLatin1String("org.kde.Wacom"), QDBusConnection::sessionBus(),
                                          QDBusServiceWatcher::WatchForRegistration | QDBusServiceWatcher::WatchForUnregistration, this);
 
-    connect(m_watcher, SIGNAL(serviceRegistered(QString)), this, SLOT(serviceAvailable()));
-    connect(m_watcher, SIGNAL(serviceUnregistered(QString)), this, SLOT(serviceUnavailable()));
+    connect(m_watcher, SIGNAL(serviceRegistered(QString)), m_applet, SLOT(onDBusConnected()));
+    connect(m_watcher, SIGNAL(serviceUnregistered(QString)), m_applet, SLOT(onDBusDisconnected()));
 
-    m_applet->connectDBus();
+    m_applet->onDBusConnected();
 }
+
 
 QGraphicsWidget *WacomTabletSettings::graphicsWidget()
 {
@@ -100,13 +101,3 @@ void WacomTabletSettings::configAccepted()
     m_applet->updateProfile();
 }
 
-
-void WacomTabletSettings::serviceAvailable()
-{
-    m_applet->connectDBus();
-}
-
-void WacomTabletSettings::serviceUnavailable()
-{
-    m_applet->disconnectDBus();
-}

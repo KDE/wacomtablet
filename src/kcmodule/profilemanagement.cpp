@@ -17,6 +17,11 @@
 
 #include "profilemanagement.h"
 
+// common
+#include "dbusdeviceinterface.h"
+#include "tabletprofile.h"
+#include "property.h"
+
 //KDE includes
 #include <KDE/KConfigGroup>
 #include <KDE/KSharedConfig>
@@ -32,20 +37,42 @@
 
 using namespace Wacom;
 
-ProfileManagement::ProfileManagement( QDBusInterface *deviceInterface )
-    : m_deviceInterface( deviceInterface )
+ProfileManagement::ProfileManagement()
+    : m_profileManager(QLatin1String("tabletprofilesrc"))
 {
     reload();
 }
 
+ProfileManagement::ProfileManagement(const ProfileManagement& )
+    : m_profileManager(QLatin1String("tabletprofilesrc"))
+{
+    // this class is a singleton - no copying allowed
+    reload();
+}
+
+
+ProfileManagement& ProfileManagement::operator=(const ProfileManagement& )
+{
+    // this class is a singleton - no copying allowed
+    return *this;
+}
+
+
+ProfileManagement& ProfileManagement::instance()
+{
+    static ProfileManagement instance;
+    return instance;
+}
+
+
 void ProfileManagement::createNewProfile( const QString &profilename )
 {
     //get information via DBus
-    QDBusReply<QString> deviceName  = m_deviceInterface->call( QLatin1String( "deviceName" ) );
+    QDBusReply<QString> deviceName = DBusDeviceInterface::instance().deviceName();
     m_deviceName = deviceName;
-    QDBusReply<QString> padName = m_deviceInterface->call( QLatin1String( "padName" ) );
-    QDBusReply<QString> stylusName = m_deviceInterface->call( QLatin1String( "stylusName" ) );
-    QDBusReply<QString> eraserName = m_deviceInterface->call( QLatin1String( "eraserName" ) );
+    QDBusReply<QString> padName    = DBusDeviceInterface::instance().padName();
+    QDBusReply<QString> stylusName = DBusDeviceInterface::instance().stylusName();
+    QDBusReply<QString> eraserName = DBusDeviceInterface::instance().eraserName();
 
     if( m_deviceName.isEmpty() || !padName.isValid() || !stylusName.isValid() || !eraserName.isValid() ) {
         kDebug() << "no device information are found. Can't create a new profile";
@@ -54,202 +81,154 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     kDebug() << "create a new profile for :: device:" << m_deviceName << "pad:" << padName;
 
-    KSharedConfig::Ptr profilesConfig = KSharedConfig::openConfig( QLatin1String( "tabletprofilesrc" ), KConfig::SimpleConfig );
 
-    KConfigGroup *deviceGroup = new KConfigGroup( profilesConfig, m_deviceName );
-    KConfigGroup *profileGroup = new KConfigGroup( deviceGroup, profilename );
+    m_profileManager.readProfiles(m_deviceName);
+    TabletProfile tabletProfile = m_profileManager.loadProfile(profilename);
+    DeviceProfile padDevice     = tabletProfile.getDevice(QLatin1String("pad"));
 
-    // write default config for the pad
-    KConfigGroup *padGroup = new KConfigGroup( profileGroup, "pad" );
+    // use properties to set "string" values
+    //padDevice.setProperty(Property::Button1, QLatin1String("1"));
+    padDevice.setProperty(Property::Button2, QLatin1String("2"));
+    padDevice.setProperty(Property::Button3, QLatin1String("3"));
+    padDevice.setProperty(Property::Button4, QLatin1String("4"));
+    padDevice.setProperty(Property::Button5, QLatin1String("5"));
+    padDevice.setProperty(Property::Button6, QLatin1String("6"));
+    padDevice.setProperty(Property::Button7, QLatin1String("7"));
+    padDevice.setProperty(Property::Button8, QLatin1String("8"));
+    padDevice.setProperty(Property::Button9, QLatin1String("9"));
+    padDevice.setProperty(Property::Button10, QLatin1String("10"));
+    padDevice.setProperty(Property::StripLeftUp, QLatin1String("11"));
+    padDevice.setProperty(Property::StripLeftDown, QLatin1String("12"));
+    padDevice.setProperty(Property::StripRightUp, QLatin1String("13"));
+    padDevice.setProperty(Property::StripRightDown, QLatin1String("14"));
+    //padDevice.setProperty(Property::RelWheelUp, QLatin1String("15"));
+    //padDevice.setProperty(Property::RelWheelDown, QLatin1String("16"));
+    padDevice.setProperty(Property::AbsWheelUp, QLatin1String("4"));
+    padDevice.setProperty(Property::AbsWheelDown, QLatin1String("5"));
 
-    //padGroup->writeEntry( "Button1", "1" );
-    padGroup->writeEntry( "Button2", "2" );
-    padGroup->writeEntry( "Button3", "3" );
-    padGroup->writeEntry( "Button4", "4" );
-    padGroup->writeEntry( "Button5", "5" );
-    padGroup->writeEntry( "Button6", "6" );
-    padGroup->writeEntry( "Button7", "7" );
-    padGroup->writeEntry( "Button8", "8" );
-    padGroup->writeEntry( "Button9", "9" );
-    padGroup->writeEntry( "Button10", "10" );
-    padGroup->writeEntry( "StripLeftUp", "11" );
-    padGroup->writeEntry( "StripLeftDown", "12" );
-    padGroup->writeEntry( "StripRightUp", "13" );
-    padGroup->writeEntry( "StripRightDown", "14" );
-    //padGroup->writeEntry( "RelWheelUp", "15" ); //RelWheelUp/Down cause a button setting bug in the driver
-    //padGroup->writeEntry( "RelWheelDown", "16" );
-    padGroup->writeEntry( "XAbsWheelUp", "4" ); // The added X esures this will be set after the button mapping
-    padGroup->writeEntry( "XAbsWheelDown", "5" );
+    tabletProfile.setDevice(padDevice);
 
-    padGroup->sync();
-    profileGroup->sync();
-    deviceGroup->sync();
-    delete padGroup;
 
-    // write default config for the stylus
-    KConfigGroup *stylusGroup = new KConfigGroup( profileGroup, "stylus" );
+    DeviceProfile stylusDevice = tabletProfile.getDevice(QLatin1String("stylus"));
 
-    //stylusGroup->writeEntry( "Button1", "1" ); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick) 
-    stylusGroup->writeEntry( "Button2", "2" );
-    stylusGroup->writeEntry( "Button3", "3" );
-    stylusGroup->writeEntry( "Mode", "absolute" );
-    stylusGroup->writeEntry( "PressureCurve", "0 0 100 100" );
-    stylusGroup->writeEntry( "Threshold", "27" );
+    //stylusDevice.setProperty(Property::Button1, QLatin1String("1")); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick) 
+    stylusDevice.setProperty(Property::Button2, QLatin1String("2"));
+    stylusDevice.setProperty(Property::Button3, QLatin1String("3"));
+    stylusDevice.setProperty(Property::Mode, QLatin1String("absolute"));
+    stylusDevice.setProperty(Property::PressureCurve, QLatin1String("0 0 100 100"));
+    stylusDevice.setProperty(Property::Threshold, QLatin1String("27"));
+    stylusDevice.setProperty(Property::Rotate, QLatin1String("none"));
+    stylusDevice.setProperty(Property::ForceProportions, QLatin1String("false"));
+    stylusDevice.setProperty(Property::ScreenMapping, QLatin1String("randr"));
+    stylusDevice.setProperty(Property::TabletArea, QLatin1String("full"));
 
-    stylusGroup->writeEntry( "Rotate", "none" );
-    stylusGroup->writeEntry( "0ForceProportions", "false" );
-    stylusGroup->writeEntry( "0ScreenMapping", "randr" );
-    stylusGroup->writeEntry( "0TabletArea", "full" );
+    QDBusReply<QString> stylusArea = DBusDeviceInterface::instance().getConfiguration( QString( stylusName ), Property::Area.key() );
+    stylusDevice.setProperty(Property::Area, stylusArea.isValid() ? stylusArea.value() : QLatin1String("0 0 0 0"));
 
-    QDBusReply<QString> stylusArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( stylusName ), QLatin1String( "Area" ) );
-    if( stylusArea.isValid() ) {
-        stylusGroup->writeEntry( "Area", stylusArea.value() );
-    }
-    else {
-        stylusGroup->writeEntry( "Area", "0 0 0 0" );
-    }
+    QDBusReply<QString> stylusTpcButton = DBusDeviceInterface::instance().getConfiguration( QString( stylusName ), Property::TabletPcButton.key() );
+    stylusDevice.setProperty(Property::TabletPcButton, stylusTpcButton.isValid() ? stylusTpcButton.value() : QLatin1String("on"));
 
-    QDBusReply<QString> stylusTpcButton = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( stylusName ), QLatin1String( "TabletPCButton" ) );
-    if( stylusTpcButton.isValid() ) {
-        stylusGroup->writeEntry( "TabletPCButton", stylusTpcButton.value() );
-    }
-    else {
-        stylusGroup->writeEntry( "TabletPCButton", "on" );
-    }
+    tabletProfile.setDevice(stylusDevice);
 
-    stylusGroup->sync();
-    profileGroup->sync();
-    deviceGroup->sync();
-    delete stylusGroup;
 
-    // write default config for the eraser
-    KConfigGroup *eraserGroup = new KConfigGroup( profileGroup, "eraser" );
+    DeviceProfile eraserDevice = tabletProfile.getDevice(QLatin1String("eraser"));
 
-    //eraserGroup->writeEntry( "Button1", "1" ); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick) 
-    eraserGroup->writeEntry( "Button2", "2" );
-    eraserGroup->writeEntry( "Button3", "3" );
-    eraserGroup->writeEntry( "Mode", "absolute" );
-    eraserGroup->writeEntry( "PressureCurve", "0 0 100 100" );
-    eraserGroup->writeEntry( "Threshold", "27" );
+    //eraserDevice.setProperty(Property::Button1, QLatin1String("1")); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick)
+    eraserDevice.setProperty(Property::Button2, QLatin1String("2"));
+    eraserDevice.setProperty(Property::Button3, QLatin1String("3"));
+    eraserDevice.setProperty(Property::Mode, QLatin1String("absolute"));
+    eraserDevice.setProperty(Property::PressureCurve, QLatin1String("0 0 100 100"));
+    eraserDevice.setProperty(Property::Threshold, QLatin1String("27"));
 
-    //stylusGroup->writeEntry("RawFilter", "todo");
-    //eraserGroup->writeEntry("Suppress", "todo");
-    //eraserGroup->writeEntry("RawSample", "todo");
+    // TODO RawFilter, Suppress, RawSample, MapToOutput
 
-    eraserGroup->writeEntry( "Rotate", "none" );
-    eraserGroup->writeEntry( "0ForceProportions", "false" );
-    eraserGroup->writeEntry( "0ScreenMapping", "randr" );
-    eraserGroup->writeEntry( "0TabletArea", "full" );
-    //eraserGroup->writeEntry("MapToOutput", "todo"); // if we don't specify, xsetwacom will use a default one
+    eraserDevice.setProperty(Property::Rotate, QLatin1String("none"));
+    eraserDevice.setProperty(Property::ForceProportions, QLatin1String("false"));
+    eraserDevice.setProperty(Property::ScreenMapping, QLatin1String("randr"));
+    eraserDevice.setProperty(Property::TabletArea, QLatin1String("full"));
 
-    QDBusReply<QString> eraserArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( eraserName ), QLatin1String( "Area" ) );
-    if( eraserArea.isValid() ) {
-        eraserGroup->writeEntry( "Area", eraserArea.value() );
-    }
-    else {
-        eraserGroup->writeEntry( "Area", "0 0 0 0" );
-    }
+    QDBusReply<QString> eraserArea = DBusDeviceInterface::instance().getConfiguration( QString( eraserName ), Property::Area.key() );
+    eraserDevice.setProperty(Property::Area, eraserArea.isValid() ? eraserArea.value() : QLatin1String("0 0 0 0"));
 
-    eraserGroup->sync();
-    profileGroup->sync();
-    deviceGroup->sync();
-    delete eraserGroup;
+    tabletProfile.setDevice(eraserDevice);
+
 
     // also add section for the touch if we have a touch tool
-    QDBusReply<QString> touchName = m_deviceInterface->call( QLatin1String( "touchName" ) );
+    QDBusReply<QString> touchName = DBusDeviceInterface::instance().touchName();
 
     QString validName = touchName.value();
     if( !validName.isEmpty() ) {
 
-        KConfigGroup *touchGroup = new KConfigGroup( profileGroup, "touch" );
+        DeviceProfile touchDevice = tabletProfile.getDevice(QLatin1String("touch"));
 
-        touchGroup->writeEntry( "Rotate", "none" );
-        touchGroup->writeEntry( "0ForceProportions", "false" );
-        touchGroup->writeEntry( "0ScreenMapping", "randr" );
-        touchGroup->writeEntry( "0TabletArea", "full" );
-        touchGroup->writeEntry( "Mode", "absolute" );
+        touchDevice.setProperty(Property::Rotate, QLatin1String("none"));
+        touchDevice.setProperty(Property::ForceProportions, QLatin1String("false"));
+        touchDevice.setProperty(Property::ScreenMapping, QLatin1String("randr"));
+        touchDevice.setProperty(Property::TabletArea, QLatin1String("full"));
+        touchDevice.setProperty(Property::Mode, QLatin1String("absolute"));
+        touchDevice.setProperty(Property::TapTime, QLatin1String("250"));
 
-        QDBusReply<QString> touchArea = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "Area" ) );
-        if( touchArea.isValid() ) {
-            touchGroup->writeEntry( "Area", touchArea.value() );
-        }
-        else {
-            touchGroup->writeEntry( "Area", "0 0 0 0" );
-        }
+        QDBusReply<QString> touchArea = DBusDeviceInterface::instance().getConfiguration( QString( touchName ), Property::Area.key() );
+        touchDevice.setProperty(Property::Area, touchArea.isValid() ? touchArea.value() : QLatin1String("0 0 0 0"));
 
-        QDBusReply<QString> touch = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "Touch" ) );
-        if( touch.isValid() ) {
-            touchGroup->writeEntry( "Touch", touch.value() );
-        }
-        else {
-            touchGroup->writeEntry( "Touch", "on" );
-        }
+        QDBusReply<QString> touch = DBusDeviceInterface::instance().getConfiguration( QString( touchName ), Property::Touch.key() );
+        touchDevice.setProperty(Property::Touch, touch.isValid() ? touch.value() : QLatin1String("on"));
 
-        QDBusReply<QString> gesture = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "Gesture" ) );
-        if( gesture.isValid() ) {
-            touchGroup->writeEntry( "Gesture", gesture.value() );
-        }
-        else {
-            touchGroup->writeEntry( "Gesture", "on" );
-        }
+        QDBusReply<QString> gesture = DBusDeviceInterface::instance().getConfiguration( QString( touchName ), Property::Gesture.key() );
+        touchDevice.setProperty(Property::Gesture, gesture.isValid() ? gesture.value() : QLatin1String("on"));
 
-        QDBusReply<QString> zoomDistance = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "ZoomDistance" ) );
-        if( zoomDistance.isValid() ) {
-            touchGroup->writeEntry( "ZoomDistance", zoomDistance.value() );
-        }
-        else {
-            touchGroup->writeEntry( "ZoomDistance", "50" );
-        }
+        QDBusReply<QString> zoomDistance = DBusDeviceInterface::instance().getConfiguration( QString( touchName ), Property::ZoomDistance.key() );
+        touchDevice.setProperty(Property::ZoomDistance, zoomDistance.isValid() ? zoomDistance.value() : QLatin1String("50"));
 
-        QDBusReply<QString> scrollDistance = m_deviceInterface->call( QLatin1String( "getConfiguration" ), QString( touchName ), QLatin1String( "ScrollDistance" ) );
-        if( scrollDistance.isValid() ) {
-            touchGroup->writeEntry( "ScrollDistance", scrollDistance.value() );
-        }
-        else {
-            touchGroup->writeEntry( "ScrollDistance", "50" );
-        }
+        QDBusReply<QString> scrollDistance = DBusDeviceInterface::instance().getConfiguration( QString( touchName ), Property::ScrollDistance.key() );
+        touchDevice.setProperty(Property::ScrollDistance, scrollDistance.isValid() ? scrollDistance.value() : QLatin1String("50"));
 
-        touchGroup->writeEntry( "TapTime", "250" );
-
-        delete touchGroup;
+        tabletProfile.setDevice(touchDevice);
     }
 
-    delete profileGroup;
-    delete deviceGroup;
+    m_profileManager.saveProfile(tabletProfile);
 }
 
-KConfigGroup ProfileManagement::availableProfiles()
+const QStringList ProfileManagement::availableProfiles()
 {
-    KSharedConfig::Ptr profilesConfig = KSharedConfig::openConfig( QLatin1String( "tabletprofilesrc" ), KConfig::SimpleConfig );
-
-    return KConfigGroup( profilesConfig, m_deviceName );
+    m_profileManager.readProfiles(m_deviceName);
+    return m_profileManager.listProfiles();
 }
 
 void ProfileManagement::deleteProfile()
 {
-    KSharedConfig::Ptr profilesConfig = KSharedConfig::openConfig( QLatin1String( "tabletprofilesrc" ), KConfig::SimpleConfig );
-    KConfigGroup deviceGroup = KConfigGroup( profilesConfig, m_deviceName );
-    KConfigGroup profileGroup = KConfigGroup( &deviceGroup, m_profileName );
+    m_profileManager.readProfiles(m_deviceName);
+    m_profileManager.deleteProfile(m_profileName);
 
-    profileGroup.deleteGroup();
     m_profileName.clear();
+    m_profileManager.reload();
 
-    profilesConfig->reparseConfiguration();
-
-    if( deviceGroup.groupList().isEmpty() ) {
+    if (m_profileManager.listProfiles().isEmpty()) {
         createNewProfile();
-        profilesConfig->reparseConfiguration();
+        m_profileManager.reload();
     }
 }
 
-KConfigGroup ProfileManagement::configGroup( const QString &section )
+DeviceProfile ProfileManagement::loadDeviceProfile(const QString& device)
 {
-    KSharedConfig::Ptr profilesConfig = KSharedConfig::openConfig( QLatin1String( "tabletprofilesrc" ), KConfig::SimpleConfig );
-    KConfigGroup deviceGroup = KConfigGroup( profilesConfig, m_deviceName );
-    KConfigGroup profileGroup = KConfigGroup( &deviceGroup, m_profileName );
-
-    return KConfigGroup( &profileGroup, section );
+    m_profileManager.readProfiles(m_deviceName);
+    return m_profileManager.loadProfile(m_profileName).getDevice(device);
 }
+
+
+bool ProfileManagement::saveDeviceProfile(const DeviceProfile& profile)
+{
+    if (!m_profileManager.readProfiles(m_deviceName)) {
+        return false;
+    }
+
+    TabletProfile tabletProfile = m_profileManager.loadProfile(m_profileName);
+    tabletProfile.setDevice(profile);
+
+    return m_profileManager.saveProfile(tabletProfile);
+}
+
+
 
 void ProfileManagement::setProfileName( const QString &name )
 {
@@ -384,7 +363,7 @@ QString ProfileManagement::transformButtonFromConfig( PenButton mode, QString &b
 
 void ProfileManagement::reload()
 {
-    QDBusReply<QString> deviceName  = m_deviceInterface->call( QLatin1String( "deviceName" ) );
+    QDBusReply<QString> deviceName  = DBusDeviceInterface::instance().deviceName();
 
     if( deviceName.isValid() ) {
         m_deviceName = deviceName;

@@ -18,11 +18,9 @@
 #ifndef DEVICEHANDLER_H
 #define DEVICEHANDLER_H
 
-// KDE includes
-#include <KDE/KSharedConfig>
-#include <KDE/KConfigGroup>
+#include "tabletprofile.h"
+#include "deviceinformation.h"
 
-//Qt includes
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -30,23 +28,6 @@
 
 namespace Wacom
 {
-
-    struct DeviceInformation
-    {
-        QString companyID;
-        QString deviceID;
-        QString companyName;
-        QString deviceName;
-        QString deviceModel;
-        QStringList deviceList;
-        QString padName;
-        QString stylusName;
-        QString eraserName;
-        QString cursorName;
-        QString touchName;
-        bool isDeviceAvailable;
-        bool hasPadButtons;
-    };
 
 class DeviceHandlerPrivate;
 /**
@@ -105,7 +86,7 @@ public:
       *
       * @param gtprofile Pointer to the KConfigGroup profile
       */
-    void applyProfile(KConfigGroup *gtprofile);
+    void applyProfile(const TabletProfile &gtprofile);
 
 public Q_SLOTS:
 
@@ -254,40 +235,8 @@ public Q_SLOTS:
       */
     Q_SCRIPTABLE void togglePenMode();
 
+
 private:
-
-    /**
-      * Checks xinput --list to find the names of the pad/stylus/eraser/cursor
-      *
-      * @return @c true if xinput found some devices
-                @c false if no input device could be found
-      */
-    bool findXInputDevice();
-
-    /**
-      * Sets some basic information about the connected device from the config files.
-      * The files are stored in the data directory.
-      * They will give us the information about the tablet capabilities.
-      *
-      * @param companyId id string of the company in hex
-      * @param deviceId id string of the tablet device in hex
-      *
-      * @return @c true if the setting for both was successfully
-      *         @c false if the setting failed
-      */
-    bool setDeviceInformation(const QString & companyId, const QString & deviceId);
-
-    /**
-      * Checks if there is some information available for the company ID and device ID
-      * The information is looked up in the corresponding lists in the data directory
-      *
-      * @param companyId id string of the company in hex
-      * @param deviceId id string of the tablet device in hex
-      *
-      * @return @c true if the lookup for both was successfully
-      *         @c false if the lookup failed
-      */
-    bool detectDeviceInformation(const QString & companyId, const QString & deviceId);
 
     /**
       * Sets the backend for the settings based on the name in the company list data file
@@ -297,13 +246,11 @@ private:
       */
     void selectDeviceBackend(const QString & backendName);
 
-private:
     Q_DECLARE_PRIVATE(DeviceHandler)
-
     DeviceHandlerPrivate *const d_ptr;  /**< d-pointer for this class */
-};
 
-}
+}; // CLASS
+}  // NAMESPACE
 
 Q_DECLARE_METATYPE(Wacom::DeviceInformation)
 Q_DECLARE_METATYPE(QList<Wacom::DeviceInformation>)

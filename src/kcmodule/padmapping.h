@@ -30,9 +30,8 @@ class QDBusInterface;
 
 namespace Wacom
 {
+class PadMappingPrivate;
 class ProfileManagement;
-class TabletArea;
-class ScreenArea;
 
 /**
   * This class implements the widget to change the pad mapping
@@ -46,11 +45,9 @@ public:
     /**
       * default constructor
       *
-      * @param deviceInterface Connection to the tablet daemon DBus /Device Interface
-      * @param profileManager Handles the connection to the config files
       * @param parent the parent widget
       */
-    explicit PadMapping(QDBusInterface *deviceInterface, ProfileManagement *profileManager, QWidget *parent = 0);
+    explicit PadMapping(QWidget *parent = 0);
 
     /**
       * default destructor
@@ -128,15 +125,10 @@ private slots:
     void setMapToScreenUsage(bool mapToScreen);
 
 private:
-    Ui::PadMapping      *m_ui;                /**< Handler to the padmapping.ui file */
-    QDBusInterface      *m_deviceInterface;   /**< Connection to the tablet daemon DBus /Device Interface */
-    ProfileManagement   *m_profileManagement; /**< Handler for the profile config connection */
 
-    int m_tool;                               /**< The used tool for this widget (0=stylus/eraser and 1=touch tool) */
-    TabletArea          *m_tabletArea;        /**< Widget to interactively change the used tablet area */
-    ScreenArea          *m_screenArea;        /**< Widget to interactively change the used screen area */
-};
+    Q_DECLARE_PRIVATE( PadMapping )
+    PadMappingPrivate *const d_ptr; /**< d-pointer for this class */
 
-}
-
+}; // CLASS
+}  // NAMESPACE
 #endif // PADMAPPING_H

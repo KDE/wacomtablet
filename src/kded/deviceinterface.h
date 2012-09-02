@@ -18,6 +18,8 @@
 #ifndef DEVICEINTERFACE_H
 #define DEVICEINTERFACE_H
 
+#include "property.h"
+#include "tabletprofile.h"
 
 #include <KDE/KConfigGroup>
 #include <QtCore/QString>
@@ -44,36 +46,36 @@ public:
       * @param section the sued section we apply (pad/stylus/eraser)
       * @param gtprofile the KConfig profile for the tablet that should be applied
       */
-    virtual void applyProfile(const QString & device, const QString & section, KConfigGroup *gtprofile) = 0;
+    virtual void applyProfile(const QString & device, const QString & section, const TabletProfile& gtprofile) = 0;
 
     /**
       * writes a single configuration for the tablet
       *
-      * @param device name of the tablet device we set (pad/stylus/eraser/cursor)
-      * @param param parameter name
-      * @param value value the parameter is set to
+      * @param device   The name of the tablet device we set (pad/stylus/eraser/cursor)
+      * @param property The property to set.
+      * @param value    The new value of the property.
       */
-    virtual void setConfiguration(const QString & device, const QString & param, const QString & value, bool activateButtonMapping = false) = 0;
+    virtual void setConfiguration(const QString & device, const Property & property, const QString & value, bool activateButtonMapping = false) = 0;
 
     /**
       * returns the current value for a specific tablet setting
       *
-      * @param device name of the tablet device we set (pad/stylus/eraser/cursor)
-      * @param param the parameter we are looking for
+      * @param device   name of the tablet device we set (pad/stylus/eraser/cursor)
+      * @param property The property we are looking for
       *
       * @return the value as string
       */
-    virtual QString getConfiguration(const QString & device, const QString & param) const = 0;
+    virtual QString getConfiguration(const QString & device, const Property & property) const = 0;
 
     /**
       * returns the factory default value for a specific tablet setting
       *
       * @param device name of the tablet device we set (pad/stylus/eraser/cursor)
-      * @param param the parameter we are looking for
+      * @param property the property we are looking for
       *
       * @return the factory default value as string
       */
-    virtual QString getDefaultConfiguration(const QString & device, const QString & param) const = 0;
+    virtual QString getDefaultConfiguration(const QString & device, const Property & property) const = 0;
 
     /**
       * Toggles the touch tool on/off

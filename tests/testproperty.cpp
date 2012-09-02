@@ -1,0 +1,46 @@
+/*
+ * Copyright 2012 Alexander Maret-Huskinson <alex@maret.de>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include <QString>
+
+#include "property.h"
+#include "testproperty.moc"
+
+using namespace Wacom;
+
+void TestProperty::test()
+{
+    /*
+     * Just some very basic tests to test the functors and proper class initialization.
+     * Most code shoud have been covered already by TestEnum.
+     */
+    Property test = Property::AbsWheelUp;
+    QVERIFY(test == test);
+    QVERIFY(test == Property::AbsWheelUp);
+    QVERIFY(test != Property::AbsWheelDown);
+    QVERIFY(test.key() == Property::AbsWheelUp.key());
+
+    const Property* nonexistant = Property::find(QLatin1String("NON_EXISTANT"));
+    QVERIFY(nonexistant == NULL);
+
+    const Property* existant = Property::find(QLatin1String("touch"));
+    QVERIFY(existant != NULL);
+    QVERIFY(*existant == Property::Touch);
+
+    QVERIFY(Property::size() == Property::keys().size());
+    QVERIFY(Property::size() == Property::list().size());
+}

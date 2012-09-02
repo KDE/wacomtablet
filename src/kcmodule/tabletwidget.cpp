@@ -27,23 +27,49 @@
 #include "penwidget.h"
 #include "touchwidget.h"
 
+// common
+#include "dbusdeviceinterface.h"
+#include "dbustabletinterface.h"
+
+// stdlib
+#include <memory>
+
 //KDE includes
 #include <KDE/KInputDialog>
 #include <KDE/KStandardDirs>
 #include <KDE/KDebug>
 
 //Qt includes
-#include <QtDBus/QDBusInterface>
 #include <QtDBus/QDBusReply>
+#include <QtCore/QPointer>
+#include <QtCore/QStringList>
 #include <QtGui/QPixmap>
 #include <QtGui/QLineEdit>
 
 using namespace Wacom;
 
+namespace Wacom {
+/**
+  * Private class for the d-pointer.
+  */
+class TabletWidgetPrivate {
+    public:
+        std::auto_ptr<Ui::TabletWidget>  m_ui;                  /**< Handler to the tabletwidget.ui file */
+        QPointer<GeneralWidget>          m_generalPage;         /**< Widget that shows some basic information about the tablet */
+        QPointer<PadButtonWidget>        m_padButtonPage;       /**< Widget for the pad button settings */
+        QPointer<PadMapping>             m_padMappingPage;      /**< Widget for the pad rotation and working area */
+        QPointer<PadMapping>             m_touchMappingPage;    /**< Widget for the touch rotation and working area */
+        QPointer<PenWidget>              m_penPage;             /**< Widget for the pen settings (stylus/eraser) */
+        QPointer<TouchWidget>            m_touchPage;           /**< Widget for the touch settings */
+        QPointer<QWidget>                m_deviceError;         /**< Shows the error widget */
+        bool                             m_profileChanged;      /**< True if the profile was changed and not saved yet */
+}; // CLASS
+}  // NAMESPACE
+
+
+
 TabletWidget::TabletWidget( QWidget *parent )
-    : QWidget( parent ),
-      m_ui( new Ui::TabletWidget ),
-      m_profileChanged( false )
+    : QWidget( parent ), d_ptr(new TabletWidgetPrivate)
 {
     init();
     loadTabletInformation();
@@ -51,266 +77,314 @@ TabletWidget::TabletWidget( QWidget *parent )
 
 TabletWidget::~TabletWidget()
 {
-    delete m_ui;
-    delete m_tabletInterface;
-    delete m_deviceInterface;
-
-    delete m_profileManagement;
-    delete m_generalPage;
-    delete m_padButtonPage;
-    delete m_padMappingPage;
-    delete m_touchMappingPage;
-    delete m_penPage;
-    delete m_touchPage;
+    delete this->d_ptr;
 }
+
+
 
 void TabletWidget::init()
 {
-    m_tabletInterface = new QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Tablet" ), QLatin1String( "org.kde.Wacom" ) );
-    m_deviceInterface = new QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Device" ), QLatin1String( "org.kde.WacomDevice" ) );
+    Q_D( TabletWidget );
 
-    if( !m_tabletInterface->isValid() || !m_deviceInterface->isValid() ) {
+    DBusTabletInterface* dbusTabletInterface = &DBusTabletInterface::instance();
+    DBusDeviceInterface* dbusDeviceInterface = &DBusDeviceInterface::instance();
+
+    if( !dbusTabletInterface->isValid() || !dbusDeviceInterface->isValid() ) {
         kDebug() << "DBus interface not available";
     }
 
-    m_profileManagement = new ProfileManagement( m_deviceInterface );
+    d->m_profileChanged    = false;
+    d->m_ui                = std::auto_ptr<Ui::TabletWidget>(new Ui::TabletWidget);
 
-    m_generalPage = new GeneralWidget( m_deviceInterface, m_profileManagement );
-    m_padButtonPage = new PadButtonWidget( m_profileManagement );
-    m_padMappingPage = new PadMapping( m_deviceInterface, m_profileManagement );
-    m_touchMappingPage = new PadMapping( m_deviceInterface, m_profileManagement );
-    m_penPage = new PenWidget( m_profileManagement );
-    m_touchPage = new TouchWidget( m_profileManagement );
+    d->m_generalPage       = new GeneralWidget();
+    d->m_padButtonPage     = new PadButtonWidget();
+    d->m_padMappingPage    = new PadMapping();
+    d->m_touchMappingPage  = new PadMapping();
+    d->m_penPage           = new PenWidget();
+    d->m_touchPage         = new TouchWidget();
 
-    m_ui->setupUi( this );
-    m_ui->addProfileButton->setIcon( KIcon( QLatin1String( "document-new" ) ) );
-    m_ui->delProfileButton->setIcon( KIcon( QLatin1String( "edit-delete-page" ) ) );
+    d->m_ui->setupUi( this );
+    d->m_ui->addProfileButton->setIcon( KIcon( QLatin1String( "document-new" ) ) );
+    d->m_ui->delProfileButton->setIcon( KIcon( QLatin1String( "edit-delete-page" ) ) );
 
-    connect( m_ui->addProfileButton, SIGNAL( clicked( bool ) ), SLOT( addProfile() ) );
-    connect( m_ui->delProfileButton, SIGNAL( clicked( bool ) ), SLOT( delProfile() ) );
-    connect( m_ui->profileSelector, SIGNAL( currentIndexChanged( const QString ) ), SLOT( switchProfile( const QString ) ) );
-    connect( m_padButtonPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
-    connect( m_padMappingPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
-    connect( m_touchMappingPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
-    connect( m_penPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
-    connect( m_touchPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
-    connect( m_generalPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
-    //DBus signals
-    connect( m_tabletInterface, SIGNAL( tabletAdded() ), SLOT( loadTabletInformation() ) );
-    connect( m_tabletInterface, SIGNAL( tabletRemoved() ), SLOT( loadTabletInformation() ) );
+    // connect profile selector
+    connect( d->m_ui->addProfileButton, SIGNAL( clicked( bool ) ), SLOT( addProfile() ) );
+    connect( d->m_ui->delProfileButton, SIGNAL( clicked( bool ) ), SLOT( delProfile() ) );
+    connect( d->m_ui->profileSelector, SIGNAL( currentIndexChanged( const QString ) ), SLOT( switchProfile( const QString ) ) );
 
-    m_profilesConfig = KSharedConfig::openConfig( QLatin1String( "tabletprofilesrc" ), KConfig::SimpleConfig );
+    // connect configuration tabs
+    connect( d->m_padButtonPage,    SIGNAL( changed() ), SLOT( profileChanged() ) );
+    connect( d->m_padMappingPage,   SIGNAL( changed() ), SLOT( profileChanged() ) );
+    connect( d->m_touchMappingPage, SIGNAL( changed() ), SLOT( profileChanged() ) );
+    connect( d->m_penPage,          SIGNAL( changed() ), SLOT( profileChanged() ) );
+    connect( d->m_touchPage,        SIGNAL( changed() ), SLOT( profileChanged() ) );
+    connect( d->m_generalPage,      SIGNAL( changed() ), SLOT( profileChanged() ) );
+
+    // connect DBus signals
+    connect( dbusTabletInterface, SIGNAL( tabletAdded() ),   SLOT( loadTabletInformation() ) );
+    connect( dbusTabletInterface, SIGNAL( tabletRemoved() ), SLOT( loadTabletInformation() ) );
 }
+
 
 void TabletWidget::loadTabletInformation()
 {
-    //check if a tablet is connected
-    QDBusReply<bool> isAvailable = m_tabletInterface->call( QLatin1String( "tabletAvailable" ) );
+    QDBusReply<bool> isAvailable = DBusTabletInterface::instance().tabletAvailable();
 
     if( !isAvailable.isValid() ) {
-        QString errmsg = i18n( "D-Bus connection to the kded daemon not available.\n\nPlease start the Wacom tablet daemon and try again.\nThe daemon is responsible for tablet detection and profile support." );
+        QString errmsg = i18n( "D-Bus connection to the kded daemon not available.\n\n"
+                               "Please start the Wacom tablet daemon and try again.\n"
+                               "The daemon is responsible for tablet detection and profile support." );
         showError( errmsg );
-        kError() << "DBus reply tabletAvailable failed";
-        return;
-    }
 
-    if( !isAvailable ) {
-        QString errmsg = i18n( "No tablet device was found.\n\nPlease connect the device before you start this module.\nIf the device is already connected refer to the help file for any further information." );
+    } else if( !isAvailable ) {
+        QString errmsg = i18n( "No tablet device was found.\n\n"
+                               "Please connect the device before you start this module.\n"
+                               "If the device is already connected refer to the help file for any further information." );
         showError( errmsg );
-        return;
-    }
 
-    if( m_deviceError ) {
-        m_deviceError->setVisible( false );
-        m_ui->verticalLayout->removeWidget( m_deviceError );
-    }
-
-    m_profileManagement->reload();
-    m_generalPage->reloadWidget();
-    m_padButtonPage->reloadWidget();
-    m_padMappingPage->setTool(0);
-    m_padMappingPage->reloadWidget();
-    m_touchMappingPage->setTool(1);
-    m_touchMappingPage->reloadWidget();
-    m_penPage->reloadWidget();
-    m_touchPage->reloadWidget();
-
-    // ok we found a device, lets add all necessary information
-    m_ui->profileSelector->setEnabled( true );
-    m_ui->addProfileButton->setEnabled( true );
-    m_ui->delProfileButton->setEnabled( true );
-    m_ui->deviceTabWidget->setEnabled( true );
-    m_ui->deviceTabWidget->setVisible( true );
-
-    // load available profiles and create a default one if no profile exist;
-    KConfigGroup deviceGroup = m_profileManagement->availableProfiles();
-
-    if( deviceGroup.groupList().isEmpty() ) {
-        m_profileManagement->createNewProfile();
-        // set the state of the kcm and kded to the new default profile
-        m_profileManagement->setProfileName( QLatin1String( "default" ) );
-        applyProfile();
-        //load the list of profiles again, will update to have the default profile
-        deviceGroup = m_profileManagement->availableProfiles();
-    }
-
-    // fill combobox with all available profiles
-    m_ui->profileSelector->blockSignals( true );
-    m_ui->profileSelector->clear();
-    m_ui->profileSelector->addItems( deviceGroup.groupList() );
-    m_ui->profileSelector->blockSignals( false );
-
-    // add all tab pages
-    m_ui->deviceTabWidget->addTab( m_generalPage, i18nc( "Basic overview page for the tablet hardware", "General" ) );
-    m_ui->deviceTabWidget->addTab( m_penPage, i18n( "Pen" ) );
-
-    QDBusReply<bool> hasPadButtons = m_deviceInterface->call( QLatin1String( "hasPadButtons" ) );
-    if( hasPadButtons ) {
-        m_ui->deviceTabWidget->addTab( m_padButtonPage, i18n( "Pad Buttons" ) );
-    }
-
-    QDBusReply<QString> touchAvailable = m_deviceInterface->call( QLatin1String( "touchName" ) );
-    QString touchName = touchAvailable.value();
-    if( !touchName.isEmpty() ) {
-        m_ui->deviceTabWidget->addTab( m_touchPage, i18n( "Touch" ) );
-    }
-
-    m_ui->deviceTabWidget->addTab( m_padMappingPage, i18n( "Pad Mapping" ) );
-    if( !touchName.isEmpty() ) {
-        m_ui->deviceTabWidget->addTab( m_touchMappingPage, i18n( "Touch Mapping" ) );
-    }
-
-    // switch to the current active profile
-    QDBusReply<QString> profile = m_tabletInterface->call( QLatin1String( "profile" ) );
-    if( profile.isValid() ) {
-        m_ui->profileSelector->setCurrentItem( profile );
-        switchProfile( profile );
+    } else {
+        showConfig();
     }
 }
+
 
 void TabletWidget::addProfile()
 {
     bool ok;
     QString text = KInputDialog::getText( i18n( "Add new profile" ),
                                           i18n( "Profile name:" ), QString(), &ok, this );
-    if( ok && !text.isEmpty() ) {
-        m_profileManagement->createNewProfile( text );
-    }
-    else {
+    if( !ok || text.isEmpty() ) {
         return;
     }
 
-    // refill combobox with all available profiles
-    KConfigGroup deviceGroup = m_profileManagement->availableProfiles();
-    m_ui->profileSelector->blockSignals( true );
-    m_ui->profileSelector->clear();
-    m_ui->profileSelector->addItems( deviceGroup.groupList() );
-    int index = m_ui->profileSelector->findText( text );
-    m_ui->profileSelector->setCurrentIndex( index );
-    m_ui->profileSelector->blockSignals( false );
-
+    ProfileManagement::instance().createNewProfile( text );
+    refreshProfileSelector(text);
     switchProfile( text );
 }
 
+
 void TabletWidget::delProfile()
 {
-    // currently selected profile
-    m_profileManagement->deleteProfile();
-    KConfigGroup deviceGroup = m_profileManagement->availableProfiles();
-    m_ui->profileSelector->blockSignals( true );
-    m_ui->profileSelector->clear();
-    m_ui->profileSelector->addItems( deviceGroup.groupList() );
-    m_ui->profileSelector->blockSignals( false );
+    Q_D( TabletWidget );
 
-    switchProfile( m_ui->profileSelector->currentText() );
+    ProfileManagement::instance().deleteProfile();
+    refreshProfileSelector();
+    switchProfile( d->m_ui->profileSelector->currentText() );
 }
+
 
 void TabletWidget::saveProfile()
 {
-    m_generalPage->saveToProfile();
-    m_padButtonPage->saveToProfile();
-    m_padMappingPage->saveToProfile();
-    m_touchMappingPage->saveToProfile();
-    m_penPage->saveToProfile();
-    m_touchPage->saveToProfile();
+    Q_D( TabletWidget );
 
-    m_profileChanged = false;
+    d->m_generalPage->saveToProfile();
+    d->m_padButtonPage->saveToProfile();
+    d->m_padMappingPage->saveToProfile();
+    d->m_touchMappingPage->saveToProfile();
+    d->m_penPage->saveToProfile();
+    d->m_touchPage->saveToProfile();
+
+    d->m_profileChanged = false;
     emit changed( false );
 
     applyProfile();
 }
+
 
 void TabletWidget::switchProfile( const QString &profile )
 {
-    if( m_profileChanged ) {
-        QPointer<KDialog> saveDialog = new KDialog();
-        Ui::SaveProfile askToSave;
-        QWidget *widget = new QWidget( this );
-        askToSave.setupUi( widget );
-        saveDialog->setMainWidget( widget );
-        saveDialog->setButtons( KDialog::Apply | KDialog::Cancel );
-        connect( saveDialog, SIGNAL( applyClicked() ), saveDialog, SLOT( accept() ) );
-        int ret;
-        ret = saveDialog->exec();
+    showSaveChanges();
 
-        if( ret == KDialog::Accepted ) {
-            saveProfile();
-        }
-	delete saveDialog;
-    }
+    ProfileManagement::instance().setProfileName( profile );
 
-    m_profileManagement->setProfileName( profile );
-
-    m_generalPage->loadFromProfile();
-    m_padButtonPage->loadFromProfile();
-    m_padMappingPage->loadFromProfile();
-    m_touchMappingPage->loadFromProfile();
-    m_penPage->loadFromProfile();
-    m_touchPage->loadFromProfile();
-
-    m_profileChanged = false;
-    emit changed( false );
-
+    reloadProfile();
     applyProfile();
 }
 
+
 void TabletWidget::reloadProfile()
 {
-    m_generalPage->loadFromProfile();
-    m_padButtonPage->loadFromProfile();
-    m_padMappingPage->loadFromProfile();
-    m_touchMappingPage->loadFromProfile();
-    m_penPage->loadFromProfile();
-    m_touchPage->loadFromProfile();
+    Q_D( TabletWidget );
 
-    m_profileChanged = false;
+    d->m_generalPage->loadFromProfile();
+    d->m_padButtonPage->loadFromProfile();
+    d->m_padMappingPage->loadFromProfile();
+    d->m_touchMappingPage->loadFromProfile();
+    d->m_penPage->loadFromProfile();
+    d->m_touchPage->loadFromProfile();
+
+    d->m_profileChanged = false;
     emit changed( false );
 }
 
+
 void TabletWidget::applyProfile()
 {
-    m_tabletInterface->call( QLatin1String( "setProfile" ), m_profileManagement->profileName() );
+    DBusTabletInterface::instance().setProfile( ProfileManagement::instance().profileName() );
 }
+
 
 void TabletWidget::profileChanged()
 {
-    m_profileChanged = true;
+    Q_D( TabletWidget );
+
+    d->m_profileChanged = true;
     emit changed( true );
 }
 
+
 void TabletWidget::showError( const QString &errMsg )
 {
-    delete m_deviceError;
+    Q_D( TabletWidget );
 
-    m_deviceError = new QWidget();
+    hideError();
+
+    d->m_deviceError = new QWidget();
     Ui::ErrorWidget ew;
-    ew.setupUi( m_deviceError );
+    ew.setupUi( d->m_deviceError );
     ew.errorImage->setPixmap( KIconLoader::global()->loadIcon( QLatin1String( "dialog-warning" ), KIconLoader::NoGroup, 128 ) );
     ew.errorText->setText( errMsg );
-    m_ui->deviceTabWidget->setVisible( false );
-    m_ui->verticalLayout->addWidget( m_deviceError );
 
-    m_ui->profileSelector->setEnabled( false );
-    m_ui->addProfileButton->setEnabled( false );
-    m_ui->delProfileButton->setEnabled( false );
+    hideConfig();
+
+    d->m_ui->verticalLayout->addWidget( d->m_deviceError );
+}
+
+
+void TabletWidget::hideConfig()
+{
+    Q_D( TabletWidget );
+
+    d->m_ui->profileSelector->setEnabled( false );
+    d->m_ui->addProfileButton->setEnabled( false );
+    d->m_ui->delProfileButton->setEnabled( false );
+    d->m_ui->deviceTabWidget->setVisible( false );
+}
+
+
+void TabletWidget::hideError()
+{
+    Q_D( TabletWidget );
+
+    if( d->m_deviceError ) {
+        d->m_deviceError->setVisible( false );
+        d->m_ui->verticalLayout->removeWidget( d->m_deviceError );
+        delete d->m_deviceError;
+        d->m_deviceError = NULL;
+    }
+}
+
+
+bool TabletWidget::refreshProfileSelector ( const QString& profile )
+{
+    Q_D( TabletWidget );
+
+    int         index    = -1;
+    QStringList profiles = ProfileManagement::instance().availableProfiles();
+
+    d->m_ui->profileSelector->blockSignals( true );
+    d->m_ui->profileSelector->clear();
+    d->m_ui->profileSelector->addItems( profiles );
+
+    if (!profile.isEmpty()) {
+        index = d->m_ui->profileSelector->findText( profile );
+        d->m_ui->profileSelector->setCurrentIndex( index );
+    }
+
+    d->m_ui->profileSelector->blockSignals( false );
+
+    return (index >= 0);
+}
+
+
+void TabletWidget::showConfig()
+{
+    Q_D( TabletWidget );
+
+    // make sure no error message is active
+    hideError();
+
+    // reload profile and widget data
+    ProfileManagement::instance().reload();
+    
+    d->m_generalPage->reloadWidget();
+    d->m_padButtonPage->reloadWidget();
+    d->m_padMappingPage->setTool(0);
+    d->m_padMappingPage->reloadWidget();
+    d->m_touchMappingPage->setTool(1);
+    d->m_touchMappingPage->reloadWidget();
+    d->m_penPage->reloadWidget();
+    d->m_touchPage->reloadWidget();
+
+
+    // initialize profile selector
+    d->m_ui->profileSelector->setEnabled( true );
+    d->m_ui->addProfileButton->setEnabled( true );
+    d->m_ui->delProfileButton->setEnabled( true );
+
+    if( ProfileManagement::instance().availableProfiles().isEmpty() ) {
+        ProfileManagement::instance().createNewProfile();
+        ProfileManagement::instance().setProfileName( QLatin1String( "default" ) );
+        applyProfile();
+    }
+
+    refreshProfileSelector();
+
+
+    // initialize configuration tabs
+    d->m_ui->deviceTabWidget->clear();
+    d->m_ui->deviceTabWidget->addTab( d->m_generalPage, i18nc( "Basic overview page for the tablet hardware", "General" ) );
+    d->m_ui->deviceTabWidget->addTab( d->m_penPage, i18n( "Pen" ) );
+
+    QDBusReply<bool> hasPadButtons = DBusDeviceInterface::instance().hasPadButtons();
+    if( hasPadButtons ) {
+        d->m_ui->deviceTabWidget->addTab( d->m_padButtonPage, i18n( "Pad Buttons" ) );
+    }
+
+    QDBusReply<QString> touchAvailable = DBusDeviceInterface::instance().touchName();
+    QString touchName = touchAvailable.value();
+    if( !touchName.isEmpty() ) {
+        d->m_ui->deviceTabWidget->addTab( d->m_touchPage, i18n( "Touch" ) );
+    }
+
+    d->m_ui->deviceTabWidget->addTab( d->m_padMappingPage, i18n( "Pad Mapping" ) );
+    if( !touchName.isEmpty() ) {
+        d->m_ui->deviceTabWidget->addTab( d->m_touchMappingPage, i18n( "Touch Mapping" ) );
+    }
+
+    d->m_ui->deviceTabWidget->setEnabled( true );
+    d->m_ui->deviceTabWidget->setVisible( true );
+
+
+    // switch to the currently active profile
+    QDBusReply<QString> profile = DBusTabletInterface::instance().profile();
+    if( profile.isValid() ) {
+        d->m_ui->profileSelector->setCurrentItem( profile );
+        switchProfile( profile );
+    }
+}
+
+
+void TabletWidget::showSaveChanges()
+{
+    Q_D( TabletWidget );
+
+    if( d->m_profileChanged ) {
+        QPointer<KDialog> saveDialog = new KDialog();
+        QWidget*          widget     = new QWidget( this );
+
+        Ui::SaveProfile askToSave;
+        askToSave.setupUi( widget );
+
+        saveDialog->setMainWidget( widget );
+        saveDialog->setButtons( KDialog::Apply | KDialog::Cancel );
+
+        connect( saveDialog, SIGNAL( applyClicked() ), saveDialog, SLOT( accept() ) );
+
+        if( saveDialog->exec() == KDialog::Accepted ) {
+            saveProfile();
+        }
+
+        delete saveDialog;
+    }
 }

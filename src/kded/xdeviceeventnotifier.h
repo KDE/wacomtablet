@@ -18,20 +18,12 @@
 #ifndef XDEVICEEVENTNOTIFIER_H
 #define XDEVICEEVENTNOTIFIER_H
 
+#include "tabletrotation.h"
+
 #include <QtGui/QWidget>
 
 namespace Wacom
 {
-
-/**
-  * Simple enumeration to save the tablet rotation
-  */
-enum TabletRotation {
-    NONE,       /**< no rotation */
-    CCW,        /**< rotate counter clockwise -90° */
-    CW,         /**< rotate clockwise +90° */
-    HALF        /**< rotate half 180° */
-};
 
 /**
   * This eventhandler is used to catch X11 events for conected and removed devices
@@ -41,9 +33,11 @@ enum TabletRotation {
 class XDeviceEventNotifier : public QWidget
 {
     Q_OBJECT
+
 public:
+
     /**
-     * ctor
+     * Default Constructor
      */
     explicit XDeviceEventNotifier(QWidget *parent = 0);
 
@@ -57,14 +51,9 @@ public:
       */
     void stop();
 
-protected:
-    /**
-      * Called when a new X11 event is detected.
-      * Checks for new connected or removed tablet devices
-      */
-    bool x11Event(XEvent * e);
 
-signals:
+Q_SIGNALS:
+
     /**
       * This signal is send when a new wacom tablet is found
       *
@@ -81,7 +70,7 @@ signals:
       * @param deviceid X11 id of the device
       */
     void deviceRemoved(int deviceid);
-    
+
     /**
      * When the screen is rotated by RandR this signal is emitted
      * Connect to this signal to rotate the tablet together with it
@@ -93,19 +82,37 @@ signals:
      * */
     void screenRotated(TabletRotation tabletRotation);
 
-private:
-        /**
-          * Register the eventhandler with the X11 system
-          */
-        int registerForNewDeviceEvent(Display* display);
 
-        /**
-          * Checks if the device with the @p deviceid is a wacom tablet.
-          *
-          * @param deviceid x11 id of the device that will be checked
-          * @return bool true if the device is a wacom tablet, false otherwise
-          */
-        bool isTabletDevice(int deviceid);
-};
-};
+protected:
+
+    /**
+      * Called when a new X11 event is detected.
+      * Checks for new connected or removed tablet devices
+      */
+    bool x11Event(XEvent* e);
+
+
+private:
+
+    /**
+     * Handles X11 input events which signal adding or removal of a device.
+     * This method should not be called directly, but only by our X11 event
+     * handler method.
+     */
+    void handleX11InputEvent(XEvent* event);
+
+    /**
+     * Handles X11 screen events which signal rotation of the screen.
+     * This method should not be called directly, but only by our X11 event
+     * handler method.
+     */
+    void handleX11ScreenEvent(XEvent* event);
+
+    /**
+      * Register the eventhandler with the X11 system
+      */
+    int registerForNewDeviceEvent(Display* display);
+
+}; // CLASS
+}  // NAMESPACE
 #endif // XDEVICEEVENTNOTIFIER_H

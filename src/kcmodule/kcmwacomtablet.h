@@ -29,6 +29,7 @@ class QVBoxLayout;
 
 namespace Wacom
 {
+class AboutData;
 class TabletWidget;
 
 /**
@@ -46,6 +47,7 @@ public:
       * @param parent parent widget
       */
     KCMWacomTablet(QWidget *parent, const QVariantList &);
+    virtual ~KCMWacomTablet();
 
     /**
       * Called when the user hits the default button to reload the saved values from the config file
@@ -67,6 +69,7 @@ private slots:
 private:
     QVBoxLayout           *m_layout;        /**< Basic layout for the module */
     QPointer<TabletWidget> m_tabletWidget;  /**< Main widget that holds all other tabs */
+    AboutData             *m_about;         /**< The about data returned by the module */
     bool                   m_changed;       /**< Saves if the profiles are changed or not */
 };
 }

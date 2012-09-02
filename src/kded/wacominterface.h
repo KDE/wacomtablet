@@ -53,7 +53,7 @@ public:
       * @param section the used section we apply (pad/stylus/eraser/cursor)
       * @param gtprofile the KConfig profile for the tablet that should be applied
       */
-    void applyProfile( const QString &device, const QString &section, KConfigGroup *gtprofile );
+    void applyProfile( const QString &device, const QString &section, const TabletProfile& gtprofile );
 
     /**
       * Writes a single configuration for the tablet
@@ -62,7 +62,7 @@ public:
       * @param param parameter name
       * @param value value the parameter is set to
       */
-    void setConfiguration( const QString &device, const QString &param, const QString &value, bool activateButtonMapping = false );
+    void setConfiguration( const QString &device, const Property &property, const QString &value, bool activateButtonMapping = false );
 
     /**
       * Returns the current value for a specific tablet setting
@@ -72,7 +72,7 @@ public:
       *
       * @return the value as string
       */
-    QString getConfiguration( const QString &device, const QString &param ) const;
+    QString getConfiguration( const QString &device, const Property &property ) const;
 
     /**
       * Returns the factory default value for a specific tablet setting
@@ -82,7 +82,7 @@ public:
       *
       * @return the factory default value as string
       */
-    QString getDefaultConfiguration( const QString &device, const QString &param ) const;
+    QString getDefaultConfiguration( const QString& device, const Property& property ) const;
 
     /**
       * Toggles the touch tool on/off

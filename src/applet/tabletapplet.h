@@ -18,6 +18,7 @@
 #ifndef TABLETAPPLET_H
 #define TABLETAPPLET_H
 
+#include "deviceinformation.h"
 
 //Qt include
 #include <QtCore/QObject>
@@ -32,7 +33,6 @@ class ComboBox;
 class RadioButton;
 }
 
-class QDBusInterface;
 class QGraphicsWidget;
 class QGraphicsLinearLayout;
 
@@ -40,22 +40,6 @@ namespace Wacom
 {
 class WacomTabletSettings;
 
-struct DeviceInformation
-{
-    QString companyID;
-    QString deviceID;
-    QString companyName;
-    QString deviceName;
-    QString deviceModel;
-    QStringList deviceList;
-    QString padName;
-    QString stylusName;
-    QString eraserName;
-    QString cursorName;
-    QString touchName;
-    bool isDeviceAvailable;
-    bool hasPadButtons;
-};
 /**
   * This class provides the plasma applet with the widget content.
   *
@@ -99,21 +83,18 @@ public:
       */
     void showApplet();
 
+public Q_SLOTS:
     /**
-      * Connectes the DBus interfaces for the /Tablet and /Device interface
-      *
-      * Prints an error message when one of the interface is not valid
-      *
-      * @return returns true if conenction is valid, false if not
-      */
-    void connectDBus();
+     * Connectes the DBus interfaces for the /Tablet and /Device interface
+     * Prints an error message when one of the interface is not valid
+     */
+    void onDBusConnected();
 
     /**
-      * Disconnects the dbus again
+      * Shows an error that the D-Bus interface is not available.
       */
-    void disconnectDBus();
+    void onDBusDisconnected();
 
-public slots:
     /**
       * Updates the widget content and internal values.
       *
@@ -251,8 +232,6 @@ private:
     void buildErrorDialog();
 
     WacomTabletSettings   *m_tabletSettings;      /**< Backreference to the tablet popup applet containing this widget */
-    QDBusInterface        *m_tabletInterface;     /**< Connection to the tablet daemon DBus /Tablet Interface */
-    QDBusInterface        *m_deviceInterface;     /**< Connection to the tablet daemon DBus /Device Interface */
 
     QGraphicsWidget       *m_widget;              /**< The graphics widget which displays the content */
     QGraphicsLinearLayout *m_layoutMain;          /**< Layout of the main widget that contains the title / config and error widgets */
