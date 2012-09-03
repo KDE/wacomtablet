@@ -26,6 +26,8 @@ extern "C" {
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/extensions/XInput.h>
+#include <X11/extensions/XInput2.h>
+#include <X11/Xutil.h>
 }
 
 using namespace Wacom;
@@ -34,22 +36,6 @@ using namespace Wacom;
  * Helper struct which allows us to forward declare XDevice.
  */
 struct X11Utils::XDevice : public ::XDevice {};
-
-bool X11Utils::isTabletDevice(int deviceId)
-{
-    uint property = XInternAtom( QX11Info::display(), "Wacom Tool Type", True );
-    bool isTablet = false;
-
-    XDevice *dev = (XDevice*)XOpenDevice(QX11Info::display(), deviceId);
-
-    if (dev) {
-        isTablet = hasXDeviceProperty(*dev, property);
-        XCloseDevice(QX11Info::display(), dev);
-    }
-
-    return isTablet;
-}
-
 
 bool X11Utils::findTabletDevice(DeviceInformation& devinfo)
 {
@@ -88,6 +74,28 @@ bool X11Utils::findTabletDevice(DeviceInformation& devinfo)
 }
 
 
+X11Utils::XDevice* X11Utils::findXDevice(const QString& device)
+{
+    int         ndevices = 0;
+    Display     *dpy     = QX11Info::display();
+    XDevice     *xdev    = NULL;
+    XDeviceInfo *info    = XListInputDevices( dpy, &ndevices );
+
+    for( int i = 0; i < ndevices; ++i ) {
+        if( info[i].name == device.toLatin1() ) {
+            xdev = (XDevice*)XOpenDevice( dpy, info[i].id );
+            break;
+        }
+    }
+
+    if (info) {
+        XFreeDeviceList( info );
+    }
+
+    return xdev;
+}
+
+
 bool X11Utils::hasXDeviceProperty(XDevice& xdev, unsigned int property)
 {
     bool propertyFound = false;
@@ -111,6 +119,85 @@ bool X11Utils::hasXDeviceProperty(XDevice& xdev, unsigned int property)
     return propertyFound;
 }
 
+
+
+bool X11Utils::isTabletDevice(int deviceId)
+{
+    uint property = XInternAtom( QX11Info::display(), "Wacom Tool Type", True );
+    bool isTablet = false;
+
+    XDevice *dev = (XDevice*)XOpenDevice(QX11Info::display(), deviceId);
+
+    if (dev) {
+        isTablet = hasXDeviceProperty(*dev, property);
+        XCloseDevice(QX11Info::display(), dev);
+    }
+
+    return isTablet;
+}
+
+
+
+bool X11Utils::mapTabletToScreen(const QString& device, qreal offsetX, qreal offsetY, qreal width, qreal height)
+{
+    Display *dpy         = QX11Info::display();
+    Atom     matrix_prop = XInternAtom( dpy, "Coordinate Transformation Matrix", True );
+
+    if( !matrix_prop ) {
+        kError() << "mapTabletToScreen :: Server does not support transformation";
+        return false;
+    }
+
+    XDevice *xdev = findXDevice(device);
+
+    if (!xdev) {
+        kError() << QString::fromLatin1("mapTabletToScreen :: Device '%1' could not be found!").arg(device);
+        return false;
+    }
+
+    /* XI1 expects 32 bit properties (including float) as long, regardless of architecture */
+    long  matrix[9]  = {0};
+    float fmatrix[9] = { 1, 0, 0,
+                         0, 1, 0,
+                         0, 0, 1
+                       };
+
+    fmatrix[2] = offsetX;
+    fmatrix[5] = offsetY;
+    fmatrix[0] = width;
+    fmatrix[4] = height;
+
+    // assign float values to long matrix
+    for( unsigned int i = 0 ; i < sizeof( matrix ) / sizeof( matrix[0] ) ; ++i ) {
+        *(float*)( matrix + i ) = fmatrix[i];
+    }
+
+    // get matrix property and update its value
+    Atom           type;
+    int            format;
+    bool           retval = false;
+    float         *data   = NULL;
+    unsigned long  nitems = 0, bytes_after;
+
+    XGetDeviceProperty( dpy, xdev, matrix_prop, 0, 9, False,
+                        AnyPropertyType, &type, &format, &nitems,
+                        &bytes_after, ( unsigned char ** )&data );
+
+    if( format == 32 && type == XInternAtom( dpy, "FLOAT", True ) ) {
+        XChangeDeviceProperty( dpy, xdev, matrix_prop, type, format,
+                               PropModeReplace, (unsigned char *)matrix, 9 );
+        retval = true;
+    }
+
+    if (data) {
+        XFree( data );
+    }
+
+    XFlush( dpy );
+    XCloseDevice( QX11Info::display(), xdev );
+
+    return retval;
+}
 
 
 bool X11Utils::parseXDevicePropertyToolType(DeviceInformation& devinfo, XDevice& xdev, XDeviceInfo& xdevinfo)

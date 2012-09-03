@@ -40,11 +40,15 @@ class X11Utils
         struct XDevice;
         typedef struct _XDeviceInfo XDeviceInfo;
 
-        static bool isTabletDevice(int deviceId);
-
         static bool findTabletDevice(DeviceInformation& devinfo);
 
+        static XDevice* findXDevice(const QString& device);
+        
         static bool hasXDeviceProperty(XDevice& xdev, unsigned int property);
+
+        static bool isTabletDevice(int deviceId);
+
+        static bool mapTabletToScreen(const QString& device, qreal offsetX, qreal offsetY, qreal width, qreal height);
 
     private:
 

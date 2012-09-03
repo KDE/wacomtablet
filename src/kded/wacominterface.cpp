@@ -15,12 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include "wacominterface.h"
 #include "devicehandler.h"
 #include "deviceprofile.h"
 #include "deviceprofilexsetwacomadaptor.h"
 #include "property.h"
+#include "x11utils.h"
 
 //KDE includes
 #include <KDE/KStandardDirs>
@@ -35,26 +35,12 @@
 
 #include <QApplication>
 #include <QDesktopWidget>
-#include <QtGui/QX11Info>
-
-// X11 includes
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
-#include <X11/extensions/XInput.h>
-#include <X11/extensions/XInput2.h>
-#include <X11/Xutil.h>
 
 using namespace Wacom;
 
-WacomInterface::WacomInterface()
-    : DeviceInterface()
-{
+WacomInterface::WacomInterface() : DeviceInterface() {}
 
-}
-
-WacomInterface::~WacomInterface()
-{
-}
+WacomInterface::~WacomInterface() {}
 
 void WacomInterface::applyProfile( const QString& device, const QString& section, const TabletProfile& gtprofile )
 {
@@ -72,12 +58,6 @@ void WacomInterface::applyProfile( const QString& device, const QString& section
         setConfiguration( device, property.id(), profileAdapter.getXsetwacomProperty( property ), useButtonMapping);
     }
 
-// disable X11 macros for now as they collide with our properties
-// TODO: All the X11 code in here should be moved into a X11 util class
-#pragma push_macro("Button4")
-#pragma push_macro("Button5")
-#undef Button4
-#undef Button5
     //this will invert touch gesture scrolling (up/down)
     if ( deviceProfile.getInvertScroll() == QLatin1String( "true" ) ) {
         setConfiguration(device, Property::Button4, QLatin1String("5"));
@@ -87,8 +67,6 @@ void WacomInterface::applyProfile( const QString& device, const QString& section
         setConfiguration(device, Property::Button4, QLatin1String("4"));
         setConfiguration(device, Property::Button5, QLatin1String("5"));
     }
-#pragma pop_macro("Button5")
-#pragma pop_macro("Button4")
     
     // apply the MapToOutput at the end.
     // this ensures we rotated the device beforehand
@@ -268,61 +246,5 @@ void WacomInterface::mapTabletToScreen( const QString &device, const QString &sc
     kDebug() << "0" << h << offsetY;
     kDebug() << "0" << "0" << "1";
 
-    // now set the new matrix via xinput calls
-    // this part is taken from the xsetwacom.c file
-    int ndevices;
-    XDevice *dev = NULL;
-    Display *dpy = QX11Info::display();
-
-    XDeviceInfo *info = XListInputDevices( dpy, &ndevices );
-    for( int i = 0; i < ndevices; i++ ) {
-        if( info[i].name == device.toLatin1() ) {
-            dev = XOpenDevice( dpy, info[i].id );
-            break;
-        }
-    }
-
-    Atom matrix_prop = XInternAtom( dpy, "Coordinate Transformation Matrix", True );
-    Atom type;
-    int format;
-    unsigned long nitems, bytes_after;
-    float *data;
-    long matrix[9] = {0};
-    int i;
-
-    if( !matrix_prop ) {
-        kError() << "mapTabletToScreen :: Server does not support transformation";
-        return;
-    }
-
-    /* XI1 expects 32 bit properties (including float) as long,
-     * regardless of architecture */
-    float fmatrix[9] = { 1, 0, 0,
-                         0, 1, 0,
-                         0, 0, 1
-                       };
-    fmatrix[2] = offsetX;
-    fmatrix[5] = offsetY;
-    fmatrix[0] = w;
-    fmatrix[4] = h;
-
-    for( i = 0; i < sizeof( matrix ) / sizeof( matrix[0] ); i++ ) {
-        *( float * )( matrix + i ) = fmatrix[i];
-    }
-
-    XGetDeviceProperty( dpy, dev, matrix_prop, 0, 9, False,
-                        AnyPropertyType, &type, &format, &nitems,
-                        &bytes_after, ( unsigned char ** )&data );
-
-    if( format != 32 || type != XInternAtom( dpy, "FLOAT", True ) ) {
-        return;
-    }
-
-    XChangeDeviceProperty( dpy, dev, matrix_prop, type, format,
-                           PropModeReplace, ( unsigned char * )matrix, 9 );
-    XFree( data );
-    XFlush( dpy );
-    XFreeDeviceList( info );
-    XCloseDevice( QX11Info::display(), dev );
-
+    X11Utils::mapTabletToScreen(device, offsetX, offsetY, w, h);
 }
