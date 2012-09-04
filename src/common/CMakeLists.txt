@@ -9,7 +9,6 @@ set(wacom_common_SRC
     tabletprofile.cpp
     tabletprofileconfigadaptor.cpp
     profilemanager.cpp
-    xsetwacomproperty.cpp
     dbusdeviceinterface.cpp
     dbustabletinterface.cpp
     x11utils.cpp

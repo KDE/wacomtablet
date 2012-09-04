@@ -6,6 +6,7 @@ set(wacom_tablet_SRCS
     tablethandler.cpp
     xdeviceeventnotifier.cpp
     xsetwacomadaptor.cpp
+    xsetwacomproperty.cpp
 )
 
 qt4_add_dbus_adaptor(wacom_tablet_SRCS org.kde.Wacom.xml tablethandler.h Wacom::TabletHandler)
