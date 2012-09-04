@@ -18,9 +18,9 @@
 #include "wacominterface.h"
 #include "devicehandler.h"
 #include "deviceprofile.h"
-#include "deviceprofilexsetwacomadaptor.h"
 #include "property.h"
 #include "xsetwacomadaptor.h"
+#include "xsetwacomproperty.h"
 #include "x11utils.h"
 
 // stdlib
@@ -49,20 +49,19 @@ WacomInterface::~WacomInterface() {}
 void WacomInterface::applyProfile( const QString& device, const QString& section, const TabletProfile& gtprofile )
 {
     DeviceProfile                 deviceProfile = gtprofile.getDevice(section);
-    DeviceProfileXsetwacomAdaptor profileAdapter(deviceProfile);
 
     bool useButtonMapping = false;
-    if(section == QLatin1String("pad")) {
+    if (section == QLatin1String("pad")) {
         useButtonMapping = true;
     }
 
-    // get all xsetwacom properties supported by the device profile
+    // get all properties xsetwacom supports and set them
     // this will also make sure that they are set in the correct order
-    foreach( const XsetwacomProperty& property, profileAdapter.getXsetwacomProperties()) {
-        setConfiguration( device, property.id(), profileAdapter.getXsetwacomProperty( property ), useButtonMapping);
+    foreach( const Property& property, XsetwacomProperty::ids()) {
+        setConfiguration( device, property, deviceProfile.getProperty(property), useButtonMapping);
     }
 
-    //this will invert touch gesture scrolling (up/down)
+    // this will invert touch gesture scrolling (up/down)
     if ( deviceProfile.getInvertScroll() == QLatin1String( "true" ) ) {
         setConfiguration(device, Property::Button4, QLatin1String("5"));
         setConfiguration(device, Property::Button5, QLatin1String("4"));
@@ -71,7 +70,7 @@ void WacomInterface::applyProfile( const QString& device, const QString& section
         setConfiguration(device, Property::Button4, QLatin1String("4"));
         setConfiguration(device, Property::Button5, QLatin1String("5"));
     }
-    
+
     // apply the MapToOutput at the end.
     // this ensures we rotated the device beforehand
     mapTabletToScreen( device, deviceProfile.getScreenSpace() );
