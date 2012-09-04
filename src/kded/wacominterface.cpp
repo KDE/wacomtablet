@@ -20,7 +20,11 @@
 #include "deviceprofile.h"
 #include "deviceprofilexsetwacomadaptor.h"
 #include "property.h"
+#include "xsetwacomadaptor.h"
 #include "x11utils.h"
+
+// stdlib
+#include <memory>
 
 //KDE includes
 #include <KDE/KStandardDirs>
@@ -73,106 +77,45 @@ void WacomInterface::applyProfile( const QString& device, const QString& section
     mapTabletToScreen( device, deviceProfile.getScreenSpace() );
 }
 
+
+
 void WacomInterface::setConfiguration( const QString& device, const Property& property, const QString& value, bool activateButtonMapping )
 {
     if( value.isEmpty() ) {
         return;
     }
 
-    const XsetwacomProperty* xsetproperty = XsetwacomProperty::map(property);
+    std::auto_ptr<XsetwacomAdaptor> xsetwacomAdaptor;
 
-    if (xsetproperty == NULL) {
-        kError() << QString::fromLatin1("Can not set unsupported property '%1' to '%2' using xsetwacom!").arg(property.key()).arg(value);
-        return;
+    if (activateButtonMapping) {
+        xsetwacomAdaptor = std::auto_ptr<XsetwacomAdaptor>(new XsetwacomAdaptor(device, m_buttonMapping));
+    } else {
+        xsetwacomAdaptor = std::auto_ptr<XsetwacomAdaptor>(new XsetwacomAdaptor(device));
     }
 
-    QString modifiedParam = xsetproperty->key();
-
-    // Here we translate the hardware button number which go from 1-X
-    // to the real numebrs as used by the kernel driver
-    // the mapping is read from the wacom_devicelist as hwbutton1=1 etc entries
-    // this is necessary to cope with some changes where for example the Pen& Touch devices have hw Button 2 as kernel Button 9 etc
-    // also often button 4 is button 8 because 4-7 are used for scrolling
-    if(activateButtonMapping) {
-        QRegExp rx(QLatin1String( "^Button\\s*([0-9]+)$" ));
-        int pos = 0;
-
-        if ((pos = rx.indexIn(modifiedParam, pos)) != -1) {
-            QString hwButtonNumber = rx.cap(1);
-            QString kernelButtonNumber = m_buttonMapping.value(hwButtonNumber);
-            if(!kernelButtonNumber.isEmpty())
-                modifiedParam = QString(QLatin1String("Button%1")).arg(kernelButtonNumber);
-        }
-    }
-
-    QString  cmd = QString::fromLatin1( "xsetwacom set \"%1\" %2 \"%3\"" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^Button([0-9])" ) ), QLatin1String( "Button \\1" ) ) ).arg( value );
-
-    QProcess setConf;
-    setConf.start( cmd );
-
-    if( !setConf.waitForStarted() ) {
-        return;
-    }
-
-    if( !setConf.waitForFinished() ) {
-        return;
-    }
-
-    QByteArray errorOutput = setConf.readAll();
-
-    kDebug() << cmd;
-
-    if( !errorOutput.isEmpty() ) {
-        kDebug() << errorOutput;
+    if (!xsetwacomAdaptor->setProperty(property, value)) {
+        kError() << QString::fromLatin1("Could not set property '%1' to '%2' using xsetwacom!").arg(property.key()).arg(value);
     }
 }
+
+
 
 QString WacomInterface::getConfiguration( const QString& device, const Property& property ) const
 {
-    const XsetwacomProperty* xsetproperty = XsetwacomProperty::map(property);
+    XsetwacomAdaptor xsetwacomAdaptor(device, m_buttonMapping);
 
-    if (xsetproperty == NULL) {
-        kError() << QString::fromLatin1("Can not get unsupported property '%1' using xsetwacom!").arg(property.key());
-        return QString();
-    }
-
-    QString modifiedParam = xsetproperty->key();
-
-    // small *hack* to cope with linux button settings
-    // button 4,5,6,7 are not buttons but scrolling
-    // hus button 4 is in reality button 8
-    QRegExp rx(QLatin1String( "^Button([0-9])" ));
-    int pos = 0;
-
-    while ((pos = rx.indexIn(modifiedParam, pos)) != -1) {
-        QString button = rx.cap(1);
-        int buttonNumber = button.toInt();
-        if(buttonNumber >= 4) {
-            buttonNumber += 4;
-            modifiedParam = QString(QLatin1String("Button%1")).arg(buttonNumber);
-        }
-    }
-
-    QString cmd = QString::fromLatin1( "xsetwacom get \"%1\" %2" ).arg( device ).arg( modifiedParam.replace( QRegExp( QLatin1String( "^Button([0-9])" ) ), QLatin1String( "Button \\1" ) ) );
-    QProcess getConf;
-    getConf.start( cmd );
-
-    if( !getConf.waitForStarted() ) {
-        return QString();
-    }
-
-    if( !getConf.waitForFinished() ) {
-        return QString();
-    }
-
-    QString result = QLatin1String( getConf.readAll() );
-    return result.remove( QLatin1Char( '\n' ) );
+    // we might have to do a button mapping (+4), however the mapping table should take care of that
+    return xsetwacomAdaptor.getProperty(property);
 }
+
+
 
 QString WacomInterface::getDefaultConfiguration( const QString &device, const Property &property ) const
 {
     return getConfiguration(device, property);
 }
+
+
 
 void WacomInterface::toggleTouch( const QString &touchDevice )
 {
