@@ -51,9 +51,9 @@ public:
       *
       * @param device name of the tablet device we set (pad/stylus/eraser/cursor)
       * @param section the used section we apply (pad/stylus/eraser/cursor)
-      * @param gtprofile the KConfig profile for the tablet that should be applied
+      * @param tabletProfile the KConfig profile for the tablet that should be applied
       */
-    void applyProfile( const QString &device, const QString &section, const TabletProfile& gtprofile );
+    void applyProfile( const QString &device, const QString &section, const TabletProfile& tabletProfile );
 
     /**
       * Writes a single configuration for the tablet
@@ -94,12 +94,6 @@ public:
       */
     void togglePenMode(const QString & device);
 
-private:
-    void mapTabletToScreen(const QString &device, const QString & screenArea);
-
-    void setCursorSettings(const QString &deviceName, KConfigGroup *gtprofile);
-
-};
-
-}
+}; // CLASS
+}  // NAMESPACE
 #endif // WACOMINTERFACE_H

@@ -21,6 +21,7 @@
 #include "deviceinformation.h"
 
 #include <QtCore/QString>
+#include <QtCore/QList>
 
 // X11 forward declarations
 struct _XDeviceInfo;
@@ -39,24 +40,35 @@ class X11Utils
          */
         struct XDevice;
         typedef struct _XDeviceInfo XDeviceInfo;
+        typedef long unsigned int Atom;
 
-        static bool findTabletDevice(DeviceInformation& devinfo);
+        static bool findTabletDevice (DeviceInformation& devinfo);
 
-        static XDevice* findXDevice(const QString& device);
+        static XDevice* findXDevice (const QString& device);
+
+        static bool hasXDeviceProperty (XDevice& xdev, unsigned int property);
+
+        static bool isTabletDevice (int deviceId);
+
+        static bool setXinputFloatProperty (const QString& device, const QString& property, const QString& values);
+
+        static bool setXinputFloatProperty (const QString& device, const QString& property, const QList<float>& values);
+
+        static bool setXinputLongProperty (const QString& device, const QString& property, const QString& values);
         
-        static bool hasXDeviceProperty(XDevice& xdev, unsigned int property);
+        static bool setXinputLongProperty (const QString& device, const QString& property, const QList<long>& values);
 
-        static bool isTabletDevice(int deviceId);
-
-        static bool mapTabletToScreen(const QString& device, qreal offsetX, qreal offsetY, qreal width, qreal height);
+        static bool mapTabletToScreen (const QString& device, qreal offsetX, qreal offsetY, qreal width, qreal height);
 
     private:
 
-        static bool parseXDevicePropertyToolType(DeviceInformation& devinfo, XDevice& xdev, XDeviceInfo& xdevinfo);
+        static bool setXinputProperty (const QString& device, const QString& property, Atom type, unsigned char* data, int nelements);
 
-        static bool parseXDevicePropertySerialId(DeviceInformation& devinfo, XDevice& xdev);
+        static bool parseXDevicePropertyToolType (DeviceInformation& devinfo, XDevice& xdev, XDeviceInfo& xdevinfo);
 
-        static bool parseXDeviceToolType(DeviceInformation& devinfo, const QString& xdevtype, XDeviceInfo& xdevinfo);
+        static bool parseXDevicePropertySerialId (DeviceInformation& devinfo, XDevice& xdev);
+
+        static bool parseXDeviceToolType (DeviceInformation& devinfo, const QString& xdevtype, XDeviceInfo& xdevinfo);
 
 }; // CLASS
 }  // NAMESPACE

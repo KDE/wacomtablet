@@ -19,6 +19,8 @@
 #include "devicehandler.h"
 #include "deviceprofile.h"
 #include "property.h"
+#include "xinputadaptor.h"
+#include "xinputproperty.h"
 #include "xsetwacomadaptor.h"
 #include "xsetwacomproperty.h"
 #include "x11utils.h"
@@ -46,9 +48,9 @@ WacomInterface::WacomInterface() : DeviceInterface() {}
 
 WacomInterface::~WacomInterface() {}
 
-void WacomInterface::applyProfile( const QString& device, const QString& section, const TabletProfile& gtprofile )
+void WacomInterface::applyProfile( const QString& device, const QString& section, const TabletProfile& tabletProfile )
 {
-    DeviceProfile                 deviceProfile = gtprofile.getDevice(section);
+    DeviceProfile deviceProfile = tabletProfile.getDevice(section);
 
     bool useButtonMapping = false;
     if (section == QLatin1String("pad")) {
@@ -57,23 +59,24 @@ void WacomInterface::applyProfile( const QString& device, const QString& section
 
     // get all properties xsetwacom supports and set them
     // this will also make sure that they are set in the correct order
-    foreach( const Property& property, XsetwacomProperty::ids()) {
-        setConfiguration( device, property, deviceProfile.getProperty(property), useButtonMapping);
+    foreach (const Property& property, XsetwacomProperty::ids()) {
+        setConfiguration (device, property, deviceProfile.getProperty(property), useButtonMapping);
     }
 
     // this will invert touch gesture scrolling (up/down)
     if ( deviceProfile.getInvertScroll() == QLatin1String( "true" ) ) {
-        setConfiguration(device, Property::Button4, QLatin1String("5"));
-        setConfiguration(device, Property::Button5, QLatin1String("4"));
+        setConfiguration (device, Property::Button4, QLatin1String("5"));
+        setConfiguration (device, Property::Button5, QLatin1String("4"));
     }
     else {
-        setConfiguration(device, Property::Button4, QLatin1String("4"));
-        setConfiguration(device, Property::Button5, QLatin1String("5"));
+        setConfiguration (device, Property::Button4, QLatin1String("4"));
+        setConfiguration (device, Property::Button5, QLatin1String("5"));
     }
 
-    // apply the MapToOutput at the end.
-    // this ensures we rotated the device beforehand
-    mapTabletToScreen( device, deviceProfile.getScreenSpace() );
+    // apply xinput parameters
+    foreach (const Property& property, XinputProperty::ids()) {
+        setConfiguration (device, property, deviceProfile.getProperty(property), false);
+    }
 }
 
 
@@ -85,6 +88,7 @@ void WacomInterface::setConfiguration( const QString& device, const Property& pr
     }
 
     std::auto_ptr<XsetwacomAdaptor> xsetwacomAdaptor;
+    XinputAdaptor                   xinputAdaptor(device);
 
     if (activateButtonMapping) {
         xsetwacomAdaptor = std::auto_ptr<XsetwacomAdaptor>(new XsetwacomAdaptor(device, m_buttonMapping));
@@ -92,8 +96,17 @@ void WacomInterface::setConfiguration( const QString& device, const Property& pr
         xsetwacomAdaptor = std::auto_ptr<XsetwacomAdaptor>(new XsetwacomAdaptor(device));
     }
 
-    if (!xsetwacomAdaptor->setProperty(property, value)) {
-        kError() << QString::fromLatin1("Could not set property '%1' to '%2' using xsetwacom!").arg(property.key()).arg(value);
+    bool success = false;
+
+    if (xsetwacomAdaptor->supportsProperty(property)) {
+        success = xsetwacomAdaptor->setProperty(property, value);
+
+    } else if (xinputAdaptor.supportsProperty(property)) {
+        success = xinputAdaptor.setProperty(property, value);
+    }
+
+    if (!success) {
+        kError() << QString::fromLatin1("Could not set property '%1' to '%2'!").arg(property.key()).arg(value);
     }
 }
 
@@ -101,9 +114,14 @@ void WacomInterface::setConfiguration( const QString& device, const Property& pr
 
 QString WacomInterface::getConfiguration( const QString& device, const Property& property ) const
 {
-    XsetwacomAdaptor xsetwacomAdaptor(device, m_buttonMapping);
-
     // we might have to do a button mapping (+4), however the mapping table should take care of that
+    XsetwacomAdaptor xsetwacomAdaptor(device, m_buttonMapping);
+    XinputAdaptor    xinputAdaptor(device);
+
+    if (xinputAdaptor.supportsProperty(property)) {
+        return xinputAdaptor.getProperty(property);
+    }
+
     return xsetwacomAdaptor.getProperty(property);
 }
 
@@ -138,55 +156,4 @@ void WacomInterface::togglePenMode( const QString &device )
     else {
         setConfiguration( device, Property::Mode, QLatin1String( "Absolute" ) );
     }
-}
-
-void WacomInterface::mapTabletToScreen( const QString &device, const QString &screenArea )
-{
-    // what we need is the Coordinate Transformation Matrix
-    // in the normal case where the whole screen is used we end up with a 3x3 identity matrix
-
-    //in our case we want to change that
-    // | w  0  offsetX |
-    // | 0  h  offsetY |
-    // | 0  0     1    |
-
-    QStringList screenList = screenArea.split( QLatin1String( " " ) );
-
-    if( screenList.isEmpty() || screenList.size() != 4 ) {
-        kError() << "mapTabletToScreen :: can't parse ScreenSpace entry '" << screenArea << "' => device:" << device;
-        return;
-    }
-
-    // read in what the user wants to use
-    int screenX = screenList.at( 0 ).toInt();
-    int screenY = screenList.at( 1 ).toInt();
-    int screenW = screenList.at( 2 ).toInt();
-    int screenH = screenList.at( 3 ).toInt();
-
-    //use qt to create the real screen space available (the space that corresponse to the identity matrix
-
-    QRectF virtualScreen = QRect( 0, 0, 0, 0 );
-
-    int num = QApplication::desktop()->numScreens();
-
-    for( int i = 0; i < num; i++ ) {
-        QRect screen = QApplication::desktop()->screenGeometry( i );
-
-        virtualScreen = virtualScreen.united( screen );
-    }
-    kDebug() << "virtual screen" << virtualScreen;
-
-    // and now the values of the new matrix
-    qreal w = ( qreal )screenW / ( qreal )virtualScreen.width();
-    qreal h = ( qreal )screenH / ( qreal )virtualScreen.height();
-
-    qreal offsetX = ( qreal )screenX / ( qreal )virtualScreen.width();
-    qreal offsetY = ( qreal )screenY / ( qreal )virtualScreen.height();
-
-    kDebug() << "Apply Coordinate Transformation Matrix";
-    kDebug() << w << "0" << offsetX;
-    kDebug() << "0" << h << offsetY;
-    kDebug() << "0" << "0" << "1";
-
-    X11Utils::mapTabletToScreen(device, offsetX, offsetY, w, h);
 }

@@ -5,6 +5,8 @@ set(wacom_tablet_SRCS
     tabletdaemon.cpp
     tablethandler.cpp
     xdeviceeventnotifier.cpp
+    xinputadaptor.cpp
+    xinputproperty.cpp
     xsetwacomadaptor.cpp
     xsetwacomproperty.cpp
 )

@@ -96,6 +96,10 @@ public:
     static const Property Button9;
     static const Property Button10;
     static const Property ChangeArea;
+    static const Property CursorAccelProfile;
+    static const Property CursorAccelConstantDeceleration;
+    static const Property CursorAccelAdaptiveDeceleration;
+    static const Property CursorAccelVelocityScaling;
     static const Property CursorProximity;
     static const Property ForceProportions;
     static const Property Gesture;

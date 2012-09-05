@@ -30,8 +30,7 @@ class XsetwacomProperty;
 typedef PropertySet<XsetwacomProperty> XsetwacomPropertyTemplateSpecialization;
 
 /**
- * The property set for configuration files. It defines all properties which
- * can be written to or read from config files.
+ * Properties supported by xsetwacom.
  */
 class XsetwacomProperty : public XsetwacomPropertyTemplateSpecialization
 {

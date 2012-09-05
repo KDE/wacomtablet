@@ -19,6 +19,7 @@
 #include "x11utils.h"
 
 // Qt includes
+#include <QtCore/QStringList>
 #include <QtGui/QX11Info>
 
 // X11 includes
@@ -26,7 +27,7 @@ extern "C" {
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/extensions/XInput.h>
-#include <X11/extensions/XInput2.h>
+//#include <X11/extensions/XInput2.h>
 #include <X11/Xutil.h>
 }
 
@@ -137,24 +138,166 @@ bool X11Utils::isTabletDevice(int deviceId)
 }
 
 
-
-bool X11Utils::mapTabletToScreen(const QString& device, qreal offsetX, qreal offsetY, qreal width, qreal height)
+bool X11Utils::setXinputFloatProperty(const QString& device, const QString& property, const QString& values)
 {
-    Display *dpy         = QX11Info::display();
-    Atom     matrix_prop = XInternAtom( dpy, "Coordinate Transformation Matrix", True );
+    QStringList valueList = values.split (QLatin1String(" "));
 
-    if( !matrix_prop ) {
-        kError() << "mapTabletToScreen :: Server does not support transformation";
+    bool         ok;
+    QString      svalue;
+    float        fvalue;
+    QList<float> fvalues;
+
+    for (int i = 0  ; i < valueList.size() ; ++i) {
+        svalue = valueList.at(i);
+
+        if (svalue.isEmpty()) {
+            continue;
+        }
+
+        fvalue = svalue.toFloat(&ok);
+
+        if (!ok) {
+            kError() << QString::fromLatin1("Could not convert value '%1' to float!").arg(svalue);
+            return false;
+        }
+
+        fvalues.append(fvalue);
+    }
+
+    return setXinputFloatProperty(device, property, fvalues);
+}
+
+
+bool X11Utils::setXinputFloatProperty(const QString& device, const QString& property, const QList<float>& values)
+{
+    if (device.isEmpty() || property.isEmpty() || values.size() == 0) {
+        kError() << QString::fromLatin1("Can not set property '%1' of device '%2' due to invalid parameters!").arg(property).arg(device);
         return false;
     }
 
+    // convert values
+    long *data = new long[values.size()];
+
+    for (int i = 0 ; i < values.size() ; ++i) {
+        *(float*)(data + i) = values.at(i);
+    }
+
+    // set property
+    Display *dpy     = QX11Info::display();
+    Atom type        = XInternAtom (dpy, "FLOAT", False);
+    bool returnValue = setXinputProperty (device, property, type, (unsigned char*)data, values.size());
+
+    // cleanup
+    delete[] data;
+
+    return returnValue;
+}
+
+
+bool X11Utils::setXinputLongProperty(const QString& device, const QString& property, const QString& values)
+{
+    QStringList valueList = values.split (QLatin1String(" "));
+
+    bool        ok;
+    QString     svalue;
+    long        lvalue;
+    QList<long> lvalues;
+
+    for (int i = 0  ; i < valueList.size() ; ++i) {
+
+        svalue = valueList.at(i);
+
+        if (svalue.isEmpty()) {
+            continue;
+        }
+
+        lvalue = svalue.toLong(&ok);
+
+        if (!ok) {
+            kError() << QString::fromLatin1("Could not convert value '%1' to long!").arg(svalue);
+            return false;
+        }
+
+        lvalues.append(lvalue);
+    }
+
+    return setXinputLongProperty(device, property, lvalues);
+}
+
+
+bool X11Utils::setXinputLongProperty(const QString& device, const QString& property, const QList<long>& values)
+{
+    if (device.isEmpty() || property.isEmpty() || values.size() == 0) {
+        kError() << QString::fromLatin1("Can not set property '%1' of device '%2' due to invalid parameters!").arg(property).arg(device);
+        return false;
+    }
+
+    // convert values
+    long *data = new long[values.size()];
+
+    for (int i = 0 ; i < values.size() ; ++i) {
+        data[i] = values.at(i);
+    }
+
+    // set property
+    bool returnValue = setXinputProperty (device, property, XA_INTEGER, (unsigned char*)data, values.size());
+
+    // cleanup
+    delete[] data;
+
+    return returnValue;
+}
+
+
+bool X11Utils::setXinputProperty(const QString& device, const QString& property, X11Utils::Atom type, unsigned char* data, int nelements)
+{
+    // find property
+    Display *dpy   = QX11Info::display();
+    Atom     aprop = XInternAtom (dpy, property.toLatin1(), True);
+
+    if (!aprop) {
+        kError() << QString::fromLatin1("Can not set unsupported Xinput property '%1'!").arg(property);
+        return false;
+    }
+
+    // find and open Xinput device
     XDevice *xdev = findXDevice(device);
 
     if (!xdev) {
-        kError() << QString::fromLatin1("mapTabletToScreen :: Device '%1' could not be found!").arg(device);
+        kError() << QString::fromLatin1("Can not set property '%1' on unknown device '%2'!").arg(property).arg(device);
         return false;
     }
 
+    // get & set property
+    Atom           atype;
+    int            aformat;
+    unsigned long  nitems, bytes_after;
+    unsigned char *adata  = NULL;
+
+    XGetDeviceProperty (dpy, xdev, aprop, 0, nelements, False, AnyPropertyType, &atype, &aformat, &nitems, &bytes_after, (unsigned char **)&adata);
+
+    bool returnValue = false;
+
+    // all values need to be 32bit in Xinput1
+    if (aformat == 32 && atype == type) {
+        XChangeDeviceProperty (dpy, xdev, aprop, type, 32, PropModeReplace, data, nelements);
+        returnValue = true;
+    } else {
+        kError() << QString::fromLatin1("Can not set incompatible Xinput property!");
+    }
+
+    // cleanup
+    XFree(adata);
+    XFlush( dpy );
+    XCloseDevice( QX11Info::display(), xdev );
+
+    return returnValue;
+}
+
+
+
+bool X11Utils::mapTabletToScreen(const QString& device, qreal offsetX, qreal offsetY, qreal width, qreal height)
+{
     /* XI1 expects 32 bit properties (including float) as long, regardless of architecture */
     long  matrix[9]  = {0};
     float fmatrix[9] = { 1, 0, 0,
@@ -172,31 +315,10 @@ bool X11Utils::mapTabletToScreen(const QString& device, qreal offsetX, qreal off
         *(float*)( matrix + i ) = fmatrix[i];
     }
 
-    // get matrix property and update its value
-    Atom           type;
-    int            format;
-    bool           retval = false;
-    float         *data   = NULL;
-    unsigned long  nitems = 0, bytes_after;
+    Atom           type = XInternAtom(QX11Info::display(), "FLOAT", True);
+    QLatin1String  property("Coordinate Transformation Matrix");
 
-    XGetDeviceProperty( dpy, xdev, matrix_prop, 0, 9, False,
-                        AnyPropertyType, &type, &format, &nitems,
-                        &bytes_after, ( unsigned char ** )&data );
-
-    if( format == 32 && type == XInternAtom( dpy, "FLOAT", True ) ) {
-        XChangeDeviceProperty( dpy, xdev, matrix_prop, type, format,
-                               PropModeReplace, (unsigned char *)matrix, 9 );
-        retval = true;
-    }
-
-    if (data) {
-        XFree( data );
-    }
-
-    XFlush( dpy );
-    XCloseDevice( QX11Info::display(), xdev );
-
-    return retval;
+    return setXinputProperty(device, property, type, (unsigned char*)matrix, 9);
 }
 
 
