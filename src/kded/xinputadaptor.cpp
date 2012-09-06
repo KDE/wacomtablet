@@ -65,8 +65,7 @@ const QString XinputAdaptor::getProperty(const Property& property) const
         return QString();
     }
 
-    // TODO implement getProperty()
-    return QString();
+    return getProperty(*xinputproperty);
 }
 
 
@@ -87,6 +86,82 @@ bool XinputAdaptor::supportsProperty(const Property& property) const
 {
     return (XinputProperty::map(property) != NULL);
 }
+
+
+
+const QString XinputAdaptor::getProperty(const XinputProperty& property) const
+{
+    if (property == XinputProperty::CursorAccelProfile) {
+        return getLongProperty (property);
+
+    } else if (property == XinputProperty::CursorAccelAdaptiveDeceleration) {
+        return getFloatProperty (property);
+
+    } else if (property == XinputProperty::CursorAccelConstantDeceleration) {
+        return getFloatProperty (property);
+
+    } else if (property == XinputProperty::CursorAccelVelocityScaling) {
+        return getFloatProperty (property);
+
+    } else {
+        kError() << QString::fromLatin1("Getting Xinput property '%1' is not yet implemented!").arg(property.key());
+    }
+
+    return QString();
+}
+
+
+
+const QString XinputAdaptor::getFloatProperty(const XinputProperty& property, long nelements) const
+{
+    Q_D( const XinputAdaptor );
+
+    QList<float> values;
+
+    if (!X11Utils::getXinputFloatProperty(d->device, property.key(), nelements, values)) {
+        kError() << QString::fromLatin1("Failed to get Xinput property '%1'!").arg(property.key());
+        return QString();
+    }
+
+    QString result;
+    
+    for (int i = 0 ; i < values.size() ; ++i) {
+        if (i > 0) {
+            result += QLatin1String(" ");
+        }
+
+        result += QString::number(values.at(i));
+    }
+
+    return result;
+}
+
+
+
+const QString XinputAdaptor::getLongProperty(const XinputProperty& property, long nelements) const
+{
+    Q_D( const XinputAdaptor );
+
+    QList<long> values;
+
+    if (!X11Utils::getXinputLongProperty(d->device, property.key(), nelements, values)) {
+        kError() << QString::fromLatin1("Failed to get Xinput property '%1'!").arg(property.key());
+        return QString();
+    }
+
+    QString result;
+
+    for (int i = 0 ; i < values.size() ; ++i) {
+        if (i > 0) {
+            result += QLatin1String(" ");
+        }
+
+        result += QString::number(values.at(i));
+    }
+
+    return result;
+}
+
 
 
 bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const

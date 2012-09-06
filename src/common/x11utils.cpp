@@ -138,6 +138,71 @@ bool X11Utils::isTabletDevice(int deviceId)
 }
 
 
+
+bool X11Utils::getXinputFloatProperty(const QString& device, const QString& property, long nelements, QList<float>& values)
+{
+    if (device.isEmpty() || property.isEmpty() || nelements < 1) {
+        return false;
+    }
+
+    long          *data;
+    unsigned long  nitems;
+    Atom           type;
+    int            format;
+
+    if (!getXinputProperty(device, property, 0, nelements, (unsigned char**)&data, &nitems, &type, &format)) {
+        return false;
+    }
+
+    Display *dpy          = QX11Info::display();
+    Atom     expectedType = XInternAtom (dpy, "FLOAT", False);
+
+    if (format != 32 || type != expectedType) {
+        kError() << QString::fromLatin1("Unsupported Xinput value size or type!");
+        XFree(data);
+        return false;
+    }
+
+    for (unsigned long i = 0 ; i < nitems ; i++) {
+        values.append((float)*(data + i));
+    }
+
+    XFree(data);
+    return true;
+}
+
+
+bool X11Utils::getXinputLongProperty(const QString& device, const QString& property, long nelements, QList<long>& values)
+{
+    if (device.isEmpty() || property.isEmpty() || nelements < 1) {
+        return false;
+    }
+
+    long          *data;
+    unsigned long  nitems;
+    Atom           type;
+    int            format;
+
+    if (!getXinputProperty(device, property, 0, nelements, (unsigned char**)&data, &nitems, &type, &format)) {
+        return false;
+    }
+
+    if (format != 32 || type != XA_INTEGER) {
+        kError() << QString::fromLatin1("Unsupported Xinput value size or type!");
+        XFree(data);
+        return false;
+    }
+
+    for (unsigned long i = 0 ; i < nitems ; i++) {
+        values.append(*(data + i));
+    }
+
+    XFree(data);
+    return true;
+}
+
+
+
 bool X11Utils::setXinputFloatProperty(const QString& device, const QString& property, const QString& values)
 {
     QStringList valueList = values.split (QLatin1String(" "));
@@ -168,6 +233,7 @@ bool X11Utils::setXinputFloatProperty(const QString& device, const QString& prop
 }
 
 
+
 bool X11Utils::setXinputFloatProperty(const QString& device, const QString& property, const QList<float>& values)
 {
     if (device.isEmpty() || property.isEmpty() || values.size() == 0) {
@@ -192,6 +258,7 @@ bool X11Utils::setXinputFloatProperty(const QString& device, const QString& prop
 
     return returnValue;
 }
+
 
 
 bool X11Utils::setXinputLongProperty(const QString& device, const QString& property, const QString& values)
@@ -225,6 +292,7 @@ bool X11Utils::setXinputLongProperty(const QString& device, const QString& prope
 }
 
 
+
 bool X11Utils::setXinputLongProperty(const QString& device, const QString& property, const QList<long>& values)
 {
     if (device.isEmpty() || property.isEmpty() || values.size() == 0) {
@@ -247,6 +315,48 @@ bool X11Utils::setXinputLongProperty(const QString& device, const QString& prope
 
     return returnValue;
 }
+
+
+
+bool X11Utils::getXinputProperty(const QString& device, const QString& property,
+                                 long offset, long length, unsigned char** data,
+                                 unsigned long* nitems, Atom* type, int* format)
+{
+    if (device.isEmpty() || property.isEmpty() || offset < 0 || length < 1 || !data || !nitems || !type || !format) {
+        return false;
+    }
+
+    *data   = NULL;
+    *nitems = 0;
+    *type   = None;
+    *format = 0;
+
+    // find property
+    Display *dpy  = QX11Info::display();
+    Atom     prop = XInternAtom (dpy, property.toLatin1(), True);
+
+    if (!prop) {
+        kError() << QString::fromLatin1("Can not set unsupported Xinput property '%1'!").arg(property);
+        return false;
+    }
+
+    // find and open Xinput device
+    XDevice *xdev = findXDevice(device);
+
+    if (!xdev) {
+        kError() << QString::fromLatin1("Can not get property '%1' from unknown device '%2'!").arg(property).arg(device);
+        return false;
+    }
+
+    // get property
+    unsigned long bytes_after = 0;
+    int           retval      = XGetDeviceProperty (dpy, xdev, prop, offset, length, False, AnyPropertyType, type, format, nitems, &bytes_after, data);
+
+    XCloseDevice( QX11Info::display(), xdev );
+
+    return (retval == Success);
+}
+
 
 
 bool X11Utils::setXinputProperty(const QString& device, const QString& property, X11Utils::Atom type, unsigned char* data, int nelements)
@@ -322,6 +432,7 @@ bool X11Utils::mapTabletToScreen(const QString& device, qreal offsetX, qreal off
 }
 
 
+
 bool X11Utils::parseXDevicePropertyToolType(DeviceInformation& devinfo, XDevice& xdev, XDeviceInfo& xdevinfo)
 {
     uint           property = XInternAtom( QX11Info::display(), "Wacom Tool Type", True );
@@ -355,6 +466,7 @@ bool X11Utils::parseXDevicePropertyToolType(DeviceInformation& devinfo, XDevice&
 
     return devFound;
 }
+
 
 
 bool X11Utils::parseXDevicePropertySerialId(DeviceInformation& devinfo, XDevice& xdev)
