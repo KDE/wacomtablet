@@ -111,11 +111,11 @@ void PadMapping::setTool( int tool )
 
     QString toolName;
     if( tool == 0 ) {
-        QDBusReply<QString> stylusName = DBusDeviceInterface::instance().stylusName();
+        QDBusReply<QString> stylusName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Stylus);
         toolName = stylusName.value();
     }
     else if( tool == 1 ) {
-        QDBusReply<QString> touchName = DBusDeviceInterface::instance().touchName();
+        QDBusReply<QString> touchName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Touch);
         toolName = touchName.value();
     }
 
@@ -330,11 +330,11 @@ void PadMapping::showCalibrationDialog()
     QString toolName;
 
     if( d->m_tool == 0 ) {
-        QDBusReply<QString> stylusName = DBusDeviceInterface::instance().stylusName();
+        QDBusReply<QString> stylusName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Stylus);
         toolName = stylusName.value();
     }
     else {
-        QDBusReply<QString> stylusName = DBusDeviceInterface::instance().touchName();
+        QDBusReply<QString> stylusName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Touch);
         toolName = stylusName.value();
     }
 

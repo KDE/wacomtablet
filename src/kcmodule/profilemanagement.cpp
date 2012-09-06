@@ -19,6 +19,8 @@
 
 // common
 #include "dbusdeviceinterface.h"
+#include "deviceinfo.h"
+#include "devicetype.h"
 #include "tabletprofile.h"
 #include "property.h"
 
@@ -68,11 +70,11 @@ ProfileManagement& ProfileManagement::instance()
 void ProfileManagement::createNewProfile( const QString &profilename )
 {
     //get information via DBus
-    QDBusReply<QString> deviceName = DBusDeviceInterface::instance().deviceName();
+    QDBusReply<QString> deviceName = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletName);
     m_deviceName = deviceName;
-    QDBusReply<QString> padName    = DBusDeviceInterface::instance().padName();
-    QDBusReply<QString> stylusName = DBusDeviceInterface::instance().stylusName();
-    QDBusReply<QString> eraserName = DBusDeviceInterface::instance().eraserName();
+    QDBusReply<QString> padName    = DBusDeviceInterface::instance().getDeviceName(DeviceType::Pad);
+    QDBusReply<QString> stylusName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Stylus);
+    QDBusReply<QString> eraserName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Eraser);
 
     if( m_deviceName.isEmpty() || !padName.isValid() || !stylusName.isValid() || !eraserName.isValid() ) {
         kDebug() << "no device information are found. Can't create a new profile";
@@ -154,7 +156,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
 
     // also add section for the touch if we have a touch tool
-    QDBusReply<QString> touchName = DBusDeviceInterface::instance().touchName();
+    QDBusReply<QString> touchName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Touch);
 
     QString validName = touchName.value();
     if( !validName.isEmpty() ) {
@@ -363,7 +365,7 @@ QString ProfileManagement::transformButtonFromConfig( PenButton mode, QString &b
 
 void ProfileManagement::reload()
 {
-    QDBusReply<QString> deviceName  = DBusDeviceInterface::instance().deviceName();
+    QDBusReply<QString> deviceName  = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletName);
 
     if( deviceName.isValid() ) {
         m_deviceName = deviceName;

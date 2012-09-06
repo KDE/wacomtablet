@@ -18,6 +18,9 @@
 #ifndef DBUSDEVICEINTERFACE_H
 #define DBUSDEVICEINTERFACE_H
 
+#include "deviceinfo.h"
+#include "devicetype.h"
+
 #include <QtDBus/QDBusInterface>
 
 namespace Wacom
@@ -43,42 +46,21 @@ public:
      */
     static void resetInterface();
 
-
-    QDBusMessage companyId();
-
-    QDBusMessage companyName();
-
-    QDBusMessage cursorName();
-
-    QDBusMessage deviceId();
-
     QDBusMessage deviceList();
-
-    QDBusMessage deviceModel();
-
-    QDBusMessage deviceName();
-
-    QDBusMessage eraserName();
 
     QDBusMessage getAllInformation();
 
     QDBusMessage getConfiguration(const QString& device, const QString& property);
 
-    QDBusMessage getDefaultConfiguration(const QString& device, const QString& property);
+    QDBusMessage getInformation(const DeviceInfo& info);
 
+    QDBusMessage getDeviceName(const DeviceType& device);
+    
     QDBusMessage hasPadButtons();
 
     QDBusMessage isDeviceAvailable();
 
-    QDBusMessage name();
-
-    QDBusMessage padName();
-
     QDBusMessage setConfiguration(const QString& device, const QString& property, const QString& value);
-
-    QDBusMessage stylusName();
-
-    QDBusMessage touchName();
 
 
 protected:

@@ -21,6 +21,7 @@
 #include "profilemanagement.h"
 
 // common
+#include "deviceinfo.h"
 #include "dbusdeviceinterface.h"
 
 // stdlib
@@ -116,9 +117,9 @@ void GeneralWidget::reloadWidget()
     Q_D( GeneralWidget );
 
     //get information via DBus
-    QDBusReply<QString> deviceModel      = DBusDeviceInterface::instance().deviceModel();
-    QDBusReply<QString> deviceName       = DBusDeviceInterface::instance().deviceName();
-    QDBusReply<QString> companyName      = DBusDeviceInterface::instance().companyName();
+    QDBusReply<QString> deviceModel      = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletModel);
+    QDBusReply<QString> deviceName       = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletName);
+    QDBusReply<QString> companyName      = DBusDeviceInterface::instance().getInformation(DeviceInfo::CompanyName);
     QDBusReply<QStringList> inputDevices = DBusDeviceInterface::instance().deviceList();
 
     //show tablet or generic icon and some tablet information

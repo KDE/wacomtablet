@@ -68,16 +68,6 @@ public:
     virtual QString getConfiguration(const QString & device, const Property & property) const = 0;
 
     /**
-      * returns the factory default value for a specific tablet setting
-      *
-      * @param device name of the tablet device we set (pad/stylus/eraser/cursor)
-      * @param property the property we are looking for
-      *
-      * @return the factory default value as string
-      */
-    virtual QString getDefaultConfiguration(const QString & device, const Property & property) const = 0;
-
-    /**
       * Toggles the touch tool on/off
       */
     virtual void toggleTouch(const QString & touchDevice)= 0;

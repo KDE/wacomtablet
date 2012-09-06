@@ -150,112 +150,50 @@ DeviceInformation DeviceHandler::getAllInformation() const
     return d->deviceInformation;
 }
 
+QString DeviceHandler::getDeviceName(const QString& device) const
+{
+    Q_D( const DeviceHandler );
+    const DeviceType *type = DeviceType::find(device);
+
+    if (type == NULL) {
+        kError() << QString::fromLatin1("Unsupported device type '%1'!").arg(device);
+        return d->deviceInformation.unknown;
+    }
+
+    return d->deviceInformation.getDeviceName(*type);
+}
+
+
+QString DeviceHandler::getInformation(const QString& info) const
+{
+    Q_D( const DeviceHandler );
+    const DeviceInfo *devinfo = DeviceInfo::find(info);
+
+    if (devinfo == NULL) {
+        kError() << QString::fromLatin1("Unsupported device info '%1'!").arg(info);
+        return d->deviceInformation.unknown;
+    }
+
+    return d->deviceInformation.get(*devinfo);
+}
+
+
 bool DeviceHandler::isDeviceAvailable() const
 {
     Q_D( const DeviceHandler );
-    return d->deviceInformation.isDeviceAvailable;
+    return d->deviceInformation.isAvailable();
 }
 
 bool DeviceHandler::hasPadButtons() const
 {
     Q_D( const DeviceHandler );
-    return d->deviceInformation.hasPadButtons;
-}
-
-QString DeviceHandler::deviceId() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.deviceID;
-}
-
-QString DeviceHandler::companyId() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.companyID;
-}
-
-QString DeviceHandler::companyName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.companyName;
-}
-
-QString DeviceHandler::deviceName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.deviceName;
-}
-
-QString DeviceHandler::deviceModel() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.deviceModel;
+    return d->deviceInformation.hasButtons();
 }
 
 QStringList DeviceHandler::deviceList() const
 {
     Q_D( const DeviceHandler );
-    return d->deviceInformation.deviceList;
-}
-
-QString DeviceHandler::padName() const
-{
-    Q_D( const DeviceHandler );
-    // if no pad is present, use stylus name as alternative way
-    // fixes some problems with serial TabletPC that do not have a pad as such but still
-    // can handle pad rotations and such when applied to the stylus settings
-    if( d->deviceInformation.padName.isEmpty() ) {
-        return d->deviceInformation.cursorName;
-    }
-    else {
-        return d->deviceInformation.padName;
-    }
-}
-
-QString DeviceHandler::stylusName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.stylusName;
-}
-
-QString DeviceHandler::eraserName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.eraserName;
-}
-
-QString DeviceHandler::cursorName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.cursorName;
-}
-
-QString DeviceHandler::touchName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.touchName;
-}
-
-QString DeviceHandler::name( const QString &name ) const
-{
-    Q_D( const DeviceHandler );
-    if( name.contains( QLatin1String( "pad" ) ) ) {
-        return d->deviceInformation.padName;
-    }
-    if( name.contains( QLatin1String( "stylus" ) ) ) {
-        return d->deviceInformation.stylusName;
-    }
-    if( name.contains( QLatin1String( "eraser" ) ) ) {
-        return d->deviceInformation.eraserName;
-    }
-    if( name.contains( QLatin1String( "cursor" ) ) ) {
-        return d->deviceInformation.cursorName;
-    }
-    if( name.contains( QLatin1String( "touch" ) ) ) {
-        return d->deviceInformation.touchName;
-    }
-
-    return QString();
+    return d->deviceInformation.getDeviceList();
 }
 
 void DeviceHandler::applyProfile( const TabletProfile& gtprofile )
@@ -319,24 +257,6 @@ QString DeviceHandler::getConfiguration( const QString &device, const QString &p
     return d->curDevice->getConfiguration( device, *property );
 }
 
-QString DeviceHandler::getDefaultConfiguration( const QString &device, const QString &param ) const
-{
-    Q_D( const DeviceHandler );
-
-    if( !d->curDevice ) {
-        return QString();
-    }
-
-    const Property* property = Property::find(param);
-
-    if (property == NULL) {
-        kError() << QString::fromLatin1("Can not get default value of invalid property '%1'!").arg(param);
-        return QString();
-    }
-
-    return d->curDevice->getDefaultConfiguration( device, *property );
-}
-
 void DeviceHandler::toggleTouch( )
 {
     Q_D( DeviceHandler );
@@ -364,3 +284,66 @@ void DeviceHandler::togglePenMode( )
         d->curDevice->togglePenMode(d->deviceInformation.eraserName );
     }
 }
+
+
+
+const QString& DeviceHandler::getCompanyId() const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.get(DeviceInfo::CompanyId);
+}
+
+const QString& DeviceHandler::getCompanyName() const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.get(DeviceInfo::CompanyName);
+}
+
+const QString& DeviceHandler::getCursorName() const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.getDeviceName(DeviceType::Cursor);
+}
+
+const QString& DeviceHandler::getEraserName() const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.getDeviceName(DeviceType::Eraser);
+}
+
+const QString& DeviceHandler::getPadName() const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.getDeviceName(DeviceType::Pad);
+}
+
+const QString& DeviceHandler::getStylusName() const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.getDeviceName(DeviceType::Stylus);
+}
+
+const QString& DeviceHandler::getTabletId() const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.get(DeviceInfo::TabletId);
+}
+
+const QString& DeviceHandler::getTabletModel() const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.get(DeviceInfo::TabletModel);
+}
+
+const QString& DeviceHandler::getTabletName() const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.get(DeviceInfo::TabletName);
+}
+
+const QString& DeviceHandler::getTouchName() const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.getDeviceName(DeviceType::Touch);
+}
+

@@ -1,20 +1,23 @@
 
 set(wacom_common_SRC
-    property.cpp
-    propertyadaptor.cpp
-    deviceproperty.cpp
+    aboutdata.cpp
     configadaptor.cpp
-    deviceprofile.cpp
-    deviceprofileconfigadaptor.cpp
-    tabletprofile.cpp
-    tabletprofileconfigadaptor.cpp
-    profilemanager.cpp
     dbusdeviceinterface.cpp
     dbustabletinterface.cpp
-    x11utils.cpp
     devicedatabase.cpp
+    deviceinfo.cpp
+    deviceinformation.cpp
+    deviceprofile.cpp
+    deviceprofileconfigadaptor.cpp
+    deviceproperty.cpp
+    devicetype.cpp
     mainconfig.cpp
-    aboutdata.cpp
+    profilemanager.cpp
+    property.cpp
+    propertyadaptor.cpp
+    tabletprofile.cpp
+    tabletprofileconfigadaptor.cpp
+    x11utils.cpp
 )
 
 

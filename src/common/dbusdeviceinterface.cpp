@@ -81,51 +81,9 @@ void DBusDeviceInterface::resetInterface()
 
 
 
-QDBusMessage DBusDeviceInterface::companyId()
-{
-    return call( QLatin1String( "companyId" ) );
-}
-
-
-QDBusMessage DBusDeviceInterface::companyName()
-{
-    return call( QLatin1String( "companyName" ) );
-}
-
-
-QDBusMessage DBusDeviceInterface::cursorName()
-{
-    return call( QLatin1String( "cursorName" ) );
-}
-
-
-QDBusMessage DBusDeviceInterface::deviceId()
-{
-    return call( QLatin1String( "deviceId" ) );
-}
-
-
 QDBusMessage DBusDeviceInterface::deviceList()
 {
     return call( QLatin1String( "deviceList" ) );
-}
-
-
-QDBusMessage DBusDeviceInterface::deviceModel()
-{
-    return call( QLatin1String( "deviceModel" ) );
-}
-
-
-QDBusMessage DBusDeviceInterface::deviceName()
-{
-    return call( QLatin1String( "deviceName" ) );
-}
-
-
-QDBusMessage DBusDeviceInterface::eraserName()
-{
-    return call( QLatin1String( "eraserName" ) );
 }
 
 
@@ -135,15 +93,21 @@ QDBusMessage DBusDeviceInterface::getAllInformation()
 }
 
 
-QDBusMessage DBusDeviceInterface::getConfiguration(const QString& device, const QString& property)
+QDBusMessage DBusDeviceInterface::getDeviceName(const DeviceType& device)
 {
-    return call( QLatin1String( "getConfiguration" ), device, property );
+    return call( QLatin1String( "getDeviceName" ), device.key() );
 }
 
 
-QDBusMessage DBusDeviceInterface::getDefaultConfiguration(const QString& device, const QString& property)
+QDBusMessage DBusDeviceInterface::getInformation(const DeviceInfo& info)
 {
-    return call( QLatin1String( "getDefaultConfiguration" ), device, property );
+    return call( QLatin1String( "getInformation" ), info.key() );
+}
+
+
+QDBusMessage DBusDeviceInterface::getConfiguration(const QString& device, const QString& property)
+{
+    return call( QLatin1String( "getConfiguration" ), device, property );
 }
 
 
@@ -159,31 +123,9 @@ QDBusMessage DBusDeviceInterface::isDeviceAvailable()
 }
 
 
-QDBusMessage DBusDeviceInterface::name()
-{
-    return call( QLatin1String( "name" ) );
-}
-
-
-QDBusMessage DBusDeviceInterface::padName()
-{
-    return call( QLatin1String( "padName" ) );
-}
-
-
 QDBusMessage DBusDeviceInterface::setConfiguration(const QString& device, const QString& property, const QString& value)
 {
     return call( QLatin1String( "setConfiguration" ), device, property, value );
 }
 
 
-QDBusMessage DBusDeviceInterface::stylusName()
-{
-    return call( QLatin1String( "stylusName" ) );
-}
-
-
-QDBusMessage DBusDeviceInterface::touchName()
-{
-    return call( QLatin1String( "touchName" ) );
-}

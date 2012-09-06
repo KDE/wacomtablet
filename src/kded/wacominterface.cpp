@@ -127,13 +127,6 @@ QString WacomInterface::getConfiguration( const QString& device, const Property&
 
 
 
-QString WacomInterface::getDefaultConfiguration( const QString &device, const Property &property ) const
-{
-    return getConfiguration(device, property);
-}
-
-
-
 void WacomInterface::toggleTouch( const QString &touchDevice )
 {
     QString touchMode = getConfiguration( touchDevice, Property::Touch );

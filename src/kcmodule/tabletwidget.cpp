@@ -341,7 +341,7 @@ void TabletWidget::showConfig()
         d->m_ui->deviceTabWidget->addTab( d->m_padButtonPage, i18n( "Pad Buttons" ) );
     }
 
-    QDBusReply<QString> touchAvailable = DBusDeviceInterface::instance().touchName();
+    QDBusReply<QString> touchAvailable = DBusDeviceInterface::instance().getDeviceName(DeviceType::Touch);
     QString touchName = touchAvailable.value();
     if( !touchName.isEmpty() ) {
         d->m_ui->deviceTabWidget->addTab( d->m_touchPage, i18n( "Touch" ) );

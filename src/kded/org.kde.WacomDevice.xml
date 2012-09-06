@@ -19,48 +19,22 @@
       <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="Wacom::DeviceInformation"/>
       <arg type="(sssssassssssbb)" direction="out"/>
     </method>
+    <method name="getInformation">
+      <arg type="s" name="info" direction="in"/>
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="getDeviceName">
+      <arg type="s" name="device" direction="in"/>
+      <arg type="s" direction="out"/>
+    </method>
     <method name="isDeviceAvailable">
       <arg type="b" direction="out"/>
     </method>
     <method name="hasPadButtons">
       <arg name="on" type="b" direction="out"/>
     </method>
-    <method name="deviceId">
-      <arg type="s" direction="out"/>
-    </method>
-    <method name="companyId">
-      <arg type="s" direction="out"/>
-    </method>
-    <method name="companyName">
-      <arg type="s" direction="out"/>
-    </method>
-    <method name="deviceName">
-      <arg type="s" direction="out"/>
-    </method>
-    <method name="deviceModel">
-      <arg type="s" direction="out"/>
-    </method>
     <method name="deviceList">
       <arg type="as" direction="out"/>
-    </method>
-    <method name="name">
-      <arg type="s" direction="out"/>
-      <arg name="name" type="s" direction="in"/>
-    </method>
-    <method name="padName">
-      <arg type="s" direction="out"/>
-    </method>
-    <method name="stylusName">
-      <arg type="s" direction="out"/>
-    </method>
-    <method name="eraserName">
-      <arg type="s" direction="out"/>
-    </method>
-    <method name="cursorName">
-      <arg type="s" direction="out"/>
-    </method>
-    <method name="touchName">
-      <arg type="s" direction="out"/>
     </method>
     <method name="setConfiguration">
       <arg type="s" name="device" direction="in"/>
@@ -68,11 +42,6 @@
       <arg type="s" name="value" direction="in"/>
     </method>
     <method name="getConfiguration">
-      <arg type="s" name="device" direction="in"/>
-      <arg type="s" name="param" direction="in"/>
-      <arg type="s" direction="out"/>
-    </method>
-    <method name="getDefaultConfiguration">
       <arg type="s" name="device" direction="in"/>
       <arg type="s" name="param" direction="in"/>
       <arg type="s" direction="out"/>
