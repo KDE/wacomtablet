@@ -87,7 +87,7 @@ void TabletHandler::onDeviceAdded( int deviceid )
 
         emit notify( QLatin1String("tabletAdded"),
                      i18n("Tablet added"),
-                     i18n("New %1 tablet added", d->deviceHandler->getInformation(DeviceInfo::TabletName.key()) ));
+                     i18n("New %1 tablet added", d->deviceHandler->getInformation(DeviceInfo::TabletName) ));
 
         emit tabletAdded();
         setProfile(d->mainConfig.getLastProfile());
@@ -102,7 +102,7 @@ void TabletHandler::onDeviceRemoved( int deviceid )
         if( d->currentDeviceId == deviceid ) {
             emit notify( QLatin1String("tabletRemoved"),
                          i18n("Tablet removed"),
-                         i18n("Tablet %1 removed", d->deviceHandler->getInformation(DeviceInfo::TabletName.key()) ));
+                         i18n("Tablet %1 removed", d->deviceHandler->getInformation(DeviceInfo::TabletName) ));
 
             d->deviceHandler->clearDeviceInformation();
             emit tabletRemoved();
@@ -141,9 +141,9 @@ void TabletHandler::onScreenRotated( TabletRotation screenRotation )
 
         kDebug() << "Rotate tablet :: " << rotatecmd;
 
-        QString stylusName = d->deviceHandler->getDeviceName(DeviceType::Stylus.key());
-        QString eraserName = d->deviceHandler->getDeviceName(DeviceType::Eraser.key());
-        QString touchName = d->deviceHandler->getDeviceName(DeviceType::Touch.key());
+        QString stylusName = d->deviceHandler->getDeviceName(DeviceType::Stylus);
+        QString eraserName = d->deviceHandler->getDeviceName(DeviceType::Eraser);
+        QString touchName = d->deviceHandler->getDeviceName(DeviceType::Touch);
 
         d->deviceHandler->setConfiguration( stylusName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
         d->deviceHandler->setConfiguration( eraserName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
@@ -168,7 +168,7 @@ void TabletHandler::setProfile( const QString &profile )
 {
     Q_D( TabletHandler );
 
-    d->profileManager.readProfiles(d->deviceHandler->getInformation(DeviceInfo::TabletName.key()));
+    d->profileManager.readProfiles(d->deviceHandler->getInformation(DeviceInfo::TabletName));
     TabletProfile tabletProfile = d->profileManager.loadProfile(profile);
 
     if (tabletProfile.listDevices().isEmpty()) {
@@ -200,7 +200,7 @@ QStringList TabletHandler::profileList() const
     // we can not reload the profile manager from a const method so we have
     // to create a new instance here and let it read the configuration file.
     ProfileManager profileManager(QLatin1String( "tabletprofilesrc" ));
-    profileManager.readProfiles(d->deviceHandler->getInformation(DeviceInfo::TabletName.key()));
+    profileManager.readProfiles(d->deviceHandler->getInformation(DeviceInfo::TabletName));
 
     return profileManager.listProfiles();
 }

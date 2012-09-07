@@ -104,12 +104,12 @@ bool DeviceDatabase::lookupDevice(DeviceInformation& devinfo, const QString& dev
         return false;
     }
 
-    devinfo.deviceID    = deviceId.toUpper();
-    devinfo.companyID   = companyId;
+    devinfo.tabletId    = deviceId.toUpper();
+    devinfo.companyId   = companyId;
     devinfo.companyName = companyGroup.readEntry( "name" );
 
-    devinfo.deviceModel = deviceGroup.readEntry( "model" );
-    devinfo.deviceName  = deviceGroup.readEntry( "name" );
+    devinfo.tabletModel = deviceGroup.readEntry( "model" );
+    devinfo.tabletName  = deviceGroup.readEntry( "name" );
 
     if( deviceGroup.readEntry( "padbuttons" )  != QLatin1String( "0" ) ||
         deviceGroup.readEntry( "wheel" )       != QLatin1String( "no" ) ||

@@ -49,7 +49,7 @@
 
 using namespace Wacom;
 
-
+/*
 QDBusArgument &operator<<( QDBusArgument &argument, const Wacom::DeviceInformation &mystruct )
 {
     argument.beginStructure();
@@ -68,6 +68,7 @@ const QDBusArgument &operator>>( const QDBusArgument &argument, Wacom::DeviceInf
     argument.endStructure();
     return argument;
 }
+*/
 
 TabletApplet::TabletApplet( WacomTabletSettings *tabletSettings ) :
     m_tabletSettings( tabletSettings ),
@@ -137,7 +138,7 @@ void TabletApplet::updateWidget()
     QDBusReply<Wacom::DeviceInformation> deviceInfo = DBusDeviceInterface::instance().getAllInformation();
 
     if( deviceInfo.isValid() ) {
-        m_deviceName->setText( deviceInfo.value().deviceName );
+        m_deviceName->setText( deviceInfo.value().tabletName );
         m_padName = deviceInfo.value().padName;
         m_stylusName = deviceInfo.value().stylusName;
         m_eraserName = deviceInfo.value().eraserName;

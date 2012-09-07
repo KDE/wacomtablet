@@ -32,14 +32,16 @@ class DeviceInformation
 {
 public:
     /*
-     * DEPRECATED Do not use these members directly any more! Use the getters/setters!
+     * Do not use these members directly any more! Use the getters/setters!
+     * These members should only be used by the D-Bus interface to build the structure
+     * returned by getAllInformation().
      */
-    QString unknown;         //!< A dummy member so we can safely return a reference.
-    QString companyID;
-    QString deviceID;        // TODO rename this to tabletID
+    QString unknown;         //!< A dummy member so we can safely return a const reference.
+    QString companyId;
     QString companyName;
-    QString deviceName;      // TODO rename this to tabletName 
-    QString deviceModel;     // TODO rename this to tabletModel
+    QString tabletId;
+    QString tabletName;
+    QString tabletModel;
     QStringList deviceList;
     QString padName;
     QString stylusName;

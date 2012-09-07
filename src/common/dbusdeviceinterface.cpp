@@ -27,6 +27,48 @@ using namespace Wacom;
 DBusDeviceInterface* DBusDeviceInterface::m_instance = NULL;
 
 
+QDBusArgument &Wacom::operator<<( QDBusArgument &argument, const Wacom::DeviceInformation &mystruct )
+{
+    argument.beginStructure();
+    argument << mystruct.companyId
+             << mystruct.companyName
+             << mystruct.tabletId
+             << mystruct.tabletName
+             << mystruct.tabletModel
+             << mystruct.deviceList
+             << mystruct.padName
+             << mystruct.stylusName
+             << mystruct.eraserName
+             << mystruct.cursorName
+             << mystruct.touchName
+             << mystruct.isDeviceAvailable
+             << mystruct.hasPadButtons;
+    argument.endStructure();
+    return argument;
+}
+
+const QDBusArgument &Wacom::operator>>( const QDBusArgument &argument, Wacom::DeviceInformation &mystruct )
+{
+    argument.beginStructure();
+    argument >> mystruct.companyId
+             >> mystruct.companyName
+             >> mystruct.tabletId
+             >> mystruct.tabletName
+             >> mystruct.tabletModel
+             >> mystruct.deviceList
+             >> mystruct.padName
+             >> mystruct.stylusName
+             >> mystruct.eraserName
+             >> mystruct.cursorName
+             >> mystruct.touchName
+             >> mystruct.isDeviceAvailable
+             >> mystruct.hasPadButtons;
+    argument.endStructure();
+    return argument;
+}
+
+
+
 DBusDeviceInterface::DBusDeviceInterface()
     : QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Device" ), QLatin1String( "org.kde.WacomDevice" ) )
 {
@@ -81,9 +123,9 @@ void DBusDeviceInterface::resetInterface()
 
 
 
-QDBusMessage DBusDeviceInterface::deviceList()
+QDBusMessage DBusDeviceInterface::getDeviceList()
 {
-    return call( QLatin1String( "deviceList" ) );
+    return call( QLatin1String( "getDeviceList" ) );
 }
 
 

@@ -24,6 +24,7 @@
 
 // common includes
 #include "devicedatabase.h"
+#include "dbusdeviceinterface.h" // required to copy DeviceInformation from/to QDBusArgument
 #include "x11utils.h"
 
 //Qt includes
@@ -38,30 +39,11 @@ class DeviceHandlerPrivate {
 public:
     DeviceDatabase        deviceDatabase;
     DeviceInformation     deviceInformation;
-    DeviceInterface      *curDevice;         /**< Handler for the current device to get/set its configuration */
-    bool                  isDeviceAvailable; /**< Is a tabled device connected or not? */
+    DeviceInterface      *currentDevice;     //!< Handler for the current device to get/set its configuration.
+    bool                  isDeviceAvailable; //!< Is a tabled device connected or not?
     QMap<QString,QString> buttonMapping;     /**< Map the hardwarebuttons 1-X to its kernel numbering scheme
                                                   @see http://sourceforge.net/mailarchive/message.php?msg_id=27512095 */
 };
-}
-
-QDBusArgument &operator<<( QDBusArgument &argument, const Wacom::DeviceInformation &mystruct )
-{
-    argument.beginStructure();
-    argument << mystruct.companyID << mystruct.deviceID << mystruct.companyName << mystruct.deviceName << mystruct.deviceModel << mystruct.deviceList << mystruct.padName << mystruct.stylusName << mystruct.eraserName << mystruct.cursorName << mystruct.touchName << mystruct.isDeviceAvailable << mystruct.hasPadButtons;
-    argument.endStructure();
-    return argument;
-}
-
-const QDBusArgument &operator>>( const QDBusArgument &argument, Wacom::DeviceInformation &mystruct )
-{
-    argument.beginStructure();
-    argument >> mystruct.companyID >> mystruct.deviceID >> mystruct.companyName
-             >> mystruct.deviceName >> mystruct.deviceModel >> mystruct.deviceList
-             >> mystruct.padName >> mystruct.stylusName >> mystruct.eraserName
-             >> mystruct.cursorName >> mystruct.touchName >> mystruct.isDeviceAvailable >> mystruct.hasPadButtons;
-    argument.endStructure();
-    return argument;
 }
 
 using namespace Wacom;
@@ -70,18 +52,65 @@ DeviceHandler::DeviceHandler()
     : d_ptr( new DeviceHandlerPrivate )
 {
     Q_D( DeviceHandler );
-    d->curDevice = 0;
+    d->currentDevice = 0;
     d->isDeviceAvailable = false;
 
     qDBusRegisterMetaType<Wacom::DeviceInformation>();
     qDBusRegisterMetaType< QList<Wacom::DeviceInformation> >();
 }
 
+
 DeviceHandler::~DeviceHandler()
 {
-    delete this->d_ptr->curDevice;
+    delete this->d_ptr->currentDevice;
     delete this->d_ptr;
 }
+
+
+
+void DeviceHandler::applyProfile( const TabletProfile& gtprofile )
+{
+    Q_D( DeviceHandler );
+
+    if( !d->currentDevice ) {
+        return;
+    }
+
+    if( !d->deviceInformation.padName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->deviceInformation.padName, QLatin1String( "pad" ), gtprofile );
+    }
+    if( !d->deviceInformation.stylusName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->deviceInformation.stylusName, QLatin1String( "stylus" ), gtprofile );
+    }
+    if( !d->deviceInformation.eraserName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->deviceInformation.eraserName, QLatin1String( "eraser" ), gtprofile );
+    }
+    if( !d->deviceInformation.touchName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->deviceInformation.touchName, QLatin1String( "touch" ), gtprofile );
+    }
+    if( !d->deviceInformation.cursorName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->deviceInformation.cursorName, QLatin1String( "cursor" ), gtprofile );
+    }
+}
+
+
+
+void DeviceHandler::clearDeviceInformation()
+{
+    Q_D( DeviceHandler );
+
+    DeviceInformation empty;
+
+    d->isDeviceAvailable = false;
+    d->deviceInformation = empty;
+
+    delete d->currentDevice;
+    d->currentDevice = NULL;
+
+    d->buttonMapping.clear();
+}
+
+
 
 bool DeviceHandler::detectTablet()
 {
@@ -94,20 +123,20 @@ bool DeviceHandler::detectTablet()
         return false;
     }
 
-    kDebug() << "XInput found a device! ::" << devinfo.deviceID;
+    kDebug() << "XInput found a device! ::" << devinfo.tabletId;
 
-    if (!d->deviceDatabase.lookupDevice(devinfo, devinfo.deviceID)) {
-        kDebug() << "Could not find device in database: " << devinfo.deviceID;
+    if (!d->deviceDatabase.lookupDevice(devinfo, devinfo.tabletId)) {
+        kDebug() << "Could not find device in database: " << devinfo.tabletId;
         return false;
     }
 
     d->deviceInformation  = devinfo;
-    
+
     // lookup button mapping
-    d->deviceDatabase.lookupButtonMapping(d->buttonMapping, devinfo.companyID, devinfo.deviceID);
+    d->deviceDatabase.lookupButtonMapping(d->buttonMapping, devinfo.companyId, devinfo.tabletId);
 
     // set device backend
-    selectDeviceBackend( d->deviceDatabase.lookupBackend(devinfo.companyID) );
+    selectDeviceBackend( d->deviceDatabase.lookupBackend(devinfo.companyId) );
 
     // \0/
     d->isDeviceAvailable = true;
@@ -115,34 +144,55 @@ bool DeviceHandler::detectTablet()
     return true;
 }
 
-void DeviceHandler::clearDeviceInformation()
+
+
+QString DeviceHandler::getConfiguration(const QString& device, const Property& property) const
+{
+    Q_D( const DeviceHandler );
+    return d->currentDevice->getConfiguration(device, property);
+}
+
+
+
+const QString& DeviceHandler::getDeviceName(const DeviceType& device) const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.getDeviceName(device);
+}
+
+
+
+const QString& DeviceHandler::getInformation(const DeviceInfo& info) const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.get(info);
+}
+
+
+
+void DeviceHandler::setConfiguration(const QString& device, const Property& property, const QString& value)
 {
     Q_D( DeviceHandler );
-
-    DeviceInformation empty;
-    
-    d->isDeviceAvailable = false;
-    d->deviceInformation = empty;
-    
-    delete d->curDevice;
-    d->curDevice = NULL;
-    
-    d->buttonMapping.clear();
+    d->currentDevice->setConfiguration(device, property, value);
 }
+
+
 
 void DeviceHandler::selectDeviceBackend( const QString &backendName )
 {
     Q_D( DeviceHandler );
     //@TODO add switch statement to handle other backends too
     if( backendName == QLatin1String( "wacom-tools" ) ) {
-        d->curDevice = new WacomInterface();
-        d->curDevice->setButtonMapping(d->buttonMapping);
+        d->currentDevice = new WacomInterface();
+        d->currentDevice->setButtonMapping(d->buttonMapping);
     }
 
-    if( !d->curDevice ) {
+    if( !d->currentDevice ) {
         kError() << "unknown device backend!" << backendName;
     }
 }
+
+
 
 DeviceInformation DeviceHandler::getAllInformation() const
 {
@@ -150,7 +200,37 @@ DeviceInformation DeviceHandler::getAllInformation() const
     return d->deviceInformation;
 }
 
-QString DeviceHandler::getDeviceName(const QString& device) const
+
+
+QString DeviceHandler::getConfiguration( const QString &device, const QString &param ) const
+{
+    Q_D( const DeviceHandler );
+
+    if( !d->currentDevice ) {
+        return QString();
+    }
+
+    const Property* property = Property::find(param);
+
+    if (property == NULL) {
+        kError() << QString::fromLatin1("Can not get invalid property '%1'!").arg(param);
+        return QString();
+    }
+
+    return d->currentDevice->getConfiguration( device, *property );
+}
+
+
+
+const QStringList& DeviceHandler::getDeviceList() const
+{
+    Q_D( const DeviceHandler );
+    return d->deviceInformation.getDeviceList();
+}
+
+
+
+const QString& DeviceHandler::getDeviceName(const QString& device) const
 {
     Q_D( const DeviceHandler );
     const DeviceType *type = DeviceType::find(device);
@@ -164,7 +244,8 @@ QString DeviceHandler::getDeviceName(const QString& device) const
 }
 
 
-QString DeviceHandler::getInformation(const QString& info) const
+
+const QString& DeviceHandler::getInformation(const QString& info) const
 {
     Q_D( const DeviceHandler );
     const DeviceInfo *devinfo = DeviceInfo::find(info);
@@ -178,11 +259,6 @@ QString DeviceHandler::getInformation(const QString& info) const
 }
 
 
-bool DeviceHandler::isDeviceAvailable() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.isAvailable();
-}
 
 bool DeviceHandler::hasPadButtons() const
 {
@@ -190,42 +266,21 @@ bool DeviceHandler::hasPadButtons() const
     return d->deviceInformation.hasButtons();
 }
 
-QStringList DeviceHandler::deviceList() const
+
+
+bool DeviceHandler::isDeviceAvailable() const
 {
     Q_D( const DeviceHandler );
-    return d->deviceInformation.getDeviceList();
+    return d->deviceInformation.isAvailable();
 }
 
-void DeviceHandler::applyProfile( const TabletProfile& gtprofile )
-{
-    Q_D( DeviceHandler );
 
-    if( !d->curDevice ) {
-        return;
-    }
-
-    if( !d->deviceInformation.padName.isEmpty() ) {
-        d->curDevice->applyProfile( d->deviceInformation.padName, QLatin1String( "pad" ), gtprofile );
-    }
-    if( !d->deviceInformation.stylusName.isEmpty() ) {
-        d->curDevice->applyProfile( d->deviceInformation.stylusName, QLatin1String( "stylus" ), gtprofile );
-    }
-    if( !d->deviceInformation.eraserName.isEmpty() ) {
-        d->curDevice->applyProfile( d->deviceInformation.eraserName, QLatin1String( "eraser" ), gtprofile );
-    }
-    if( !d->deviceInformation.touchName.isEmpty() ) {
-        d->curDevice->applyProfile( d->deviceInformation.touchName, QLatin1String( "touch" ), gtprofile );
-    }
-    if( !d->deviceInformation.cursorName.isEmpty() ) {
-        d->curDevice->applyProfile( d->deviceInformation.cursorName, QLatin1String( "cursor" ), gtprofile );
-    }
-}
 
 void DeviceHandler::setConfiguration( const QString &device, const QString &param, const QString &value )
 {
     Q_D( DeviceHandler );
 
-    if( !d->curDevice ) {
+    if( !d->currentDevice ) {
         return;
     }
 
@@ -236,114 +291,38 @@ void DeviceHandler::setConfiguration( const QString &device, const QString &para
         return;
     }
 
-    d->curDevice->setConfiguration( device, *property, value );
+    d->currentDevice->setConfiguration( device, *property, value );
 }
 
-QString DeviceHandler::getConfiguration( const QString &device, const QString &param ) const
-{
-    Q_D( const DeviceHandler );
 
-    if( !d->curDevice ) {
-        return QString();
-    }
-
-    const Property* property = Property::find(param);
-
-    if (property == NULL) {
-        kError() << QString::fromLatin1("Can not get invalid property '%1'!").arg(param);
-        return QString();
-    }
-
-    return d->curDevice->getConfiguration( device, *property );
-}
-
-void DeviceHandler::toggleTouch( )
-{
-    Q_D( DeviceHandler );
-
-    if( !d->curDevice || d->deviceInformation.touchName.isEmpty() ) {
-        return;
-    }
-
-    d->curDevice->toggleTouch(d->deviceInformation.touchName);
-}
 
 void DeviceHandler::togglePenMode( )
 {
     Q_D( DeviceHandler );
 
-    if( !d->curDevice ) {
+    if( !d->currentDevice ) {
         return;
     }
 
     if(!d->deviceInformation.stylusName.isEmpty()) {
-        d->curDevice->togglePenMode(d->deviceInformation.stylusName );
+        d->currentDevice->togglePenMode(d->deviceInformation.stylusName );
     }
 
     if(!d->deviceInformation.eraserName.isEmpty()) {
-        d->curDevice->togglePenMode(d->deviceInformation.eraserName );
+        d->currentDevice->togglePenMode(d->deviceInformation.eraserName );
     }
 }
 
 
 
-const QString& DeviceHandler::getCompanyId() const
+void DeviceHandler::toggleTouch( )
 {
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.get(DeviceInfo::CompanyId);
-}
+    Q_D( DeviceHandler );
 
-const QString& DeviceHandler::getCompanyName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.get(DeviceInfo::CompanyName);
-}
+    if( !d->currentDevice || d->deviceInformation.touchName.isEmpty() ) {
+        return;
+    }
 
-const QString& DeviceHandler::getCursorName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.getDeviceName(DeviceType::Cursor);
-}
-
-const QString& DeviceHandler::getEraserName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.getDeviceName(DeviceType::Eraser);
-}
-
-const QString& DeviceHandler::getPadName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.getDeviceName(DeviceType::Pad);
-}
-
-const QString& DeviceHandler::getStylusName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.getDeviceName(DeviceType::Stylus);
-}
-
-const QString& DeviceHandler::getTabletId() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.get(DeviceInfo::TabletId);
-}
-
-const QString& DeviceHandler::getTabletModel() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.get(DeviceInfo::TabletModel);
-}
-
-const QString& DeviceHandler::getTabletName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.get(DeviceInfo::TabletName);
-}
-
-const QString& DeviceHandler::getTouchName() const
-{
-    Q_D( const DeviceHandler );
-    return d->deviceInformation.getDeviceName(DeviceType::Touch);
+    d->currentDevice->toggleTouch(d->deviceInformation.touchName);
 }
 

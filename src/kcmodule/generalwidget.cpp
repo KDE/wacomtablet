@@ -120,7 +120,7 @@ void GeneralWidget::reloadWidget()
     QDBusReply<QString> deviceModel      = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletModel);
     QDBusReply<QString> deviceName       = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletName);
     QDBusReply<QString> companyName      = DBusDeviceInterface::instance().getInformation(DeviceInfo::CompanyName);
-    QDBusReply<QStringList> inputDevices = DBusDeviceInterface::instance().deviceList();
+    QDBusReply<QStringList> inputDevices = DBusDeviceInterface::instance().getDeviceList();
 
     //show tablet or generic icon and some tablet information
     KIcon genericTablet( QLatin1String( "input-tablet" ));

@@ -19,12 +19,18 @@
 #define DBUSDEVICEINTERFACE_H
 
 #include "deviceinfo.h"
+#include "deviceinformation.h"
 #include "devicetype.h"
 
+#include <QtDBus/QDBusArgument>
 #include <QtDBus/QDBusInterface>
 
 namespace Wacom
 {
+
+QDBusArgument &operator<< (QDBusArgument &argument, const Wacom::DeviceInformation &mystruct);
+
+const QDBusArgument &operator>> (const QDBusArgument &argument, Wacom::DeviceInformation &mystruct);
 
 /**
  * A singleton class to access the D-Bus device interface.
@@ -46,13 +52,13 @@ public:
      */
     static void resetInterface();
 
-    QDBusMessage deviceList();
-
     QDBusMessage getAllInformation();
 
     QDBusMessage getConfiguration(const QString& device, const QString& property);
 
     QDBusMessage getInformation(const DeviceInfo& info);
+
+    QDBusMessage getDeviceList();
 
     QDBusMessage getDeviceName(const DeviceType& device);
     

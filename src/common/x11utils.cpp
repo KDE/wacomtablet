@@ -496,7 +496,7 @@ bool X11Utils::parseXDevicePropertySerialId(DeviceInformation& devinfo, XDevice&
                 tabletHexID.prepend( QLatin1String( "0" ) );
             }
 
-            devinfo.deviceID = tabletHexID;
+            devinfo.tabletId = tabletHexID;
             found            = true;
         }
 

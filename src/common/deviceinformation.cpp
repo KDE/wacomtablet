@@ -24,7 +24,7 @@ using namespace Wacom;
 const QString& DeviceInformation::get(const DeviceInfo& info) const
 {
     if (info == DeviceInfo::CompanyId) {
-        return companyID;
+        return companyId;
 
     } else if (info == DeviceInfo::CompanyName) {
         return companyName;
@@ -33,13 +33,13 @@ const QString& DeviceInformation::get(const DeviceInfo& info) const
         return getDeviceName(DeviceType::Cursor);
 
     } else if (info == DeviceInfo::TabletId) {
-        return deviceID;
+        return tabletId;
 
     } else if (info == DeviceInfo::TabletModel) {
-        return deviceModel;
+        return tabletModel;
 
     } else if (info == DeviceInfo::TabletName) {
-        return deviceName;
+        return tabletName;
 
     } else if (info == DeviceInfo::EraserName) {
         return getDeviceName(DeviceType::Eraser);
@@ -118,7 +118,7 @@ bool DeviceInformation::isAvailable() const
 void DeviceInformation::set(const DeviceInfo& info, const QString& value)
 {
     if (info == DeviceInfo::CompanyId) {
-        companyID = value;
+        companyId = value;
 
     } else if (info == DeviceInfo::CompanyName) {
         companyName = value;
@@ -127,13 +127,13 @@ void DeviceInformation::set(const DeviceInfo& info, const QString& value)
         setDeviceName(DeviceType::Cursor, value);
 
     } else if (info == DeviceInfo::TabletId) {
-        deviceID = value;
+        tabletId = value;
 
     } else if (info == DeviceInfo::TabletModel) {
-        deviceModel = value;
+        tabletModel = value;
 
     } else if (info == DeviceInfo::TabletName) {
-        deviceName = value;
+        tabletName = value;
 
     } else if (info == DeviceInfo::EraserName) {
         setDeviceName(DeviceType::Eraser, value);
