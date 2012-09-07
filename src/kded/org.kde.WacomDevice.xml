@@ -13,7 +13,7 @@
       <arg type="s" name="device" direction="in"/>
       <arg type="s" direction="out"/>
     </method>
-    <method name="isDeviceAvailable">
+    <method name="isTabletAvailable">
       <arg type="b" direction="out"/>
     </method>
     <method name="hasPadButtons">

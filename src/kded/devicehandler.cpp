@@ -268,7 +268,7 @@ bool DeviceHandler::hasPadButtons() const
 
 
 
-bool DeviceHandler::isDeviceAvailable() const
+bool DeviceHandler::isTabletAvailable() const
 {
     Q_D( const DeviceHandler );
     return d->deviceInformation.isAvailable();

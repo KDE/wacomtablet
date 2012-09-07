@@ -161,7 +161,7 @@ public Q_SLOTS:
       * @return @c true if something was detected
       *         @c false if nothing was found
       */
-    Q_SCRIPTABLE bool isDeviceAvailable() const;
+    Q_SCRIPTABLE bool isTabletAvailable() const;
 
     /**
       * Sets the configuration of @p param from @p device with @p value

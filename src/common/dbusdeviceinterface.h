@@ -64,7 +64,7 @@ public:
     
     QDBusMessage hasPadButtons();
 
-    QDBusMessage isDeviceAvailable();
+    QDBusMessage isTabletAvailable();
 
     QDBusMessage setConfiguration(const QString& device, const QString& property, const QString& value);
 

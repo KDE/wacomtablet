@@ -73,7 +73,7 @@ void TabletHandler::onDeviceAdded( int deviceid )
     Q_D( TabletHandler );
 
     // if we already have a device ... skip this step
-    if( d->deviceHandler->isDeviceAvailable() || deviceid == 0) {
+    if( d->deviceHandler->isTabletAvailable() || deviceid == 0) {
         return;
     }
 
@@ -81,7 +81,7 @@ void TabletHandler::onDeviceAdded( int deviceid )
     d->deviceHandler->detectTablet();
 
     // if we found something notify about it and set the default profile to it
-    if( d->deviceHandler->isDeviceAvailable() ) {
+    if( d->deviceHandler->isTabletAvailable() ) {
 
         d->currentDeviceId = deviceid;
 
@@ -98,7 +98,7 @@ void TabletHandler::onDeviceAdded( int deviceid )
 void TabletHandler::onDeviceRemoved( int deviceid )
 {
     Q_D( TabletHandler );
-    if( d->deviceHandler->isDeviceAvailable() ) {
+    if( d->deviceHandler->isTabletAvailable() ) {
         if( d->currentDeviceId == deviceid ) {
             emit notify( QLatin1String("tabletRemoved"),
                          i18n("Tablet removed"),
@@ -160,7 +160,7 @@ void TabletHandler::onScreenRotated( TabletRotation screenRotation )
 bool TabletHandler::tabletAvailable() const
 {
     Q_D( const TabletHandler );
-    return d->deviceHandler->isDeviceAvailable();
+    return d->deviceHandler->isTabletAvailable();
 }
 
 

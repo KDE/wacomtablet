@@ -123,15 +123,15 @@ void DBusDeviceInterface::resetInterface()
 
 
 
-QDBusMessage DBusDeviceInterface::getDeviceList()
-{
-    return call( QLatin1String( "getDeviceList" ) );
-}
-
-
 QDBusMessage DBusDeviceInterface::getAllInformation()
 {
     return call( QLatin1String( "getAllInformation" ) );
+}
+
+
+QDBusMessage DBusDeviceInterface::getDeviceList()
+{
+    return call( QLatin1String( "getDeviceList" ) );
 }
 
 
@@ -159,9 +159,9 @@ QDBusMessage DBusDeviceInterface::hasPadButtons()
 }
 
 
-QDBusMessage DBusDeviceInterface::isDeviceAvailable()
+QDBusMessage DBusDeviceInterface::isTabletAvailable()
 {
-    return call( QLatin1String( "isDeviceAvailable" ) );
+    return call( QLatin1String( "isTabletAvailable" ) );
 }
 
 
