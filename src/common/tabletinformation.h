@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEVICEINFORMATION_H
-#define DEVICEINFORMATION_H
+#ifndef TABLETINFORMATION_H
+#define TABLETINFORMATION_H
 
-#include "deviceinfo.h"
+#include "tabletinfo.h"
 #include "devicetype.h"
 
 #include <QtCore/QString>
@@ -28,7 +28,7 @@ namespace Wacom
 {
 
 // TODO rename this to TabletInformation
-class DeviceInformation
+class TabletInformation
 {
 public:
     /*
@@ -53,7 +53,7 @@ public:
 
     const QString& get(const QString& info) const;
 
-    const QString& get(const DeviceInfo& info) const;
+    const QString& get(const TabletInfo& info) const;
 
     const QStringList& getDeviceList() const;
 
@@ -67,7 +67,7 @@ public:
 
     bool isAvailable() const;
 
-    void set (const DeviceInfo& info, const QString& value);
+    void set (const TabletInfo& info, const QString& value);
 
     void setAvailable(bool value);
 
@@ -78,7 +78,7 @@ public:
     void setButtons(bool value);
 
 private:
-    const DeviceInfo* resolveInfo(const QString& info) const;
+    const TabletInfo* resolveInfo(const QString& info) const;
 
     const DeviceType* resolveType(const QString& device) const;
 };

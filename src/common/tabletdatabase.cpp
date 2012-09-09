@@ -17,7 +17,7 @@
 
 #include "debug.h"
 
-#include "devicedatabase.h"
+#include "tabletdatabase.h"
 
 #include <KDE/KConfigGroup>
 #include <KDE/KSharedConfig>
@@ -27,7 +27,7 @@ namespace Wacom {
 /**
   * Private class for the d-pointer.
   */
-class DeviceDatabasePrivate {
+class TabletDatabasePrivate {
 public:
     KSharedConfig::Ptr companyConfig;        /**< Ref Pointer for the data device list with all known tablet company information */
 };
@@ -35,9 +35,9 @@ public:
 
 using namespace Wacom;
 
-DeviceDatabase::DeviceDatabase() : d_ptr( new DeviceDatabasePrivate )
+TabletDatabase::TabletDatabase() : d_ptr( new TabletDatabasePrivate )
 {
-    Q_D( DeviceDatabase );
+    Q_D( TabletDatabase );
 
     d->companyConfig = KSharedConfig::openConfig( KStandardDirs::locate( "data", QLatin1String( "wacomtablet/data/companylist" ) ), KConfig::SimpleConfig, "data" );
 
@@ -46,14 +46,14 @@ DeviceDatabase::DeviceDatabase() : d_ptr( new DeviceDatabasePrivate )
     }
 }
 
-DeviceDatabase::~DeviceDatabase()
+TabletDatabase::~TabletDatabase()
 {
     delete this->d_ptr;
 }
 
 
 
-QString DeviceDatabase::lookupBackend(const QString& companyId)
+QString TabletDatabase::lookupBackend(const QString& companyId)
 {
     KConfigGroup companyGroup;
 
@@ -66,7 +66,7 @@ QString DeviceDatabase::lookupBackend(const QString& companyId)
 
 
 
-bool DeviceDatabase::lookupButtonMapping(QMap< QString, QString >& map, const QString& companyId, const QString& deviceId)
+bool TabletDatabase::lookupButtonMapping(QMap< QString, QString >& map, const QString& companyId, const QString& deviceId)
 {
     KConfigGroup deviceGroup;
 
@@ -87,7 +87,7 @@ bool DeviceDatabase::lookupButtonMapping(QMap< QString, QString >& map, const QS
 }
 
 
-bool DeviceDatabase::lookupDevice(DeviceInformation& devinfo, const QString& deviceId)
+bool TabletDatabase::lookupDevice(TabletInformation& devinfo, const QString& deviceId)
 {
     KConfigGroup companyGroup;
     QString      companyId = lookupCompanyId(deviceId);
@@ -127,9 +127,9 @@ bool DeviceDatabase::lookupDevice(DeviceInformation& devinfo, const QString& dev
 
 
 
-bool DeviceDatabase::lookupCompanyGroup(KConfigGroup& companyGroup, const QString& companyId)
+bool TabletDatabase::lookupCompanyGroup(KConfigGroup& companyGroup, const QString& companyId)
 {
-    Q_D( DeviceDatabase );
+    Q_D( TabletDatabase );
     companyGroup = KConfigGroup( d->companyConfig, companyId );
 
     if( companyGroup.keyList().isEmpty() ) {
@@ -140,9 +140,9 @@ bool DeviceDatabase::lookupCompanyGroup(KConfigGroup& companyGroup, const QStrin
 }
 
 
-QString DeviceDatabase::lookupCompanyId(const QString& deviceId)
+QString TabletDatabase::lookupCompanyId(const QString& deviceId)
 {
-    Q_D( DeviceDatabase );
+    Q_D( TabletDatabase );
 
     foreach(const QString& companyId, d->companyConfig->groupList()) {
 
@@ -160,7 +160,7 @@ QString DeviceDatabase::lookupCompanyId(const QString& deviceId)
 
 
 
-bool DeviceDatabase::lookupDeviceGroup(KConfigGroup& deviceGroup, const QString& companyId, const QString& deviceId)
+bool TabletDatabase::lookupDeviceGroup(KConfigGroup& deviceGroup, const QString& companyId, const QString& deviceId)
 {
     KConfigGroup companyGroup;
     
@@ -172,7 +172,7 @@ bool DeviceDatabase::lookupDeviceGroup(KConfigGroup& deviceGroup, const QString&
 }
 
 
-bool DeviceDatabase::lookupDeviceGroup(KConfigGroup& deviceGroup, KConfigGroup& companyGroup, const QString& deviceId)
+bool TabletDatabase::lookupDeviceGroup(KConfigGroup& deviceGroup, KConfigGroup& companyGroup, const QString& deviceId)
 {
     // read the company name and the datafile for the device information
     KSharedConfig::Ptr deviceConfig = KSharedConfig::openConfig( KStandardDirs::locate( "data", QString::fromLatin1( "wacomtablet/data/%1" ).arg( companyGroup.readEntry( "listfile" ) ) ), KConfig::SimpleConfig, "data" );

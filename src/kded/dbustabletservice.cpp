@@ -18,12 +18,12 @@
 #include "debug.h"
 #include "dbustabletservice.h"
 
-#include "deviceinfo.h"
+#include "tabletinfo.h"
 #include "deviceinterface.h"
 #include "devicetype.h"
-#include "dbustabletinterface.h" // required to copy DeviceInformation from/to QDBusArgument
+#include "dbustabletinterface.h" // required to copy TabletInformation from/to QDBusArgument
 #include "deviceprofile.h"
-#include "devicedatabase.h"
+#include "tabletdatabase.h"
 #include "mainconfig.h"
 #include "profilemanager.h"
 #include "tabletprofile.h"
@@ -41,7 +41,7 @@ namespace Wacom
     class DBusTabletServicePrivate
     {
         public:
-            DeviceInformation tabletInformation;
+            TabletInformation tabletInformation;
             TabletHandler*    tabletHandler;
             QString           currentProfile;
     }; // CLASS
@@ -56,12 +56,12 @@ DBusTabletService::DBusTabletService(TabletHandler& tabletHandler)
     d->tabletInformation.setAvailable(false);
 
     // TODO DO WE REALLY NEED THIS?
-    qDBusRegisterMetaType<Wacom::DeviceInformation>();
-    qDBusRegisterMetaType< QList<Wacom::DeviceInformation> >();
+    qDBusRegisterMetaType<Wacom::TabletInformation>();
+    qDBusRegisterMetaType< QList<Wacom::TabletInformation> >();
 
     d->tabletHandler = &tabletHandler;
     connect(d->tabletHandler, SIGNAL (profileChanged(const QString&)), this, SLOT (onProfileChanged(const QString&)));
-    connect(d->tabletHandler, SIGNAL (tabletAdded(const DeviceInformation&)), this, SLOT (onTabletAdded(const DeviceInformation&)));
+    connect(d->tabletHandler, SIGNAL (tabletAdded(const TabletInformation&)), this, SLOT (onTabletAdded(const TabletInformation&)));
     connect(d->tabletHandler, SIGNAL (tabletRemoved()), this, SLOT (onTabletRemoved()));
 }
 
@@ -89,7 +89,7 @@ const QString& DBusTabletService::getDeviceName(const QString& device) const
 
 
 
-DeviceInformation DBusTabletService::getInformation() const
+TabletInformation DBusTabletService::getInformation() const
 {
     Q_D ( const DBusTabletService );
     return d->tabletInformation;
@@ -188,7 +188,7 @@ void DBusTabletService::onProfileChanged(const QString& profile)
 
 
 
-void DBusTabletService::onTabletAdded(const DeviceInformation& info)
+void DBusTabletService::onTabletAdded(const TabletInformation& info)
 {
     Q_D ( DBusTabletService );
 
@@ -203,7 +203,7 @@ void DBusTabletService::onTabletAdded(const DeviceInformation& info)
 void DBusTabletService::onTabletRemoved()
 {
     Q_D ( DBusTabletService );
-    DeviceInformation empty;
+    TabletInformation empty;
 
     d->tabletInformation = empty;
     d->tabletInformation.setAvailable(false);

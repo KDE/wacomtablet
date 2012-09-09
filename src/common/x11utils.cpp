@@ -38,7 +38,7 @@ using namespace Wacom;
  */
 struct X11Utils::XDevice : public ::XDevice {};
 
-bool X11Utils::findTabletDevice(DeviceInformation& devinfo)
+bool X11Utils::findTabletDevice(TabletInformation& devinfo)
 {
     bool         devFound = false;
     XDevice     *xdev     = NULL;
@@ -433,7 +433,7 @@ bool X11Utils::mapTabletToScreen(const QString& device, qreal offsetX, qreal off
 
 
 
-bool X11Utils::parseXDevicePropertyToolType(DeviceInformation& devinfo, XDevice& xdev, XDeviceInfo& xdevinfo)
+bool X11Utils::parseXDevicePropertyToolType(TabletInformation& devinfo, XDevice& xdev, XDeviceInfo& xdevinfo)
 {
     uint           property = XInternAtom( QX11Info::display(), "Wacom Tool Type", True );
     bool           devFound = false;
@@ -469,7 +469,7 @@ bool X11Utils::parseXDevicePropertyToolType(DeviceInformation& devinfo, XDevice&
 
 
 
-bool X11Utils::parseXDevicePropertySerialId(DeviceInformation& devinfo, XDevice& xdev)
+bool X11Utils::parseXDevicePropertySerialId(TabletInformation& devinfo, XDevice& xdev)
 {
     bool found = false;
     Atom prop  = XInternAtom( QX11Info::display(), "Wacom Serial IDs", True );
@@ -510,7 +510,7 @@ bool X11Utils::parseXDevicePropertySerialId(DeviceInformation& devinfo, XDevice&
 
 
 
-bool X11Utils::parseXDeviceToolType(DeviceInformation& devinfo, const QString& xdevtype, XDeviceInfo& xdevinfo)
+bool X11Utils::parseXDeviceToolType(TabletInformation& devinfo, const QString& xdevtype, XDeviceInfo& xdevinfo)
 {
     // add the device to the device list
     devinfo.deviceList.append(QString::fromLatin1(xdevinfo.name));

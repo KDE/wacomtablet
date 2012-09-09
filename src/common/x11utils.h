@@ -18,7 +18,7 @@
 #ifndef X11UTILS_H
 #define X11UTILS_H
 
-#include "deviceinformation.h"
+#include "tabletinformation.h"
 
 #include <QtCore/QString>
 #include <QtCore/QList>
@@ -42,7 +42,7 @@ class X11Utils
         typedef struct _XDeviceInfo XDeviceInfo;
         typedef long unsigned int Atom;
 
-        static bool findTabletDevice (DeviceInformation& devinfo);
+        static bool findTabletDevice (TabletInformation& devinfo);
 
         static XDevice* findXDevice (const QString& device);
 
@@ -95,11 +95,11 @@ class X11Utils
          */
         static bool setXinputProperty (const QString& device, const QString& property, Atom type, unsigned char* data, int nelements);
 
-        static bool parseXDevicePropertyToolType (DeviceInformation& devinfo, XDevice& xdev, XDeviceInfo& xdevinfo);
+        static bool parseXDevicePropertyToolType (TabletInformation& devinfo, XDevice& xdev, XDeviceInfo& xdevinfo);
 
-        static bool parseXDevicePropertySerialId (DeviceInformation& devinfo, XDevice& xdev);
+        static bool parseXDevicePropertySerialId (TabletInformation& devinfo, XDevice& xdev);
 
-        static bool parseXDeviceToolType (DeviceInformation& devinfo, const QString& xdevtype, XDeviceInfo& xdevinfo);
+        static bool parseXDeviceToolType (TabletInformation& devinfo, const QString& xdevtype, XDeviceInfo& xdevinfo);
 
 }; // CLASS
 }  // NAMESPACE

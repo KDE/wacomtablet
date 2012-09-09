@@ -25,7 +25,7 @@ using namespace Wacom;
 // instanciate static class members
 DBusTabletInterface* DBusTabletInterface::m_instance = NULL;
 
-QDBusArgument &Wacom::operator<<( QDBusArgument &argument, const Wacom::DeviceInformation &mystruct )
+QDBusArgument &Wacom::operator<<( QDBusArgument &argument, const Wacom::TabletInformation &mystruct )
 {
     argument.beginStructure();
     argument << mystruct.companyId
@@ -45,7 +45,7 @@ QDBusArgument &Wacom::operator<<( QDBusArgument &argument, const Wacom::DeviceIn
     return argument;
 }
 
-const QDBusArgument &Wacom::operator>>( const QDBusArgument &argument, Wacom::DeviceInformation &mystruct )
+const QDBusArgument &Wacom::operator>>( const QDBusArgument &argument, Wacom::TabletInformation &mystruct )
 {
     argument.beginStructure();
     argument >> mystruct.companyId
@@ -142,7 +142,7 @@ QDBusMessage DBusTabletInterface::getInformation()
 
 
 
-QDBusMessage DBusTabletInterface::getInformation(const DeviceInfo& info)
+QDBusMessage DBusTabletInterface::getInformation(const TabletInfo& info)
 {
     return call( QLatin1String( "getInformation" ), info.key() );
 }

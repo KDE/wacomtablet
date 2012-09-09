@@ -49,7 +49,7 @@
 using namespace Wacom;
 
 /*
-QDBusArgument &operator<<( QDBusArgument &argument, const Wacom::DeviceInformation &mystruct )
+QDBusArgument &operator<<( QDBusArgument &argument, const Wacom::TabletInformation &mystruct )
 {
     argument.beginStructure();
     argument << mystruct.companyID << mystruct.deviceID << mystruct.companyName << mystruct.deviceName << mystruct.deviceModel << mystruct.deviceList << mystruct.padName << mystruct.stylusName << mystruct.eraserName << mystruct.cursorName << mystruct.touchName << mystruct.isDeviceAvailable << mystruct.hasPadButtons;
@@ -57,7 +57,7 @@ QDBusArgument &operator<<( QDBusArgument &argument, const Wacom::DeviceInformati
     return argument;
 }
 
-const QDBusArgument &operator>>( const QDBusArgument &argument, Wacom::DeviceInformation &mystruct )
+const QDBusArgument &operator>>( const QDBusArgument &argument, Wacom::TabletInformation &mystruct )
 {
     argument.beginStructure();
     argument >> mystruct.companyID >> mystruct.deviceID >> mystruct.companyName
@@ -76,8 +76,8 @@ TabletApplet::TabletApplet( WacomTabletSettings *tabletSettings ) :
 {
     buildDialog();
 
-    qDBusRegisterMetaType<Wacom::DeviceInformation>();
-    qDBusRegisterMetaType< QList<Wacom::DeviceInformation> >();
+    qDBusRegisterMetaType<Wacom::TabletInformation>();
+    qDBusRegisterMetaType< QList<Wacom::TabletInformation> >();
 }
 
 TabletApplet::~TabletApplet()
@@ -134,14 +134,14 @@ void TabletApplet::onDBusDisconnected()
 
 void TabletApplet::updateWidget()
 {
-    QDBusReply<Wacom::DeviceInformation> deviceInfo = DBusTabletInterface::instance().getInformation();
+    QDBusReply<Wacom::TabletInformation> tabletInfo = DBusTabletInterface::instance().getInformation();
 
-    if( deviceInfo.isValid() ) {
-        m_deviceName->setText( deviceInfo.value().tabletName );
-        m_padName = deviceInfo.value().padName;
-        m_stylusName = deviceInfo.value().stylusName;
-        m_eraserName = deviceInfo.value().eraserName;
-        m_touchName = deviceInfo.value().touchName;
+    if( tabletInfo.isValid() ) {
+        m_deviceName->setText( tabletInfo.value().tabletName );
+        m_padName = tabletInfo.value().padName;
+        m_stylusName = tabletInfo.value().stylusName;
+        m_eraserName = tabletInfo.value().eraserName;
+        m_touchName = tabletInfo.value().touchName;
     }
 
     updateProfile();

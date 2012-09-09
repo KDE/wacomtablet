@@ -3,9 +3,6 @@ set(wacom_common_SRC
     aboutdata.cpp
     configadaptor.cpp
     dbustabletinterface.cpp
-    devicedatabase.cpp
-    deviceinfo.cpp
-    deviceinformation.cpp
     deviceprofile.cpp
     deviceprofileconfigadaptor.cpp
     deviceproperty.cpp
@@ -14,6 +11,9 @@ set(wacom_common_SRC
     profilemanager.cpp
     property.cpp
     propertyadaptor.cpp
+    tabletdatabase.cpp
+    tabletinfo.cpp
+    tabletinformation.cpp
     tabletprofile.cpp
     tabletprofileconfigadaptor.cpp
     x11utils.cpp

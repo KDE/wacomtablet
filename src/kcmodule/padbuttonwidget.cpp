@@ -23,7 +23,7 @@
 
 // common includes
 #include "property.h"
-#include "deviceinfo.h"
+#include "tabletinfo.h"
 #include "deviceprofile.h"
 #include "dbustabletinterface.h"
 
@@ -81,8 +81,8 @@ void PadButtonWidget::init()
 {
     Q_D( PadButtonWidget );
 
-    QDBusReply<QString> deviceModel = DBusTabletInterface::instance().getInformation(DeviceInfo::TabletModel);
-    QDBusReply<QString> deviceId    = DBusTabletInterface::instance().getInformation(DeviceInfo::TabletId);
+    QDBusReply<QString> deviceModel = DBusTabletInterface::instance().getInformation(TabletInfo::TabletModel);
+    QDBusReply<QString> deviceId    = DBusTabletInterface::instance().getInformation(TabletInfo::TabletId);
 
     KSharedConfig::Ptr deviceConfig = KSharedConfig::openConfig(KStandardDirs::locate("data", QLatin1String( "wacomtablet/data/wacom_devicelist" )), KConfig::SimpleConfig, "data");
     KConfigGroup deviceGroup = KConfigGroup(deviceConfig, deviceId);

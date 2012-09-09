@@ -18,7 +18,7 @@
 #ifndef TABLETHANDLER_H
 #define TABLETHANDLER_H
 
-#include "deviceinformation.h"
+#include "tabletinformation.h"
 #include "property.h"
 #include "tabletrotation.h"
 
@@ -159,7 +159,7 @@ Q_SIGNALS:
     /**
       * Emitted when a new tablet is connected or if the currently active tablet changes.
       */
-    void tabletAdded(const DeviceInformation& info);
+    void tabletAdded(const TabletInformation& info);
 
 
     /**
@@ -181,7 +181,7 @@ private:
     /**
       * resets all device information
       */
-    void clearDeviceInformation();
+    void clearTabletInformation();
 
 
     /**

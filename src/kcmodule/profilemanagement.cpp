@@ -19,7 +19,7 @@
 
 // common
 #include "dbustabletinterface.h"
-#include "deviceinfo.h"
+#include "tabletinfo.h"
 #include "devicetype.h"
 #include "tabletprofile.h"
 #include "property.h"
@@ -70,7 +70,7 @@ ProfileManagement& ProfileManagement::instance()
 void ProfileManagement::createNewProfile( const QString &profilename )
 {
     //get information via DBus
-    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(DeviceInfo::TabletName);
+    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(TabletInfo::TabletName);
     m_deviceName = deviceName;
     QDBusReply<QString> padName    = DBusTabletInterface::instance().getDeviceName(DeviceType::Pad);
     QDBusReply<QString> stylusName = DBusTabletInterface::instance().getDeviceName(DeviceType::Stylus);
@@ -365,7 +365,7 @@ QString ProfileManagement::transformButtonFromConfig( PenButton mode, QString &b
 
 void ProfileManagement::reload()
 {
-    QDBusReply<QString> deviceName  = DBusTabletInterface::instance().getInformation(DeviceInfo::TabletName);
+    QDBusReply<QString> deviceName  = DBusTabletInterface::instance().getInformation(TabletInfo::TabletName);
 
     if( deviceName.isValid() ) {
         m_deviceName = deviceName;

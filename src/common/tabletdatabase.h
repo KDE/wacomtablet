@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEVICEDATABASE_H
-#define DEVICEDATABASE_H
+#ifndef TABLETDATABASE_H
+#define TABLETDATABASE_H
 
-#include "deviceinformation.h"
+#include "tabletinformation.h"
 
 #include <QtCore/QString>
 #include <QtCore/QMap>
@@ -30,20 +30,20 @@ namespace Wacom
 {
 
 // Wacom forward declarations
-class DeviceDatabasePrivate;
+class TabletDatabasePrivate;
 
-class DeviceDatabase
+class TabletDatabase
 {
 public:
     //! Default Constructor
-    DeviceDatabase();
-    ~DeviceDatabase();
+    TabletDatabase();
+    ~TabletDatabase();
 
     QString lookupBackend(const QString& companyId);
     
     bool lookupButtonMapping(QMap<QString,QString> &map, const QString &companyId, const QString &deviceId);
     
-    bool lookupDevice(Wacom::DeviceInformation& devinfo, const QString& deviceId);
+    bool lookupDevice(Wacom::TabletInformation& devinfo, const QString& deviceId);
 
 private:
 
@@ -55,8 +55,8 @@ private:
 
     bool lookupDeviceGroup (KConfigGroup& deviceGroup, KConfigGroup& companyGroup, const QString& deviceId);
 
-    Q_DECLARE_PRIVATE(DeviceDatabase)
-    DeviceDatabasePrivate *const d_ptr;  /**< d-pointer for this class */
+    Q_DECLARE_PRIVATE(TabletDatabase)
+    TabletDatabasePrivate *const d_ptr;  /**< d-pointer for this class */
     
 }; // CLASS
 }  // NAMESPACE

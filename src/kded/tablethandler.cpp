@@ -18,15 +18,15 @@
 #include "debug.h"
 
 #include "tablethandler.h"
-#include "deviceinfo.h"
+#include "tabletinfo.h"
 #include "deviceinterface.h"
 #include "devicetype.h"
 #include "wacominterface.h"
 
 // common includes
-#include "dbustabletinterface.h" // required to copy DeviceInformation from/to QDBusArgument
+#include "dbustabletinterface.h" // required to copy TabletInformation from/to QDBusArgument
 #include "deviceprofile.h"
-#include "devicedatabase.h"
+#include "tabletdatabase.h"
 #include "mainconfig.h"
 #include "profilemanager.h"
 #include "tabletprofile.h"
@@ -43,9 +43,9 @@ namespace Wacom
         public:
             MainConfig            mainConfig;
             ProfileManager        profileManager;   /**< Profile manager which reads and writes profiles from the configuration file */
-            DeviceDatabase        deviceDatabase;
+            TabletDatabase        tabletDatabase;
 
-            DeviceInformation     deviceInformation;
+            TabletInformation     tabletInformation;
             DeviceInterface      *currentDevice;     //!< Handler for the current device to get/set its configuration.
             bool                  isDeviceAvailable; //!< Is a tabled device connected or not?
 
@@ -110,9 +110,9 @@ void TabletHandler::onDeviceAdded( int deviceid )
 
         emit notify( QLatin1String("tabletAdded"),
                      i18n("Tablet added"),
-                     i18n("New %1 tablet added", d->deviceInformation.get(DeviceInfo::TabletName) ));
+                     i18n("New %1 tablet added", d->tabletInformation.get(TabletInfo::TabletName) ));
 
-        emit tabletAdded(d->deviceInformation);
+        emit tabletAdded(d->tabletInformation);
         setProfile(d->mainConfig.getLastProfile());
     }
 }
@@ -127,9 +127,9 @@ void TabletHandler::onDeviceRemoved( int deviceid )
         if( d->currentDeviceId == deviceid ) {
             emit notify( QLatin1String("tabletRemoved"),
                          i18n("Tablet removed"),
-                         i18n("Tablet %1 removed", d->deviceInformation.get(DeviceInfo::TabletName) ));
+                         i18n("Tablet %1 removed", d->tabletInformation.get(TabletInfo::TabletName) ));
 
-            clearDeviceInformation();
+            clearTabletInformation();
             emit tabletRemoved();
         }
     }
@@ -167,9 +167,9 @@ void TabletHandler::onScreenRotated( TabletRotation screenRotation )
 
         kDebug() << "Rotate tablet :: " << rotatecmd;
 
-        QString stylusName = d->deviceInformation.getDeviceName(DeviceType::Stylus);
-        QString eraserName = d->deviceInformation.getDeviceName(DeviceType::Eraser);
-        QString touchName = d->deviceInformation.getDeviceName(DeviceType::Touch);
+        QString stylusName = d->tabletInformation.getDeviceName(DeviceType::Stylus);
+        QString eraserName = d->tabletInformation.getDeviceName(DeviceType::Eraser);
+        QString touchName = d->tabletInformation.getDeviceName(DeviceType::Touch);
 
         setProperty( stylusName, Property::Rotate.key(), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
         setProperty( eraserName, Property::Rotate.key(), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
@@ -209,7 +209,7 @@ QStringList TabletHandler::listProfiles() const
     // we can not reload the profile manager from a const method so we have
     // to create a new instance here and let it read the configuration file.
     ProfileManager profileManager(QLatin1String( "tabletprofilesrc" ));
-    profileManager.readProfiles(d->deviceInformation.get(DeviceInfo::TabletName));
+    profileManager.readProfiles(d->tabletInformation.get(TabletInfo::TabletName));
 
     return profileManager.listProfiles();
 }
@@ -220,7 +220,7 @@ void TabletHandler::setProfile( const QString &profile )
 {
     Q_D( TabletHandler );
 
-    d->profileManager.readProfiles(d->deviceInformation.get(DeviceInfo::TabletName));
+    d->profileManager.readProfiles(d->tabletInformation.get(TabletInfo::TabletName));
     TabletProfile tabletProfile = d->profileManager.loadProfile(profile);
 
     if (tabletProfile.listDevices().isEmpty()) {
@@ -267,12 +267,12 @@ void TabletHandler::togglePenMode()
         return;
     }
 
-    if(!d->deviceInformation.hasDevice(DeviceType::Stylus)) {
-        d->currentDevice->togglePenMode(d->deviceInformation.getDeviceName(DeviceType::Stylus));
+    if(!d->tabletInformation.hasDevice(DeviceType::Stylus)) {
+        d->currentDevice->togglePenMode(d->tabletInformation.getDeviceName(DeviceType::Stylus));
     }
 
-    if(!d->deviceInformation.hasDevice(DeviceType::Eraser)) {
-        d->currentDevice->togglePenMode(d->deviceInformation.getDeviceName(DeviceType::Eraser) );
+    if(!d->tabletInformation.hasDevice(DeviceType::Eraser)) {
+        d->currentDevice->togglePenMode(d->tabletInformation.getDeviceName(DeviceType::Eraser) );
     }
 
 }
@@ -283,11 +283,11 @@ void TabletHandler::toggleTouch()
 {
     Q_D( TabletHandler );
 
-    if( !d->currentDevice || d->deviceInformation.hasDevice(DeviceType::Touch) ) {
+    if( !d->currentDevice || d->tabletInformation.hasDevice(DeviceType::Touch) ) {
         return;
     }
 
-    d->currentDevice->toggleTouch(d->deviceInformation.getDeviceName(DeviceType::Touch));
+    d->currentDevice->toggleTouch(d->tabletInformation.getDeviceName(DeviceType::Touch));
 }
 
 
@@ -300,32 +300,32 @@ void TabletHandler::applyProfile(const TabletProfile& gtprofile)
         return;
     }
 
-    if( !d->deviceInformation.padName.isEmpty() ) {
-        d->currentDevice->applyProfile( d->deviceInformation.padName, QLatin1String( "pad" ), gtprofile );
+    if( !d->tabletInformation.padName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->tabletInformation.padName, QLatin1String( "pad" ), gtprofile );
     }
-    if( !d->deviceInformation.stylusName.isEmpty() ) {
-        d->currentDevice->applyProfile( d->deviceInformation.stylusName, QLatin1String( "stylus" ), gtprofile );
+    if( !d->tabletInformation.stylusName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->tabletInformation.stylusName, QLatin1String( "stylus" ), gtprofile );
     }
-    if( !d->deviceInformation.eraserName.isEmpty() ) {
-        d->currentDevice->applyProfile( d->deviceInformation.eraserName, QLatin1String( "eraser" ), gtprofile );
+    if( !d->tabletInformation.eraserName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->tabletInformation.eraserName, QLatin1String( "eraser" ), gtprofile );
     }
-    if( !d->deviceInformation.touchName.isEmpty() ) {
-        d->currentDevice->applyProfile( d->deviceInformation.touchName, QLatin1String( "touch" ), gtprofile );
+    if( !d->tabletInformation.touchName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->tabletInformation.touchName, QLatin1String( "touch" ), gtprofile );
     }
-    if( !d->deviceInformation.cursorName.isEmpty() ) {
-        d->currentDevice->applyProfile( d->deviceInformation.cursorName, QLatin1String( "cursor" ), gtprofile );
+    if( !d->tabletInformation.cursorName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->tabletInformation.cursorName, QLatin1String( "cursor" ), gtprofile );
     }
 }
 
 
-void TabletHandler::clearDeviceInformation()
+void TabletHandler::clearTabletInformation()
 {
     Q_D( TabletHandler );
 
-    DeviceInformation empty;
+    TabletInformation empty;
 
     d->isDeviceAvailable = false;
-    d->deviceInformation = empty;
+    d->tabletInformation = empty;
 
     delete d->currentDevice;
     d->currentDevice = NULL;
@@ -339,7 +339,7 @@ bool TabletHandler::detectTablet()
 {
     Q_D( TabletHandler );
 
-    DeviceInformation devinfo;
+    TabletInformation devinfo;
 
     if (!X11Utils::findTabletDevice(devinfo)) {
         kDebug() << "no input devices (pad/stylus/eraser/cursor/touch) found via xinput";
@@ -348,18 +348,18 @@ bool TabletHandler::detectTablet()
 
     kDebug() << "XInput found a device! ::" << devinfo.tabletId;
 
-    if (!d->deviceDatabase.lookupDevice(devinfo, devinfo.tabletId)) {
+    if (!d->tabletDatabase.lookupDevice(devinfo, devinfo.tabletId)) {
         kDebug() << "Could not find device in database: " << devinfo.tabletId;
         return false;
     }
 
-    d->deviceInformation  = devinfo;
+    d->tabletInformation  = devinfo;
 
     // lookup button mapping
-    d->deviceDatabase.lookupButtonMapping(d->buttonMapping, devinfo.companyId, devinfo.tabletId);
+    d->tabletDatabase.lookupButtonMapping(d->buttonMapping, devinfo.companyId, devinfo.tabletId);
 
     // set device backend
-    selectDeviceBackend( d->deviceDatabase.lookupBackend(devinfo.companyId) );
+    selectDeviceBackend( d->tabletDatabase.lookupBackend(devinfo.companyId) );
 
     // \0/
     d->isDeviceAvailable = true;

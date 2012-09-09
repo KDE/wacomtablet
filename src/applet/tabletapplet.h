@@ -18,7 +18,7 @@
 #ifndef TABLETAPPLET_H
 #define TABLETAPPLET_H
 
-#include "deviceinformation.h"
+#include "tabletinformation.h"
 
 //Qt include
 #include <QtCore/QObject>
@@ -254,7 +254,7 @@ private:
 
 }
 
-Q_DECLARE_METATYPE(Wacom::DeviceInformation)
-Q_DECLARE_METATYPE(QList<Wacom::DeviceInformation>)
+Q_DECLARE_METATYPE(Wacom::TabletInformation)
+Q_DECLARE_METATYPE(QList<Wacom::TabletInformation>)
 
 #endif // TABLETAPPLET_H

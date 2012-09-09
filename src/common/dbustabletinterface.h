@@ -18,8 +18,8 @@
 #ifndef DBUSTABLETINTERFACE_H
 #define DBUSTABLETINTERFACE_H
 
-#include "deviceinfo.h"
-#include "deviceinformation.h"
+#include "tabletinfo.h"
+#include "tabletinformation.h"
 #include "devicetype.h"
 #include "property.h"
 
@@ -31,10 +31,10 @@ namespace Wacom
 {
 
 //! Helper method for D-Bus to copy tablet information.
-QDBusArgument &operator<< (QDBusArgument &argument, const Wacom::DeviceInformation &mystruct);
+QDBusArgument &operator<< (QDBusArgument &argument, const Wacom::TabletInformation &mystruct);
 
 //! Helper method for D-Bus to copy tablet information.
-const QDBusArgument &operator>> (const QDBusArgument &argument, Wacom::DeviceInformation &mystruct);
+const QDBusArgument &operator>> (const QDBusArgument &argument, Wacom::TabletInformation &mystruct);
 
 
 /**
@@ -64,7 +64,7 @@ public:
 
     QDBusMessage getInformation();
 
-    QDBusMessage getInformation (const DeviceInfo& info);
+    QDBusMessage getInformation (const TabletInfo& info);
 
     QDBusMessage getProfile();
 

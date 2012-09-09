@@ -17,48 +17,48 @@
 
 #include "debug.h"
 
-#include "deviceinformation.h"
+#include "tabletinformation.h"
 
 using namespace Wacom;
 
-const QString& DeviceInformation::get(const QString& info) const
+const QString& TabletInformation::get(const QString& info) const
 {
-    const DeviceInfo* devinfo = resolveInfo(info);
+    const TabletInfo* devinfo = resolveInfo(info);
 
     return (devinfo == NULL ? unknown : get(*devinfo));
 }
 
 
-const QString& DeviceInformation::get(const DeviceInfo& info) const
+const QString& TabletInformation::get(const TabletInfo& info) const
 {
-    if (info == DeviceInfo::CompanyId) {
+    if (info == TabletInfo::CompanyId) {
         return companyId;
 
-    } else if (info == DeviceInfo::CompanyName) {
+    } else if (info == TabletInfo::CompanyName) {
         return companyName;
 
-    } else if (info == DeviceInfo::CursorName) {
+    } else if (info == TabletInfo::CursorName) {
         return getDeviceName(DeviceType::Cursor);
 
-    } else if (info == DeviceInfo::TabletId) {
+    } else if (info == TabletInfo::TabletId) {
         return tabletId;
 
-    } else if (info == DeviceInfo::TabletModel) {
+    } else if (info == TabletInfo::TabletModel) {
         return tabletModel;
 
-    } else if (info == DeviceInfo::TabletName) {
+    } else if (info == TabletInfo::TabletName) {
         return tabletName;
 
-    } else if (info == DeviceInfo::EraserName) {
+    } else if (info == TabletInfo::EraserName) {
         return getDeviceName(DeviceType::Eraser);
 
-    } else if (info == DeviceInfo::PadName) {
+    } else if (info == TabletInfo::PadName) {
         return getDeviceName(DeviceType::Pad);
 
-    } else if (info == DeviceInfo::StylusName) {
+    } else if (info == TabletInfo::StylusName) {
         return getDeviceName(DeviceType::Stylus);
 
-    } else if (info == DeviceInfo::TouchName) {
+    } else if (info == TabletInfo::TouchName) {
         return getDeviceName(DeviceType::Touch);
 
     } else {
@@ -70,14 +70,14 @@ const QString& DeviceInformation::get(const DeviceInfo& info) const
 
 
 
-const QStringList& DeviceInformation::getDeviceList() const
+const QStringList& TabletInformation::getDeviceList() const
 {
     return deviceList;
 }
 
 
 
-const QString& DeviceInformation::getDeviceName(const QString& device) const
+const QString& TabletInformation::getDeviceName(const QString& device) const
 {
     const DeviceType* type = resolveType(device);
     return (type == NULL ? unknown : getDeviceName(*type));
@@ -85,7 +85,7 @@ const QString& DeviceInformation::getDeviceName(const QString& device) const
 
 
 
-const QString& DeviceInformation::getDeviceName(const DeviceType& device) const
+const QString& TabletInformation::getDeviceName(const DeviceType& device) const
 {
     if (device == DeviceType::Cursor) {
         return cursorName;
@@ -118,55 +118,55 @@ const QString& DeviceInformation::getDeviceName(const DeviceType& device) const
 
 
 
-bool DeviceInformation::hasButtons() const
+bool TabletInformation::hasButtons() const
 {
     return hasPadButtons;
 }
 
 
-bool DeviceInformation::hasDevice(const DeviceType& device) const
+bool TabletInformation::hasDevice(const DeviceType& device) const
 {
     return !getDeviceName(device).isEmpty();
 }
 
 
-bool DeviceInformation::isAvailable() const
+bool TabletInformation::isAvailable() const
 {
     return isDeviceAvailable;
 }
 
 
 
-void DeviceInformation::set(const DeviceInfo& info, const QString& value)
+void TabletInformation::set(const TabletInfo& info, const QString& value)
 {
-    if (info == DeviceInfo::CompanyId) {
+    if (info == TabletInfo::CompanyId) {
         companyId = value;
 
-    } else if (info == DeviceInfo::CompanyName) {
+    } else if (info == TabletInfo::CompanyName) {
         companyName = value;
 
-    } else if (info == DeviceInfo::CursorName) {
+    } else if (info == TabletInfo::CursorName) {
         setDeviceName(DeviceType::Cursor, value);
 
-    } else if (info == DeviceInfo::TabletId) {
+    } else if (info == TabletInfo::TabletId) {
         tabletId = value;
 
-    } else if (info == DeviceInfo::TabletModel) {
+    } else if (info == TabletInfo::TabletModel) {
         tabletModel = value;
 
-    } else if (info == DeviceInfo::TabletName) {
+    } else if (info == TabletInfo::TabletName) {
         tabletName = value;
 
-    } else if (info == DeviceInfo::EraserName) {
+    } else if (info == TabletInfo::EraserName) {
         setDeviceName(DeviceType::Eraser, value);
 
-    } else if (info == DeviceInfo::PadName) {
+    } else if (info == TabletInfo::PadName) {
         setDeviceName(DeviceType::Pad, value);
 
-    } else if (info == DeviceInfo::StylusName) {
+    } else if (info == TabletInfo::StylusName) {
         setDeviceName(DeviceType::Stylus, value);
 
-    } else if (info == DeviceInfo::TouchName) {
+    } else if (info == TabletInfo::TouchName) {
         setDeviceName(DeviceType::Touch, value);
 
     } else {
@@ -176,21 +176,21 @@ void DeviceInformation::set(const DeviceInfo& info, const QString& value)
 
 
 
-void DeviceInformation::setAvailable(bool value)
+void TabletInformation::setAvailable(bool value)
 {
     isDeviceAvailable = value;
 }
 
 
 
-void DeviceInformation::setDeviceList(const QStringList& list)
+void TabletInformation::setDeviceList(const QStringList& list)
 {
     deviceList = list;
 }
 
 
 
-void DeviceInformation::setDeviceName(const DeviceType& device, const QString& name)
+void TabletInformation::setDeviceName(const DeviceType& device, const QString& name)
 {
     if (device == DeviceType::Cursor) {
         cursorName = name;
@@ -214,16 +214,16 @@ void DeviceInformation::setDeviceName(const DeviceType& device, const QString& n
 
 
 
-void DeviceInformation::setButtons(bool value)
+void TabletInformation::setButtons(bool value)
 {
     hasPadButtons = value;
 }
 
 
 
-const DeviceInfo* DeviceInformation::resolveInfo(const QString& info) const
+const TabletInfo* TabletInformation::resolveInfo(const QString& info) const
 {
-    const DeviceInfo *devinfo = DeviceInfo::find(info);
+    const TabletInfo *devinfo = TabletInfo::find(info);
 
     if (devinfo == NULL) {
         kError() << QString::fromLatin1("Unsupported device info '%1'!").arg(info);
@@ -235,7 +235,7 @@ const DeviceInfo* DeviceInformation::resolveInfo(const QString& info) const
 
 
 
-const DeviceType* DeviceInformation::resolveType(const QString& device) const
+const DeviceType* TabletInformation::resolveType(const QString& device) const
 {
     const DeviceType *type = DeviceType::find(device);
 

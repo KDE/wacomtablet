@@ -18,7 +18,7 @@
 #ifndef DBUSTABLETSERVICE_H
 #define DBUSTABLETSERVICE_H
 
-#include "deviceinformation.h"
+#include "tabletinformation.h"
 #include "tablethandler.h"
 #include "tabletprofile.h"
 #include "tabletrotation.h"
@@ -74,12 +74,12 @@ public Q_SLOTS:
      *
      * @return A device information structure.
      */
-    Q_SCRIPTABLE DeviceInformation getInformation() const;
+    Q_SCRIPTABLE TabletInformation getInformation() const;
 
     /**
      * Gets information from the tablet.
      *
-     * @param info A information type as returned by DeviceInfo::key()
+     * @param info A information type as returned by TabletInfo::key()
      *
      * @return The information value.
      */
@@ -195,7 +195,7 @@ private slots:
     void onProfileChanged (const QString& profile);
 
     //! Has to be called when a new tablet is added.
-    void onTabletAdded (const DeviceInformation& info);
+    void onTabletAdded (const TabletInformation& info);
 
     //! Has to be called when the current tablet is removed.
     void onTabletRemoved ();
@@ -208,7 +208,7 @@ private:
 }; // CLASS
 }  // NAMESPACE
 
-Q_DECLARE_METATYPE(Wacom::DeviceInformation)
-Q_DECLARE_METATYPE(QList<Wacom::DeviceInformation>)
+Q_DECLARE_METATYPE(Wacom::TabletInformation)
+Q_DECLARE_METATYPE(QList<Wacom::TabletInformation>)
 
 #endif // HEADER PROTECTION
