@@ -30,18 +30,17 @@ class DeviceType;
 class DeviceTypeTemplateSpecializationLessFunctor;
 
 /**
- * Do not use this typedef!
+ * @brief Helper Typedef! Do not use!
  *
- * It is a helper typedef to ease maintenance of template parameters.
+ * This typedef is required by the DeviceType class. It eases maintenane of template parameters.
  */
 typedef Enum<DeviceType, QString, DeviceTypeTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> DeviceTypeTemplateSpecialization;
 
 
 /**
- * Do not use this functor!
+ * @brief Helper Class! Do not use!
  *
- * It is required by the DeviceType class and can only be used to sort instances
- * of type DeviceTypeTemplateSpecialization.
+ * This functor is required by the DeviceType class to sort its instances.
  */
 struct DeviceTypeTemplateSpecializationLessFunctor
 {
@@ -53,7 +52,17 @@ struct DeviceTypeTemplateSpecializationLessFunctor
 
 
 /**
- * An enum of all device types.
+ * @brief An enum of all device types.
+ *
+ * Device types are tablet components like the stylus, the eraser or the pad itself.
+ * This enumeration ensures that only correct device type identifiers are sent via
+ * D-Bus by taking care of converting them to a string and providing a way to map
+ * these strings back to a device type.
+ * <br/>
+ * This class also helps to ease maintenance by passing the responsibility for checking
+ * for correct device types to the compiler. When using this enumeration it is no
+ * longer possible to have method/d-bus calls fail because of typos in the device type
+ * identifier. Also refactoring is much easier.
  */
 class DeviceType : public DeviceTypeTemplateSpecialization {
 
@@ -67,7 +76,9 @@ public:
 
 
 private:
-
+    /**
+     * Private constructor to initialize the static instances of this class.
+     */
     DeviceType(const QString& key) : DeviceTypeTemplateSpecialization(this, key) {}
 
 }; // CLASS

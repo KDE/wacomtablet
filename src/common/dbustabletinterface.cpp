@@ -39,7 +39,7 @@ QDBusArgument &Wacom::operator<<( QDBusArgument &argument, const Wacom::TabletIn
              << mystruct.eraserName
              << mystruct.cursorName
              << mystruct.touchName
-             << mystruct.isDeviceAvailable
+             << mystruct.isTabletAvailable
              << mystruct.hasPadButtons;
     argument.endStructure();
     return argument;
@@ -59,7 +59,7 @@ const QDBusArgument &Wacom::operator>>( const QDBusArgument &argument, Wacom::Ta
              >> mystruct.eraserName
              >> mystruct.cursorName
              >> mystruct.touchName
-             >> mystruct.isDeviceAvailable
+             >> mystruct.isTabletAvailable
              >> mystruct.hasPadButtons;
     argument.endStructure();
     return argument;

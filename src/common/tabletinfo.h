@@ -30,18 +30,17 @@ class TabletInfo;
 class TabletInfoTemplateSpecializationLessFunctor;
 
 /**
- * Do not use this typedef!
+ * @brief Helper Typedef! Do not use!
  *
- * It is a helper typedef to ease maintenance of template parameters.
+ * This typedef is required by the TabletInfo class. It eases maintenane of template parameters.
  */
 typedef Enum<TabletInfo, QString, TabletInfoTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> TabletInfoTemplateSpecialization;
 
 
 /**
- * Do not use this functor!
+ * @brief Helper Class! Do not use!
  *
- * It is required by the TabletInfo class and can only be used to sort instances
- * of type TabletInfoTemplateSpecialization.
+ * This functor is required by the TabletInfo class to sort its instances.
  */
 struct TabletInfoTemplateSpecializationLessFunctor
 {
@@ -53,26 +52,37 @@ struct TabletInfoTemplateSpecializationLessFunctor
 
 
 /**
- * An enum of all supported device information properties.
+ * @brief An enum of all supported device information properties.
+ *
+ * This enumeration ensures that only correct tablet info identifiers are sent via
+ * D-Bus by taking care of converting them to a string and providing a way to map
+ * these strings back to a tablet info type.
+ * <br/>
+ * This class also helps to ease maintenance by passing the responsibility for checking
+ * for correct tablet info types to the compiler. When using this enumeration it is no
+ * longer possible to have method/d-bus calls fail because of typos in the tablet info
+ * identifier. Also refactoring is much easier.
  */
 class TabletInfo : public TabletInfoTemplateSpecialization {
 
 public:
 
-    static const TabletInfo CompanyId;
-    static const TabletInfo CompanyName;
-    static const TabletInfo CursorName;
-    static const TabletInfo EraserName;
-    static const TabletInfo PadName;
-    static const TabletInfo StylusName;
-    static const TabletInfo TabletId;
-    static const TabletInfo TabletModel;
-    static const TabletInfo TabletName;
-    static const TabletInfo TouchName;
+    static const TabletInfo CompanyId;    //!< The vendor identifier.
+    static const TabletInfo CompanyName;  //!< The vendor name.
+    static const TabletInfo CursorName;   //!< The name of the cursor device if available.
+    static const TabletInfo EraserName;   //!< The name of the eraser device if available.
+    static const TabletInfo PadName;      //!< the name of the pad device if available.
+    static const TabletInfo StylusName;   //!< The name of the stylus device if available.
+    static const TabletInfo TabletId;     //!< The tablet identifier as a four digit hex code.
+    static const TabletInfo TabletModel;  //!< The tablet model.
+    static const TabletInfo TabletName;   //!< The name of the tablet.
+    static const TabletInfo TouchName;    //!< The name of the touch device if available.
 
 
 private:
-
+    /**
+     * Private constructor for the static members of this class.
+     */
     TabletInfo(const QString& key) : TabletInfoTemplateSpecialization(this, key) {}
 
 }; // CLASS

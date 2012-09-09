@@ -27,61 +27,172 @@
 namespace Wacom
 {
 
-// TODO rename this to TabletInformation
+/**
+ * @brief Tablet information gathered by X11 or a tablet database.
+ *
+ * Contains all tablet information which could be gathered by either querying X11
+ * or one of the tablet databases.
+ * 
+ * DO NOT USE THE MEMBERS OF THIS CLASS, USE THE METHODS! The mebers are only
+ * public because D-Bus needs access to them (for now).
+ * 
+ * When extending this class, don't forget to update the DBusTabletInterface class as well!
+ */
 class TabletInformation
 {
 public:
+
+    /**
+     * Gets tablet information using the provided tablet information identifier.
+     * If the identifier can not be mapped to a TabletInfo enumeration type, an
+     * empty string will be returned.
+     *
+     * @param info The tablet information identifier.
+     *
+     * @return The requsted information or an empty string.
+     *
+     * @sa get(const TabletInfo&) const
+     */
+    const QString& get(const QString& info) const;
+
+    
+    /**
+     * Gets tablet information.
+     *
+     * @param info The tablet information identifier.
+     *
+     * @return The requsted information.
+     *
+     * @sa get(const QString&) const
+     */
+    const QString& get(const TabletInfo& info) const;
+
+
+    /**
+     * Returns a list of Xinput device names this tablet supports.
+     *
+     * @return A list of Xinput device names.
+     */
+    const QStringList& getDeviceList() const;
+
+
+    /**
+     * Gets a Xinput device name based on the provided device type
+     * identifier string. If the device type identifier string can not
+     * be resolved to a device type enumeration type, an empty string
+     * is returned.
+     *
+     * @param device The device type to get.
+     * 
+     * @return The requested device name if set or an empty string.
+     *
+     * @sa getDeviceName(const DeviceType&) const
+     */
+    const QString& getDeviceName(const QString& device) const;
+
+
+    /**
+     * Gets a Xinput device name of this tablet.
+     *
+     * @param device The type of device to get the name from.
+     *
+     * @return The Xinput device name if set.
+     *
+     * @sa getDeviceName(const QString&) const
+     */
+    const QString& getDeviceName(const DeviceType& device) const;
+
+
+    /**
+     * Flag which signals if the pad has hardware buttons.
+     *
+     * @return True if the tablet pad has hardware buttons, else false.
+     */
+    bool hasButtons() const;
+
+
+    /**
+     * Checks if the tablet has a given device.
+     *
+     * @param device The device to check for.
+     */
+    bool hasDevice(const DeviceType& device) const;
+
+
+    /**
+     * @deprecated Do no longer use this!
+     * 
+     * Flag if this tablet is available.
+     *
+     * @return True if the tablet is available, else false.
+     */
+    bool isAvailable() const;
+
+
+    /**
+     * Sets tablet information based on the given tablet information identifier.
+     *
+     * @param info  The tablet information identifier.
+     * @param value The new value.
+     */
+    void set (const TabletInfo& info, const QString& value);
+
+
+    /**
+     * @deprecated Do no longer use the available flag!
+     *
+     * Sets the available-flag.
+     *
+     * @param value The new value.
+     */
+    void setAvailable(bool value);
+
+
+    /**
+     * Sets the device list of this tablet.
+     *
+     * @param list The new device list.
+     */
+    void setDeviceList(const QStringList& list);
+
+
+    /**
+     * Sets a device name of this tablet.
+     *
+     * @param device The device name to set.
+     * @param name   The new name.
+     */
+    void setDeviceName(const DeviceType& device, const QString& name);
+
+
+    /**
+     * Sets the flag which signals hardware buttons.
+     *
+     * @param value The new value.
+     */
+    void setButtons(bool value);
+
+
     /*
      * Do not use these members directly any more! Use the getters/setters!
      * These members should only be used by the D-Bus interface to build the structure
-     * returned by getAllInformation().
+     * returned by getInformation().
      */
-    QString unknown;         //!< A dummy member so we can safely return a const reference.
-    QString companyId;
-    QString companyName;
-    QString tabletId;
-    QString tabletName;
-    QString tabletModel;
-    QStringList deviceList;
-    QString padName;
-    QString stylusName;
-    QString eraserName;
-    QString cursorName;
-    QString touchName;
-    bool isDeviceAvailable;
-    bool hasPadButtons;
+    QString     unknown;           //!< A dummy member so we can safely return a const reference.
+    QString     companyId;         //!< The company identifier.
+    QString     companyName;       //!< The name of the company who built this device.
+    QString     tabletId;          //!< The tablet identifier as four digit hex code.
+    QString     tabletName;        //!< The name of the tablet.
+    QString     tabletModel;       //!< The tablet model.
+    QStringList deviceList;        //!< The device names of all devices this tablet consists of.
+    QString     padName;           //!< The name of the pad device, if available.
+    QString     stylusName;        //!< The name of the stylus device, if available.
+    QString     eraserName;        //!< The name of the eraser device, if available.
+    QString     cursorName;        //!< The name of the cursor device, if available.
+    QString     touchName;         //!< The name of the touch device, if available.
+    bool        isTabletAvailable; //!< A flag to signal if this tablet is available.
+    bool        hasPadButtons;     //!< A flag to signal if this tablet has pad buttons.
 
-    const QString& get(const QString& info) const;
-
-    const QString& get(const TabletInfo& info) const;
-
-    const QStringList& getDeviceList() const;
-
-    const QString& getDeviceName(const QString& device) const;
-
-    const QString& getDeviceName(const DeviceType& device) const;
-
-    bool hasButtons() const;
-
-    bool hasDevice(const DeviceType& device) const;
-
-    bool isAvailable() const;
-
-    void set (const TabletInfo& info, const QString& value);
-
-    void setAvailable(bool value);
-
-    void setDeviceList(const QStringList& list);
-
-    void setDeviceName(const DeviceType& device, const QString& name);
-
-    void setButtons(bool value);
-
-private:
-    const TabletInfo* resolveInfo(const QString& info) const;
-
-    const DeviceType* resolveType(const QString& device) const;
-};
-
-} // NAMESPACE
+}; // CLASS
+}  // NAMESPACE
 #endif // HEADER PROTECTION

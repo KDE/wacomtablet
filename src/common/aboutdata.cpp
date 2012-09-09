@@ -35,5 +35,5 @@ AboutData::AboutData(const QByteArray& appName, const KLocalizedString& programN
                  "http://www.etricceline.de")
 {
     addAuthor( ki18n( "Jörg Ehrichs" ), ki18n( "Maintainer" ) , "joerg.ehrichs@gmx.de" );
-    addAuthor( ki18n( "Alexander Maret-Huskinson" ), ki18n( "Contributor" ) , "alex@maret.de" );
+    addAuthor( ki18n( "Alexander Maret-Huskinson" ), ki18n( "Developer" ) , "alex@maret.de" );
 }

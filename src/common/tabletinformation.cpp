@@ -23,9 +23,14 @@ using namespace Wacom;
 
 const QString& TabletInformation::get(const QString& info) const
 {
-    const TabletInfo* devinfo = resolveInfo(info);
+    const TabletInfo* devinfo = TabletInfo::find(info);
 
-    return (devinfo == NULL ? unknown : get(*devinfo));
+    if (devinfo == NULL) {
+        kError() << QString::fromLatin1("Unsupported tablet info identifier '%1'!").arg(info);
+        return unknown;
+    }
+
+    return get(*devinfo);
 }
 
 
@@ -79,8 +84,14 @@ const QStringList& TabletInformation::getDeviceList() const
 
 const QString& TabletInformation::getDeviceName(const QString& device) const
 {
-    const DeviceType* type = resolveType(device);
-    return (type == NULL ? unknown : getDeviceName(*type));
+    const DeviceType *type = DeviceType::find(device);
+
+    if (type == NULL) {
+        kError() << QString::fromLatin1("Unsupported device type '%1'!").arg(device);
+        return unknown;
+    }
+
+    return getDeviceName(*type);
 }
 
 
@@ -132,7 +143,7 @@ bool TabletInformation::hasDevice(const DeviceType& device) const
 
 bool TabletInformation::isAvailable() const
 {
-    return isDeviceAvailable;
+    return isTabletAvailable;
 }
 
 
@@ -178,7 +189,7 @@ void TabletInformation::set(const TabletInfo& info, const QString& value)
 
 void TabletInformation::setAvailable(bool value)
 {
-    isDeviceAvailable = value;
+    isTabletAvailable = value;
 }
 
 
@@ -217,32 +228,4 @@ void TabletInformation::setDeviceName(const DeviceType& device, const QString& n
 void TabletInformation::setButtons(bool value)
 {
     hasPadButtons = value;
-}
-
-
-
-const TabletInfo* TabletInformation::resolveInfo(const QString& info) const
-{
-    const TabletInfo *devinfo = TabletInfo::find(info);
-
-    if (devinfo == NULL) {
-        kError() << QString::fromLatin1("Unsupported device info '%1'!").arg(info);
-        return NULL;
-    }
-
-    return devinfo;
-}
-
-
-
-const DeviceType* TabletInformation::resolveType(const QString& device) const
-{
-    const DeviceType *type = DeviceType::find(device);
-
-    if (type == NULL) {
-        kError() << QString::fromLatin1("Unsupported device type '%1'!").arg(device);
-        return NULL;
-    }
-
-    return type;
 }
