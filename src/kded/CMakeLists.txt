@@ -1,13 +1,13 @@
 
 set(wacom_tablet_SRCS
     dbustabletservice.cpp
-    wacominterface.cpp
     tabletdaemon.cpp
     tablethandler.cpp
     xdeviceeventnotifier.cpp
     xinputadaptor.cpp
     xinputproperty.cpp
     xsetwacomadaptor.cpp
+    xsetwacominterface.cpp
     xsetwacomproperty.cpp
 )
 

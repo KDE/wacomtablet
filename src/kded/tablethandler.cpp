@@ -21,7 +21,7 @@
 #include "tabletinfo.h"
 #include "deviceinterface.h"
 #include "devicetype.h"
-#include "wacominterface.h"
+#include "xsetwacominterface.h"
 
 // common includes
 #include "dbustabletinterface.h" // required to copy TabletInformation from/to QDBusArgument
@@ -198,7 +198,7 @@ QString TabletHandler::getProperty(const QString& device, const QString& param) 
         return QString();
     }
 
-    return d->currentDevice->getConfiguration( device, *property );
+    return d->currentDevice->getProperty( device, *property );
 }
 
 
@@ -220,7 +220,12 @@ void TabletHandler::setProfile( const QString &profile )
 {
     Q_D( TabletHandler );
 
+    if (!d->currentDevice) {
+        return;
+    }
+    
     d->profileManager.readProfiles(d->tabletInformation.get(TabletInfo::TabletName));
+
     TabletProfile tabletProfile = d->profileManager.loadProfile(profile);
 
     if (tabletProfile.listDevices().isEmpty()) {
@@ -230,9 +235,14 @@ void TabletHandler::setProfile( const QString &profile )
 
     } else {
         d->currentProfile = profile;
-        applyProfile( tabletProfile );
-        d->mainConfig.setLastProfile(profile);
 
+        foreach(const DeviceType& type, DeviceType::list()) {
+            if (d->tabletInformation.hasDevice(type)) {
+                d->currentDevice->applyProfile (d->tabletInformation.getDeviceName(type), type, tabletProfile);
+            }
+        }
+
+        d->mainConfig.setLastProfile(profile);
         emit profileChanged( profile );
     }
 }
@@ -254,7 +264,7 @@ void TabletHandler::setProperty(const QString& device, const QString& param, con
         return;
     }
 
-    d->currentDevice->setConfiguration( device, *property, value );
+    d->currentDevice->setProperty( device, *property, value );
 }
 
 
@@ -268,11 +278,11 @@ void TabletHandler::togglePenMode()
     }
 
     if(!d->tabletInformation.hasDevice(DeviceType::Stylus)) {
-        d->currentDevice->togglePenMode(d->tabletInformation.getDeviceName(DeviceType::Stylus));
+        d->currentDevice->toggleMode(d->tabletInformation.getDeviceName(DeviceType::Stylus));
     }
 
     if(!d->tabletInformation.hasDevice(DeviceType::Eraser)) {
-        d->currentDevice->togglePenMode(d->tabletInformation.getDeviceName(DeviceType::Eraser) );
+        d->currentDevice->toggleMode(d->tabletInformation.getDeviceName(DeviceType::Eraser) );
     }
 
 }
@@ -290,32 +300,6 @@ void TabletHandler::toggleTouch()
     d->currentDevice->toggleTouch(d->tabletInformation.getDeviceName(DeviceType::Touch));
 }
 
-
-
-void TabletHandler::applyProfile(const TabletProfile& gtprofile)
-{
-    Q_D( TabletHandler );
-
-    if( !d->currentDevice ) {
-        return;
-    }
-
-    if( !d->tabletInformation.padName.isEmpty() ) {
-        d->currentDevice->applyProfile( d->tabletInformation.padName, QLatin1String( "pad" ), gtprofile );
-    }
-    if( !d->tabletInformation.stylusName.isEmpty() ) {
-        d->currentDevice->applyProfile( d->tabletInformation.stylusName, QLatin1String( "stylus" ), gtprofile );
-    }
-    if( !d->tabletInformation.eraserName.isEmpty() ) {
-        d->currentDevice->applyProfile( d->tabletInformation.eraserName, QLatin1String( "eraser" ), gtprofile );
-    }
-    if( !d->tabletInformation.touchName.isEmpty() ) {
-        d->currentDevice->applyProfile( d->tabletInformation.touchName, QLatin1String( "touch" ), gtprofile );
-    }
-    if( !d->tabletInformation.cursorName.isEmpty() ) {
-        d->currentDevice->applyProfile( d->tabletInformation.cursorName, QLatin1String( "cursor" ), gtprofile );
-    }
-}
 
 
 void TabletHandler::clearTabletInformation()
@@ -373,7 +357,7 @@ void TabletHandler::selectDeviceBackend(const QString& backendName)
     Q_D( TabletHandler );
 
     if( backendName == QLatin1String( "wacom-tools" ) ) {
-        d->currentDevice = new WacomInterface();
+        d->currentDevice = new XsetwacomInterface();
         d->currentDevice->setButtonMapping(d->buttonMapping);
     }
 

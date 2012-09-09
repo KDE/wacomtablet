@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "wacominterface.h"
+#include "xsetwacominterface.h"
 #include "deviceprofile.h"
 #include "property.h"
 #include "xinputadaptor.h"
@@ -43,56 +43,56 @@
 
 using namespace Wacom;
 
-WacomInterface::WacomInterface() : DeviceInterface() {}
+XsetwacomInterface::XsetwacomInterface() : DeviceInterface() {}
 
-WacomInterface::~WacomInterface() {}
+XsetwacomInterface::~XsetwacomInterface() {}
 
-void WacomInterface::applyProfile( const QString& device, const QString& section, const TabletProfile& tabletProfile )
+void XsetwacomInterface::applyProfile( const QString& xdevice, const DeviceType& devtype, const TabletProfile& tabletProfile )
 {
-    DeviceProfile deviceProfile = tabletProfile.getDevice(section);
+    DeviceProfile deviceProfile = tabletProfile.getDevice(devtype.key());
 
     bool useButtonMapping = false;
-    if (section == QLatin1String("pad")) {
+    if (devtype == DeviceType::Pad) {
         useButtonMapping = true;
     }
 
     // get all properties xsetwacom supports and set them
     // this will also make sure that they are set in the correct order
     foreach (const Property& property, XsetwacomProperty::ids()) {
-        setConfiguration (device, property, deviceProfile.getProperty(property), useButtonMapping);
+        setProperty (xdevice, property, deviceProfile.getProperty(property), useButtonMapping);
     }
 
     // this will invert touch gesture scrolling (up/down)
-    if ( deviceProfile.getInvertScroll() == QLatin1String( "true" ) ) {
-        setConfiguration (device, Property::Button4, QLatin1String("5"));
-        setConfiguration (device, Property::Button5, QLatin1String("4"));
-    }
-    else {
-        setConfiguration (device, Property::Button4, QLatin1String("4"));
-        setConfiguration (device, Property::Button5, QLatin1String("5"));
+    if (deviceProfile.getInvertScroll() == QLatin1String("true")) {
+        setProperty (xdevice, Property::Button4, QLatin1String("5"));
+        setProperty (xdevice, Property::Button5, QLatin1String("4"));
+
+    } else {
+        setProperty (xdevice, Property::Button4, QLatin1String("4"));
+        setProperty (xdevice, Property::Button5, QLatin1String("5"));
     }
 
     // apply xinput parameters
     foreach (const Property& property, XinputProperty::ids()) {
-        setConfiguration (device, property, deviceProfile.getProperty(property), false);
+        setProperty (xdevice, property, deviceProfile.getProperty(property), false);
     }
 }
 
 
 
-void WacomInterface::setConfiguration( const QString& device, const Property& property, const QString& value, bool activateButtonMapping )
+void XsetwacomInterface::setProperty( const QString& xdevice, const Property& property, const QString& value, bool activateButtonMapping )
 {
     if( value.isEmpty() ) {
         return;
     }
 
     std::auto_ptr<XsetwacomAdaptor> xsetwacomAdaptor;
-    XinputAdaptor                   xinputAdaptor(device);
+    XinputAdaptor                   xinputAdaptor(xdevice);
 
     if (activateButtonMapping) {
-        xsetwacomAdaptor = std::auto_ptr<XsetwacomAdaptor>(new XsetwacomAdaptor(device, m_buttonMapping));
+        xsetwacomAdaptor = std::auto_ptr<XsetwacomAdaptor>(new XsetwacomAdaptor(xdevice, m_buttonMapping));
     } else {
-        xsetwacomAdaptor = std::auto_ptr<XsetwacomAdaptor>(new XsetwacomAdaptor(device));
+        xsetwacomAdaptor = std::auto_ptr<XsetwacomAdaptor>(new XsetwacomAdaptor(xdevice));
     }
 
     bool success = false;
@@ -111,11 +111,11 @@ void WacomInterface::setConfiguration( const QString& device, const Property& pr
 
 
 
-QString WacomInterface::getConfiguration( const QString& device, const Property& property ) const
+QString XsetwacomInterface::getProperty( const QString& xdevice, const Property& property ) const
 {
     // we might have to do a button mapping (+4), however the mapping table should take care of that
-    XsetwacomAdaptor xsetwacomAdaptor(device, m_buttonMapping);
-    XinputAdaptor    xinputAdaptor(device);
+    XsetwacomAdaptor xsetwacomAdaptor(xdevice, m_buttonMapping);
+    XinputAdaptor    xinputAdaptor(xdevice);
 
     if (xinputAdaptor.supportsProperty(property)) {
         return xinputAdaptor.getProperty(property);
@@ -126,26 +126,29 @@ QString WacomInterface::getConfiguration( const QString& device, const Property&
 
 
 
-void WacomInterface::toggleTouch( const QString &touchDevice )
+void XsetwacomInterface::toggleMode( const QString &xdevice )
 {
-    QString touchMode = getConfiguration( touchDevice, Property::Touch );
-
-    if( touchMode.compare( QLatin1String( "off" ), Qt::CaseInsensitive) == 0 ) {
-        setConfiguration( touchDevice, Property::Touch, QLatin1String( "on" ) );
-    }
-    else {
-        setConfiguration( touchDevice, Property::Touch, QLatin1String( "off" ) );
-    }
-}
-
-void WacomInterface::togglePenMode( const QString &device )
-{
-    QString touchMode = getConfiguration( device, Property::Mode );
+    QString touchMode = getProperty( xdevice, Property::Mode );
 
     if( touchMode.compare( QLatin1String( "Absolute" ), Qt::CaseInsensitive ) == 0 ) {
-        setConfiguration( device, Property::Mode, QLatin1String( "Relative" ) );
+        setProperty( xdevice, Property::Mode, QLatin1String( "Relative" ) );
     }
     else {
-        setConfiguration( device, Property::Mode, QLatin1String( "Absolute" ) );
+        setProperty( xdevice, Property::Mode, QLatin1String( "Absolute" ) );
     }
 }
+
+
+
+void XsetwacomInterface::toggleTouch( const QString &xdevice )
+{
+    QString touchMode = getProperty( xdevice, Property::Touch );
+
+    if( touchMode.compare( QLatin1String( "off" ), Qt::CaseInsensitive) == 0 ) {
+        setProperty( xdevice, Property::Touch, QLatin1String( "on" ) );
+    }
+    else {
+        setProperty( xdevice, Property::Touch, QLatin1String( "off" ) );
+    }
+}
+

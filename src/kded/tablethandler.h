@@ -171,14 +171,6 @@ Q_SIGNALS:
 private:
 
     /**
-      * Sets all new parameter of @p device according to the config @p gtprofile
-      *
-      * @param gtprofile Pointer to the KConfigGroup profile
-      */
-    void applyProfile(const TabletProfile &gtprofile);
-
-
-    /**
       * resets all device information
       */
     void clearTabletInformation();

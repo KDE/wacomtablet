@@ -34,55 +34,47 @@ namespace Wacom {
   * @see Wacom::DeviceHandler
   * @see http://linuxwacom.sourceforge.net/index.php/howto/xsetwacom
   */
-class WacomInterface : public DeviceInterface {
+class XsetwacomInterface : public DeviceInterface {
 public:
     /**
       * Default constructor
       */
-    explicit WacomInterface();
+    explicit XsetwacomInterface();
 
     /**
       * Default destructor
       */
-    ~WacomInterface();
+    ~XsetwacomInterface();
+
 
     /**
-      * Activates a profile and sets all tablet parameters
-      *
-      * @param device name of the tablet device we set (pad/stylus/eraser/cursor)
-      * @param section the used section we apply (pad/stylus/eraser/cursor)
-      * @param tabletProfile the KConfig profile for the tablet that should be applied
-      */
-    void applyProfile( const QString &device, const QString &section, const TabletProfile& tabletProfile );
+     * @see DeviceInterface::applyProfile(const QString&, const DeviceType&, const TabletProfile&)
+     */
+    void applyProfile (const QString &xdevice, const DeviceType& devtype, const TabletProfile& tabletProfile);
+
 
     /**
-      * Writes a single configuration for the tablet
-      *
-      * @param device name of the tablet device we set (pad/stylus/eraser/cursor)
-      * @param param parameter name
-      * @param value value the parameter is set to
-      */
-    void setConfiguration( const QString &device, const Property &property, const QString &value, bool activateButtonMapping = false );
+     * @see DeviceInterface::setProperty(const QString&, const Property&, const QString&, bool)
+     */
+    void setProperty (const QString& xdevice, const Property& property, const QString& value, bool activateButtonMapping = false);
+
 
     /**
-      * Returns the current value for a specific tablet setting
-      *
-      * @param device name of the tablet device we set (pad/stylus/eraser/cursor)
-      * @param param the parameter we are looking for
-      *
-      * @return the value as string
-      */
-    QString getConfiguration( const QString &device, const Property &property ) const;
+     * @see DeviceInterface::getProperty(const QString&, const Property&) const
+     */
+    QString getProperty (const QString& xdevice, const Property& property) const;
+
 
     /**
-      * Toggles the touch tool on/off
-      */
-    void toggleTouch(const QString & touchDevice);
+     * @see DeviceHandler::toggleMode(const QString&)
+     */
+    void toggleMode (const QString& xdevice);
+
 
     /**
-      * Toggles the stylus/eraser to absolute/relative mode
-      */
-    void togglePenMode(const QString & device);
+     * @see DeviceHandler::toggleTouch(const QString&)
+     */
+    void toggleTouch (const QString& xdevice);
 
 }; // CLASS
 }  // NAMESPACE

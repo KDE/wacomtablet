@@ -19,9 +19,9 @@
 #define DEVICEINTERFACE_H
 
 #include "property.h"
+#include "devicetype.h"
 #include "tabletprofile.h"
 
-#include <KDE/KConfigGroup>
 #include <QtCore/QString>
 
 namespace Wacom
@@ -40,49 +40,61 @@ public:
     virtual ~DeviceInterface() {}
 
     /**
-      * activates a profile and sets all tablet parameters
+      * Activates a profile and sets all tablet parameters for the given device.
       *
-      * @param device name of the tablet device we set (pad/stylus/eraser/cursor)
-      * @param section the sued section we apply (pad/stylus/eraser)
-      * @param gtprofile the KConfig profile for the tablet that should be applied
+      * @param xdevice  The Xinput device name of the tablet device (stylus/eraser/pad/...).
+      * @param devtype  The device type to apply the profile to.
+      * @param tprofile The tablet profile to apply.
       */
-    virtual void applyProfile(const QString & device, const QString & section, const TabletProfile& gtprofile) = 0;
+    virtual void applyProfile(const QString & xdevice, const DeviceType& devtype, const TabletProfile& tprofile) = 0;
+
 
     /**
-      * writes a single configuration for the tablet
+      * Gets the current value of a device property.
       *
-      * @param device   The name of the tablet device we set (pad/stylus/eraser/cursor)
+      * @param xdevice  The Xinput device name of the tablet device (stylus/eraser/pad/...).
+      * @param property The property to get.
+      *
+      * @return The property value as string.
+      */
+    virtual QString getProperty(const QString& xdevice, const Property& property) const = 0;
+
+
+    /**
+      * Sets a device property.
+      *
+      * @param xdevice  The Xinput device name of the tablet device (stylus/eraser/pad/...).
       * @param property The property to set.
       * @param value    The new value of the property.
       */
-    virtual void setConfiguration(const QString & device, const Property & property, const QString & value, bool activateButtonMapping = false) = 0;
+    virtual void setProperty(const QString& xdevice, const Property& property, const QString& value, bool activateButtonMapping = false) = 0;
+
 
     /**
-      * returns the current value for a specific tablet setting
+      * Toggles the touch tool on/off.
       *
-      * @param device   name of the tablet device we set (pad/stylus/eraser/cursor)
-      * @param property The property we are looking for
+      * @param xdevice The Xinput device name of the touch device.
+      */
+    virtual void toggleTouch (const QString& xdevice)= 0;
+
+
+    /**
+      * Toggles the stylus/eraser/touch to absolute/relative mode.
       *
-      * @return the value as string
+      * @param xdevice The Xinput device name of the stylus/eraser/touch device.
       */
-    virtual QString getConfiguration(const QString & device, const Property & property) const = 0;
+    virtual void toggleMode (const QString& xdevice) = 0;
+
 
     /**
-      * Toggles the touch tool on/off
-      */
-    virtual void toggleTouch(const QString & touchDevice)= 0;
-
-    /**
-      * Toggles the stylus/eraser to absolute/relative mode
-      */
-    virtual void togglePenMode(const QString & device) = 0;
-
+     * Sets the button mapping to apply when setting pad buttons.
+     */
     void setButtonMapping(QMap<QString, QString> mapping) { m_buttonMapping = mapping; }
 
+    
 protected:
-    QMap<QString, QString> m_buttonMapping; /**< @see DeviceHandlerPrivate::buttonMapping */
-};
+    QMap<QString, QString> m_buttonMapping;
 
-}
-
-#endif // DEVICEINTERFACE_H
+}; // CLASS
+}  // NAMESPACE
+#endif // HEADER PROTECTION
