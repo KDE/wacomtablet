@@ -25,6 +25,47 @@ using namespace Wacom;
 // instanciate static class members
 DBusTabletInterface* DBusTabletInterface::m_instance = NULL;
 
+QDBusArgument &Wacom::operator<<( QDBusArgument &argument, const Wacom::DeviceInformation &mystruct )
+{
+    argument.beginStructure();
+    argument << mystruct.companyId
+             << mystruct.companyName
+             << mystruct.tabletId
+             << mystruct.tabletName
+             << mystruct.tabletModel
+             << mystruct.deviceList
+             << mystruct.padName
+             << mystruct.stylusName
+             << mystruct.eraserName
+             << mystruct.cursorName
+             << mystruct.touchName
+             << mystruct.isDeviceAvailable
+             << mystruct.hasPadButtons;
+    argument.endStructure();
+    return argument;
+}
+
+const QDBusArgument &Wacom::operator>>( const QDBusArgument &argument, Wacom::DeviceInformation &mystruct )
+{
+    argument.beginStructure();
+    argument >> mystruct.companyId
+             >> mystruct.companyName
+             >> mystruct.tabletId
+             >> mystruct.tabletName
+             >> mystruct.tabletModel
+             >> mystruct.deviceList
+             >> mystruct.padName
+             >> mystruct.stylusName
+             >> mystruct.eraserName
+             >> mystruct.cursorName
+             >> mystruct.touchName
+             >> mystruct.isDeviceAvailable
+             >> mystruct.hasPadButtons;
+    argument.endStructure();
+    return argument;
+}
+
+
 
 DBusTabletInterface::DBusTabletInterface()
     : QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Tablet" ), QLatin1String( "org.kde.Wacom" ) )
@@ -80,24 +121,78 @@ void DBusTabletInterface::resetInterface()
 }
 
 
-
-QDBusMessage DBusTabletInterface::profile()
+QDBusMessage DBusTabletInterface::getDeviceList()
 {
-    return call( QLatin1String( "profile" ) );
+    return call( QLatin1String( "getDeviceList" ) );
 }
 
-QDBusMessage DBusTabletInterface::profileList()
+
+
+QDBusMessage DBusTabletInterface::getDeviceName(const DeviceType& device)
 {
-    return call( QLatin1String( "profileList" ) );
+    return call( QLatin1String( "getDeviceName" ), device.key() );
 }
+
+
+
+QDBusMessage DBusTabletInterface::getInformation()
+{
+    return call( QLatin1String( "getInformation" ) );
+}
+
+
+
+QDBusMessage DBusTabletInterface::getInformation(const DeviceInfo& info)
+{
+    return call( QLatin1String( "getInformation" ), info.key() );
+}
+
+
+
+QDBusMessage DBusTabletInterface::getProfile()
+{
+    return call( QLatin1String( "getProfile" ) );
+}
+
+
+
+QDBusMessage DBusTabletInterface::getProperty(const QString& device, const Property& property)
+{
+    return call( QLatin1String( "getProperty" ), device, property.key() );
+}
+
+
+
+QDBusMessage DBusTabletInterface::hasPadButtons()
+{
+    return call( QLatin1String( "hasPadButtons" ) );
+}
+
+
+
+QDBusMessage DBusTabletInterface::isAvailable()
+{
+    return call( QLatin1String( "isAvailable" ) );
+}
+
+
+
+QDBusMessage DBusTabletInterface::listProfiles()
+{
+    return call( QLatin1String( "listProfiles" ) );
+}
+
+
 
 QDBusMessage DBusTabletInterface::setProfile(const QString& profile)
 {
     return call( QLatin1String( "setProfile" ), profile );
 }
 
-QDBusMessage DBusTabletInterface::tabletAvailable()
+
+
+QDBusMessage DBusTabletInterface::setProperty(const QString& device, const Property& property, const QString& value)
 {
-    return call( QLatin1String( "tabletAvailable" ) );
+    return call( QLatin1String( "setProperty" ), device, property.key(), value);
 }
 

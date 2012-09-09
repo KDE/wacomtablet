@@ -26,7 +26,7 @@
 // common includes
 #include "property.h"
 #include "deviceprofile.h"
-#include "dbusdeviceinterface.h"
+#include "dbustabletinterface.h"
 
 // stdlib
 #include <memory>
@@ -306,11 +306,11 @@ QString PenWidget::changePressCurve(const QString& device, const QString& startV
     PressCurveDialog     selectPC( this );
     QDBusReply<QString>  deviceName;
 
-    if( DBusDeviceInterface::instance().isValid() ) {
-        deviceName = DBusDeviceInterface::instance().call(device);
+    if( DBusTabletInterface::instance().isValid() ) {
+        deviceName = DBusTabletInterface::instance().call(device);
 
         if( deviceName.isValid() ) {
-            selectPC.setDeviceHandler( &DBusDeviceInterface::instance(), deviceName );
+            selectPC.setDeviceHandler( &DBusTabletInterface::instance(), deviceName );
         }
     }
 
@@ -323,7 +323,7 @@ QString PenWidget::changePressCurve(const QString& device, const QString& startV
     else {
         // reset the current pressurecurve to what is specified in the profile
         // rather than stick to the curve the user declined in the dialogue
-        DBusDeviceInterface::instance().setConfiguration( deviceName, QLatin1String( "PressCurve" ), startValue );
+        DBusTabletInterface::instance().setProperty( deviceName, Property::PressureCurve, startValue );
     }
 
     return result;

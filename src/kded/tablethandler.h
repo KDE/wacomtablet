@@ -18,132 +18,194 @@
 #ifndef TABLETHANDLER_H
 #define TABLETHANDLER_H
 
+#include "deviceinformation.h"
+#include "property.h"
 #include "tabletrotation.h"
 
 #include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 namespace Wacom
 {
-class DeviceHandler;
+class TabletProfile;
 class TabletHandlerPrivate;
 
 class TabletHandler : public QObject
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.kde.Wacom")
 
 public:
-    TabletHandler(DeviceHandler& deviceHandler);
 
-public Q_SLOTS:
+    TabletHandler();
+    virtual ~TabletHandler();
+
+    /**
+     * @see TabletHandler::getProperty(const QString&, const QString&) const
+     */
+    QString getProperty(const QString& device, const Property& property) const;
+
+
+    /**
+      * returns the current value for a specific tablet setting
+      * This is forwarded to the right backend specified by m_curDevice
+      *
+      * @param device name of the tablet device we set. Internal name of the pad/stylus/eraser/cursor
+      * @param param the parameter we are looking for
+      *
+      * @return the value as string
+      */
+    QString getProperty(const QString& device, const QString& param) const;
+
+
+    /**
+      * @brief Reads a list of all available profiles from the profile manager.
+      *
+      * @return the list of all available profiles
+      */
+    QStringList listProfiles() const;
+
+
+    /**
+      * @brief Applies a profile to the tablet device
+      *
+      * The profile must be known to the profile manager, otherwise a
+      * notification error is displayed.
+      *
+      * @param profile The name of the profile to apply.
+      */
+    void setProfile(const QString& profile);
+
+
+    /**
+      * Sets the configuration of @p param from @p device with @p value
+      * This is forwarded to the right backend specified by m_curDevice
+      *
+      * @param device   The name of the device to set the property on.
+      * @param property The property key as returned by Property::key()
+      * @param value    New value of the parameter
+      */
+    void setProperty(const QString & device, const QString& property, const QString & value);
+
+
+    /**
+     * @see TabletHandler::setProperty(const QString&, const QString&, const QString&)
+     */
+    void setProperty(const QString& device, const Property & property, const QString& value);
+
+
     /**
       * Toggles the stylus/eraser to absolute/relative mode
       */
-    void actionTogglePenMode();
+    void togglePenMode();
+
 
     /**
-      * Toggles the touch tool on/off.
+      * Toggles the touch tool on/off
       */
-    void actionToggleTouch();
+    void toggleTouch();
 
+
+
+
+public Q_SLOTS:
     /**
-      * Handles the connection of a new tablet device.
+      * @brief Handles the connection of a new tablet device.
+      * 
+      * This slot has to be connected to the X device event notifier and
+      * executed when a new tablet device is plugged in.
       *
       * @param deviceid The device id as reported by X11.
       */
     void onDeviceAdded(int deviceid);
 
     /**
-      * Handles the removal of a tablet device.
+      * @brief Handles the removal of a tablet device.
+      *
+      * This slot has to be connected to the X device event notifier and
+      * executed when a tablet is disconnected from the system.
       *
       * @param deviceid The device id as reported by X11.
       */
     void onDeviceRemoved(int deviceid);
 
     /**
-     * Handles rotating the tablet.
+     * @brief Handles rotating the tablet.
      *
-     * @param screenRotation Integer values for the screen rotations
+     * This slot has to be connected to the X event notifier and executed
+     * when the screen is rotated.
+     *
+     * @param screenRotation The screen rotation.
      */
     void onScreenRotated(TabletRotation screenRotation);
 
-    /**
-      * Checks if a tablet is detected and available for further usage
-      *
-      * @return @c true if tablet is available, @c false otherwise
-      */
-    Q_SCRIPTABLE bool tabletAvailable() const;
-
-    /**
-      * Applies a profile to the tablet device
-      *
-      * The profile must exist in the tabletprofilerc file and thus created by the kcmodule.
-      * Otherwise a notification error is send and shown.
-      *
-      * @param profile name of the profile as specified in the tabletprofilesrc file.
-      */
-    Q_SCRIPTABLE void setProfile(const QString& profile);
-
-    /**
-      * Returns the current active profile for this tablet.
-      *
-      * This is not necessary the real configuration in case some other program changed the tablet
-      * behaviour. But this is the name of the profile that was used last.
-      * Can be used to show in the applet as information or as beginning selection in the kcmodule.
-      *
-      * @return name of the last used profile
-      */
-    Q_SCRIPTABLE QString profile() const;
-
-    /**
-      * Returns a list of all available profiles
-      *
-      * This way around the plasma applet does not check the local KConfig file itself
-      * and can be used as a remote applet.
-      *
-      * @return the list of all available profiles
-      */
-    Q_SCRIPTABLE QStringList profileList() const;
 
 
 Q_SIGNALS:
-
     /**
      * Emitted if the user should be notified.
      */
     void notify (const QString& eventId, const QString& title, const QString& message);
 
-    /**
-      * Emitted if a new tablet is connected and detected
-      *
-      * This signal is send via DBus to inform other about the recently added device
-      *
-      * @see deviceAdded(const QString& udi)
-      */
-    Q_SCRIPTABLE void tabletAdded();
 
     /**
-      * Emitted if a known tablet is removed
+      * Emitted when the profile of the current tablet is changed.
       *
-      * This signal is send via DBus to inform other about the recently removed device
-      *
-      * @see deviceRemoved(const QString& udi)
+      * @param profile The name of the new active profile.
       */
-    Q_SCRIPTABLE void tabletRemoved();
+    void profileChanged(const QString& profile);
+
 
     /**
-      * Emitted when the profile of the device is changed
-      *
-      * This signal is send via DBus to inform other about the change
-      *
-      * @param profile name of the current profile
+      * Emitted when a new tablet is connected or if the currently active tablet changes.
       */
-    Q_SCRIPTABLE void profileChanged(const QString& profile);
+    void tabletAdded(const DeviceInformation& info);
+
+
+    /**
+      * Emitted when the currently active tablet is removed.
+      */
+    void tabletRemoved();
+
 
 private:
+
+    /**
+      * Sets all new parameter of @p device according to the config @p gtprofile
+      *
+      * @param gtprofile Pointer to the KConfigGroup profile
+      */
+    void applyProfile(const TabletProfile &gtprofile);
+
+
+    /**
+      * resets all device information
+      */
+    void clearDeviceInformation();
+
+
+    /**
+      * Tablet Device detection. Finds a connected tablet via X11 and tries
+      * to collect as much information as possible.
+      *
+      * @return @c true if detection worked
+      *         @c false if a failure happened
+      */
+    bool detectTablet();
+
+
+    /**
+      * Sets the backend for the settings based on the name in the company list data file
+      * Support is only available for xsetwacom at the moment, will hopefully change in the future
+      *
+      * @param backendName name of the used backend as specified in the device overview list
+      */
+    void selectDeviceBackend(const QString & backendName);
+
+
     Q_DECLARE_PRIVATE(TabletHandler)
     TabletHandlerPrivate *const d_ptr; /**< d-pointer for this class */
-    
+
 }; // CLASS
 }  // NAMESPACE
 #endif // HEADER PROTECTION

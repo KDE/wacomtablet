@@ -15,11 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "debug.h"
 #include "tabletdaemon.h"
+
+#include "dbustabletservice.h"
 #include "tablethandler.h"
-#include "devicehandler.h"
 #include "wacomadaptor.h"
-#include "wacomdeviceadaptor.h"
 #include "../version.h"
 
 // common includes
@@ -51,10 +52,10 @@ namespace Wacom {
   */
 class TabletDaemonPrivate {
 public:
-    TabletDaemonPrivate() : deviceHandler(), tabletHandler(deviceHandler) {}
+    TabletDaemonPrivate() : tabletHandler(), dbusTabletService(tabletHandler) {}
 
-    DeviceHandler                    deviceHandler;    /**< device (stylus/pad/...) handler */
     TabletHandler                    tabletHandler;    /**< tablet handler */
+    DBusTabletService                dbusTabletService;
     XDeviceEventNotifier             xEventNotifier;   /**< X11 Event handler to detect when the tablet is connected/removed */
     std::auto_ptr<KComponentData>    applicationData;  /**< Basic application data */
     std::auto_ptr<KActionCollection> actionCollection; /**< Collection of all global actions */
@@ -118,12 +119,12 @@ void TabletDaemon::setupActions()
     KAction *action = d->actionCollection->addAction(QLatin1String("Toggle touch tool"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_T ) );
-    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( actionToggleTouch() ) );
+    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( toggleTouch() ) );
 
     action = d->actionCollection->addAction(QLatin1String("Toggle stylus mode"));
     action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ) );
-    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( actionTogglePenMode() ) );
+    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( togglePenMode() ) );
 }
 
 
@@ -147,10 +148,8 @@ void TabletDaemon::setupDBus()
 {
     Q_D( TabletDaemon );
 
-    new WacomAdaptor( &(d->tabletHandler) );
-    new WacomDeviceAdaptor( &(d->deviceHandler) );
-    QDBusConnection::sessionBus().registerObject( QLatin1String( "/Tablet" ), &(d->tabletHandler) );
-    QDBusConnection::sessionBus().registerObject( QLatin1String( "/Device" ), &(d->deviceHandler) );
+    new WacomAdaptor( &(d->dbusTabletService) );
+    QDBusConnection::sessionBus().registerObject( QLatin1String( "/Tablet" ), &(d->dbusTabletService) );
     QDBusConnection::sessionBus().registerService( QLatin1String( "org.kde.Wacom" ) );
 }
 

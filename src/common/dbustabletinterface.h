@@ -18,12 +18,24 @@
 #ifndef DBUSTABLETINTERFACE_H
 #define DBUSTABLETINTERFACE_H
 
+#include "deviceinfo.h"
+#include "deviceinformation.h"
+#include "devicetype.h"
+#include "property.h"
+
+#include <QtCore/QString>
+#include <QtDBus/QDBusArgument>
 #include <QtDBus/QDBusInterface>
 
 namespace Wacom
 {
 
-class QDbusMessage;
+//! Helper method for D-Bus to copy tablet information.
+QDBusArgument &operator<< (QDBusArgument &argument, const Wacom::DeviceInformation &mystruct);
+
+//! Helper method for D-Bus to copy tablet information.
+const QDBusArgument &operator>> (const QDBusArgument &argument, Wacom::DeviceInformation &mystruct);
+
 
 /**
  * A singleton class to access the D-Bus tablet interface.
@@ -46,15 +58,27 @@ public:
     static void resetInterface();
 
 
-    // TODO these should return the correct data types and throw an exception if there is a problem
+    QDBusMessage getDeviceList();
 
-    QDBusMessage profile();
+    QDBusMessage getDeviceName (const DeviceType& device);
 
-    QDBusMessage profileList();
+    QDBusMessage getInformation();
 
-    QDBusMessage setProfile(const QString& profile);
+    QDBusMessage getInformation (const DeviceInfo& info);
 
-    QDBusMessage tabletAvailable();
+    QDBusMessage getProfile();
+
+    QDBusMessage getProperty (const QString& device, const Property& property);
+
+    QDBusMessage hasPadButtons();
+
+    QDBusMessage isAvailable();
+
+    QDBusMessage listProfiles();
+
+    QDBusMessage setProfile (const QString& profile);
+
+    QDBusMessage setProperty (const QString& device, const Property& property, const QString& value);
 
 
 protected:

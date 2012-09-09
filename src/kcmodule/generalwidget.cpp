@@ -22,7 +22,7 @@
 
 // common
 #include "deviceinfo.h"
-#include "dbusdeviceinterface.h"
+#include "dbustabletinterface.h"
 
 // stdlib
 #include <memory>
@@ -117,10 +117,10 @@ void GeneralWidget::reloadWidget()
     Q_D( GeneralWidget );
 
     //get information via DBus
-    QDBusReply<QString> deviceModel      = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletModel);
-    QDBusReply<QString> deviceName       = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletName);
-    QDBusReply<QString> companyName      = DBusDeviceInterface::instance().getInformation(DeviceInfo::CompanyName);
-    QDBusReply<QStringList> inputDevices = DBusDeviceInterface::instance().getDeviceList();
+    QDBusReply<QString> deviceModel      = DBusTabletInterface::instance().getInformation(DeviceInfo::TabletModel);
+    QDBusReply<QString> deviceName       = DBusTabletInterface::instance().getInformation(DeviceInfo::TabletName);
+    QDBusReply<QString> companyName      = DBusTabletInterface::instance().getInformation(DeviceInfo::CompanyName);
+    QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList();
 
     //show tablet or generic icon and some tablet information
     KIcon genericTablet( QLatin1String( "input-tablet" ));

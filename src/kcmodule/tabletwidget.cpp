@@ -28,7 +28,6 @@
 #include "touchwidget.h"
 
 // common
-#include "dbusdeviceinterface.h"
 #include "dbustabletinterface.h"
 
 // stdlib
@@ -87,9 +86,8 @@ void TabletWidget::init()
     Q_D( TabletWidget );
 
     DBusTabletInterface* dbusTabletInterface = &DBusTabletInterface::instance();
-    DBusDeviceInterface* dbusDeviceInterface = &DBusDeviceInterface::instance();
 
-    if( !dbusTabletInterface->isValid() || !dbusDeviceInterface->isValid() ) {
+    if( !dbusTabletInterface->isValid() ) {
         kDebug() << "DBus interface not available";
     }
 
@@ -128,7 +126,7 @@ void TabletWidget::init()
 
 void TabletWidget::loadTabletInformation()
 {
-    QDBusReply<bool> isAvailable = DBusTabletInterface::instance().tabletAvailable();
+    QDBusReply<bool> isAvailable = DBusTabletInterface::instance().isAvailable();
 
     if( !isAvailable.isValid() ) {
         QString errmsg = i18n( "D-Bus connection to the kded daemon not available.\n\n"
@@ -336,12 +334,12 @@ void TabletWidget::showConfig()
     d->m_ui->deviceTabWidget->addTab( d->m_generalPage, i18nc( "Basic overview page for the tablet hardware", "General" ) );
     d->m_ui->deviceTabWidget->addTab( d->m_penPage, i18n( "Pen" ) );
 
-    QDBusReply<bool> hasPadButtons = DBusDeviceInterface::instance().hasPadButtons();
+    QDBusReply<bool> hasPadButtons = DBusTabletInterface::instance().hasPadButtons();
     if( hasPadButtons ) {
         d->m_ui->deviceTabWidget->addTab( d->m_padButtonPage, i18n( "Pad Buttons" ) );
     }
 
-    QDBusReply<QString> touchAvailable = DBusDeviceInterface::instance().getDeviceName(DeviceType::Touch);
+    QDBusReply<QString> touchAvailable = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
     QString touchName = touchAvailable.value();
     if( !touchName.isEmpty() ) {
         d->m_ui->deviceTabWidget->addTab( d->m_touchPage, i18n( "Touch" ) );
@@ -357,7 +355,7 @@ void TabletWidget::showConfig()
 
 
     // switch to the currently active profile
-    QDBusReply<QString> profile = DBusTabletInterface::instance().profile();
+    QDBusReply<QString> profile = DBusTabletInterface::instance().getProfile();
     if( profile.isValid() ) {
         d->m_ui->profileSelector->setCurrentItem( profile );
         switchProfile( profile );

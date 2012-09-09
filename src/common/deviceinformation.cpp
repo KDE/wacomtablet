@@ -21,6 +21,14 @@
 
 using namespace Wacom;
 
+const QString& DeviceInformation::get(const QString& info) const
+{
+    const DeviceInfo* devinfo = resolveInfo(info);
+
+    return (devinfo == NULL ? unknown : get(*devinfo));
+}
+
+
 const QString& DeviceInformation::get(const DeviceInfo& info) const
 {
     if (info == DeviceInfo::CompanyId) {
@@ -69,6 +77,14 @@ const QStringList& DeviceInformation::getDeviceList() const
 
 
 
+const QString& DeviceInformation::getDeviceName(const QString& device) const
+{
+    const DeviceType* type = resolveType(device);
+    return (type == NULL ? unknown : getDeviceName(*type));
+}
+
+
+
 const QString& DeviceInformation::getDeviceName(const DeviceType& device) const
 {
     if (device == DeviceType::Cursor) {
@@ -105,6 +121,12 @@ const QString& DeviceInformation::getDeviceName(const DeviceType& device) const
 bool DeviceInformation::hasButtons() const
 {
     return hasPadButtons;
+}
+
+
+bool DeviceInformation::hasDevice(const DeviceType& device) const
+{
+    return !getDeviceName(device).isEmpty();
 }
 
 
@@ -195,4 +217,32 @@ void DeviceInformation::setDeviceName(const DeviceType& device, const QString& n
 void DeviceInformation::setButtons(bool value)
 {
     hasPadButtons = value;
+}
+
+
+
+const DeviceInfo* DeviceInformation::resolveInfo(const QString& info) const
+{
+    const DeviceInfo *devinfo = DeviceInfo::find(info);
+
+    if (devinfo == NULL) {
+        kError() << QString::fromLatin1("Unsupported device info '%1'!").arg(info);
+        return NULL;
+    }
+
+    return devinfo;
+}
+
+
+
+const DeviceType* DeviceInformation::resolveType(const QString& device) const
+{
+    const DeviceType *type = DeviceType::find(device);
+
+    if (type == NULL) {
+        kError() << QString::fromLatin1("Unsupported device type '%1'!").arg(device);
+        return NULL;
+    }
+
+    return type;
 }

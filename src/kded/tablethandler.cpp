@@ -16,18 +16,25 @@
  */
 
 #include "debug.h"
+
 #include "tablethandler.h"
 #include "deviceinfo.h"
+#include "deviceinterface.h"
 #include "devicetype.h"
-#include "devicehandler.h"
+#include "wacominterface.h"
 
+// common includes
+#include "dbustabletinterface.h" // required to copy DeviceInformation from/to QDBusArgument
+#include "deviceprofile.h"
+#include "devicedatabase.h"
 #include "mainconfig.h"
 #include "profilemanager.h"
 #include "tabletprofile.h"
-#include "deviceprofile.h"
 #include "x11utils.h"
 
 #include <KDE/KLocalizedString>
+
+#include <QtDBus/QDBusArgument>
 
 namespace Wacom
 {
@@ -36,36 +43,52 @@ namespace Wacom
         public:
             MainConfig            mainConfig;
             ProfileManager        profileManager;   /**< Profile manager which reads and writes profiles from the configuration file */
-            DeviceHandler*        deviceHandler;    /**< Pointer to the tablet device */
+            DeviceDatabase        deviceDatabase;
+
+            DeviceInformation     deviceInformation;
+            DeviceInterface      *currentDevice;     //!< Handler for the current device to get/set its configuration.
+            bool                  isDeviceAvailable; //!< Is a tabled device connected or not?
+
+            QMap<QString,QString> buttonMapping;     /**< Map the hardwarebuttons 1-X to its kernel numbering scheme
+                                                          @see http://sourceforge.net/mailarchive/message.php?msg_id=27512095 */
             QString               currentProfile;   /**< currently active profile */
             int                   currentDeviceId;  /**< currently conencted tablet device. id comes from x11 */
-
     }; // CLASS
 } // NAMESPACE
 
 using namespace Wacom;
 
-TabletHandler::TabletHandler(DeviceHandler& deviceHandler)
+TabletHandler::TabletHandler()
     : QObject(NULL), d_ptr(new TabletHandlerPrivate)
 {
     Q_D( TabletHandler );
-    d->deviceHandler = &deviceHandler;
+
+    d->isDeviceAvailable = false;
+    d->currentDevice     = NULL;
+
     d->profileManager.open( QLatin1String( "tabletprofilesrc" ) );
 }
 
 
-void TabletHandler::actionTogglePenMode()
+TabletHandler::~TabletHandler()
 {
-    Q_D( TabletHandler );
-    d->deviceHandler->togglePenMode();
+    delete d_ptr;
 }
 
 
-void TabletHandler::actionToggleTouch()
+
+QString TabletHandler::getProperty(const QString& device, const Property& property) const
 {
-    Q_D( TabletHandler );
-    d->deviceHandler->toggleTouch();
+    return getProperty(device, property.key());
 }
+
+
+void TabletHandler::setProperty(const QString& device, const Property& property, const QString& value)
+{
+    setProperty(device, property.key(), value);
+}
+
+
 
 
 void TabletHandler::onDeviceAdded( int deviceid )
@@ -73,42 +96,45 @@ void TabletHandler::onDeviceAdded( int deviceid )
     Q_D( TabletHandler );
 
     // if we already have a device ... skip this step
-    if( d->deviceHandler->isTabletAvailable() || deviceid == 0) {
+    if( d->isDeviceAvailable || deviceid == 0) {
         return;
     }
 
     // No tablet available, so reload tablet information
-    d->deviceHandler->detectTablet();
+    detectTablet();
 
     // if we found something notify about it and set the default profile to it
-    if( d->deviceHandler->isTabletAvailable() ) {
+    if( d->isDeviceAvailable ) {
 
         d->currentDeviceId = deviceid;
 
         emit notify( QLatin1String("tabletAdded"),
                      i18n("Tablet added"),
-                     i18n("New %1 tablet added", d->deviceHandler->getInformation(DeviceInfo::TabletName) ));
+                     i18n("New %1 tablet added", d->deviceInformation.get(DeviceInfo::TabletName) ));
 
-        emit tabletAdded();
+        emit tabletAdded(d->deviceInformation);
         setProfile(d->mainConfig.getLastProfile());
     }
 }
 
 
+
 void TabletHandler::onDeviceRemoved( int deviceid )
 {
     Q_D( TabletHandler );
-    if( d->deviceHandler->isTabletAvailable() ) {
+    if( d->isDeviceAvailable ) {
+        d->isDeviceAvailable = false;
         if( d->currentDeviceId == deviceid ) {
             emit notify( QLatin1String("tabletRemoved"),
                          i18n("Tablet removed"),
-                         i18n("Tablet %1 removed", d->deviceHandler->getInformation(DeviceInfo::TabletName) ));
+                         i18n("Tablet %1 removed", d->deviceInformation.get(DeviceInfo::TabletName) ));
 
-            d->deviceHandler->clearDeviceInformation();
+            clearDeviceInformation();
             emit tabletRemoved();
         }
     }
 }
+
 
 
 void TabletHandler::onScreenRotated( TabletRotation screenRotation )
@@ -141,34 +167,60 @@ void TabletHandler::onScreenRotated( TabletRotation screenRotation )
 
         kDebug() << "Rotate tablet :: " << rotatecmd;
 
-        QString stylusName = d->deviceHandler->getDeviceName(DeviceType::Stylus);
-        QString eraserName = d->deviceHandler->getDeviceName(DeviceType::Eraser);
-        QString touchName = d->deviceHandler->getDeviceName(DeviceType::Touch);
+        QString stylusName = d->deviceInformation.getDeviceName(DeviceType::Stylus);
+        QString eraserName = d->deviceInformation.getDeviceName(DeviceType::Eraser);
+        QString touchName = d->deviceInformation.getDeviceName(DeviceType::Touch);
 
-        d->deviceHandler->setConfiguration( stylusName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
-        d->deviceHandler->setConfiguration( eraserName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
+        setProperty( stylusName, Property::Rotate.key(), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
+        setProperty( eraserName, Property::Rotate.key(), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
 
         if( !touchName.isEmpty() ) {
-            d->deviceHandler->setConfiguration( touchName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
+            setProperty( touchName, Property::Rotate.key(), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
         }
 
-        setProfile(profile());
+        setProfile(d->currentProfile);
     }
 }
 
 
-bool TabletHandler::tabletAvailable() const
+QString TabletHandler::getProperty(const QString& device, const QString& param) const
 {
     Q_D( const TabletHandler );
-    return d->deviceHandler->isTabletAvailable();
+
+    if( !d->currentDevice ) {
+        return QString();
+    }
+
+    const Property* property = Property::find(param);
+
+    if (property == NULL) {
+        kError() << QString::fromLatin1("Can not get invalid property '%1'!").arg(param);
+        return QString();
+    }
+
+    return d->currentDevice->getConfiguration( device, *property );
 }
+
+
+
+QStringList TabletHandler::listProfiles() const
+{
+    Q_D( const TabletHandler );
+    // we can not reload the profile manager from a const method so we have
+    // to create a new instance here and let it read the configuration file.
+    ProfileManager profileManager(QLatin1String( "tabletprofilesrc" ));
+    profileManager.readProfiles(d->deviceInformation.get(DeviceInfo::TabletName));
+
+    return profileManager.listProfiles();
+}
+
 
 
 void TabletHandler::setProfile( const QString &profile )
 {
     Q_D( TabletHandler );
 
-    d->profileManager.readProfiles(d->deviceHandler->getInformation(DeviceInfo::TabletName));
+    d->profileManager.readProfiles(d->deviceInformation.get(DeviceInfo::TabletName));
     TabletProfile tabletProfile = d->profileManager.loadProfile(profile);
 
     if (tabletProfile.listDevices().isEmpty()) {
@@ -178,7 +230,7 @@ void TabletHandler::setProfile( const QString &profile )
 
     } else {
         d->currentProfile = profile;
-        d->deviceHandler->applyProfile( tabletProfile );
+        applyProfile( tabletProfile );
         d->mainConfig.setLastProfile(profile);
 
         emit profileChanged( profile );
@@ -186,24 +238,146 @@ void TabletHandler::setProfile( const QString &profile )
 }
 
 
-QString TabletHandler::profile() const
+
+void TabletHandler::setProperty(const QString& device, const QString& param, const QString& value)
 {
-    Q_D( const TabletHandler );
-    return d->currentProfile;
+    Q_D( TabletHandler );
+
+    if( !d->currentDevice ) {
+        return;
+    }
+
+    const Property* property = Property::find(param);
+
+    if (property == NULL) {
+        kError() << QString::fromLatin1("Can not set invalid property '%1' to '%2'!").arg(param).arg(value);
+        return;
+    }
+
+    d->currentDevice->setConfiguration( device, *property, value );
 }
 
 
-QStringList TabletHandler::profileList() const
+
+void TabletHandler::togglePenMode()
 {
-    Q_D( const TabletHandler );
+    Q_D( TabletHandler );
 
-    // we can not reload the profile manager from a const method so we have
-    // to create a new instance here and let it read the configuration file.
-    ProfileManager profileManager(QLatin1String( "tabletprofilesrc" ));
-    profileManager.readProfiles(d->deviceHandler->getInformation(DeviceInfo::TabletName));
+    if( !d->currentDevice ) {
+        return;
+    }
 
-    return profileManager.listProfiles();
+    if(!d->deviceInformation.hasDevice(DeviceType::Stylus)) {
+        d->currentDevice->togglePenMode(d->deviceInformation.getDeviceName(DeviceType::Stylus));
+    }
+
+    if(!d->deviceInformation.hasDevice(DeviceType::Eraser)) {
+        d->currentDevice->togglePenMode(d->deviceInformation.getDeviceName(DeviceType::Eraser) );
+    }
+
 }
 
 
 
+void TabletHandler::toggleTouch()
+{
+    Q_D( TabletHandler );
+
+    if( !d->currentDevice || d->deviceInformation.hasDevice(DeviceType::Touch) ) {
+        return;
+    }
+
+    d->currentDevice->toggleTouch(d->deviceInformation.getDeviceName(DeviceType::Touch));
+}
+
+
+
+void TabletHandler::applyProfile(const TabletProfile& gtprofile)
+{
+    Q_D( TabletHandler );
+
+    if( !d->currentDevice ) {
+        return;
+    }
+
+    if( !d->deviceInformation.padName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->deviceInformation.padName, QLatin1String( "pad" ), gtprofile );
+    }
+    if( !d->deviceInformation.stylusName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->deviceInformation.stylusName, QLatin1String( "stylus" ), gtprofile );
+    }
+    if( !d->deviceInformation.eraserName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->deviceInformation.eraserName, QLatin1String( "eraser" ), gtprofile );
+    }
+    if( !d->deviceInformation.touchName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->deviceInformation.touchName, QLatin1String( "touch" ), gtprofile );
+    }
+    if( !d->deviceInformation.cursorName.isEmpty() ) {
+        d->currentDevice->applyProfile( d->deviceInformation.cursorName, QLatin1String( "cursor" ), gtprofile );
+    }
+}
+
+
+void TabletHandler::clearDeviceInformation()
+{
+    Q_D( TabletHandler );
+
+    DeviceInformation empty;
+
+    d->isDeviceAvailable = false;
+    d->deviceInformation = empty;
+
+    delete d->currentDevice;
+    d->currentDevice = NULL;
+
+    d->buttonMapping.clear();
+}
+
+
+
+bool TabletHandler::detectTablet()
+{
+    Q_D( TabletHandler );
+
+    DeviceInformation devinfo;
+
+    if (!X11Utils::findTabletDevice(devinfo)) {
+        kDebug() << "no input devices (pad/stylus/eraser/cursor/touch) found via xinput";
+        return false;
+    }
+
+    kDebug() << "XInput found a device! ::" << devinfo.tabletId;
+
+    if (!d->deviceDatabase.lookupDevice(devinfo, devinfo.tabletId)) {
+        kDebug() << "Could not find device in database: " << devinfo.tabletId;
+        return false;
+    }
+
+    d->deviceInformation  = devinfo;
+
+    // lookup button mapping
+    d->deviceDatabase.lookupButtonMapping(d->buttonMapping, devinfo.companyId, devinfo.tabletId);
+
+    // set device backend
+    selectDeviceBackend( d->deviceDatabase.lookupBackend(devinfo.companyId) );
+
+    // \0/
+    d->isDeviceAvailable = true;
+
+    return true;
+}
+
+
+void TabletHandler::selectDeviceBackend(const QString& backendName)
+{
+    Q_D( TabletHandler );
+
+    if( backendName == QLatin1String( "wacom-tools" ) ) {
+        d->currentDevice = new WacomInterface();
+        d->currentDevice->setButtonMapping(d->buttonMapping);
+    }
+
+    if( !d->currentDevice ) {
+        kError() << "unknown device backend!" << backendName;
+    }
+}

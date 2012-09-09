@@ -18,7 +18,7 @@
 #include "profilemanagement.h"
 
 // common
-#include "dbusdeviceinterface.h"
+#include "dbustabletinterface.h"
 #include "deviceinfo.h"
 #include "devicetype.h"
 #include "tabletprofile.h"
@@ -70,11 +70,11 @@ ProfileManagement& ProfileManagement::instance()
 void ProfileManagement::createNewProfile( const QString &profilename )
 {
     //get information via DBus
-    QDBusReply<QString> deviceName = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletName);
+    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(DeviceInfo::TabletName);
     m_deviceName = deviceName;
-    QDBusReply<QString> padName    = DBusDeviceInterface::instance().getDeviceName(DeviceType::Pad);
-    QDBusReply<QString> stylusName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Stylus);
-    QDBusReply<QString> eraserName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Eraser);
+    QDBusReply<QString> padName    = DBusTabletInterface::instance().getDeviceName(DeviceType::Pad);
+    QDBusReply<QString> stylusName = DBusTabletInterface::instance().getDeviceName(DeviceType::Stylus);
+    QDBusReply<QString> eraserName = DBusTabletInterface::instance().getDeviceName(DeviceType::Eraser);
 
     if( m_deviceName.isEmpty() || !padName.isValid() || !stylusName.isValid() || !eraserName.isValid() ) {
         kDebug() << "no device information are found. Can't create a new profile";
@@ -124,10 +124,10 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     stylusDevice.setProperty(Property::ScreenMapping, QLatin1String("randr"));
     stylusDevice.setProperty(Property::TabletArea, QLatin1String("full"));
 
-    QDBusReply<QString> stylusArea = DBusDeviceInterface::instance().getConfiguration( QString( stylusName ), Property::Area.key() );
+    QDBusReply<QString> stylusArea = DBusTabletInterface::instance().getProperty( QString( stylusName ), Property::Area );
     stylusDevice.setProperty(Property::Area, stylusArea.isValid() ? stylusArea.value() : QLatin1String("0 0 0 0"));
 
-    QDBusReply<QString> stylusTpcButton = DBusDeviceInterface::instance().getConfiguration( QString( stylusName ), Property::TabletPcButton.key() );
+    QDBusReply<QString> stylusTpcButton = DBusTabletInterface::instance().getProperty( QString( stylusName ), Property::TabletPcButton );
     stylusDevice.setProperty(Property::TabletPcButton, stylusTpcButton.isValid() ? stylusTpcButton.value() : QLatin1String("on"));
 
     tabletProfile.setDevice(stylusDevice);
@@ -149,14 +149,14 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     eraserDevice.setProperty(Property::ScreenMapping, QLatin1String("randr"));
     eraserDevice.setProperty(Property::TabletArea, QLatin1String("full"));
 
-    QDBusReply<QString> eraserArea = DBusDeviceInterface::instance().getConfiguration( QString( eraserName ), Property::Area.key() );
+    QDBusReply<QString> eraserArea = DBusTabletInterface::instance().getProperty( QString( eraserName ), Property::Area );
     eraserDevice.setProperty(Property::Area, eraserArea.isValid() ? eraserArea.value() : QLatin1String("0 0 0 0"));
 
     tabletProfile.setDevice(eraserDevice);
 
 
     // also add section for the touch if we have a touch tool
-    QDBusReply<QString> touchName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Touch);
+    QDBusReply<QString> touchName = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
 
     QString validName = touchName.value();
     if( !validName.isEmpty() ) {
@@ -170,19 +170,19 @@ void ProfileManagement::createNewProfile( const QString &profilename )
         touchDevice.setProperty(Property::Mode, QLatin1String("absolute"));
         touchDevice.setProperty(Property::TapTime, QLatin1String("250"));
 
-        QDBusReply<QString> touchArea = DBusDeviceInterface::instance().getConfiguration( QString( touchName ), Property::Area.key() );
+        QDBusReply<QString> touchArea = DBusTabletInterface::instance().getProperty( QString( touchName ), Property::Area );
         touchDevice.setProperty(Property::Area, touchArea.isValid() ? touchArea.value() : QLatin1String("0 0 0 0"));
 
-        QDBusReply<QString> touch = DBusDeviceInterface::instance().getConfiguration( QString( touchName ), Property::Touch.key() );
+        QDBusReply<QString> touch = DBusTabletInterface::instance().getProperty( QString( touchName ), Property::Touch );
         touchDevice.setProperty(Property::Touch, touch.isValid() ? touch.value() : QLatin1String("on"));
 
-        QDBusReply<QString> gesture = DBusDeviceInterface::instance().getConfiguration( QString( touchName ), Property::Gesture.key() );
+        QDBusReply<QString> gesture = DBusTabletInterface::instance().getProperty( QString( touchName ), Property::Gesture );
         touchDevice.setProperty(Property::Gesture, gesture.isValid() ? gesture.value() : QLatin1String("on"));
 
-        QDBusReply<QString> zoomDistance = DBusDeviceInterface::instance().getConfiguration( QString( touchName ), Property::ZoomDistance.key() );
+        QDBusReply<QString> zoomDistance = DBusTabletInterface::instance().getProperty( QString( touchName ), Property::ZoomDistance );
         touchDevice.setProperty(Property::ZoomDistance, zoomDistance.isValid() ? zoomDistance.value() : QLatin1String("50"));
 
-        QDBusReply<QString> scrollDistance = DBusDeviceInterface::instance().getConfiguration( QString( touchName ), Property::ScrollDistance.key() );
+        QDBusReply<QString> scrollDistance = DBusTabletInterface::instance().getProperty( QString( touchName ), Property::ScrollDistance );
         touchDevice.setProperty(Property::ScrollDistance, scrollDistance.isValid() ? scrollDistance.value() : QLatin1String("50"));
 
         tabletProfile.setDevice(touchDevice);
@@ -365,7 +365,7 @@ QString ProfileManagement::transformButtonFromConfig( PenButton mode, QString &b
 
 void ProfileManagement::reload()
 {
-    QDBusReply<QString> deviceName  = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletName);
+    QDBusReply<QString> deviceName  = DBusTabletInterface::instance().getInformation(DeviceInfo::TabletName);
 
     if( deviceName.isValid() ) {
         m_deviceName = deviceName;

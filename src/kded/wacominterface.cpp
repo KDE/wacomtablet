@@ -16,7 +16,6 @@
  */
 
 #include "wacominterface.h"
-#include "devicehandler.h"
 #include "deviceprofile.h"
 #include "property.h"
 #include "xinputadaptor.h"

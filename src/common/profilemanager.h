@@ -152,7 +152,7 @@ public:
      * Reloads the current configuration file.
      */
     void reload();
-    
+
     /**
      * Saves the given tablet profile for the currently loaded tablet identifier.
      * If no tablet identifier is currently loaded or if the tablet profile does

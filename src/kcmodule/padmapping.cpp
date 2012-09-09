@@ -27,7 +27,7 @@
 // common includes
 #include "property.h"
 #include "deviceprofile.h"
-#include "dbusdeviceinterface.h"
+#include "dbustabletinterface.h"
 
 // stdlib
 #include <memory>
@@ -111,11 +111,11 @@ void PadMapping::setTool( int tool )
 
     QString toolName;
     if( tool == 0 ) {
-        QDBusReply<QString> stylusName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Stylus);
+        QDBusReply<QString> stylusName = DBusTabletInterface::instance().getDeviceName(DeviceType::Stylus);
         toolName = stylusName.value();
     }
     else if( tool == 1 ) {
-        QDBusReply<QString> touchName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Touch);
+        QDBusReply<QString> touchName = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
         toolName = touchName.value();
     }
 
@@ -330,11 +330,11 @@ void PadMapping::showCalibrationDialog()
     QString toolName;
 
     if( d->m_tool == 0 ) {
-        QDBusReply<QString> stylusName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Stylus);
+        QDBusReply<QString> stylusName = DBusTabletInterface::instance().getDeviceName(DeviceType::Stylus);
         toolName = stylusName.value();
     }
     else {
-        QDBusReply<QString> stylusName = DBusDeviceInterface::instance().getDeviceName(DeviceType::Touch);
+        QDBusReply<QString> stylusName = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
         toolName = stylusName.value();
     }
 

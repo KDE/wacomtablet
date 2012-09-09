@@ -51,25 +51,36 @@ public:
     bool isDeviceAvailable;
     bool hasPadButtons;
 
+    const QString& get(const QString& info) const;
+
     const QString& get(const DeviceInfo& info) const;
 
     const QStringList& getDeviceList() const;
 
+    const QString& getDeviceName(const QString& device) const;
+
     const QString& getDeviceName(const DeviceType& device) const;
 
     bool hasButtons() const;
+
+    bool hasDevice(const DeviceType& device) const;
 
     bool isAvailable() const;
 
     void set (const DeviceInfo& info, const QString& value);
 
     void setAvailable(bool value);
-    
+
     void setDeviceList(const QStringList& list);
 
     void setDeviceName(const DeviceType& device, const QString& name);
-    
+
     void setButtons(bool value);
+
+private:
+    const DeviceInfo* resolveInfo(const QString& info) const;
+
+    const DeviceType* resolveType(const QString& device) const;
 };
 
 } // NAMESPACE

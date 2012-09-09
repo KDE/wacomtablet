@@ -25,7 +25,7 @@
 #include "property.h"
 #include "deviceinfo.h"
 #include "deviceprofile.h"
-#include "dbusdeviceinterface.h"
+#include "dbustabletinterface.h"
 
 // stdlib
 #include<memory>
@@ -81,8 +81,8 @@ void PadButtonWidget::init()
 {
     Q_D( PadButtonWidget );
 
-    QDBusReply<QString> deviceModel = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletModel);
-    QDBusReply<QString> deviceId    = DBusDeviceInterface::instance().getInformation(DeviceInfo::TabletId);
+    QDBusReply<QString> deviceModel = DBusTabletInterface::instance().getInformation(DeviceInfo::TabletModel);
+    QDBusReply<QString> deviceId    = DBusTabletInterface::instance().getInformation(DeviceInfo::TabletId);
 
     KSharedConfig::Ptr deviceConfig = KSharedConfig::openConfig(KStandardDirs::locate("data", QLatin1String( "wacomtablet/data/wacom_devicelist" )), KConfig::SimpleConfig, "data");
     KConfigGroup deviceGroup = KConfigGroup(deviceConfig, deviceId);
