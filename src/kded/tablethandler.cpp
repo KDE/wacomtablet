@@ -59,7 +59,7 @@ namespace Wacom
 using namespace Wacom;
 
 TabletHandler::TabletHandler()
-    : QObject(NULL), d_ptr(new TabletHandlerPrivate)
+    : TabletHandlerInterface(NULL), d_ptr(new TabletHandlerPrivate)
 {
     Q_D( TabletHandler );
 

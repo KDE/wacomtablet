@@ -41,28 +41,26 @@ namespace Wacom
     class DBusTabletServicePrivate
     {
         public:
-            TabletInformation tabletInformation;
-            TabletHandler*    tabletHandler;
-            QString           currentProfile;
+            TabletInformation       tabletInformation;
+            TabletHandlerInterface* tabletHandler;
+            QString                 currentProfile;
     }; // CLASS
 } // NAMESPACE
 
 
-DBusTabletService::DBusTabletService(TabletHandler& tabletHandler)
+DBusTabletService::DBusTabletService(TabletHandlerInterface& tabletHandler)
     : QObject(), d_ptr(new DBusTabletServicePrivate)
 {
     Q_D ( DBusTabletService );
 
+    d->tabletHandler = &tabletHandler;
     d->tabletInformation.setAvailable(false);
 
     // TODO DO WE REALLY NEED THIS?
-    qDBusRegisterMetaType<Wacom::TabletInformation>();
-    qDBusRegisterMetaType< QList<Wacom::TabletInformation> >();
+    //qDBusRegisterMetaType<Wacom::TabletInformation>();
+    //qDBusRegisterMetaType< QList<Wacom::TabletInformation> >();
 
-    d->tabletHandler = &tabletHandler;
-    connect(d->tabletHandler, SIGNAL (profileChanged(const QString&)), this, SLOT (onProfileChanged(const QString&)));
-    connect(d->tabletHandler, SIGNAL (tabletAdded(const TabletInformation&)), this, SLOT (onTabletAdded(const TabletInformation&)));
-    connect(d->tabletHandler, SIGNAL (tabletRemoved()), this, SLOT (onTabletRemoved()));
+    // TODO check if a tablet is currently connected
 }
 
 

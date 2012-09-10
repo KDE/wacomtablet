@@ -151,6 +151,12 @@ void TabletDaemon::setupDBus()
     new WacomAdaptor( &(d->dbusTabletService) );
     QDBusConnection::sessionBus().registerObject( QLatin1String( "/Tablet" ), &(d->dbusTabletService) );
     QDBusConnection::sessionBus().registerService( QLatin1String( "org.kde.Wacom" ) );
+
+    // connect tablet handler events to D-Bus
+    // this is done here and not in the D-Bus tablet service to facilitate unit testing
+    connect(&(d->tabletHandler), SIGNAL (profileChanged(const QString&)),        &(d->dbusTabletService), SLOT (onProfileChanged(const QString&)));
+    connect(&(d->tabletHandler), SIGNAL (tabletAdded(const TabletInformation&)), &(d->dbusTabletService), SLOT (onTabletAdded(const TabletInformation&)));
+    connect(&(d->tabletHandler), SIGNAL (tabletRemoved()),                       &(d->dbusTabletService), SLOT (onTabletRemoved()));
 }
 
 

@@ -19,7 +19,7 @@
 #define DBUSTABLETSERVICE_H
 
 #include "tabletinformation.h"
-#include "tablethandler.h"
+#include "tablethandlerinterface.h"
 #include "tabletprofile.h"
 #include "tabletrotation.h"
 
@@ -46,7 +46,7 @@ class DBusTabletService : public QObject
     Q_CLASSINFO("D-Bus Interface", "org.kde.Wacom")
 
 public:
-     explicit DBusTabletService (TabletHandler& tabletHandler);
+     explicit DBusTabletService (TabletHandlerInterface& tabletHandler);
     ~DBusTabletService ();
 
 

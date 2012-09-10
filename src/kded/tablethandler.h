@@ -18,6 +18,7 @@
 #ifndef TABLETHANDLER_H
 #define TABLETHANDLER_H
 
+#include "tablethandlerinterface.h"
 #include "tabletinformation.h"
 #include "property.h"
 #include "tabletrotation.h"
@@ -31,7 +32,7 @@ namespace Wacom
 class TabletProfile;
 class TabletHandlerPrivate;
 
-class TabletHandler : public QObject
+class TabletHandler : public TabletHandlerInterface
 {
     Q_OBJECT
 
