@@ -18,9 +18,9 @@
 #ifndef TABLETHANDLER_H
 #define TABLETHANDLER_H
 
+#include "property.h"
 #include "tablethandlerinterface.h"
 #include "tabletinformation.h"
-#include "property.h"
 #include "tabletrotation.h"
 
 #include <QtCore/QObject>

@@ -179,6 +179,7 @@ public:
      * returned by getInformation().
      */
     QString     unknown;           //!< A dummy member so we can safely return a const reference.
+    QString     xdeviceId;         //!< Xinput device identifier.
     QString     companyId;         //!< The company identifier.
     QString     companyName;       //!< The name of the company who built this device.
     QString     tabletId;          //!< The tablet identifier as four digit hex code.

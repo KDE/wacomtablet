@@ -28,7 +28,8 @@ DBusTabletInterface* DBusTabletInterface::m_instance = NULL;
 QDBusArgument &Wacom::operator<<( QDBusArgument &argument, const Wacom::TabletInformation &mystruct )
 {
     argument.beginStructure();
-    argument << mystruct.companyId
+    argument << mystruct.xdeviceId
+             << mystruct.companyId
              << mystruct.companyName
              << mystruct.tabletId
              << mystruct.tabletName
@@ -48,7 +49,8 @@ QDBusArgument &Wacom::operator<<( QDBusArgument &argument, const Wacom::TabletIn
 const QDBusArgument &Wacom::operator>>( const QDBusArgument &argument, Wacom::TabletInformation &mystruct )
 {
     argument.beginStructure();
-    argument >> mystruct.companyId
+    argument >> mystruct.xdeviceId
+             >> mystruct.companyId
              >> mystruct.companyName
              >> mystruct.tabletId
              >> mystruct.tabletName

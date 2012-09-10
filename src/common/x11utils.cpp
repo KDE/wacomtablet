@@ -59,6 +59,10 @@ bool X11Utils::findTabletDevice(TabletInformation& devinfo)
 
         if (devFound) {
             parseXDevicePropertySerialId(devinfo, *xdev);
+            devinfo.xdeviceId = QString::number(xdevinfo[i].id);
+
+            // TODO do we really have to check all devices?
+            //      break after closing device if possible.
         }
 
         XCloseDevice( QX11Info::display(), xdev );

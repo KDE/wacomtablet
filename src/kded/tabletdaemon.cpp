@@ -165,11 +165,11 @@ void TabletDaemon::setupDevice()
 {
     Q_D( TabletDaemon );
 
-    TabletInformation devinfo;
+    TabletInformation tabinfo;
 
-    if (X11Utils::findTabletDevice(devinfo)) {
+    if (X11Utils::findTabletDevice(tabinfo)) {
         bool ok       = false;
-        int  deviceId = devinfo.tabletId.toInt(&ok, 16); // TODO This is probably not the correct device id! TabletInformation needs a member for the xinput device id.
+        int  deviceId = tabinfo.xdeviceId.toInt(&ok, 10);
 
         if (ok) {
             d->tabletHandler.onDeviceAdded(deviceId);

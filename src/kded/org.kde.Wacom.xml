@@ -16,7 +16,7 @@
 
         <method name="getInformation">
             <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="Wacom::TabletInformation"/>
-            <arg type="(sssssassssssbb)" direction="out"/>
+            <arg type="(ssssssassssssbb)" direction="out"/>
         </method>
 
         <method name="getInformation">
