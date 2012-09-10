@@ -27,7 +27,7 @@
 
 namespace Wacom
 {
-class TabletHandlerMock : public QObject
+class TabletHandlerMock : public TabletHandlerInterface
 {
     Q_OBJECT
 
@@ -35,7 +35,6 @@ public:
     TabletHandlerMock();
     virtual ~TabletHandlerMock();
 
-    /*
     //! Emmits a profileChanged signal with the given parameter.
     void emitProfileChanged(const QString& profile);
 
@@ -44,7 +43,6 @@ public:
 
     //! Emmits a tabletRemoved signal.
     void emitTabletRemoved();
-    */
 
     //! Gets the current mock property value no matter which property or device is requested.
     QString getProperty(const QString& device, const Property& property) const;
@@ -74,11 +72,10 @@ Q_SIGNALS:
 
     void profileChanged(const QString& profile);
 
-/*
     void tabletAdded(const TabletInformation& info);
 
     void tabletRemoved();
-*/
+
 public:
     QString     m_lastDeviceGet;   //!< The last device a property was requsted from.
     QString     m_lastDeviceSet;   //!< The last device a property was set on.

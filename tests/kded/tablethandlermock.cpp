@@ -20,7 +20,7 @@
 
 using namespace Wacom;
 
-TabletHandlerMock::TabletHandlerMock() : QObject(NULL)
+TabletHandlerMock::TabletHandlerMock() : TabletHandlerInterface(NULL)
 {
     m_profile     = QLatin1String("default");
     m_flagPenMode = false;
@@ -34,7 +34,6 @@ TabletHandlerMock::TabletHandlerMock() : QObject(NULL)
 TabletHandlerMock::~TabletHandlerMock() {}
 
 
-/*
 void TabletHandlerMock::emitProfileChanged(const QString& profile)
 {
     emit profileChanged(profile);
@@ -53,7 +52,6 @@ void TabletHandlerMock::emitTabletRemoved()
 {
     emit tabletRemoved();
 }
-*/
 
 
 QString TabletHandlerMock::getProperty(const QString& device, const Property& property) const
@@ -83,7 +81,7 @@ QStringList TabletHandlerMock::listProfiles() const
 void TabletHandlerMock::setProfile(const QString& profile)
 {
     m_profile = profile;
-    //emitProfileChanged(profile);
+    emitProfileChanged(profile);
 }
 
 
