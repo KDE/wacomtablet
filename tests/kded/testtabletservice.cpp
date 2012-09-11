@@ -17,12 +17,42 @@
 
 #include "testtabletservice.moc"
 
+#include "dbustabletservice.h"
+#include "dbustabletinterface.h"
 #include "tablethandlermock.h"
 
 using namespace Wacom;
 
+TestTabletService::TestTabletService(QObject* parent) : QObject(parent)
+{
+
+}
+
+
+bool TestTabletService::isDBusAvailable()
+{
+    DBusTabletInterface::instance().resetInterface();
+    return DBusTabletInterface::instance().isValid();
+}
+
+
 void TestTabletService::test()
 {
+    // make sure the dbus interface is not already connected
+    if (isDBusAvailable()) {
+        QSKIP("D-Bus service already running! Please shut it down to run this test!", SkipAll);
+        return;
+    }
+
+    // initialize D-Bus service
     TabletHandlerMock tabletHandlerMock;
+    DBusTabletService tabletService(tabletHandlerMock);
+
+    // reset D-Bus client interface
+    DBusTabletInterface::instance().resetInterface();;
+
+    DBusTabletInterface::instance().setProfile(QLatin1String("TestProfile"));
+
+    QCOMPARE(tabletHandlerMock.m_profile, QLatin1String("TestProfile"));
 }
 

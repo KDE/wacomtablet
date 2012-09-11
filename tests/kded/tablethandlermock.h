@@ -35,6 +35,7 @@ public:
     TabletHandlerMock();
     virtual ~TabletHandlerMock();
 
+
     //! Emmits a profileChanged signal with the given parameter.
     void emitProfileChanged(const QString& profile);
 
@@ -43,6 +44,7 @@ public:
 
     //! Emmits a tabletRemoved signal.
     void emitTabletRemoved();
+
 
     //! Gets the current mock property value no matter which property or device is requested.
     QString getProperty(const QString& device, const Property& property) const;

@@ -27,11 +27,13 @@
 #include "mainconfig.h"
 #include "profilemanager.h"
 #include "tabletprofile.h"
+#include "wacomadaptor.h"
 #include "x11utils.h"
 
 #include <KDE/KLocalizedString>
 
 #include <QtDBus/QDBusArgument>
+#include <QtDBus/QDBusConnection>
 #include <QtDBus/QDBusMetaType>
 
 using namespace Wacom;
@@ -41,6 +43,7 @@ namespace Wacom
     class DBusTabletServicePrivate
     {
         public:
+            WacomAdaptor*           wacomAdaptor;
             TabletInformation       tabletInformation;
             TabletHandlerInterface* tabletHandler;
             QString                 currentProfile;
@@ -60,12 +63,18 @@ DBusTabletService::DBusTabletService(TabletHandlerInterface& tabletHandler)
     //qDBusRegisterMetaType<Wacom::TabletInformation>();
     //qDBusRegisterMetaType< QList<Wacom::TabletInformation> >();
 
-    // TODO check if a tablet is currently connected
+    d->wacomAdaptor = new WacomAdaptor( this );
+    QDBusConnection::sessionBus().registerObject( QLatin1String( "/Tablet" ), this );
+    QDBusConnection::sessionBus().registerService( QLatin1String( "org.kde.Wacom" ) );
 }
 
 
 DBusTabletService::~DBusTabletService()
 {
+    QDBusConnection::sessionBus().unregisterService( QLatin1String( "org.kde.Wacom" ) );
+    QDBusConnection::sessionBus().unregisterObject( QLatin1String( "/Tablet" ));
+    delete d_ptr->wacomAdaptor;
+
     delete d_ptr;
 }
 

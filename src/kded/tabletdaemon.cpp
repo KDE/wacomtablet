@@ -87,7 +87,7 @@ TabletDaemon::~TabletDaemon()
 {
     this->d_ptr->xEventNotifier.stop();
 
-    QDBusConnection::sessionBus().unregisterService( QLatin1String( "org.kde.Wacom" ) );
+    //QDBusConnection::sessionBus().unregisterService( QLatin1String( "org.kde.Wacom" ) );
 
     delete this->d_ptr;
 }
@@ -148,9 +148,11 @@ void TabletDaemon::setupDBus()
 {
     Q_D( TabletDaemon );
 
+    /*
     new WacomAdaptor( &(d->dbusTabletService) );
     QDBusConnection::sessionBus().registerObject( QLatin1String( "/Tablet" ), &(d->dbusTabletService) );
     QDBusConnection::sessionBus().registerService( QLatin1String( "org.kde.Wacom" ) );
+    */
 
     // connect tablet handler events to D-Bus
     // this is done here and not in the D-Bus tablet service to facilitate unit testing

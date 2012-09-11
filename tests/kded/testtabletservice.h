@@ -27,9 +27,16 @@ class TestTabletService : public QObject
 {
     Q_OBJECT
 
+public:
+    TestTabletService(QObject* parent = NULL);
+    
+private:
+    bool isDBusAvailable();
+
 private slots:
 
     void test();
+
 };
 }
 

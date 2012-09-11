@@ -24,9 +24,19 @@ set(kded_wacomtablet_SRCS
     xsetwacomproperty.cpp
 )
 
+## headers which need to be moc'ed for the static unit-testing library
+set(kded_wacomtablet_HDRS
+    dbustabletservice.h
+    tabletdaemon.h
+    tablethandler.h
+    xdeviceeventnotifier.h
+)
+
+## create cpp mocs
+qt4_wrap_cpp (kded_wacomtablet_MOCS ${kded_wacomtablet_HDRS})
+
 ## dbus interfaces
 qt4_add_dbus_adaptor(kded_wacomtablet_SRCS org.kde.Wacom.xml dbustabletservice.h Wacom::DBusTabletService)
-
 
 ## build KDE daemon module
 kde4_add_plugin(kded_wacomtablet ${kded_wacomtablet_SRCS})
@@ -34,7 +44,7 @@ target_link_libraries( kded_wacomtablet ${kded_wacomtablet_LIBS} )
 
 
 ## build static library for unit testing
-add_library( kded_wacomtablet_lib STATIC ${kded_wacomtablet_SRCS} )
+add_library( kded_wacomtablet_lib STATIC ${kded_wacomtablet_SRCS} ${kded_wacomtablet_MOCS} )
 target_link_libraries( kded_wacomtablet_lib ${kded_wacomtablet_LIBS} )
 
 if( CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" )
