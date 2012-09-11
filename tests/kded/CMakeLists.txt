@@ -10,7 +10,7 @@ set(TEST_INCLUDES
     ${KDE4_INCLUDES})
 
 ## additional sources and qt-mocs which are required for the tests
-set(TEST_SOURCES tablethandlermock.cpp)
+set(TEST_SOURCES tablethandlermock.cpp tabletdependenttest.cpp)
 
 set(TEST_MOC_HEADERS tablethandlermock.h)
 qt4_wrap_cpp (TEST_MOC_FILES ${TEST_MOC_HEADERS})
