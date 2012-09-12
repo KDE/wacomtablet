@@ -59,8 +59,7 @@ DBusTabletService::DBusTabletService(TabletHandlerInterface& tabletHandler)
     d->tabletHandler = &tabletHandler;
     d->tabletInformation.setAvailable(false);
 
-    // TODO DO WE REALLY NEED THIS?
-    //qDBusRegisterMetaType<Wacom::TabletInformation>();
+    qDBusRegisterMetaType<Wacom::TabletInformation>();
     //qDBusRegisterMetaType< QList<Wacom::TabletInformation> >();
 
     d->wacomAdaptor = new WacomAdaptor( this );
@@ -168,22 +167,6 @@ void DBusTabletService::setProperty(const QString& device, const QString& proper
 
 
 
-void DBusTabletService::togglePenMode()
-{
-    Q_D ( DBusTabletService );
-    d->tabletHandler->togglePenMode();
-}
-
-
-
-void DBusTabletService::toggleTouch()
-{
-    Q_D ( DBusTabletService );
-    d->tabletHandler->toggleTouch();
-}
-
-
-
 void DBusTabletService::onProfileChanged(const QString& profile)
 {
     Q_D ( DBusTabletService );
@@ -212,6 +195,7 @@ void DBusTabletService::onTabletRemoved()
     Q_D ( DBusTabletService );
     TabletInformation empty;
 
+    d->currentProfile    = QString();
     d->tabletInformation = empty;
     d->tabletInformation.setAvailable(false);
 

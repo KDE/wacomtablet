@@ -70,6 +70,7 @@ public:
     //! Toggle the mock's touch flag.
     void toggleTouch();
 
+
 Q_SIGNALS:
 
     void profileChanged(const QString& profile);
@@ -78,13 +79,11 @@ Q_SIGNALS:
 
     void tabletRemoved();
 
-public:
-    QString     m_lastDeviceGet;   //!< The last device a property was requsted from.
-    QString     m_lastDeviceSet;   //!< The last device a property was set on.
-    QString     m_lastPropertyGet; //!< The last property which was requested.
-    QString     m_lastPropertySet; //!< The last property which was set.
 
-    QString     m_property;        //!< The property value returned by this mock, no matter which property is requested.
+public:
+    QString     m_device;          //!< The device a property was set on and the device a property is returned from.
+    QString     m_property;        //!< The property which was set and the property which can be get.
+    QString     m_propertyValue;   //!< The property value returned by this mock, no matter which property is requested.
     QStringList m_profiles;        //!< The list of profiles returned by this mock.
     QString     m_profile;         //!< The profile name returned by this mock.
     bool        m_flagPenMode;     //!< The flag which resembles the pen mode state.

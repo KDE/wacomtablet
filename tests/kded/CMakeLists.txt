@@ -26,4 +26,4 @@ set(TEST_LIBRARIES
 ## set includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${TEST_INCLUDES})
 
-add_qttest(testtabletservice testtabletservice.cpp ${TEST_SOURCES} ${TEST_MOC_FILES})
+add_qttest(testdbustabletservice testdbustabletservice.cpp ${TEST_SOURCES} ${TEST_MOC_FILES})

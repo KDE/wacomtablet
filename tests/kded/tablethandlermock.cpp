@@ -63,10 +63,15 @@ QString TabletHandlerMock::getProperty(const QString& device, const Property& pr
 
 QString TabletHandlerMock::getProperty(const QString& device, const QString& property) const
 {
-    //m_lastDeviceGet   = device;
-    //m_lastPropertyGet = property;
+    if (m_device.compare(device, Qt::CaseInsensitive) != 0) {
+        return QLatin1String("ERROR: DEVICE DOES NOT MATCH!");
+    }
 
-    return m_property;
+    if (m_property.compare(property, Qt::CaseInsensitive) != 0) {
+        return QLatin1String("ERROR: PROPERTY DOES NOT MATCH!");
+    }
+
+    return m_propertyValue;
 }
 
 
@@ -88,9 +93,9 @@ void TabletHandlerMock::setProfile(const QString& profile)
 
 void TabletHandlerMock::setProperty(const QString& device, const QString& property, const QString& value)
 {
-    m_lastDeviceSet   = device;
-    m_lastPropertySet = property;
-    m_property        = value;
+    m_device          = device;
+    m_property        = property;
+    m_propertyValue   = value;
 }
 
 

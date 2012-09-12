@@ -42,6 +42,18 @@ class TabletInformation
 {
 public:
 
+    TabletInformation();
+
+    /**
+     * Equals operator.
+     */
+    bool operator== (const TabletInformation& other) const;
+
+    /**
+     * Not-Equals operator.
+     */
+    bool operator!= (const TabletInformation& other) const;
+
     /**
      * Gets tablet information using the provided tablet information identifier.
      * If the identifier can not be mapped to a TabletInfo enumeration type, an

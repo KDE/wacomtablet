@@ -26,6 +26,7 @@
 #include <QtCore/QString>
 #include <QtDBus/QDBusArgument>
 #include <QtDBus/QDBusInterface>
+#include <QtDBus/QDBusReply>
 
 namespace Wacom
 {

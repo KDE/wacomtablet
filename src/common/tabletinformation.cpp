@@ -21,6 +21,45 @@
 
 using namespace Wacom;
 
+TabletInformation::TabletInformation()
+{
+    isTabletAvailable = false;
+    hasPadButtons     = false;
+}
+
+
+bool TabletInformation::operator!=(const TabletInformation& other) const
+{
+    return !operator==(other);
+}
+
+
+
+bool TabletInformation::operator==(const TabletInformation& other) const
+{
+    if (xdeviceId.compare   (other.xdeviceId,   Qt::CaseInsensitive) != 0 ||
+        companyId.compare   (other.companyId,   Qt::CaseInsensitive) != 0 ||
+        companyName.compare (other.companyName, Qt::CaseInsensitive) != 0 ||
+        tabletId.compare    (other.tabletId,    Qt::CaseInsensitive) != 0 ||
+        tabletModel.compare (other.tabletModel, Qt::CaseInsensitive) != 0 ||
+        tabletName.compare  (other.tabletName,  Qt::CaseInsensitive) != 0 ||
+        padName.compare     (other.padName,     Qt::CaseInsensitive) != 0 ||
+        stylusName.compare  (other.stylusName,  Qt::CaseInsensitive) != 0 ||
+        eraserName.compare  (other.eraserName,  Qt::CaseInsensitive) != 0 ||
+        cursorName.compare  (other.cursorName,  Qt::CaseInsensitive) != 0 ||
+        touchName.compare   (other.touchName,   Qt::CaseInsensitive) != 0 ||
+        isTabletAvailable != other.isTabletAvailable ||
+        hasPadButtons     != other.hasPadButtons
+    )
+    {
+        return false;
+    }
+
+    return true;
+}
+
+
+
 const QString& TabletInformation::get(const QString& info) const
 {
     const TabletInfo* devinfo = TabletInfo::find(info);

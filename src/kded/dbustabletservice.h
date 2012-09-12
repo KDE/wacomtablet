@@ -152,16 +152,6 @@ public Q_SLOTS:
       */
     Q_SCRIPTABLE void setProperty(const QString & device, const QString & property, const QString & value);
 
-    /**
-      * Toggles the stylus/eraser to absolute/relative mode
-      */
-    Q_SCRIPTABLE void togglePenMode();
-
-    /**
-      * Toggles the touch tool on/off
-      */
-    Q_SCRIPTABLE void toggleTouch();
-
 
 // d-bus signals
 Q_SIGNALS:
@@ -209,6 +199,6 @@ private:
 }  // NAMESPACE
 
 Q_DECLARE_METATYPE(Wacom::TabletInformation)
-Q_DECLARE_METATYPE(QList<Wacom::TabletInformation>)
+//Q_DECLARE_METATYPE(QList<Wacom::TabletInformation>)
 
 #endif // HEADER PROTECTION
