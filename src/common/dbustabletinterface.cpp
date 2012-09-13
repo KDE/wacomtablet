@@ -34,7 +34,6 @@ QDBusArgument &Wacom::operator<<( QDBusArgument &argument, const Wacom::TabletIn
              << mystruct.tabletId
              << mystruct.tabletName
              << mystruct.tabletModel
-             << mystruct.deviceList
              << mystruct.padName
              << mystruct.stylusName
              << mystruct.eraserName
@@ -55,7 +54,6 @@ const QDBusArgument &Wacom::operator>>( const QDBusArgument &argument, Wacom::Ta
              >> mystruct.tabletId
              >> mystruct.tabletName
              >> mystruct.tabletModel
-             >> mystruct.deviceList
              >> mystruct.padName
              >> mystruct.stylusName
              >> mystruct.eraserName

@@ -516,9 +516,6 @@ bool X11Utils::parseXDevicePropertySerialId(TabletInformation& devinfo, XDevice&
 
 bool X11Utils::parseXDeviceToolType(TabletInformation& devinfo, const QString& xdevtype, XDeviceInfo& xdevinfo)
 {
-    // add the device to the device list
-    devinfo.deviceList.append(QString::fromLatin1(xdevinfo.name));
-    
     //check what type we found (with Type is Wacom xxx) and save internal reference)
     if( xdevtype.contains( QLatin1String( "pad" ), Qt::CaseInsensitive ) ) {
         devinfo.padName = QString::fromLatin1(xdevinfo.name);

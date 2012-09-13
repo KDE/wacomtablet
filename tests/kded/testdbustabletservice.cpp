@@ -29,11 +29,12 @@ void TestDBusTabletService::assertTabletInformation(const TabletInformation& exp
     QDBusReply<bool> actualBool;
 
     // make sure the device list is equal
-    QDBusReply<QStringList> deviceList = DBusTabletInterface::instance().getDeviceList();
-    QVERIFY(deviceList.isValid());
+    QStringList             expectedDeviceList = expectedInformation.getDeviceList();
+    QDBusReply<QStringList> actualDeviceList   = DBusTabletInterface::instance().getDeviceList();
+    QVERIFY(actualDeviceList.isValid());
 
-    for (int i = 0 ; i < expectedInformation.deviceList.size() ; ++i) {
-        QCOMPARE(expectedInformation.deviceList.at(i), deviceList.value().at(i));
+    for (int i = 0 ; i < expectedDeviceList.size() ; ++i) {
+        QCOMPARE(expectedDeviceList.at(i), actualDeviceList.value().at(i));
     }
 
     // make sure the devices are equal

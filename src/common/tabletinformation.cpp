@@ -114,8 +114,19 @@ const QString& TabletInformation::get(const TabletInfo& info) const
 
 
 
-const QStringList& TabletInformation::getDeviceList() const
+const QStringList TabletInformation::getDeviceList() const
 {
+    QString     device;
+    QStringList deviceList;
+
+    foreach (const DeviceType& type, DeviceType::list()) {
+        device = getDeviceName(type);
+
+        if (!device.isEmpty()) {
+            deviceList.append(device);
+        }
+    }
+
     return deviceList;
 }
 
@@ -229,13 +240,6 @@ void TabletInformation::set(const TabletInfo& info, const QString& value)
 void TabletInformation::setAvailable(bool value)
 {
     isTabletAvailable = value;
-}
-
-
-
-void TabletInformation::setDeviceList(const QStringList& list)
-{
-    deviceList = list;
 }
 
 

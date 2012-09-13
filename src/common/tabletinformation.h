@@ -85,7 +85,7 @@ public:
      *
      * @return A list of Xinput device names.
      */
-    const QStringList& getDeviceList() const;
+    const QStringList getDeviceList() const;
 
 
     /**
@@ -161,14 +161,6 @@ public:
 
 
     /**
-     * Sets the device list of this tablet.
-     *
-     * @param list The new device list.
-     */
-    void setDeviceList(const QStringList& list);
-
-
-    /**
      * Sets a device name of this tablet.
      *
      * @param device The device name to set.
@@ -197,7 +189,6 @@ public:
     QString     tabletId;          //!< The tablet identifier as four digit hex code.
     QString     tabletName;        //!< The name of the tablet.
     QString     tabletModel;       //!< The tablet model.
-    QStringList deviceList;        //!< The device names of all devices this tablet consists of.
     QString     padName;           //!< The name of the pad device, if available.
     QString     stylusName;        //!< The name of the stylus device, if available.
     QString     eraserName;        //!< The name of the eraser device, if available.

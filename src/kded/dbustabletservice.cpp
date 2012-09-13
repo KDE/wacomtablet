@@ -79,7 +79,7 @@ DBusTabletService::~DBusTabletService()
 
 
 
-const QStringList& DBusTabletService::getDeviceList() const
+const QStringList DBusTabletService::getDeviceList() const
 {
     Q_D ( const DBusTabletService );
     return d->tabletInformation.getDeviceList();

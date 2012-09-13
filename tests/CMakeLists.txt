@@ -1,6 +1,6 @@
 
 ## set this to false to disable automatic test execution
-set(ENABLE_TESTING false)
+set(ENABLE_TESTING true)
 
 ## make sure QTTEST is available
 find_package(Qt4 REQUIRED)

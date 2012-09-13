@@ -58,7 +58,7 @@ public Q_SLOTS:
       *
       * @return StringList of the connected input devices
       */
-    Q_SCRIPTABLE const QStringList& getDeviceList() const;
+    Q_SCRIPTABLE const QStringList getDeviceList() const;
 
     /**
      * Gets the name of a device (pad/stylus/...).
