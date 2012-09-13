@@ -22,9 +22,7 @@ using namespace Wacom;
 
 TabletHandlerMock::TabletHandlerMock() : TabletHandlerInterface(NULL)
 {
-    m_profile     = QLatin1String("default");
-    m_flagPenMode = false;
-    m_flagTouch   = false;
+    m_profile = QLatin1String("default");
 
     m_profiles.append(QLatin1String("default"));
     m_profiles.append(QLatin1String("myprofile"));
@@ -105,16 +103,3 @@ void TabletHandlerMock::setProperty(const QString& device, const Property& prope
     setProperty(device, property.key(), value);
 }
 
-
-
-void TabletHandlerMock::togglePenMode()
-{
-    m_flagPenMode = !m_flagPenMode;
-}
-
-
-
-void TabletHandlerMock::toggleTouch()
-{
-    m_flagTouch = !m_flagTouch;
-}

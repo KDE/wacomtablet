@@ -50,10 +50,6 @@ public:
 
     virtual void setProperty(const QString& device, const Property & property, const QString& value) = 0;
 
-    virtual void togglePenMode() = 0;
-
-    virtual void toggleTouch() = 0;
-
 }; // CLASS
 }  // NAMESPACE
 #endif // HEADER PROTECTION

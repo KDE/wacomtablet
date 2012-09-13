@@ -95,18 +95,6 @@ public:
     void setProperty(const QString& device, const Property & property, const QString& value);
 
 
-    /**
-      * Toggles the stylus/eraser to absolute/relative mode
-      */
-    void togglePenMode();
-
-
-    /**
-      * Toggles the touch tool on/off
-      */
-    void toggleTouch();
-
-
 
 
 public Q_SLOTS:
@@ -140,6 +128,15 @@ public Q_SLOTS:
      */
     void onScreenRotated(TabletRotation screenRotation);
 
+    /**
+      * Toggles the stylus/eraser to absolute/relative mode
+      */
+    void onTogglePenMode();
+
+    /**
+      * Toggles the touch tool on/off
+      */
+    void onToggleTouch();
 
 
 Q_SIGNALS:

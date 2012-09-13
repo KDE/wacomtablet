@@ -119,12 +119,12 @@ void TabletDaemon::setupActions()
     KAction *action = d->actionCollection->addAction(QLatin1String("Toggle touch tool"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_T ) );
-    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( toggleTouch() ) );
+    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onToggleTouch() ) );
 
     action = d->actionCollection->addAction(QLatin1String("Toggle stylus mode"));
     action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ) );
-    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( togglePenMode() ) );
+    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onTogglePenMode() ) );
 }
 
 
@@ -147,12 +147,6 @@ void TabletDaemon::setupApplication()
 void TabletDaemon::setupDBus()
 {
     Q_D( TabletDaemon );
-
-    /*
-    new WacomAdaptor( &(d->dbusTabletService) );
-    QDBusConnection::sessionBus().registerObject( QLatin1String( "/Tablet" ), &(d->dbusTabletService) );
-    QDBusConnection::sessionBus().registerService( QLatin1String( "org.kde.Wacom" ) );
-    */
 
     // connect tablet handler events to D-Bus
     // this is done here and not in the D-Bus tablet service to facilitate unit testing
@@ -186,8 +180,8 @@ void TabletDaemon::setupXEventNotifier()
     Q_D( TabletDaemon );
 
     d->xEventNotifier.start();
-    connect( &(d->xEventNotifier), SIGNAL( deviceAdded( int ) ), &(d->tabletHandler), SLOT( onDeviceAdded( int ) ) );
-    connect( &(d->xEventNotifier), SIGNAL( deviceRemoved( int ) ), &(d->tabletHandler), SLOT( onDeviceRemoved( int ) ) );
+    connect( &(d->xEventNotifier), SIGNAL( deviceAdded( int ) ),              &(d->tabletHandler), SLOT( onDeviceAdded( int ) ) );
+    connect( &(d->xEventNotifier), SIGNAL( deviceRemoved( int ) ),            &(d->tabletHandler), SLOT( onDeviceRemoved( int ) ) );
     connect( &(d->xEventNotifier), SIGNAL( screenRotated( TabletRotation ) ), &(d->tabletHandler), SLOT( onScreenRotated( TabletRotation ) ) );
 }
 

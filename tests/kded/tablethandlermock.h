@@ -64,12 +64,6 @@ public:
     //! Sets the given property value on the mock no matter which device or property is set.
     void setProperty(const QString& device, const Property & property, const QString& value);
 
-    //! Toggles the mock's pen mode flag.
-    void togglePenMode();
-
-    //! Toggle the mock's touch flag.
-    void toggleTouch();
-
 
 Q_SIGNALS:
 
@@ -86,8 +80,6 @@ public:
     QString     m_propertyValue;   //!< The property value returned by this mock, no matter which property is requested.
     QStringList m_profiles;        //!< The list of profiles returned by this mock.
     QString     m_profile;         //!< The profile name returned by this mock.
-    bool        m_flagPenMode;     //!< The flag which resembles the pen mode state.
-    bool        m_flagTouch;       //!< The flag which resembles the touch state.
 
 
 }; // CLASS

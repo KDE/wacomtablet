@@ -79,15 +79,28 @@ TabletHandler::~TabletHandler()
 
 QString TabletHandler::getProperty(const QString& device, const Property& property) const
 {
-    return getProperty(device, property.key());
+    Q_D( const TabletHandler );
+
+    if( !d->currentDevice ) {
+        kError() << QString::fromLatin1("Unable to get property '%1' from device '%2' as no device is currently available!").arg(property.key()).arg(device);
+        return QString();
+    }
+
+    return d->currentDevice->getProperty( device, property );
 }
 
 
-void TabletHandler::setProperty(const QString& device, const Property& property, const QString& value)
+QString TabletHandler::getProperty(const QString& device, const QString& param) const
 {
-    setProperty(device, property.key(), value);
-}
+    const Property* property = Property::find(param);
 
+    if (property == NULL) {
+        kError() << QString::fromLatin1("Can not get invalid property '%1' from device '%2'!").arg(param).arg(device);
+        return QString();
+    }
+
+    return getProperty(device, *property);
+}
 
 
 
@@ -142,7 +155,7 @@ void TabletHandler::onScreenRotated( TabletRotation screenRotation )
     Q_D( TabletHandler );
 
     TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
-    DeviceProfile stylusProfile = tabletProfile.getDevice(QLatin1String( "stylus" ));
+    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus.key());
 
     kDebug() << "xRandR screen rotation detected.";
 
@@ -169,7 +182,7 @@ void TabletHandler::onScreenRotated( TabletRotation screenRotation )
 
         QString stylusName = d->tabletInformation.getDeviceName(DeviceType::Stylus);
         QString eraserName = d->tabletInformation.getDeviceName(DeviceType::Eraser);
-        QString touchName = d->tabletInformation.getDeviceName(DeviceType::Touch);
+        QString touchName  = d->tabletInformation.getDeviceName(DeviceType::Touch);
 
         setProperty( stylusName, Property::Rotate.key(), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
         setProperty( eraserName, Property::Rotate.key(), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
@@ -183,22 +196,35 @@ void TabletHandler::onScreenRotated( TabletRotation screenRotation )
 }
 
 
-QString TabletHandler::getProperty(const QString& device, const QString& param) const
+void TabletHandler::onTogglePenMode()
 {
-    Q_D( const TabletHandler );
+    Q_D( TabletHandler );
 
     if( !d->currentDevice ) {
-        return QString();
+        return;
     }
 
-    const Property* property = Property::find(param);
-
-    if (property == NULL) {
-        kError() << QString::fromLatin1("Can not get invalid property '%1'!").arg(param);
-        return QString();
+    if(!d->tabletInformation.hasDevice(DeviceType::Stylus)) {
+        d->currentDevice->toggleMode(d->tabletInformation.getDeviceName(DeviceType::Stylus));
     }
 
-    return d->currentDevice->getProperty( device, *property );
+    if(!d->tabletInformation.hasDevice(DeviceType::Eraser)) {
+        d->currentDevice->toggleMode(d->tabletInformation.getDeviceName(DeviceType::Eraser) );
+    }
+
+}
+
+
+
+void TabletHandler::onToggleTouch()
+{
+    Q_D( TabletHandler );
+
+    if( !d->currentDevice || d->tabletInformation.hasDevice(DeviceType::Touch) ) {
+        return;
+    }
+
+    d->currentDevice->toggleTouch(d->tabletInformation.getDeviceName(DeviceType::Touch));
 }
 
 
@@ -249,55 +275,30 @@ void TabletHandler::setProfile( const QString &profile )
 
 
 
-void TabletHandler::setProperty(const QString& device, const QString& param, const QString& value)
+void TabletHandler::setProperty(const QString& device, const Property& property, const QString& value)
 {
     Q_D( TabletHandler );
 
-    if( !d->currentDevice ) {
+    if (!d->currentDevice) {
+        kError() << QString::fromLatin1("Unable to set property '%1' on device '%2' to '%3' as no device is currently available!").arg(property.key()).arg(device).arg(value);
         return;
     }
 
+    d->currentDevice->setProperty( device, property, value );
+}
+
+
+
+void TabletHandler::setProperty(const QString& device, const QString& param, const QString& value)
+{
     const Property* property = Property::find(param);
 
     if (property == NULL) {
-        kError() << QString::fromLatin1("Can not set invalid property '%1' to '%2'!").arg(param).arg(value);
+        kError() << QString::fromLatin1("Can not set invalid property '%1' on device '%2' to '%3'!").arg(param).arg(device).arg(value);
         return;
     }
 
-    d->currentDevice->setProperty( device, *property, value );
-}
-
-
-
-void TabletHandler::togglePenMode()
-{
-    Q_D( TabletHandler );
-
-    if( !d->currentDevice ) {
-        return;
-    }
-
-    if(!d->tabletInformation.hasDevice(DeviceType::Stylus)) {
-        d->currentDevice->toggleMode(d->tabletInformation.getDeviceName(DeviceType::Stylus));
-    }
-
-    if(!d->tabletInformation.hasDevice(DeviceType::Eraser)) {
-        d->currentDevice->toggleMode(d->tabletInformation.getDeviceName(DeviceType::Eraser) );
-    }
-
-}
-
-
-
-void TabletHandler::toggleTouch()
-{
-    Q_D( TabletHandler );
-
-    if( !d->currentDevice || d->tabletInformation.hasDevice(DeviceType::Touch) ) {
-        return;
-    }
-
-    d->currentDevice->toggleTouch(d->tabletInformation.getDeviceName(DeviceType::Touch));
+    setProperty(device, *property, value);
 }
 
 
