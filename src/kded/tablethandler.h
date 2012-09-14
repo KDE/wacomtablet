@@ -106,7 +106,7 @@ public Q_SLOTS:
       *
       * @param deviceid The device id as reported by X11.
       */
-    void onDeviceAdded(int deviceid);
+    void onTabletAdded(const TabletInformation& info);
 
     /**
       * @brief Handles the removal of a tablet device.
@@ -116,7 +116,7 @@ public Q_SLOTS:
       *
       * @param deviceid The device id as reported by X11.
       */
-    void onDeviceRemoved(int deviceid);
+    void onTabletRemoved(const TabletInformation& info);
 
     /**
      * @brief Handles rotating the tablet.

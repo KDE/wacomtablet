@@ -14,9 +14,10 @@ set(kded_wacomtablet_LIBS
 ## sources
 set(kded_wacomtablet_SRCS
     dbustabletservice.cpp
+    eventnotifier.cpp
     tabletdaemon.cpp
     tablethandler.cpp
-    xdeviceeventnotifier.cpp
+    xeventnotifier.cpp
     xinputadaptor.cpp
     xinputproperty.cpp
     xsetwacomadaptor.cpp
@@ -29,7 +30,8 @@ set(kded_wacomtablet_HDRS
     dbustabletservice.h
     tabletdaemon.h
     tablethandler.h
-    xdeviceeventnotifier.h
+    eventnotifier.h
+    xeventnotifier.h
 )
 
 ## create cpp mocs

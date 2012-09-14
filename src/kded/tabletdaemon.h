@@ -18,8 +18,6 @@
 #ifndef TABLETDAEMON_H
 #define TABLETDAEMON_H
 
-#include "xdeviceeventnotifier.h"
-
 #include <KDE/KDEDModule>
 #include <QtCore/QVariantList>
 

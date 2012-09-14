@@ -1,5 +1,5 @@
 /*
- * Copyright 2010, 2011 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * Copyright 2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -15,17 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "xdeviceeventnotifier.h"
+#include "xeventnotifier.h"
+
 #include "x11utils.h"
 
-// KDE includes
 #include <KDE/KApplication>
 #include <KDE/KDebug>
 
-// Ot includes
 #include <QtGui/QX11Info>
 
-// X11 includes
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -33,16 +31,32 @@
 #include <X11/extensions/XInput2.h>
 #include <X11/extensions/Xrandr.h>
 
-using namespace Wacom;
-
-Rotation r = 0;
-
-XDeviceEventNotifier::XDeviceEventNotifier(QWidget *parent) :
-        QWidget(parent)
+namespace Wacom
 {
+    class XEventNotifierPrivate
+    {
+        public:
+            Rotation currentRotation;
+    };
 }
 
-void XDeviceEventNotifier::start()
+using namespace Wacom;
+
+XEventNotifier::XEventNotifier(QWidget* parent)
+    : EventNotifier(parent), d_ptr(new XEventNotifierPrivate)
+{
+    Q_D( XEventNotifier );
+    d->currentRotation = 0;
+}
+
+XEventNotifier::~XEventNotifier()
+{
+    delete d_ptr;
+}
+
+
+
+void XEventNotifier::start()
 {
     if( KApplication::kApplication() != NULL ) {
         registerForNewDeviceEvent(QX11Info::display());
@@ -50,14 +64,18 @@ void XDeviceEventNotifier::start()
     }
 }
 
-void XDeviceEventNotifier::stop()
+
+
+void XEventNotifier::stop()
 {
     if( KApplication::kApplication() != NULL ) {
         KApplication::kApplication()->removeX11EventFilter(this);
     }
 }
 
-bool XDeviceEventNotifier::x11Event(XEvent* event)
+
+
+bool XEventNotifier::x11Event(XEvent* event)
 {
     XGenericEventCookie *cookie = &event->xcookie;
 
@@ -71,10 +89,13 @@ bool XDeviceEventNotifier::x11Event(XEvent* event)
     return QWidget::x11Event(event);
 }
 
-void XDeviceEventNotifier::handleX11InputEvent(XEvent* event)
+
+
+void XEventNotifier::handleX11InputEvent(XEvent* event)
 {
     XGenericEventCookie *cookie       = &event->xcookie;
     bool                 ownEventData = XGetEventData(QX11Info::display(), cookie);
+    TabletInformation    tabletInfo;
 
     if(cookie->data)
     {
@@ -85,11 +106,13 @@ void XDeviceEventNotifier::handleX11InputEvent(XEvent* event)
         {
             if (info[i].flags & XISlaveRemoved) {
                 kDebug() << "Device removed with id: " << info[i].deviceid;
-                emit deviceRemoved(info[i].deviceid);
+                tabletInfo.xdeviceId = info[i].deviceid;
+                emit tabletRemoved(tabletInfo);
 
             } else if (info[i].flags & XISlaveAdded && X11Utils::isTabletDevice(info[i].deviceid)) {
                 kDebug() << "Wacom Tablet Device added with id: " << info[i].deviceid;
-                emit deviceAdded(info[i].deviceid);
+                tabletInfo.xdeviceId = info[i].deviceid;
+                emit tabletAdded(tabletInfo);
             }
         }
 
@@ -104,8 +127,11 @@ void XDeviceEventNotifier::handleX11InputEvent(XEvent* event)
 }
 
 
-void XDeviceEventNotifier::handleX11ScreenEvent(XEvent* event)
+
+void XEventNotifier::handleX11ScreenEvent(XEvent* event)
 {
+    Q_D( XEventNotifier );
+    
     int m_eventBase;
     int m_errorBase;
 
@@ -113,31 +139,32 @@ void XDeviceEventNotifier::handleX11ScreenEvent(XEvent* event)
 
     if (event->type == m_eventBase + RRScreenChangeNotify) {
         XRRUpdateConfiguration(event);
-        Rotation old_r = r;
+        Rotation old_r = d->currentRotation;
 
-        XRRRotations(QX11Info::display(), DefaultScreen(QX11Info::display()), &r);
+        XRRRotations(QX11Info::display(), DefaultScreen(QX11Info::display()), &(d->currentRotation));
 
-        if (old_r != r) {
-            switch (r) {
+        if (old_r != d->currentRotation) {
+            switch (d->currentRotation) {
                     case RR_Rotate_0:
-                            emit screenRotated(NONE);
-                            break;
+                        emit screenRotated(NONE);
+                        break;
                     case RR_Rotate_90:
-                           emit screenRotated(CCW);
-                           break;
+                        emit screenRotated(CCW);
+                        break;
                     case RR_Rotate_180:
-                           emit screenRotated(HALF);
-                           break;
+                        emit screenRotated(HALF);
+                        break;
                     case RR_Rotate_270:
-                           emit screenRotated(CW);
-                           break;
+                        emit screenRotated(CW);
+                        break;
             }
         }
     }
 }
 
 
-int XDeviceEventNotifier::registerForNewDeviceEvent(Display* display)
+
+int XEventNotifier::registerForNewDeviceEvent(Display* display)
 {
     XIEventMask evmask;
     unsigned char mask[2] = { 0, 0 };
@@ -153,7 +180,7 @@ int XDeviceEventNotifier::registerForNewDeviceEvent(Display* display)
     int rrmask = RRScreenChangeNotifyMask;
 
     XRRSelectInput(display, DefaultRootWindow(display), 0);
-    XRRSelectInput(display, DefaultRootWindow(display), rrmask); 
+    XRRSelectInput(display, DefaultRootWindow(display), rrmask);
 
     return 0;
 }

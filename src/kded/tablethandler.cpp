@@ -104,12 +104,14 @@ QString TabletHandler::getProperty(const QString& device, const QString& param) 
 
 
 
-void TabletHandler::onDeviceAdded( int deviceid )
+void TabletHandler::onTabletAdded( const TabletInformation& info )
 {
     Q_D( TabletHandler );
 
+    int deviceId = info.xdeviceId.toInt(); // TODO improve this! info.xdeviceId should be an integer
+
     // if we already have a device ... skip this step
-    if( d->isDeviceAvailable || deviceid == 0) {
+    if( d->isDeviceAvailable || deviceId == 0) {
         return;
     }
 
@@ -119,7 +121,7 @@ void TabletHandler::onDeviceAdded( int deviceid )
     // if we found something notify about it and set the default profile to it
     if( d->isDeviceAvailable ) {
 
-        d->currentDeviceId = deviceid;
+        d->currentDeviceId = deviceId;
 
         emit notify( QLatin1String("tabletAdded"),
                      i18n("Tablet added"),
@@ -132,19 +134,20 @@ void TabletHandler::onDeviceAdded( int deviceid )
 
 
 
-void TabletHandler::onDeviceRemoved( int deviceid )
+void TabletHandler::onTabletRemoved( const TabletInformation& info )
 {
     Q_D( TabletHandler );
-    if( d->isDeviceAvailable ) {
-        d->isDeviceAvailable = false;
-        if( d->currentDeviceId == deviceid ) {
-            emit notify( QLatin1String("tabletRemoved"),
-                         i18n("Tablet removed"),
-                         i18n("Tablet %1 removed", d->tabletInformation.get(TabletInfo::TabletName) ));
 
-            clearTabletInformation();
-            emit tabletRemoved();
-        }
+    int deviceId = info.xdeviceId.toInt(); // FIXME
+    
+    if( d->isDeviceAvailable && d->currentDeviceId == deviceId ) {
+        emit notify( QLatin1String("tabletRemoved"),
+                     i18n("Tablet removed"),
+                     i18n("Tablet %1 removed", d->tabletInformation.get(TabletInfo::TabletName) ));
+
+        d->isDeviceAvailable = false;
+        clearTabletInformation();
+        emit tabletRemoved();
     }
 }
 

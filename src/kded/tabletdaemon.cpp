@@ -21,6 +21,7 @@
 #include "dbustabletservice.h"
 #include "tablethandler.h"
 #include "wacomadaptor.h"
+#include "xeventnotifier.h"
 #include "../version.h"
 
 // common includes
@@ -52,13 +53,14 @@ namespace Wacom {
   */
 class TabletDaemonPrivate {
 public:
-    TabletDaemonPrivate() : tabletHandler(), dbusTabletService(tabletHandler) {}
+    TabletDaemonPrivate()
+        : tabletHandler(), dbusTabletService(tabletHandler), eventNotifier(new XEventNotifier) {}
 
-    TabletHandler                    tabletHandler;    /**< tablet handler */
-    DBusTabletService                dbusTabletService;
-    XDeviceEventNotifier             xEventNotifier;   /**< X11 Event handler to detect when the tablet is connected/removed */
-    std::auto_ptr<KComponentData>    applicationData;  /**< Basic application data */
-    std::auto_ptr<KActionCollection> actionCollection; /**< Collection of all global actions */
+    TabletHandler                     tabletHandler;    /**< tablet handler */
+    DBusTabletService                 dbusTabletService;
+    EventNotifier                    *eventNotifier;    /**< X11 Event handler to detect when the tablet is connected/removed */
+    std::auto_ptr<KComponentData>     applicationData;  /**< Basic application data */
+    std::auto_ptr<KActionCollection>  actionCollection; /**< Collection of all global actions */
 
 }; // CLASS
 }  // NAMESPACE
@@ -85,7 +87,8 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
 
 TabletDaemon::~TabletDaemon()
 {
-    this->d_ptr->xEventNotifier.stop();
+    this->d_ptr->eventNotifier->stop();
+    delete(this->d_ptr->eventNotifier);
 
     //QDBusConnection::sessionBus().unregisterService( QLatin1String( "org.kde.Wacom" ) );
 
@@ -164,12 +167,7 @@ void TabletDaemon::setupDevice()
     TabletInformation tabinfo;
 
     if (X11Utils::findTabletDevice(tabinfo)) {
-        bool ok       = false;
-        int  deviceId = tabinfo.xdeviceId.toInt(&ok, 10);
-
-        if (ok) {
-            d->tabletHandler.onDeviceAdded(deviceId);
-        }
+        d->tabletHandler.onTabletAdded(tabinfo);
     }
 }
 
@@ -179,9 +177,9 @@ void TabletDaemon::setupXEventNotifier()
 {
     Q_D( TabletDaemon );
 
-    d->xEventNotifier.start();
-    connect( &(d->xEventNotifier), SIGNAL( deviceAdded( int ) ),              &(d->tabletHandler), SLOT( onDeviceAdded( int ) ) );
-    connect( &(d->xEventNotifier), SIGNAL( deviceRemoved( int ) ),            &(d->tabletHandler), SLOT( onDeviceRemoved( int ) ) );
-    connect( &(d->xEventNotifier), SIGNAL( screenRotated( TabletRotation ) ), &(d->tabletHandler), SLOT( onScreenRotated( TabletRotation ) ) );
+    d->eventNotifier->start();
+    connect( d->eventNotifier, SIGNAL( tabletAdded( const TabletInformation& ) ),   &(d->tabletHandler), SLOT( onTabletAdded( const TabletInformation& ) ) );
+    connect( d->eventNotifier, SIGNAL( tabletRemoved( const TabletInformation& ) ), &(d->tabletHandler), SLOT( onTabletRemoved( const TabletInformation& ) ) );
+    connect( d->eventNotifier, SIGNAL( screenRotated( TabletRotation ) ),           &(d->tabletHandler), SLOT( onScreenRotated( TabletRotation ) ) );
 }
 
