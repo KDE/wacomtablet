@@ -15,20 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "eventnotifier.h"
-
-/*
- * This cpp file is required so cmake will auto-generate the Qt moc file.
- */
+#include "tabletrotation.h"
 
 using namespace Wacom;
 
-EventNotifier::EventNotifier(QWidget* parent)  : QWidget(parent)
-{
-    // nothing to do 
-}
+/*
+ * Instanciate static instances-container of the TabletRotation template specialization.
+ * This has to be done here obviously before any instance is created.
+ */
+template<>
+TabletRotationTemplateSpecialization::Container TabletRotationTemplateSpecialization::instances = TabletRotationTemplateSpecialization::Container();
 
-EventNotifier::~EventNotifier()
-{
-    // nothing to do
-}
+
+/*
+ * Instanciate Device Types.
+ */
+const TabletRotation TabletRotation::NONE ( QLatin1String("none") );
+const TabletRotation TabletRotation::CCW ( QLatin1String("ccw") );
+const TabletRotation TabletRotation::HALF    ( QLatin1String("half") );
+const TabletRotation TabletRotation::CW ( QLatin1String("cw") );

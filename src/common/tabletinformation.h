@@ -116,6 +116,12 @@ public:
 
 
     /**
+     * Gets the Xinput device id.
+     */
+    int getXDeviceId() const;
+
+
+    /**
      * Flag which signals if the pad has hardware buttons.
      *
      * @return True if the tablet pad has hardware buttons, else false.

@@ -16,6 +16,7 @@ set(wacom_common_SRC
     tabletinformation.cpp
     tabletprofile.cpp
     tabletprofileconfigadaptor.cpp
+    tabletrotation.cpp
     x11utils.cpp
 )
 

@@ -115,7 +115,7 @@ public Q_SLOTS:
      *
      * @param screenRotation The screen rotation.
      */
-    void onScreenRotated(TabletRotation screenRotation);
+    void onScreenRotated(const TabletRotation& screenRotation);
 
     /**
       * Toggles the stylus/eraser to absolute/relative mode
@@ -170,7 +170,7 @@ private:
       * @return @c true if detection worked
       *         @c false if a failure happened
       */
-    bool detectTablet();
+    bool detectTablet(const TabletInformation& tabletInfo);
 
 
     /**

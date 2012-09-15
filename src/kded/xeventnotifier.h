@@ -30,18 +30,30 @@ class XEventNotifier : public EventNotifier
     Q_OBJECT
 
 public:
+
     explicit XEventNotifier(QWidget* parent = 0);
     virtual ~XEventNotifier();
 
+    /**
+     * @see EventNotifier::scan()
+     */
+    void scan();
+
+    /**
+     * @see EventNotifier::start()
+     */
     void start();
 
+    /**
+     * @see EventNotifier::stop()
+     */
     void stop();
+
 
 protected:
 
     /**
-      * Called when a new X11 event is detected.
-      * Checks for new connected or removed tablet devices
+      * Called by Qt when a new X11 event is detected.
       */
     bool x11Event(XEvent* event);
 
@@ -66,6 +78,7 @@ private:
       * Register the eventhandler with the X11 system
       */
     int registerForNewDeviceEvent(Display* display);
+
 
     Q_DECLARE_PRIVATE( XEventNotifier )
     XEventNotifierPrivate *const d_ptr;

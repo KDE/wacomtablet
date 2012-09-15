@@ -179,6 +179,20 @@ const QString& TabletInformation::getDeviceName(const DeviceType& device) const
 
 
 
+int TabletInformation::getXDeviceId() const
+{
+    if (xdeviceId.isEmpty()) {
+        return 0;
+    }
+
+    bool ok;
+    int dev_id = xdeviceId.toInt(&ok, 10);
+
+    return (ok ? dev_id : 0);
+}
+
+
+
 bool TabletInformation::hasButtons() const
 {
     return hasPadButtons;

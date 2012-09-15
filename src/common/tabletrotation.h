@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * Copyright 2012 Alexander Maret-Huskinson <alex@maret.de>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,18 +18,59 @@
 #ifndef TABLETROTATION_H
 #define TABLETROTATION_H
 
+#include <QString>
+
+#include "enum.h"
+#include "property.h"
+
 namespace Wacom
 {
 
+class TabletRotation;
+class TabletRotationTemplateSpecializationLessFunctor;
+
 /**
-  * Simple enumeration to save the tablet rotation
-  */
-enum TabletRotation {
-    NONE,       /**< no rotation */
-    CCW,        /**< rotate counter clockwise -90° */
-    CW,         /**< rotate clockwise +90° */
-    HALF        /**< rotate half 180° */
+ * @brief Helper Typedef! Do not use!
+ *
+ * This typedef is required by the TabletRotation class. It eases maintenane of template parameters.
+ */
+typedef Enum<TabletRotation, QString, TabletRotationTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> TabletRotationTemplateSpecialization;
+
+
+
+/**
+ * @brief Helper Class! Do not use!
+ *
+ * This functor is required by the TabletRotation class to sort its instances.
+ */
+struct TabletRotationTemplateSpecializationLessFunctor
+{
+    bool operator()(const TabletRotationTemplateSpecialization* p1, const TabletRotationTemplateSpecialization* p2)
+    {
+        return (p1->key() < p2->key());
+    }
 };
 
-}
-#endif
+
+class TabletRotation : public TabletRotationTemplateSpecialization
+{
+public:
+    static const TabletRotation NONE;
+    static const TabletRotation CCW;
+    static const TabletRotation HALF;
+    static const TabletRotation CW;
+
+private:
+
+    TabletRotation (const QString& key) : TabletRotationTemplateSpecialization(this, key) {}
+    
+}; // CLASS
+
+/*
+ * Declare static instances-container of the template specialization.
+ */
+template<>
+TabletRotationTemplateSpecialization::Container TabletRotationTemplateSpecialization::instances;
+
+}  // NAMESPACE
+#endif // HEADER PROTECTION

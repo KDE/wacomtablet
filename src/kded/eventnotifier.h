@@ -25,6 +25,12 @@
 
 namespace Wacom
 {
+
+/**
+ * Event notifier which registers with the window system and sends
+ * events when tablets are connected/removed. It can also be used
+ * to manually scan for devices.
+ */
 class EventNotifier : public QWidget
 {
     Q_OBJECT
@@ -33,20 +39,38 @@ public:
     explicit EventNotifier(QWidget *parent = 0);
     virtual ~EventNotifier();
 
-    //! register the notifier with the window system
+
+    //! Scan for devices and emit signals if found.
+    virtual void scan() = 0;
+
+    //! Registers the notifier with the window system.
     virtual void start() = 0;
 
-    //! unregister the notifier from the window system
+    //! Unregisters the notifier from the window system.
     virtual void stop() = 0;
 
 
 Q_SIGNALS:
-
+    /**
+     * Emitted when a new tablet is connected.
+     *
+     * @param info The tablet information gathered from the window system.
+     */
     void tabletAdded (const TabletInformation& info);
 
+    /**
+     * Emitted when a tablet is removed.
+     *
+     * @param info The which was removed.
+     */
     void tabletRemoved (const TabletInformation& info);
 
-    void screenRotated (TabletRotation tabletRotation);
+    /**
+     * Emitted when the screen is rotated.
+     *
+     * @param tabletRotation The rotation direction.
+     */
+    void screenRotated (const TabletRotation& tabletRotation);
 
 }; // CLASS
 }  // NAMESPACE

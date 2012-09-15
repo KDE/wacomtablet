@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "debug.h"
 #include "xeventnotifier.h"
 
 #include "x11utils.h"
@@ -52,6 +53,20 @@ XEventNotifier::XEventNotifier(QWidget* parent)
 XEventNotifier::~XEventNotifier()
 {
     delete d_ptr;
+}
+
+
+
+void XEventNotifier::scan()
+{
+    TabletInformation tabletInformation;
+
+    if (!X11Utils::findTabletDevice(tabletInformation)) {
+        kDebug() << "No input devices found via xinput!";
+        return;
+    }
+
+    emit tabletAdded(tabletInformation);
 }
 
 
@@ -112,6 +127,12 @@ void XEventNotifier::handleX11InputEvent(XEvent* event)
             } else if (info[i].flags & XISlaveAdded && X11Utils::isTabletDevice(info[i].deviceid)) {
                 kDebug() << "Wacom Tablet Device added with id: " << info[i].deviceid;
                 tabletInfo.xdeviceId = info[i].deviceid;
+
+                if (!X11Utils::findTabletDevice(tabletInfo)) {
+                    kError() << "No input devices found via xinput altough an X event was fired!";
+                    return;
+                }
+
                 emit tabletAdded(tabletInfo);
             }
         }
@@ -146,16 +167,16 @@ void XEventNotifier::handleX11ScreenEvent(XEvent* event)
         if (old_r != d->currentRotation) {
             switch (d->currentRotation) {
                     case RR_Rotate_0:
-                        emit screenRotated(NONE);
+                        emit screenRotated(TabletRotation::NONE);
                         break;
                     case RR_Rotate_90:
-                        emit screenRotated(CCW);
+                        emit screenRotated(TabletRotation::CCW);
                         break;
                     case RR_Rotate_180:
-                        emit screenRotated(HALF);
+                        emit screenRotated(TabletRotation::HALF);
                         break;
                     case RR_Rotate_270:
-                        emit screenRotated(CW);
+                        emit screenRotated(TabletRotation::CW);
                         break;
             }
         }

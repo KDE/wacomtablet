@@ -30,11 +30,11 @@
 #include "mainconfig.h"
 #include "profilemanager.h"
 #include "tabletprofile.h"
-#include "x11utils.h"
 
 #include <KDE/KLocalizedString>
 
 #include <QtDBus/QDBusArgument>
+#include <X11/Xlib.h>
 
 namespace Wacom
 {
@@ -89,26 +89,12 @@ QString TabletHandler::getProperty(const QString& device, const Property& proper
     return d->currentDevice->getProperty( device, property );
 }
 
-/*
-QString TabletHandler::getProperty(const QString& device, const QString& param) const
-{
-    const Property* property = Property::find(param);
-
-    if (property == NULL) {
-        kError() << QString::fromLatin1("Can not get invalid property '%1' from device '%2'!").arg(param).arg(device);
-        return QString();
-    }
-
-    return getProperty(device, *property);
-}
-*/
-
 
 void TabletHandler::onTabletAdded( const TabletInformation& info )
 {
     Q_D( TabletHandler );
 
-    int deviceId = info.xdeviceId.toInt(); // TODO improve this! info.xdeviceId should be an integer
+    int deviceId = info.getXDeviceId();
 
     // if we already have a device ... skip this step
     if( d->isDeviceAvailable || deviceId == 0) {
@@ -116,7 +102,7 @@ void TabletHandler::onTabletAdded( const TabletInformation& info )
     }
 
     // No tablet available, so reload tablet information
-    detectTablet();
+    detectTablet(info);
 
     // if we found something notify about it and set the default profile to it
     if( d->isDeviceAvailable ) {
@@ -138,7 +124,7 @@ void TabletHandler::onTabletRemoved( const TabletInformation& info )
 {
     Q_D( TabletHandler );
 
-    int deviceId = info.xdeviceId.toInt(); // FIXME
+    int deviceId = info.getXDeviceId();
     
     if( d->isDeviceAvailable && d->currentDeviceId == deviceId ) {
         emit notify( QLatin1String("tabletRemoved"),
@@ -153,7 +139,7 @@ void TabletHandler::onTabletRemoved( const TabletInformation& info )
 
 
 
-void TabletHandler::onScreenRotated( TabletRotation screenRotation )
+void TabletHandler::onScreenRotated( const TabletRotation& screenRotation )
 {
     Q_D( TabletHandler );
 
@@ -164,34 +150,17 @@ void TabletHandler::onScreenRotated( TabletRotation screenRotation )
 
     if ( stylusProfile.getRotateWithScreen() == QLatin1String( "true" ) ) {
 
-        QString rotatecmd;
-
-        switch(screenRotation) {
-            case NONE:
-                rotatecmd = QLatin1String("none");
-                break;
-            case CW:
-                rotatecmd = QLatin1String("cw");
-                break;
-            case CCW:
-                rotatecmd = QLatin1String("ccw");
-                break;
-            case HALF:
-                rotatecmd = QLatin1String("half");
-                break;
-        }
-
-        kDebug() << "Rotate tablet :: " << rotatecmd;
+        kDebug() << "Rotate tablet :: " << screenRotation.key();
 
         QString stylusName = d->tabletInformation.getDeviceName(DeviceType::Stylus);
         QString eraserName = d->tabletInformation.getDeviceName(DeviceType::Eraser);
         QString touchName  = d->tabletInformation.getDeviceName(DeviceType::Touch);
 
-        setProperty( stylusName, Property::Rotate, QString::fromLatin1( "%1" ).arg( rotatecmd ) );
-        setProperty( eraserName, Property::Rotate, QString::fromLatin1( "%1" ).arg( rotatecmd ) );
+        setProperty( stylusName, Property::Rotate, QString::fromLatin1( "%1" ).arg( screenRotation.key() ) );
+        setProperty( eraserName, Property::Rotate, QString::fromLatin1( "%1" ).arg( screenRotation.key() ) );
 
         if( !touchName.isEmpty() ) {
-            setProperty( touchName, Property::Rotate, QString::fromLatin1( "%1" ).arg( rotatecmd ) );
+            setProperty( touchName, Property::Rotate, QString::fromLatin1( "%1" ).arg( screenRotation.key() ) );
         }
 
         setProfile(d->currentProfile);
@@ -291,20 +260,6 @@ void TabletHandler::setProperty(const QString& device, const Property& property,
 }
 
 
-/*
-void TabletHandler::setProperty(const QString& device, const QString& param, const QString& value)
-{
-    const Property* property = Property::find(param);
-
-    if (property == NULL) {
-        kError() << QString::fromLatin1("Can not set invalid property '%1' on device '%2' to '%3'!").arg(param).arg(device).arg(value);
-        return;
-    }
-
-    setProperty(device, *property, value);
-}
-*/
-
 
 void TabletHandler::clearTabletInformation()
 {
@@ -323,31 +278,27 @@ void TabletHandler::clearTabletInformation()
 
 
 
-bool TabletHandler::detectTablet()
+bool TabletHandler::detectTablet(const TabletInformation& tabletInformation)
 {
     Q_D( TabletHandler );
 
-    TabletInformation devinfo;
+    // make a copy we can actually write to
+    TabletInformation tabletInfo = tabletInformation;
+    
+    kDebug() << "XInput found a device! ::" << tabletInfo.tabletId;
 
-    if (!X11Utils::findTabletDevice(devinfo)) {
-        kDebug() << "no input devices (pad/stylus/eraser/cursor/touch) found via xinput";
+    if (!d->tabletDatabase.lookupDevice(tabletInfo, tabletInfo.tabletId)) {
+        kDebug() << "Could not find device in database: " << tabletInfo.tabletId;
         return false;
     }
 
-    kDebug() << "XInput found a device! ::" << devinfo.tabletId;
-
-    if (!d->tabletDatabase.lookupDevice(devinfo, devinfo.tabletId)) {
-        kDebug() << "Could not find device in database: " << devinfo.tabletId;
-        return false;
-    }
-
-    d->tabletInformation  = devinfo;
+    d->tabletInformation  = tabletInfo;
 
     // lookup button mapping
-    d->tabletDatabase.lookupButtonMapping(d->buttonMapping, devinfo.companyId, devinfo.tabletId);
+    d->tabletDatabase.lookupButtonMapping(d->buttonMapping, tabletInfo.companyId, tabletInfo.tabletId);
 
     // set device backend
-    selectDeviceBackend( d->tabletDatabase.lookupBackend(devinfo.companyId) );
+    selectDeviceBackend( d->tabletDatabase.lookupBackend(tabletInfo.companyId) );
 
     // \0/
     d->isDeviceAvailable = true;
