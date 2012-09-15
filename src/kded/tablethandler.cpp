@@ -89,7 +89,7 @@ QString TabletHandler::getProperty(const QString& device, const Property& proper
     return d->currentDevice->getProperty( device, property );
 }
 
-
+/*
 QString TabletHandler::getProperty(const QString& device, const QString& param) const
 {
     const Property* property = Property::find(param);
@@ -101,7 +101,7 @@ QString TabletHandler::getProperty(const QString& device, const QString& param) 
 
     return getProperty(device, *property);
 }
-
+*/
 
 
 void TabletHandler::onTabletAdded( const TabletInformation& info )
@@ -187,11 +187,11 @@ void TabletHandler::onScreenRotated( TabletRotation screenRotation )
         QString eraserName = d->tabletInformation.getDeviceName(DeviceType::Eraser);
         QString touchName  = d->tabletInformation.getDeviceName(DeviceType::Touch);
 
-        setProperty( stylusName, Property::Rotate.key(), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
-        setProperty( eraserName, Property::Rotate.key(), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
+        setProperty( stylusName, Property::Rotate, QString::fromLatin1( "%1" ).arg( rotatecmd ) );
+        setProperty( eraserName, Property::Rotate, QString::fromLatin1( "%1" ).arg( rotatecmd ) );
 
         if( !touchName.isEmpty() ) {
-            setProperty( touchName, Property::Rotate.key(), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
+            setProperty( touchName, Property::Rotate, QString::fromLatin1( "%1" ).arg( rotatecmd ) );
         }
 
         setProfile(d->currentProfile);
@@ -291,7 +291,7 @@ void TabletHandler::setProperty(const QString& device, const Property& property,
 }
 
 
-
+/*
 void TabletHandler::setProperty(const QString& device, const QString& param, const QString& value)
 {
     const Property* property = Property::find(param);
@@ -303,7 +303,7 @@ void TabletHandler::setProperty(const QString& device, const QString& param, con
 
     setProperty(device, *property, value);
 }
-
+*/
 
 
 void TabletHandler::clearTabletInformation()

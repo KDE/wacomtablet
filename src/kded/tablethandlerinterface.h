@@ -40,13 +40,9 @@ public:
 
     virtual QString getProperty(const QString& device, const Property& property) const = 0;
 
-    virtual QString getProperty(const QString& device, const QString& param) const = 0;
-
     virtual QStringList listProfiles() const = 0;
 
     virtual void setProfile(const QString& profile) = 0;
-
-    virtual void setProperty(const QString & device, const QString& property, const QString & value) = 0;
 
     virtual void setProperty(const QString& device, const Property & property, const QString& value) = 0;
 

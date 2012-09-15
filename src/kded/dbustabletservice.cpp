@@ -25,6 +25,7 @@
 #include "deviceprofile.h"
 #include "tabletdatabase.h"
 #include "mainconfig.h"
+#include "property.h"
 #include "profilemanager.h"
 #include "tabletprofile.h"
 #include "wacomadaptor.h"
@@ -122,7 +123,15 @@ QString DBusTabletService::getProfile() const
 QString DBusTabletService::getProperty(const QString& device, const QString& property) const
 {
     Q_D ( const DBusTabletService );
-    return d->tabletHandler->getProperty(device, property);
+
+    const Property* prop = Property::find(property);
+
+    if (prop == NULL) {
+        kError() << QString::fromLatin1("Can not get invalid property '%1' from device '%2'!").arg(property).arg(device);
+        return QString();
+    }
+
+    return d->tabletHandler->getProperty(device, *prop);
 }
 
 
@@ -162,7 +171,15 @@ void DBusTabletService::setProfile(const QString& profile)
 void DBusTabletService::setProperty(const QString& device, const QString& property, const QString& value)
 {
     Q_D ( DBusTabletService );
-    d->tabletHandler->setProperty(device, property, value);
+
+    const Property* prop = Property::find(property);
+
+    if (prop == NULL) {
+        kError() << QString::fromLatin1("Can not set invalid property '%1' on device '%2' to '%3'!").arg(property).arg(device).arg(value);
+        return;
+    }
+
+    d->tabletHandler->setProperty(device, *prop, value);
 }
 
 

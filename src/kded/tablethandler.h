@@ -42,21 +42,16 @@ public:
     virtual ~TabletHandler();
 
     /**
-     * @see TabletHandler::getProperty(const QString&, const QString&) const
-     */
-    QString getProperty(const QString& device, const Property& property) const;
-
-
-    /**
       * returns the current value for a specific tablet setting
       * This is forwarded to the right backend specified by m_curDevice
       *
       * @param device name of the tablet device we set. Internal name of the pad/stylus/eraser/cursor
-      * @param param the parameter we are looking for
+      * @param property the property we are looking for
       *
       * @return the value as string
       */
-    QString getProperty(const QString& device, const QString& param) const;
+    QString getProperty(const QString& device, const Property& property) const;
+
 
 
     /**
@@ -83,15 +78,9 @@ public:
       * This is forwarded to the right backend specified by m_curDevice
       *
       * @param device   The name of the device to set the property on.
-      * @param property The property key as returned by Property::key()
+      * @param property The property to set.
       * @param value    New value of the parameter
       */
-    void setProperty(const QString & device, const QString& property, const QString & value);
-
-
-    /**
-     * @see TabletHandler::setProperty(const QString&, const QString&, const QString&)
-     */
     void setProperty(const QString& device, const Property & property, const QString& value);
 
 

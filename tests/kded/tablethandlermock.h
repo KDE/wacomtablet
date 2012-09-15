@@ -49,17 +49,11 @@ public:
     //! Gets the current mock property value no matter which property or device is requested.
     QString getProperty(const QString& device, const Property& property) const;
 
-    //! Gets the current mock property value no matter which property or device is requested.
-    QString getProperty(const QString& device, const QString& property) const;
-
     //! Returns the mock's profile list.
     QStringList listProfiles() const;
 
     //! Sets the given profile on the mock and emits a profileChanged signal.
     void setProfile(const QString& profile);
-
-    //! Sets the given property value on the mock no matter which device or property is set.
-    void setProperty(const QString & device, const QString& property, const QString & value);
 
     //! Sets the given property value on the mock no matter which device or property is set.
     void setProperty(const QString& device, const Property & property, const QString& value);

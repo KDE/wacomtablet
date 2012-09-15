@@ -28,7 +28,6 @@ TabletHandlerMock::TabletHandlerMock() : TabletHandlerInterface(NULL)
     m_profiles.append(QLatin1String("myprofile"));
 }
 
-
 TabletHandlerMock::~TabletHandlerMock() {}
 
 
@@ -52,20 +51,16 @@ void TabletHandlerMock::emitTabletRemoved()
 }
 
 
+
 QString TabletHandlerMock::getProperty(const QString& device, const Property& property) const
 {
-    return getProperty(device, property.key());
-}
+    QString prop = property.key();
 
-
-
-QString TabletHandlerMock::getProperty(const QString& device, const QString& property) const
-{
     if (m_device.compare(device, Qt::CaseInsensitive) != 0) {
         return QLatin1String("ERROR: DEVICE DOES NOT MATCH!");
     }
 
-    if (m_property.compare(property, Qt::CaseInsensitive) != 0) {
+    if (m_property.compare(prop, Qt::CaseInsensitive) != 0) {
         return QLatin1String("ERROR: PROPERTY DOES NOT MATCH!");
     }
 
@@ -89,17 +84,10 @@ void TabletHandlerMock::setProfile(const QString& profile)
 
 
 
-void TabletHandlerMock::setProperty(const QString& device, const QString& property, const QString& value)
-{
-    m_device          = device;
-    m_property        = property;
-    m_propertyValue   = value;
-}
-
-
-
 void TabletHandlerMock::setProperty(const QString& device, const Property& property, const QString& value)
 {
-    setProperty(device, property.key(), value);
+    m_device          = device;
+    m_property        = property.key();
+    m_propertyValue   = value;
 }
 
