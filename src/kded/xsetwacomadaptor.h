@@ -71,7 +71,7 @@ private:
      *
      * @return The converted parameter.
      */
-    const QString convertParameter (const QString& param) const;
+    const QString convertParameter (const XsetwacomProperty& param) const;
 
     /**
      * Converts a value from xsetwacom format to internal format.
@@ -103,6 +103,11 @@ private:
      */
     const QString getParameter(const QString& device, const QString& param) const;
 
+    /**
+     * Inverts scrolling or sets it back to normal.
+     */
+    bool setInvertScroll(const QString& value);
+    
     /**
      * Sets a parameter using the xsetwacom command line tool. All parameters, values and
      * device names passed to this method have to be in a format which is understood by

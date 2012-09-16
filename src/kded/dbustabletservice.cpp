@@ -19,7 +19,6 @@
 #include "dbustabletservice.h"
 
 #include "tabletinfo.h"
-#include "deviceinterface.h"
 #include "devicetype.h"
 #include "dbustabletinterface.h" // required to copy TabletInformation from/to QDBusArgument
 #include "deviceprofile.h"

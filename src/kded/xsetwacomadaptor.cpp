@@ -74,7 +74,9 @@ const QString XsetwacomAdaptor::getProperty(const Property& property) const
         return QString();
     }
 
-    QString convertedParam = convertParameter (xsetproperty->key());
+    // TODO: get invert scroll parameter
+
+    QString convertedParam = convertParameter (*xsetproperty);
     QString xsetwacomValue = getParameter (d->device, convertedParam);
 
     return convertFromXsetwacomValue (*xsetproperty, xsetwacomValue);
@@ -92,10 +94,19 @@ bool XsetwacomAdaptor::setProperty(const Property& property, const QString& valu
         return false;
     }
 
-    QString convertedParam = convertParameter(xsetproperty->key());
-    QString convertedValue = convertToXsetwacomValue(*xsetproperty, value);
+    // check for special property
+    if (property == Property::InvertScroll) {
+        return setInvertScroll(value);
 
-    return setParameter(d->device, convertedParam, convertedValue);
+    } else {
+        // normal property
+        QString convertedParam = convertParameter(*xsetproperty);
+        QString convertedValue = convertToXsetwacomValue(*xsetproperty, value);
+
+        return setParameter(d->device, convertedParam, convertedValue);
+    }
+
+    return false;
 }
 
 
@@ -106,12 +117,13 @@ bool XsetwacomAdaptor::supportsProperty(const Property& property) const
 
 
 
-const QString XsetwacomAdaptor::convertParameter(const QString& param) const
+const QString XsetwacomAdaptor::convertParameter(const XsetwacomProperty& param) const
 {
     Q_D( const XsetwacomAdaptor );
 
-    QString modifiedParam = param;
+    QString modifiedParam = param.key();
 
+    // convert button values
     QRegExp rx(QLatin1String("^Button\\s*([0-9]+)$"), Qt::CaseInsensitive);
     int pos = 0;
 
@@ -165,6 +177,24 @@ const QString XsetwacomAdaptor::getParameter(const QString& device, const QStrin
     QString result = QLatin1String( getConf.readAll() );
     return result.remove( QLatin1Char( '\n' ) );
 }
+
+
+
+bool XsetwacomAdaptor::setInvertScroll(const QString& value)
+{
+    Q_D( const XsetwacomAdaptor );
+
+    if (value.compare(QLatin1String("true"), Qt::CaseInsensitive) == 0) {
+        setParameter(d->device, XsetwacomProperty::Button4.key(), QLatin1String("5"));
+        setParameter(d->device, XsetwacomProperty::Button5.key(), QLatin1String("4"));
+    } else {
+        setParameter(d->device, XsetwacomProperty::Button5.key(), QLatin1String("4"));
+        setParameter(d->device, XsetwacomProperty::Button4.key(), QLatin1String("5"));
+    }
+
+    return true;
+}
+
 
 
 bool XsetwacomAdaptor::setParameter(const QString& device, const QString& param, const QString& value) const

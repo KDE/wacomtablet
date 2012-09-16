@@ -28,6 +28,10 @@ using namespace Wacom;
 template<>
 DeviceTypeTemplateSpecialization::Container DeviceTypeTemplateSpecialization::instances = DeviceTypeTemplateSpecialization::Container();
 
+bool DeviceType::operator<(const DeviceType& other) const
+{
+    return(key().compare(other.key(), Qt::CaseInsensitive) < 0);
+}
 
 /*
  * Instanciate Device Types.

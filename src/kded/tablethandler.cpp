@@ -18,10 +18,11 @@
 #include "debug.h"
 
 #include "tablethandler.h"
+
+#include "tabletbackend.h"
+#include "tabletbackendfactory.h"
 #include "tabletinfo.h"
-#include "deviceinterface.h"
 #include "devicetype.h"
-#include "xsetwacominterface.h"
 
 // common includes
 #include "dbustabletinterface.h" // required to copy TabletInformation from/to QDBusArgument
@@ -43,14 +44,11 @@ namespace Wacom
         public:
             MainConfig            mainConfig;
             ProfileManager        profileManager;   /**< Profile manager which reads and writes profiles from the configuration file */
-            TabletDatabase        tabletDatabase;
 
+            TabletBackend        *tabletBackend;
             TabletInformation     tabletInformation;
-            DeviceInterface      *currentDevice;     //!< Handler for the current device to get/set its configuration.
             bool                  isDeviceAvailable; //!< Is a tabled device connected or not?
 
-            QMap<QString,QString> buttonMapping;     /**< Map the hardwarebuttons 1-X to its kernel numbering scheme
-                                                          @see http://sourceforge.net/mailarchive/message.php?msg_id=27512095 */
             QString               currentProfile;   /**< currently active profile */
             int                   currentDeviceId;  /**< currently conencted tablet device. id comes from x11 */
     }; // CLASS
@@ -64,7 +62,7 @@ TabletHandler::TabletHandler()
     Q_D( TabletHandler );
 
     d->isDeviceAvailable = false;
-    d->currentDevice     = NULL;
+    d->tabletBackend     = NULL;
 
     d->profileManager.open( QLatin1String( "tabletprofilesrc" ) );
 }
@@ -72,6 +70,7 @@ TabletHandler::TabletHandler()
 
 TabletHandler::~TabletHandler()
 {
+    clearTabletInformation();
     delete d_ptr;
 }
 
@@ -81,12 +80,15 @@ QString TabletHandler::getProperty(const QString& device, const Property& proper
 {
     Q_D( const TabletHandler );
 
-    if( !d->currentDevice ) {
+    if( !d->tabletBackend ) {
         kError() << QString::fromLatin1("Unable to get property '%1' from device '%2' as no device is currently available!").arg(property.key()).arg(device);
         return QString();
     }
 
-    return d->currentDevice->getProperty( device, property );
+    // TODO remove this once D-Bus uses the device type instead of the name
+    DeviceType type = getDeviceTypeByName(device);
+
+    return d->tabletBackend->getProperty( type, property );
 }
 
 
@@ -101,14 +103,20 @@ void TabletHandler::onTabletAdded( const TabletInformation& info )
         return;
     }
 
-    // No tablet available, so reload tablet information
-    detectTablet(info);
+    // create tablet backend
+    d->tabletInformation = info;
+    d->tabletBackend     = TabletBackendFactory::createBackend(d->tabletInformation);
+
+    if (d->tabletBackend == NULL) {
+        clearTabletInformation();
+        return;
+    }
+
+    d->tabletInformation.setAvailable(true);
+    d->isDeviceAvailable = true;
 
     // if we found something notify about it and set the default profile to it
     if( d->isDeviceAvailable ) {
-
-        d->currentDeviceId = deviceId;
-
         emit notify( QLatin1String("tabletAdded"),
                      i18n("Tablet added"),
                      i18n("New %1 tablet added", d->tabletInformation.get(TabletInfo::TabletName) ));
@@ -125,8 +133,8 @@ void TabletHandler::onTabletRemoved( const TabletInformation& info )
     Q_D( TabletHandler );
 
     int deviceId = info.getXDeviceId();
-    
-    if( d->isDeviceAvailable && d->currentDeviceId == deviceId ) {
+
+    if( d->isDeviceAvailable && d->tabletInformation.getXDeviceId() == deviceId ) {
         emit notify( QLatin1String("tabletRemoved"),
                      i18n("Tablet removed"),
                      i18n("Tablet %1 removed", d->tabletInformation.get(TabletInfo::TabletName) ));
@@ -172,18 +180,17 @@ void TabletHandler::onTogglePenMode()
 {
     Q_D( TabletHandler );
 
-    if( !d->currentDevice ) {
+    if( !d->tabletBackend ) {
         return;
     }
 
     if(!d->tabletInformation.hasDevice(DeviceType::Stylus)) {
-        d->currentDevice->toggleMode(d->tabletInformation.getDeviceName(DeviceType::Stylus));
+        toggleMode(DeviceType::Stylus);
     }
 
     if(!d->tabletInformation.hasDevice(DeviceType::Eraser)) {
-        d->currentDevice->toggleMode(d->tabletInformation.getDeviceName(DeviceType::Eraser) );
+        toggleMode(DeviceType::Eraser);
     }
-
 }
 
 
@@ -192,11 +199,17 @@ void TabletHandler::onToggleTouch()
 {
     Q_D( TabletHandler );
 
-    if( !d->currentDevice || d->tabletInformation.hasDevice(DeviceType::Touch) ) {
+    if( !d->tabletBackend || d->tabletInformation.hasDevice(DeviceType::Touch) ) {
         return;
     }
 
-    d->currentDevice->toggleTouch(d->tabletInformation.getDeviceName(DeviceType::Touch));
+    QString touchMode = d->tabletBackend->getProperty(DeviceType::Touch, Property::Touch);
+
+    if( touchMode.compare( QLatin1String( "off" ), Qt::CaseInsensitive) == 0 ) {
+        d->tabletBackend->setProperty(DeviceType::Touch, Property::Touch, QLatin1String("on"));
+    } else {
+        d->tabletBackend->setProperty(DeviceType::Touch, Property::Touch, QLatin1String("off"));
+    }
 }
 
 
@@ -218,10 +231,10 @@ void TabletHandler::setProfile( const QString &profile )
 {
     Q_D( TabletHandler );
 
-    if (!d->currentDevice) {
+    if (!d->tabletBackend) {
         return;
     }
-    
+
     d->profileManager.readProfiles(d->tabletInformation.get(TabletInfo::TabletName));
 
     TabletProfile tabletProfile = d->profileManager.loadProfile(profile);
@@ -233,13 +246,7 @@ void TabletHandler::setProfile( const QString &profile )
 
     } else {
         d->currentProfile = profile;
-
-        foreach(const DeviceType& type, DeviceType::list()) {
-            if (d->tabletInformation.hasDevice(type)) {
-                d->currentDevice->applyProfile (d->tabletInformation.getDeviceName(type), type, tabletProfile);
-            }
-        }
-
+        d->tabletBackend->setProfile(tabletProfile);
         d->mainConfig.setLastProfile(profile);
         emit profileChanged( profile );
     }
@@ -251,12 +258,14 @@ void TabletHandler::setProperty(const QString& device, const Property& property,
 {
     Q_D( TabletHandler );
 
-    if (!d->currentDevice) {
+    if (!d->tabletBackend) {
         kError() << QString::fromLatin1("Unable to set property '%1' on device '%2' to '%3' as no device is currently available!").arg(property.key()).arg(device).arg(value);
         return;
     }
 
-    d->currentDevice->setProperty( device, property, value );
+    // TODO remove this once interface is switched
+    DeviceType type = getDeviceTypeByName(device);
+    d->tabletBackend->setProperty(type, property, value);
 }
 
 
@@ -270,53 +279,51 @@ void TabletHandler::clearTabletInformation()
     d->isDeviceAvailable = false;
     d->tabletInformation = empty;
 
-    delete d->currentDevice;
-    d->currentDevice = NULL;
-
-    d->buttonMapping.clear();
+    delete d->tabletBackend;
+    d->tabletBackend = NULL;
 }
 
 
 
-bool TabletHandler::detectTablet(const TabletInformation& tabletInformation)
+DeviceType TabletHandler::getDeviceTypeByName(const QString& deviceName) const
 {
-    Q_D( TabletHandler );
+    Q_D( const TabletHandler );
 
-    // make a copy we can actually write to
-    TabletInformation tabletInfo = tabletInformation;
-    
-    kDebug() << "XInput found a device! ::" << tabletInfo.tabletId;
+    if (d->tabletInformation.stylusName.compare(deviceName, Qt::CaseInsensitive) == 0) {
+        return DeviceType::Stylus;
 
-    if (!d->tabletDatabase.lookupDevice(tabletInfo, tabletInfo.tabletId)) {
-        kDebug() << "Could not find device in database: " << tabletInfo.tabletId;
-        return false;
+    } else if (d->tabletInformation.eraserName.compare(deviceName, Qt::CaseInsensitive) == 0) {
+        return DeviceType::Eraser;
+
+    } else if (d->tabletInformation.padName.compare(deviceName, Qt::CaseInsensitive) == 0) {
+        return DeviceType::Pad;
+
+    } else if (d->tabletInformation.touchName.compare(deviceName, Qt::CaseInsensitive) == 0) {
+        return DeviceType::Touch;
+
+    } else if (d->tabletInformation.cursorName.compare(deviceName, Qt::CaseInsensitive) == 0) {
+        return DeviceType::Cursor;
     }
 
-    d->tabletInformation  = tabletInfo;
-
-    // lookup button mapping
-    d->tabletDatabase.lookupButtonMapping(d->buttonMapping, tabletInfo.companyId, tabletInfo.tabletId);
-
-    // set device backend
-    selectDeviceBackend( d->tabletDatabase.lookupBackend(tabletInfo.companyId) );
-
-    // \0/
-    d->isDeviceAvailable = true;
-
-    return true;
+    // this should not happen
+    kError() << QString::fromLatin1("Lookup of invalid device name '%1' failed!").arg(deviceName);
+    return DeviceType::Pad;
 }
 
 
-void TabletHandler::selectDeviceBackend(const QString& backendName)
+void TabletHandler::toggleMode(const DeviceType& type)
 {
     Q_D( TabletHandler );
 
-    if( backendName == QLatin1String( "wacom-tools" ) ) {
-        d->currentDevice = new XsetwacomInterface();
-        d->currentDevice->setButtonMapping(d->buttonMapping);
+    if (!d->tabletBackend) {
+        return;
     }
 
-    if( !d->currentDevice ) {
-        kError() << "unknown device backend!" << backendName;
+    QString mode = d->tabletBackend->getProperty(type, Property::Mode);
+
+    if( mode.compare( QLatin1String( "Absolute" ), Qt::CaseInsensitive ) == 0 ) {
+        d->tabletBackend->setProperty(type, Property::Mode, QLatin1String("Relative"));
+    } else {
+        d->tabletBackend->setProperty(type, Property::Mode, QLatin1String("Absolute"));
     }
 }

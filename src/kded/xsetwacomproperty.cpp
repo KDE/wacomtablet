@@ -27,16 +27,16 @@ XsetwacomPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Cont
 // SOME PROPERTIES NEED TO BE SET BEFORE OTHERS!
 //
 const XsetwacomProperty XsetwacomProperty::Area             ( Property::Area,             QLatin1String("Area") );
-const XsetwacomProperty XsetwacomProperty::Button1          ( Property::Button1,          QLatin1String("Button1") );
-const XsetwacomProperty XsetwacomProperty::Button2          ( Property::Button2,          QLatin1String("Button2") );
-const XsetwacomProperty XsetwacomProperty::Button3          ( Property::Button3,          QLatin1String("Button3") );
-const XsetwacomProperty XsetwacomProperty::Button4          ( Property::Button4,          QLatin1String("Button4") );
-const XsetwacomProperty XsetwacomProperty::Button5          ( Property::Button5,          QLatin1String("Button5") );
-const XsetwacomProperty XsetwacomProperty::Button6          ( Property::Button6,          QLatin1String("Button6") );
-const XsetwacomProperty XsetwacomProperty::Button7          ( Property::Button7,          QLatin1String("Button7") );
-const XsetwacomProperty XsetwacomProperty::Button8          ( Property::Button8,          QLatin1String("Button8") );
-const XsetwacomProperty XsetwacomProperty::Button9          ( Property::Button9,          QLatin1String("Button9") );
-const XsetwacomProperty XsetwacomProperty::Button10         ( Property::Button10,         QLatin1String("Button10") );
+const XsetwacomProperty XsetwacomProperty::Button1          ( Property::Button1,          QLatin1String("Button 1") );
+const XsetwacomProperty XsetwacomProperty::Button2          ( Property::Button2,          QLatin1String("Button 2") );
+const XsetwacomProperty XsetwacomProperty::Button3          ( Property::Button3,          QLatin1String("Button 3") );
+const XsetwacomProperty XsetwacomProperty::Button4          ( Property::Button4,          QLatin1String("Button 4") );
+const XsetwacomProperty XsetwacomProperty::Button5          ( Property::Button5,          QLatin1String("Button 5") );
+const XsetwacomProperty XsetwacomProperty::Button6          ( Property::Button6,          QLatin1String("Button 6") );
+const XsetwacomProperty XsetwacomProperty::Button7          ( Property::Button7,          QLatin1String("Button 7") );
+const XsetwacomProperty XsetwacomProperty::Button8          ( Property::Button8,          QLatin1String("Button 8") );
+const XsetwacomProperty XsetwacomProperty::Button9          ( Property::Button9,          QLatin1String("Button 9") );
+const XsetwacomProperty XsetwacomProperty::Button10         ( Property::Button10,         QLatin1String("Button 10") );
 const XsetwacomProperty XsetwacomProperty::CursorProximity  ( Property::CursorProximity,  QLatin1String("CursorProximity") );
 const XsetwacomProperty XsetwacomProperty::Gesture          ( Property::Gesture,          QLatin1String("Gesture") );
 const XsetwacomProperty XsetwacomProperty::MapToOutput      ( Property::MapToOutput,      QLatin1String("MapToOutput") );
@@ -61,3 +61,4 @@ const XsetwacomProperty XsetwacomProperty::AbsWheel2Down    ( Property::AbsWheel
 const XsetwacomProperty XsetwacomProperty::AbsWheel2Up      ( Property::AbsWheel2Up,      QLatin1String("AbsWheel2Up") );
 const XsetwacomProperty XsetwacomProperty::AbsWheelDown     ( Property::AbsWheelDown,     QLatin1String("AbsWheelDown") );
 const XsetwacomProperty XsetwacomProperty::AbsWheelUp       ( Property::AbsWheelUp,       QLatin1String("AbsWheelUp") );
+const XsetwacomProperty XsetwacomProperty::InvertScroll     ( Property::InvertScroll,     Property::InvertScroll.key());

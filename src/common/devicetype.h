@@ -68,6 +68,9 @@ class DeviceType : public DeviceTypeTemplateSpecialization {
 
 public:
 
+    //! Compare operator which compares the keys case-insensitive.
+    bool operator< (const DeviceType& other) const;
+
     static const DeviceType Cursor;
     static const DeviceType Eraser;
     static const DeviceType Pad;

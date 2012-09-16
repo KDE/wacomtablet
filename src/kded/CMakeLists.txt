@@ -15,13 +15,14 @@ set(kded_wacomtablet_LIBS
 set(kded_wacomtablet_SRCS
     dbustabletservice.cpp
     eventnotifier.cpp
+    tabletbackend.cpp
+    tabletbackendfactory.cpp
     tabletdaemon.cpp
     tablethandler.cpp
     xeventnotifier.cpp
     xinputadaptor.cpp
     xinputproperty.cpp
     xsetwacomadaptor.cpp
-    xsetwacominterface.cpp
     xsetwacomproperty.cpp
 )
 

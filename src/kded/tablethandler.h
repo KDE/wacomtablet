@@ -164,24 +164,14 @@ private:
 
 
     /**
-      * Tablet Device detection. Finds a connected tablet via X11 and tries
-      * to collect as much information as possible.
-      *
-      * @return @c true if detection worked
-      *         @c false if a failure happened
-      */
-    bool detectTablet(const TabletInformation& tabletInfo);
+     * @deprecated Do not use, this is a temporary method to ease transission.
+     */
+    DeviceType getDeviceTypeByName(const QString& deviceName) const;
 
 
-    /**
-      * Sets the backend for the settings based on the name in the company list data file
-      * Support is only available for xsetwacom at the moment, will hopefully change in the future
-      *
-      * @param backendName name of the used backend as specified in the device overview list
-      */
-    void selectDeviceBackend(const QString & backendName);
+    void toggleMode(const DeviceType& type);
 
-
+    
     Q_DECLARE_PRIVATE(TabletHandler)
     TabletHandlerPrivate *const d_ptr; /**< d-pointer for this class */
 
