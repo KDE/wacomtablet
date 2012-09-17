@@ -169,6 +169,11 @@ private:
     DeviceType getDeviceTypeByName(const QString& deviceName) const;
 
 
+    /**
+     * Toggles the cursor mode (absolute/relative) for the given device.
+     *
+     * @param type The device to toggle the cursor mode for.
+     */
     void toggleMode(const DeviceType& type);
 
     

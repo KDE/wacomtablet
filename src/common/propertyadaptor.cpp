@@ -30,6 +30,13 @@ namespace Wacom {
     };
 }
 
+PropertyAdaptor::PropertyAdaptor() : d_ptr(new PropertyAdaptorPrivate)
+{
+    Q_D( PropertyAdaptor );
+    d->adaptee = NULL;
+}
+
+
 PropertyAdaptor::PropertyAdaptor(PropertyAdaptor* adaptee) : d_ptr(new PropertyAdaptorPrivate)
 {
     Q_D( PropertyAdaptor );

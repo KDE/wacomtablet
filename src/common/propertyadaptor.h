@@ -51,7 +51,7 @@ public:
      * @return List of available config properties as string.
      */
     virtual const QList<Property> getProperties() const;
-    
+
     /**
      * Gets a property value. The default implementation tries to get the value
      * from the adapted object and returns it as-is or returns an empty string
@@ -86,7 +86,12 @@ public:
 
 protected:
     /**
-      * Protected default constructor. This class needs to be sub-classed.
+      * Protected default constructor.
+      */
+    PropertyAdaptor();
+
+    /**
+      * Constructor.
       *
       * @param adaptee The object to adapt (possibly NULL).
       */
