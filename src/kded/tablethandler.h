@@ -50,7 +50,7 @@ public:
       *
       * @return the value as string
       */
-    QString getProperty(const QString& device, const Property& property) const;
+    QString getProperty(const DeviceType& deviceType, const Property& property) const;
 
 
 
@@ -81,7 +81,7 @@ public:
       * @param property The property to set.
       * @param value    New value of the parameter
       */
-    void setProperty(const QString& device, const Property & property, const QString& value);
+    void setProperty(const DeviceType& deviceType, const Property & property, const QString& value);
 
 
 

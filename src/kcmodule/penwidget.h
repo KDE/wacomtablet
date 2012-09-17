@@ -18,7 +18,8 @@
 #ifndef PENWIDGET_H
 #define PENWIDGET_H
 
-//Qt includes
+#include "devicetype.h"
+
 #include <QtGui/QWidget>
 
 namespace Ui
@@ -113,7 +114,7 @@ signals:
 
 private:
 
-    QString changePressCurve (const QString& device, const QString& startValue);
+    QString changePressCurve (const DeviceType& device, const QString& startValue);
     
     /**
       * Fills the button selection combobox with all available values

@@ -286,8 +286,7 @@ void PenWidget::changeEraserPressCurve()
 {
     Q_D( PenWidget );
 
-    // TODO the device string should be a property
-    QString result = changePressCurve(QLatin1String( "eraserName" ), d->m_ui->eraserPressureButton->property( "curve" ).toString());
+    QString result = changePressCurve(DeviceType::Eraser, d->m_ui->eraserPressureButton->property( "curve" ).toString());
     d->m_ui->eraserPressureButton->setProperty( "curve", result );
 }
 
@@ -295,25 +294,16 @@ void PenWidget::changeTipPressCurve()
 {
     Q_D( PenWidget );
 
-    // TODO the device string should be a property
-    QString result = changePressCurve(QLatin1String( "stylusName" ), d->m_ui->tipPressureButton->property( "curve" ).toString());
+    QString result = changePressCurve(DeviceType::Stylus, d->m_ui->tipPressureButton->property( "curve" ).toString());
     d->m_ui->tipPressureButton->setProperty( "curve", result );
 }
 
-QString PenWidget::changePressCurve(const QString& device, const QString& startValue)
+QString PenWidget::changePressCurve(const DeviceType& deviceType, const QString& startValue)
 {
     QString              result(startValue);
     PressCurveDialog     selectPC( this );
-    QDBusReply<QString>  deviceName;
 
-    if( DBusTabletInterface::instance().isValid() ) {
-        deviceName = DBusTabletInterface::instance().call(device);
-
-        if( deviceName.isValid() ) {
-            selectPC.setDeviceHandler( &DBusTabletInterface::instance(), deviceName );
-        }
-    }
-
+    selectPC.setDeviceType(deviceType);
     selectPC.setControllPoints( startValue );
 
     if( selectPC.exec() == KDialog::Accepted ) {
@@ -323,7 +313,7 @@ QString PenWidget::changePressCurve(const QString& device, const QString& startV
     else {
         // reset the current pressurecurve to what is specified in the profile
         // rather than stick to the curve the user declined in the dialogue
-        DBusTabletInterface::instance().setProperty( deviceName, Property::PressureCurve, startValue );
+        DBusTabletInterface::instance().setProperty( deviceType, Property::PressureCurve, startValue );
     }
 
     return result;

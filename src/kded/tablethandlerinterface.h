@@ -19,6 +19,7 @@
 #define TABLETHANDLERINTERFACE_H
 
 #include "property.h"
+#include "devicetype.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -38,13 +39,13 @@ class TabletHandlerInterface : public QObject
 public:
     explicit TabletHandlerInterface(QObject* parent = 0) : QObject(parent) {};
 
-    virtual QString getProperty(const QString& device, const Property& property) const = 0;
+    virtual QString getProperty(const DeviceType& deviceType, const Property& property) const = 0;
 
     virtual QStringList listProfiles() const = 0;
 
     virtual void setProfile(const QString& profile) = 0;
 
-    virtual void setProperty(const QString& device, const Property & property, const QString& value) = 0;
+    virtual void setProperty(const DeviceType& deviceType, const Property & property, const QString& value) = 0;
 
 }; // CLASS
 }  // NAMESPACE

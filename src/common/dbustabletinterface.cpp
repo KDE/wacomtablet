@@ -156,9 +156,9 @@ QDBusMessage DBusTabletInterface::getProfile()
 
 
 
-QDBusMessage DBusTabletInterface::getProperty(const QString& device, const Property& property)
+QDBusMessage DBusTabletInterface::getProperty(const DeviceType& device, const Property& property)
 {
-    return call( QLatin1String( "getProperty" ), device, property.key() );
+    return call (QLatin1String("getProperty"), device.key(), property.key());
 }
 
 
@@ -191,8 +191,8 @@ QDBusMessage DBusTabletInterface::setProfile(const QString& profile)
 
 
 
-QDBusMessage DBusTabletInterface::setProperty(const QString& device, const Property& property, const QString& value)
+QDBusMessage DBusTabletInterface::setProperty(const DeviceType& device, const Property& property, const QString& value)
 {
-    return call( QLatin1String( "setProperty" ), device, property.key(), value);
+    return call (QLatin1String("setProperty"), device.key(), property.key(), value);
 }
 

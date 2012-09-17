@@ -124,10 +124,10 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     stylusDevice.setProperty(Property::ScreenMapping, QLatin1String("randr"));
     stylusDevice.setProperty(Property::TabletArea, QLatin1String("full"));
 
-    QDBusReply<QString> stylusArea = DBusTabletInterface::instance().getProperty( QString( stylusName ), Property::Area );
+    QDBusReply<QString> stylusArea = DBusTabletInterface::instance().getProperty( DeviceType::Stylus, Property::Area );
     stylusDevice.setProperty(Property::Area, stylusArea.isValid() ? stylusArea.value() : QLatin1String("0 0 0 0"));
 
-    QDBusReply<QString> stylusTpcButton = DBusTabletInterface::instance().getProperty( QString( stylusName ), Property::TabletPcButton );
+    QDBusReply<QString> stylusTpcButton = DBusTabletInterface::instance().getProperty( DeviceType::Stylus, Property::TabletPcButton );
     stylusDevice.setProperty(Property::TabletPcButton, stylusTpcButton.isValid() ? stylusTpcButton.value() : QLatin1String("on"));
 
     tabletProfile.setDevice(stylusDevice);
@@ -149,7 +149,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     eraserDevice.setProperty(Property::ScreenMapping, QLatin1String("randr"));
     eraserDevice.setProperty(Property::TabletArea, QLatin1String("full"));
 
-    QDBusReply<QString> eraserArea = DBusTabletInterface::instance().getProperty( QString( eraserName ), Property::Area );
+    QDBusReply<QString> eraserArea = DBusTabletInterface::instance().getProperty( DeviceType::Eraser, Property::Area );
     eraserDevice.setProperty(Property::Area, eraserArea.isValid() ? eraserArea.value() : QLatin1String("0 0 0 0"));
 
     tabletProfile.setDevice(eraserDevice);
@@ -170,19 +170,19 @@ void ProfileManagement::createNewProfile( const QString &profilename )
         touchDevice.setProperty(Property::Mode, QLatin1String("absolute"));
         touchDevice.setProperty(Property::TapTime, QLatin1String("250"));
 
-        QDBusReply<QString> touchArea = DBusTabletInterface::instance().getProperty( QString( touchName ), Property::Area );
+        QDBusReply<QString> touchArea = DBusTabletInterface::instance().getProperty( DeviceType::Touch, Property::Area );
         touchDevice.setProperty(Property::Area, touchArea.isValid() ? touchArea.value() : QLatin1String("0 0 0 0"));
 
-        QDBusReply<QString> touch = DBusTabletInterface::instance().getProperty( QString( touchName ), Property::Touch );
+        QDBusReply<QString> touch = DBusTabletInterface::instance().getProperty( DeviceType::Touch, Property::Touch );
         touchDevice.setProperty(Property::Touch, touch.isValid() ? touch.value() : QLatin1String("on"));
 
-        QDBusReply<QString> gesture = DBusTabletInterface::instance().getProperty( QString( touchName ), Property::Gesture );
+        QDBusReply<QString> gesture = DBusTabletInterface::instance().getProperty( DeviceType::Touch, Property::Gesture );
         touchDevice.setProperty(Property::Gesture, gesture.isValid() ? gesture.value() : QLatin1String("on"));
 
-        QDBusReply<QString> zoomDistance = DBusTabletInterface::instance().getProperty( QString( touchName ), Property::ZoomDistance );
+        QDBusReply<QString> zoomDistance = DBusTabletInterface::instance().getProperty( DeviceType::Touch, Property::ZoomDistance );
         touchDevice.setProperty(Property::ZoomDistance, zoomDistance.isValid() ? zoomDistance.value() : QLatin1String("50"));
 
-        QDBusReply<QString> scrollDistance = DBusTabletInterface::instance().getProperty( QString( touchName ), Property::ScrollDistance );
+        QDBusReply<QString> scrollDistance = DBusTabletInterface::instance().getProperty( DeviceType::Touch, Property::ScrollDistance );
         touchDevice.setProperty(Property::ScrollDistance, scrollDistance.isValid() ? scrollDistance.value() : QLatin1String("50"));
 
         tabletProfile.setDevice(touchDevice);

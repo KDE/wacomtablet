@@ -250,14 +250,14 @@ void TestDBusTabletService::testSetProfile()
 
 void TestDBusTabletService::testSetProperty()
 {
-    QString  expectedDevice   = QLatin1String("My Device");
-    Property expectedProperty = Property::Button1;
-    QString  expectedValue    = QLatin1String("My Value");
+    DeviceType expectedDevice   = DeviceType::Stylus;
+    Property   expectedProperty = Property::Button1;
+    QString    expectedValue    = QLatin1String("My Value");
 
     // set the property
     DBusTabletInterface::instance().setProperty(expectedDevice, expectedProperty, expectedValue);
 
-    QCOMPARE(expectedDevice, m_tabletHandlerMock.m_device);
+    QCOMPARE(expectedDevice.key(), m_tabletHandlerMock.m_deviceType);
     QCOMPARE(expectedProperty.key(), m_tabletHandlerMock.m_property);
     QCOMPARE(expectedValue, m_tabletHandlerMock.m_propertyValue);
 

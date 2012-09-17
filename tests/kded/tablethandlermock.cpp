@@ -52,11 +52,11 @@ void TabletHandlerMock::emitTabletRemoved()
 
 
 
-QString TabletHandlerMock::getProperty(const QString& device, const Property& property) const
+QString TabletHandlerMock::getProperty(const DeviceType& deviceType, const Property& property) const
 {
     QString prop = property.key();
 
-    if (m_device.compare(device, Qt::CaseInsensitive) != 0) {
+    if (m_deviceType != deviceType.key()) {
         return QLatin1String("ERROR: DEVICE DOES NOT MATCH!");
     }
 
@@ -84,9 +84,9 @@ void TabletHandlerMock::setProfile(const QString& profile)
 
 
 
-void TabletHandlerMock::setProperty(const QString& device, const Property& property, const QString& value)
+void TabletHandlerMock::setProperty(const DeviceType& deviceType, const Property& property, const QString& value)
 {
-    m_device          = device;
+    m_deviceType      = deviceType.key();
     m_property        = property.key();
     m_propertyValue   = value;
 }

@@ -97,15 +97,14 @@ public Q_SLOTS:
     Q_SCRIPTABLE QString getProfile() const;
 
     /**
-      * returns the current value for a specific tablet setting
-      * This is forwarded to the right backend specified by m_curDevice
+      * Returns the current value for a specific tablet device (stylus/eraser/pad/...).
       *
-      * @param device name of the tablet device we set. Internal name of the pad/stylus/eraser/cursor
-      * @param param the parameter we are looking for
+      * @param deviceType Type of device (stylus/eraser/...) to get the value from.
+      * @param property   The property we are looking for.
       *
       * @return the value as string
       */
-    Q_SCRIPTABLE QString getProperty(const QString& device, const QString& property) const;
+    Q_SCRIPTABLE QString getProperty(const QString& deviceType, const QString& property) const;
 
     /**
       * Tells you if the detected tablet has configurable pushbuttons or not
@@ -143,14 +142,13 @@ public Q_SLOTS:
     Q_SCRIPTABLE void setProfile(const QString& profile);
 
     /**
-      * Sets the configuration of @p param from @p device with @p value
-      * This is forwarded to the right backend specified by m_curDevice
+      * Sets the configuration of @p property from @p deviceType to @p value.
       *
-      * @param device name of the tablet device we set. Internal name of the pad/stylus/eraser/cursor
-      * @param param Name of the parameter
-      * @param value New value of the parameter
+      * @param deviceType The device type to set the value on.
+      * @param property   The property to set.
+      * @param value      The new value of the property.
       */
-    Q_SCRIPTABLE void setProperty(const QString & device, const QString & property, const QString & value);
+    Q_SCRIPTABLE void setProperty(const QString & deviceType, const QString & property, const QString & value);
 
 
 // d-bus signals

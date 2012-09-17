@@ -119,18 +119,25 @@ QString DBusTabletService::getProfile() const
 
 
 
-QString DBusTabletService::getProperty(const QString& device, const QString& property) const
+QString DBusTabletService::getProperty(const QString& deviceType, const QString& property) const
 {
     Q_D ( const DBusTabletService );
+
+    const DeviceType* type = DeviceType::find(deviceType);
+
+    if (type == NULL) {
+        kError() << QString::fromLatin1("Can not get property '%1' from invalid device '%2'!").arg(property).arg(deviceType);
+        return QString();
+    }
 
     const Property* prop = Property::find(property);
 
     if (prop == NULL) {
-        kError() << QString::fromLatin1("Can not get invalid property '%1' from device '%2'!").arg(property).arg(device);
+        kError() << QString::fromLatin1("Can not get invalid property '%1' from device '%2'!").arg(property).arg(deviceType);
         return QString();
     }
 
-    return d->tabletHandler->getProperty(device, *prop);
+    return d->tabletHandler->getProperty(*type, *prop);
 }
 
 
@@ -167,18 +174,25 @@ void DBusTabletService::setProfile(const QString& profile)
 
 
 
-void DBusTabletService::setProperty(const QString& device, const QString& property, const QString& value)
+void DBusTabletService::setProperty(const QString& deviceType, const QString& property, const QString& value)
 {
     Q_D ( DBusTabletService );
+
+    const DeviceType* type = DeviceType::find(deviceType);
+
+    if (type == NULL) {
+        kError() << QString::fromLatin1("Can not set property '%1' on invalid device '%2' to '%3'!").arg(property).arg(deviceType).arg(value);
+        return;
+    }
 
     const Property* prop = Property::find(property);
 
     if (prop == NULL) {
-        kError() << QString::fromLatin1("Can not set invalid property '%1' on device '%2' to '%3'!").arg(property).arg(device).arg(value);
+        kError() << QString::fromLatin1("Can not set invalid property '%1' on device '%2' to '%3'!").arg(property).arg(deviceType).arg(value);
         return;
     }
 
-    d->tabletHandler->setProperty(device, *prop, value);
+    d->tabletHandler->setProperty(*type, *prop, value);
 }
 
 

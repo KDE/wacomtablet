@@ -47,7 +47,7 @@ public:
 
 
     //! Gets the current mock property value no matter which property or device is requested.
-    QString getProperty(const QString& device, const Property& property) const;
+    QString getProperty(const DeviceType& deviceType, const Property& property) const;
 
     //! Returns the mock's profile list.
     QStringList listProfiles() const;
@@ -56,7 +56,7 @@ public:
     void setProfile(const QString& profile);
 
     //! Sets the given property value on the mock no matter which device or property is set.
-    void setProperty(const QString& device, const Property & property, const QString& value);
+    void setProperty(const DeviceType& deviceType, const Property & property, const QString& value);
 
 
 Q_SIGNALS:
@@ -69,7 +69,7 @@ Q_SIGNALS:
 
 
 public:
-    QString     m_device;          //!< The device a property was set on and the device a property is returned from.
+    QString     m_deviceType;      //!< The device type a property was set on and the device type a property is returned for.
     QString     m_property;        //!< The property which was set and the property which can be get.
     QString     m_propertyValue;   //!< The property value returned by this mock, no matter which property is requested.
     QStringList m_profiles;        //!< The list of profiles returned by this mock.

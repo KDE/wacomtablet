@@ -69,7 +69,7 @@ public:
 
     QDBusMessage getProfile();
 
-    QDBusMessage getProperty (const QString& device, const Property& property);
+    QDBusMessage getProperty (const DeviceType& device, const Property& property);
 
     QDBusMessage hasPadButtons();
 
@@ -79,7 +79,7 @@ public:
 
     QDBusMessage setProfile (const QString& profile);
 
-    QDBusMessage setProperty (const QString& device, const Property& property, const QString& value);
+    QDBusMessage setProperty (const DeviceType& device, const Property& property, const QString& value);
 
 
 protected:
