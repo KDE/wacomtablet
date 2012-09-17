@@ -164,12 +164,6 @@ private:
 
 
     /**
-     * @deprecated Do not use, this is a temporary method to ease transission.
-     */
-    DeviceType getDeviceTypeByName(const QString& deviceName) const;
-
-
-    /**
      * Toggles the cursor mode (absolute/relative) for the given device.
      *
      * @param type The device to toggle the cursor mode for.

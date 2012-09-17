@@ -269,32 +269,6 @@ void TabletHandler::clearTabletInformation()
 
 
 
-DeviceType TabletHandler::getDeviceTypeByName(const QString& deviceName) const
-{
-    Q_D( const TabletHandler );
-
-    if (d->tabletInformation.stylusName.compare(deviceName, Qt::CaseInsensitive) == 0) {
-        return DeviceType::Stylus;
-
-    } else if (d->tabletInformation.eraserName.compare(deviceName, Qt::CaseInsensitive) == 0) {
-        return DeviceType::Eraser;
-
-    } else if (d->tabletInformation.padName.compare(deviceName, Qt::CaseInsensitive) == 0) {
-        return DeviceType::Pad;
-
-    } else if (d->tabletInformation.touchName.compare(deviceName, Qt::CaseInsensitive) == 0) {
-        return DeviceType::Touch;
-
-    } else if (d->tabletInformation.cursorName.compare(deviceName, Qt::CaseInsensitive) == 0) {
-        return DeviceType::Cursor;
-    }
-
-    // this should not happen
-    kError() << QString::fromLatin1("Lookup of invalid device name '%1' failed!").arg(deviceName);
-    return DeviceType::Pad;
-}
-
-
 void TabletHandler::toggleMode(const DeviceType& type)
 {
     Q_D( TabletHandler );
