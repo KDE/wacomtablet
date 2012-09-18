@@ -53,6 +53,10 @@ public:
     static const DeviceProperty Button9;
     static const DeviceProperty Button10;
     static const DeviceProperty ChangeArea;
+    static const DeviceProperty CursorAccelProfile;
+    static const DeviceProperty CursorAccelConstantDeceleration;
+    static const DeviceProperty CursorAccelAdaptiveDeceleration;
+    static const DeviceProperty CursorAccelVelocityScaling;
     static const DeviceProperty CursorProximity;
     static const DeviceProperty ForceProportions;
     static const DeviceProperty Gesture;

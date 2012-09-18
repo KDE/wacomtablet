@@ -40,6 +40,10 @@ const DeviceProperty DeviceProperty::Button8          ( Property::Button8,      
 const DeviceProperty DeviceProperty::Button9          ( Property::Button9,          QLatin1String("Button9") );
 const DeviceProperty DeviceProperty::Button10         ( Property::Button10,         QLatin1String("Button10") );
 const DeviceProperty DeviceProperty::ChangeArea       ( Property::ChangeArea,       QLatin1String("ChangeArea") );
+const DeviceProperty DeviceProperty::CursorAccelProfile               ( Property::CursorAccelProfile,              QLatin1String("CursorAccelProfile") );
+const DeviceProperty DeviceProperty::CursorAccelConstantDeceleration  ( Property::CursorAccelConstantDeceleration, QLatin1String("CursorAccelConstantDeceleration") );
+const DeviceProperty DeviceProperty::CursorAccelAdaptiveDeceleration  ( Property::CursorAccelAdaptiveDeceleration, QLatin1String("CursorAccelAdaptiveDeceleration") );
+const DeviceProperty DeviceProperty::CursorAccelVelocityScaling       ( Property::CursorAccelVelocityScaling,      QLatin1String("CursorAccelVelocityScaling") );
 const DeviceProperty DeviceProperty::CursorProximity  ( Property::CursorProximity,  QLatin1String("CursorProximity") );
 const DeviceProperty DeviceProperty::ForceProportions ( Property::ForceProportions, QLatin1String("ForceProportions") );
 const DeviceProperty DeviceProperty::Gesture          ( Property::Gesture,          QLatin1String("Gesture") );

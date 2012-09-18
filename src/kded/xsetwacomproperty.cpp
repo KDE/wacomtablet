@@ -61,4 +61,4 @@ const XsetwacomProperty XsetwacomProperty::AbsWheel2Down    ( Property::AbsWheel
 const XsetwacomProperty XsetwacomProperty::AbsWheel2Up      ( Property::AbsWheel2Up,      QLatin1String("AbsWheel2Up") );
 const XsetwacomProperty XsetwacomProperty::AbsWheelDown     ( Property::AbsWheelDown,     QLatin1String("AbsWheelDown") );
 const XsetwacomProperty XsetwacomProperty::AbsWheelUp       ( Property::AbsWheelUp,       QLatin1String("AbsWheelUp") );
-const XsetwacomProperty XsetwacomProperty::InvertScroll     ( Property::InvertScroll,     Property::InvertScroll.key());
+const XsetwacomProperty XsetwacomProperty::InvertScroll     ( Property::InvertScroll,     QLatin1String("InvertScroll") );

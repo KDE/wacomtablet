@@ -29,7 +29,7 @@ namespace Wacom
  * any kind of property that uses QString as its key type.
  */
 template<class T>
-class PropertyAdaptorMock : PropertyAdaptor
+class PropertyAdaptorMock : public PropertyAdaptor
 {
 public:
 

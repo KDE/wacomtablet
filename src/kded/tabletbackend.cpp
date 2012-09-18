@@ -155,22 +155,26 @@ void TabletBackend::setProfile(const DeviceType& deviceType, const DeviceProfile
 
 
 
-void TabletBackend::setProperty(const DeviceType& type, const Property& property, const QString& value)
+bool TabletBackend::setProperty(const DeviceType& type, const Property& property, const QString& value)
 {
     Q_D(TabletBackend);
 
     if (!d->deviceAdaptors.contains(type)) {
         kError() << QString::fromLatin1("Could not set property '%1' to '%2' on unsupported device type '%3'!").arg(property.key()).arg(value).arg(type.key());
-        return;
+        return false;
     }
 
-    DeviceMap::iterator adaptors = d->deviceAdaptors.find(type);
+    bool                returnValue = false;
+    DeviceMap::iterator adaptors    = d->deviceAdaptors.find(type);
     assert(adaptors != d->deviceAdaptors.end());
 
     foreach (PropertyAdaptor* adaptor, adaptors.value()) {
         if (adaptor->supportsProperty(property)) {
-            adaptor->setProperty(property, value);
+            if (adaptor->setProperty(property, value)) {
+                returnValue = true;
+            }
         }
     }
-}
 
+    return returnValue;
+}

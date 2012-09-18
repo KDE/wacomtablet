@@ -50,15 +50,47 @@ public:
      */
     void addAdaptor(const DeviceType& deviceType, PropertyAdaptor* adaptor);
 
+    /**
+     * Returns tablet information about the tablet handled by this backend.
+     *
+     * @return TabletInformation
+     */
     const TabletInformation& getInformation() const;
 
+    /**
+     * Gets a tablet property. If the property is not supported by any of the
+     * adaptors which were added to this tablet, an empty string is returned.
+     *
+     * @param type     The device to read the property from.
+     * @param property The property to get.
+     *
+     * @return The property value or an empty string.
+     */
     const QString getProperty(const DeviceType& type, const Property& property) const;
 
+    /**
+     * Applies a profile to the tablet managed by this backend.
+     *
+     * @param profile The profile to apply.
+     */
     void setProfile(const TabletProfile& profile);
 
+    /**
+     * Applies a profile to a device.
+     *
+     * @param deviceType The device to apply the profile to.
+     * @param profile    The profile to apply.
+     */
     void setProfile(const Wacom::DeviceType& deviceType, const Wacom::DeviceProfile& profile);
 
-    void setProperty(const Wacom::DeviceType& type, const Property& property, const QString& value);
+    /**
+     * Sets a property on a device.
+     *
+     * @param type     The device to set the property on.
+     * @param property The property to set on the device.
+     * @param value    The property value to set.
+     */
+    bool setProperty(const Wacom::DeviceType& type, const Property& property, const QString& value);
 
 
 private:

@@ -11,6 +11,7 @@ set(TEST_INCLUDES
 
 ## additional sources and qt-mocs which are required for the tests
 set(TEST_SOURCES
+    kdedtestutils.cpp
     tablethandlermock.cpp
     tabletdependenttest.cpp
 )
@@ -30,3 +31,4 @@ set(TEST_LIBRARIES
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${TEST_INCLUDES})
 
 add_qttest(testdbustabletservice testdbustabletservice.cpp ${TEST_SOURCES} ${TEST_MOC_FILES})
+add_qttest(testtabletbackend testtabletbackend.cpp ${TEST_SOURCES} ${TEST_MOC_FILES})
