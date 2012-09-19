@@ -41,7 +41,7 @@ TabletBackendFactory& TabletBackendFactory::operator=(const TabletBackendFactory
 }
 
 
-TabletBackend* TabletBackendFactory::createBackend(TabletInformation& info)
+TabletBackendInterface* TabletBackendFactory::createBackend(TabletInformation& info)
 {
     TabletDatabase tabletDatabase;
 

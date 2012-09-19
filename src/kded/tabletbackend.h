@@ -18,11 +18,7 @@
 #ifndef TABLETBACKEND_H
 #define TABLETBACKEND_H
 
-#include "property.h"
-#include "propertyadaptor.h"
-#include "devicetype.h"
-#include "tabletprofile.h"
-#include "tabletinformation.h"
+#include "tabletbackendinterface.h"
 
 #include <QtCore/QString>
 #include <QtCore/QMap>
@@ -34,7 +30,7 @@ namespace Wacom
 // forward declaration
 class TabletBackendPrivate;
 
-class TabletBackend
+class TabletBackend : public TabletBackendInterface
 {
 public:
 
@@ -42,53 +38,32 @@ public:
     virtual ~TabletBackend();
 
     /**
-     * Adds a property adaptor for the given device type. The property adaptor
-     * will be deleted once this class is destroyed.
-     *
-     * @param deviceType The device type to add the property adaptor for.
-     * @param adaptor    The property adaptor to add.
+     * @see TabletBackendInterface::addAdaptor(const DeviceType&, PropertyAdaptor*)
      */
     void addAdaptor(const DeviceType& deviceType, PropertyAdaptor* adaptor);
 
     /**
-     * Returns tablet information about the tablet handled by this backend.
-     *
-     * @return TabletInformation
+     * @see TabletBackendInterface::getInformation() const;
      */
     const TabletInformation& getInformation() const;
 
     /**
-     * Gets a tablet property. If the property is not supported by any of the
-     * adaptors which were added to this tablet, an empty string is returned.
-     *
-     * @param type     The device to read the property from.
-     * @param property The property to get.
-     *
-     * @return The property value or an empty string.
+     * @see TabletBackendInterface::getProperty(const DeviceType&, const Property&) const
      */
     const QString getProperty(const DeviceType& type, const Property& property) const;
 
     /**
-     * Applies a profile to the tablet managed by this backend.
-     *
-     * @param profile The profile to apply.
+     * @see TabletBackendInterface::setProfile(const TabletProfile&)
      */
     void setProfile(const TabletProfile& profile);
 
     /**
-     * Applies a profile to a device.
-     *
-     * @param deviceType The device to apply the profile to.
-     * @param profile    The profile to apply.
+     * @see TabletBackendInterface::setProfile(const DeviceType&, const DeviceProfile&)
      */
     void setProfile(const Wacom::DeviceType& deviceType, const Wacom::DeviceProfile& profile);
 
     /**
-     * Sets a property on a device.
-     *
-     * @param type     The device to set the property on.
-     * @param property The property to set on the device.
-     * @param value    The property value to set.
+     * @see TabletBackendInterface::setProperty(const DeviceType&, const Property&, const QString&)
      */
     bool setProperty(const Wacom::DeviceType& type, const Property& property, const QString& value);
 

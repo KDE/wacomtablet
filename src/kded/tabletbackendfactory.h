@@ -39,7 +39,7 @@ public:
      *
      * @return A new tablet backend instance.
      */
-    static TabletBackend* createBackend (TabletInformation& info);
+    static TabletBackendInterface* createBackend (TabletInformation& info);
 
 
 private:

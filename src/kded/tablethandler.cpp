@@ -19,7 +19,7 @@
 
 #include "tablethandler.h"
 
-#include "tabletbackend.h"
+#include "tabletbackendinterface.h"
 #include "tabletbackendfactory.h"
 #include "tabletinfo.h"
 #include "devicetype.h"
@@ -42,11 +42,11 @@ namespace Wacom
     class TabletHandlerPrivate
     {
         public:
-            MainConfig            mainConfig;        //!< Main config file which stores general parameters.
-            ProfileManager        profileManager;    //!< Profile manager which reads profile configuration from file.
-            TabletBackend        *tabletBackend;     //!< Tablet backend of the currently connected tablet.
-            TabletInformation     tabletInformation; //!< Information of currently connected tablet.
-            QString               currentProfile;    //!< Currently active profile.
+            MainConfig              mainConfig;        //!< Main config file which stores general parameters.
+            ProfileManager          profileManager;    //!< Profile manager which reads profile configuration from file.
+            TabletBackendInterface *tabletBackend;     //!< Tablet backend of the currently connected tablet.
+            TabletInformation       tabletInformation; //!< Information of currently connected tablet.
+            QString                 currentProfile;    //!< Currently active profile.
     }; // CLASS
 } // NAMESPACE
 
