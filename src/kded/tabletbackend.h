@@ -20,7 +20,6 @@
 
 #include "tabletbackendinterface.h"
 
-#include <QtCore/QString>
 #include <QtCore/QMap>
 #include <QtCore/QList>
 
@@ -60,12 +59,12 @@ public:
     /**
      * @see TabletBackendInterface::setProfile(const DeviceType&, const DeviceProfile&)
      */
-    void setProfile(const Wacom::DeviceType& deviceType, const Wacom::DeviceProfile& profile);
+    void setProfile(const DeviceType& deviceType, const DeviceProfile& profile);
 
     /**
      * @see TabletBackendInterface::setProperty(const DeviceType&, const Property&, const QString&)
      */
-    bool setProperty(const Wacom::DeviceType& type, const Property& property, const QString& value);
+    bool setProperty(const DeviceType& type, const Property& property, const QString& value);
 
 
 private:

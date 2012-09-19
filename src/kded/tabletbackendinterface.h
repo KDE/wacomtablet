@@ -18,11 +18,14 @@
 #ifndef TABLETBACKENDINTERFACE_H
 #define TABLETBACKENDINTERFACE_H
 
+#include "deviceprofile.h"
+#include "devicetype.h"
 #include "property.h"
 #include "propertyadaptor.h"
-#include "devicetype.h"
 #include "tabletprofile.h"
 #include "tabletinformation.h"
+
+#include <QtCore/QString>
 
 namespace Wacom
 {
@@ -79,7 +82,7 @@ public:
      * @param deviceType The device to apply the profile to.
      * @param profile    The profile to apply.
      */
-    virtual void setProfile(const Wacom::DeviceType& deviceType, const Wacom::DeviceProfile& profile) = 0;
+    virtual void setProfile(const DeviceType& deviceType, const DeviceProfile& profile) = 0;
 
 
     /**
@@ -89,7 +92,7 @@ public:
      * @param property The property to set on the device.
      * @param value    The property value to set.
      */
-    virtual bool setProperty(const Wacom::DeviceType& type, const Property& property, const QString& value) = 0;
+    virtual bool setProperty(const DeviceType& type, const Property& property, const QString& value) = 0;
 
 }; // CLASS
 }  // NAMESPACE

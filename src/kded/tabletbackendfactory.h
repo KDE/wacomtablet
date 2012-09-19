@@ -18,7 +18,10 @@
 #ifndef TABLETBACKENDFACTORY_H
 #define TABLETBACKENDFACTORY_H
 
-#include "tabletbackend.h"
+#include "tabletbackendinterface.h"
+
+#include <QtCore/QMap>
+#include <QtCore/QString>
 
 namespace Wacom
 {
@@ -42,6 +45,41 @@ public:
     static TabletBackendInterface* createBackend (TabletInformation& info);
 
 
+    /**
+     * Helper method for unit testing.
+     *
+     * Sets the mock object which will be returned by this factory. The mock
+     * object will only be returned once as it has to be deleted by the caller.
+     * So there is no point in returning the same pointer multiple times.
+     *
+     * @param mock The mock object returned by this factory, possible null.
+     */
+    static void setTabletBackendMock(TabletBackendInterface* mock);
+
+
+protected:
+
+    /**
+     * Creates a tablet backend instance.
+     *
+     * @param info      The tablet information.
+     * @param buttonMap The button mapping for this tablet.
+     *
+     * @return A new instance of a tablet backend.
+     */
+    TabletBackendInterface* createInstance (TabletInformation& info, QMap<QString,QString>& buttonMap);
+
+    /**
+     * Looks up tablet information and button mapping from the device database.
+     *
+     * @param info      The tablet information which will be filled with the information from the database.
+     * @param buttonMap The button map which will contain the button mapping of the device.
+     *
+     * @return True on success, false on error.
+     */ 
+    bool lookupInformation (TabletInformation& info, QMap<QString,QString>& buttonMap);
+
+
 private:
 
     //! Private default constructor as this is a static class.
@@ -52,6 +90,10 @@ private:
 
     //! Copy operator which does nothing.
     TabletBackendFactory& operator= (const TabletBackendFactory& factory);
+
+
+    //! The mock object returned by this factory if it is set.
+    static TabletBackendInterface* m_tabletBackendMock;
 
 }; // CLASS 
 }  // NAMESPACE
