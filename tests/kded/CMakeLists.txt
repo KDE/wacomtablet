@@ -12,6 +12,7 @@ set(TEST_INCLUDES
 ## additional sources and qt-mocs which are required for the tests
 set(TEST_SOURCES
     kdedtestutils.cpp
+    tabletbackendmock.cpp
     tablethandlermock.cpp
     tabletdependenttest.cpp
 )
