@@ -45,7 +45,7 @@ private slots:
     void testSetDeviceProfile();
 
     void testSetProfile();
-    
+
     void testSetProperty();
 
     void cleanupTestCase();

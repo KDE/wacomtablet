@@ -21,9 +21,7 @@ using namespace Wacom;
 
 TabletBackendMock::TabletBackendMock()
 {
-    m_propertyAdaptor     = NULL;
-    m_propertyAdaptorType = NULL;
-    m_deviceProfileType   = NULL;
+    m_propertyAdaptor = NULL;
 }
 
 
@@ -31,6 +29,13 @@ TabletBackendMock::~TabletBackendMock()
 {
     if (m_propertyAdaptor) {
         delete m_propertyAdaptor;
+    }
+
+    QMap< QString,PropertyAdaptorMock<DeviceProperty>* >::iterator it = m_properties.begin();
+
+    while (it != m_properties.end()) {
+        delete it.value();
+        it = m_properties.erase(it);
     }
 }
 
@@ -43,7 +48,7 @@ void TabletBackendMock::addAdaptor(const DeviceType& deviceType, PropertyAdaptor
     }
 
     m_propertyAdaptor     = adaptor;
-    m_propertyAdaptorType = &deviceType;
+    m_propertyAdaptorType = deviceType.key();
 }
 
 
@@ -57,13 +62,13 @@ const TabletInformation& TabletBackendMock::getInformation() const
 
 const QString TabletBackendMock::getProperty(const DeviceType& type, const Property& property) const
 {
-    QMap< QString,PropertyAdaptorMock<DeviceProperty> >::const_iterator it = m_properties.find(type.key());
+    QMap< QString,PropertyAdaptorMock<DeviceProperty>* >::const_iterator it = m_properties.find(type.key());
 
     if (it == m_properties.end()) {
         return QString();
     }
 
-    return it->getProperty(property);
+    return it.value()->getProperty(property);
 }
 
 
@@ -78,20 +83,21 @@ void TabletBackendMock::setProfile(const TabletProfile& profile)
 void TabletBackendMock::setProfile(const DeviceType& deviceType, const DeviceProfile& profile)
 {
     m_deviceProfile = profile;
-    m_deviceProfileType = &deviceType;
+    m_deviceProfileType = deviceType.key();
 }
 
 
 
 bool TabletBackendMock::setProperty(const DeviceType& type, const Property& property, const QString& value)
 {
-    QMap< QString,PropertyAdaptorMock<DeviceProperty> >::iterator it = m_properties.find(type.key());
+    QMap< QString,PropertyAdaptorMock<DeviceProperty>* >::iterator it = m_properties.find(type.key());
 
     if (it == m_properties.end()) {
-        return false;
+        m_properties.insert(type.key(), new PropertyAdaptorMock<DeviceProperty>());
+        it = m_properties.find(type.key());
     }
 
-    return it->setProperty(property, value);
+    return it.value()->setProperty(property, value);
 }
 
 

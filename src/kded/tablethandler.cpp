@@ -263,8 +263,10 @@ void TabletHandler::clearTabletInformation()
     d->tabletInformation = empty;
     d->tabletInformation.setAvailable(false);
 
-    delete d->tabletBackend;
-    d->tabletBackend = NULL;
+    if (d->tabletBackend) {
+        delete d->tabletBackend;
+        d->tabletBackend = NULL;
+    }
 }
 
 

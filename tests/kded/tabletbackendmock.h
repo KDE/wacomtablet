@@ -28,7 +28,7 @@
 
 namespace Wacom
 {
-class TabletBackendMock 
+class TabletBackendMock : public TabletBackendInterface
 {
 public:
 
@@ -49,16 +49,16 @@ public:
     bool setProperty(const DeviceType& type, const Property& property, const QString& value);
 
 
-    const DeviceType* m_propertyAdaptorType; //!< The device type of the property adaptor.
+    QString           m_propertyAdaptorType; //!< The device type of the property adaptor.
     PropertyAdaptor*  m_propertyAdaptor;     //!< The property adaptor which was set by addAdaptor()
 
     TabletInformation m_tabletInformation;   //!< The information returned by getInformation()
 
     TabletProfile     m_tabletProfile;       //!< The last tablet profile which was set.
     DeviceProfile     m_deviceProfile;       //!< The last device profile which was set.
-    const DeviceType* m_deviceProfileType;   //!< The last device profile type which was set.
+    QString           m_deviceProfileType;   //!< The last device profile type which was set.
 
-    QMap<QString, PropertyAdaptorMock<DeviceProperty> > m_properties; //!< Properties which were set.
+    QMap<QString, PropertyAdaptorMock<DeviceProperty>* > m_properties; //!< Properties which were set.
 
 }; // CLASS
 }  // NAMESPACE
