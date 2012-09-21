@@ -64,6 +64,7 @@ TabletHandler::TabletHandler()
 
 
 TabletHandler::TabletHandler(const QString& profileFile, const QString configFile)
+    : TabletHandlerInterface(NULL), d_ptr(new TabletHandlerPrivate)
 {
     Q_D( TabletHandler );
 
