@@ -39,6 +39,15 @@ class TabletHandler : public TabletHandlerInterface
 public:
 
     TabletHandler();
+
+    /**
+     * A constructor used for unit testing.
+     *
+     * @param profileFile The full path to the profiles configuration file.
+     * @param configFile  The full path to the main configuration file.
+     */
+    TabletHandler(const QString& profileFile, const QString configFile);
+
     virtual ~TabletHandler();
 
     /**

@@ -29,9 +29,12 @@ class MainConfig
 {
 public:
     MainConfig();
+    explicit MainConfig(const QString& fileName);
     ~MainConfig();
 
     QString getLastProfile();
+
+    void open (const QString& fileName);
 
     void setLastProfile(const QString& profile);
     

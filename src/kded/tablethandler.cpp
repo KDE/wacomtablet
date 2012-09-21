@@ -58,7 +58,18 @@ TabletHandler::TabletHandler()
     Q_D( TabletHandler );
 
     d->tabletBackend = NULL;
-    d->profileManager.open( QLatin1String( "tabletprofilesrc" ) );
+    d->profileManager.open (QLatin1String("tabletprofilesrc"));
+    d->mainConfig.open(QLatin1String("wacomtablet-kderc"));
+}
+
+
+TabletHandler::TabletHandler(const QString& profileFile, const QString configFile)
+{
+    Q_D( TabletHandler );
+
+    d->tabletBackend = NULL;
+    d->profileManager.open( profileFile );
+    d->mainConfig.open(configFile);
 }
 
 

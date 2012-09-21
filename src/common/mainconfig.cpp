@@ -36,10 +36,16 @@ class MainConfigPrivate
 
 MainConfig::MainConfig() : d_ptr( new MainConfigPrivate )
 {
-    Q_D( MainConfig );
-    d->config  = KSharedConfig::openConfig( QLatin1String( "wacomtablet-kderc" ) );
-    d->general = KConfigGroup(d->config, "General");
+    open(QLatin1String("wacomtablet-kderc"));
 }
+
+
+MainConfig::MainConfig(const QString& fileName) : d_ptr( new MainConfigPrivate )
+{
+    open(fileName);
+}
+
+
 
 MainConfig::~MainConfig()
 {
@@ -49,6 +55,14 @@ MainConfig::~MainConfig()
     }
 
     delete this->d_ptr;
+}
+
+
+void MainConfig::open(const QString& fileName)
+{
+    Q_D( MainConfig );
+    d->config  = KSharedConfig::openConfig( fileName );
+    d->general = KConfigGroup(d->config, "General");
 }
 
 
