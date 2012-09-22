@@ -48,6 +48,8 @@ private slots:
 
     void test();
 
+    void cleanupTestCase();
+
 
 private:
 
@@ -68,7 +70,7 @@ private:
     bool               m_tabletAdded;
     bool               m_tabletRemoved;
 
-    TabletHandler      m_tabletHandler;
+    TabletHandler*     m_tabletHandler;
     TabletBackendMock* m_backendMock;
 };
 }

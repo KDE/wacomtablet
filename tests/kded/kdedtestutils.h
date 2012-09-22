@@ -20,15 +20,19 @@
 
 #include "tabletinformation.h"
 
+#include <QtCore/QString>
+
 namespace Wacom
 {
 class KdedTestUtils
 {
 
 public:
-    
+
     static void assertTabletInformation(const TabletInformation& expectedInformation, const TabletInformation& actualInformation);
-    
+
+    static const QString getAbsolutePath(const QString& fileName);
+
 }; // CLASS
 }  // NAMESPACE
 #endif // HEADER PROTECTION

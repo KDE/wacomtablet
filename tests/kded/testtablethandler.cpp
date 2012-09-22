@@ -17,6 +17,7 @@
 
 #include "testtablethandler.moc"
 
+#include "kdedtestutils.h"
 #include "tabletbackendfactory.h"
 
 
@@ -62,10 +63,22 @@ void TestTabletHandler::initTestCase()
     m_tabletRemoved = false;
     m_backendMock   = NULL;
 
-    connect(&m_tabletHandler, SIGNAL(notify(QString,QString,QString)), this, SLOT(onNotify(QString,QString,QString)));
-    connect(&m_tabletHandler, SIGNAL(profileChanged(QString)),         this, SLOT(onProfileChanged(QString)));
-    connect(&m_tabletHandler, SIGNAL(tabletAdded(TabletInformation)),  this, SLOT(onTabletAdded(TabletInformation)));
-    connect(&m_tabletHandler, SIGNAL(tabletRemoved()),                 this, SLOT(onTabletRemoved()));
+    QString profilePath = KdedTestUtils::getAbsolutePath(QLatin1String("testtablethandler.profilesrc"));
+    QString configPath  = KdedTestUtils::getAbsolutePath(QLatin1String("testtablethandler.configrc"));
+    m_tabletHandler = new TabletHandler(profilePath, configPath);
+
+    TabletBackendFactory::setUnitTest(true);
+
+    connect(m_tabletHandler, SIGNAL(notify(QString,QString,QString)), this, SLOT(onNotify(QString,QString,QString)));
+    connect(m_tabletHandler, SIGNAL(profileChanged(QString)),         this, SLOT(onProfileChanged(QString)));
+    connect(m_tabletHandler, SIGNAL(tabletAdded(TabletInformation)),  this, SLOT(onTabletAdded(TabletInformation)));
+    connect(m_tabletHandler, SIGNAL(tabletRemoved()),                 this, SLOT(onTabletRemoved()));
+}
+
+
+void TestTabletHandler::cleanupTestCase()
+{
+    delete m_tabletHandler;
 }
 
 
@@ -94,12 +107,12 @@ void TestTabletHandler::testOnTabletAdded()
     m_notifyTitle   = QString();
 
 
-    // not enough information to lookup a tablet
     // if the tablet backend factory returns NULL adding a tablet should fail
+    TabletBackendFactory::setUnitTest(true);
     TabletBackendFactory::setTabletBackendMock(NULL);
     basicInfo.xdeviceId = QLatin1String("1");
 
-    m_tabletHandler.onTabletAdded(basicInfo);
+    m_tabletHandler->onTabletAdded(basicInfo);
 
     QVERIFY(!m_tabletAdded);
     QVERIFY(!m_tabletRemoved);
@@ -129,7 +142,7 @@ void TestTabletHandler::testOnTabletAdded()
     // a device id of 0 should always fail
     basicInfo.xdeviceId = QLatin1String("0");
 
-    m_tabletHandler.onTabletAdded(basicInfo);
+    m_tabletHandler->onTabletAdded(basicInfo);
 
     QVERIFY(!m_tabletAdded);
     QVERIFY(!m_tabletRemoved);
@@ -143,7 +156,7 @@ void TestTabletHandler::testOnTabletAdded()
     // this should notify the user, emit a "tablet added" signal, notify the user and emit a "profile changed" signal
     basicInfo.xdeviceId = QLatin1String("1");
 
-    m_tabletHandler.onTabletAdded(basicInfo);
+    m_tabletHandler->onTabletAdded(basicInfo);
 
     QVERIFY(!m_tabletRemoved);
     QVERIFY(m_tabletAdded);
@@ -172,7 +185,7 @@ void TestTabletHandler::testOnTabletRemoved()
     // removing a different tablet then the one handled by the backend should do nothing
     info.xdeviceId = QLatin1String("99");
 
-    m_tabletHandler.onTabletRemoved(info);
+    m_tabletHandler->onTabletRemoved(info);
 
     QVERIFY(!m_tabletRemoved);
     QVERIFY(m_tabletAdded);
@@ -184,7 +197,7 @@ void TestTabletHandler::testOnTabletRemoved()
     // this should emit a signal and notify the user
     info.xdeviceId = QLatin1String("1");
 
-    m_tabletHandler.onTabletRemoved(info);
+    m_tabletHandler->onTabletRemoved(info);
 
     QVERIFY(m_tabletRemoved);
     QVERIFY(!m_tabletAdded);
@@ -200,7 +213,7 @@ void TestTabletHandler::testOnTabletRemoved()
     m_notifyMessage = QString();
     m_notifyTitle   = QString();
 
-    m_tabletHandler.onTabletRemoved(info);
+    m_tabletHandler->onTabletRemoved(info);
 
     QVERIFY(!m_tabletRemoved);
     QVERIFY(!m_tabletAdded);
@@ -217,9 +230,9 @@ void TestTabletHandler::testSetProperty()
 {
     QVERIFY(m_tabletAdded);
 
-    m_tabletHandler.setProperty(DeviceType::Stylus, Property::Button1, Property::Button1.key());
+    m_tabletHandler->setProperty(DeviceType::Stylus, Property::Button1, Property::Button1.key());
     QCOMPARE(Property::Button1.key(), m_backendMock->getProperty(DeviceType::Stylus, Property::Button1));
-    QCOMPARE(Property::Button1.key(), m_tabletHandler.getProperty(DeviceType::Stylus, Property::Button1));
+    QCOMPARE(Property::Button1.key(), m_tabletHandler->getProperty(DeviceType::Stylus, Property::Button1));
 
     QWARN("testSetProperty(): PASSED!");
 }

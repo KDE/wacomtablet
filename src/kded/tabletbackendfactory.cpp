@@ -28,6 +28,9 @@
 using namespace Wacom;
 
 TabletBackendInterface* TabletBackendFactory::m_tabletBackendMock = NULL;
+bool TabletBackendFactory::m_isUnitTest = false;
+
+
 
 TabletBackendFactory::TabletBackendFactory() {}
 
@@ -48,9 +51,16 @@ TabletBackendFactory& TabletBackendFactory::operator=(const TabletBackendFactory
 TabletBackendInterface* TabletBackendFactory::createBackend(TabletInformation& info)
 {
     static TabletBackendFactory factory;
-    
-    // return mock object if one is set
-    if (m_tabletBackendMock) {
+
+    // return mock object if it exists or if unit testing is enabled
+    if (m_tabletBackendMock || m_isUnitTest) {
+
+        if (m_tabletBackendMock == NULL) {
+            return NULL;
+        }
+
+        // reset tablet backend mock as it will get deleted by the caller
+        // therefore we can not return it more than once
         TabletBackendInterface* mock = m_tabletBackendMock;
         m_tabletBackendMock = NULL;
         info = mock->getInformation();
@@ -75,6 +85,12 @@ void TabletBackendFactory::setTabletBackendMock(TabletBackendInterface* mock)
     m_tabletBackendMock = mock;
 }
 
+
+
+void TabletBackendFactory::setUnitTest(bool isUnitTest)
+{
+    m_isUnitTest = isUnitTest;
+}
 
 
 TabletBackendInterface* TabletBackendFactory::createInstance(TabletInformation& info, QMap< QString, QString >& buttonMap)

@@ -51,3 +51,25 @@ void KdedTestUtils::assertTabletInformation(const TabletInformation& expectedInf
     // check availability
     QVERIFY(expectedInformation.isAvailable() == actualInformation.isAvailable());
 }
+
+
+
+const QString KdedTestUtils::getAbsolutePath(const QString& fileName)
+{
+    if (fileName.isEmpty()) {
+        return QString();
+    }
+
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        return QString();
+    }
+
+    QFileInfo info(file);
+    QString absolutePath = info.absoluteFilePath();
+
+    file.close();
+
+    return absolutePath;
+}

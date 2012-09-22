@@ -57,6 +57,14 @@ public:
     static void setTabletBackendMock(TabletBackendInterface* mock);
 
 
+    /**
+     * Sets unit testing mode.
+     *
+     * In unit testing mode this factory will always return the tablet backend
+     * mock or NULL.
+     */
+    static void setUnitTest(bool isUnitTest);
+
 protected:
 
     /**
@@ -94,6 +102,7 @@ private:
 
     //! The mock object returned by this factory if it is set.
     static TabletBackendInterface* m_tabletBackendMock;
+    static bool                    m_isUnitTest;
 
 }; // CLASS 
 }  // NAMESPACE

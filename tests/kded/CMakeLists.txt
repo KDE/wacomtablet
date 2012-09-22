@@ -33,4 +33,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${TE
 
 add_qttest(testdbustabletservice testdbustabletservice.cpp ${TEST_SOURCES} ${TEST_MOC_FILES})
 add_qttest(testtabletbackend testtabletbackend.cpp ${TEST_SOURCES} ${TEST_MOC_FILES})
+
 add_qttest(testtablethandler testtablethandler.cpp ${TEST_SOURCES} ${TEST_MOC_FILES})
+configure_file(testtablethandler.configrc ${CMAKE_CURRENT_BINARY_DIR}/testtablethandler.configrc COPYONLY)
+configure_file(testtablethandler.profilesrc ${CMAKE_CURRENT_BINARY_DIR}/testtablethandler.profilesrc COPYONLY)
+
