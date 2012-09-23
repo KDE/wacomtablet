@@ -90,6 +90,7 @@ ForceProportions=false
 Mode=absolute
 PressureCurve=0 0 100 100
 Rotate=none
+RotateWithScreen=true
 ScreenMapping=randr
 TabletArea=full
 TabletPcButton=on

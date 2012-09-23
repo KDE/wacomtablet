@@ -98,6 +98,8 @@ void TestTabletHandler::test()
 
     testOnToggleTouch();
 
+    testOnScreenRotated();
+
     testOnTabletRemoved();
 }
 
@@ -115,6 +117,31 @@ void TestTabletHandler::testListProfiles()
 }
 
 
+void TestTabletHandler::testOnScreenRotated()
+{
+    // reset screen rotation
+    m_tabletHandler->setProperty(DeviceType::Stylus, Property::Rotate, TabletRotation::NONE.key());
+    m_tabletHandler->setProperty(DeviceType::Eraser, Property::Rotate, TabletRotation::NONE.key());
+    m_tabletHandler->setProperty(DeviceType::Touch, Property::Rotate, TabletRotation::NONE.key());
+
+    // we need the test profile set as it has the required property
+    QCOMPARE(m_profileChanged, QLatin1String("test"));
+
+    // compare start paramters
+    QCOMPARE(TabletRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Eraser, Property::Rotate));
+    QCOMPARE(TabletRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Stylus, Property::Rotate));
+    QCOMPARE(TabletRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Touch, Property::Rotate));
+    
+    // rotate screen
+    m_tabletHandler->onScreenRotated(TabletRotation::HALF);
+
+    // validate result
+    QCOMPARE(TabletRotation::HALF.key(), m_tabletHandler->getProperty(DeviceType::Eraser, Property::Rotate));
+    QCOMPARE(TabletRotation::HALF.key(), m_tabletHandler->getProperty(DeviceType::Stylus, Property::Rotate));
+    QCOMPARE(TabletRotation::HALF.key(), m_tabletHandler->getProperty(DeviceType::Touch, Property::Rotate));
+
+    QWARN("testOnScreenRotated(): PASSED!");
+}
 
 void TestTabletHandler::testOnTabletAdded()
 {

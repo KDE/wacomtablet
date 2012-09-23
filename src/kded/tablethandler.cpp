@@ -170,7 +170,9 @@ void TabletHandler::onScreenRotated( const TabletRotation& screenRotation )
             setProperty( DeviceType::Touch, Property::Rotate, QString::fromLatin1( "%1" ).arg( screenRotation.key() ) );
         }
 
-        setProfile(d->currentProfile);
+        // TODO: Why do we do this? It will reset the property which we just set!
+        // Removing if for now!
+        //setProfile(d->currentProfile);
     }
 }
 

@@ -55,6 +55,8 @@ private:
 
     void testListProfiles();
 
+    void testOnScreenRotated();
+
     void testOnTabletAdded();
 
     void testOnTabletRemoved();
