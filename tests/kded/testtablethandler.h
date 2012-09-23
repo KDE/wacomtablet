@@ -59,6 +59,12 @@ private:
 
     void testOnTabletRemoved();
 
+    void testOnTogglePenMode();
+
+    void testOnToggleTouch();
+
+    void testSetProfile();
+
     void testSetProperty();
 
 

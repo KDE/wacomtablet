@@ -92,6 +92,12 @@ void TestTabletHandler::test()
 
     testListProfiles();
 
+    testSetProfile();
+
+    testOnTogglePenMode();
+
+    testOnToggleTouch();
+
     testOnTabletRemoved();
 }
 
@@ -148,6 +154,7 @@ void TestTabletHandler::testOnTabletAdded()
     m_backendMock->m_tabletInformation.eraserName  = QLatin1String("Eraser");
     m_backendMock->m_tabletInformation.stylusName  = QLatin1String("Stylus");
     m_backendMock->m_tabletInformation.padName     = QLatin1String("Pad");
+    m_backendMock->m_tabletInformation.touchName   = QLatin1String("Touch");
     m_backendMock->m_tabletInformation.setButtons(true);
     m_backendMock->m_tabletInformation.setAvailable(true);
 
@@ -179,8 +186,8 @@ void TestTabletHandler::testOnTabletAdded()
     QVERIFY(!m_notifyMessage.isEmpty());
     QVERIFY(!m_notifyTitle.isEmpty());
     QVERIFY(!m_profileChanged.isEmpty());
-
-    // TODO make sure all profile properties were set
+    QCOMPARE(QLatin1String("test"), m_profileChanged);
+    QCOMPARE(QLatin1String("test"), m_backendMock->m_tabletProfile.getName());
 
     // TODO try to add the tablet again
     QWARN("testOnTabletAdded(): PASSED!");
@@ -239,6 +246,88 @@ void TestTabletHandler::testOnTabletRemoved()
     QVERIFY(m_notifyTitle.isEmpty());
 
     QWARN("testOnTabletRemoved(): PASSED!");
+}
+
+
+
+void TestTabletHandler::testOnTogglePenMode()
+{
+    m_backendMock->setProperty(DeviceType::Stylus, Property::Mode, QLatin1String("Absolute"));
+    m_backendMock->setProperty(DeviceType::Eraser, Property::Mode, QLatin1String("Absolute"));
+
+    QCOMPARE(QLatin1String("Absolute"), m_backendMock->getProperty(DeviceType::Eraser, Property::Mode));
+    QCOMPARE(QLatin1String("Absolute"), m_backendMock->getProperty(DeviceType::Stylus, Property::Mode));
+
+    m_tabletHandler->onTogglePenMode();
+
+    QCOMPARE(QLatin1String("Relative"), m_backendMock->getProperty(DeviceType::Eraser, Property::Mode));
+    QCOMPARE(QLatin1String("Relative"), m_backendMock->getProperty(DeviceType::Stylus, Property::Mode));
+
+    m_tabletHandler->onTogglePenMode();
+
+    QCOMPARE(QLatin1String("Absolute"), m_backendMock->getProperty(DeviceType::Eraser, Property::Mode));
+    QCOMPARE(QLatin1String("Absolute"), m_backendMock->getProperty(DeviceType::Stylus, Property::Mode));
+
+    QWARN("testOnTogglePenMode(): PASSED!");
+}
+
+
+
+void TestTabletHandler::testOnToggleTouch()
+{
+    m_tabletHandler->setProperty(DeviceType::Touch, Property::Touch, QLatin1String("off"));
+
+    QCOMPARE(QLatin1String("off"), m_backendMock->getProperty(DeviceType::Touch, Property::Touch));
+    QCOMPARE(QLatin1String("off"), m_tabletHandler->getProperty(DeviceType::Touch, Property::Touch));
+
+    m_tabletHandler->onToggleTouch();
+
+    QCOMPARE(QLatin1String("on"), m_backendMock->getProperty(DeviceType::Touch, Property::Touch));
+
+    m_tabletHandler->onToggleTouch();
+
+    QCOMPARE(QLatin1String("off"), m_backendMock->getProperty(DeviceType::Touch, Property::Touch));
+
+    QWARN("testOnToggleTouch(): PASSED!");
+}
+
+
+
+void TestTabletHandler::testSetProfile()
+{
+    m_profileChanged.clear();
+    m_notifyEventId.clear();
+    m_notifyMessage.clear();
+    m_notifyTitle.clear();
+
+    // set invalid profile first
+    m_tabletHandler->setProfile(QLatin1String("InvalidProfile"));
+
+    QVERIFY(m_profileChanged.isEmpty());
+    QVERIFY(!m_notifyEventId.isEmpty());
+    QVERIFY(!m_notifyMessage.isEmpty());
+    QVERIFY(!m_notifyTitle.isEmpty());
+
+    // set a valid profile
+    m_notifyEventId.clear();
+    m_notifyMessage.clear();
+    m_notifyTitle.clear();
+
+    m_tabletHandler->setProfile(QLatin1String("default"));
+    
+    QVERIFY(m_notifyEventId.isEmpty());
+    QVERIFY(m_notifyMessage.isEmpty());
+    QVERIFY(m_notifyTitle.isEmpty());
+    QCOMPARE(QLatin1String("default"), m_profileChanged);
+    QCOMPARE(QLatin1String("default"), m_backendMock->m_tabletProfile.getName());
+
+
+    // set the profile back to "test" so we can run this tests
+    // multiple times in a row. Otherwise the test will fail as
+    // cmake copies our test data only once.
+    m_tabletHandler->setProfile(QLatin1String("test"));
+    
+    QWARN("testSetProfile(): PASSED!");
 }
 
 

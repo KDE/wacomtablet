@@ -183,11 +183,11 @@ void TabletHandler::onTogglePenMode()
         return;
     }
 
-    if(!d->tabletInformation.hasDevice(DeviceType::Stylus)) {
+    if(d->tabletInformation.hasDevice(DeviceType::Stylus)) {
         toggleMode(DeviceType::Stylus);
     }
 
-    if(!d->tabletInformation.hasDevice(DeviceType::Eraser)) {
+    if(d->tabletInformation.hasDevice(DeviceType::Eraser)) {
         toggleMode(DeviceType::Eraser);
     }
 }
@@ -198,7 +198,7 @@ void TabletHandler::onToggleTouch()
 {
     Q_D( TabletHandler );
 
-    if( !d->tabletBackend || d->tabletInformation.hasDevice(DeviceType::Touch) ) {
+    if( !d->tabletBackend || !d->tabletInformation.hasDevice(DeviceType::Touch) ) {
         return;
     }
 
