@@ -68,7 +68,7 @@ public:
       *
       * @return the list of all available profiles
       */
-    QStringList listProfiles() const;
+    QStringList listProfiles();
 
 
     /**

@@ -50,7 +50,7 @@ public:
     QString getProperty(const DeviceType& deviceType, const Property& property) const;
 
     //! Returns the mock's profile list.
-    QStringList listProfiles() const;
+    QStringList listProfiles();
 
     //! Sets the given profile on the mock and emits a profileChanged signal.
     void setProfile(const QString& profile);

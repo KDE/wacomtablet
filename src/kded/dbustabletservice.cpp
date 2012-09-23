@@ -158,7 +158,7 @@ bool DBusTabletService::isAvailable() const
 
 
 
-QStringList DBusTabletService::listProfiles() const
+QStringList DBusTabletService::listProfiles()
 {
     Q_D ( const DBusTabletService );
     return d->tabletHandler->listProfiles();

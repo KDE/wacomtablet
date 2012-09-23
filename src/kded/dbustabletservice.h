@@ -129,7 +129,7 @@ public Q_SLOTS:
       *
       * @return the list of all available profiles
       */
-    Q_SCRIPTABLE QStringList listProfiles() const;
+    Q_SCRIPTABLE QStringList listProfiles();
 
     /**
       * Applies a profile to the tablet device

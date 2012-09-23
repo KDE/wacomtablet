@@ -213,15 +213,12 @@ void TabletHandler::onToggleTouch()
 
 
 
-QStringList TabletHandler::listProfiles() const
+QStringList TabletHandler::listProfiles()
 {
-    Q_D( const TabletHandler );
-    // we can not reload the profile manager from a const method so we have
-    // to create a new instance here and let it read the configuration file.
-    ProfileManager profileManager(QLatin1String( "tabletprofilesrc" ));
-    profileManager.readProfiles(d->tabletInformation.get(TabletInfo::TabletName));
+    Q_D( TabletHandler );
 
-    return profileManager.listProfiles();
+    d->profileManager.readProfiles(d->tabletInformation.get(TabletInfo::TabletName));
+    return d->profileManager.listProfiles();
 }
 
 

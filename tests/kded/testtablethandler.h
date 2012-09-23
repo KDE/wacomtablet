@@ -53,6 +53,8 @@ private slots:
 
 private:
 
+    void testListProfiles();
+
     void testOnTabletAdded();
 
     void testOnTabletRemoved();

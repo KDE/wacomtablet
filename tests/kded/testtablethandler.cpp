@@ -90,7 +90,22 @@ void TestTabletHandler::test()
 
     testSetProperty();
 
+    testListProfiles();
+
     testOnTabletRemoved();
+}
+
+
+
+void TestTabletHandler::testListProfiles()
+{
+    QStringList profiles = m_tabletHandler->listProfiles();
+
+    QCOMPARE(2, profiles.size());
+    QVERIFY(profiles.contains(QLatin1String("default")));
+    QVERIFY(profiles.contains(QLatin1String("test")));
+
+    QWARN("testListProfiles(): PASSED!");
 }
 
 
@@ -129,7 +144,7 @@ void TestTabletHandler::testOnTabletAdded()
     m_backendMock->m_tabletInformation.companyName = QLatin1String("Company");
     m_backendMock->m_tabletInformation.tabletId    = QLatin1String("4321");
     m_backendMock->m_tabletInformation.tabletModel = QLatin1String("Tablet Model");
-    m_backendMock->m_tabletInformation.tabletName  = QLatin1String("Tablet Name");
+    m_backendMock->m_tabletInformation.tabletName  = QLatin1String("Bamboo Create");
     m_backendMock->m_tabletInformation.eraserName  = QLatin1String("Eraser");
     m_backendMock->m_tabletInformation.stylusName  = QLatin1String("Stylus");
     m_backendMock->m_tabletInformation.padName     = QLatin1String("Pad");
@@ -163,7 +178,9 @@ void TestTabletHandler::testOnTabletAdded()
     QVERIFY(!m_notifyEventId.isEmpty());
     QVERIFY(!m_notifyMessage.isEmpty());
     QVERIFY(!m_notifyTitle.isEmpty());
-    // QVERIFY(!m_profileChanged.isEmpty()); // TODO we need a profile- and a config-mock first.
+    QVERIFY(!m_profileChanged.isEmpty());
+
+    // TODO make sure all profile properties were set
 
     // TODO try to add the tablet again
     QWARN("testOnTabletAdded(): PASSED!");

@@ -41,7 +41,7 @@ public:
 
     virtual QString getProperty(const DeviceType& deviceType, const Property& property) const = 0;
 
-    virtual QStringList listProfiles() const = 0;
+    virtual QStringList listProfiles() = 0;
 
     virtual void setProfile(const QString& profile) = 0;
 

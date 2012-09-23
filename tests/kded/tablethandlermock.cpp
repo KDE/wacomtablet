@@ -69,7 +69,7 @@ QString TabletHandlerMock::getProperty(const DeviceType& deviceType, const Prope
 
 
 
-QStringList TabletHandlerMock::listProfiles() const
+QStringList TabletHandlerMock::listProfiles()
 {
     return m_profiles;
 }
