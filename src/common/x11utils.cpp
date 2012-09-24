@@ -168,7 +168,7 @@ bool X11Utils::getXinputFloatProperty(const QString& device, const QString& prop
     }
 
     for (unsigned long i = 0 ; i < nitems ; i++) {
-        values.append((float)*(data + i));
+        values.append(*((float*)(data + i)));
     }
 
     XFree(data);
@@ -271,7 +271,7 @@ bool X11Utils::setXinputLongProperty(const QString& device, const QString& prope
 
     bool        ok;
     QString     svalue;
-    long        lvalue;
+    long        lvalue = 0;
     QList<long> lvalues;
 
     for (int i = 0  ; i < valueList.size() ; ++i) {
@@ -282,7 +282,7 @@ bool X11Utils::setXinputLongProperty(const QString& device, const QString& prope
             continue;
         }
 
-        lvalue = svalue.toLong(&ok);
+        lvalue = svalue.toLong(&ok, 10);
 
         if (!ok) {
             kError() << QString::fromLatin1("Could not convert value '%1' to long!").arg(svalue);

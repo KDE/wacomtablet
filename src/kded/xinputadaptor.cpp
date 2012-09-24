@@ -124,7 +124,7 @@ const QString XinputAdaptor::getFloatProperty(const XinputProperty& property, lo
     }
 
     QString result;
-    
+
     for (int i = 0 ; i < values.size() ; ++i) {
         if (i > 0) {
             result += QLatin1String(" ");

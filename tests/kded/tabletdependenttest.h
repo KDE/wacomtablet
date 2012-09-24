@@ -21,23 +21,7 @@
 #include "tabletinformation.h"
 
 #include <QtCore>
-
-// tablet settings this test suite expects
-#define TESTTABLET_COMPANY_ID   "1234"
-#define TESTTABLET_COMPANY_NAME "bla"
-
-#define TESTTABLET_TABLET_ID    "1234"
-#define TESTTABLET_TABLET_NAME  "Name"
-#define TESTTABLET_TABLET_MODEL "Model"
-
-#define TESTTABLET_HAS_BUTTONS  true
-
-#define TESTTABLET_NAME_CURSOR  "cursor"
-#define TESTTABLET_NAME_ERASER  "eraser"
-#define TESTTABLET_NAME_PAD     "pad"
-#define TESTTABLET_NAME_STYLUS  "stylus"
-#define TESTTABLET_NAME_TOUCH   "touch"
-
+#include <QtTest>
 
 namespace Wacom
 {
@@ -48,10 +32,15 @@ namespace Wacom
  */
 class TabletDependentTest : public QObject
 {
+    Q_OBJECT
+
 public:
     TabletDependentTest(QObject* parent = NULL);
 
-    ~TabletDependentTest();
+    void findTablet();
+
+    //! Returns the expected tablet information - this has to be set before the test case.
+    const TabletInformation getExpectedTabletInformation() const;
 
     //! Returns tablet information about the tablet which was detected.
     const TabletInformation& getTabletInformation() const;
@@ -59,9 +48,21 @@ public:
     //! Returns if a tablet is available.
     bool isTabletAvailable() const;
 
-private:
+    //! Prints the tablet information to stdout.
+    void printTabletInformation(const TabletInformation& info) const;
 
-    void findTablet();
+
+protected:
+
+    virtual void initTestCaseDependent() = 0;
+
+
+private slots:
+
+    void initTestCase();
+
+
+private:
 
     TabletInformation m_tabletInformation;
     bool              m_isTabletAvailable;

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "debug.h"
 #include "tabletdependenttest.h"
 #include "x11utils.h"
 
@@ -23,10 +24,22 @@ using namespace Wacom;
 TabletDependentTest::TabletDependentTest(QObject* parent) : QObject(parent)
 {
     m_isTabletAvailable = false;
-    findTablet();
 }
 
-TabletDependentTest::~TabletDependentTest() { }
+
+
+const TabletInformation TabletDependentTest::getExpectedTabletInformation() const
+{
+    TabletInformation expected;
+
+    expected.setDeviceName(DeviceType::Eraser, QLatin1String("Wacom Bamboo 16FG 6x8 Pen eraser"));
+    expected.setDeviceName(DeviceType::Pad,    QLatin1String("Wacom Bamboo 16FG 6x8 Finger pad"));
+    expected.setDeviceName(DeviceType::Stylus, QLatin1String("Wacom Bamboo 16FG 6x8 Pen stylus"));
+    expected.setDeviceName(DeviceType::Touch,  QLatin1String("Wacom Bamboo 16FG 6x8 Finger touch"));
+    expected.setButtons(true);
+
+    return expected;
+}
 
 
 const TabletInformation& TabletDependentTest::getTabletInformation() const
@@ -35,61 +48,58 @@ const TabletInformation& TabletDependentTest::getTabletInformation() const
 }
 
 
+
 bool TabletDependentTest::isTabletAvailable() const
 {
     return m_isTabletAvailable;
 }
 
 
+
 void TabletDependentTest::findTablet()
 {
+    m_isTabletAvailable = false;
+
     if (!X11Utils::findTabletDevice(m_tabletInformation)) {
         return;
     }
 
-    if (QString::fromLatin1(TESTTABLET_COMPANY_ID).compare(m_tabletInformation.companyId) != 0) {
-        return;
-    }
-
-    if (QString::fromLatin1(TESTTABLET_COMPANY_NAME).compare(m_tabletInformation.companyName) != 0) {
-        return;
-    }
-
-    if (QString::fromLatin1(TESTTABLET_TABLET_ID).compare(m_tabletInformation.tabletId) != 0) {
-        return;
-    }
-
-    if (QString::fromLatin1(TESTTABLET_TABLET_NAME).compare(m_tabletInformation.tabletName) != 0) {
-        return;
-    }
-
-    if (QString::fromLatin1(TESTTABLET_TABLET_MODEL).compare(m_tabletInformation.tabletModel) != 0) {
-        return;
-    }
-
-    if (QString::fromLatin1(TESTTABLET_NAME_CURSOR).compare(m_tabletInformation.cursorName) != 0) {
-        return;
-    }
-
-    if (QString::fromLatin1(TESTTABLET_NAME_ERASER).compare(m_tabletInformation.eraserName) != 0) {
-        return;
-    }
-
-    if (QString::fromLatin1(TESTTABLET_NAME_PAD).compare(m_tabletInformation.padName) != 0) {
-        return;
-    }
-
-    if (QString::fromLatin1(TESTTABLET_NAME_STYLUS).compare(m_tabletInformation.stylusName) != 0) {
-        return;
-    }
-
-    if (QString::fromLatin1(TESTTABLET_NAME_TOUCH).compare(m_tabletInformation.touchName) != 0) {
-        return;
-    }
-
-    if (TESTTABLET_HAS_BUTTONS != m_tabletInformation.hasButtons()) {
-        return;
-    }
-    
     m_isTabletAvailable = true;
 }
+
+
+void TabletDependentTest::printTabletInformation(const TabletInformation& info) const
+{
+    kError() << QLatin1String("\nTablet Information: ")
+             << QString::fromLatin1("\n  Stylus Name  : '%1'").arg(info.getDeviceName(DeviceType::Stylus))
+             << QString::fromLatin1("\n  Eraser Name  : '%1'").arg(info.getDeviceName(DeviceType::Eraser))
+             << QString::fromLatin1("\n  Touch Name   : '%1'").arg(info.getDeviceName(DeviceType::Touch))
+             << QString::fromLatin1("\n  Pad Name     : '%1'").arg(info.getDeviceName(DeviceType::Pad))
+             << QString::fromLatin1("\n  Cursor Name  : '%1'").arg(info.getDeviceName(DeviceType::Cursor))
+
+             << QString::fromLatin1("\n\n  X-Device ID  : '%1'").arg(info.xdeviceId)
+             << QString::fromLatin1("\n  Company ID   : '%1'").arg(info.get(TabletInfo::CompanyId))
+             << QString::fromLatin1("\n  Company Name : '%1'").arg(info.get(TabletInfo::CompanyName))
+             << QString::fromLatin1("\n  Tablet ID    : '%1'").arg(info.get(TabletInfo::TabletId))
+             << QString::fromLatin1("\n  Tablet Name  : '%1'").arg(info.get(TabletInfo::TabletName))
+             << QString::fromLatin1("\n  Tablet Model : '%1'").arg(info.get(TabletInfo::TabletModel))
+
+             << QString::fromLatin1("\n");
+}
+
+
+void TabletDependentTest::initTestCase()
+{
+    findTablet();
+
+    if (!isTabletAvailable()) {
+        QSKIP("No tablet found! Can not run this tablet dependent test case!", SkipAll);
+        return;
+    }
+
+    //printTabletInformation(getTabletInformation());
+
+    initTestCaseDependent();
+}
+
+

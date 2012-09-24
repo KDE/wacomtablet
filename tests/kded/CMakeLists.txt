@@ -17,7 +17,10 @@ set(TEST_SOURCES
     tabletdependenttest.cpp
 )
 
-set(TEST_MOC_HEADERS tablethandlermock.h)
+set(TEST_MOC_HEADERS
+    tabletdependenttest.h
+    tablethandlermock.h)
+
 qt4_wrap_cpp (TEST_MOC_FILES ${TEST_MOC_HEADERS})
 
 
@@ -38,3 +41,4 @@ add_qttest(testtablethandler testtablethandler.cpp ${TEST_SOURCES} ${TEST_MOC_FI
 configure_file(testtablethandler.configrc ${CMAKE_CURRENT_BINARY_DIR}/testtablethandler.configrc COPYONLY)
 configure_file(testtablethandler.profilesrc ${CMAKE_CURRENT_BINARY_DIR}/testtablethandler.profilesrc COPYONLY)
 
+add_qttest(testxinputadaptor testxinputadaptor.cpp ${TEST_SOURCES} ${TEST_MOC_FILES})
