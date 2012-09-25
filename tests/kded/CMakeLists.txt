@@ -42,3 +42,4 @@ configure_file(testtablethandler.configrc ${CMAKE_CURRENT_BINARY_DIR}/testtablet
 configure_file(testtablethandler.profilesrc ${CMAKE_CURRENT_BINARY_DIR}/testtablethandler.profilesrc COPYONLY)
 
 add_qttest(testxinputadaptor testxinputadaptor.cpp ${TEST_SOURCES} ${TEST_MOC_FILES})
+add_qttest(testxsetwacomadaptor testxsetwacomadaptor.cpp ${TEST_SOURCES} ${TEST_MOC_FILES})
