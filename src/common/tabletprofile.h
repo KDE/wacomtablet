@@ -83,13 +83,23 @@ public:
      * 
      * @return The requested device profile or an empty one if the requested one does not exist.
      */
-    const DeviceProfile getDevice( const QString& device ) const;
+    const DeviceProfile getDevice( const DeviceType& device ) const;
 
     /**
      * Checks if this tablet has a configuration for the given device (stylus/eraser/touch/pad/...)
      * 
      * @param device The device type (stylus/eraser/touch/pad/...).
      * 
+     * @return True if a configuration is present, else false.
+     */
+    bool hasDevice(const DeviceType& device) const;
+
+    /**
+     * Checks if the tablet has configuration for the given device.
+     * The parameters has to be a string as returned by DeviceType::key().
+     *
+     * @param device The device type to check for.
+     *
      * @return True if a configuration is present, else false.
      */
     bool hasDevice(const QString& device) const;

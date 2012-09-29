@@ -32,10 +32,7 @@ namespace Wacom {
   */
 class DeviceProfilePrivate {
 public:
-    /**
-     * The name of this device profile.
-     */
-    QString                 name;
+    QString                 deviceType;
 
     /**
      * Stores most of the configuration properties. In the future
@@ -48,10 +45,10 @@ public:
 
 DeviceProfile::DeviceProfile() : PropertyAdaptor(NULL), d_ptr(new DeviceProfilePrivate) { }
 
-DeviceProfile::DeviceProfile(const QString& name)
+DeviceProfile::DeviceProfile(const DeviceType& type)
     : PropertyAdaptor(NULL), d_ptr(new DeviceProfilePrivate)
 {
-    setName(name);
+    setDeviceType(type);
 }
 
 DeviceProfile::DeviceProfile(const DeviceProfile& profile)
@@ -70,41 +67,13 @@ DeviceProfile::~DeviceProfile()
 DeviceProfile& DeviceProfile::operator= ( const DeviceProfile& that )
 {
     Q_D( DeviceProfile );
-    
-    d->name   = that.d_ptr->name;
+
+    d->deviceType = that.d_ptr->deviceType;
     d->config = that.d_ptr->config;
-    
+
     return *this;
 }
 
-const QString DeviceProfile::getAbsWheel2Down() const
-{
-    return getProperty(Property::AbsWheel2Down);
-}
-
-
-const QString DeviceProfile::getAbsWheel2Up() const
-{
-    return getProperty(Property::AbsWheel2Up);
-}
-
-
-const QString DeviceProfile::getAbsWheelDown() const
-{
-    return getProperty(Property::AbsWheelDown);
-}
-
-
-const QString DeviceProfile::getAbsWheelUp() const
-{
-    return getProperty(Property::AbsWheelUp);
-}
-
-
-const QString DeviceProfile::getArea() const
-{
-    return getProperty(Property::Area);
-}
 
 
 const QString DeviceProfile::getButton(int number) const
@@ -138,59 +107,20 @@ const QString DeviceProfile::getButton(int number) const
 }
 
 
-const QString DeviceProfile::getChangeArea() const
+
+const QString DeviceProfile::getDeviceType() const
 {
-    return getProperty(Property::ChangeArea);
+    return getName();
 }
 
-
-const QString DeviceProfile::getCursorProximity() const
-{
-    return getProperty(Property::CursorProximity);
-}
-
-
-const QString DeviceProfile::getForceProportions() const
-{
-    return getProperty(Property::ForceProportions);
-}
-
-
-const QString DeviceProfile::getGesture() const
-{
-    return getProperty(Property::Gesture);
-}
-
-
-const QString DeviceProfile::getInvertScroll() const
-{
-    return getProperty(Property::InvertScroll);
-}
-
-
-const QString DeviceProfile::getMapToOutput() const
-{
-    return getProperty(Property::MapToOutput);
-}
-
-
-const QString DeviceProfile::getMode() const
-{
-    return getProperty(Property::Mode);
-}
 
 
 const QString& DeviceProfile::getName() const
 {
     Q_D( const DeviceProfile );
-    return d->name;
+    return d->deviceType;
 }
 
-
-const QString DeviceProfile::getPressureCurve() const
-{
-    return getProperty(Property::PressureCurve);
-}
 
 
 const QString DeviceProfile::getProperty(const Property& property) const
@@ -200,158 +130,10 @@ const QString DeviceProfile::getProperty(const Property& property) const
 }
 
 
+
 const QList<Property> DeviceProfile::getProperties() const
 {
-    QList<Property> properties;
-
-    foreach(const DeviceProperty& property, DeviceProperty::list()) {
-        properties.push_back(property.id());
-    }
-
-    return properties;
-}
-
-const QString DeviceProfile::getRawSample() const
-{
-    return getProperty(Property::RawSample);
-}
-
-
-const QString DeviceProfile::getRelWheelDown() const
-{
-    return getProperty(Property::RelWheelDown);
-}
-
-
-const QString DeviceProfile::getRelWheelUp() const
-{
-    return getProperty(Property::RelWheelUp);
-}
-
-
-const QString DeviceProfile::getRotate() const
-{
-    return getProperty(Property::Rotate);
-}
-
-
-const QString DeviceProfile::getRotateWithScreen() const
-{
-    return getProperty(Property::RotateWithScreen);
-}
-
-
-const QString DeviceProfile::getScreenMapping() const
-{
-    return getProperty(Property::ScreenMapping);
-}
-
-
-const QString DeviceProfile::getScreenSpace() const
-{
-    return getProperty(Property::ScreenSpace);
-}
-
-
-const QString DeviceProfile::getScrollDistance() const
-{
-    return getProperty(Property::ScrollDistance);
-}
-
-
-const QString DeviceProfile::getStripLeftDown() const
-{
-    return getProperty(Property::StripLeftDown);
-}
-
-
-const QString DeviceProfile::getStripLeftUp() const
-{
-    return getProperty(Property::StripLeftUp);
-}
-
-
-const QString DeviceProfile::getStripRightDown() const
-{
-    return getProperty(Property::StripRightDown);
-}
-
-
-const QString DeviceProfile::getStripRightUp() const
-{
-    return getProperty(Property::StripRightUp);
-}
-
-
-const QString DeviceProfile::getSuppress() const
-{
-    return getProperty(Property::Suppress);
-}
-
-
-const QString DeviceProfile::getTabletArea() const
-{
-    return getProperty(Property::TabletArea);
-}
-
-
-const QString DeviceProfile::getTabletPcButton() const
-{
-    return getProperty(Property::TabletPcButton);
-}
-
-
-const QString DeviceProfile::getTapTime() const
-{
-    return getProperty(Property::TapTime);
-}
-
-
-const QString DeviceProfile::getThreshold() const
-{
-    return getProperty(Property::Threshold);
-}
-
-
-const QString DeviceProfile::getTouch() const
-{
-    return getProperty(Property::Touch);
-}
-
-
-const QString DeviceProfile::getZoomDistance() const
-{
-    return getProperty(Property::ZoomDistance);
-}
-
-
-void DeviceProfile::setAbsWheel2Down(const QString& value)
-{
-    setProperty(Property::AbsWheel2Down, value);
-}
-
-
-void DeviceProfile::setAbsWheel2Up(const QString& value)
-{
-    setProperty(Property::AbsWheel2Up, value);
-}
-
-
-void DeviceProfile::setAbsWheelDown(const QString& value)
-{
-    setProperty(Property::AbsWheelDown, value);
-}
-
-
-void DeviceProfile::setAbsWheelUp(const QString& value)
-{
-    setProperty(Property::AbsWheelUp, value);
-}
-
-
-void DeviceProfile::setArea(const QString& value)
-{
-    setProperty(Property::Area, value);
+    return DeviceProperty::ids();
 }
 
 
@@ -397,64 +179,22 @@ bool DeviceProfile::setButton(int number, const QString& shortcut)
 }
 
 
-void DeviceProfile::setChangeArea(const QString& value)
-{
-    setProperty(Property::ChangeArea, value);
-}
 
-
-void DeviceProfile::setCursorProximity(const QString& value)
-{
-    setProperty(Property::CursorProximity, value);
-}
-
-
-void DeviceProfile::setForceProportions(const QString& value)
-{
-    setProperty(Property::ForceProportions, value);
-}
-
-
-void DeviceProfile::setGesture(const QString& value)
-{
-    setProperty(Property::Gesture, value);
-}
-
-
-void DeviceProfile::setInvertScroll(const QString& value)
-{
-    setProperty(Property::InvertScroll, value);
-}
-
-
-void DeviceProfile::setName ( const QString& name )
+void DeviceProfile::setDeviceType(const DeviceType& type)
 {
     Q_D( DeviceProfile );
-    d->name = name;
+    d->deviceType = type.key();
 }
 
-
-void DeviceProfile::setMapToOutput(const QString& value)
-{
-    setProperty(Property::MapToOutput, value);
-}
-
-
-void DeviceProfile::setMode(const QString& value)
-{
-    setProperty(Property::Mode, value);
-}
-
-
-void DeviceProfile::setPressureCurve(const QString& value)
-{
-    setProperty(Property::PressureCurve, value);
-}
 
 
 bool DeviceProfile::setProperty(const Property& property, const QString& value)
 {
     Q_D( DeviceProfile );
+
+    if (!supportsProperty(property)) {
+        return false;
+    }
 
     if (value.isEmpty()) {
         d->config.remove(property.key());
@@ -466,118 +206,6 @@ bool DeviceProfile::setProperty(const Property& property, const QString& value)
 }
 
 
-void DeviceProfile::setRawSample(const QString& value)
-{
-    setProperty(Property::RawSample, value);
-}
-
-
-void DeviceProfile::setRelWheelDown(const QString& value)
-{
-    setProperty(Property::RelWheelDown, value);
-}
-
-
-void DeviceProfile::setRelWheelUp(const QString& value)
-{
-    setProperty(Property::RelWheelUp, value);
-}
-
-
-void DeviceProfile::setRotate(const QString& value)
-{
-    setProperty(Property::Rotate, value);
-}
-
-
-void DeviceProfile::setRotateWithScreen(const QString& value)
-{
-    setProperty(Property::RotateWithScreen, value);
-}
-
-
-void DeviceProfile::setScreenMapping(const QString& value)
-{
-    setProperty(Property::ScreenMapping, value);
-}
-
-
-void DeviceProfile::setScreenSpace(const QString& value)
-{
-    setProperty(Property::ScreenSpace, value);
-}
-
-
-void DeviceProfile::setScrollDistance(const QString& value)
-{
-    setProperty(Property::ScrollDistance, value);
-}
-
-
-void DeviceProfile::setStripLeftDown(const QString& value)
-{
-    setProperty(Property::StripLeftDown, value);
-}
-
-
-void DeviceProfile::setStripLeftUp(const QString& value)
-{
-    setProperty(Property::StripLeftUp, value);
-}
-
-
-void DeviceProfile::setStripRightDown(const QString& value)
-{
-    setProperty(Property::StripRightDown, value);
-}
-
-
-void DeviceProfile::setStripRightUp(const QString& value)
-{
-    setProperty(Property::StripRightUp, value);
-}
-
-
-void DeviceProfile::setSuppress(const QString& value)
-{
-    setProperty(Property::Suppress, value);
-}
-
-
-void DeviceProfile::setTabletArea(const QString& value)
-{
-    setProperty(Property::TabletArea, value);
-}
-
-
-void DeviceProfile::setTabletPcButton(const QString& value)
-{
-    setProperty(Property::TabletPcButton, value);
-}
-
-
-void DeviceProfile::setTapTime(const QString& value)
-{
-    setProperty(Property::TapTime, value);
-}
-
-
-void DeviceProfile::setThreshold(const QString& value)
-{
-    setProperty(Property::Threshold, value);
-}
-
-
-void DeviceProfile::setTouch(const QString& value)
-{
-    setProperty(Property::Touch, value);
-}
-
-
-void DeviceProfile::setZoomDistance(const QString& value)
-{
-    setProperty(Property::ZoomDistance, value);
-}
 
 bool DeviceProfile::supportsProperty(const Property& property) const
 {

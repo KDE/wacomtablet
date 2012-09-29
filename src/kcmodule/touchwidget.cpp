@@ -67,7 +67,7 @@ void TouchWidget::saveToProfile()
 {
     Q_D( TouchWidget );
 
-    DeviceProfile touchProfile = ProfileManagement::instance().loadDeviceProfile( QLatin1String( "touch" ) );
+    DeviceProfile touchProfile = ProfileManagement::instance().loadDeviceProfile( DeviceType::Touch );
 
     if( d->m_ui->touchEventsCheckBox->isChecked() ) {
         touchProfile.setProperty( Property::Touch, QLatin1String("on") );
@@ -111,7 +111,7 @@ void TouchWidget::loadFromProfile()
 {
     Q_D( TouchWidget );
 
-    DeviceProfile touchProfile = ProfileManagement::instance().loadDeviceProfile( QLatin1String( "touch" ) );
+    DeviceProfile touchProfile = ProfileManagement::instance().loadDeviceProfile( DeviceType::Touch );
 
     QString touch = touchProfile.getProperty( Property::Touch );
     if( touch == QLatin1String( "on" ) ) {

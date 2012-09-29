@@ -111,8 +111,8 @@ void TabletBackend::setProfile(const TabletProfile& profile)
     Q_D(TabletBackend);
 
     foreach(const DeviceType& deviceType, DeviceType::list()) {
-        if (d->tabletInformation.hasDevice(deviceType) && profile.hasDevice(deviceType.key())) {
-            DeviceProfile deviceProfile = profile.getDevice(deviceType.key());
+        if (d->tabletInformation.hasDevice(deviceType) && profile.hasDevice(deviceType)) {
+            DeviceProfile deviceProfile = profile.getDevice(deviceType);
             setProfile(deviceType, deviceProfile);
         }
     }

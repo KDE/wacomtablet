@@ -35,11 +35,12 @@ void TestTabletProfile::testConstructor()
 
 void TestTabletProfile::testClearDevices()
 {
-    DeviceProfile deviceProfile(QLatin1String("DEVICE"));
+    DeviceType    deviceType = DeviceType::Touch;
+    DeviceProfile deviceProfile(deviceType);
     TabletProfile tabletProfile(QLatin1String("TABLET"));
     tabletProfile.setDevice(deviceProfile);
 
-    QVERIFY(tabletProfile.hasDevice(deviceProfile.getName()));
+    QVERIFY(tabletProfile.hasDevice(deviceType));
     QVERIFY(tabletProfile.listDevices().size() == 1);
 
     tabletProfile.clearDevices();
@@ -50,13 +51,15 @@ void TestTabletProfile::testClearDevices()
 void TestTabletProfile::testCopy()
 {
     DeviceProfile profile1;
+    DeviceType    profile1Type = DeviceType::Stylus;
     DeviceProfile profile2;
+    DeviceType    profile2Type = DeviceType::Eraser;
     DeviceProfileTestUtils::setValues(profile1);
     DeviceProfileTestUtils::setValues(profile2);
 
     // names have to be set AFTER DeviceProfileTestUtils::setValues()
-    profile1.setName(QLatin1String("DEVICE1"));
-    profile2.setName(QLatin1String("DEVICE2"));
+    profile1.setDeviceType(profile1Type);
+    profile2.setDeviceType(profile2Type);;
 
     TabletProfile tabletProfile(QLatin1String("TABLET"));
     tabletProfile.setDevice(profile1);
@@ -65,34 +68,32 @@ void TestTabletProfile::testCopy()
     TabletProfile tabletProfileCopy = tabletProfile;
 
     QCOMPARE(tabletProfileCopy.getName(), tabletProfile.getName());
-    QVERIFY(tabletProfileCopy.hasDevice(profile1.getName()));
-    QVERIFY(tabletProfileCopy.hasDevice(profile2.getName()));
+    QVERIFY(tabletProfileCopy.hasDevice(profile1Type));
+    QVERIFY(tabletProfileCopy.hasDevice(profile2Type));
     QVERIFY(tabletProfileCopy.listDevices().contains(profile1.getName()));
     QVERIFY(tabletProfileCopy.listDevices().contains(profile2.getName()));
 
-    DeviceProfile profile1Copy = tabletProfileCopy.getDevice(profile1.getName());
-    DeviceProfile profile2Copy = tabletProfileCopy.getDevice(profile2.getName());
+    DeviceProfile profile1Copy = tabletProfileCopy.getDevice(profile1Type);
+    DeviceProfile profile2Copy = tabletProfileCopy.getDevice(profile2Type);
 
-    // reset names back to "name" before asserting values
-    profile1Copy.setName(QLatin1String("Name"));
-    profile2Copy.setName(QLatin1String("Name"));
-
-    DeviceProfileTestUtils::assertValues(profile1Copy);
-    DeviceProfileTestUtils::assertValues(profile2Copy);
+    DeviceProfileTestUtils::assertValues(profile1Copy, profile1Type.key().toLatin1().constData());
+    DeviceProfileTestUtils::assertValues(profile2Copy, profile2Type.key().toLatin1().constData());
 }
 
 void TestTabletProfile::testSetDevice()
 {
-    DeviceProfile deviceProfile(QLatin1String("DEVICE"));
+    DeviceType    deviceType = DeviceType::Cursor;
+    DeviceProfile deviceProfile;
     DeviceProfileTestUtils::setValues(deviceProfile);
+    deviceProfile.setDeviceType(deviceType);
 
     TabletProfile tabletProfile(QLatin1String("TABLET"));
     tabletProfile.setDevice(deviceProfile);
 
-    QVERIFY(tabletProfile.hasDevice(deviceProfile.getName()));
+    QVERIFY(tabletProfile.hasDevice(deviceType));
     QVERIFY(tabletProfile.listDevices().size() == 1);
 
-    DeviceProfile getProfile = tabletProfile.getDevice(deviceProfile.getName());
-    DeviceProfileTestUtils::assertValues(getProfile);
+    DeviceProfile getProfile = tabletProfile.getDevice(deviceType);
+    DeviceProfileTestUtils::assertValues(getProfile, deviceType.key().toLatin1().constData());
 }
 

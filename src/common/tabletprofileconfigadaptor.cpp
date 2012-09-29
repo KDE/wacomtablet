@@ -57,8 +57,15 @@ bool TabletProfileConfigAdaptor::loadConfig (const KConfigGroup& config)
     QStringList devices = config.groupList();
 
     foreach(const QString& dev, devices) {
+        const DeviceType* deviceType = DeviceType::find(dev);
+
+        if (deviceType == NULL) {
+            kError() << QString::fromLatin1("Invalid device identifier '%1' found in configuration file!").arg(dev);
+            continue;
+        }
+
         KConfigGroup               devconfig(&config, dev);
-        DeviceProfile              devprofile(dev);
+        DeviceProfile              devprofile(*deviceType);
         DeviceProfileConfigAdaptor devadaptor(devprofile);
 
         devadaptor.loadConfig(devconfig);
@@ -86,8 +93,11 @@ bool TabletProfileConfigAdaptor::saveConfig (KConfigGroup& config) const
     QStringList devices = d->profile->listDevices();
 
     foreach(const QString& dev, devices) {
+        const DeviceType* deviceType = DeviceType::find(dev);
+        assert(deviceType != NULL);
+
         KConfigGroup               devconfig  = KConfigGroup(&config, dev);
-        DeviceProfile              devprofile = d->profile->getDevice(dev);
+        DeviceProfile              devprofile = d->profile->getDevice(*deviceType);
         DeviceProfileConfigAdaptor devadaptor(devprofile);
 
         devconfig.deleteGroup();

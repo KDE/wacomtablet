@@ -15,10 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtCore/QHash>
-
+#include "debug.h"
 #include "tabletprofile.h"
 #include "deviceprofile.h"
+
+#include <QtCore/QHash>
 
 using namespace Wacom;
 
@@ -72,7 +73,7 @@ void TabletProfile::clearDevices()
 }
 
 
-const DeviceProfile TabletProfile::getDevice ( const QString& device ) const
+const DeviceProfile TabletProfile::getDevice ( const DeviceType& device ) const
 {
     Q_D( const TabletProfile );
 
@@ -80,7 +81,7 @@ const DeviceProfile TabletProfile::getDevice ( const QString& device ) const
         return DeviceProfile(device);
     }
 
-    return d->devices.value(device.toLower());
+    return d->devices.value(device.key());
 }
 
 
@@ -92,11 +93,23 @@ QString TabletProfile::getName() const
 }
 
 
-bool TabletProfile::hasDevice(const QString& device) const
+bool TabletProfile::hasDevice(const DeviceType& device) const
 {
     Q_D( const TabletProfile );
 
-    return d->devices.contains(device.toLower());
+    return d->devices.contains(device.key());
+}
+
+
+bool TabletProfile::hasDevice(const QString& device) const
+{
+    const DeviceType* deviceType = DeviceType::find(device);
+
+    if (deviceType == NULL) {
+        return false;
+    }
+
+    return hasDevice(*deviceType);
 }
 
 
@@ -108,7 +121,9 @@ QStringList TabletProfile::listDevices() const
 
     // keys are all lower case, but we want to list the names as-is
     foreach(const QString& key, d->devices.keys()) {
-        result.append(getDevice(key).getName());
+        const DeviceType* deviceType = DeviceType::find(key);
+        assert(deviceType != NULL);
+        result.append(getDevice(*deviceType).getName());
     }
 
     return result;

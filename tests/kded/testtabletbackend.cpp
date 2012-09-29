@@ -106,10 +106,10 @@ void TestTabletBackend::testSetProfile()
     DeviceProfile eraserProfile;
     DeviceProfile stylusProfile;
 
-    eraserProfile.setName(DeviceType::Eraser.key());
+    eraserProfile.setDeviceType(DeviceType::Eraser);
     eraserProfile.setProperty(Property::Button8, Property::Button8.key());
 
-    stylusProfile.setName(DeviceType::Stylus.key());
+    stylusProfile.setDeviceType(DeviceType::Stylus);
     stylusProfile.setProperty(Property::CursorAccelVelocityScaling, Property::CursorAccelVelocityScaling.key());
 
     tabletProfile.setName(QLatin1String("MyProfile"));

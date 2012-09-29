@@ -25,7 +25,7 @@ namespace Wacom {
 class DeviceProfileTestUtils
 {
 public:
-    static void assertValues(DeviceProfile& profile);
+    static void assertValues(Wacom::DeviceProfile& profile, const char* name = NULL);
     static void setValues(DeviceProfile& profile);
 };
 }      // NAMESPACE

@@ -36,12 +36,14 @@ void TestProfileManager::testConfig()
     tempFile.setAutoRemove(true);
 
     DeviceProfile writeDeviceProfile1;
+    DeviceType    writeDeviceProfile1Type = DeviceType::Stylus;
     DeviceProfile writeDeviceProfile2;
+    DeviceType    writeDeviceProfile2Type = DeviceType::Eraser;
 
     DeviceProfileTestUtils::setValues(writeDeviceProfile1);
     DeviceProfileTestUtils::setValues(writeDeviceProfile2);
-    writeDeviceProfile1.setName(QLatin1String("Test Device Profile 1"));
-    writeDeviceProfile2.setName(QLatin1String("Test Device Profile 2"));
+    writeDeviceProfile1.setDeviceType(writeDeviceProfile1Type);;
+    writeDeviceProfile2.setDeviceType(writeDeviceProfile2Type);;
 
     TabletProfile writeTabletProfile(QLatin1String("Test Tablet Profile"));
     writeTabletProfile.setDevice(writeDeviceProfile1);
@@ -64,19 +66,16 @@ void TestProfileManager::testConfig()
     TabletProfile readTabletProfile = readManager.loadProfile(writeTabletProfile.getName());
     QCOMPARE(writeTabletProfile.getName(), readTabletProfile.getName());
     QVERIFY(readTabletProfile.listDevices().size() == 2);
-    QVERIFY(readTabletProfile.hasDevice(writeDeviceProfile1.getName()));
-    QVERIFY(readTabletProfile.hasDevice(writeDeviceProfile2.getName()));
-    
-    DeviceProfile readDeviceProfile1 = readTabletProfile.getDevice(writeDeviceProfile1.getName());
-    DeviceProfile readDeviceProfile2 = readTabletProfile.getDevice(writeDeviceProfile2.getName());
+    QVERIFY(readTabletProfile.hasDevice(writeDeviceProfile1Type));
+    QVERIFY(readTabletProfile.hasDevice(writeDeviceProfile2Type));
+
+    DeviceProfile readDeviceProfile1 = readTabletProfile.getDevice(writeDeviceProfile1Type);
+    DeviceProfile readDeviceProfile2 = readTabletProfile.getDevice(writeDeviceProfile2Type);
 
     QCOMPARE(writeDeviceProfile1.getName(), readDeviceProfile1.getName());
     QCOMPARE(writeDeviceProfile2.getName(), readDeviceProfile2.getName());
 
-    readDeviceProfile1.setName(QLatin1String("Name"));
-    readDeviceProfile2.setName(QLatin1String("Name"));
-
-    DeviceProfileTestUtils::assertValues(readDeviceProfile1);
-    DeviceProfileTestUtils::assertValues(readDeviceProfile2);
+    DeviceProfileTestUtils::assertValues(readDeviceProfile1, writeDeviceProfile1Type.key().toLatin1().constData());
+    DeviceProfileTestUtils::assertValues(readDeviceProfile2, writeDeviceProfile2Type.key().toLatin1().constData());
 }
 

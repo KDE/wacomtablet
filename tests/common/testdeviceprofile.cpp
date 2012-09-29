@@ -24,11 +24,11 @@ using namespace Wacom;
 void TestDeviceProfile::testConstructor()
 {
     DeviceProfile profile1;
-    QVERIFY( profile1.getName().isEmpty() );
+    QVERIFY (profile1.getName().isEmpty());
 
-    QLatin1String name("TEST");
-    DeviceProfile profile2(name);
-    QCOMPARE(profile2.getName(), name);
+    DeviceProfile profile2(DeviceType::Stylus);
+    QCOMPARE (profile2.getDeviceType(), DeviceType::Stylus.key());
+    QCOMPARE (profile2.getName(),       DeviceType::Stylus.key());
 }
 
 void TestDeviceProfile::testCopy()

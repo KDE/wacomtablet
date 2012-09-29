@@ -45,11 +45,13 @@ void TestTabletProfileConfigAdaptor::testConfig()
     KConfigGroup configGroup = KConfigGroup( config, writeTabletProfile.getName() );
 
     DeviceProfile writeDeviceProfile1;
+    DeviceType    writeDeviceProfile1Type = DeviceType::Eraser;
     DeviceProfile writeDeviceProfile2;
+    DeviceType    writeDeviceProfile2Type = DeviceType::Stylus;
     DeviceProfileTestUtils::setValues(writeDeviceProfile1);
     DeviceProfileTestUtils::setValues(writeDeviceProfile2);
-    writeDeviceProfile1.setName(QLatin1String("DEVICE1"));
-    writeDeviceProfile2.setName(QLatin1String("DEVICE2"));
+    writeDeviceProfile1.setDeviceType(writeDeviceProfile1Type);;
+    writeDeviceProfile2.setDeviceType(writeDeviceProfile2Type);
 
     writeTabletProfile.setDevice(writeDeviceProfile1);
     writeTabletProfile.setDevice(writeDeviceProfile2);
@@ -65,14 +67,12 @@ void TestTabletProfileConfigAdaptor::testConfig()
 
     QCOMPARE(readTabletProfile.getName(), writeTabletProfile.getName());
     QVERIFY(readTabletProfile.listDevices().size() == writeTabletProfile.listDevices().size());
-    QVERIFY(readTabletProfile.hasDevice(writeDeviceProfile1.getName()));
-    QVERIFY(readTabletProfile.hasDevice(writeDeviceProfile2.getName()));
+    QVERIFY(readTabletProfile.hasDevice(writeDeviceProfile1Type));
+    QVERIFY(readTabletProfile.hasDevice(writeDeviceProfile2Type));
 
-    DeviceProfile readDeviceProfile1 = readTabletProfile.getDevice(writeDeviceProfile1.getName());
-    DeviceProfile readDeviceProfile2 = readTabletProfile.getDevice(writeDeviceProfile2.getName());
+    DeviceProfile readDeviceProfile1 = readTabletProfile.getDevice(writeDeviceProfile1Type);
+    DeviceProfile readDeviceProfile2 = readTabletProfile.getDevice(writeDeviceProfile2Type);
 
-    readDeviceProfile1.setName(QLatin1String("Name"));
-    readDeviceProfile2.setName(QLatin1String("Name"));
-    DeviceProfileTestUtils::assertValues(readDeviceProfile1);
-    DeviceProfileTestUtils::assertValues(readDeviceProfile2);
+    DeviceProfileTestUtils::assertValues(readDeviceProfile1, writeDeviceProfile1Type.key().toLatin1().constData());
+    DeviceProfileTestUtils::assertValues(readDeviceProfile2, writeDeviceProfile2Type.key().toLatin1().constData());
 }

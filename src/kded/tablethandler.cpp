@@ -155,11 +155,11 @@ void TabletHandler::onScreenRotated( const TabletRotation& screenRotation )
     Q_D( TabletHandler );
 
     TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
-    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus.key());
+    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
 
     kDebug() << "xRandR screen rotation detected.";
 
-    if ( stylusProfile.getRotateWithScreen() == QLatin1String( "true" ) ) {
+    if ( stylusProfile.getProperty(Property::RotateWithScreen) == QLatin1String( "true" ) ) {
 
         kDebug() << "Rotate tablet :: " << screenRotation.key();
 

@@ -51,7 +51,7 @@ void TestDeviceProfileConfigAdaptor::testConfig()
     config->sync();
 
     DeviceProfile readProfile;
-    readProfile.setName(QLatin1String("Name")); // we have to set the name manually as only properties are copied atm
+    readProfile.setDeviceType(DeviceType::Pad);; // we have to set the type manually as only properties are copied atm
     DeviceProfileConfigAdaptor readAdaptor(readProfile);
     readAdaptor.loadConfig(configGroup);
 

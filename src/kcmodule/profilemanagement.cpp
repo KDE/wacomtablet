@@ -86,7 +86,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     m_profileManager.readProfiles(m_deviceName);
     TabletProfile tabletProfile = m_profileManager.loadProfile(profilename);
-    DeviceProfile padDevice     = tabletProfile.getDevice(QLatin1String("pad"));
+    DeviceProfile padDevice     = tabletProfile.getDevice(DeviceType::Pad);
 
     // use properties to set "string" values
     //padDevice.setProperty(Property::Button1, QLatin1String("1"));
@@ -111,7 +111,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     tabletProfile.setDevice(padDevice);
 
 
-    DeviceProfile stylusDevice = tabletProfile.getDevice(QLatin1String("stylus"));
+    DeviceProfile stylusDevice = tabletProfile.getDevice(DeviceType::Stylus);
 
     //stylusDevice.setProperty(Property::Button1, QLatin1String("1")); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick) 
     stylusDevice.setProperty(Property::Button2, QLatin1String("2"));
@@ -133,7 +133,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     tabletProfile.setDevice(stylusDevice);
 
 
-    DeviceProfile eraserDevice = tabletProfile.getDevice(QLatin1String("eraser"));
+    DeviceProfile eraserDevice = tabletProfile.getDevice(DeviceType::Eraser);
 
     //eraserDevice.setProperty(Property::Button1, QLatin1String("1")); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick)
     eraserDevice.setProperty(Property::Button2, QLatin1String("2"));
@@ -161,7 +161,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     QString validName = touchName.value();
     if( !validName.isEmpty() ) {
 
-        DeviceProfile touchDevice = tabletProfile.getDevice(QLatin1String("touch"));
+        DeviceProfile touchDevice = tabletProfile.getDevice(DeviceType::Touch);
 
         touchDevice.setProperty(Property::Rotate, QLatin1String("none"));
         touchDevice.setProperty(Property::ForceProportions, QLatin1String("false"));
@@ -211,7 +211,7 @@ void ProfileManagement::deleteProfile()
     }
 }
 
-DeviceProfile ProfileManagement::loadDeviceProfile(const QString& device)
+DeviceProfile ProfileManagement::loadDeviceProfile(const DeviceType& device)
 {
     m_profileManager.readProfiles(m_deviceName);
     return m_profileManager.loadProfile(m_profileName).getDevice(device);

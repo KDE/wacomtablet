@@ -86,8 +86,8 @@ void PenWidget::saveToProfile()
 
     ProfileManagement* profileManagement = &ProfileManagement::instance();
 
-    DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( QLatin1String( "stylus" ) );
-    DeviceProfile eraserProfile = profileManagement->loadDeviceProfile( QLatin1String( "eraser" ) );
+    DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( DeviceType::Stylus );
+    DeviceProfile eraserProfile = profileManagement->loadDeviceProfile( DeviceType::Eraser );
 
     // eraser feel / tip feel
     eraserProfile.setProperty( Property::Threshold, QString::number(d->m_ui->eraserSlider->value()) );
@@ -136,9 +136,9 @@ void PenWidget::loadFromProfile()
 
     ProfileManagement* profileManagement = &ProfileManagement::instance();
 
-    DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( QLatin1String( "stylus" ) );
-    DeviceProfile eraserProfile = profileManagement->loadDeviceProfile( QLatin1String( "eraser" ) );
-    DeviceProfile cursorProfile = profileManagement->loadDeviceProfile( QLatin1String( "cursor" ) );
+    DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( DeviceType::Stylus );
+    DeviceProfile eraserProfile = profileManagement->loadDeviceProfile( DeviceType::Eraser );
+    DeviceProfile cursorProfile = profileManagement->loadDeviceProfile( DeviceType::Cursor );
 
     // eraser feel / tip feel
     d->m_ui->eraserSlider->setValue( eraserProfile.getProperty( Property::Threshold ).toInt() );

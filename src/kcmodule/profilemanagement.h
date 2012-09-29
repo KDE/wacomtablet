@@ -79,7 +79,7 @@ class ProfileManagement
           * 
           * @return The device profile of the requested device.
           */
-        DeviceProfile loadDeviceProfile(const QString & device);
+        DeviceProfile loadDeviceProfile(const DeviceType& device);
 
         /**
          * Saves the given profile as a device profile of the currently

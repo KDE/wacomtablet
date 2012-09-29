@@ -204,7 +204,7 @@ void PadButtonWidget::saveToProfile()
     Q_D( PadButtonWidget );
 
     ProfileManagement* profileManagement = &ProfileManagement::instance();
-    DeviceProfile      padProfile        = profileManagement->loadDeviceProfile(QLatin1String("pad"));
+    DeviceProfile      padProfile        = profileManagement->loadDeviceProfile(DeviceType::Pad);
 
     padProfile.setProperty(Property::Button1,  profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button1ComboBox->currentIndex(), d->m_ui->button1ActionLabel->property("KeySquence").toString()));
     padProfile.setProperty(Property::Button2,  profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button2ComboBox->currentIndex(), d->m_ui->button2ActionLabel->property("KeySquence").toString()));
@@ -240,7 +240,7 @@ void PadButtonWidget::loadFromProfile()
     Q_D( PadButtonWidget );
 
     ProfileManagement* profileManagement = &ProfileManagement::instance();
-    DeviceProfile      padProfile        = profileManagement->loadDeviceProfile(QLatin1String("pad"));
+    DeviceProfile      padProfile        = profileManagement->loadDeviceProfile(DeviceType::Pad);
 
     KComboBox *buttonComboBox;
     QLabel *buttonActionLabel;

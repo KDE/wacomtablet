@@ -139,8 +139,8 @@ void PadMapping::saveToProfile()
     if( d->m_tool == 0 ) {
         // read in from stylus.
         // values for stylus/eraser/touch will be the same
-        DeviceProfile stylusProfile = ProfileManagement::instance().loadDeviceProfile( QLatin1String( "stylus" ) );
-        DeviceProfile eraserProfile = ProfileManagement::instance().loadDeviceProfile( QLatin1String( "eraser" ) );
+        DeviceProfile stylusProfile = ProfileManagement::instance().loadDeviceProfile( DeviceType::Stylus );
+        DeviceProfile eraserProfile = ProfileManagement::instance().loadDeviceProfile( DeviceType::Eraser );
 
         // ##################
         // Orientation
@@ -194,7 +194,7 @@ void PadMapping::saveToProfile()
     } else if( d->m_tool == 1 ) {
         // read in from stylus.
         // values for stylus/eraser/touch will be the same
-        DeviceProfile touchProfile = ProfileManagement::instance().loadDeviceProfile( QLatin1String( "touch" ) );
+        DeviceProfile touchProfile = ProfileManagement::instance().loadDeviceProfile( DeviceType::Touch );
 
         // ##################
         // Orientation
@@ -245,10 +245,10 @@ void PadMapping::loadFromProfile()
     DeviceProfile deviceProfile;
 
     if( d->m_tool == 0 ) {
-        deviceProfile = ProfileManagement::instance().loadDeviceProfile( QLatin1String( "stylus" ) );
+        deviceProfile = ProfileManagement::instance().loadDeviceProfile( DeviceType::Stylus );
     }
     else {
-        deviceProfile = ProfileManagement::instance().loadDeviceProfile( QLatin1String( "touch" ) );
+        deviceProfile = ProfileManagement::instance().loadDeviceProfile( DeviceType::Touch );
     }
 
     // ##################
