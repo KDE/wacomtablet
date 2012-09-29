@@ -38,36 +38,11 @@
 #include <Plasma/Separator>
 
 //Qt includes
-#include <QtDBus/QDBusInterface>
-#include <QtDBus/QDBusReply>
 #include <QtGui/QGraphicsLinearLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QRadioButton>
-#include <QtDBus/QDBusArgument>
-#include <QtDBus/QtDBus>
 
 using namespace Wacom;
-
-/*
-QDBusArgument &operator<<( QDBusArgument &argument, const Wacom::TabletInformation &mystruct )
-{
-    argument.beginStructure();
-    argument << mystruct.companyID << mystruct.deviceID << mystruct.companyName << mystruct.deviceName << mystruct.deviceModel << mystruct.deviceList << mystruct.padName << mystruct.stylusName << mystruct.eraserName << mystruct.cursorName << mystruct.touchName << mystruct.isDeviceAvailable << mystruct.hasPadButtons;
-    argument.endStructure();
-    return argument;
-}
-
-const QDBusArgument &operator>>( const QDBusArgument &argument, Wacom::TabletInformation &mystruct )
-{
-    argument.beginStructure();
-    argument >> mystruct.companyID >> mystruct.deviceID >> mystruct.companyName
-             >> mystruct.deviceName >> mystruct.deviceModel >> mystruct.deviceList
-             >> mystruct.padName >> mystruct.stylusName >> mystruct.eraserName
-             >> mystruct.cursorName >> mystruct.touchName >> mystruct.isDeviceAvailable >> mystruct.hasPadButtons;
-    argument.endStructure();
-    return argument;
-}
-*/
 
 TabletApplet::TabletApplet( WacomTabletSettings *tabletSettings ) :
     m_tabletSettings( tabletSettings ),
@@ -76,8 +51,8 @@ TabletApplet::TabletApplet( WacomTabletSettings *tabletSettings ) :
 {
     buildDialog();
 
-    qDBusRegisterMetaType<Wacom::TabletInformation>();
-    qDBusRegisterMetaType< QList<Wacom::TabletInformation> >();
+    //qDBusRegisterMetaType<Wacom::TabletInformation>();
+    //qDBusRegisterMetaType< QList<Wacom::TabletInformation> >();
 }
 
 TabletApplet::~TabletApplet()

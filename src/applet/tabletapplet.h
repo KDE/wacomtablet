@@ -24,7 +24,6 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QMetaType>
 
 namespace Plasma
 {
@@ -251,10 +250,5 @@ private:
     Plasma::RadioButton   *m_radioButtonTouchOn;  /**< The Radiobutton to select the pen absolute mode */
     Plasma::RadioButton   *m_radioButtonTouchOff; /**< The Radiobutton to select the pen relative mode */
 };
-
 }
-
-Q_DECLARE_METATYPE(Wacom::TabletInformation)
-Q_DECLARE_METATYPE(QList<Wacom::TabletInformation>)
-
 #endif // TABLETAPPLET_H

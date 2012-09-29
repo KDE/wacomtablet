@@ -18,7 +18,9 @@
 #include "dbustabletinterface.h"
 
 #include <QtCore/QString>
-#include <QMutex>
+#include <QtCore/QMetaType>
+#include <QtCore/QMutex>
+#include <QtDBus/QtDBus>
 
 using namespace Wacom;
 
@@ -70,7 +72,7 @@ const QDBusArgument &Wacom::operator>>( const QDBusArgument &argument, Wacom::Ta
 DBusTabletInterface::DBusTabletInterface()
     : QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Tablet" ), QLatin1String( "org.kde.Wacom" ) )
 {
-    // nothing to do
+    DBusTabletInterface::registerMetaTypes();
 }
 
 
@@ -119,6 +121,12 @@ void DBusTabletInterface::resetInterface()
 
     mutex.unlock();
 }
+
+void DBusTabletInterface::registerMetaTypes()
+{
+    qDBusRegisterMetaType<Wacom::TabletInformation>();
+}
+
 
 
 QDBusMessage DBusTabletInterface::getDeviceList()

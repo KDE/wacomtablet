@@ -20,7 +20,7 @@
 
 #include "tabletinfo.h"
 #include "devicetype.h"
-#include "dbustabletinterface.h" // required to copy TabletInformation from/to QDBusArgument
+#include "dbustabletinterface.h"
 #include "deviceprofile.h"
 #include "tabletdatabase.h"
 #include "mainconfig.h"
@@ -50,7 +50,6 @@ namespace Wacom
     }; // CLASS
 } // NAMESPACE
 
-
 DBusTabletService::DBusTabletService(TabletHandlerInterface& tabletHandler)
     : QObject(), d_ptr(new DBusTabletServicePrivate)
 {
@@ -59,8 +58,7 @@ DBusTabletService::DBusTabletService(TabletHandlerInterface& tabletHandler)
     d->tabletHandler = &tabletHandler;
     d->tabletInformation.setAvailable(false);
 
-    qDBusRegisterMetaType<Wacom::TabletInformation>();
-    //qDBusRegisterMetaType< QList<Wacom::TabletInformation> >();
+    DBusTabletInterface::registerMetaTypes();
 
     d->wacomAdaptor = new WacomAdaptor( this );
     QDBusConnection::sessionBus().registerObject( QLatin1String( "/Tablet" ), this );
@@ -231,8 +229,3 @@ void DBusTabletService::onTabletRemoved()
 
     emit tabletRemoved();
 }
-
-
-
-
-

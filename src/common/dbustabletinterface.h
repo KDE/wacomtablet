@@ -28,6 +28,9 @@
 #include <QtDBus/QDBusInterface>
 #include <QtDBus/QDBusReply>
 
+// D-Bus interface metatypes
+Q_DECLARE_METATYPE(Wacom::TabletInformation)
+
 namespace Wacom
 {
 
@@ -36,7 +39,6 @@ QDBusArgument &operator<< (QDBusArgument &argument, const Wacom::TabletInformati
 
 //! Helper method for D-Bus to copy tablet information.
 const QDBusArgument &operator>> (const QDBusArgument &argument, Wacom::TabletInformation &mystruct);
-
 
 /**
  * A singleton class to access the D-Bus tablet interface.
@@ -58,6 +60,15 @@ public:
      */
     static void resetInterface();
 
+    /**
+     * Registers d-bus metatypes.
+     *
+     * This method should not be called directly. It is used by this
+     * interface and the d-bus service class to register the meta
+     * types. This is just to have one single location where all
+     * metatypes are managed.
+     */
+    static void registerMetaTypes();
 
     QDBusMessage getDeviceList();
 

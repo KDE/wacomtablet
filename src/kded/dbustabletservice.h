@@ -195,8 +195,4 @@ private:
 
 }; // CLASS
 }  // NAMESPACE
-
-Q_DECLARE_METATYPE(Wacom::TabletInformation)
-//Q_DECLARE_METATYPE(QList<Wacom::TabletInformation>)
-
 #endif // HEADER PROTECTION
