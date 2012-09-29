@@ -21,6 +21,7 @@
 
 // common includes
 #include "dbustabletinterface.h"
+#include "devicetype.h"
 
 //KDE inculdes
 #include <KDE/KIconLoader>
@@ -80,15 +81,14 @@ QGraphicsWidget *TabletApplet::dialog()
 void TabletApplet::onDBusConnected()
 {
     DBusTabletInterface::resetInterface();
-    DBusTabletInterface::resetInterface();
 
-    if( !DBusTabletInterface::instance().isValid() || !DBusTabletInterface::instance().isValid() ) {
+    if( !DBusTabletInterface::instance().isValid() ) {
         onDBusDisconnected();
         return;
     }
 
-    connect( &DBusTabletInterface::instance(), SIGNAL( tabletAdded() ), this, SLOT( onTabletAdded() ) );
-    connect( &DBusTabletInterface::instance(), SIGNAL( tabletRemoved() ), this, SLOT( onTabletRemoved() ) );
+    connect( &DBusTabletInterface::instance(), SIGNAL( tabletAdded() ),                   this, SLOT( onTabletAdded() ) );
+    connect( &DBusTabletInterface::instance(), SIGNAL( tabletRemoved() ),                 this, SLOT( onTabletRemoved() ) );
     connect( &DBusTabletInterface::instance(), SIGNAL( profileChanged( const QString ) ), this, SLOT( setProfile( const QString ) ) );
 
     QDBusReply<bool> isAvailable = DBusTabletInterface::instance().isAvailable();
@@ -112,11 +112,11 @@ void TabletApplet::updateWidget()
     QDBusReply<Wacom::TabletInformation> tabletInfo = DBusTabletInterface::instance().getInformation();
 
     if( tabletInfo.isValid() ) {
-        m_deviceName->setText( tabletInfo.value().tabletName );
-        m_padName = tabletInfo.value().padName;
-        m_stylusName = tabletInfo.value().stylusName;
-        m_eraserName = tabletInfo.value().eraserName;
-        m_touchName = tabletInfo.value().touchName;
+        m_deviceName->setText(tabletInfo.value().get(TabletInfo::TabletName));
+        m_padName    = tabletInfo.value().getDeviceName(DeviceType::Pad);
+        m_stylusName = tabletInfo.value().getDeviceName(DeviceType::Stylus);
+        m_eraserName = tabletInfo.value().getDeviceName(DeviceType::Eraser);
+        m_touchName  = tabletInfo.value().getDeviceName(DeviceType::Touch);
     }
 
     updateProfile();
@@ -500,5 +500,5 @@ void TabletApplet::onTabletAdded()
 
 void TabletApplet::onTabletRemoved()
 {
-    showError( i18n( "No tablet device was found.\n\nPlease connect the device." ) );
+    showError(i18n("No tablet device was found.\n\nPlease connect the device."));
 }

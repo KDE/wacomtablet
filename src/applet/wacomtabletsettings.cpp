@@ -27,7 +27,7 @@
 #include <KDE/KDebug>
 
 //Qt includes
-#include <QtDBus/QDBusInterface>
+#include <QtDBus/QDBusConnection>
 #include <QtDBus/QDBusServiceWatcher>
 #include <QtDBus/QDBusReply>
 #include <QtGui/QGraphicsSceneContextMenuEvent>
@@ -41,8 +41,7 @@ K_EXPORT_PLASMA_APPLET(tabletsettings, WacomTabletSettings)
 WacomTabletSettings::WacomTabletSettings(QObject *parent, const QVariantList &args)
         : Plasma::PopupApplet(parent, args),
         m_applet(0),
-        m_settingsWidget(0),
-        m_tabletInterface(0)
+        m_settingsWidget(0)
 {
     KGlobal::locale()->insertCatalog( QLatin1String( "wacomtablet" ));
 

@@ -18,10 +18,8 @@
 #ifndef TABLETSETTINGS_H
 #define TABLETSETTINGS_H
 
-//Plasma
 #include <KDE/Plasma/PopupApplet>
 
-class QDBusInterface;
 class QDBusServiceWatcher;
 class KCModuleProxy;
 
@@ -91,10 +89,9 @@ private slots:
     void configAccepted();
 
 private:
-    TabletApplet   *m_applet;           /**< The content widget for this applet. Contains all important values and functions */
-    KCModuleProxy  *m_settingsWidget;   /**< Embedded KCM modules in the configuration dialog */
-    QDBusInterface *m_tabletInterface;  /**< DBus /Tablet interface to the daemon */
-    QDBusServiceWatcher *m_watcher;     /**< Watches over the conencted dbus service, changes the applet status when the service gets available / unavailable */
+    TabletApplet        *m_applet;         /**< The content widget for this applet. Contains all important values and functions */
+    KCModuleProxy       *m_settingsWidget; /**< Embedded KCM modules in the configuration dialog */
+    QDBusServiceWatcher *m_watcher;        /**< Watches over the conencted dbus service, changes the applet status when the service gets available / unavailable */
 
 }; // CLASS
 }  // NAMESPACE

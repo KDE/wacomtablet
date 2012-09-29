@@ -26,7 +26,6 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QMetaType>
 
 namespace Wacom
 {
