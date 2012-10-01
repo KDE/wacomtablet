@@ -19,6 +19,7 @@ set(wacom_common_SRC
     tabletrotation.cpp
     x11input.cpp
     x11inputdevice.cpp
+    x11tabletfinder.cpp
     x11utils.cpp
 )
 

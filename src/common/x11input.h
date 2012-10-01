@@ -1,5 +1,7 @@
 /*
- * Copyright 2012 Alexander Maret-Huskinson <alex@maret.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,17 +20,23 @@
 #ifndef X11INPUT_H
 #define X11INPUT_H
 
+#include "tabletinformation.h"
 #include "x11inputdevice.h"
 #include "x11inputvisitor.h"
-
-// X11 forward declarations
-struct _XDeviceInfo;
 
 namespace Wacom
 {
 class X11Input
 {
 public:
+
+    /**
+     * Find tablet if available. If a tablet was found the tablet information
+     * structure will have the available flag set to true.
+     *
+     * @return A tablet information structure.
+     */
+    static TabletInformation findTablet();
 
     /**
      * Iterates over all X11 input devices and passes each device to the

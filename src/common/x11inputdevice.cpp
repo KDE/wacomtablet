@@ -1,5 +1,7 @@
 /*
- * Copyright 2012 Alexander Maret-Huskinson <alex@maret.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -42,7 +44,7 @@ namespace Wacom {
         public:
             X11InputDevice::XDevice* device;
             Display*                 display;
-            X11InputDevice::XID      xid;
+            QString                  name;
     };
 }
 
@@ -51,18 +53,16 @@ X11InputDevice::X11InputDevice() : d_ptr(new X11InputDevicePrivate)
     Q_D(X11InputDevice);
     d->device  = NULL;
     d->display = NULL;
-    d->xid     = 0;
 }
 
 
-X11InputDevice::X11InputDevice(Display* dpy, X11InputDevice::XID xid) : d_ptr(new X11InputDevicePrivate)
+X11InputDevice::X11InputDevice(Display* dpy, const X11InputDevice::XDeviceInfo& deviceInfo) : d_ptr(new X11InputDevicePrivate)
 {
     Q_D(X11InputDevice);
     d->device  = NULL;
     d->display = NULL;
-    d->xid     = 0;
 
-    open(dpy, xid);
+    open(dpy, deviceInfo);
 }
 
 
@@ -87,9 +87,17 @@ bool X11InputDevice::close()
 
     d->display = NULL;
     d->device  = NULL;
-    d->xid     = 0;
+    d->name.clear();
 
     return true;
+}
+
+
+
+Display* X11InputDevice::getDisplay()
+{
+    Q_D(X11InputDevice);
+    return d->display;
 }
 
 
@@ -115,6 +123,13 @@ bool X11InputDevice::getLongProperty(const QString& property, long int nelements
     return getProperty<long>(property, XA_INTEGER, nelements, values);
 }
 
+
+
+const QString& X11InputDevice::getName() const
+{
+    Q_D(const X11InputDevice);
+    return d->name;
+}
 
 
 
@@ -165,7 +180,7 @@ bool X11InputDevice::isTabletDevice()
 
 
 
-bool X11InputDevice::open(Display* display, X11InputDevice::XID xid)
+bool X11InputDevice::open(Display* display, const X11InputDevice::XDeviceInfo& deviceInfo)
 {
     Q_D(X11InputDevice);
 
@@ -173,7 +188,7 @@ bool X11InputDevice::open(Display* display, X11InputDevice::XID xid)
         close();
     }
 
-    XDevice* device = (XDevice*) XOpenDevice(display, xid);
+    XDevice* device = (XDevice*) XOpenDevice(display, deviceInfo.id);
 
     if (device == NULL) {
         return false;
@@ -181,7 +196,7 @@ bool X11InputDevice::open(Display* display, X11InputDevice::XID xid)
 
     d->device  = device;
     d->display = display;
-    d->xid     = xid;
+    d->name    = QLatin1String(deviceInfo.name);
 
     return true;
 }

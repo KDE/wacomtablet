@@ -1,5 +1,7 @@
 /*
- * Copyright 2012 Alexander Maret-Huskinson <alex@maret.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,6 +20,7 @@
 #include "debug.h"
 #include "x11input.h"
 #include "x11inputdevice.h"
+#include "x11tabletfinder.h"
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -27,15 +30,27 @@
 
 using namespace Wacom;
 
+
+TabletInformation X11Input::findTablet()
+{
+    X11TabletFinder tabletFinder;
+
+    scanDevices(tabletFinder);
+
+    return tabletFinder.getInformation();
+}
+
+
 void X11Input::scanDevices(X11InputVisitor& visitor)
 {
-    int         ndevices = 0;
-    Display     *dpy     = QX11Info::display();
-    XDeviceInfo *info    = XListInputDevices( dpy, &ndevices );
+    int      ndevices = 0;
+    Display *dpy      = QX11Info::display();
+
+    X11InputDevice::XDeviceInfo *info = XListInputDevices (dpy, &ndevices);
 
     for( int i = 0; i < ndevices; ++i ) {
 
-        X11InputDevice device(dpy, info[i].id);
+        X11InputDevice device(dpy, info[i]);
 
         if (!visitor.visit(device)) {
             break;

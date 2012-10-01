@@ -1,5 +1,7 @@
 /*
- * Copyright 2012 Alexander Maret-Huskinson <alex@maret.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -23,6 +25,9 @@
 
 #include <QtGui/QX11Info>
 
+// X11 forward declarations
+struct _XDeviceInfo;
+
 namespace Wacom
 {
 
@@ -34,8 +39,8 @@ public:
     /*
      * Typedefs & Forward Declarations
      */
-    typedef long unsigned int XID;
     typedef long unsigned int Atom;
+    typedef struct _XDeviceInfo XDeviceInfo;
 
     /* 
      * We can not forward declare X11's' anonymous XDevice struct.
@@ -52,7 +57,7 @@ public:
     /**
      * Constructor which opens a device directly.
      */
-    X11InputDevice (Display* dpy, XID xid);
+    X11InputDevice (Display* dpy, const XDeviceInfo& deviceInfo);
 
     virtual ~X11InputDevice();
 
@@ -62,6 +67,11 @@ public:
      * @return True if the device was successfully closed, else false.
      */
     bool close();
+
+    /**
+     * Returns the display of this device or NULL.
+     */
+    Display* getDisplay();
 
     /**
      * Gets a float property.
@@ -85,6 +95,15 @@ public:
      */
     bool getLongProperty (const QString& property, long nelements, QList<long>& values);
 
+
+    /**
+     * Returns the name of this XInput device. Beware that this name can not be used
+     * to reliably detect a certain device as the name can be configured in xorg.conf.
+     *
+     * @return The name of this device.
+     */
+    const QString& getName() const;
+    
     /**
      * Checks if this device has the given property. The device has to be open for
      * this method to succeed.
@@ -110,12 +129,12 @@ public:
     /**
      * Opens a X11 device.
      *
-     * @param dpy The X11 display to use.
-     * @param xid The X11 device identifier.
+     * @param display    The X11 display to use.
+     * @param deviceInfo The X11 device info structure.
      *
      * @return True if the device was sucessfully opened, else false.
      */
-    bool open (Display* dpy, XID xid);
+    bool open (Display* display, const XDeviceInfo& deviceInfo);
 
     /**
      * Sets a float property. The values have to be separated by a single whitespace.

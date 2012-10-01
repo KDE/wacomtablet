@@ -1,5 +1,7 @@
 /*
- * Copyright 2012 Alexander Maret-Huskinson <alex@maret.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -30,7 +32,7 @@ public:
     /**
      * Called by X11Input when iterating the X11 input devices.
      *
-     * @return True to continue iteration, false to end current device scanning.
+     * @return True to end the current iteration, else false.
      */
     virtual bool visit(X11InputDevice& device) = 0;
 };
