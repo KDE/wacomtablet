@@ -1,5 +1,7 @@
 /*
- * Copyright 2012 Alexander Maret-Huskinson <alex@maret.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
