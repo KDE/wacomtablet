@@ -67,6 +67,17 @@ X11InputDevice::X11InputDevice(Display* dpy, const X11InputDevice::XDeviceInfo& 
 }
 
 
+X11InputDevice::X11InputDevice(Display* dpy, X11InputDevice::XID id, const QString& name) : d_ptr(new X11InputDevicePrivate)
+{
+    Q_D(X11InputDevice);
+    d->device  = NULL;
+    d->display = NULL;
+
+    open(dpy, id, name);
+}
+
+
+
 X11InputDevice::X11InputDevice(const X11InputDevice& device) : d_ptr(new X11InputDevicePrivate)
 {
     Q_D(X11InputDevice);
@@ -87,16 +98,12 @@ X11InputDevice::~X11InputDevice()
 
 X11InputDevice& X11InputDevice::operator= (const X11InputDevice& that)
 {
-    Q_D(X11InputDevice);
-
     // close current device
     close();
 
     // connect new device
     if (that.d_ptr->display && that.d_ptr->device) {
-        if (open(that.d_ptr->display, that.d_ptr->device->device_id)) {
-            d->name = that.d_ptr->name;
-        }
+        open(that.d_ptr->display, that.d_ptr->device->device_id, that.d_ptr->name);
     }
 
     return *this;
@@ -109,7 +116,7 @@ bool X11InputDevice::close()
     Q_D(X11InputDevice);
 
     if (d->device == NULL) {
-        assert(d->display != NULL);
+        assert(d->display == NULL);
         assert(d->name.isEmpty());
         return false;
     }
@@ -213,14 +220,38 @@ bool X11InputDevice::isTabletDevice()
 
 bool X11InputDevice::open(Display* display, const X11InputDevice::XDeviceInfo& deviceInfo)
 {
-    Q_D(X11InputDevice);
-
-    if (open(display, deviceInfo.id)) {
-        d->name = QLatin1String(deviceInfo.name);
-        return true;
+    if (!open (display, deviceInfo.id, QLatin1String (deviceInfo.name))) {
+        return false;
     }
 
-    return false;
+    return true;
+}
+
+
+
+bool X11InputDevice::open(Display* display, X11InputDevice::XID id, const QString& name)
+{
+    Q_D(X11InputDevice);
+
+    if (isOpen()) {
+        close();
+    }
+
+    if (display == NULL || id == 0) {
+        return false;
+    }
+
+    XDevice* device = (XDevice*) XOpenDevice(display, id);
+
+    if (device == NULL) {
+        return false;
+    }
+
+    d->device  = device;
+    d->display = display;
+    d->name    = name;
+
+    return true;
 }
 
 
@@ -378,32 +409,6 @@ bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Ato
         kError() << QString::fromLatin1("Failed to lookup XInput property '%1'!").arg(property);
         return false;
     }
-
-    return true;
-}
-
-
-
-bool X11InputDevice::open(Display* display, X11InputDevice::XID id)
-{
-    Q_D(X11InputDevice);
-
-    if (isOpen()) {
-        close();
-    }
-
-    if (display == NULL || id == 0) {
-        return false;
-    }
-
-    XDevice* device = (XDevice*) XOpenDevice(display, id);
-
-    if (device == NULL) {
-        return false;
-    }
-
-    d->device  = device;
-    d->display = display;
 
     return true;
 }

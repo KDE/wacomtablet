@@ -96,13 +96,6 @@ private:
     void setupDBus();
 
     /**
-     * Used on startup to detect a connected wacom tablet.
-     * This will be done by the eventhandler later on.
-     * This method should only be called by a constructor.
-     */
-    void setupDevice();
-
-    /**
      * Sets up the X event notifier.
      * This method should only be called by a constructor.
      */

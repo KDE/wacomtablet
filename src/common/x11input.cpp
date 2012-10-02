@@ -75,6 +75,66 @@ TabletInformation X11Input::findTablet()
 
 
 
+const QString X11Input::getFloatProperty(const QString& deviceName, const QString& property, long nelements)
+{
+    QList<float> values;
+
+    if (!getFloatProperty(deviceName, property, values, nelements)) {
+        return QString();
+    }
+
+    return valuesToString<float>(values);
+}
+
+
+
+bool X11Input::getFloatProperty(const QString& deviceName, const QString& property, QList<float>& values, long nelements)
+{
+    X11InputDevice device;
+
+    if (!findDevice(deviceName, device)) {
+        return false;
+    }
+
+    if (!device.getFloatProperty(property, nelements, values)) {
+        return false;
+    }
+
+    return true;
+}
+
+
+
+const QString X11Input::getLongProperty(const QString& deviceName, const QString& property, long int nelements)
+{
+    QList<long> values;
+
+    if (!getLongProperty(deviceName, property, values, nelements)) {
+        return QString();
+    }
+
+    return valuesToString<long>(values);
+}
+
+
+
+bool X11Input::getLongProperty(const QString& deviceName, const QString& property, QList<long>& values, long int nelements)
+{
+    X11InputDevice device;
+
+    if (!findDevice(deviceName, device)) {
+        return false;
+    }
+
+    if (!device.getLongProperty(property, nelements, values)) {
+        return false;
+    }
+
+    return true;
+}
+
+
+
 void X11Input::scanDevices(X11InputVisitor& visitor)
 {
     int      ndevices = 0;
@@ -123,5 +183,91 @@ bool X11Input::setCoordinateTransformationMatrix(const QString& deviceName, qrea
     matrix.append(1);
 
     return device.setFloatProperty(QLatin1String("Coordinate Transformation Matrix"), matrix);
+}
+
+
+
+bool X11Input::setFloatProperty(const QString& deviceName, const QString& property, const QString& values)
+{
+    X11InputDevice device;
+
+    if (!findDevice(deviceName, device)) {
+        return false;
+    }
+
+    if (!device.setFloatProperty(property, values)) {
+        return false;
+    }
+
+    return true;
+}
+
+
+
+bool X11Input::setFloatProperty(const QString& deviceName, const QString& property, const QList<float>& values)
+{
+    X11InputDevice device;
+
+    if (!findDevice(deviceName, device)) {
+        return false;
+    }
+
+    if (!device.setFloatProperty(property, values)) {
+        return false;
+    }
+
+    return true;
+}
+
+
+
+bool X11Input::setLongProperty(const QString& deviceName, const QString& property, const QString& values)
+{
+    X11InputDevice device;
+
+    if (!findDevice(deviceName, device)) {
+        return false;
+    }
+
+    if (!device.setLongProperty(property, values)) {
+        return false;
+    }
+
+    return true;
+}
+
+
+
+bool X11Input::setLongProperty(const QString& deviceName, const QString& property, const QList<long>& values)
+{
+    X11InputDevice device;
+
+    if (!findDevice(deviceName, device)) {
+        return false;
+    }
+
+    if (!device.setLongProperty(property, values)) {
+        return false;
+    }
+
+    return true;
+}
+
+
+
+template<typename T>
+const QString X11Input::valuesToString(const QList<T>& values)
+{
+    QString result;
+
+    for (int i = 0 ; i < values.size() ; ++i) {
+        if (i > 0) {
+            result += QLatin1String(" ");
+        }
+
+        result += QString::number(values.at(i));
+    }
+
+    return result;
 }
 

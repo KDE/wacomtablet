@@ -19,7 +19,7 @@
 
 #include "debug.h"
 #include "tabletdependenttest.h"
-#include "x11utils.h"
+#include "x11input.h"
 
 using namespace Wacom;
 
@@ -61,12 +61,11 @@ bool TabletDependentTest::isTabletAvailable() const
 void TabletDependentTest::findTablet()
 {
     m_isTabletAvailable = false;
+    m_tabletInformation = X11Input::findTablet();
 
-    if (!X11Utils::findTabletDevice(m_tabletInformation)) {
-        return;
+    if (m_tabletInformation.isAvailable()) {
+        m_isTabletAvailable = true;
     }
-
-    m_isTabletAvailable = true;
 }
 
 

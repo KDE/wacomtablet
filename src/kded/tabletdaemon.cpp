@@ -28,7 +28,6 @@
 
 // common includes
 #include "aboutdata.h"
-#include "x11utils.h"
 
 // stdlib includes
 #include <memory>
@@ -79,7 +78,9 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
     setupDBus();
     setupXEventNotifier();
     setupActions();
-    setupDevice();
+
+    // scan for connected devices
+    d->eventNotifier->scan();
 
     // Connecting this after the device has been set up ensures that no notification is send on startup.
     connect( &(d->tabletHandler), SIGNAL(notify(QString,QString,QString)), this, SLOT(onNotify(QString,QString,QString)) );
@@ -158,19 +159,6 @@ void TabletDaemon::setupDBus()
     connect(&(d->tabletHandler), SIGNAL (profileChanged(const QString&)),        &(d->dbusTabletService), SLOT (onProfileChanged(const QString&)));
     connect(&(d->tabletHandler), SIGNAL (tabletAdded(const TabletInformation&)), &(d->dbusTabletService), SLOT (onTabletAdded(const TabletInformation&)));
     connect(&(d->tabletHandler), SIGNAL (tabletRemoved()),                       &(d->dbusTabletService), SLOT (onTabletRemoved()));
-}
-
-
-
-void TabletDaemon::setupDevice()
-{
-    Q_D( TabletDaemon );
-
-    TabletInformation tabinfo;
-
-    if (X11Utils::findTabletDevice(tabinfo)) {
-        d->tabletHandler.onTabletAdded(tabinfo);
-    }
 }
 
 

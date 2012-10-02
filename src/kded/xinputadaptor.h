@@ -66,11 +66,11 @@ private:
     const QString getProperty(const XinputProperty& property) const;
 
     const QString getFloatProperty(const XinputProperty& property, long nelements = 1) const;
-    
+
     const QString getLongProperty(const XinputProperty& property, long nelements = 1) const;
-    
+
     bool mapTabletToScreen(const QString& screenArea) const;
-    
+
     bool setProperty(const XinputProperty& property, const QString& value) const;
 
     Q_DECLARE_PRIVATE( XinputAdaptor )

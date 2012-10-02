@@ -20,7 +20,8 @@
 #include "debug.h"
 #include "xeventnotifier.h"
 
-#include "x11utils.h"
+#include "x11input.h"
+#include "x11inputdevice.h"
 
 #include <KDE/KApplication>
 #include <KDE/KDebug>
@@ -61,9 +62,9 @@ XEventNotifier::~XEventNotifier()
 
 void XEventNotifier::scan()
 {
-    TabletInformation tabletInformation;
+    TabletInformation tabletInformation = X11Input::findTablet();
 
-    if (!X11Utils::findTabletDevice(tabletInformation)) {
+    if (!tabletInformation.isAvailable()) {
         kDebug() << "No input devices found via xinput!";
         return;
     }
@@ -116,8 +117,8 @@ void XEventNotifier::handleX11InputEvent(XEvent* event)
 
     if(cookie->data)
     {
-        XIHierarchyEvent * hev = (XIHierarchyEvent *)cookie->data;
-        XIHierarchyInfo *info = (XIHierarchyInfo *)hev->info;
+        XIHierarchyEvent *hev  = (XIHierarchyEvent *)cookie->data;
+        XIHierarchyInfo  *info = (XIHierarchyInfo *)hev->info;
 
         for (int i = 0; i < hev->num_info; i++)
         {
@@ -126,16 +127,24 @@ void XEventNotifier::handleX11InputEvent(XEvent* event)
                 tabletInfo.xdeviceId = info[i].deviceid;
                 emit tabletRemoved(tabletInfo);
 
-            } else if (info[i].flags & XISlaveAdded && X11Utils::isTabletDevice(info[i].deviceid)) {
-                kDebug() << "Wacom Tablet Device added with id: " << info[i].deviceid;
-                tabletInfo.xdeviceId = info[i].deviceid;
+            } else if (info[i].flags & XISlaveAdded) {
 
-                if (!X11Utils::findTabletDevice(tabletInfo)) {
-                    kError() << "No input devices found via xinput altough an X event was fired!";
-                    return;
+                X11InputDevice device (QX11Info::display(), info[i].deviceid, QLatin1String("TempDevice"));
+
+                if (device.isOpen() && device.isTabletDevice()) {
+                    kDebug() << "Wacom Tablet Device added with id: " << info[i].deviceid;
+
+                    tabletInfo = X11Input::findTablet();
+
+                    if (tabletInfo.isAvailable()) {
+                        tabletInfo.xdeviceId = info[i].deviceid;
+                        emit tabletAdded(tabletInfo);
+                        break;
+
+                    } else {
+                        kError() << "No input devices found via xinput altough an X event was fired!";
+                    }
                 }
-
-                emit tabletAdded(tabletInfo);
             }
         }
 

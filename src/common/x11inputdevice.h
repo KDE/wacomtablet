@@ -61,6 +61,11 @@ public:
     X11InputDevice (Display* dpy, const XDeviceInfo& deviceInfo);
 
     /**
+     * Constructor which opens a device directly.
+     */
+    X11InputDevice (Display* dpy, XID id, const QString& name);
+
+    /**
      * Copy Constructor
      */
     X11InputDevice (const X11InputDevice& device);
@@ -151,6 +156,17 @@ public:
     bool open (Display* display, const XDeviceInfo& deviceInfo);
 
     /**
+     * Opens the given device id.
+     *
+     * @param display The X11 display.
+     * @param id      The X11 device id of the device to open.
+     * @param name    The name of the device.
+     *
+     * @return True on success, false on error.
+     */
+    bool open (Display* display, XID id, const QString& name);
+
+    /**
      * Sets a float property. The values have to be separated by a single whitespace.
      *
      * @param property The property to set.
@@ -215,16 +231,6 @@ private:
      * @return True if the property could be resolved, else false.
      */
     bool lookupProperty (const QString& property, Atom* atom);
-
-    /**
-     * Opens the given device id.
-     *
-     * @param display The X11 display.
-     * @param id      The X11 device id of the device to open.
-     *
-     * @return True on success, false on error.
-     */
-    bool open (Display* display, XID id);
 
     /**
      * A template method which sets a property on this device. The property has to exist already!

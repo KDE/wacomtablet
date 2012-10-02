@@ -20,7 +20,6 @@ set(wacom_common_SRC
     x11input.cpp
     x11inputdevice.cpp
     x11tabletfinder.cpp
-    x11utils.cpp
 )
 
 

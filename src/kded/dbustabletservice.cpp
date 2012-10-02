@@ -30,7 +30,6 @@
 #include "profilemanager.h"
 #include "tabletprofile.h"
 #include "wacomadaptor.h"
-#include "x11utils.h"
 
 #include <KDE/KLocalizedString>
 

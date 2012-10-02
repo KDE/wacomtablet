@@ -20,7 +20,7 @@
 #include "debug.h"
 #include "xinputadaptor.h"
 #include "xinputproperty.h"
-#include "x11utils.h"
+#include "x11input.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -118,21 +118,11 @@ const QString XinputAdaptor::getFloatProperty(const XinputProperty& property, lo
 {
     Q_D( const XinputAdaptor );
 
-    QList<float> values;
+    QString result = X11Input::getFloatProperty(d->device, property.key(), nelements);
 
-    if (!X11Utils::getXinputFloatProperty(d->device, property.key(), nelements, values)) {
+    if (!result.isEmpty()) {
         kError() << QString::fromLatin1("Failed to get Xinput property '%1'!").arg(property.key());
         return QString();
-    }
-
-    QString result;
-
-    for (int i = 0 ; i < values.size() ; ++i) {
-        if (i > 0) {
-            result += QLatin1String(" ");
-        }
-
-        result += QString::number(values.at(i));
     }
 
     return result;
@@ -144,21 +134,11 @@ const QString XinputAdaptor::getLongProperty(const XinputProperty& property, lon
 {
     Q_D( const XinputAdaptor );
 
-    QList<long> values;
+    QString result = X11Input::getLongProperty(d->device, property.key(), nelements);
 
-    if (!X11Utils::getXinputLongProperty(d->device, property.key(), nelements, values)) {
+    if (result.isEmpty()) {
         kError() << QString::fromLatin1("Failed to get Xinput property '%1'!").arg(property.key());
         return QString();
-    }
-
-    QString result;
-
-    for (int i = 0 ; i < values.size() ; ++i) {
-        if (i > 0) {
-            result += QLatin1String(" ");
-        }
-
-        result += QString::number(values.at(i));
     }
 
     return result;
@@ -215,7 +195,7 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     kDebug() << "0" << h << offsetY;
     kDebug() << "0" << "0" << "1";
 
-    return X11Utils::mapTabletToScreen(d->device, offsetX, offsetY, w, h);
+    return X11Input::setCoordinateTransformationMatrix(d->device, offsetX, offsetY, w, h);
 }
 
 
@@ -225,16 +205,16 @@ bool XinputAdaptor::setProperty (const XinputProperty& property, const QString& 
     Q_D( const XinputAdaptor );
 
     if (property == XinputProperty::CursorAccelProfile) {
-        return X11Utils::setXinputLongProperty (d->device, property.key(), value);
+        return X11Input::setLongProperty (d->device, property.key(), value);
 
     } else if (property == XinputProperty::CursorAccelAdaptiveDeceleration) {
-        return X11Utils::setXinputFloatProperty (d->device, property.key(), value);
+        return X11Input::setFloatProperty (d->device, property.key(), value);
 
     } else if (property == XinputProperty::CursorAccelConstantDeceleration) {
-        return X11Utils::setXinputFloatProperty (d->device, property.key(), value);
+        return X11Input::setFloatProperty (d->device, property.key(), value);
 
     } else if (property == XinputProperty::CursorAccelVelocityScaling) {
-        return X11Utils::setXinputFloatProperty (d->device, property.key(), value);
+        return X11Input::setFloatProperty (d->device, property.key(), value);
 
     } else if (property == XinputProperty::ScreenSpace) {
         return mapTabletToScreen (value);
