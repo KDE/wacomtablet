@@ -48,6 +48,7 @@ namespace Wacom {
     };
 }
 
+
 X11InputDevice::X11InputDevice() : d_ptr(new X11InputDevicePrivate)
 {
     Q_D(X11InputDevice);
@@ -66,6 +67,15 @@ X11InputDevice::X11InputDevice(Display* dpy, const X11InputDevice::XDeviceInfo& 
 }
 
 
+X11InputDevice::X11InputDevice(const X11InputDevice& device) : d_ptr(new X11InputDevicePrivate)
+{
+    Q_D(X11InputDevice);
+    d->device  = NULL;
+    d->display = NULL;
+
+    operator=(device);
+}
+
 
 X11InputDevice::~X11InputDevice()
 {
@@ -74,12 +84,33 @@ X11InputDevice::~X11InputDevice()
 }
 
 
+
+X11InputDevice& X11InputDevice::operator= (const X11InputDevice& that)
+{
+    Q_D(X11InputDevice);
+
+    // close current device
+    close();
+
+    // connect new device
+    if (that.d_ptr->display && that.d_ptr->device) {
+        if (open(that.d_ptr->display, that.d_ptr->device->device_id)) {
+            d->name = that.d_ptr->name;
+        }
+    }
+
+    return *this;
+}
+
+
+
 bool X11InputDevice::close()
 {
     Q_D(X11InputDevice);
 
     if (d->device == NULL) {
         assert(d->display != NULL);
+        assert(d->name.isEmpty());
         return false;
     }
 
@@ -184,21 +215,12 @@ bool X11InputDevice::open(Display* display, const X11InputDevice::XDeviceInfo& d
 {
     Q_D(X11InputDevice);
 
-    if (isOpen()) {
-        close();
+    if (open(display, deviceInfo.id)) {
+        d->name = QLatin1String(deviceInfo.name);
+        return true;
     }
 
-    XDevice* device = (XDevice*) XOpenDevice(display, deviceInfo.id);
-
-    if (device == NULL) {
-        return false;
-    }
-
-    d->device  = device;
-    d->display = display;
-    d->name    = QLatin1String(deviceInfo.name);
-
-    return true;
+    return false;
 }
 
 
@@ -356,6 +378,32 @@ bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Ato
         kError() << QString::fromLatin1("Failed to lookup XInput property '%1'!").arg(property);
         return false;
     }
+
+    return true;
+}
+
+
+
+bool X11InputDevice::open(Display* display, X11InputDevice::XID id)
+{
+    Q_D(X11InputDevice);
+
+    if (isOpen()) {
+        close();
+    }
+
+    if (display == NULL || id == 0) {
+        return false;
+    }
+
+    XDevice* device = (XDevice*) XOpenDevice(display, id);
+
+    if (device == NULL) {
+        return false;
+    }
+
+    d->device  = device;
+    d->display = display;
 
     return true;
 }

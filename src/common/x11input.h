@@ -31,6 +31,16 @@ class X11Input
 public:
 
     /**
+     * Find a device by Name.
+     *
+     * @param deviceName The XInput device name of the device to get.
+     * @param device     The device which will be opened by this method if a device was found.
+     *
+     * @return True if device was found, else false.
+     */
+    static bool findDevice (const QString& deviceName, X11InputDevice& device);
+
+    /**
      * Find tablet if available. If a tablet was found the tablet information
      * structure will have the available flag set to true.
      *
@@ -44,6 +54,13 @@ public:
      * iteration or abort it.
      */
     static void scanDevices(X11InputVisitor& visitor);
+
+    /**
+     * Sets the coordinate transformation property on the given device.
+     *
+     * @return True on success, false on error.
+     */
+    static bool setCoordinateTransformationMatrix(const QString& deviceName, qreal offsetX, qreal offsetY, qreal width, qreal height);
 
 }; // CLASS
 }  // NAMESPACE

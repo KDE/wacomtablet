@@ -40,6 +40,7 @@ public:
      * Typedefs & Forward Declarations
      */
     typedef long unsigned int Atom;
+    typedef long unsigned int XID;
     typedef struct _XDeviceInfo XDeviceInfo;
 
     /* 
@@ -59,7 +60,20 @@ public:
      */
     X11InputDevice (Display* dpy, const XDeviceInfo& deviceInfo);
 
+    /**
+     * Copy Constructor
+     */
+    X11InputDevice (const X11InputDevice& device);
+
+    /**
+     * Default Destructor
+     */
     virtual ~X11InputDevice();
+
+    /**
+     * Copy Operator
+     */
+    X11InputDevice& operator= (const X11InputDevice& that);
 
     /**
      * Closes this device.
@@ -201,6 +215,16 @@ private:
      * @return True if the property could be resolved, else false.
      */
     bool lookupProperty (const QString& property, Atom* atom);
+
+    /**
+     * Opens the given device id.
+     *
+     * @param display The X11 display.
+     * @param id      The X11 device id of the device to open.
+     *
+     * @return True on success, false on error.
+     */
+    bool open (Display* display, XID id);
 
     /**
      * A template method which sets a property on this device. The property has to exist already!
