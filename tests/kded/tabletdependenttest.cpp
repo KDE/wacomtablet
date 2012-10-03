@@ -78,7 +78,7 @@ void TabletDependentTest::printTabletInformation(const TabletInformation& info) 
              << QString::fromLatin1("\n  Pad Name     : '%1'").arg(info.getDeviceName(DeviceType::Pad))
              << QString::fromLatin1("\n  Cursor Name  : '%1'").arg(info.getDeviceName(DeviceType::Cursor))
 
-             << QString::fromLatin1("\n\n  X-Device ID  : '%1'").arg(info.xdeviceId)
+             << QString::fromLatin1("\n\n  X-Device ID  : '%1'").arg(info.get(TabletInfo::DeviceId))
              << QString::fromLatin1("\n  Company ID   : '%1'").arg(info.get(TabletInfo::CompanyId))
              << QString::fromLatin1("\n  Company Name : '%1'").arg(info.get(TabletInfo::CompanyName))
              << QString::fromLatin1("\n  Tablet ID    : '%1'").arg(info.get(TabletInfo::TabletId))

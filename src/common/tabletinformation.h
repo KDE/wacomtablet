@@ -23,6 +23,7 @@
 #include "tabletinfo.h"
 #include "devicetype.h"
 
+#include <QtCore/QMap>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
@@ -185,25 +186,14 @@ public:
     void setButtons(bool value);
 
 
-    /*
-     * Do not use these members directly any more! Use the getters/setters!
-     * These members should only be used by the D-Bus interface to build the structure
-     * returned by getInformation().
-     */
-    QString     unknown;           //!< A dummy member so we can safely return a const reference.
-    QString     xdeviceId;         //!< Xinput device identifier.
-    QString     companyId;         //!< The company identifier.
-    QString     companyName;       //!< The name of the company who built this device.
-    QString     tabletId;          //!< The tablet identifier as four digit hex code.
-    QString     tabletName;        //!< The name of the tablet.
-    QString     tabletModel;       //!< The tablet model.
-    QString     padName;           //!< The name of the pad device, if available.
-    QString     stylusName;        //!< The name of the stylus device, if available.
-    QString     eraserName;        //!< The name of the eraser device, if available.
-    QString     cursorName;        //!< The name of the cursor device, if available.
-    QString     touchName;         //!< The name of the touch device, if available.
-    bool        isTabletAvailable; //!< A flag to signal if this tablet is available.
-    bool        hasPadButtons;     //!< A flag to signal if this tablet has pad buttons.
+private:
+
+    QMap<QString,QString> infoMap; //!< Stores all information as string.
+
+    QString  unknown;           //!< A dummy member so we can safely return a const reference.
+    bool     isTabletAvailable; //!< A flag to signal if this tablet is available.
+    bool     hasPadButtons;     //!< A flag to signal if this tablet has pad buttons.
+
 
 }; // CLASS
 }  // NAMESPACE

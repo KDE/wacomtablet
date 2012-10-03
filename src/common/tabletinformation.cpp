@@ -30,31 +30,41 @@ TabletInformation::TabletInformation()
 }
 
 
-bool TabletInformation::operator!=(const TabletInformation& other) const
+bool TabletInformation::operator!= (const TabletInformation& other) const
 {
     return !operator==(other);
 }
 
 
 
-bool TabletInformation::operator==(const TabletInformation& other) const
+bool TabletInformation::operator== (const TabletInformation& other) const
 {
-    if (xdeviceId.compare   (other.xdeviceId,   Qt::CaseInsensitive) != 0 ||
-        companyId.compare   (other.companyId,   Qt::CaseInsensitive) != 0 ||
-        companyName.compare (other.companyName, Qt::CaseInsensitive) != 0 ||
-        tabletId.compare    (other.tabletId,    Qt::CaseInsensitive) != 0 ||
-        tabletModel.compare (other.tabletModel, Qt::CaseInsensitive) != 0 ||
-        tabletName.compare  (other.tabletName,  Qt::CaseInsensitive) != 0 ||
-        padName.compare     (other.padName,     Qt::CaseInsensitive) != 0 ||
-        stylusName.compare  (other.stylusName,  Qt::CaseInsensitive) != 0 ||
-        eraserName.compare  (other.eraserName,  Qt::CaseInsensitive) != 0 ||
-        cursorName.compare  (other.cursorName,  Qt::CaseInsensitive) != 0 ||
-        touchName.compare   (other.touchName,   Qt::CaseInsensitive) != 0 ||
-        isTabletAvailable != other.isTabletAvailable ||
-        hasPadButtons     != other.hasPadButtons
-    )
-    {
+    // compare booleans
+    if (isTabletAvailable != other.isTabletAvailable || hasPadButtons != other.hasPadButtons) {
         return false;
+    }
+
+    // only keys which do have a value should be set
+    if (infoMap.size() != other.infoMap.size()) {
+        return false;
+    }
+
+    // QMap is always ordered by key so we can just iterate over it and compare keys directly
+    QMap<QString,QString>::const_iterator thisIter = infoMap.constBegin();
+    QMap<QString,QString>::const_iterator thatIter = other.infoMap.constBegin();
+
+    while (thisIter != infoMap.constEnd() && thatIter != other.infoMap.constEnd()) {
+
+        if (thisIter.key().compare(thatIter.key(), Qt::CaseInsensitive) != 0) {
+            return false;
+        }
+
+        if (thisIter.value().compare(thatIter.value(), Qt::CaseInsensitive) != 0) {
+            return false;
+        }
+
+        ++thisIter;
+        ++thatIter;
     }
 
     return true;
@@ -67,7 +77,7 @@ const QString& TabletInformation::get(const QString& info) const
     const TabletInfo* devinfo = TabletInfo::find(info);
 
     if (devinfo == NULL) {
-        kError() << QString::fromLatin1("Unsupported tablet info identifier '%1'!").arg(info);
+        kError() << QString::fromLatin1("Can not get unsupported tablet information identifier '%1'!").arg(info);
         return unknown;
     }
 
@@ -77,41 +87,13 @@ const QString& TabletInformation::get(const QString& info) const
 
 const QString& TabletInformation::get(const TabletInfo& info) const
 {
-    if (info == TabletInfo::CompanyId) {
-        return companyId;
+    QMap<QString,QString>::const_iterator iter = infoMap.constFind(info.key());
 
-    } else if (info == TabletInfo::CompanyName) {
-        return companyName;
-
-    } else if (info == TabletInfo::CursorName) {
-        return getDeviceName(DeviceType::Cursor);
-
-    } else if (info == TabletInfo::TabletId) {
-        return tabletId;
-
-    } else if (info == TabletInfo::TabletModel) {
-        return tabletModel;
-
-    } else if (info == TabletInfo::TabletName) {
-        return tabletName;
-
-    } else if (info == TabletInfo::EraserName) {
-        return getDeviceName(DeviceType::Eraser);
-
-    } else if (info == TabletInfo::PadName) {
-        return getDeviceName(DeviceType::Pad);
-
-    } else if (info == TabletInfo::StylusName) {
-        return getDeviceName(DeviceType::Stylus);
-
-    } else if (info == TabletInfo::TouchName) {
-        return getDeviceName(DeviceType::Touch);
-
-    } else {
-        kDebug() << QString::fromLatin1("FIXME: Unknown device information property '%1'!").arg(info.key());
+    if (iter == infoMap.constEnd()) {
+        return unknown;
     }
 
-    return unknown;
+    return iter.value();
 }
 
 
@@ -151,26 +133,27 @@ const QString& TabletInformation::getDeviceName(const QString& device) const
 const QString& TabletInformation::getDeviceName(const DeviceType& device) const
 {
     if (device == DeviceType::Cursor) {
-        return cursorName;
+        return get (TabletInfo::CursorName);
 
     } else if (device == DeviceType::Eraser) {
-        return eraserName;
+        return get (TabletInfo::EraserName);
 
     } else if (device == DeviceType::Pad) {
+
         // if no pad is present, use stylus name as alternative way
         // fixes some problems with serial TabletPC that do not have a pad as such but still
         // can handle pad rotations and such when applied to the stylus settings
-        if (padName.isEmpty()) {
-            return cursorName;
+        if (get(TabletInfo::PadName).isEmpty()) {
+            return get (TabletInfo::CursorName);
         }
-        
-        return padName;
+
+        return get(TabletInfo::PadName);
 
     } else if (device == DeviceType::Stylus) {
-        return stylusName;
+        return get (TabletInfo::StylusName);
 
     } else if (device == DeviceType::Touch) {
-        return touchName;
+        return get (TabletInfo::TouchName);
 
     } else {
         kDebug() << QString::fromLatin1("FIXME: Unknown device type '%1'!").arg(device.key());
@@ -183,12 +166,14 @@ const QString& TabletInformation::getDeviceName(const DeviceType& device) const
 
 int TabletInformation::getXDeviceId() const
 {
-    if (xdeviceId.isEmpty()) {
+    QString id = get(TabletInfo::DeviceId);
+
+    if (id.isEmpty()) {
         return 0;
     }
 
     bool ok;
-    int dev_id = xdeviceId.toInt(&ok, 10);
+    int dev_id = id.toInt(&ok, 10);
 
     return (ok ? dev_id : 0);
 }
@@ -216,38 +201,20 @@ bool TabletInformation::isAvailable() const
 
 void TabletInformation::set(const TabletInfo& info, const QString& value)
 {
-    if (info == TabletInfo::CompanyId) {
-        companyId = value;
+    QMap<QString,QString>::iterator iter = infoMap.find(info.key());
 
-    } else if (info == TabletInfo::CompanyName) {
-        companyName = value;
+    // make sure only keys exist which actually have a value
+    if (iter != infoMap.end()) {
 
-    } else if (info == TabletInfo::CursorName) {
-        setDeviceName(DeviceType::Cursor, value);
+        if (value.isEmpty()) {
+            infoMap.erase(iter);
 
-    } else if (info == TabletInfo::TabletId) {
-        tabletId = value;
+        } else {
+            iter.value() = value;
+        }
 
-    } else if (info == TabletInfo::TabletModel) {
-        tabletModel = value;
-
-    } else if (info == TabletInfo::TabletName) {
-        tabletName = value;
-
-    } else if (info == TabletInfo::EraserName) {
-        setDeviceName(DeviceType::Eraser, value);
-
-    } else if (info == TabletInfo::PadName) {
-        setDeviceName(DeviceType::Pad, value);
-
-    } else if (info == TabletInfo::StylusName) {
-        setDeviceName(DeviceType::Stylus, value);
-
-    } else if (info == TabletInfo::TouchName) {
-        setDeviceName(DeviceType::Touch, value);
-
-    } else {
-        kDebug() << QString::fromLatin1("FIXME: Can not set unknown device information property '%1' to '%2'!").arg(info.key()).arg(value);
+    } else if (!value.isEmpty()){
+        infoMap.insert(info.key(), value);
     }
 }
 
@@ -263,19 +230,19 @@ void TabletInformation::setAvailable(bool value)
 void TabletInformation::setDeviceName(const DeviceType& device, const QString& name)
 {
     if (device == DeviceType::Cursor) {
-        cursorName = name;
+        set (TabletInfo::CursorName, name);
 
     } else if (device == DeviceType::Eraser) {
-        eraserName = name;
+        set (TabletInfo::EraserName, name);
 
     } else if (device == DeviceType::Pad) {
-        padName = name;
+        set (TabletInfo::PadName, name);
 
     } else if (device == DeviceType::Stylus) {
-        stylusName = name;
+        set (TabletInfo::StylusName, name);
 
     } else if (device == DeviceType::Touch) {
-        touchName = name;
+        set (TabletInfo::TouchName, name);
 
     } else {
         kDebug() << QString::fromLatin1("FIXME: Unknown device type '%1'!").arg(device.key());

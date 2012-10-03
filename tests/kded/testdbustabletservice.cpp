@@ -154,26 +154,20 @@ void TestDBusTabletService::testListProfiles()
 void TestDBusTabletService::testOnTabletAdded()
 {
     TabletInformation expectedInformation;
-    expectedInformation.companyId   = QLatin1String("Company Id");
-    expectedInformation.companyName = QLatin1String("Company Name");
-    expectedInformation.tabletId    = QLatin1String("Tablet Id");
-    expectedInformation.tabletModel = QLatin1String("Tablet Model");
-    expectedInformation.tabletName  = QLatin1String("Tablet Name");
-    expectedInformation.cursorName  = QLatin1String("Cursor Device");
-    expectedInformation.eraserName  = QLatin1String("Eraser Device");
-    expectedInformation.padName     = QLatin1String("Pad Device");
-    expectedInformation.stylusName  = QLatin1String("Stylus Device");
-    expectedInformation.touchName   = QLatin1String("Touch Device");
-    expectedInformation.xdeviceId   = QLatin1String("X Device");
-    expectedInformation.isTabletAvailable = false; // this should be set to true automatically
-    expectedInformation.hasPadButtons     = true;
-    
+
+    foreach(const TabletInfo& tabletInfo, TabletInfo::list()) {
+        expectedInformation.set(tabletInfo, tabletInfo.key());
+    }
+
+    expectedInformation.setButtons(true);
+    expectedInformation.setAvailable(false); // this should be set to true automatically
+
     m_tabletWasAdded = false;
     m_tabletHandlerMock.emitTabletAdded(expectedInformation);
 
     QVERIFY(m_tabletWasAdded);
 
-    expectedInformation.isTabletAvailable = true;
+    expectedInformation.setAvailable(true);
     assertTabletInformation(expectedInformation);
 
     QDBusReply<bool> isAvail = DBusTabletInterface::instance().isAvailable();

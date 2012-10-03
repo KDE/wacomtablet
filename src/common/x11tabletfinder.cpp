@@ -105,7 +105,7 @@ bool X11TabletFinder::visit (X11InputDevice& device)
     QString tabletId = getTabletId(device);
 
     if (!tabletId.isEmpty()) {
-        d->tabletinformation.tabletId = tabletId;
+        d->tabletinformation.set (TabletInfo::TabletId, tabletId);
     }
 
     return false;
@@ -171,23 +171,23 @@ bool X11TabletFinder::parseToolType(const QString& toolType, const QString& devi
     Q_D(X11TabletFinder);
 
     if( toolType.contains( QLatin1String( "pad" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.padName = deviceName;
+        d->tabletinformation.setDeviceName (DeviceType::Pad, deviceName);
         return true;
 
     } else if( toolType.contains( QLatin1String( "eraser" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.eraserName = deviceName;
+        d->tabletinformation.setDeviceName (DeviceType::Eraser, deviceName);
         return true;
 
     } else if( toolType.contains( QLatin1String( "cursor" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.cursorName = deviceName;
+        d->tabletinformation.setDeviceName (DeviceType::Cursor, deviceName);
         return true;
 
     } else if( toolType.contains( QLatin1String( "touch" ),  Qt::CaseInsensitive ) ) {
-        d->tabletinformation.touchName = deviceName;
+        d->tabletinformation.setDeviceName (DeviceType::Touch, deviceName);
         return true;
 
     } else if( toolType.contains( QLatin1String( "stylus" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.stylusName = deviceName;
+        d->tabletinformation.setDeviceName (DeviceType::Stylus, deviceName);
         return true;
     }
 

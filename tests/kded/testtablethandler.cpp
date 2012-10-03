@@ -160,7 +160,7 @@ void TestTabletHandler::testOnTabletAdded()
     // if the tablet backend factory returns NULL adding a tablet should fail
     TabletBackendFactory::setUnitTest(true);
     TabletBackendFactory::setTabletBackendMock(NULL);
-    basicInfo.xdeviceId = QLatin1String("1");
+    basicInfo.set (TabletInfo::DeviceId, QLatin1String("1"));
 
     m_tabletHandler->onTabletAdded(basicInfo);
 
@@ -174,16 +174,17 @@ void TestTabletHandler::testOnTabletAdded()
 
     // create a valid backend for the factory to return
     m_backendMock = new TabletBackendMock();
-    m_backendMock->m_tabletInformation.xdeviceId   = QLatin1String("1");
-    m_backendMock->m_tabletInformation.companyId   = QLatin1String("1234");
-    m_backendMock->m_tabletInformation.companyName = QLatin1String("Company");
-    m_backendMock->m_tabletInformation.tabletId    = QLatin1String("4321");
-    m_backendMock->m_tabletInformation.tabletModel = QLatin1String("Tablet Model");
-    m_backendMock->m_tabletInformation.tabletName  = QLatin1String("Bamboo Create");
-    m_backendMock->m_tabletInformation.eraserName  = QLatin1String("Eraser");
-    m_backendMock->m_tabletInformation.stylusName  = QLatin1String("Stylus");
-    m_backendMock->m_tabletInformation.padName     = QLatin1String("Pad");
-    m_backendMock->m_tabletInformation.touchName   = QLatin1String("Touch");
+
+    m_backendMock->m_tabletInformation.set(TabletInfo::DeviceId, QLatin1String("1"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::CompanyId, QLatin1String("1234"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::CompanyName, QLatin1String("Company"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::TabletId, QLatin1String("4321"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::TabletModel, QLatin1String("Tablet Model"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::TabletName, QLatin1String("Bamboo Create"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::EraserName, QLatin1String("Eraser"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::StylusName, QLatin1String("Stylus"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::PadName, QLatin1String("Pad"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::TouchName, QLatin1String("Touch"));
     m_backendMock->m_tabletInformation.setButtons(true);
     m_backendMock->m_tabletInformation.setAvailable(true);
 
@@ -191,7 +192,7 @@ void TestTabletHandler::testOnTabletAdded()
 
 
     // a device id of 0 should always fail
-    basicInfo.xdeviceId = QLatin1String("0");
+    basicInfo.set(TabletInfo::DeviceId, QLatin1String("0"));
 
     m_tabletHandler->onTabletAdded(basicInfo);
 
@@ -205,7 +206,7 @@ void TestTabletHandler::testOnTabletAdded()
 
     // add tablet again but this time with a valid device id
     // this should notify the user, emit a "tablet added" signal, notify the user and emit a "profile changed" signal
-    basicInfo.xdeviceId = QLatin1String("1");
+    basicInfo.set(TabletInfo::DeviceId, QLatin1String("1"));
 
     m_tabletHandler->onTabletAdded(basicInfo);
 
@@ -236,7 +237,7 @@ void TestTabletHandler::testOnTabletRemoved()
     TabletInformation info;
 
     // removing a different tablet then the one handled by the backend should do nothing
-    info.xdeviceId = QLatin1String("99");
+    info.set(TabletInfo::DeviceId, QLatin1String("99"));
 
     m_tabletHandler->onTabletRemoved(info);
 
@@ -248,7 +249,7 @@ void TestTabletHandler::testOnTabletRemoved()
 
     // remove the currently managed tablet
     // this should emit a signal and notify the user
-    info.xdeviceId = QLatin1String("1");
+    info.set(TabletInfo::DeviceId, QLatin1String("1"));
 
     m_tabletHandler->onTabletRemoved(info);
 

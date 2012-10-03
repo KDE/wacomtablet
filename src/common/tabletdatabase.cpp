@@ -106,22 +106,22 @@ bool TabletDatabase::lookupDevice(TabletInformation& devinfo, const QString& dev
         return false;
     }
 
-    devinfo.tabletId    = deviceId.toUpper();
-    devinfo.companyId   = companyId;
-    devinfo.companyName = companyGroup.readEntry( "name" );
+    devinfo.set (TabletInfo::TabletId, deviceId.toUpper());
+    devinfo.set (TabletInfo::CompanyId, companyId);
+    devinfo.set (TabletInfo::CompanyName, companyGroup.readEntry("name"));
 
-    devinfo.tabletModel = deviceGroup.readEntry( "model" );
-    devinfo.tabletName  = deviceGroup.readEntry( "name" );
+    devinfo.set (TabletInfo::TabletModel, deviceGroup.readEntry("model"));
+    devinfo.set (TabletInfo::TabletName, deviceGroup.readEntry("name"));
 
     if( deviceGroup.readEntry( "padbuttons" )  != QLatin1String( "0" ) ||
         deviceGroup.readEntry( "wheel" )       != QLatin1String( "no" ) ||
         deviceGroup.readEntry( "touchring" )   != QLatin1String( "no" ) ||
         deviceGroup.readEntry( "touchstripl" ) != QLatin1String( "no" ) ||
         deviceGroup.readEntry( "touchstripr" ) != QLatin1String( "no" ) ) {
-        devinfo.hasPadButtons = true;
+        devinfo.setButtons(true);
     }
     else {
-        devinfo.hasPadButtons = false;
+        devinfo.setButtons(false);
     }
 
     return true;

@@ -130,12 +130,12 @@ bool TabletBackendFactory::lookupInformation(TabletInformation& info, QMap< QStr
     // lookup tablet information
     TabletDatabase tabletDatabase;
 
-    if (!tabletDatabase.lookupDevice(info, info.tabletId)) {
-        kDebug() << "Could not find device in database: " << info.tabletId;
+    if (!tabletDatabase.lookupDevice(info, info.get (TabletInfo::TabletId))) {
+        kDebug() << "Could not find device in database: " << info.get (TabletInfo::TabletId);
         return false;
     }
 
-    tabletDatabase.lookupButtonMapping(buttonMap, info.companyId, info.tabletId);
+    tabletDatabase.lookupButtonMapping(buttonMap, info.get (TabletInfo::CompanyId), info.get (TabletInfo::TabletId));
 
     return true;
 }

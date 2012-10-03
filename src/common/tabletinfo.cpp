@@ -37,10 +37,15 @@ TabletInfoTemplateSpecialization::Container TabletInfoTemplateSpecialization::in
 const TabletInfo TabletInfo::CompanyId   ( QLatin1String("CompanyId") );
 const TabletInfo TabletInfo::CompanyName ( QLatin1String("CompanyName") );
 const TabletInfo TabletInfo::CursorName  ( QLatin1String("CursorName") );
+const TabletInfo TabletInfo::DeviceId    ( QLatin1String("DeviceId"));
+const TabletInfo TabletInfo::DeviceNode  ( QLatin1String("DeviceNode"));
 const TabletInfo TabletInfo::EraserName  ( QLatin1String("EraserName") );
 const TabletInfo TabletInfo::PadName     ( QLatin1String("PadName") );
+const TabletInfo TabletInfo::ProductId   ( QLatin1String("ProductId"));
 const TabletInfo TabletInfo::StylusName  ( QLatin1String("StylusName") );
 const TabletInfo TabletInfo::TabletId    ( QLatin1String("TabletId") );
 const TabletInfo TabletInfo::TabletModel ( QLatin1String("TabletModel") );
 const TabletInfo TabletInfo::TabletName  ( QLatin1String("TabletName") );
 const TabletInfo TabletInfo::TouchName   ( QLatin1String("TouchName") );
+const TabletInfo TabletInfo::VendorId    ( QLatin1String("VendorId") );
+

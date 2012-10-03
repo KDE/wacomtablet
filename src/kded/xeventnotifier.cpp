@@ -124,7 +124,7 @@ void XEventNotifier::handleX11InputEvent(XEvent* event)
         {
             if (info[i].flags & XISlaveRemoved) {
                 kDebug() << "Device removed with id: " << info[i].deviceid;
-                tabletInfo.xdeviceId = info[i].deviceid;
+                tabletInfo.set(TabletInfo::DeviceId, QString::number(info[i].deviceid));
                 emit tabletRemoved(tabletInfo);
 
             } else if (info[i].flags & XISlaveAdded) {
@@ -137,7 +137,7 @@ void XEventNotifier::handleX11InputEvent(XEvent* event)
                     tabletInfo = X11Input::findTablet();
 
                     if (tabletInfo.isAvailable()) {
-                        tabletInfo.xdeviceId = info[i].deviceid;
+                        tabletInfo.set(TabletInfo::DeviceId, QString::number(info[i].deviceid));
                         emit tabletAdded(tabletInfo);
                         break;
 
