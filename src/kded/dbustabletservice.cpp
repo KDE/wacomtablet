@@ -94,12 +94,13 @@ const QString& DBusTabletService::getDeviceName(const QString& device) const
 
 
 
+/*
 TabletInformation DBusTabletService::getInformation() const
 {
     Q_D ( const DBusTabletService );
     return d->tabletInformation;
 }
-
+*/
 
 
 const QString& DBusTabletService::getInformation(const QString& info) const

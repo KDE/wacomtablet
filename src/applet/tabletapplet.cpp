@@ -111,14 +111,36 @@ void TabletApplet::onDBusDisconnected()
 
 void TabletApplet::updateWidget()
 {
-    QDBusReply<Wacom::TabletInformation> tabletInfo = DBusTabletInterface::instance().getInformation();
+    QDBusReply<QString> dbusReply;
 
-    if( tabletInfo.isValid() ) {
-        m_deviceName->setText(tabletInfo.value().get(TabletInfo::TabletName));
-        m_padName    = tabletInfo.value().getDeviceName(DeviceType::Pad);
-        m_stylusName = tabletInfo.value().getDeviceName(DeviceType::Stylus);
-        m_eraserName = tabletInfo.value().getDeviceName(DeviceType::Eraser);
-        m_touchName  = tabletInfo.value().getDeviceName(DeviceType::Touch);
+    dbusReply = DBusTabletInterface::instance().getInformation(TabletInfo::TabletName);
+
+    if (dbusReply.isValid()) {
+        m_deviceName->setText(dbusReply.value());
+    }
+
+    dbusReply = DBusTabletInterface::instance().getDeviceName(DeviceType::Pad);
+
+    if (dbusReply.isValid()) {
+        m_padName = dbusReply.value();
+    }
+
+    dbusReply = DBusTabletInterface::instance().getDeviceName(DeviceType::Stylus);
+
+    if (dbusReply.isValid()) {
+        m_stylusName = dbusReply.value();
+    }
+
+    dbusReply = DBusTabletInterface::instance().getDeviceName(DeviceType::Eraser);
+
+    if (dbusReply.isValid()) {
+        m_eraserName = dbusReply.value();
+    }
+
+    dbusReply = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
+
+    if (dbusReply.isValid()) {
+        m_touchName = dbusReply.value();
     }
 
     updateProfile();

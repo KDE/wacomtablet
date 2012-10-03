@@ -29,6 +29,7 @@ using namespace Wacom;
 // instanciate static class members
 DBusTabletInterface* DBusTabletInterface::m_instance = NULL;
 
+/*
 QDBusArgument &Wacom::operator<<( QDBusArgument &argument, const Wacom::TabletInformation &mystruct )
 {
     argument.beginStructure();
@@ -68,7 +69,7 @@ const QDBusArgument &Wacom::operator>>( const QDBusArgument &argument, Wacom::Ta
     argument.endStructure();
     return argument;
 }
-
+*/
 
 
 DBusTabletInterface::DBusTabletInterface()
@@ -126,7 +127,10 @@ void DBusTabletInterface::resetInterface()
 
 void DBusTabletInterface::registerMetaTypes()
 {
-    qDBusRegisterMetaType<Wacom::TabletInformation>();
+    // nothing to register for now
+    // we keep this method so we have a central location to manage meta-types from
+
+    //qDBusRegisterMetaType<Wacom::TabletInformation>();
 }
 
 
@@ -144,12 +148,12 @@ QDBusMessage DBusTabletInterface::getDeviceName(const DeviceType& device)
 }
 
 
-
+/*
 QDBusMessage DBusTabletInterface::getInformation()
 {
     return call( QLatin1String( "getInformation" ) );
 }
-
+*/
 
 
 QDBusMessage DBusTabletInterface::getInformation(const TabletInfo& info)

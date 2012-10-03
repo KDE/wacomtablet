@@ -83,7 +83,7 @@ protected:
      *
      * @return True if the tool type is supported, else false.
      */
-    bool parseToolType(X11InputDevice& device, const QString& toolType);
+    bool parseToolType(const QString& toolType, const QString& deviceName);
 
 
 private:

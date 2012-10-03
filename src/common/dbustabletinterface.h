@@ -31,16 +31,16 @@
 #include <QtDBus/QDBusReply>
 
 // D-Bus interface metatypes
-Q_DECLARE_METATYPE(Wacom::TabletInformation)
+//Q_DECLARE_METATYPE(Wacom::TabletInformation)
 
 namespace Wacom
 {
 
-//! Helper method for D-Bus to copy tablet information.
-QDBusArgument &operator<< (QDBusArgument &argument, const Wacom::TabletInformation &mystruct);
+// Helper method for D-Bus to copy tablet information.
+//QDBusArgument &operator<< (QDBusArgument &argument, const Wacom::TabletInformation &mystruct);
 
-//! Helper method for D-Bus to copy tablet information.
-const QDBusArgument &operator>> (const QDBusArgument &argument, Wacom::TabletInformation &mystruct);
+// Helper method for D-Bus to copy tablet information.
+//const QDBusArgument &operator>> (const QDBusArgument &argument, Wacom::TabletInformation &mystruct);
 
 /**
  * A singleton class to access the D-Bus tablet interface.
@@ -76,7 +76,7 @@ public:
 
     QDBusMessage getDeviceName (const DeviceType& device);
 
-    QDBusMessage getInformation();
+    //QDBusMessage getInformation();
 
     QDBusMessage getInformation (const TabletInfo& info);
 

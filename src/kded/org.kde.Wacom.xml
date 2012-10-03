@@ -14,10 +14,10 @@
             <arg type="s" direction="out"/>
         </method>
 
-        <method name="getInformation">
+        <!-- method name="getInformation">
             <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="Wacom::TabletInformation"/>
             <arg type="(sssssssssssbb)" direction="out"/>
-        </method>
+        </method -->
 
         <method name="getInformation">
             <arg type="s" name="info" direction="in"/>

@@ -70,12 +70,12 @@ public Q_SLOTS:
      */
     Q_SCRIPTABLE const QString& getDeviceName(const QString& device) const;
 
-    /**
+    /*
      * Gets all device information available.
      *
      * @return A device information structure.
      */
-    Q_SCRIPTABLE TabletInformation getInformation() const;
+    //Q_SCRIPTABLE TabletInformation getInformation() const;
 
     /**
      * Gets information from the tablet.

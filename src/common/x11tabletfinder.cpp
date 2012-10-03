@@ -92,8 +92,9 @@ bool X11TabletFinder::visit (X11InputDevice& device)
         return false;
     }
 
-    if (parseToolType(device, toolType)) {
+    if (parseToolType(toolType, device.getName())) {
         d->tabletinformation.setAvailable(true);
+
     } else {
         kError() << QString::fromLatin1("Unsupported tool type property '%1'!").arg(toolType);
         return false;
@@ -165,28 +166,28 @@ const QString X11TabletFinder::getToolType(X11InputDevice& device)
 }
 
 
-bool X11TabletFinder::parseToolType(X11InputDevice& device, const QString& toolType)
+bool X11TabletFinder::parseToolType(const QString& toolType, const QString& deviceName)
 {
     Q_D(X11TabletFinder);
 
     if( toolType.contains( QLatin1String( "pad" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.padName = device.getName();
+        d->tabletinformation.padName = deviceName;
         return true;
 
     } else if( toolType.contains( QLatin1String( "eraser" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.eraserName = device.getName();
+        d->tabletinformation.eraserName = deviceName;
         return true;
 
     } else if( toolType.contains( QLatin1String( "cursor" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.cursorName = device.getName();
+        d->tabletinformation.cursorName = deviceName;
         return true;
 
     } else if( toolType.contains( QLatin1String( "touch" ),  Qt::CaseInsensitive ) ) {
-        d->tabletinformation.touchName = device.getName();
+        d->tabletinformation.touchName = deviceName;
         return true;
 
     } else if( toolType.contains( QLatin1String( "stylus" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.stylusName = device.getName();
+        d->tabletinformation.stylusName = deviceName;
         return true;
     }
 

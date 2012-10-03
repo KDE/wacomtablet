@@ -47,10 +47,6 @@ void TestDBusTabletService::assertTabletInformation(const TabletInformation& exp
     }
 
     // compare tablet information
-    QDBusReply<TabletInformation> actualTabletInformation = DBusTabletInterface::instance().getInformation();
-    QVERIFY(actualTabletInformation.isValid());
-    QVERIFY(expectedInformation == actualTabletInformation.value());
-
     foreach(const TabletInfo& info, TabletInfo::list()) {
         actualString = DBusTabletInterface::instance().getInformation(info);
         QVERIFY(actualString.isValid());
