@@ -93,6 +93,17 @@ public:
     Display* getDisplay();
 
     /**
+     * Gets an Atom property.
+     * 
+     * @param property  The property to get.
+     * @param nelements The maximum number of elements to get.
+     * @param values    A reference to a QList which will contain the values on success.
+     *
+     * @return True if the property could be retrieved, else false.
+     */
+    bool getAtomProperty (const QString& property, QList<long>& values, long nelements = 1);
+
+    /**
      * Gets a float property.
      *
      * @param property  The property to get.
@@ -101,7 +112,7 @@ public:
      *
      * @return True if the property could be retrieved, else false.
      */
-    bool getFloatProperty (const QString& property, long nelements, QList<float>& values);
+    bool getFloatProperty (const QString& property, QList<float>& values, long nelements = 1);
 
     /**
      * Gets a long property.
@@ -112,7 +123,7 @@ public:
      *
      * @return True if the property could be retrieved, else false.
      */
-    bool getLongProperty (const QString& property, long nelements, QList<long>& values);
+    bool getLongProperty (const QString& property, QList<long>& values, long nelements = 1);
 
 
     /**
@@ -122,7 +133,7 @@ public:
      * @return The name of this device.
      */
     const QString& getName() const;
-    
+
     /**
      * Checks if this device has the given property. The device has to be open for
      * this method to succeed.

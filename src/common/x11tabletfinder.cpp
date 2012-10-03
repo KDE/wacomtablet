@@ -119,7 +119,7 @@ const QString X11TabletFinder::getTabletId(X11InputDevice& device)
     QString     tabletHexIdStr;
     QList<long> serialIdValues;
 
-    if (!device.getLongProperty(d->serialIdPropertyName, 1000, serialIdValues)) {
+    if (!device.getLongProperty(d->serialIdPropertyName, serialIdValues, 1000)) {
         return tabletHexIdStr;
     }
 
@@ -130,7 +130,7 @@ const QString X11TabletFinder::getTabletId(X11InputDevice& device)
         tabletId = serialIdValues.at(0);
 
         if (tabletId > 0) {
-            tabletHexIdStr = QString::fromLatin1("%1").arg(tabletId, 4, 16, QLatin1Char('0'));
+            tabletHexIdStr = QString::fromLatin1("%1").arg(tabletId, 4, 16, QLatin1Char('0')).toUpper();
         }
     }
 
@@ -145,7 +145,7 @@ const QString X11TabletFinder::getToolType(X11InputDevice& device)
 
     QList<long> toolTypeAtoms;
 
-    if (!device.getLongProperty(d->toolTypePropertyName, 1, toolTypeAtoms)) {
+    if (!device.getAtomProperty(d->toolTypePropertyName, toolTypeAtoms)) {
         return QString();
     }
 

@@ -140,7 +140,14 @@ Display* X11InputDevice::getDisplay()
 
 
 
-bool X11InputDevice::getFloatProperty(const QString& property, long int nelements, QList< float >& values)
+bool X11InputDevice::getAtomProperty(const QString& property, QList< long int >& values, long int nelements)
+{
+    return getProperty<long>(property, XA_ATOM, nelements, values);
+}
+
+
+
+bool X11InputDevice::getFloatProperty(const QString& property, QList< float >& values, long int nelements)
 {
     Q_D(X11InputDevice);
 
@@ -156,7 +163,7 @@ bool X11InputDevice::getFloatProperty(const QString& property, long int nelement
 
 
 
-bool X11InputDevice::getLongProperty(const QString& property, long int nelements, QList< long >& values)
+bool X11InputDevice::getLongProperty(const QString& property, QList< long int >& values, long int nelements)
 {
     return getProperty<long>(property, XA_INTEGER, nelements, values);
 }
@@ -356,12 +363,6 @@ bool X11InputDevice::getProperty(const QString& property, Atom expectedType, lon
         return false;
     }
 
-    // we expect a long value to be 4 Byte = 32 Bit which is the default size used by XInput1
-    if ((sizeof(long) * 8) != expectedFormat) {
-        kError() << QString::fromLatin1("Invalid XInput property value size detected!");
-        return false;
-    }
-
     long          *data         = NULL;
     unsigned long  nitems       = 0;
     unsigned long  bytes_after  = 0;
@@ -380,7 +381,7 @@ bool X11InputDevice::getProperty(const QString& property, Atom expectedType, lon
     }
 
     if (actualFormat != expectedFormat || actualType != expectedType) {
-        kError() << QString::fromLatin1("Invalid property type detected!");
+        kError() << QString::fromLatin1("Can not get incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
         XFree(data);
         return false;
     }
@@ -428,12 +429,6 @@ bool X11InputDevice::setProperty(const QString& property, Atom expectedType, con
         return false;
     }
 
-    // we expect a long value to be 4 Byte = 32 Bit which is the default size used by XInput1
-    if ((sizeof(long) * 8) != expectedFormat) {
-        kError() << QString::fromLatin1("Invalid XInput property value size detected!");
-        return false;
-    }
-
     // lookup Atom
     Atom propertyAtom = None;
 
@@ -452,7 +447,7 @@ bool X11InputDevice::setProperty(const QString& property, Atom expectedType, con
     XFree(actualData);
 
     if (actualFormat != expectedFormat || actualType != expectedType) {
-        kError() << QString::fromLatin1("Can not set incompatible Xinput property '%1'!").arg(property);
+        kError() << QString::fromLatin1("Can not set incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
         return false;
     }
 

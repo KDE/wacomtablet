@@ -120,7 +120,7 @@ const QString XinputAdaptor::getFloatProperty(const XinputProperty& property, lo
 
     QString result = X11Input::getFloatProperty(d->device, property.key(), nelements);
 
-    if (!result.isEmpty()) {
+    if (result.isEmpty()) {
         kError() << QString::fromLatin1("Failed to get Xinput property '%1'!").arg(property.key());
         return QString();
     }

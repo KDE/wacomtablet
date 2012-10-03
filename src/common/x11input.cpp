@@ -96,7 +96,7 @@ bool X11Input::getFloatProperty(const QString& deviceName, const QString& proper
         return false;
     }
 
-    if (!device.getFloatProperty(property, nelements, values)) {
+    if (!device.getFloatProperty(property, values, nelements)) {
         return false;
     }
 
@@ -126,7 +126,7 @@ bool X11Input::getLongProperty(const QString& deviceName, const QString& propert
         return false;
     }
 
-    if (!device.getLongProperty(property, nelements, values)) {
+    if (!device.getLongProperty(property, values, nelements)) {
         return false;
     }
 
@@ -146,7 +146,7 @@ void X11Input::scanDevices(X11InputVisitor& visitor)
 
         X11InputDevice device (dpy, info[i]);
 
-        if (!visitor.visit (device)) {
+        if (visitor.visit (device)) {
             break;
         }
     }
