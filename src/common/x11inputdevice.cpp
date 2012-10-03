@@ -358,34 +358,43 @@ bool X11InputDevice::getProperty(const QString& property, Atom expectedType, lon
     int expectedFormat = 32;
 
     // check parameters
-    if (!isOpen() || nelements < 1) {
-        kError() << QLatin1String("Invalid parameters to X11InputDevice::getProperty()!");
+    if (!isOpen()) {
+        kError() << QString::fromLatin1 ("Can not get XInput property '%1' as no device was opened!").arg(property);
         return false;
     }
 
+    if (nelements < 1) {
+        kError() << QString::fromLatin1 ("Can not get XInput property '%1' as less than one element was requested!").arg(property);
+        return false;
+    }
+
+    // lookup property atom
+    Atom propertyAtom = None;
+
+    if (!lookupProperty(property, &propertyAtom)) {
+        kError() << QString::fromLatin1("Can not get unsupported XInput property '%1'!").arg(property);
+        return false;
+    }
+
+    // get device property and validate it
     long          *data         = NULL;
     unsigned long  nitems       = 0;
     unsigned long  bytes_after  = 0;
     Atom           actualType   = None;
-    Atom           propertyAtom = None;
     int            actualFormat = 0;
 
-    if (!lookupProperty(property, &propertyAtom)) {
-        kError() << QString::fromLatin1("Could not get unsupported property '%1'!").arg(property);
-        return false;
-    }
-
     if (XGetDeviceProperty (d->display, d->device, propertyAtom, 0, nelements, False, AnyPropertyType, &actualType, &actualFormat, &nitems, &bytes_after, (unsigned char**)&data) != Success) {
-        kError() << QString::fromLatin1("Could not get property '%1'!").arg(property);
+        kError() << QString::fromLatin1("Could not get XInput property '%1'!").arg(property);
         return false;
     }
 
     if (actualFormat != expectedFormat || actualType != expectedType) {
-        kError() << QString::fromLatin1("Can not get incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
+        kError() << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
         XFree(data);
         return false;
     }
 
+    // copy values
     for (unsigned long i = 0 ; i < nitems ; i++) {
         values.append(*((T*)(data + i)));
     }
@@ -407,7 +416,7 @@ bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Ato
     *atom = XInternAtom (d->display, property.toLatin1().constData(), True);
 
     if (*atom == None) {
-        kError() << QString::fromLatin1("Failed to lookup XInput property '%1'!").arg(property);
+        kDebug() << QString::fromLatin1("The X server does not support XInput property '%1'!").arg(property);
         return false;
     }
 
@@ -421,48 +430,60 @@ bool X11InputDevice::setProperty(const QString& property, Atom expectedType, con
 {
     Q_D(X11InputDevice);
 
-    int expectedFormat = 32;
+    int expectedFormat = 32; // XInput1 uses 32 bit for each property
 
     // check parameters
-    if (!isOpen() || values.size() == 0) {
-        kError() << QLatin1String("Invalid parameters to X11InputDevice::setProperty()!");
+    if (!isOpen()) {
+        kError() << QString::fromLatin1 ("Can not set XInput property '%1' as no device was opened!").arg(property);
         return false;
     }
 
-    // lookup Atom
+    if (values.size() == 0) {
+        kError() << QString::fromLatin1 ("Can not set XInput property '%1' as no values were provided!").arg(property);
+        return false;
+    }
+
+    // lookup property atom
     Atom propertyAtom = None;
 
     if (!lookupProperty(property, &propertyAtom)) {
-        kError() << QString::fromLatin1("Could not get unsupported property '%1'!").arg(property);
+        kError() << QString::fromLatin1("Can not set unsupported XInput property '%1'!").arg(property);
         return false;
     }
 
-    // get property so we can validate format and type
+    // get property and validate format and type
     Atom           actualType;
     int            actualFormat;
     unsigned long  nitems, bytes_after;
     unsigned char *actualData  = NULL;
 
-    XGetDeviceProperty (d->display, d->device, propertyAtom, 0, values.size(), False, AnyPropertyType, &actualType, &actualFormat, &nitems, &bytes_after, (unsigned char **)&actualData);
-    XFree(actualData);
-
-    if (actualFormat != expectedFormat || actualType != expectedType) {
-        kError() << QString::fromLatin1("Can not set incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
+    if (XGetDeviceProperty (d->display, d->device, propertyAtom, 0, values.size(), False, AnyPropertyType, &actualType, &actualFormat, &nitems, &bytes_after, (unsigned char **)&actualData) != Success) {
+        kError() << QString::fromLatin1("Could not get XInput property '%1' for type and format validation!").arg(property);
         return false;
     }
 
-    // create new data
+    XFree(actualData);
+
+    if (actualFormat != expectedFormat || actualType != expectedType) {
+        kError() << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
+        return false;
+    }
+
+    // create new data array - for XInput1 the data always to be of type long
     long *data = new long[values.size()];
 
     for (int i = 0 ; i < values.size() ; ++i) {
         *((T*)(data + i)) = values.at(i);
     }
 
-    // set property
+    // replace the current data of the property
     XChangeDeviceProperty (d->display, d->device, propertyAtom, expectedType, 32, PropModeReplace, (unsigned char*)data, values.size());
-    XFlush( d->display );
 
+    // cleanup
     delete[] data;
+
+    // flush the output buffer to make sure all properties are updated
+    XFlush (d->display);
 
     return true;
 }
