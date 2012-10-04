@@ -27,6 +27,8 @@
 
 #include <QtGui/QX11Info>
 
+#include <xorg/wacom-properties.h>
+
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/extensions/XInput.h>
@@ -35,6 +37,10 @@
 
 using namespace Wacom;
 
+const QString X11Input::PROPERTY_DEVICE_PRODUCT_ID = QLatin1String ("Device Product ID");
+const QString X11Input::PROPERTY_TRANSFORM_MATRIX  = QLatin1String ("Coordinate Transformation Matrix");
+const QString X11Input::PROPERTY_WACOM_SERIAL_IDS  = QLatin1String (WACOM_PROP_SERIALIDS);
+const QString X11Input::PROPERTY_WACOM_TOOL_TYPE   = QLatin1String (WACOM_PROP_TOOL_TYPE);
 
 bool X11Input::findDevice(const QString& deviceName, X11InputDevice& device)
 {
@@ -182,7 +188,7 @@ bool X11Input::setCoordinateTransformationMatrix(const QString& deviceName, qrea
     matrix.append(0);
     matrix.append(1);
 
-    return device.setFloatProperty(QLatin1String("Coordinate Transformation Matrix"), matrix);
+    return device.setFloatProperty(X11Input::PROPERTY_TRANSFORM_MATRIX, matrix);
 }
 
 

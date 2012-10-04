@@ -19,6 +19,7 @@
 
 #include "debug.h"
 #include "x11tabletfinder.h"
+#include "x11input.h"
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -34,13 +35,6 @@ namespace Wacom {
     class X11TabletFinderPrivate
     {
         public:
-            X11TabletFinderPrivate()
-                : serialIdPropertyName(QLatin1String("Wacom Serial IDs")),
-                  toolTypePropertyName(QLatin1String("Wacom Tool Type"))
-            { }
-
-            const QString     serialIdPropertyName;
-            const QString     toolTypePropertyName;
             TabletInformation tabletinformation;
     };
 }
@@ -115,12 +109,10 @@ bool X11TabletFinder::visit (X11InputDevice& device)
 
 const QString X11TabletFinder::getTabletId(X11InputDevice& device)
 {
-    Q_D(const X11TabletFinder);
-
     QString     tabletHexIdStr;
     QList<long> serialIdValues;
 
-    if (!device.getLongProperty(d->serialIdPropertyName, serialIdValues, 1000)) {
+    if (!device.getLongProperty(X11Input::PROPERTY_WACOM_SERIAL_IDS, serialIdValues, 1000)) {
         return tabletHexIdStr;
     }
 
@@ -142,11 +134,9 @@ const QString X11TabletFinder::getTabletId(X11InputDevice& device)
 
 const QString X11TabletFinder::getToolType(X11InputDevice& device)
 {
-    Q_D(const X11TabletFinder);
-
     QList<long> toolTypeAtoms;
 
-    if (!device.getAtomProperty(d->toolTypePropertyName, toolTypeAtoms)) {
+    if (!device.getAtomProperty(X11Input::PROPERTY_WACOM_TOOL_TYPE, toolTypeAtoms)) {
         return QString();
     }
 

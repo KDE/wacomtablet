@@ -24,11 +24,20 @@
 #include "x11inputdevice.h"
 #include "x11inputvisitor.h"
 
+#include <QtCore/QString>
+
 namespace Wacom
 {
 class X11Input
 {
 public:
+    /*
+     * Properties we are interested in.
+     */
+    static const QString PROPERTY_DEVICE_PRODUCT_ID;
+    static const QString PROPERTY_TRANSFORM_MATRIX;
+    static const QString PROPERTY_WACOM_SERIAL_IDS;
+    static const QString PROPERTY_WACOM_TOOL_TYPE;
 
     /**
      * Find a device by Name.
