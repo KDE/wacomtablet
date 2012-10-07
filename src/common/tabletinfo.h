@@ -71,18 +71,10 @@ public:
 
     static const TabletInfo CompanyId;    //!< The vendor identifier.
     static const TabletInfo CompanyName;  //!< The vendor name.
-    static const TabletInfo CursorName;   //!< The name of the cursor device if available.
-    static const TabletInfo DeviceId;     //!< The X11 XInput device id.
-    static const TabletInfo DeviceNode;   //!< The full path to the device.
-    static const TabletInfo EraserName;   //!< The name of the eraser device if available.
-    static const TabletInfo PadName;      //!< the name of the pad device if available.
-    static const TabletInfo ProductId;    //!< The product id.
-    static const TabletInfo StylusName;   //!< The name of the stylus device if available.
     static const TabletInfo TabletId;     //!< The tablet identifier as a four digit hex code.
     static const TabletInfo TabletModel;  //!< The tablet model.
     static const TabletInfo TabletName;   //!< The name of the tablet.
-    static const TabletInfo TouchName;    //!< The name of the touch device if available.
-    static const TabletInfo VendorId;     //!< The vendor id.
+    static const TabletInfo TabletSerial; //!< The tablet serial id as reported by the wacom driver.
 
 
 private:

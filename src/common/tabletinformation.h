@@ -22,6 +22,7 @@
 
 #include "tabletinfo.h"
 #include "devicetype.h"
+#include "deviceinformation.h"
 
 #include <QtCore/QMap>
 #include <QtCore/QString>
@@ -29,6 +30,8 @@
 
 namespace Wacom
 {
+
+class TabletInformationPrivate;
 
 /**
  * @brief Tablet information gathered by X11 or a tablet database.
@@ -45,7 +48,18 @@ class TabletInformation
 {
 public:
 
+    /**
+     * Default Constructor
+     *
+     * @deprecated A tablet should have at least a tablet serial!
+     */
     TabletInformation();
+
+    TabletInformation(long tabletSerial);
+    TabletInformation(const TabletInformation& that);
+    virtual ~TabletInformation();
+
+    TabletInformation& operator= (const TabletInformation& that);
 
     /**
      * Equals operator.
@@ -68,9 +82,9 @@ public:
      *
      * @sa get(const TabletInfo&) const
      */
-    const QString& get(const QString& info) const;
+    const QString& get (const QString& info) const;
 
-    
+
     /**
      * Gets tablet information.
      *
@@ -80,7 +94,17 @@ public:
      *
      * @sa get(const QString&) const
      */
-    const QString& get(const TabletInfo& info) const;
+    const QString& get (const TabletInfo& info) const;
+
+
+    /**
+     * Gets device information if set.
+     *
+     * @param deviceType The device type to get the information of.
+     *
+     * @return A pointer to the requested information or NULL if the device is not set.
+     */
+    const DeviceInformation* getDevice (const DeviceType& deviceType) const;
 
 
     /**
@@ -103,7 +127,7 @@ public:
      *
      * @sa getDeviceName(const DeviceType&) const
      */
-    const QString& getDeviceName(const QString& device) const;
+    const QString& getDeviceName (const QString& device) const;
 
 
     /**
@@ -115,13 +139,13 @@ public:
      *
      * @sa getDeviceName(const QString&) const
      */
-    const QString& getDeviceName(const DeviceType& device) const;
+    const QString& getDeviceName (const DeviceType& device) const;
 
 
     /**
-     * Gets the Xinput device id.
+     * Returns the tablet serial id or 0 if not set.
      */
-    int getXDeviceId() const;
+    long getTabletSerial() const;
 
 
     /**
@@ -133,11 +157,19 @@ public:
 
 
     /**
+     * Checks if this tablet has a device with the given device id.
+     *
+     * @return True if a device exists, else false.
+     */
+    bool hasDevice (int deviceId) const;
+
+
+    /**
      * Checks if the tablet has a given device.
      *
      * @param device The device to check for.
      */
-    bool hasDevice(const DeviceType& device) const;
+    bool hasDevice (const DeviceType& device) const;
 
 
     /**
@@ -166,16 +198,19 @@ public:
      *
      * @param value The new value.
      */
-    void setAvailable(bool value);
+    void setAvailable (bool value);
 
 
     /**
-     * Sets a device name of this tablet.
+     * Sets a device of this tablet.
      *
-     * @param device The device name to set.
-     * @param name   The new name.
+     * If the tablet does not have devices yet, this will also update the
+     * general information of the tablet itself. If the tablet already has a
+     * device of the same type, it will be overwritten.
+     *
+     * @param device The device to add.
      */
-    void setDeviceName(const DeviceType& device, const QString& name);
+    void setDevice (const DeviceInformation& device);
 
 
     /**
@@ -183,17 +218,13 @@ public:
      *
      * @param value The new value.
      */
-    void setButtons(bool value);
+    void setButtons (bool value);
 
 
 private:
 
-    QMap<QString,QString> infoMap; //!< Stores all information as string.
-
-    QString  unknown;           //!< A dummy member so we can safely return a const reference.
-    bool     isTabletAvailable; //!< A flag to signal if this tablet is available.
-    bool     hasPadButtons;     //!< A flag to signal if this tablet has pad buttons.
-
+    Q_DECLARE_PRIVATE (TabletInformation);
+    TabletInformationPrivate *const d_ptr;
 
 }; // CLASS
 }  // NAMESPACE

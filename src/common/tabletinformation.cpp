@@ -21,79 +21,195 @@
 
 #include "tabletinformation.h"
 
+namespace Wacom
+{
+    class TabletInformationPrivate
+    {
+        public:
+            /*
+             * Declarations
+             */
+            typedef QMap<QString,DeviceInformation> DeviceInformationMap;
+            typedef QMap<QString,QString>           TabletInfoMap;
+
+            /*
+             * Members
+             */
+            DeviceInformationMap deviceMap;
+            TabletInfoMap        infoMap;
+
+            QString unknown;   //!< An empty string which allows us to return a const reference.
+
+            bool isAvailable;
+            bool hasButtons;
+
+            /*
+             * Helper methods
+             */
+            TabletInformationPrivate()
+            {
+                isAvailable = false;
+                hasButtons  = false;
+            }
+
+
+            TabletInformationPrivate& operator= (const TabletInformationPrivate& that)
+            {
+                deviceMap    = that.deviceMap;
+                infoMap      = that.infoMap;
+                isAvailable  = that.isAvailable;
+                hasButtons   = that.hasButtons;
+
+                return *this;
+            }
+
+            bool operator== (const TabletInformationPrivate& that) const
+            {
+                // we don't care if the device is available or not
+                if (hasButtons       != that.hasButtons     ||
+                    infoMap.size()   != that.infoMap.size() ||
+                    deviceMap.size() != that.infoMap.size()
+                   )
+                {
+                    return false;
+                }
+
+
+                // QMap is always ordered by key so we can just iterate over it and compare keys directly
+                TabletInfoMap::const_iterator thisInfoIter = infoMap.constBegin();
+                TabletInfoMap::const_iterator thatInfoIter = that.infoMap.constBegin();
+
+                while (thatInfoIter != infoMap.constEnd() && thatInfoIter != that.infoMap.constEnd()) {
+
+                    if (thisInfoIter.key().compare(thatInfoIter.key(), Qt::CaseInsensitive) != 0) {
+                        return false;
+                    }
+
+                    if (thisInfoIter.value().compare(thatInfoIter.value(), Qt::CaseInsensitive) != 0) {
+                        return false;
+                    }
+
+                    ++thisInfoIter;
+                    ++thatInfoIter;
+                }
+
+                DeviceInformationMap::const_iterator thisDevIter = deviceMap.constBegin();
+                DeviceInformationMap::const_iterator thatDevIter = that.deviceMap.constBegin();
+
+                while (thisDevIter != deviceMap.constEnd() && thatDevIter != that.deviceMap.constEnd()) {
+
+                    if (thisDevIter.key().compare(thatDevIter.key(), Qt::CaseInsensitive) != 0) {
+                        return false;
+                    }
+
+                    if (thisDevIter.value() != thatDevIter.value()) {
+                        return false;
+                    }
+
+                    ++thisDevIter;
+                    ++thatDevIter;
+                }
+
+                return true;
+            }
+    }; // CLASS TabletInformationPrivate
+} // NAMESPACE Wacom
+
 using namespace Wacom;
 
-TabletInformation::TabletInformation()
+TabletInformation::TabletInformation() : d_ptr(new TabletInformationPrivate)
 {
-    isTabletAvailable = false;
-    hasPadButtons     = false;
 }
+
+
+TabletInformation::TabletInformation(long int tabletSerial) : d_ptr(new TabletInformationPrivate)
+{
+    set(TabletInfo::TabletSerial, QString::number(tabletSerial));
+}
+
+
+TabletInformation::TabletInformation(const TabletInformation& that) : d_ptr(new TabletInformationPrivate)
+{
+    operator=(that);
+}
+
+
+TabletInformation::~TabletInformation()
+{
+    delete d_ptr;
+}
+
+
+
+TabletInformation& TabletInformation::operator=(const TabletInformation& that)
+{
+    Q_D(TabletInformation);
+
+    d->operator= (*(that.d_ptr));
+
+    return *this;
+}
+
 
 
 bool TabletInformation::operator!= (const TabletInformation& other) const
 {
-    return !operator==(other);
+    return !operator== (other);
 }
 
 
 
 bool TabletInformation::operator== (const TabletInformation& other) const
 {
-    // compare booleans
-    if (isTabletAvailable != other.isTabletAvailable || hasPadButtons != other.hasPadButtons) {
-        return false;
-    }
-
-    // only keys which do have a value should be set
-    if (infoMap.size() != other.infoMap.size()) {
-        return false;
-    }
-
-    // QMap is always ordered by key so we can just iterate over it and compare keys directly
-    QMap<QString,QString>::const_iterator thisIter = infoMap.constBegin();
-    QMap<QString,QString>::const_iterator thatIter = other.infoMap.constBegin();
-
-    while (thisIter != infoMap.constEnd() && thatIter != other.infoMap.constEnd()) {
-
-        if (thisIter.key().compare(thatIter.key(), Qt::CaseInsensitive) != 0) {
-            return false;
-        }
-
-        if (thisIter.value().compare(thatIter.value(), Qt::CaseInsensitive) != 0) {
-            return false;
-        }
-
-        ++thisIter;
-        ++thatIter;
-    }
-
-    return true;
+    Q_D (const TabletInformation);
+    assert(other.d_ptr != NULL);
+    return d->operator== (*(other.d_ptr));
 }
 
 
 
-const QString& TabletInformation::get(const QString& info) const
+const QString& TabletInformation::get (const QString& info) const
 {
+    Q_D (const TabletInformation);
+
     const TabletInfo* devinfo = TabletInfo::find(info);
 
     if (devinfo == NULL) {
         kError() << QString::fromLatin1("Can not get unsupported tablet information identifier '%1'!").arg(info);
-        return unknown;
+        return d->unknown;
     }
 
     return get(*devinfo);
 }
 
 
-const QString& TabletInformation::get(const TabletInfo& info) const
-{
-    QMap<QString,QString>::const_iterator iter = infoMap.constFind(info.key());
 
-    if (iter == infoMap.constEnd()) {
-        return unknown;
+const QString& TabletInformation::get (const TabletInfo& info) const
+{
+    Q_D (const TabletInformation);
+
+    TabletInformationPrivate::TabletInfoMap::const_iterator iter = d->infoMap.constFind(info.key());
+
+    if (iter == d->infoMap.constEnd()) {
+        return d->unknown;
     }
 
     return iter.value();
+}
+
+
+
+const DeviceInformation* TabletInformation::getDevice (const DeviceType& deviceType) const
+{
+    Q_D (const TabletInformation);
+
+    TabletInformationPrivate::DeviceInformationMap::ConstIterator iter = d->deviceMap.constFind(deviceType.key());
+
+    if (iter == d->deviceMap.constEnd()) {
+        return NULL;
+    }
+
+    return &(iter.value());
 }
 
 
@@ -116,13 +232,15 @@ const QStringList TabletInformation::getDeviceList() const
 
 
 
-const QString& TabletInformation::getDeviceName(const QString& device) const
+const QString& TabletInformation::getDeviceName (const QString& device) const
 {
+    Q_D (const TabletInformation);
+
     const DeviceType *type = DeviceType::find(device);
 
     if (type == NULL) {
         kError() << QString::fromLatin1("Unsupported device type '%1'!").arg(device);
-        return unknown;
+        return d->unknown;
     }
 
     return getDeviceName(*type);
@@ -130,91 +248,93 @@ const QString& TabletInformation::getDeviceName(const QString& device) const
 
 
 
-const QString& TabletInformation::getDeviceName(const DeviceType& device) const
+const QString& TabletInformation::getDeviceName (const DeviceType& device) const
 {
-    if (device == DeviceType::Cursor) {
-        return get (TabletInfo::CursorName);
+    Q_D(const TabletInformation);
 
-    } else if (device == DeviceType::Eraser) {
-        return get (TabletInfo::EraserName);
+    TabletInformationPrivate::DeviceInformationMap::ConstIterator iter = d->deviceMap.find(device.key());
 
-    } else if (device == DeviceType::Pad) {
-
-        // if no pad is present, use stylus name as alternative way
-        // fixes some problems with serial TabletPC that do not have a pad as such but still
-        // can handle pad rotations and such when applied to the stylus settings
-        if (get(TabletInfo::PadName).isEmpty()) {
-            return get (TabletInfo::CursorName);
-        }
-
-        return get(TabletInfo::PadName);
-
-    } else if (device == DeviceType::Stylus) {
-        return get (TabletInfo::StylusName);
-
-    } else if (device == DeviceType::Touch) {
-        return get (TabletInfo::TouchName);
-
-    } else {
-        kDebug() << QString::fromLatin1("FIXME: Unknown device type '%1'!").arg(device.key());
+    if (iter == d->deviceMap.constEnd()) {
+        return d->unknown;
     }
 
-    return unknown;
+    return iter->getName();
 }
 
 
 
-int TabletInformation::getXDeviceId() const
+long int TabletInformation::getTabletSerial() const
 {
-    QString id = get(TabletInfo::DeviceId);
-
-    if (id.isEmpty()) {
-        return 0;
-    }
-
-    bool ok;
-    int dev_id = id.toInt(&ok, 10);
-
-    return (ok ? dev_id : 0);
+    return get (TabletInfo::TabletSerial).toLong();
 }
 
 
 
 bool TabletInformation::hasButtons() const
 {
-    return hasPadButtons;
+    Q_D(const TabletInformation);
+    return d->hasButtons;
 }
 
 
-bool TabletInformation::hasDevice(const DeviceType& device) const
+
+bool TabletInformation::hasDevice(int deviceId) const
 {
-    return !getDeviceName(device).isEmpty();
+    foreach (const DeviceType& type, DeviceType::list()) {
+        const DeviceInformation* device = getDevice(type);
+
+        if (device != NULL && device->getDeviceId() == deviceId) {
+            return true;
+        }
+    }
+
+    return false;
 }
+
+
+
+bool TabletInformation::hasDevice (const DeviceType& device) const
+{
+    Q_D(const TabletInformation);
+    return d->deviceMap.contains(device.key());
+}
+
 
 
 bool TabletInformation::isAvailable() const
 {
-    return isTabletAvailable;
+    Q_D(const TabletInformation);
+    return d->isAvailable;
 }
 
 
 
-void TabletInformation::set(const TabletInfo& info, const QString& value)
+void TabletInformation::set (const TabletInfo& info, const QString& value)
 {
-    QMap<QString,QString>::iterator iter = infoMap.find(info.key());
+    Q_D (TabletInformation);
+
+    // setting the tablet serial requires updating the id for now
+    if (info == TabletInfo::TabletSerial) {
+        long serial = value.toLong();
+
+        if (serial > 0) {
+            set (TabletInfo::TabletId, QString::fromLatin1("%1").arg(serial, 4, 16, QLatin1Char('0')).toUpper());
+        }
+    }
+
+    TabletInformationPrivate::TabletInfoMap::iterator iter = d->infoMap.find(info.key());
 
     // make sure only keys exist which actually have a value
-    if (iter != infoMap.end()) {
+    if (iter != d->infoMap.end()) {
 
         if (value.isEmpty()) {
-            infoMap.erase(iter);
-
+            d->infoMap.erase(iter);
         } else {
             iter.value() = value;
         }
 
     } else if (!value.isEmpty()){
-        infoMap.insert(info.key(), value);
+        d->infoMap.insert(info.key(), value);
     }
 }
 
@@ -222,36 +342,23 @@ void TabletInformation::set(const TabletInfo& info, const QString& value)
 
 void TabletInformation::setAvailable(bool value)
 {
-    isTabletAvailable = value;
+    Q_D(TabletInformation);
+    d->isAvailable = value;
 }
 
 
 
-void TabletInformation::setDeviceName(const DeviceType& device, const QString& name)
+void TabletInformation::setDevice (const DeviceInformation& device)
 {
-    if (device == DeviceType::Cursor) {
-        set (TabletInfo::CursorName, name);
-
-    } else if (device == DeviceType::Eraser) {
-        set (TabletInfo::EraserName, name);
-
-    } else if (device == DeviceType::Pad) {
-        set (TabletInfo::PadName, name);
-
-    } else if (device == DeviceType::Stylus) {
-        set (TabletInfo::StylusName, name);
-
-    } else if (device == DeviceType::Touch) {
-        set (TabletInfo::TouchName, name);
-
-    } else {
-        kDebug() << QString::fromLatin1("FIXME: Unknown device type '%1'!").arg(device.key());
-    }
+    Q_D(TabletInformation);
+    d->deviceMap.insert (device.getType().key(), device);
 }
 
 
 
 void TabletInformation::setButtons(bool value)
 {
-    hasPadButtons = value;
+    Q_D(TabletInformation);
+    d->hasButtons = value;
 }
+

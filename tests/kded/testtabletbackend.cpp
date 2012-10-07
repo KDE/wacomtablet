@@ -30,14 +30,9 @@ void TestTabletBackend::initTestCase()
 {
     m_tabletInformation.set (TabletInfo::CompanyId,   TabletInfo::CompanyId.key());
     m_tabletInformation.set (TabletInfo::CompanyName, TabletInfo::CompanyName.key());
-    m_tabletInformation.set (TabletInfo::CursorName,  TabletInfo::CursorName.key());
-    m_tabletInformation.set (TabletInfo::EraserName,  TabletInfo::EraserName.key());
-    m_tabletInformation.set (TabletInfo::PadName,     TabletInfo::PadName.key());
-    m_tabletInformation.set (TabletInfo::StylusName,  TabletInfo::StylusName.key());
     m_tabletInformation.set (TabletInfo::TabletId,    TabletInfo::TabletId.key());
     m_tabletInformation.set (TabletInfo::TabletModel, TabletInfo::TabletModel.key());
     m_tabletInformation.set (TabletInfo::TabletName,  TabletInfo::TabletName.key());
-    m_tabletInformation.set (TabletInfo::TouchName,   TabletInfo::TouchName.key());
     m_tabletInformation.setAvailable(true);
     m_tabletInformation.setButtons(true);
 

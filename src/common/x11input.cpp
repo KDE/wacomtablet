@@ -38,6 +38,7 @@
 using namespace Wacom;
 
 const QString X11Input::PROPERTY_DEVICE_PRODUCT_ID = QLatin1String ("Device Product ID");
+const QString X11Input::PROPERTY_DEVICE_NODE       = QLatin1String ("Device Node");
 const QString X11Input::PROPERTY_TRANSFORM_MATRIX  = QLatin1String ("Coordinate Transformation Matrix");
 const QString X11Input::PROPERTY_WACOM_SERIAL_IDS  = QLatin1String (WACOM_PROP_SERIALIDS);
 const QString X11Input::PROPERTY_WACOM_TOOL_TYPE   = QLatin1String (WACOM_PROP_TOOL_TYPE);
@@ -67,18 +68,6 @@ bool X11Input::findDevice(const QString& deviceName, X11InputDevice& device)
 
     return found;
 }
-
-
-
-TabletInformation X11Input::findTablet()
-{
-    X11TabletFinder tabletFinder;
-
-    scanDevices (tabletFinder);
-
-    return tabletFinder.getInformation();
-}
-
 
 
 const QString X11Input::getFloatProperty(const QString& deviceName, const QString& property, long nelements)

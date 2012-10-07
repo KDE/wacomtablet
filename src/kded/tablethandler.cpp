@@ -101,10 +101,8 @@ void TabletHandler::onTabletAdded( const TabletInformation& info )
 {
     Q_D( TabletHandler );
 
-    int deviceId = info.getXDeviceId();
-
     // if we already have a device ... skip this step
-    if(d->tabletBackend || deviceId == 0) {
+    if(d->tabletBackend) {
         return;
     }
 
@@ -137,9 +135,7 @@ void TabletHandler::onTabletRemoved( const TabletInformation& info )
 {
     Q_D( TabletHandler );
 
-    int deviceId = info.getXDeviceId();
-
-    if ( d->tabletBackend && d->tabletInformation.getXDeviceId() == deviceId ) {
+    if ( d->tabletBackend && d->tabletInformation.getTabletSerial() == info.getTabletSerial() ) {
         emit notify( QLatin1String("tabletRemoved"),
                      i18n("Tablet removed"),
                      i18n("Tablet %1 removed",

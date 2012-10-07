@@ -88,11 +88,6 @@ public:
     bool close();
 
     /**
-     * Returns the display of this device or NULL.
-     */
-    Display* getDisplay();
-
-    /**
      * Gets an Atom property.
      * 
      * @param property  The property to get.
@@ -102,6 +97,18 @@ public:
      * @return True if the property could be retrieved, else false.
      */
     bool getAtomProperty (const QString& property, QList<long>& values, long nelements = 1);
+
+    /**
+     * Gets the device id of this device.
+     *
+     * @return The device id or 0.
+     */
+    long int getDeviceId() const;
+
+    /**
+     * Returns the display of this device or NULL.
+     */
+    Display* getDisplay();
 
     /**
      * Gets a float property.
@@ -125,7 +132,6 @@ public:
      */
     bool getLongProperty (const QString& property, QList<long>& values, long nelements = 1);
 
-
     /**
      * Returns the name of this XInput device. Beware that this name can not be used
      * to reliably detect a certain device as the name can be configured in xorg.conf.
@@ -133,6 +139,17 @@ public:
      * @return The name of this device.
      */
     const QString& getName() const;
+
+    /**
+     * Gets a string property.
+     *
+     * @param property The property to get.
+     * @param nelements The maximum number of elements to get.
+     * @param values    A reference to a QList which will contain the values on success.
+     *
+     * @return True if the property could be retrieved, else false.
+     */
+    bool getStringProperty (const QString& property, QList<QString>& values, long nelements = 1);
 
     /**
      * Checks if this device has the given property. The device has to be open for
@@ -232,6 +249,20 @@ private:
      */
     template<typename T>
     bool getProperty (const QString& property, Atom expectedType, long nelements, QList< T >& values);
+
+    /**
+     * Retrieves X11 property values.
+     * On success the data parameter has to be freed using Xfree().
+     *
+     * @param property       The property go get.
+     * @param expectedType   The expected Xinput property type.
+     * @param expectedFormat The expected Xinput property format.
+     * @param data           A pointer to a data pointer which will be set to the retrieved data.
+     * @param nitems         A pointer to a counter which will contain the number of items which were retrieved.
+     *
+     * @return True on success, false on error.
+     */
+    bool getPropertyData (const QString& property, Atom expectedType, int expectedFormat, long nelements, unsigned char** data, unsigned long* nitems);
 
     /**
      * Looks up a X11 property atom.

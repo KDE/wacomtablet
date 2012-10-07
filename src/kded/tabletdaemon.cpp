@@ -21,6 +21,7 @@
 #include "tabletdaemon.h"
 
 #include "dbustabletservice.h"
+#include "tabletfinder.h"
 #include "tablethandler.h"
 #include "wacomadaptor.h"
 #include "xeventnotifier.h"
@@ -55,11 +56,10 @@ namespace Wacom {
 class TabletDaemonPrivate {
 public:
     TabletDaemonPrivate()
-        : tabletHandler(), dbusTabletService(tabletHandler), eventNotifier(new XEventNotifier) {}
+        : tabletHandler(), dbusTabletService(tabletHandler) {}
 
     TabletHandler                     tabletHandler;    /**< tablet handler */
     DBusTabletService                 dbusTabletService;
-    EventNotifier                    *eventNotifier;    /**< X11 Event handler to detect when the tablet is connected/removed */
     std::auto_ptr<KComponentData>     applicationData;  /**< Basic application data */
     std::auto_ptr<KActionCollection>  actionCollection; /**< Collection of all global actions */
 
@@ -76,11 +76,11 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
 
     setupApplication();
     setupDBus();
-    setupXEventNotifier();
+    setupEventNotifier();
     setupActions();
 
     // scan for connected devices
-    d->eventNotifier->scan();
+    TabletFinder::instance().scan();
 
     // Connecting this after the device has been set up ensures that no notification is send on startup.
     connect( &(d->tabletHandler), SIGNAL(notify(QString,QString,QString)), this, SLOT(onNotify(QString,QString,QString)) );
@@ -90,11 +90,7 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
 
 TabletDaemon::~TabletDaemon()
 {
-    this->d_ptr->eventNotifier->stop();
-    delete(this->d_ptr->eventNotifier);
-
-    //QDBusConnection::sessionBus().unregisterService( QLatin1String( "org.kde.Wacom" ) );
-
+    XEventNotifier::instance().stop();
     delete this->d_ptr;
 }
 
@@ -163,13 +159,17 @@ void TabletDaemon::setupDBus()
 
 
 
-void TabletDaemon::setupXEventNotifier()
+void TabletDaemon::setupEventNotifier()
 {
     Q_D( TabletDaemon );
 
-    d->eventNotifier->start();
-    connect( d->eventNotifier, SIGNAL( tabletAdded( const TabletInformation& ) ),   &(d->tabletHandler), SLOT( onTabletAdded( const TabletInformation& ) ) );
-    connect( d->eventNotifier, SIGNAL( tabletRemoved( const TabletInformation& ) ), &(d->tabletHandler), SLOT( onTabletRemoved( const TabletInformation& ) ) );
-    connect( d->eventNotifier, SIGNAL( screenRotated( TabletRotation ) ),           &(d->tabletHandler), SLOT( onScreenRotated( TabletRotation ) ) );
+    connect( &XEventNotifier::instance(), SIGNAL(screenRotated (TabletRotation)),           &(d->tabletHandler),       SLOT(onScreenRotated (TabletRotation)));
+    connect( &XEventNotifier::instance(), SIGNAL(tabletAdded (int)),                        &TabletFinder::instance(), SLOT(onX11TabletAdded (int)));
+    connect( &XEventNotifier::instance(), SIGNAL(tabletRemoved (int)),                      &TabletFinder::instance(), SLOT(onX11TabletRemoved (int)));
+
+    connect( &TabletFinder::instance(),   SIGNAL(tabletAdded (const TabletInformation)),    &(d->tabletHandler),       SLOT(onTabletAdded (const TabletInformation)));
+    connect( &TabletFinder::instance(),   SIGNAL(tabletRemoved (const TabletInformation)),  &(d->tabletHandler),       SLOT(onTabletRemoved (const TabletInformation)));
+
+    XEventNotifier::instance().start();
 }
 

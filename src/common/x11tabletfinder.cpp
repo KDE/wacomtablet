@@ -18,8 +18,11 @@
  */
 
 #include "debug.h"
+#include "deviceinformation.h"
 #include "x11tabletfinder.h"
 #include "x11input.h"
+
+#include <QtCore/QMap>
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -35,15 +38,16 @@ namespace Wacom {
     class X11TabletFinderPrivate
     {
         public:
-            TabletInformation tabletinformation;
+            typedef QMap<long,TabletInformation> TabletMap;
+
+            TabletMap                tabletMap;   //!< A map which is used while visiting devices.
+            QList<TabletInformation> scannedList; //!< A list which is build after scanning all devices.
     };
 }
 
 
 X11TabletFinder::X11TabletFinder() : d_ptr(new X11TabletFinderPrivate)
 {
-    Q_D(X11TabletFinder);
-    d->tabletinformation.setAvailable(false);
 }
 
 
@@ -54,85 +58,196 @@ X11TabletFinder::~X11TabletFinder()
 
 
 
-const TabletInformation& X11TabletFinder::getInformation() const
+const QList< TabletInformation >& X11TabletFinder::getDevices() const
 {
-    Q_D(const X11TabletFinder);
-    return d->tabletinformation;
+    Q_D (const X11TabletFinder);
+
+    return d->scannedList;
 }
 
 
 
-bool X11TabletFinder::isAvailable() const
+
+bool X11TabletFinder::scanDevices()
 {
-    Q_D(const X11TabletFinder);
-    return d->tabletinformation.isAvailable();
+    Q_D (X11TabletFinder);
+
+    d->tabletMap.clear();
+    d->scannedList.clear();
+
+    X11Input::scanDevices(*this);
+
+    X11TabletFinderPrivate::TabletMap::ConstIterator iter;
+
+    for (iter = d->tabletMap.constBegin() ; iter != d->tabletMap.constEnd() ; ++iter) {
+        d->scannedList.append(iter.value());
+    }
+
+    return (d->tabletMap.size() > 0);
 }
 
 
 
-bool X11TabletFinder::visit (X11InputDevice& device)
+bool X11TabletFinder::visit (X11InputDevice& x11device)
+{
+    if (!x11device.isTabletDevice()) {
+        return false;
+    }
+
+    // gather basic device information which we need to create a device information structure
+    QString           deviceName = x11device.getName();
+    const DeviceType* deviceType = getDeviceType (getToolType (x11device));
+
+    if (deviceName.isEmpty() || deviceType == NULL) {
+        kError() << QString::fromLatin1("Unsupported device '%1' detected!").arg(deviceName);
+        return false;
+    }
+
+    // create device information and gather all information we can
+    DeviceInformation deviceInfo (*deviceType, x11device.getName());
+
+    gatherDeviceInformation(x11device, deviceInfo);
+
+    // add device information to tablet map
+    addDeviceInformation(deviceInfo);
+
+    return true;
+}
+
+
+
+void X11TabletFinder::addDeviceInformation (DeviceInformation& deviceInformation)
 {
     Q_D(X11TabletFinder);
 
-    if (!device.isTabletDevice()) {
-        return false;
+    long serial = deviceInformation.getTabletSerial();
+
+    if (serial < 1) {
+        kWarning() << QString::fromLatin1 ("Device '%1' has an invalid serial number '%2'!").arg (deviceInformation.getName()).arg (serial);
     }
 
-    // parse tool type
-    QString toolType = getToolType(device);
+    X11TabletFinderPrivate::TabletMap::iterator mapIter = d->tabletMap.find (serial);
 
-    if (toolType.isEmpty()) {
-        kError() << QString::fromLatin1("Empty tool type property detected for device '%1'!").arg(device.getName());
-        return false;
+    if (mapIter == d->tabletMap.end()) {
+        mapIter = d->tabletMap.insert(serial, TabletInformation (serial));
     }
 
-    if (parseToolType(toolType, device.getName())) {
-        d->tabletinformation.setAvailable(true);
-
-    } else {
-        kError() << QString::fromLatin1("Unsupported tool type property '%1'!").arg(toolType);
-        return false;
-    }
-
-
-    // get tablet id
-    QString tabletId = getTabletId(device);
-
-    if (!tabletId.isEmpty()) {
-        d->tabletinformation.set (TabletInfo::TabletId, tabletId);
-    }
-
-    return false;
+    mapIter.value().setDevice(deviceInformation);
 }
 
 
 
-const QString X11TabletFinder::getTabletId(X11InputDevice& device)
+void X11TabletFinder::gatherDeviceInformation(X11InputDevice& device, DeviceInformation& deviceInformation) const
 {
-    QString     tabletHexIdStr;
+    // get X11 device id
+    deviceInformation.setDeviceId(device.getDeviceId());
+
+    // get tablet serial
+    deviceInformation.setTabletSerial(getTabletSerial(device));
+
+    // get product and vendor id if set
+    long vendorId = 0, productId = 0;
+
+    if (getProductId(device, vendorId, productId)) {
+        deviceInformation.setVendorId(vendorId);
+        deviceInformation.setProductId(productId);
+    }
+
+    // get the device node which is the full path to the input device
+    deviceInformation.setDeviceNode(getDeviceNode(device));
+}
+
+
+
+const QString X11TabletFinder::getDeviceNode(X11InputDevice& device) const
+{
+    QList<QString> values;
+
+    if (!device.getStringProperty(X11Input::PROPERTY_DEVICE_NODE, values, 1) || values.size() == 0) {
+        kWarning() << QString::fromLatin1("Could not get device node from device '%1'!").arg(device.getName());
+        return QString();
+    }
+
+    return values.at(0);
+}
+
+
+
+const DeviceType* X11TabletFinder::getDeviceType (const QString& toolType) const
+{
+    if (toolType.contains (QLatin1String ("pad"), Qt::CaseInsensitive)) {
+        return &(DeviceType::Pad);
+
+    } else if (toolType.contains(QLatin1String ("eraser"), Qt::CaseInsensitive)) {
+        return &(DeviceType::Eraser);
+
+    } else if (toolType.contains(QLatin1String ("cursor"), Qt::CaseInsensitive)) {
+        return &(DeviceType::Cursor);
+
+    } else if (toolType.contains(QLatin1String ("touch"),  Qt::CaseInsensitive)) {
+        return &(DeviceType::Touch);
+
+    } else if (toolType.contains(QLatin1String ("stylus"), Qt::CaseInsensitive)) {
+        return &(DeviceType::Stylus);
+    }
+
+    return NULL;
+}
+
+
+
+bool X11TabletFinder::getProductId(X11InputDevice& device, long int& vendorId, long int& productId) const
+{
+    QList<long> values;
+
+    if (!device.getLongProperty(X11Input::PROPERTY_DEVICE_PRODUCT_ID, values, 2)) {
+        return false;
+    }
+
+    if (values.size() != 2) {
+        kError() << QString::fromLatin1("Unexpected number of values when fetching XInput property '%1'!").arg(X11Input::PROPERTY_DEVICE_PRODUCT_ID);
+        return false;
+    }
+
+    long value;
+
+    if ((value = values.at(0)) > 0) {
+        vendorId = value;
+    }
+
+    if ((value = values.at(1)) > 0) {
+        productId = value;
+    }
+
+    return true;
+}
+
+
+
+long int X11TabletFinder::getTabletSerial (X11InputDevice& device) const
+{
+    long        tabletId = 0;
     QList<long> serialIdValues;
 
     if (!device.getLongProperty(X11Input::PROPERTY_WACOM_SERIAL_IDS, serialIdValues, 1000)) {
-        return tabletHexIdStr;
+        return tabletId;
     }
 
     // the offset for the tablet id is 0 see wacom-properties.h in the xf86-input-wacom driver for more information on this
-    long tabletId;
-
     if (serialIdValues.size() > 0) {
         tabletId = serialIdValues.at(0);
 
         if (tabletId > 0) {
-            tabletHexIdStr = QString::fromLatin1("%1").arg(tabletId, 4, 16, QLatin1Char('0')).toUpper();
+            return tabletId;
         }
     }
 
-    return tabletHexIdStr;
+    return tabletId;
 }
 
 
 
-const QString X11TabletFinder::getToolType(X11InputDevice& device)
+const QString X11TabletFinder::getToolType (X11InputDevice& device) const
 {
     QList<long> toolTypeAtoms;
 
@@ -155,31 +270,3 @@ const QString X11TabletFinder::getToolType(X11InputDevice& device)
     return toolTypeName;
 }
 
-
-bool X11TabletFinder::parseToolType(const QString& toolType, const QString& deviceName)
-{
-    Q_D(X11TabletFinder);
-
-    if( toolType.contains( QLatin1String( "pad" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.setDeviceName (DeviceType::Pad, deviceName);
-        return true;
-
-    } else if( toolType.contains( QLatin1String( "eraser" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.setDeviceName (DeviceType::Eraser, deviceName);
-        return true;
-
-    } else if( toolType.contains( QLatin1String( "cursor" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.setDeviceName (DeviceType::Cursor, deviceName);
-        return true;
-
-    } else if( toolType.contains( QLatin1String( "touch" ),  Qt::CaseInsensitive ) ) {
-        d->tabletinformation.setDeviceName (DeviceType::Touch, deviceName);
-        return true;
-
-    } else if( toolType.contains( QLatin1String( "stylus" ), Qt::CaseInsensitive ) ) {
-        d->tabletinformation.setDeviceName (DeviceType::Stylus, deviceName);
-        return true;
-    }
-
-    return false;
-}

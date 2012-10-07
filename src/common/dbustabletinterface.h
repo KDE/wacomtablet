@@ -21,7 +21,6 @@
 #define DBUSTABLETINTERFACE_H
 
 #include "tabletinfo.h"
-#include "tabletinformation.h"
 #include "devicetype.h"
 #include "property.h"
 

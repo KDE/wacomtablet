@@ -21,7 +21,6 @@
 #define EVENTNOTIFIER_H
 
 #include "tabletrotation.h"
-#include "tabletinformation.h"
 
 #include <QtGui/QWidget>
 
@@ -30,20 +29,17 @@ namespace Wacom
 
 /**
  * Event notifier which registers with the window system and sends
- * events when tablets are connected/removed. It can also be used
- * to manually scan for devices.
+ * events when tablets are connected/removed or the screen is
+ * rotated.
+ *
+ * This interface only exists so we can create a mock object for unit testing.
  */
 class EventNotifier : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit EventNotifier(QWidget *parent = 0);
     virtual ~EventNotifier();
-
-
-    //! Scan for devices and emit signals if found.
-    virtual void scan() = 0;
 
     //! Registers the notifier with the window system.
     virtual void start() = 0;
@@ -58,14 +54,14 @@ Q_SIGNALS:
      *
      * @param info The tablet information gathered from the window system.
      */
-    void tabletAdded (const TabletInformation& info);
+    void tabletAdded (int deviceId);
 
     /**
      * Emitted when a tablet is removed.
      *
      * @param info The which was removed.
      */
-    void tabletRemoved (const TabletInformation& info);
+    void tabletRemoved (int deviceId);
 
     /**
      * Emitted when the screen is rotated.
@@ -73,6 +69,10 @@ Q_SIGNALS:
      * @param tabletRotation The rotation direction.
      */
     void screenRotated (const TabletRotation& tabletRotation);
+
+
+protected:
+    explicit EventNotifier(QWidget *parent = 0);
 
 }; // CLASS
 }  // NAMESPACE

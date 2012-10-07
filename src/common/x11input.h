@@ -20,7 +20,6 @@
 #ifndef X11INPUT_H
 #define X11INPUT_H
 
-#include "tabletinformation.h"
 #include "x11inputdevice.h"
 #include "x11inputvisitor.h"
 
@@ -35,6 +34,7 @@ public:
      * Properties we are interested in.
      */
     static const QString PROPERTY_DEVICE_PRODUCT_ID;
+    static const QString PROPERTY_DEVICE_NODE;
     static const QString PROPERTY_TRANSFORM_MATRIX;
     static const QString PROPERTY_WACOM_SERIAL_IDS;
     static const QString PROPERTY_WACOM_TOOL_TYPE;
@@ -48,14 +48,6 @@ public:
      * @return True if device was found, else false.
      */
     static bool findDevice (const QString& deviceName, X11InputDevice& device);
-
-    /**
-     * Find tablet if available. If a tablet was found the tablet information
-     * structure will have the available flag set to true.
-     *
-     * @return A tablet information structure.
-     */
-    static TabletInformation findTablet();
 
     /**
      * Get float property values as string.

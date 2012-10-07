@@ -132,17 +132,30 @@ bool X11InputDevice::close()
 
 
 
-Display* X11InputDevice::getDisplay()
+bool X11InputDevice::getAtomProperty(const QString& property, QList< long int >& values, long int nelements)
 {
-    Q_D(X11InputDevice);
-    return d->display;
+    return getProperty<long>(property, XA_ATOM, nelements, values);
 }
 
 
 
-bool X11InputDevice::getAtomProperty(const QString& property, QList< long int >& values, long int nelements)
+long X11InputDevice::getDeviceId() const
 {
-    return getProperty<long>(property, XA_ATOM, nelements, values);
+    Q_D(const X11InputDevice);
+
+    if (!isOpen()) {
+        return 0;
+    }
+
+    return d->device->device_id;
+}
+
+
+
+Display* X11InputDevice::getDisplay()
+{
+    Q_D(X11InputDevice);
+    return d->display;
 }
 
 
@@ -174,6 +187,35 @@ const QString& X11InputDevice::getName() const
 {
     Q_D(const X11InputDevice);
     return d->name;
+}
+
+
+
+bool X11InputDevice::getStringProperty(const QString& property, QList< QString >& values, long int nelements)
+{
+    // get property data & values
+    unsigned char* data           = NULL;
+    unsigned long  nitems         = 0;
+    int            expectedFormat = 8;
+
+    if (!getPropertyData(property, XA_STRING, expectedFormat, nelements, &data, &nitems)) {
+        return false;
+    }
+
+    unsigned char* strData = data;
+
+    for (unsigned long i = 0 ; i < nitems ; ++i) {
+        // add first string value up to '\0'
+        QString value = QLatin1String ((const char*)strData);
+        values.append(value);
+
+        // ++i will jump over '\0'
+        i       += value.length();
+        strData += value.length();
+    }
+
+    XFree(data);
+    return true;
 }
 
 
@@ -353,9 +395,27 @@ bool X11InputDevice::setLongProperty(const QString& property, const QList<long>&
 template<typename T>
 bool X11InputDevice::getProperty(const QString& property, Atom expectedType, long nelements, QList<T>& values)
 {
-    Q_D(X11InputDevice);
+    // get property data & values
+    long*          data           = NULL;
+    unsigned long  nitems         = 0;
+    int            expectedFormat = 32;
 
-    int expectedFormat = 32;
+    if (!getPropertyData(property, expectedType, expectedFormat, nelements, (unsigned char**)&data, &nitems)) {
+        return false;
+    }
+
+    for (unsigned long i = 0 ; i < nitems ; ++i) {
+        values.append(*((T*)(data + i)));
+    }
+
+    return true;
+}
+
+
+
+bool X11InputDevice::getPropertyData (const QString& property, Atom expectedType, int expectedFormat, long nelements, unsigned char** data, unsigned long* nitems)
+{
+    Q_D(X11InputDevice);
 
     // check parameters
     if (!isOpen()) {
@@ -377,13 +437,11 @@ bool X11InputDevice::getProperty(const QString& property, Atom expectedType, lon
     }
 
     // get device property and validate it
-    long          *data         = NULL;
-    unsigned long  nitems       = 0;
-    unsigned long  bytes_after  = 0;
     Atom           actualType   = None;
     int            actualFormat = 0;
+    unsigned long  bytes_after  = 0;
 
-    if (XGetDeviceProperty (d->display, d->device, propertyAtom, 0, nelements, False, AnyPropertyType, &actualType, &actualFormat, &nitems, &bytes_after, (unsigned char**)&data) != Success) {
+    if (XGetDeviceProperty (d->display, d->device, propertyAtom, 0, nelements, False, AnyPropertyType, &actualType, &actualFormat, nitems, &bytes_after, data) != Success) {
         kError() << QString::fromLatin1("Could not get XInput property '%1'!").arg(property);
         return false;
     }
@@ -394,12 +452,6 @@ bool X11InputDevice::getProperty(const QString& property, Atom expectedType, lon
         return false;
     }
 
-    // copy values
-    for (unsigned long i = 0 ; i < nitems ; i++) {
-        values.append(*((T*)(data + i)));
-    }
-
-    XFree(data);
     return true;
 }
 

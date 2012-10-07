@@ -99,7 +99,7 @@ private:
      * Sets up the X event notifier.
      * This method should only be called by a constructor.
      */
-    void setupXEventNotifier();
+    void setupEventNotifier();
 
 
     Q_DECLARE_PRIVATE(TabletDaemon)

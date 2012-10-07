@@ -41,16 +41,30 @@ namespace Wacom
     {
         public:
             Rotation currentRotation;
+            bool     isStarted;
     };
 }
 
 using namespace Wacom;
 
-XEventNotifier::XEventNotifier(QWidget* parent)
-    : EventNotifier(parent), d_ptr(new XEventNotifierPrivate)
+XEventNotifier::XEventNotifier()
+    : EventNotifier(NULL), d_ptr(new XEventNotifierPrivate)
 {
     Q_D( XEventNotifier );
     d->currentRotation = 0;
+    d->isStarted       = false;
+}
+
+XEventNotifier::XEventNotifier(const XEventNotifier& notifier)
+    : EventNotifier(NULL), d_ptr(new XEventNotifierPrivate)
+{
+    Q_D( XEventNotifier );
+    d->currentRotation = 0;
+    d->isStarted       = false;
+
+    // nothing to do - this class is a singleton and must not be copied
+    // prevent compiler warning about unused parameter at least for debug builds.
+    assert(&notifier != NULL);
 }
 
 XEventNotifier::~XEventNotifier()
@@ -59,26 +73,37 @@ XEventNotifier::~XEventNotifier()
 }
 
 
-
-void XEventNotifier::scan()
+XEventNotifier& XEventNotifier::operator=(const XEventNotifier& notifier)
 {
-    TabletInformation tabletInformation = X11Input::findTablet();
-
-    if (!tabletInformation.isAvailable()) {
-        kDebug() << "No input devices found via xinput!";
-        return;
-    }
-
-    emit tabletAdded(tabletInformation);
+    // nothing to do - this class is a singleton and must not be copied
+    // prevent compiler warning about unused parameter at least for debug builds.
+    assert(&notifier != NULL);
+    return *this;
 }
+
+
+
+XEventNotifier& XEventNotifier::instance()
+{
+    static XEventNotifier instance;
+    return instance;
+}
+
 
 
 
 void XEventNotifier::start()
 {
+    Q_D (XEventNotifier);
+
+    if (d->isStarted) {
+        return;
+    }
+
     if( KApplication::kApplication() != NULL ) {
         registerForNewDeviceEvent(QX11Info::display());
         KApplication::kApplication()->installX11EventFilter(this);
+        d->isStarted = true;
     }
 }
 
@@ -86,8 +111,11 @@ void XEventNotifier::start()
 
 void XEventNotifier::stop()
 {
+    Q_D (XEventNotifier);
+
     if( KApplication::kApplication() != NULL ) {
         KApplication::kApplication()->removeX11EventFilter(this);
+        d->isStarted = false;
     }
 }
 
@@ -113,7 +141,6 @@ void XEventNotifier::handleX11InputEvent(XEvent* event)
 {
     XGenericEventCookie *cookie       = &event->xcookie;
     bool                 ownEventData = XGetEventData(QX11Info::display(), cookie);
-    TabletInformation    tabletInfo;
 
     if(cookie->data)
     {
@@ -124,8 +151,7 @@ void XEventNotifier::handleX11InputEvent(XEvent* event)
         {
             if (info[i].flags & XISlaveRemoved) {
                 kDebug() << "Device removed with id: " << info[i].deviceid;
-                tabletInfo.set(TabletInfo::DeviceId, QString::number(info[i].deviceid));
-                emit tabletRemoved(tabletInfo);
+                emit tabletRemoved(info[i].deviceid);
 
             } else if (info[i].flags & XISlaveAdded) {
 
@@ -133,17 +159,7 @@ void XEventNotifier::handleX11InputEvent(XEvent* event)
 
                 if (device.isOpen() && device.isTabletDevice()) {
                     kDebug() << "Wacom Tablet Device added with id: " << info[i].deviceid;
-
-                    tabletInfo = X11Input::findTablet();
-
-                    if (tabletInfo.isAvailable()) {
-                        tabletInfo.set(TabletInfo::DeviceId, QString::number(info[i].deviceid));
-                        emit tabletAdded(tabletInfo);
-                        break;
-
-                    } else {
-                        kError() << "No input devices found via xinput altough an X event was fired!";
-                    }
+                    emit tabletAdded(info[i].deviceid);
                 }
             }
         }

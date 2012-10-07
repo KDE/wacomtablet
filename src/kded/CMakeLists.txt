@@ -18,6 +18,7 @@ set(kded_wacomtablet_SRCS
     tabletbackend.cpp
     tabletbackendfactory.cpp
     tabletdaemon.cpp
+    tabletfinder.cpp
     tablethandler.cpp
     xeventnotifier.cpp
     xinputadaptor.cpp

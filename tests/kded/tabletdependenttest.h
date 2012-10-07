@@ -41,9 +41,6 @@ public:
 
     void findTablet();
 
-    //! Returns the expected tablet information - this has to be set before the test case.
-    const TabletInformation getExpectedTabletInformation() const;
-
     //! Returns tablet information about the tablet which was detected.
     const TabletInformation& getTabletInformation() const;
 

@@ -32,14 +32,12 @@ class XEventNotifier : public EventNotifier
     Q_OBJECT
 
 public:
-
-    explicit XEventNotifier(QWidget* parent = 0);
     virtual ~XEventNotifier();
 
     /**
-     * @see EventNotifier::scan()
+     * Returns an instance of this class.
      */
-    void scan();
+    static XEventNotifier& instance();
 
     /**
      * @see EventNotifier::start()
@@ -61,6 +59,9 @@ protected:
 
 
 private:
+    XEventNotifier();
+    explicit XEventNotifier(const XEventNotifier& notifier);
+    XEventNotifier& operator= (const XEventNotifier& notifier);
 
     /**
      * Handles X11 input events which signal adding or removal of a device.

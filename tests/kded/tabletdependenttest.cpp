@@ -19,7 +19,7 @@
 
 #include "debug.h"
 #include "tabletdependenttest.h"
-#include "x11input.h"
+#include "x11tabletfinder.h"
 
 using namespace Wacom;
 
@@ -28,20 +28,6 @@ TabletDependentTest::TabletDependentTest(QObject* parent) : QObject(parent)
     m_isTabletAvailable = false;
 }
 
-
-
-const TabletInformation TabletDependentTest::getExpectedTabletInformation() const
-{
-    TabletInformation expected;
-
-    expected.setDeviceName(DeviceType::Eraser, QLatin1String("Wacom Bamboo 16FG 6x8 Pen eraser"));
-    expected.setDeviceName(DeviceType::Pad,    QLatin1String("Wacom Bamboo 16FG 6x8 Finger pad"));
-    expected.setDeviceName(DeviceType::Stylus, QLatin1String("Wacom Bamboo 16FG 6x8 Pen stylus"));
-    expected.setDeviceName(DeviceType::Touch,  QLatin1String("Wacom Bamboo 16FG 6x8 Finger touch"));
-    expected.setButtons(true);
-
-    return expected;
-}
 
 
 const TabletInformation& TabletDependentTest::getTabletInformation() const
@@ -60,10 +46,11 @@ bool TabletDependentTest::isTabletAvailable() const
 
 void TabletDependentTest::findTablet()
 {
+    X11TabletFinder tabletFinder;
     m_isTabletAvailable = false;
-    m_tabletInformation = X11Input::findTablet();
 
-    if (m_tabletInformation.isAvailable()) {
+    if (tabletFinder.scanDevices()) {
+        m_tabletInformation = tabletFinder.getDevices().at(0);
         m_isTabletAvailable = true;
     }
 }
@@ -78,7 +65,6 @@ void TabletDependentTest::printTabletInformation(const TabletInformation& info) 
              << QString::fromLatin1("\n  Pad Name     : '%1'").arg(info.getDeviceName(DeviceType::Pad))
              << QString::fromLatin1("\n  Cursor Name  : '%1'").arg(info.getDeviceName(DeviceType::Cursor))
 
-             << QString::fromLatin1("\n\n  X-Device ID  : '%1'").arg(info.get(TabletInfo::DeviceId))
              << QString::fromLatin1("\n  Company ID   : '%1'").arg(info.get(TabletInfo::CompanyId))
              << QString::fromLatin1("\n  Company Name : '%1'").arg(info.get(TabletInfo::CompanyName))
              << QString::fromLatin1("\n  Tablet ID    : '%1'").arg(info.get(TabletInfo::TabletId))
