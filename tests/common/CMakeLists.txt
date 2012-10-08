@@ -26,6 +26,7 @@ add_qttest(testdeviceprofile testdeviceprofile.cpp ${TEST_SOURCES})
 add_qttest(testtabletprofile testtabletprofile.cpp ${TEST_SOURCES})
 add_qttest(testdeviceinformation testdeviceinformation.cpp ${TEST_SOURCES})
 add_qttest(testdeviceprofileconfigadaptor testdeviceprofileconfigadaptor.cpp ${TEST_SOURCES})
+add_qttest(testtabletinformation testtabletinformation.cpp ${TEST_SOURCES})
 add_qttest(testtabletprofileconfigadaptor testtabletprofileconfigadaptor.cpp ${TEST_SOURCES})
 add_qttest(testprofilemanager testprofilemanager.cpp ${TEST_SOURCES})
 

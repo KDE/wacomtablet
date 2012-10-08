@@ -23,6 +23,7 @@
 #include "deviceinformation.h"
 #include "deviceprofile.h"
 #include "devicetype.h"
+#include "tabletinformation.h"
 
 #include <QtCore/QString>
 
@@ -35,11 +36,29 @@ public:
      * Expected Values
      */
 
-    static const long    DEVICEINFORMATION_DEVICE_ID;
-    static const QString DEVICEINFORMATION_DEVICE_NODE;
-    static const long    DEVICEINFORMATION_PRODUCT_ID;
-    static const long    DEVICEINFORMATION_TABLET_SERIAL;
-    static const long    DEVICEINFORMATION_VENDOR_ID;
+    static const long       DEVICEINFORMATION_DEVICE_ID;
+    static const QString    DEVICEINFORMATION_DEVICE_NODE;
+    static const long       DEVICEINFORMATION_PRODUCT_ID;
+    static const long       DEVICEINFORMATION_TABLET_SERIAL;
+    static const long       DEVICEINFORMATION_VENDOR_ID;
+
+    static const QString    TABLETINFORMATION_COMPANY_ID;
+    static const QString    TABLETINFORMATION_COMPANY_NAME;
+    static const QString    TABLETINFORMATION_TABLET_MODEL;
+    static const QString    TABLETINFORMATION_TABLET_NAME;
+    static const QString    TABLETINFORMATION_TABLET_SERIAL;
+    static const QString    TABLETINFORMATION_TABLET_ID;
+    static const bool       TABLETINFORMATION_HAS_BUTTONS;
+    static const bool       TABLETINFORMATION_IS_AVAILABLE;
+
+    static const QString    TABLETINFORMATION_DEV1_NAME;
+    static const QString    TABLETINFORMATION_DEV1_TYPE;
+
+    static const QString    TABLETINFORMATION_DEV2_NAME;
+    static const QString    TABLETINFORMATION_DEV2_TYPE;
+
+    static const QString    TABLETINFORMATION_DEV3_NAME;
+    static const QString    TABLETINFORMATION_DEV3_TYPE;
 
 
     /*
@@ -50,9 +69,13 @@ public:
 
     static void assertValues (DeviceProfile& profile, const char* name = NULL);
 
+    static void assertValues (const TabletInformation& info);
+
     static void setValues (DeviceInformation& info);
 
     static void setValues (DeviceProfile& profile);
+
+    static void setValues (TabletInformation& info);
 
 }; // CLASS
 }  // NAMESPACE

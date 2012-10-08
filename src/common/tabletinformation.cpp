@@ -68,7 +68,7 @@ namespace Wacom
                 // we don't care if the device is available or not
                 if (hasButtons       != that.hasButtons     ||
                     infoMap.size()   != that.infoMap.size() ||
-                    deviceMap.size() != that.infoMap.size()
+                    deviceMap.size() != that.deviceMap.size()
                    )
                 {
                     return false;
