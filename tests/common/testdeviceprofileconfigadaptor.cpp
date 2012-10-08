@@ -27,7 +27,7 @@
 #include "deviceprofile.h"
 #include "deviceprofileconfigadaptor.h"
 
-#include "deviceprofiletestutils.h"
+#include "commontestutils.h"
 #include "testdeviceprofileconfigadaptor.moc"
 
 using namespace Wacom;
@@ -45,7 +45,7 @@ void TestDeviceProfileConfigAdaptor::testConfig()
     KConfigGroup configGroup = KConfigGroup( config, QLatin1String("DEVICE") );
 
     DeviceProfile writeProfile;
-    DeviceProfileTestUtils::setValues(writeProfile);
+    CommonTestUtils::setValues(writeProfile);
 
     DeviceProfileConfigAdaptor writeAdaptor(writeProfile);
     writeAdaptor.saveConfig(configGroup);
@@ -57,5 +57,5 @@ void TestDeviceProfileConfigAdaptor::testConfig()
     DeviceProfileConfigAdaptor readAdaptor(readProfile);
     readAdaptor.loadConfig(configGroup);
 
-    DeviceProfileTestUtils::assertValues(readProfile);
+    CommonTestUtils::assertValues(readProfile);
 }

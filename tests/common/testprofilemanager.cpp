@@ -22,7 +22,7 @@
 #include <QTemporaryFile>
 
 #include "deviceprofile.h"
-#include "deviceprofiletestutils.h"
+#include "commontestutils.h"
 #include "tabletprofile.h"
 #include "profilemanager.h"
 
@@ -42,8 +42,8 @@ void TestProfileManager::testConfig()
     DeviceProfile writeDeviceProfile2;
     DeviceType    writeDeviceProfile2Type = DeviceType::Eraser;
 
-    DeviceProfileTestUtils::setValues(writeDeviceProfile1);
-    DeviceProfileTestUtils::setValues(writeDeviceProfile2);
+    CommonTestUtils::setValues(writeDeviceProfile1);
+    CommonTestUtils::setValues(writeDeviceProfile2);
     writeDeviceProfile1.setDeviceType(writeDeviceProfile1Type);;
     writeDeviceProfile2.setDeviceType(writeDeviceProfile2Type);;
 
@@ -77,7 +77,7 @@ void TestProfileManager::testConfig()
     QCOMPARE(writeDeviceProfile1.getName(), readDeviceProfile1.getName());
     QCOMPARE(writeDeviceProfile2.getName(), readDeviceProfile2.getName());
 
-    DeviceProfileTestUtils::assertValues(readDeviceProfile1, writeDeviceProfile1Type.key().toLatin1().constData());
-    DeviceProfileTestUtils::assertValues(readDeviceProfile2, writeDeviceProfile2Type.key().toLatin1().constData());
+    CommonTestUtils::assertValues(readDeviceProfile1, writeDeviceProfile1Type.key().toLatin1().constData());
+    CommonTestUtils::assertValues(readDeviceProfile2, writeDeviceProfile2Type.key().toLatin1().constData());
 }
 

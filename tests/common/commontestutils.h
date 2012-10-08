@@ -17,18 +17,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEVICEPROFILETESTUTILS_H
-#define DEVICEPROFILETESTUTILS_H
+#ifndef COMMONTESTUTILS_H
+#define COMMONTESTUTILS_H
 
+#include "deviceinformation.h"
 #include "deviceprofile.h"
+#include "devicetype.h"
+
+#include <QtCore/QString>
 
 namespace Wacom {
 
-class DeviceProfileTestUtils
+class CommonTestUtils
 {
 public:
-    static void assertValues(Wacom::DeviceProfile& profile, const char* name = NULL);
-    static void setValues(DeviceProfile& profile);
-};
-}      // NAMESPACE
+    /*
+     * Expected Values
+     */
+
+    static const long    DEVICEINFORMATION_DEVICE_ID;
+    static const QString DEVICEINFORMATION_DEVICE_NODE;
+    static const long    DEVICEINFORMATION_PRODUCT_ID;
+    static const long    DEVICEINFORMATION_TABLET_SERIAL;
+    static const long    DEVICEINFORMATION_VENDOR_ID;
+
+
+    /*
+     * Helper Methods
+     */
+
+    static void assertValues (const DeviceInformation& info, const DeviceType& expectedType, const QString& expectedName);
+
+    static void assertValues (DeviceProfile& profile, const char* name = NULL);
+
+    static void setValues (DeviceInformation& info);
+
+    static void setValues (DeviceProfile& profile);
+
+}; // CLASS
+}  // NAMESPACE
 #endif // HEADER PROTECTION

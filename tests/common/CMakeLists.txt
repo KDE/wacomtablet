@@ -10,7 +10,7 @@ set(TEST_INCLUDES
     ${KDE4_INCLUDES})
 
 ## additional sources which are required for the tests
-set(TEST_SOURCES deviceprofiletestutils.cpp)
+set(TEST_SOURCES commontestutils.cpp)
 
 ## libraries for unit tests
 set(TEST_LIBRARIES wacom_common ${KDE4_KDECORE_LIBS})
@@ -24,6 +24,7 @@ add_qttest(testpropertyset testpropertyset.cpp ${TEST_SOURCES})
 add_qttest(testdeviceproperty testdeviceproperty.cpp ${TEST_SOURCES})
 add_qttest(testdeviceprofile testdeviceprofile.cpp ${TEST_SOURCES})
 add_qttest(testtabletprofile testtabletprofile.cpp ${TEST_SOURCES})
+add_qttest(testdeviceinformation testdeviceinformation.cpp ${TEST_SOURCES})
 add_qttest(testdeviceprofileconfigadaptor testdeviceprofileconfigadaptor.cpp ${TEST_SOURCES})
 add_qttest(testtabletprofileconfigadaptor testtabletprofileconfigadaptor.cpp ${TEST_SOURCES})
 add_qttest(testprofilemanager testprofilemanager.cpp ${TEST_SOURCES})

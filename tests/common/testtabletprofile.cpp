@@ -18,7 +18,7 @@
  */
 
 #include "deviceprofile.h"
-#include "deviceprofiletestutils.h"
+#include "commontestutils.h"
 #include "tabletprofile.h"
 
 #include "testtabletprofile.moc"
@@ -56,10 +56,10 @@ void TestTabletProfile::testCopy()
     DeviceType    profile1Type = DeviceType::Stylus;
     DeviceProfile profile2;
     DeviceType    profile2Type = DeviceType::Eraser;
-    DeviceProfileTestUtils::setValues(profile1);
-    DeviceProfileTestUtils::setValues(profile2);
+    CommonTestUtils::setValues(profile1);
+    CommonTestUtils::setValues(profile2);
 
-    // names have to be set AFTER DeviceProfileTestUtils::setValues()
+    // names have to be set AFTER CommonTestUtils::setValues()
     profile1.setDeviceType(profile1Type);
     profile2.setDeviceType(profile2Type);;
 
@@ -78,15 +78,15 @@ void TestTabletProfile::testCopy()
     DeviceProfile profile1Copy = tabletProfileCopy.getDevice(profile1Type);
     DeviceProfile profile2Copy = tabletProfileCopy.getDevice(profile2Type);
 
-    DeviceProfileTestUtils::assertValues(profile1Copy, profile1Type.key().toLatin1().constData());
-    DeviceProfileTestUtils::assertValues(profile2Copy, profile2Type.key().toLatin1().constData());
+    CommonTestUtils::assertValues(profile1Copy, profile1Type.key().toLatin1().constData());
+    CommonTestUtils::assertValues(profile2Copy, profile2Type.key().toLatin1().constData());
 }
 
 void TestTabletProfile::testSetDevice()
 {
     DeviceType    deviceType = DeviceType::Cursor;
     DeviceProfile deviceProfile;
-    DeviceProfileTestUtils::setValues(deviceProfile);
+    CommonTestUtils::setValues(deviceProfile);
     deviceProfile.setDeviceType(deviceType);
 
     TabletProfile tabletProfile(QLatin1String("TABLET"));
@@ -96,6 +96,6 @@ void TestTabletProfile::testSetDevice()
     QVERIFY(tabletProfile.listDevices().size() == 1);
 
     DeviceProfile getProfile = tabletProfile.getDevice(deviceType);
-    DeviceProfileTestUtils::assertValues(getProfile, deviceType.key().toLatin1().constData());
+    CommonTestUtils::assertValues(getProfile, deviceType.key().toLatin1().constData());
 }
 

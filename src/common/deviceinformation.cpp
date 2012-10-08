@@ -31,7 +31,7 @@ namespace Wacom
             DeviceType deviceType;
             long       deviceId;
             long       productId;
-            long       tabletId;
+            long       tabletSerial;
             long       vendorId;
     };
 }
@@ -43,11 +43,11 @@ DeviceInformation::DeviceInformation (const DeviceType& deviceType, const QStrin
 {
     Q_D (DeviceInformation);
 
-    d->deviceId   = 0;
-    d->deviceName = deviceName;
-    d->productId  = 0;
-    d->tabletId   = 0;
-    d->vendorId   = 0;
+    d->deviceId     = 0;
+    d->deviceName   = deviceName;
+    d->productId    = 0;
+    d->tabletSerial = 0;
+    d->vendorId     = 0;
 }
 
 
@@ -69,13 +69,13 @@ DeviceInformation& DeviceInformation::operator= (const DeviceInformation& that)
 {
     Q_D (DeviceInformation);
 
-    d->deviceId   = that.d_ptr->deviceId;
-    d->deviceName = that.d_ptr->deviceName;
-    d->deviceNode = that.d_ptr->deviceNode;
-    d->deviceType = that.d_ptr->deviceType;
-    d->productId  = that.d_ptr->productId;
-    d->tabletId   = that.d_ptr->tabletId;
-    d->vendorId   = that.d_ptr->vendorId;
+    d->deviceId     = that.d_ptr->deviceId;
+    d->deviceName   = that.d_ptr->deviceName;
+    d->deviceNode   = that.d_ptr->deviceNode;
+    d->deviceType   = that.d_ptr->deviceType;
+    d->productId    = that.d_ptr->productId;
+    d->tabletSerial = that.d_ptr->tabletSerial;
+    d->vendorId     = that.d_ptr->vendorId;
 
     return *this;
 }
@@ -95,11 +95,11 @@ bool DeviceInformation::operator== (const DeviceInformation& that) const
 
     if (d->deviceName.compare(that.d_ptr->deviceName, Qt::CaseInsensitive) != 0 ||
         d->deviceNode.compare(that.d_ptr->deviceNode, Qt::CaseInsensitive) != 0 ||
-        d->deviceId   != that.d_ptr->deviceId   ||
-        d->deviceType != that.d_ptr->deviceType ||
-        d->productId  != that.d_ptr->productId  ||
-        d->tabletId   != that.d_ptr->tabletId   ||
-        d->vendorId   != that.d_ptr->vendorId)
+        d->deviceId     != that.d_ptr->deviceId   ||
+        d->deviceType   != that.d_ptr->deviceType ||
+        d->productId    != that.d_ptr->productId  ||
+        d->tabletSerial != that.d_ptr->tabletSerial   ||
+        d->vendorId     != that.d_ptr->vendorId)
     {
         return false;
     }
@@ -142,7 +142,7 @@ long int DeviceInformation::getProductId() const
 long int DeviceInformation::getTabletSerial() const
 {
     Q_D (const DeviceInformation);
-    return d->tabletId;
+    return d->tabletSerial;
 }
 
 
@@ -186,10 +186,10 @@ void DeviceInformation::setProductId (long productId)
 
 
 
-void DeviceInformation::setTabletSerial (long tabletId)
+void DeviceInformation::setTabletSerial (long tabletSerial)
 {
     Q_D (DeviceInformation);
-    d->tabletId = tabletId;
+    d->tabletSerial = tabletSerial;
 }
 
 

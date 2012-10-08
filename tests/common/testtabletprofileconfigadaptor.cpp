@@ -25,7 +25,7 @@
 #include <KDE/KConfigGroup>
 
 #include "deviceprofile.h"
-#include "deviceprofiletestutils.h"
+#include "commontestutils.h"
 #include "tabletprofile.h"
 #include "tabletprofileconfigadaptor.h"
 
@@ -50,8 +50,8 @@ void TestTabletProfileConfigAdaptor::testConfig()
     DeviceType    writeDeviceProfile1Type = DeviceType::Eraser;
     DeviceProfile writeDeviceProfile2;
     DeviceType    writeDeviceProfile2Type = DeviceType::Stylus;
-    DeviceProfileTestUtils::setValues(writeDeviceProfile1);
-    DeviceProfileTestUtils::setValues(writeDeviceProfile2);
+    CommonTestUtils::setValues(writeDeviceProfile1);
+    CommonTestUtils::setValues(writeDeviceProfile2);
     writeDeviceProfile1.setDeviceType(writeDeviceProfile1Type);;
     writeDeviceProfile2.setDeviceType(writeDeviceProfile2Type);
 
@@ -75,6 +75,6 @@ void TestTabletProfileConfigAdaptor::testConfig()
     DeviceProfile readDeviceProfile1 = readTabletProfile.getDevice(writeDeviceProfile1Type);
     DeviceProfile readDeviceProfile2 = readTabletProfile.getDevice(writeDeviceProfile2Type);
 
-    DeviceProfileTestUtils::assertValues(readDeviceProfile1, writeDeviceProfile1Type.key().toLatin1().constData());
-    DeviceProfileTestUtils::assertValues(readDeviceProfile2, writeDeviceProfile2Type.key().toLatin1().constData());
+    CommonTestUtils::assertValues(readDeviceProfile1, writeDeviceProfile1Type.key().toLatin1().constData());
+    CommonTestUtils::assertValues(readDeviceProfile2, writeDeviceProfile2Type.key().toLatin1().constData());
 }

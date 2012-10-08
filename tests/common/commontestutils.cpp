@@ -21,13 +21,32 @@
 #include <QtCore>
 #include <QString>
 
-#include "deviceprofiletestutils.h"
+#include "commontestutils.h"
 
 #include "deviceproperty.h"
 
 using namespace Wacom;
 
-void DeviceProfileTestUtils::assertValues(DeviceProfile& profile, const char* name)
+const long    CommonTestUtils::DEVICEINFORMATION_DEVICE_ID     = 42;
+const QString CommonTestUtils::DEVICEINFORMATION_DEVICE_NODE   = QLatin1String("/dev/input/event1");
+const long    CommonTestUtils::DEVICEINFORMATION_PRODUCT_ID    = 1234;
+const long    CommonTestUtils::DEVICEINFORMATION_TABLET_SERIAL = 123456;
+const long    CommonTestUtils::DEVICEINFORMATION_VENDOR_ID     = 4321;
+
+void CommonTestUtils::assertValues(const DeviceInformation& info, const DeviceType& expectedType, const QString& expectedName)
+{
+    QVERIFY  (info.getDeviceId() == DEVICEINFORMATION_DEVICE_ID);
+    QCOMPARE (info.getDeviceNode(), DEVICEINFORMATION_DEVICE_NODE);
+    QCOMPARE (info.getName(), expectedName);
+    QVERIFY  (info.getProductId() == DEVICEINFORMATION_PRODUCT_ID);
+    QVERIFY  (info.getTabletSerial() == DEVICEINFORMATION_TABLET_SERIAL);
+    QVERIFY  (info.getType() == expectedType);
+    QVERIFY  (info.getVendorId() == DEVICEINFORMATION_VENDOR_ID);
+}
+
+
+
+void CommonTestUtils::assertValues(DeviceProfile& profile, const char* name)
 {
     foreach(const DeviceProperty& property, DeviceProperty::list()) {
         QCOMPARE(profile.getProperty(property.id()), property.id().key());
@@ -41,7 +60,19 @@ void DeviceProfileTestUtils::assertValues(DeviceProfile& profile, const char* na
 }
 
 
-void DeviceProfileTestUtils::setValues(DeviceProfile& profile)
+
+void CommonTestUtils::setValues(DeviceInformation& info)
+{
+    info.setDeviceId (DEVICEINFORMATION_DEVICE_ID);
+    info.setDeviceNode (DEVICEINFORMATION_DEVICE_NODE);
+    info.setProductId (DEVICEINFORMATION_PRODUCT_ID);
+    info.setTabletSerial (DEVICEINFORMATION_TABLET_SERIAL);
+    info.setVendorId (DEVICEINFORMATION_VENDOR_ID);
+}
+
+
+
+void CommonTestUtils::setValues(DeviceProfile& profile)
 {
     foreach(const DeviceProperty& property, DeviceProperty::list()) {
         profile.setProperty(property.id(), property.id().key());

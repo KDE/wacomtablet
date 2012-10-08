@@ -17,40 +17,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "deviceprofile.h"
-#include "commontestutils.h"
-#include "testdeviceprofile.moc"
+#ifndef TESTDEVICEINFORMATION_H
+#define TESTDEVICEINFORMATION_H
 
-using namespace Wacom;
+#include <QtTest>
+#include <QtCore>
+#include <QString>
 
-void TestDeviceProfile::testConstructor()
+namespace Wacom
 {
-    DeviceProfile profile1;
-    QVERIFY (profile1.getName().isEmpty());
+class TestDeviceInformation : public QObject
+{
+    Q_OBJECT
 
-    DeviceProfile profile2(DeviceType::Stylus);
-    QCOMPARE (profile2.getDeviceType(), DeviceType::Stylus.key());
-    QCOMPARE (profile2.getName(),       DeviceType::Stylus.key());
+private slots:
+
+    void testCompare();
+
+    void testConstructor();
+
+    void testCopy();
+
+    void testSetter();
+};
 }
 
-void TestDeviceProfile::testCopy()
-{
-    DeviceProfile profile1;
-    DeviceProfile profile2;
+QTEST_MAIN(Wacom::TestDeviceInformation)
 
-    CommonTestUtils::setValues(profile1);
-    profile2 = profile1;
-    CommonTestUtils::assertValues(profile2);
-
-    DeviceProfile profile3(profile2);
-    CommonTestUtils::assertValues(profile3);
-}
-
-void TestDeviceProfile::testSetter()
-{
-    DeviceProfile profile;
-
-    CommonTestUtils::setValues(profile);
-    CommonTestUtils::assertValues(profile);
-}
-
+#endif
