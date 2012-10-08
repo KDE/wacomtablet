@@ -148,7 +148,7 @@ void TabletHandler::onTabletRemoved( const TabletInformation& info )
 
 
 
-void TabletHandler::onScreenRotated( const TabletRotation& screenRotation )
+void TabletHandler::onScreenRotated( const ScreenRotation& screenRotation )
 {
     Q_D( TabletHandler );
 

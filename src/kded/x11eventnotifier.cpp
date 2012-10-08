@@ -18,7 +18,7 @@
  */
 
 #include "debug.h"
-#include "xeventnotifier.h"
+#include "x11eventnotifier.h"
 
 #include "x11input.h"
 #include "x11inputdevice.h"
@@ -37,7 +37,7 @@
 
 namespace Wacom
 {
-    class XEventNotifierPrivate
+    class X11EventNotifierPrivate
     {
         public:
             Rotation currentRotation;
@@ -47,18 +47,18 @@ namespace Wacom
 
 using namespace Wacom;
 
-XEventNotifier::XEventNotifier()
-    : EventNotifier(NULL), d_ptr(new XEventNotifierPrivate)
+X11EventNotifier::X11EventNotifier()
+    : EventNotifier(NULL), d_ptr(new X11EventNotifierPrivate)
 {
-    Q_D( XEventNotifier );
+    Q_D( X11EventNotifier );
     d->currentRotation = 0;
     d->isStarted       = false;
 }
 
-XEventNotifier::XEventNotifier(const XEventNotifier& notifier)
-    : EventNotifier(NULL), d_ptr(new XEventNotifierPrivate)
+X11EventNotifier::X11EventNotifier(const X11EventNotifier& notifier)
+    : EventNotifier(NULL), d_ptr(new X11EventNotifierPrivate)
 {
-    Q_D( XEventNotifier );
+    Q_D( X11EventNotifier );
     d->currentRotation = 0;
     d->isStarted       = false;
 
@@ -67,13 +67,13 @@ XEventNotifier::XEventNotifier(const XEventNotifier& notifier)
     assert(&notifier != NULL);
 }
 
-XEventNotifier::~XEventNotifier()
+X11EventNotifier::~X11EventNotifier()
 {
     delete d_ptr;
 }
 
 
-XEventNotifier& XEventNotifier::operator=(const XEventNotifier& notifier)
+X11EventNotifier& X11EventNotifier::operator=(const X11EventNotifier& notifier)
 {
     // nothing to do - this class is a singleton and must not be copied
     // prevent compiler warning about unused parameter at least for debug builds.
@@ -83,18 +83,18 @@ XEventNotifier& XEventNotifier::operator=(const XEventNotifier& notifier)
 
 
 
-XEventNotifier& XEventNotifier::instance()
+X11EventNotifier& X11EventNotifier::instance()
 {
-    static XEventNotifier instance;
+    static X11EventNotifier instance;
     return instance;
 }
 
 
 
 
-void XEventNotifier::start()
+void X11EventNotifier::start()
 {
-    Q_D (XEventNotifier);
+    Q_D (X11EventNotifier);
 
     if (d->isStarted) {
         return;
@@ -109,9 +109,9 @@ void XEventNotifier::start()
 
 
 
-void XEventNotifier::stop()
+void X11EventNotifier::stop()
 {
-    Q_D (XEventNotifier);
+    Q_D (X11EventNotifier);
 
     if( KApplication::kApplication() != NULL ) {
         KApplication::kApplication()->removeX11EventFilter(this);
@@ -121,7 +121,7 @@ void XEventNotifier::stop()
 
 
 
-bool XEventNotifier::x11Event(XEvent* event)
+bool X11EventNotifier::x11Event(XEvent* event)
 {
     XGenericEventCookie *cookie = &event->xcookie;
 
@@ -137,7 +137,7 @@ bool XEventNotifier::x11Event(XEvent* event)
 
 
 
-void XEventNotifier::handleX11InputEvent(XEvent* event)
+void X11EventNotifier::handleX11InputEvent(XEvent* event)
 {
     XGenericEventCookie *cookie       = &event->xcookie;
     bool                 ownEventData = XGetEventData(QX11Info::display(), cookie);
@@ -176,9 +176,9 @@ void XEventNotifier::handleX11InputEvent(XEvent* event)
 
 
 
-void XEventNotifier::handleX11ScreenEvent(XEvent* event)
+void X11EventNotifier::handleX11ScreenEvent(XEvent* event)
 {
-    Q_D( XEventNotifier );
+    Q_D( X11EventNotifier );
     
     int m_eventBase;
     int m_errorBase;
@@ -194,16 +194,16 @@ void XEventNotifier::handleX11ScreenEvent(XEvent* event)
         if (old_r != d->currentRotation) {
             switch (d->currentRotation) {
                     case RR_Rotate_0:
-                        emit screenRotated(TabletRotation::NONE);
+                        emit screenRotated(ScreenRotation::NONE);
                         break;
                     case RR_Rotate_90:
-                        emit screenRotated(TabletRotation::CCW);
+                        emit screenRotated(ScreenRotation::CCW);
                         break;
                     case RR_Rotate_180:
-                        emit screenRotated(TabletRotation::HALF);
+                        emit screenRotated(ScreenRotation::HALF);
                         break;
                     case RR_Rotate_270:
-                        emit screenRotated(TabletRotation::CW);
+                        emit screenRotated(ScreenRotation::CW);
                         break;
             }
         }
@@ -212,7 +212,7 @@ void XEventNotifier::handleX11ScreenEvent(XEvent* event)
 
 
 
-int XEventNotifier::registerForNewDeviceEvent(Display* display)
+int X11EventNotifier::registerForNewDeviceEvent(Display* display)
 {
     XIEventMask evmask;
     unsigned char mask[2] = { 0, 0 };

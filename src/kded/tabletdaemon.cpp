@@ -24,7 +24,7 @@
 #include "tabletfinder.h"
 #include "tablethandler.h"
 #include "wacomadaptor.h"
-#include "xeventnotifier.h"
+#include "x11eventnotifier.h"
 #include "../version.h"
 
 // common includes
@@ -90,7 +90,7 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
 
 TabletDaemon::~TabletDaemon()
 {
-    XEventNotifier::instance().stop();
+    X11EventNotifier::instance().stop();
     delete this->d_ptr;
 }
 
@@ -163,13 +163,13 @@ void TabletDaemon::setupEventNotifier()
 {
     Q_D( TabletDaemon );
 
-    connect( &XEventNotifier::instance(), SIGNAL(screenRotated (TabletRotation)),           &(d->tabletHandler),       SLOT(onScreenRotated (TabletRotation)));
-    connect( &XEventNotifier::instance(), SIGNAL(tabletAdded (int)),                        &TabletFinder::instance(), SLOT(onX11TabletAdded (int)));
-    connect( &XEventNotifier::instance(), SIGNAL(tabletRemoved (int)),                      &TabletFinder::instance(), SLOT(onX11TabletRemoved (int)));
+    connect( &X11EventNotifier::instance(), SIGNAL(screenRotated (ScreenRotation)),           &(d->tabletHandler),       SLOT(onScreenRotated (ScreenRotation)));
+    connect( &X11EventNotifier::instance(), SIGNAL(tabletAdded (int)),                        &TabletFinder::instance(), SLOT(onX11TabletAdded (int)));
+    connect( &X11EventNotifier::instance(), SIGNAL(tabletRemoved (int)),                      &TabletFinder::instance(), SLOT(onX11TabletRemoved (int)));
 
     connect( &TabletFinder::instance(),   SIGNAL(tabletAdded (const TabletInformation)),    &(d->tabletHandler),       SLOT(onTabletAdded (const TabletInformation)));
     connect( &TabletFinder::instance(),   SIGNAL(tabletRemoved (const TabletInformation)),  &(d->tabletHandler),       SLOT(onTabletRemoved (const TabletInformation)));
 
-    XEventNotifier::instance().start();
+    X11EventNotifier::instance().start();
 }
 

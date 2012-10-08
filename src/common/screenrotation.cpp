@@ -17,22 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "tabletrotation.h"
+#include "screenrotation.h"
 
 using namespace Wacom;
 
 /*
- * Instanciate static instances-container of the TabletRotation template specialization.
+ * Instanciate static instances-container of the ScreenRotation template specialization.
  * This has to be done here obviously before any instance is created.
  */
 template<>
-TabletRotationTemplateSpecialization::Container TabletRotationTemplateSpecialization::instances = TabletRotationTemplateSpecialization::Container();
+ScreenRotationTemplateSpecialization::Container ScreenRotationTemplateSpecialization::instances = ScreenRotationTemplateSpecialization::Container();
 
 
 /*
  * Instanciate Device Types.
  */
-const TabletRotation TabletRotation::NONE ( QLatin1String("none") );
-const TabletRotation TabletRotation::CCW ( QLatin1String("ccw") );
-const TabletRotation TabletRotation::HALF    ( QLatin1String("half") );
-const TabletRotation TabletRotation::CW ( QLatin1String("cw") );
+const ScreenRotation ScreenRotation::NONE ( QLatin1String("none") );
+const ScreenRotation ScreenRotation::CCW ( QLatin1String("ccw") );
+const ScreenRotation ScreenRotation::HALF    ( QLatin1String("half") );
+const ScreenRotation ScreenRotation::CW ( QLatin1String("cw") );

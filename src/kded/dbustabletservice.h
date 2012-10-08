@@ -23,7 +23,7 @@
 #include "tabletinformation.h"
 #include "tablethandlerinterface.h"
 #include "tabletprofile.h"
-#include "tabletrotation.h"
+#include "screenrotation.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QString>

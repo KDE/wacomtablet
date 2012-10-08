@@ -20,7 +20,7 @@
 #ifndef EVENTNOTIFIER_H
 #define EVENTNOTIFIER_H
 
-#include "tabletrotation.h"
+#include "screenrotation.h"
 
 #include <QtGui/QWidget>
 
@@ -66,9 +66,9 @@ Q_SIGNALS:
     /**
      * Emitted when the screen is rotated.
      *
-     * @param tabletRotation The rotation direction.
+     * @param screenRotation The rotation direction.
      */
-    void screenRotated (const TabletRotation& tabletRotation);
+    void screenRotated (const ScreenRotation& screenRotation);
 
 
 protected:

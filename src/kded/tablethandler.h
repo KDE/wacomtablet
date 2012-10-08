@@ -23,7 +23,7 @@
 #include "property.h"
 #include "tablethandlerinterface.h"
 #include "tabletinformation.h"
-#include "tabletrotation.h"
+#include "screenrotation.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -126,7 +126,7 @@ public Q_SLOTS:
      *
      * @param screenRotation The screen rotation.
      */
-    void onScreenRotated(const TabletRotation& screenRotation);
+    void onScreenRotated(const ScreenRotation& screenRotation);
 
     /**
       * Toggles the stylus/eraser to absolute/relative mode

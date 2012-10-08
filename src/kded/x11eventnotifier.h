@@ -17,27 +17,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XEVENTNOTIFIER_H
-#define XEVENTNOTIFIER_H
+#ifndef X11EVENTNOTIFIER_H
+#define X11EVENTNOTIFIER_H
 
 #include "eventnotifier.h"
 
 namespace Wacom
 {
 
-class XEventNotifierPrivate;
+class X11EventNotifierPrivate;
 
-class XEventNotifier : public EventNotifier
+class X11EventNotifier : public EventNotifier
 {
     Q_OBJECT
 
 public:
-    virtual ~XEventNotifier();
+    virtual ~X11EventNotifier();
 
     /**
      * Returns an instance of this class.
      */
-    static XEventNotifier& instance();
+    static X11EventNotifier& instance();
 
     /**
      * @see EventNotifier::start()
@@ -59,9 +59,9 @@ protected:
 
 
 private:
-    XEventNotifier();
-    explicit XEventNotifier(const XEventNotifier& notifier);
-    XEventNotifier& operator= (const XEventNotifier& notifier);
+    X11EventNotifier();
+    explicit X11EventNotifier(const X11EventNotifier& notifier);
+    X11EventNotifier& operator= (const X11EventNotifier& notifier);
 
     /**
      * Handles X11 input events which signal adding or removal of a device.
@@ -83,8 +83,8 @@ private:
     int registerForNewDeviceEvent(Display* display);
 
 
-    Q_DECLARE_PRIVATE( XEventNotifier )
-    XEventNotifierPrivate *const d_ptr;
+    Q_DECLARE_PRIVATE( X11EventNotifier )
+    X11EventNotifierPrivate *const d_ptr;
 
 }; // CLASS
 }  // NAMESPACE

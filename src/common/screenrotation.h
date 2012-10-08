@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TABLETROTATION_H
-#define TABLETROTATION_H
+#ifndef SCREENROTATION_H
+#define SCREENROTATION_H
 
 #include <QString>
 
@@ -28,43 +28,43 @@
 namespace Wacom
 {
 
-class TabletRotation;
-class TabletRotationTemplateSpecializationLessFunctor;
+class ScreenRotation;
+class ScreenRotationTemplateSpecializationLessFunctor;
 
 /**
  * @brief Helper Typedef! Do not use!
  *
- * This typedef is required by the TabletRotation class. It eases maintenane of template parameters.
+ * This typedef is required by the ScreenRotation class. It eases maintenane of template parameters.
  */
-typedef Enum<TabletRotation, QString, TabletRotationTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> TabletRotationTemplateSpecialization;
+typedef Enum<ScreenRotation, QString, ScreenRotationTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> ScreenRotationTemplateSpecialization;
 
 
 
 /**
  * @brief Helper Class! Do not use!
  *
- * This functor is required by the TabletRotation class to sort its instances.
+ * This functor is required by the ScreenRotation class to sort its instances.
  */
-struct TabletRotationTemplateSpecializationLessFunctor
+struct ScreenRotationTemplateSpecializationLessFunctor
 {
-    bool operator()(const TabletRotationTemplateSpecialization* p1, const TabletRotationTemplateSpecialization* p2)
+    bool operator()(const ScreenRotationTemplateSpecialization* p1, const ScreenRotationTemplateSpecialization* p2)
     {
         return (p1->key() < p2->key());
     }
 };
 
 
-class TabletRotation : public TabletRotationTemplateSpecialization
+class ScreenRotation : public ScreenRotationTemplateSpecialization
 {
 public:
-    static const TabletRotation NONE;
-    static const TabletRotation CCW;
-    static const TabletRotation HALF;
-    static const TabletRotation CW;
+    static const ScreenRotation NONE;
+    static const ScreenRotation CCW;
+    static const ScreenRotation HALF;
+    static const ScreenRotation CW;
 
 private:
 
-    TabletRotation (const QString& key) : TabletRotationTemplateSpecialization(this, key) {}
+    ScreenRotation (const QString& key) : ScreenRotationTemplateSpecialization(this, key) {}
     
 }; // CLASS
 
@@ -72,7 +72,7 @@ private:
  * Declare static instances-container of the template specialization.
  */
 template<>
-TabletRotationTemplateSpecialization::Container TabletRotationTemplateSpecialization::instances;
+ScreenRotationTemplateSpecialization::Container ScreenRotationTemplateSpecialization::instances;
 
 }  // NAMESPACE
 #endif // HEADER PROTECTION

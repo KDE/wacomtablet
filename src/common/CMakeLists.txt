@@ -12,15 +12,11 @@ set(wacom_common_SRC
     profilemanager.cpp
     property.cpp
     propertyadaptor.cpp
-    tabletdatabase.cpp
+    screenrotation.cpp
     tabletinfo.cpp
     tabletinformation.cpp
     tabletprofile.cpp
     tabletprofileconfigadaptor.cpp
-    tabletrotation.cpp
-    x11input.cpp
-    x11inputdevice.cpp
-    x11tabletfinder.cpp
 )
 
 

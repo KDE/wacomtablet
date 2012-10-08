@@ -18,9 +18,13 @@ set(kded_wacomtablet_SRCS
     tabletbackend.cpp
     tabletbackendfactory.cpp
     tabletdaemon.cpp
+    tabletdatabase.cpp
     tabletfinder.cpp
     tablethandler.cpp
-    xeventnotifier.cpp
+    x11eventnotifier.cpp
+    x11input.cpp
+    x11inputdevice.cpp
+    x11tabletfinder.cpp
     xinputadaptor.cpp
     xinputproperty.cpp
     xsetwacomadaptor.cpp
@@ -33,7 +37,7 @@ set(kded_wacomtablet_HDRS
     tabletdaemon.h
     tablethandler.h
     eventnotifier.h
-    xeventnotifier.h
+    x11eventnotifier.h
 )
 
 ## create cpp mocs
