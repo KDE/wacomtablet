@@ -204,6 +204,16 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
+[0027]
+model=PTH-650/K
+layout=bl_4
+name=Wacom Intuos5 touch M
+padbuttons=9
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+
 [0030]
 model=MODEL_PL400
 layout=unknown
@@ -441,6 +451,16 @@ model=CTF_430-U
 layout=unknown
 name=Wacom Bamboo one
 padbuttons=o
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+
+[0084]
+model=PTH-650/K Wireless
+layout=bl_4
+name=Wacom Intuos5 touch M with Wacom Wireless Receiver
+padbuttons=9
 wheel=no
 touchring=yes
 touchstripl=no
