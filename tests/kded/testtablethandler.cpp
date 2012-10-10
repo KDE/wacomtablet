@@ -65,11 +65,11 @@ void TestTabletHandler::initTestCase()
     m_tabletRemoved = false;
     m_backendMock   = NULL;
 
+    TabletBackendFactory::setUnitTest(true);
+
     QString profilePath = KdedTestUtils::getAbsolutePath(QLatin1String("testtablethandler.profilesrc"));
     QString configPath  = KdedTestUtils::getAbsolutePath(QLatin1String("testtablethandler.configrc"));
     m_tabletHandler = new TabletHandler(profilePath, configPath);
-
-    TabletBackendFactory::setUnitTest(true);
 
     connect(m_tabletHandler, SIGNAL(notify(QString,QString,QString)), this, SLOT(onNotify(QString,QString,QString)));
     connect(m_tabletHandler, SIGNAL(profileChanged(QString)),         this, SLOT(onProfileChanged(QString)));
@@ -122,25 +122,25 @@ void TestTabletHandler::testListProfiles()
 void TestTabletHandler::testOnScreenRotated()
 {
     // reset screen rotation
-    m_tabletHandler->setProperty(DeviceType::Stylus, Property::Rotate, TabletRotation::NONE.key());
-    m_tabletHandler->setProperty(DeviceType::Eraser, Property::Rotate, TabletRotation::NONE.key());
-    m_tabletHandler->setProperty(DeviceType::Touch, Property::Rotate, TabletRotation::NONE.key());
+    m_tabletHandler->setProperty(DeviceType::Stylus, Property::Rotate, ScreenRotation::NONE.key());
+    m_tabletHandler->setProperty(DeviceType::Eraser, Property::Rotate, ScreenRotation::NONE.key());
+    m_tabletHandler->setProperty(DeviceType::Touch, Property::Rotate, ScreenRotation::NONE.key());
 
     // we need the test profile set as it has the required property
     QCOMPARE(m_profileChanged, QLatin1String("test"));
 
     // compare start paramters
-    QCOMPARE(TabletRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Eraser, Property::Rotate));
-    QCOMPARE(TabletRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Stylus, Property::Rotate));
-    QCOMPARE(TabletRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Touch, Property::Rotate));
+    QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Eraser, Property::Rotate));
+    QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Stylus, Property::Rotate));
+    QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Touch, Property::Rotate));
     
     // rotate screen
-    m_tabletHandler->onScreenRotated(TabletRotation::HALF);
+    m_tabletHandler->onScreenRotated(ScreenRotation::HALF);
 
     // validate result
-    QCOMPARE(TabletRotation::HALF.key(), m_tabletHandler->getProperty(DeviceType::Eraser, Property::Rotate));
-    QCOMPARE(TabletRotation::HALF.key(), m_tabletHandler->getProperty(DeviceType::Stylus, Property::Rotate));
-    QCOMPARE(TabletRotation::HALF.key(), m_tabletHandler->getProperty(DeviceType::Touch, Property::Rotate));
+    QCOMPARE(ScreenRotation::HALF.key(), m_tabletHandler->getProperty(DeviceType::Eraser, Property::Rotate));
+    QCOMPARE(ScreenRotation::HALF.key(), m_tabletHandler->getProperty(DeviceType::Stylus, Property::Rotate));
+    QCOMPARE(ScreenRotation::HALF.key(), m_tabletHandler->getProperty(DeviceType::Touch, Property::Rotate));
 
     QWARN("testOnScreenRotated(): PASSED!");
 }
@@ -174,32 +174,26 @@ void TestTabletHandler::testOnTabletAdded()
     // create a valid backend for the factory to return
     m_backendMock = new TabletBackendMock();
 
-    m_backendMock->m_tabletInformation.set(TabletInfo::CompanyId, QLatin1String("1234"));
-    m_backendMock->m_tabletInformation.set(TabletInfo::CompanyName, QLatin1String("Company"));
-    m_backendMock->m_tabletInformation.set(TabletInfo::TabletId, QLatin1String("4321"));
-    m_backendMock->m_tabletInformation.set(TabletInfo::TabletModel, QLatin1String("Tablet Model"));
-    m_backendMock->m_tabletInformation.set(TabletInfo::TabletName, QLatin1String("Bamboo Create"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::TabletSerial, QLatin1String("123"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::CompanyId,    QLatin1String("1234"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::CompanyName,  QLatin1String("Company"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::TabletId,     QLatin1String("4321"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::TabletModel,  QLatin1String("Tablet Model"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::TabletName,   QLatin1String("Bamboo Create"));
     m_backendMock->m_tabletInformation.setButtons(true);
     m_backendMock->m_tabletInformation.setAvailable(true);
 
+    DeviceInformation devInfoEraser (DeviceType::Eraser, QLatin1String("Eraser Device"));
+    DeviceInformation devInfoStylus (DeviceType::Stylus, QLatin1String("Stylus Device"));
+    DeviceInformation devInfoTouch  (DeviceType::Touch,  QLatin1String ("Touch Device"));
+
+    m_backendMock->m_tabletInformation.setDevice(devInfoEraser);
+    m_backendMock->m_tabletInformation.setDevice(devInfoStylus);
+    m_backendMock->m_tabletInformation.setDevice(devInfoTouch);
+
     TabletBackendFactory::setTabletBackendMock(m_backendMock);
 
-
-    // a device id of 0 should always fail
-
-    m_tabletHandler->onTabletAdded(basicInfo);
-
-    QVERIFY(!m_tabletAdded);
-    QVERIFY(!m_tabletRemoved);
-    QVERIFY(m_notifyEventId.isEmpty());
-    QVERIFY(m_notifyMessage.isEmpty());
-    QVERIFY(m_notifyTitle.isEmpty());
-    QVERIFY(m_profileChanged.isEmpty());
-
-
-    // add tablet again but this time with a valid device id
-    // this should notify the user, emit a "tablet added" signal, notify the user and emit a "profile changed" signal
-
+    // add a tablet
     m_tabletHandler->onTabletAdded(basicInfo);
 
     QVERIFY(!m_tabletRemoved);
@@ -229,7 +223,7 @@ void TestTabletHandler::testOnTabletRemoved()
     TabletInformation info;
 
     // removing a different tablet then the one handled by the backend should do nothing
-
+    info.set(TabletInfo::TabletSerial, QLatin1String("12"));
     m_tabletHandler->onTabletRemoved(info);
 
     QVERIFY(!m_tabletRemoved);
@@ -240,7 +234,7 @@ void TestTabletHandler::testOnTabletRemoved()
 
     // remove the currently managed tablet
     // this should emit a signal and notify the user
-
+    info.set(TabletInfo::TabletSerial, QLatin1String("123"));
     m_tabletHandler->onTabletRemoved(info);
 
     QVERIFY(m_tabletRemoved);
