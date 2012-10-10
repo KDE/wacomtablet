@@ -22,12 +22,14 @@
 #include "kdedtestutils.h"
 #include "tabletinfo.h"
 #include "tabletinformation.h"
+#include "deviceinformation.h"
 
 
 using namespace Wacom;
 
 void TestTabletBackend::initTestCase()
 {
+    // init tablet information
     m_tabletInformation.set (TabletInfo::CompanyId,   TabletInfo::CompanyId.key());
     m_tabletInformation.set (TabletInfo::CompanyName, TabletInfo::CompanyName.key());
     m_tabletInformation.set (TabletInfo::TabletId,    TabletInfo::TabletId.key());
@@ -36,6 +38,15 @@ void TestTabletBackend::initTestCase()
     m_tabletInformation.setAvailable(true);
     m_tabletInformation.setButtons(true);
 
+    DeviceInformation eraserDevInfo (DeviceType::Eraser, QLatin1String("Eraser Device"));
+    DeviceInformation padDevInfo (DeviceType::Eraser, QLatin1String("Pad Device"));
+    DeviceInformation stylusDevInfo (DeviceType::Stylus, QLatin1String("Stylus Device"));
+
+    m_tabletInformation.setDevice(eraserDevInfo);
+    m_tabletInformation.setDevice(padDevInfo);
+    m_tabletInformation.setDevice(stylusDevInfo);
+
+    // init property adaptors
     m_eraserXinputAdaptor    = new PropertyAdaptorMock<XinputProperty>();
     m_eraserXsetwacomAdaptor = new PropertyAdaptorMock<XsetwacomProperty>();
 
@@ -45,6 +56,7 @@ void TestTabletBackend::initTestCase()
     m_stylusXinputAdaptor    = new PropertyAdaptorMock<XinputProperty>();
     m_stylusXsetwacomAdaptor = new PropertyAdaptorMock<XsetwacomProperty>();
 
+    // init tablet backend
     m_tabletBackend = new TabletBackend(m_tabletInformation);
     m_tabletBackend->addAdaptor(DeviceType::Eraser, m_eraserXsetwacomAdaptor);
     m_tabletBackend->addAdaptor(DeviceType::Eraser, m_eraserXinputAdaptor);
