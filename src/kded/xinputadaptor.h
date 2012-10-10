@@ -21,6 +21,7 @@
 #define XINPUTADAPTOR_H
 
 #include <QtCore/QString>
+#include <QtCore/QList>
 
 #include "propertyadaptor.h"
 
@@ -70,6 +71,9 @@ private:
     const QString getLongProperty(const XinputProperty& property, long nelements = 1) const;
 
     bool mapTabletToScreen(const QString& screenArea) const;
+
+    template<typename T>
+    const QString numbersToString(const QList<T>& values) const;
 
     bool setProperty(const XinputProperty& property, const QString& value) const;
 

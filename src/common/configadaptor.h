@@ -55,7 +55,7 @@ public:
      *
      * @return True on success, false on error.
      */
-    virtual bool loadConfig( const KConfigGroup& config );
+    virtual bool loadConfig( const KConfigGroup& config ) = 0;
 
 
     /**
@@ -66,7 +66,7 @@ public:
      *
      * @return True on success, false on error.
      */
-    virtual bool saveConfig( KConfigGroup& config ) const;
+    virtual bool saveConfig( KConfigGroup& config ) const = 0;
 
 
 };     // CLASS

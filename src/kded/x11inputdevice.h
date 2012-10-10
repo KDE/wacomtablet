@@ -96,7 +96,7 @@ public:
      *
      * @return True if the property could be retrieved, else false.
      */
-    bool getAtomProperty (const QString& property, QList<long>& values, long nelements = 1);
+    bool getAtomProperty (const QString& property, QList<long>& values, long nelements = 1) const;
 
     /**
      * Gets the device id of this device.
@@ -108,7 +108,7 @@ public:
     /**
      * Returns the display of this device or NULL.
      */
-    Display* getDisplay();
+    Display* getDisplay() const;
 
     /**
      * Gets a float property.
@@ -119,7 +119,7 @@ public:
      *
      * @return True if the property could be retrieved, else false.
      */
-    bool getFloatProperty (const QString& property, QList<float>& values, long nelements = 1);
+    bool getFloatProperty (const QString& property, QList<float>& values, long nelements = 1) const;
 
     /**
      * Gets a long property.
@@ -130,7 +130,7 @@ public:
      *
      * @return True if the property could be retrieved, else false.
      */
-    bool getLongProperty (const QString& property, QList<long>& values, long nelements = 1);
+    bool getLongProperty (const QString& property, QList<long>& values, long nelements = 1) const;
 
     /**
      * Returns the name of this XInput device. Beware that this name can not be used
@@ -149,7 +149,7 @@ public:
      *
      * @return True if the property could be retrieved, else false.
      */
-    bool getStringProperty (const QString& property, QList<QString>& values, long nelements = 1);
+    bool getStringProperty (const QString& property, QList<QString>& values, long nelements = 1) const;
 
     /**
      * Checks if this device has the given property. The device has to be open for
@@ -157,7 +157,7 @@ public:
      *
      * @return True if this device has the property, else false.
      */
-    bool hasProperty (const QString& property);
+    bool hasProperty (const QString& property) const;
 
     /**
      * Checks if the device is open.
@@ -202,7 +202,7 @@ public:
      *
      * @return True if the property could be set, else false.
      */
-    bool setFloatProperty (const QString& property, const QString& values);
+    bool setFloatProperty (const QString& property, const QString& values) const;
 
     /**
      * Sets a float property.
@@ -212,7 +212,7 @@ public:
      *
      * @return True if the property could be set, else false.
      */
-    bool setFloatProperty (const QString& property, const QList<float>& values);
+    bool setFloatProperty (const QString& property, const QList<float>& values) const;
 
     /**
      * Sets a long property. The values have to be separated by a single whitespace.
@@ -222,7 +222,7 @@ public:
      *
      * @return True if the property could be set, else false.
      */
-    bool setLongProperty (const QString& property, const QString& values);
+    bool setLongProperty (const QString& property, const QString& values) const;
 
     /**
      * Sets a long property.
@@ -232,7 +232,7 @@ public:
      *
      * @return True if the property could be set, else false.
      */
-    bool setLongProperty (const QString& property, const QList<long>& values);
+    bool setLongProperty (const QString& property, const QList<long>& values) const;
 
 
 private:
@@ -248,7 +248,7 @@ private:
      * @return True if the property could be fetched, else false.
      */
     template<typename T>
-    bool getProperty (const QString& property, Atom expectedType, long nelements, QList< T >& values);
+    bool getProperty (const QString& property, Atom expectedType, long nelements, QList< T >& values) const;
 
     /**
      * Retrieves X11 property values.
@@ -262,7 +262,7 @@ private:
      *
      * @return True on success, false on error.
      */
-    bool getPropertyData (const QString& property, Atom expectedType, int expectedFormat, long nelements, unsigned char** data, unsigned long* nitems);
+    bool getPropertyData (const QString& property, Atom expectedType, int expectedFormat, long nelements, unsigned char** data, unsigned long* nitems) const;
 
     /**
      * Looks up a X11 property atom.
@@ -272,7 +272,7 @@ private:
      *
      * @return True if the property could be resolved, else false.
      */
-    bool lookupProperty (const QString& property, Atom* atom);
+    bool lookupProperty (const QString& property, Atom* atom) const;
 
     /**
      * A template method which sets a property on this device. The property has to exist already!
@@ -284,7 +284,7 @@ private:
      * @return True if the property could be set, else false.
      */
     template<typename T>
-    bool setProperty (const QString& property, Atom expectedType, const QList<T>& values);
+    bool setProperty (const QString& property, Atom expectedType, const QList<T>& values) const;
 
 
     Q_DECLARE_PRIVATE(X11InputDevice)

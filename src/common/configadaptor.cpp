@@ -22,24 +22,8 @@
 
 #include <QString>
 
-
 using namespace Wacom;
 
 ConfigAdaptor::ConfigAdaptor(PropertyAdaptor* adaptee) : PropertyAdaptor(adaptee) {}
 
 ConfigAdaptor::~ConfigAdaptor() {}
-
-bool ConfigAdaptor::loadConfig ( const KConfigGroup& config )
-{
-    assert(&config != NULL); // pointless assertion to prevent "unused parameter" compiler warning
-    kError() << QString::fromLatin1("Somone tried to load a configuration, but no one implemented ConfigAdaptor::loadConfig()!");
-    return false;
-}
-
-bool ConfigAdaptor::saveConfig ( KConfigGroup& config ) const
-{
-    assert(&config != NULL); // pointless assertion to prevent "unused parameter" compiler warning
-    kError() << QString::fromLatin1("Somone tried to save a configuration, but no one implemented ConfigAdaptor::saveConfig()!");
-    return false;
-}
-

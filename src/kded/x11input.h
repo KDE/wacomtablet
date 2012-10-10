@@ -32,6 +32,8 @@ class X11Input
 public:
     /*
      * Properties we are interested in.
+     *
+     * TODO: this should be moved into a X11InputProperty Enum.
      */
     static const QString PROPERTY_DEVICE_PRODUCT_ID;
     static const QString PROPERTY_DEVICE_NODE;
@@ -50,52 +52,6 @@ public:
     static bool findDevice (const QString& deviceName, X11InputDevice& device);
 
     /**
-     * Get float property values as string.
-     *
-     * @param deviceName The device name.
-     * @param property   The property to get.
-     * @param nelements  The maximum number of elements to get.
-     *
-     * @return The property values on success, an empty string on error.
-     */
-    static const QString getFloatProperty(const QString& deviceName, const QString& property, long nelements = 1);
-
-    /**
-     * Get float property values.
-     *
-     * @param deviceName The device name.
-     * @param property   The property to get.
-     * @param values     A reference to a list which will contain the values on success.
-     * @param nelements  The maximum number of elements to get.
-     *
-     * @return True on success, false on error.
-     */
-    static bool getFloatProperty (const QString& deviceName, const QString& property, QList<float>& values, long nelements = 1);
-
-    /**
-     * Get long property values as string.
-     *
-     * @param deviceName The device name.
-     * @param property   The property to get.
-     * @param nelements  The maximum number of elements to get.
-     *
-     * @return The property values on success, an empty string on error.
-     */
-    static const QString getLongProperty(const QString& deviceName, const QString& property, long nelements = 1);
-
-    /**
-     * Get long property values.
-     *
-     * @param deviceName The device name.
-     * @param property   The property to get.
-     * @param values     A reference to a list which will contain the values on success.
-     * @param nelements  The maximum number of elements to get.
-     *
-     * @return True on success, false on error.
-     */
-    static bool getLongProperty (const QString& deviceName, const QString& property, QList<long>& values, long nelements = 1);
-
-    /**
      * Iterates over all X11 input devices and passes each device to the
      * visitor object. The visitor can then decide either to continue
      * iteration or abort it.
@@ -108,56 +64,6 @@ public:
      * @return True on success, false on error.
      */
     static bool setCoordinateTransformationMatrix(const QString& deviceName, qreal offsetX, qreal offsetY, qreal width, qreal height);
-
-    /**
-     * Sets a float property. The values have to be separated by a single whitespace.
-     *
-     * @param deviceName The device name.
-     * @param property The property to set.
-     * @param values   A string containing all values separated by a whitespace.
-     *
-     * @return True if the property could be set, else false.
-     */
-    static bool setFloatProperty (const QString& deviceName, const QString& property, const QString& values);
-
-    /**
-     * Sets a float property.
-     *
-     * @param deviceName The device name.
-     * @param propert The property to set.
-     * @param values  A list of values to set on this property.
-     *
-     * @return True if the property could be set, else false.
-     */
-    static bool setFloatProperty (const QString& deviceName, const QString& property, const QList<float>& values);
-
-    /**
-     * Sets a long property. The values have to be separated by a single whitespace.
-     *
-     * @param deviceName The device name.
-     * @param property The property to set.
-     * @param values   A string containing all values separated by a whitespace.
-     *
-     * @return True if the property could be set, else false.
-     */
-    static bool setLongProperty (const QString& deviceName, const QString& property, const QString& values);
-
-    /**
-     * Sets a long property.
-     *
-     * @param deviceName The device name.
-     * @param property The property to set.
-     * @param values   A list of values to set on this property.
-     *
-     * @return True if the property could be set, else false.
-     */
-    static bool setLongProperty (const QString& deviceName, const QString& property, const QList<long>& values);
-
-
-private:
-
-    template<typename T>
-    static const QString valuesToString(const QList<T>& values);
 
 }; // CLASS
 }  // NAMESPACE

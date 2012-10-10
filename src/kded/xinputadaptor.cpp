@@ -21,6 +21,7 @@
 #include "xinputadaptor.h"
 #include "xinputproperty.h"
 #include "x11input.h"
+#include "x11inputdevice.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -33,7 +34,8 @@ namespace Wacom {
 class XinputAdaptorPrivate
 {
     public:
-        QString device;
+        QString        deviceName;
+        X11InputDevice device;
 }; // CLASS
 } // NAMESPACE
 
@@ -42,7 +44,8 @@ XinputAdaptor::XinputAdaptor(const QString& deviceName)
     : PropertyAdaptor(NULL), d_ptr(new XinputAdaptorPrivate)
 {
     Q_D( XinputAdaptor );
-    d->device = deviceName;
+    d->deviceName = deviceName;
+    X11Input::findDevice(deviceName, d->device);
 }
 
 
@@ -60,10 +63,17 @@ const QList< Property > XinputAdaptor::getProperties() const
 
 const QString XinputAdaptor::getProperty(const Property& property) const
 {
+    Q_D(const XinputAdaptor);
+
     const XinputProperty* xinputproperty = XinputProperty::map(property);
 
     if (xinputproperty == NULL) {
-        kError() << QString::fromLatin1("Can not get unsupported property '%1' using xinput!").arg(property.key());
+        kError() << QString::fromLatin1("Can not get unsupported property '%1' from device '%2' using xinput!").arg(property.key()).arg(d->deviceName);
+        return QString();
+    }
+
+    if (!d->device.isOpen()) {
+        kError() << QString::fromLatin1("Can not get property '%1' from device '%2' because the device is not available!").arg(property.key()).arg(d->deviceName);
         return QString();
     }
 
@@ -73,10 +83,17 @@ const QString XinputAdaptor::getProperty(const Property& property) const
 
 bool XinputAdaptor::setProperty(const Property& property, const QString& value) const
 {
+    Q_D(const XinputAdaptor);
+
     const XinputProperty* xinputproperty = XinputProperty::map(property);
 
     if (xinputproperty == NULL) {
-        kError() << QString::fromLatin1("Can not set unsupported property '%1' to '%2' using xinput!").arg(property.key()).arg(value);
+        kError() << QString::fromLatin1("Can not set unsupported property '%1' to '%2' on device '%3' using xinput!").arg(property.key()).arg(value).arg(d->deviceName);
+        return false;
+    }
+
+    if (!d->device.isOpen()) {
+        kError() << QString::fromLatin1("Can not set property '%1' to '%2' on device '%3' because the device is not available!").arg(property.key()).arg(value).arg(d->deviceName);
         return false;
     }
 
@@ -118,14 +135,14 @@ const QString XinputAdaptor::getFloatProperty(const XinputProperty& property, lo
 {
     Q_D( const XinputAdaptor );
 
-    QString result = X11Input::getFloatProperty(d->device, property.key(), nelements);
+    QList<float> values;
 
-    if (result.isEmpty()) {
-        kError() << QString::fromLatin1("Failed to get Xinput property '%1'!").arg(property.key());
+    if (!d->device.getFloatProperty(property.key(), values, nelements)) {
+        kError() << QString::fromLatin1("Failed to get Xinput property '%1' from device '%2'!").arg(property.key()).arg(d->deviceName);
         return QString();
     }
 
-    return result;
+    return numbersToString<float>(values);
 }
 
 
@@ -134,14 +151,14 @@ const QString XinputAdaptor::getLongProperty(const XinputProperty& property, lon
 {
     Q_D( const XinputAdaptor );
 
-    QString result = X11Input::getLongProperty(d->device, property.key(), nelements);
+    QList<long> values;
 
-    if (result.isEmpty()) {
-        kError() << QString::fromLatin1("Failed to get Xinput property '%1'!").arg(property.key());
+    if (!d->device.getLongProperty(property.key(), values, nelements)) {
+        kError() << QString::fromLatin1("Failed to get Xinput property '%1' from device '%2'!").arg(property.key()).arg(d->deviceName);
         return QString();
     }
 
-    return result;
+    return numbersToString<long>(values);
 }
 
 
@@ -160,7 +177,7 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     QStringList screenList = screenArea.split( QLatin1String( " " ) );
 
     if( screenList.isEmpty() || screenList.size() != 4 ) {
-        kError() << "mapTabletToScreen :: can't parse ScreenSpace entry '" << screenArea << "' => device:" << d->device;
+        kError() << "mapTabletToScreen :: can't parse ScreenSpace entry '" << screenArea << "' => device:" << d->deviceName;
         return false;
     }
 
@@ -195,7 +212,25 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     kDebug() << "0" << h << offsetY;
     kDebug() << "0" << "0" << "1";
 
-    return X11Input::setCoordinateTransformationMatrix(d->device, offsetX, offsetY, w, h);
+    return X11Input::setCoordinateTransformationMatrix(d->deviceName, offsetX, offsetY, w, h);
+}
+
+
+
+template<typename T>
+const QString XinputAdaptor::numbersToString(const QList<T>& values) const
+{
+    QString result;
+
+    for (int i = 0 ; i < values.size() ; ++i) {
+        if (i > 0) {
+            result += QLatin1String(" ");
+        }
+
+        result += QString::number(values.at(i));
+    }
+
+    return result;
 }
 
 
@@ -205,16 +240,16 @@ bool XinputAdaptor::setProperty (const XinputProperty& property, const QString& 
     Q_D( const XinputAdaptor );
 
     if (property == XinputProperty::CursorAccelProfile) {
-        return X11Input::setLongProperty (d->device, property.key(), value);
+        return d->device.setLongProperty (property.key(), value);
 
     } else if (property == XinputProperty::CursorAccelAdaptiveDeceleration) {
-        return X11Input::setFloatProperty (d->device, property.key(), value);
+        return d->device.setFloatProperty (property.key(), value);
 
     } else if (property == XinputProperty::CursorAccelConstantDeceleration) {
-        return X11Input::setFloatProperty (d->device, property.key(), value);
+        return d->device.setFloatProperty (property.key(), value);
 
     } else if (property == XinputProperty::CursorAccelVelocityScaling) {
-        return X11Input::setFloatProperty (d->device, property.key(), value);
+        return d->device.setFloatProperty (property.key(), value);
 
     } else if (property == XinputProperty::ScreenSpace) {
         return mapTabletToScreen (value);

@@ -132,7 +132,7 @@ bool X11InputDevice::close()
 
 
 
-bool X11InputDevice::getAtomProperty(const QString& property, QList< long int >& values, long int nelements)
+bool X11InputDevice::getAtomProperty(const QString& property, QList< long int >& values, long int nelements) const
 {
     return getProperty<long>(property, XA_ATOM, nelements, values);
 }
@@ -152,17 +152,21 @@ long X11InputDevice::getDeviceId() const
 
 
 
-Display* X11InputDevice::getDisplay()
+Display* X11InputDevice::getDisplay() const
 {
-    Q_D(X11InputDevice);
+    Q_D(const X11InputDevice);
     return d->display;
 }
 
 
 
-bool X11InputDevice::getFloatProperty(const QString& property, QList< float >& values, long int nelements)
+bool X11InputDevice::getFloatProperty(const QString& property, QList< float >& values, long int nelements) const
 {
-    Q_D(X11InputDevice);
+    Q_D(const X11InputDevice);
+
+    if (!isOpen()) {
+        return false;
+    }
 
     Atom expectedType = XInternAtom (d->display, "FLOAT", False);
 
@@ -176,7 +180,7 @@ bool X11InputDevice::getFloatProperty(const QString& property, QList< float >& v
 
 
 
-bool X11InputDevice::getLongProperty(const QString& property, QList< long int >& values, long int nelements)
+bool X11InputDevice::getLongProperty(const QString& property, QList< long int >& values, long int nelements) const
 {
     return getProperty<long>(property, XA_INTEGER, nelements, values);
 }
@@ -191,7 +195,7 @@ const QString& X11InputDevice::getName() const
 
 
 
-bool X11InputDevice::getStringProperty(const QString& property, QList< QString >& values, long int nelements)
+bool X11InputDevice::getStringProperty(const QString& property, QList< QString >& values, long int nelements) const
 {
     // get property data & values
     unsigned char* data           = NULL;
@@ -220,9 +224,9 @@ bool X11InputDevice::getStringProperty(const QString& property, QList< QString >
 
 
 
-bool X11InputDevice::hasProperty(const QString& property)
+bool X11InputDevice::hasProperty(const QString& property) const
 {
-    Q_D(X11InputDevice);
+    Q_D(const X11InputDevice);
 
     if (!isOpen()) {
         return false;
@@ -305,7 +309,7 @@ bool X11InputDevice::open(Display* display, X11InputDevice::XID id, const QStrin
 
 
 
-bool X11InputDevice::setFloatProperty(const QString& property, const QString& values)
+bool X11InputDevice::setFloatProperty(const QString& property, const QString& values) const
 {
     QStringList valueList = values.split (QLatin1String(" "));
 
@@ -336,9 +340,13 @@ bool X11InputDevice::setFloatProperty(const QString& property, const QString& va
 
 
 
-bool X11InputDevice::setFloatProperty(const QString& property, const QList< float >& values)
+bool X11InputDevice::setFloatProperty(const QString& property, const QList< float >& values) const
 {
-    Q_D(X11InputDevice);
+    Q_D(const X11InputDevice);
+
+    if (!isOpen()) {
+        return false;
+    }
 
     Atom expectedType = XInternAtom (d->display, "FLOAT", False);
 
@@ -352,7 +360,7 @@ bool X11InputDevice::setFloatProperty(const QString& property, const QList< floa
 
 
 
-bool X11InputDevice::setLongProperty(const QString& property, const QString& values)
+bool X11InputDevice::setLongProperty(const QString& property, const QString& values) const
 {
     QStringList valueList = values.split (QLatin1String(" "));
 
@@ -384,7 +392,7 @@ bool X11InputDevice::setLongProperty(const QString& property, const QString& val
 
 
 
-bool X11InputDevice::setLongProperty(const QString& property, const QList<long>& values)
+bool X11InputDevice::setLongProperty(const QString& property, const QList< long int >& values) const
 {
     return setProperty<long>(property, XA_INTEGER, values);
 }
@@ -393,7 +401,7 @@ bool X11InputDevice::setLongProperty(const QString& property, const QList<long>&
 
 
 template<typename T>
-bool X11InputDevice::getProperty(const QString& property, Atom expectedType, long nelements, QList<T>& values)
+bool X11InputDevice::getProperty(const QString& property, X11InputDevice::Atom expectedType, long int nelements, QList< T >& values) const
 {
     // get property data & values
     long*          data           = NULL;
@@ -413,9 +421,9 @@ bool X11InputDevice::getProperty(const QString& property, Atom expectedType, lon
 
 
 
-bool X11InputDevice::getPropertyData (const QString& property, Atom expectedType, int expectedFormat, long nelements, unsigned char** data, unsigned long* nitems)
+bool X11InputDevice::getPropertyData (const QString& property, X11InputDevice::Atom expectedType, int expectedFormat, long int nelements, unsigned char** data, long unsigned int* nitems) const
 {
-    Q_D(X11InputDevice);
+    Q_D(const X11InputDevice);
 
     // check parameters
     if (!isOpen()) {
@@ -457,9 +465,9 @@ bool X11InputDevice::getPropertyData (const QString& property, Atom expectedType
 
 
 
-bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Atom* atom)
+bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Atom* atom) const
 {
-    Q_D(X11InputDevice);
+    Q_D(const X11InputDevice);
 
     if (!isOpen() || property.isEmpty() || atom == NULL) {
         return false;
@@ -478,9 +486,9 @@ bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Ato
 
 
 template<typename T>
-bool X11InputDevice::setProperty(const QString& property, Atom expectedType, const QList<T>& values)
+bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom expectedType, const QList< T >& values) const
 {
-    Q_D(X11InputDevice);
+    Q_D(const X11InputDevice);
 
     int expectedFormat = 32; // XInput1 uses 32 bit for each property
 

@@ -29,48 +29,6 @@ using namespace Wacom;
 // instanciate static class members
 DBusTabletInterface* DBusTabletInterface::m_instance = NULL;
 
-/*
-QDBusArgument &Wacom::operator<<( QDBusArgument &argument, const Wacom::TabletInformation &mystruct )
-{
-    argument.beginStructure();
-    argument << mystruct.xdeviceId
-             << mystruct.companyId
-             << mystruct.companyName
-             << mystruct.tabletId
-             << mystruct.tabletName
-             << mystruct.tabletModel
-             << mystruct.padName
-             << mystruct.stylusName
-             << mystruct.eraserName
-             << mystruct.cursorName
-             << mystruct.touchName
-             << mystruct.isTabletAvailable
-             << mystruct.hasPadButtons;
-    argument.endStructure();
-    return argument;
-}
-
-const QDBusArgument &Wacom::operator>>( const QDBusArgument &argument, Wacom::TabletInformation &mystruct )
-{
-    argument.beginStructure();
-    argument >> mystruct.xdeviceId
-             >> mystruct.companyId
-             >> mystruct.companyName
-             >> mystruct.tabletId
-             >> mystruct.tabletName
-             >> mystruct.tabletModel
-             >> mystruct.padName
-             >> mystruct.stylusName
-             >> mystruct.eraserName
-             >> mystruct.cursorName
-             >> mystruct.touchName
-             >> mystruct.isTabletAvailable
-             >> mystruct.hasPadButtons;
-    argument.endStructure();
-    return argument;
-}
-*/
-
 
 DBusTabletInterface::DBusTabletInterface()
     : QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Tablet" ), QLatin1String( "org.kde.Wacom" ) )
@@ -146,14 +104,6 @@ QDBusMessage DBusTabletInterface::getDeviceName(const DeviceType& device)
 {
     return call( QLatin1String( "getDeviceName" ), device.key() );
 }
-
-
-/*
-QDBusMessage DBusTabletInterface::getInformation()
-{
-    return call( QLatin1String( "getInformation" ) );
-}
-*/
 
 
 QDBusMessage DBusTabletInterface::getInformation(const TabletInfo& info)
