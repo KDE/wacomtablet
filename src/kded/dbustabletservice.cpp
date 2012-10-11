@@ -18,20 +18,13 @@
  */
 
 #include "debug.h"
-#include "dbustabletservice.h"
 
-#include "tabletinfo.h"
-#include "devicetype.h"
 #include "dbustabletinterface.h"
-#include "deviceprofile.h"
-#include "tabletdatabase.h"
-#include "mainconfig.h"
+#include "dbustabletservice.h"
+#include "devicetype.h"
 #include "property.h"
-#include "profilemanager.h"
-#include "tabletprofile.h"
+#include "tabletinfo.h"
 #include "wacomadaptor.h"
-
-#include <KDE/KLocalizedString>
 
 #include <QtDBus/QDBusArgument>
 #include <QtDBus/QDBusConnection>
@@ -89,24 +82,35 @@ const QStringList DBusTabletService::getDeviceList() const
 const QString& DBusTabletService::getDeviceName(const QString& device) const
 {
     Q_D ( const DBusTabletService );
-    return d->tabletInformation.getDeviceName(device);
+
+    static const QString unknown;
+
+    const DeviceType *type = DeviceType::find(device);
+
+    if (type == NULL) {
+        kError() << QString::fromLatin1("Unsupported device type '%1'!").arg(device);
+        return unknown;
+    }
+
+    return d->tabletInformation.getDeviceName(*type);
 }
 
-
-
-/*
-TabletInformation DBusTabletService::getInformation() const
-{
-    Q_D ( const DBusTabletService );
-    return d->tabletInformation;
-}
-*/
 
 
 const QString& DBusTabletService::getInformation(const QString& info) const
 {
     Q_D ( const DBusTabletService );
-    return d->tabletInformation.get(info);
+
+    static const QString unknown;
+
+    const TabletInfo* devinfo = TabletInfo::find(info);
+
+    if (devinfo == NULL) {
+        kError() << QString::fromLatin1("Can not get unsupported tablet information '%1'!").arg(info);
+        return unknown;
+    }
+
+    return d->tabletInformation.get(*devinfo);
 }
 
 

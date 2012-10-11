@@ -20,10 +20,8 @@
 #ifndef DBUSTABLETSERVICE_H
 #define DBUSTABLETSERVICE_H
 
-#include "tabletinformation.h"
 #include "tablethandlerinterface.h"
-#include "tabletprofile.h"
-#include "screenrotation.h"
+#include "tabletinformation.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -70,17 +68,10 @@ public Q_SLOTS:
      */
     Q_SCRIPTABLE const QString& getDeviceName(const QString& device) const;
 
-    /*
-     * Gets all device information available.
-     *
-     * @return A device information structure.
-     */
-    //Q_SCRIPTABLE TabletInformation getInformation() const;
-
     /**
      * Gets information from the tablet.
      *
-     * @param info A information type as returned by TabletInfo::key()
+     * @param info The type of information.
      *
      * @return The information value.
      */

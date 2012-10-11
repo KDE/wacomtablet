@@ -71,18 +71,6 @@ public:
      */
     bool operator!= (const TabletInformation& other) const;
 
-    /**
-     * Gets tablet information using the provided tablet information identifier.
-     * If the identifier can not be mapped to a TabletInfo enumeration type, an
-     * empty string will be returned.
-     *
-     * @param info The tablet information identifier.
-     *
-     * @return The requsted information or an empty string.
-     *
-     * @sa get(const TabletInfo&) const
-     */
-    const QString& get (const QString& info) const;
 
 
     /**
@@ -113,21 +101,6 @@ public:
      * @return A list of Xinput device names.
      */
     const QStringList getDeviceList() const;
-
-
-    /**
-     * Gets a Xinput device name based on the provided device type
-     * identifier string. If the device type identifier string can not
-     * be resolved to a device type enumeration type, an empty string
-     * is returned.
-     *
-     * @param device The device type to get.
-     * 
-     * @return The requested device name if set or an empty string.
-     *
-     * @sa getDeviceName(const DeviceType&) const
-     */
-    const QString& getDeviceName (const QString& device) const;
 
 
     /**

@@ -168,22 +168,6 @@ bool TabletInformation::operator== (const TabletInformation& other) const
 
 
 
-const QString& TabletInformation::get (const QString& info) const
-{
-    Q_D (const TabletInformation);
-
-    const TabletInfo* devinfo = TabletInfo::find(info);
-
-    if (devinfo == NULL) {
-        kError() << QString::fromLatin1("Can not get unsupported tablet information identifier '%1'!").arg(info);
-        return d->unknown;
-    }
-
-    return get(*devinfo);
-}
-
-
-
 const QString& TabletInformation::get (const TabletInfo& info) const
 {
     Q_D (const TabletInformation);
@@ -228,22 +212,6 @@ const QStringList TabletInformation::getDeviceList() const
     }
 
     return deviceList;
-}
-
-
-
-const QString& TabletInformation::getDeviceName (const QString& device) const
-{
-    Q_D (const TabletInformation);
-
-    const DeviceType *type = DeviceType::find(device);
-
-    if (type == NULL) {
-        kError() << QString::fromLatin1("Unsupported device type '%1'!").arg(device);
-        return d->unknown;
-    }
-
-    return getDeviceName(*type);
 }
 
 

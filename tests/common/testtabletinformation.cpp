@@ -128,11 +128,8 @@ void TestTabletInformation::testSetter()
 
     // getDeviceName()
     QCOMPARE (info.getDeviceName(dev1Type),       CommonTestUtils::TABLETINFORMATION_DEV1_NAME);
-    QCOMPARE (info.getDeviceName(dev1Type.key()), CommonTestUtils::TABLETINFORMATION_DEV1_NAME);
     QCOMPARE (info.getDeviceName(dev2Type),       CommonTestUtils::TABLETINFORMATION_DEV2_NAME);
-    QCOMPARE (info.getDeviceName(dev2Type.key()), CommonTestUtils::TABLETINFORMATION_DEV2_NAME);
     QCOMPARE (info.getDeviceName(dev3Type),       CommonTestUtils::TABLETINFORMATION_DEV3_NAME);
-    QCOMPARE (info.getDeviceName(dev3Type.key()), CommonTestUtils::TABLETINFORMATION_DEV3_NAME);
 
     // getTabletSerial()
     QVERIFY (info.getTabletSerial() == CommonTestUtils::TABLETINFORMATION_TABLET_SERIAL.toLong());
