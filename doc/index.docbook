@@ -7,8 +7,8 @@
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE">
 ]>
-<book lang="&language;">
-    <bookinfo>
+<book id="wacomtablet" lang="&language;">
+    <book id="wacomtablet"info>
     <title>The &tablet; Handbook</title>
 
     <authorgroup>
