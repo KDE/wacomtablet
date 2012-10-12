@@ -8,7 +8,7 @@
   <!ENTITY % English "INCLUDE">
 ]>
 <book id="wacomtablet" lang="&language;">
-    <book id="wacomtablet"info>
+    <bookinfo>
     <title>The &tablet; Handbook</title>
 
     <authorgroup>
