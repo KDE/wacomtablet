@@ -194,7 +194,7 @@ void TestTabletHandler::testOnTabletAdded()
     TabletBackendFactory::setTabletBackendMock(m_backendMock);
 
     // add a tablet
-    m_tabletHandler->onTabletAdded(basicInfo);
+    m_tabletHandler->onTabletAdded(m_backendMock->getInformation());
 
     QVERIFY(!m_tabletRemoved);
     QVERIFY(m_tabletAdded);

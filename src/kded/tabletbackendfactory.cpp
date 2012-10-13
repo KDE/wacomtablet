@@ -50,33 +50,21 @@ TabletBackendFactory& TabletBackendFactory::operator=(const TabletBackendFactory
 }
 
 
-TabletBackendInterface* TabletBackendFactory::createBackend(TabletInformation& info)
+TabletBackendInterface* TabletBackendFactory::createBackend(const TabletInformation& info)
 {
     static TabletBackendFactory factory;
 
     // return mock object if it exists or if unit testing is enabled
     if (m_tabletBackendMock || m_isUnitTest) {
-
-        if (m_tabletBackendMock == NULL) {
-            return NULL;
-        }
-
         // reset tablet backend mock as it will get deleted by the caller
         // therefore we can not return it more than once
         TabletBackendInterface* mock = m_tabletBackendMock;
         m_tabletBackendMock = NULL;
-        info = mock->getInformation();
         return mock;
     }
 
-    // lookup tablet information
-    QMap<QString,QString> buttonMapping;
-    if (!factory.lookupInformation(info, buttonMapping)) {
-        return NULL;
-    }
-
     // create tablet backend
-    return factory.createInstance(info, buttonMapping);
+    return factory.createInstance(info);
 }
 
 
@@ -95,7 +83,7 @@ void TabletBackendFactory::setUnitTest(bool isUnitTest)
 }
 
 
-TabletBackendInterface* TabletBackendFactory::createInstance(TabletInformation& info, QMap< QString, QString >& buttonMap)
+TabletBackendInterface* TabletBackendFactory::createInstance(const TabletInformation& info)
 {
     QString        deviceName;
     TabletBackend* backend = new TabletBackend(info);
@@ -109,7 +97,7 @@ TabletBackendInterface* TabletBackendFactory::createInstance(TabletInformation& 
         deviceName = info.getDeviceName(type);
 
         if (type == DeviceType::Pad) {
-            backend->addAdaptor(type, new XsetwacomAdaptor(deviceName, buttonMap));
+            backend->addAdaptor(type, new XsetwacomAdaptor(deviceName, info.getButtonMap()));
 
         } else if (type == DeviceType::Stylus || type == DeviceType::Eraser || type == DeviceType::Touch) {
             backend->addAdaptor(type, new XsetwacomAdaptor(deviceName));
@@ -121,22 +109,5 @@ TabletBackendInterface* TabletBackendFactory::createInstance(TabletInformation& 
     }
 
     return backend;
-}
-
-
-
-bool TabletBackendFactory::lookupInformation(TabletInformation& info, QMap< QString, QString >& buttonMap)
-{
-    // lookup tablet information
-    TabletDatabase tabletDatabase;
-
-    if (!tabletDatabase.lookupDevice(info, info.get (TabletInfo::TabletId))) {
-        kDebug() << "Could not find device in database: " << info.get (TabletInfo::TabletId);
-        return false;
-    }
-
-    tabletDatabase.lookupButtonMapping(buttonMap, info.get (TabletInfo::CompanyId), info.get (TabletInfo::TabletId));
-
-    return true;
 }
 

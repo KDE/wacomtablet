@@ -86,6 +86,12 @@ public:
 
 
     /**
+     * Returns the possibly empty button map of this tablet.
+     */
+    const QMap<QString,QString> getButtonMap() const;
+
+
+    /**
      * Gets device information if set.
      *
      * @param deviceType The device type to get the information of.
@@ -130,6 +136,12 @@ public:
 
 
     /**
+     * Checks if this tablet has a button map.
+     */
+    bool hasButtonMap() const;
+
+
+    /**
      * Checks if this tablet has a device with the given device id.
      *
      * @return True if a device exists, else false.
@@ -162,6 +174,12 @@ public:
      * @param value The new value.
      */
     void set (const TabletInfo& info, const QString& value);
+
+
+    /**
+     * Sets a button map for this tablet.
+     */
+    void setButtonMap (const QMap<QString,QString>& buttonMap);
 
 
     /**

@@ -35,13 +35,13 @@ namespace Wacom
             /*
              * Members
              */
-            DeviceInformationMap deviceMap;
-            TabletInfoMap        infoMap;
-
             QString unknown;   //!< An empty string which allows us to return a const reference.
 
-            bool isAvailable;
-            bool hasButtons;
+            QMap<QString,QString> buttonMap;
+            DeviceInformationMap  deviceMap;
+            TabletInfoMap         infoMap;
+            bool                  isAvailable;
+            bool                  hasButtons;
 
             /*
              * Helper methods
@@ -55,6 +55,7 @@ namespace Wacom
 
             TabletInformationPrivate& operator= (const TabletInformationPrivate& that)
             {
+                buttonMap    = that.buttonMap;
                 deviceMap    = that.deviceMap;
                 infoMap      = that.infoMap;
                 isAvailable  = that.isAvailable;
@@ -66,6 +67,7 @@ namespace Wacom
             bool operator== (const TabletInformationPrivate& that) const
             {
                 // we don't care if the device is available or not
+                // we also don't care about the button map
                 if (hasButtons       != that.hasButtons     ||
                     infoMap.size()   != that.infoMap.size() ||
                     deviceMap.size() != that.deviceMap.size()
@@ -183,6 +185,14 @@ const QString& TabletInformation::get (const TabletInfo& info) const
 
 
 
+const QMap< QString, QString > TabletInformation::getButtonMap() const
+{
+    Q_D (const TabletInformation);
+    return d->buttonMap;
+}
+
+
+
 const DeviceInformation* TabletInformation::getDevice (const DeviceType& deviceType) const
 {
     Q_D (const TabletInformation);
@@ -242,6 +252,14 @@ bool TabletInformation::hasButtons() const
 {
     Q_D(const TabletInformation);
     return d->hasButtons;
+}
+
+
+
+bool TabletInformation::hasButtonMap() const
+{
+    Q_D (const TabletInformation);
+    return (d->buttonMap.size() > 0);
 }
 
 
@@ -312,6 +330,14 @@ void TabletInformation::setAvailable(bool value)
 {
     Q_D(TabletInformation);
     d->isAvailable = value;
+}
+
+
+
+void TabletInformation::setButtonMap(const QMap< QString, QString >& buttonMap)
+{
+    Q_D(TabletInformation);
+    d->buttonMap = buttonMap;
 }
 
 

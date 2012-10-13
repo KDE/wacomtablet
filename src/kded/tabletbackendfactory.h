@@ -44,7 +44,7 @@ public:
      *
      * @return A new tablet backend instance.
      */
-    static TabletBackendInterface* createBackend (TabletInformation& info);
+    static TabletBackendInterface* createBackend (const TabletInformation& info);
 
 
     /**
@@ -77,17 +77,7 @@ protected:
      *
      * @return A new instance of a tablet backend.
      */
-    TabletBackendInterface* createInstance (TabletInformation& info, QMap<QString,QString>& buttonMap);
-
-    /**
-     * Looks up tablet information and button mapping from the device database.
-     *
-     * @param info      The tablet information which will be filled with the information from the database.
-     * @param buttonMap The button map which will contain the button mapping of the device.
-     *
-     * @return True on success, false on error.
-     */ 
-    bool lookupInformation (TabletInformation& info, QMap<QString,QString>& buttonMap);
+    TabletBackendInterface* createInstance (const Wacom::TabletInformation& info);
 
 
 private:

@@ -81,6 +81,15 @@ protected:
      */
     TabletFinder();
 
+    /**
+     * Looks up tablet information and button mapping from the device database.
+     *
+     * @param info The tablet information which will be filled with the information from the database.
+     *
+     * @return True on success, false on error.
+     */
+    bool lookupInformation (TabletInformation& info);
+
 
 private:
     /**

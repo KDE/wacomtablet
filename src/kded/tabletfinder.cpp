@@ -19,9 +19,12 @@
 
 #include "debug.h"
 #include "tabletfinder.h"
+#include "tabletdatabase.h"
 #include "x11tabletfinder.h"
 
 #include <QtCore/QList>
+#include <QtCore/QMap>
+#include <QtCore/QString>
 
 using namespace Wacom;
 
@@ -78,14 +81,17 @@ bool TabletFinder::scan()
 {
     Q_D(TabletFinder);
 
-    X11TabletFinder x11tabletFinder;
+    X11TabletFinder       x11tabletFinder;
+    QMap<QString,QString> buttonMap;
 
     if (x11tabletFinder.scanDevices()) {
         d->tabletList = x11tabletFinder.getDevices();
 
-        TabletFinderPrivate::TabletInformationList::ConstIterator iter;
+        TabletFinderPrivate::TabletInformationList::Iterator iter;
 
-        for (iter = d->tabletList.constBegin() ; iter != d->tabletList.constEnd() ; ++iter) {
+        for (iter = d->tabletList.begin() ; iter != d->tabletList.end() ; ++iter) {
+            // lookup device information and button map
+            lookupInformation(*iter);
             emit tabletAdded(*iter);
         }
 
@@ -143,5 +149,24 @@ void TabletFinder::onX11TabletRemoved(int deviceId)
             return;
         }
     }
+}
+
+
+
+bool TabletFinder::lookupInformation(TabletInformation& info)
+{
+    TabletDatabase        tabletDatabase;
+    QMap<QString,QString> buttonMap;
+
+    if (!tabletDatabase.lookupDevice(info, info.get (TabletInfo::TabletId))) {
+        kDebug() << "Could not find device in database: " << info.get (TabletInfo::TabletId);
+        return false;
+    }
+
+    if (tabletDatabase.lookupButtonMapping(buttonMap, info.get (TabletInfo::CompanyId), info.get (TabletInfo::TabletId))) {
+        info.setButtonMap(buttonMap);
+    }
+
+    return true;
 }
 
