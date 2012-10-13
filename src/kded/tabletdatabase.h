@@ -38,14 +38,16 @@ class TabletDatabase
 {
 public:
     //! Default Constructor
-    TabletDatabase();
-    ~TabletDatabase();
+    TabletDatabase ();
+    TabletDatabase (const QString& dataDirectory, const QString& companyFile);
+    ~TabletDatabase ();
 
     QString lookupBackend(const QString& companyId);
-    
+
     bool lookupButtonMapping(QMap<QString,QString> &map, const QString &companyId, const QString &deviceId);
-    
+
     bool lookupDevice(Wacom::TabletInformation& devinfo, const QString& deviceId);
+
 
 private:
 
@@ -59,7 +61,7 @@ private:
 
     Q_DECLARE_PRIVATE(TabletDatabase)
     TabletDatabasePrivate *const d_ptr;  /**< d-pointer for this class */
-    
+
 }; // CLASS
 }  // NAMESPACE
 #endif // HEADER PROTECTION

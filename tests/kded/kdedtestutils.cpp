@@ -56,6 +56,27 @@ void KdedTestUtils::assertTabletInformation(const TabletInformation& expectedInf
 
 
 
+const QString KdedTestUtils::getAbsoluteDir(const QString& fileName)
+{
+    if (fileName.isEmpty()) {
+        return QString();
+    }
+
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        return QString();
+    }
+
+    QFileInfo info(file);
+    QString absoluteDir = info.absoluteDir().absolutePath();
+
+    file.close();
+
+    return absoluteDir;
+}
+
+
 const QString KdedTestUtils::getAbsolutePath(const QString& fileName)
 {
     if (fileName.isEmpty()) {

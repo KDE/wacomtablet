@@ -17,26 +17,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KDEDTESTUTILS_H
-#define KDEDTESTUTILS_H
+#ifndef TESTTABLETDATABASE_H
+#define TESTTABLETDATABASE_H
 
-#include "tabletinformation.h"
+#include <QtTest>
+#include <QtCore>
 
-#include <QtCore/QString>
+#include "tabletdatabase.h"
 
 namespace Wacom
 {
-class KdedTestUtils
+class TestTabletDatabase : public QObject
 {
+    Q_OBJECT
 
-public:
+private slots:
 
-    static void assertTabletInformation (const TabletInformation& expectedInformation, const TabletInformation& actualInformation);
+    void initTestCase();
 
-    static const QString getAbsoluteDir (const QString& fileName);
+    void testLookupBackend();
 
-    static const QString getAbsolutePath (const QString& fileName);
+    void testLookupButtonMapping();
 
-}; // CLASS
-}  // NAMESPACE
-#endif // HEADER PROTECTION
+    void testLookupDevice();
+
+    void cleanupTestCase();
+
+private:
+    TabletDatabase* m_tabletDatabase;
+};
+}
+
+QTEST_MAIN(Wacom::TestTabletDatabase)
+
+#endif

@@ -31,7 +31,8 @@ namespace Wacom {
   */
 class TabletDatabasePrivate {
 public:
-    KSharedConfig::Ptr companyConfig;        /**< Ref Pointer for the data device list with all known tablet company information */
+    KSharedConfig::Ptr companyConfig; //!< companies config file
+    QString            dataDirectory; //!< optional path to the data directory, used for unit tests
 };
 }
 
@@ -47,6 +48,19 @@ TabletDatabase::TabletDatabase() : d_ptr( new TabletDatabasePrivate )
         kError() << "Company list missing!";
     }
 }
+
+TabletDatabase::TabletDatabase(const QString& dataDirectory, const QString& companyFile) : d_ptr (new TabletDatabasePrivate)
+{
+    Q_D( TabletDatabase );
+
+    d->dataDirectory = dataDirectory;
+    d->companyConfig = KSharedConfig::openConfig(QString::fromLatin1("%1/%2").arg(dataDirectory).arg(companyFile), KConfig::SimpleConfig, "data" );
+
+    if( d->companyConfig->groupList().isEmpty() ) {
+        kError() << "Company list missing!";
+    }
+}
+
 
 TabletDatabase::~TabletDatabase()
 {
@@ -107,7 +121,7 @@ bool TabletDatabase::lookupDevice(TabletInformation& devinfo, const QString& dev
     }
 
     devinfo.set (TabletInfo::TabletId, deviceId.toUpper());
-    devinfo.set (TabletInfo::CompanyId, companyId);
+    devinfo.set (TabletInfo::CompanyId, companyId.toUpper());
     devinfo.set (TabletInfo::CompanyName, companyGroup.readEntry("name"));
 
     devinfo.set (TabletInfo::TabletModel, deviceGroup.readEntry("model"));
@@ -132,7 +146,7 @@ bool TabletDatabase::lookupDevice(TabletInformation& devinfo, const QString& dev
 bool TabletDatabase::lookupCompanyGroup(KConfigGroup& companyGroup, const QString& companyId)
 {
     Q_D( TabletDatabase );
-    companyGroup = KConfigGroup( d->companyConfig, companyId );
+    companyGroup = KConfigGroup( d->companyConfig, companyId.toLower() );
 
     if( companyGroup.keyList().isEmpty() ) {
         return false;
@@ -140,6 +154,7 @@ bool TabletDatabase::lookupCompanyGroup(KConfigGroup& companyGroup, const QStrin
 
     return true;
 }
+
 
 
 QString TabletDatabase::lookupCompanyId(const QString& deviceId)
@@ -150,13 +165,11 @@ QString TabletDatabase::lookupCompanyId(const QString& deviceId)
 
         KConfigGroup deviceGroup;
 
-        if (!lookupDeviceGroup(deviceGroup, companyId, deviceId)) {
-            continue;
+        if (lookupDeviceGroup(deviceGroup, companyId, deviceId)) {
+            return companyId;
         }
-
-        return companyId;
     }
-    
+
     return QString();
 }
 
@@ -165,7 +178,7 @@ QString TabletDatabase::lookupCompanyId(const QString& deviceId)
 bool TabletDatabase::lookupDeviceGroup(KConfigGroup& deviceGroup, const QString& companyId, const QString& deviceId)
 {
     KConfigGroup companyGroup;
-    
+
     if (!lookupCompanyGroup(companyGroup, companyId)) {
         return false;
     }
@@ -174,16 +187,42 @@ bool TabletDatabase::lookupDeviceGroup(KConfigGroup& deviceGroup, const QString&
 }
 
 
+
 bool TabletDatabase::lookupDeviceGroup(KConfigGroup& deviceGroup, KConfigGroup& companyGroup, const QString& deviceId)
 {
-    // read the company name and the datafile for the device information
-    KSharedConfig::Ptr deviceConfig = KSharedConfig::openConfig( KStandardDirs::locate( "data", QString::fromLatin1( "wacomtablet/data/%1" ).arg( companyGroup.readEntry( "listfile" ) ) ), KConfig::SimpleConfig, "data" );
+    Q_D( const TabletDatabase );
+
+    // lookup device list file
+    QString deviceConfigFile = companyGroup.readEntry("listfile");
+
+    if (deviceConfigFile.isEmpty()) {
+        kError() << QString::fromLatin1("Company group '%1' does not have a device list file!").arg(companyGroup.name());
+        return false;
+    }
+
+    // get full path to the device list file
+    QString deviceConfigFilePath;
+
+    if (d->dataDirectory.isEmpty()) {
+        deviceConfigFilePath = KStandardDirs::locate("data", QString::fromLatin1 ("wacomtablet/data/%1").arg(deviceConfigFile));
+    } else {
+        deviceConfigFilePath = QString::fromLatin1("%1/%2").arg(d->dataDirectory).arg(deviceConfigFile);
+    }
+
+    // open the device list file
+    KSharedConfig::Ptr deviceConfig = KSharedConfig::openConfig (deviceConfigFilePath, KConfig::SimpleConfig, "data");
 
     if( deviceConfig->groupList().isEmpty() ) {
         kDebug() << "Device list missing for company: " << companyGroup.readEntry( "name" );
         return false;
     }
 
+    if (deviceConfig->groupList().isEmpty()) {
+        kError() << QString::fromLatin1("Device configuration file '%1' is empty or does not exist!").arg(deviceConfigFilePath);
+        return false;
+    }
+
+    // lookup device
     deviceGroup = KConfigGroup( deviceConfig, deviceId.toUpper() );
 
     if( deviceGroup.keyList().isEmpty() ) {
