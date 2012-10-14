@@ -1,6 +1,6 @@
-[wacom-default]
+[default]
 name=Unknown company
-listfile=default_devicelist
+listfile=testtabletdatabase.default_devicelist
 driver=wacom-tools
 
 [056a]

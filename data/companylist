@@ -1,4 +1,4 @@
-[wacom-default]
+[default]
 name=Unknown company
 listfile=default_devicelist
 driver=wacom-tools

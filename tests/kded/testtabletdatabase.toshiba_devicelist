@@ -1,7 +1,6 @@
-
 [default]
-model=unknown
-name=unknown device
+model=Unknown Model
+name=Unknown Name
 padbuttons=0
 touchring=no
 touchstripl=no
