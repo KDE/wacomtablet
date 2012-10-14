@@ -36,8 +36,6 @@
 
 //KDE includes
 #include <KDE/KDebug>
-#include <KDE/KSharedConfigPtr>
-#include <KDE/KConfigGroup>
 #include <KDE/KLocalizedString>
 
 //Qt includes

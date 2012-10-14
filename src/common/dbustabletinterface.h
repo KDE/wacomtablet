@@ -71,6 +71,12 @@ public:
 
     QDBusMessage getInformation (const TabletInfo& info);
 
+    bool         getInformationAsBool (const TabletInfo& info);
+
+    int          getInformationAsInt (const TabletInfo& info);
+
+    QString      getInformationAsString (const TabletInfo& info);
+
     QDBusMessage getProfile();
 
     QDBusMessage getProperty (const DeviceType& device, const Property& property);

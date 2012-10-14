@@ -27,9 +27,6 @@
 #include "property.h"
 
 //KDE includes
-#include <KDE/KConfigGroup>
-#include <KDE/KSharedConfig>
-#include <KDE/KStandardDirs>
 #include <KDE/KDebug>
 
 //Qt includes
@@ -115,7 +112,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     DeviceProfile stylusDevice = tabletProfile.getDevice(DeviceType::Stylus);
 
-    //stylusDevice.setProperty(Property::Button1, QLatin1String("1")); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick) 
+    //stylusDevice.setProperty(Property::Button1, QLatin1String("1")); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick)
     stylusDevice.setProperty(Property::Button2, QLatin1String("2"));
     stylusDevice.setProperty(Property::Button3, QLatin1String("3"));
     stylusDevice.setProperty(Property::Mode, QLatin1String("absolute"));

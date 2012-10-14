@@ -133,7 +133,7 @@ void TestTabletHandler::testOnScreenRotated()
     QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Eraser, Property::Rotate));
     QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Stylus, Property::Rotate));
     QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Touch, Property::Rotate));
-    
+
     // rotate screen
     m_tabletHandler->onScreenRotated(ScreenRotation::HALF);
 
@@ -180,7 +180,7 @@ void TestTabletHandler::testOnTabletAdded()
     m_backendMock->m_tabletInformation.set(TabletInfo::TabletId,     QLatin1String("4321"));
     m_backendMock->m_tabletInformation.set(TabletInfo::TabletModel,  QLatin1String("Tablet Model"));
     m_backendMock->m_tabletInformation.set(TabletInfo::TabletName,   QLatin1String("Bamboo Create"));
-    m_backendMock->m_tabletInformation.setButtons(true);
+    m_backendMock->m_tabletInformation.set(TabletInfo::NumPadButtons, QLatin1String("4"));
     m_backendMock->m_tabletInformation.setAvailable(true);
 
     DeviceInformation devInfoEraser (DeviceType::Eraser, QLatin1String("Eraser Device"));
@@ -328,7 +328,7 @@ void TestTabletHandler::testSetProfile()
     m_notifyTitle.clear();
 
     m_tabletHandler->setProfile(QLatin1String("default"));
-    
+
     QVERIFY(m_notifyEventId.isEmpty());
     QVERIFY(m_notifyMessage.isEmpty());
     QVERIFY(m_notifyTitle.isEmpty());
@@ -340,7 +340,7 @@ void TestTabletHandler::testSetProfile()
     // multiple times in a row. Otherwise the test will fail as
     // cmake copies our test data only once.
     m_tabletHandler->setProfile(QLatin1String("test"));
-    
+
     QWARN("testSetProfile(): PASSED!");
 }
 

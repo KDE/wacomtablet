@@ -69,12 +69,18 @@ class TabletInfo : public TabletInfoTemplateSpecialization {
 
 public:
 
-    static const TabletInfo CompanyId;    //!< The vendor identifier.
-    static const TabletInfo CompanyName;  //!< The vendor name.
-    static const TabletInfo TabletId;     //!< The tablet identifier as a four digit hex code.
-    static const TabletInfo TabletModel;  //!< The tablet model.
-    static const TabletInfo TabletName;   //!< The name of the tablet.
-    static const TabletInfo TabletSerial; //!< The tablet serial id as reported by the wacom driver.
+    static const TabletInfo ButtonLayout;       //!< The button layout.
+    static const TabletInfo CompanyId;          //!< The vendor identifier.
+    static const TabletInfo CompanyName;        //!< The vendor name.
+    static const TabletInfo HasLeftTouchStrip;  //!< Flag if this tablet has a left touch strip.
+    static const TabletInfo HasRightTouchStrip; //!< Flag if this tablet has a right touch strip.
+    static const TabletInfo HasTouchRing;       //!< Flag if this tablet has a touch ring.
+    static const TabletInfo HasWheel;           //!< Flag if this tablet has a wheel.
+    static const TabletInfo NumPadButtons;      //!< Number of pad buttons.
+    static const TabletInfo TabletId;           //!< The tablet identifier as a four digit hex code.
+    static const TabletInfo TabletModel;        //!< The tablet model.
+    static const TabletInfo TabletName;         //!< The name of the tablet.
+    static const TabletInfo TabletSerial;       //!< The tablet serial id as reported by the wacom driver.
 
 
 private:

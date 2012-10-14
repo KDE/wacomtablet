@@ -172,24 +172,18 @@ bool TabletDatabase::getInformation(const KConfigGroup& deviceGroup, const QStri
     // tablet information data is set in one place and not all over this class.
 
     // get general information
-    tabletInfo.set (TabletInfo::TabletId,    tabletId.toUpper());
-    tabletInfo.set (TabletInfo::CompanyId,   companyId.toUpper());
-    tabletInfo.set (TabletInfo::CompanyName, companyName);
-    tabletInfo.set (TabletInfo::TabletModel, deviceGroup.readEntry("model"));
-    tabletInfo.set (TabletInfo::TabletName,  deviceGroup.readEntry("name"));
+    tabletInfo.set (TabletInfo::TabletId,      tabletId.toUpper());
+    tabletInfo.set (TabletInfo::CompanyId,     companyId.toUpper());
+    tabletInfo.set (TabletInfo::CompanyName,   companyName);
+    tabletInfo.set (TabletInfo::TabletModel,   deviceGroup.readEntry ("model"));
+    tabletInfo.set (TabletInfo::TabletName,    deviceGroup.readEntry ("name"));
+    tabletInfo.set (TabletInfo::ButtonLayout,  deviceGroup.readEntry ("layout"));
+    tabletInfo.set (TabletInfo::NumPadButtons, deviceGroup.readEntry ("padbuttons"));
 
-    int numPadButtons = deviceGroup.readEntry("padbuttons").toInt();
-
-    if (numPadButtons > 0  ||
-        deviceGroup.readEntry ("wheel").compare (QLatin1String ("yes"), Qt::CaseInsensitive) == 0 ||
-        deviceGroup.readEntry ("touchring").compare (QLatin1String ("yes"), Qt::CaseInsensitive) == 0 ||
-        deviceGroup.readEntry ("touchstripl").compare (QLatin1String ("yes"), Qt::CaseInsensitive) == 0 ||
-        deviceGroup.readEntry ("touchstripr").compare (QLatin1String ("yes"), Qt::CaseInsensitive) == 0)
-    {
-        tabletInfo.setButtons(true);
-    } else {
-        tabletInfo.setButtons(false);
-    }
+    tabletInfo.setBool (TabletInfo::HasLeftTouchStrip,  deviceGroup.readEntry ("touchstripl"));
+    tabletInfo.setBool (TabletInfo::HasRightTouchStrip, deviceGroup.readEntry ("touchstripr"));
+    tabletInfo.setBool (TabletInfo::HasTouchRing,       deviceGroup.readEntry ("touchring"));
+    tabletInfo.setBool (TabletInfo::HasWheel,           deviceGroup.readEntry ("wheel"));
 
     return true;
 }

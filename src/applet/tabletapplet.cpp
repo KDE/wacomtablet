@@ -27,7 +27,6 @@
 
 //KDE inculdes
 #include <KDE/KIconLoader>
-#include <KDE/KSharedConfig>
 #include <KDE/KComboBox>
 #include <KDebug>
 
@@ -165,7 +164,7 @@ void TabletApplet::updateProfile()
     m_comboBoxProfile->blockSignals( false );
 
     QDBusReply<QString> stylusMode = DBusTabletInterface::instance().getProperty(DeviceType::Stylus, Property::Mode);
-    
+
     if( stylusMode.isValid() ) {
         if( QString( stylusMode ).contains( QLatin1String( "absolute" )) || QString( stylusMode ).contains( QLatin1String( "Absolute" )) ) {
             m_radioButtonRelative->setChecked( false );
@@ -186,7 +185,7 @@ void TabletApplet::updateProfile()
         m_radioButtonTouchOff->setEnabled(true);
 
         QDBusReply<QString> touchMode = DBusTabletInterface::instance().getProperty(DeviceType::Touch, Property::Touch);
-        
+
         if( touchMode.isValid() ) {
             if( QString( touchMode ).contains( QLatin1String( "on" ) ) ) {
                 m_radioButtonTouchOff->setChecked( false );

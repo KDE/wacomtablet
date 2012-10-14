@@ -113,6 +113,44 @@ QDBusMessage DBusTabletInterface::getInformation(const TabletInfo& info)
 
 
 
+bool DBusTabletInterface::getInformationAsBool(const TabletInfo& info)
+{
+    QDBusReply<QString> value = getInformation(info);
+
+    if (!value.isValid()) {
+        return false;
+    }
+
+    return (value.value().compare(QLatin1String("true"), Qt::CaseInsensitive) == 0);
+}
+
+
+
+int DBusTabletInterface::getInformationAsInt(const TabletInfo& info)
+{
+    QDBusReply<QString> value = getInformation(info);
+
+    if (!value.isValid()) {
+        return 0;
+    }
+
+    return value.value().toInt();
+}
+
+
+
+QString DBusTabletInterface::getInformationAsString(const TabletInfo& info)
+{
+    QDBusReply<QString> value = getInformation(info);
+
+    if (!value.isValid()) {
+        return QString();
+    }
+
+    return value.value();
+}
+
+
 QDBusMessage DBusTabletInterface::getProfile()
 {
     return call( QLatin1String( "getProfile" ) );

@@ -49,7 +49,12 @@ public:
     static const QString    TABLETINFORMATION_TABLET_SERIAL;
     static const QString    TABLETINFORMATION_TABLET_ID;
     static const bool       TABLETINFORMATION_HAS_BUTTONS;
+    static const bool       TABLETINFORMATION_HAS_WHEEL;
+    static const bool       TABLETINFORMATION_HAS_TOUCHRING;
+    static const bool       TABLETINFORMATION_HAS_TOUCHSTRIPLEFT;
+    static const bool       TABLETINFORMATION_HAS_TOUCHSTRIPRIGHT;
     static const bool       TABLETINFORMATION_IS_AVAILABLE;
+    static const QString    TABLETINFORMATION_NUM_PAD_BUTTONS;
 
     static const QString    TABLETINFORMATION_DEV1_NAME;
     static const QString    TABLETINFORMATION_DEV1_TYPE;

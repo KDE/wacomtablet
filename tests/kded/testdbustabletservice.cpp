@@ -159,7 +159,6 @@ void TestDBusTabletService::testOnTabletAdded()
         expectedInformation.set(tabletInfo, tabletInfo.key());
     }
 
-    expectedInformation.setButtons(true);
     expectedInformation.setAvailable(false); // this should be set to true automatically
 
     m_tabletWasAdded = false;
@@ -181,7 +180,7 @@ void TestDBusTabletService::testOnTabletRemoved()
 {
     TabletInformation expectedInformation;
     expectedInformation.setAvailable(false);
-    
+
     m_tabletWasRemoved = false;
     m_tabletHandlerMock.emitTabletRemoved();
     assertTabletInformation(expectedInformation);

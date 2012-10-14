@@ -20,10 +20,6 @@
 #ifndef TABLETWIDGET_H
 #define TABLETWIDGET_H
 
-//KDE includes
-#include <KDE/KSharedConfig>
-
-//Qt includes
 #include <QtGui/QWidget>
 
 /**

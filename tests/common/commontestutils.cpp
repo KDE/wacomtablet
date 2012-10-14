@@ -40,7 +40,12 @@ const QString CommonTestUtils::TABLETINFORMATION_TABLET_NAME   = QLatin1String("
 const QString CommonTestUtils::TABLETINFORMATION_TABLET_SERIAL = QLatin1String("6666");
 const QString CommonTestUtils::TABLETINFORMATION_TABLET_ID     = QString::fromLatin1("%1").arg(6666, 4, 16, QLatin1Char('0')).toUpper();
 const bool    CommonTestUtils::TABLETINFORMATION_HAS_BUTTONS   = true;
+const bool    CommonTestUtils::TABLETINFORMATION_HAS_TOUCHRING = true;
+const bool    CommonTestUtils::TABLETINFORMATION_HAS_TOUCHSTRIPLEFT  = true;
+const bool    CommonTestUtils::TABLETINFORMATION_HAS_TOUCHSTRIPRIGHT = true;
+const bool    CommonTestUtils::TABLETINFORMATION_HAS_WHEEL     = true;
 const bool    CommonTestUtils::TABLETINFORMATION_IS_AVAILABLE  = true;
+const QString CommonTestUtils::TABLETINFORMATION_NUM_PAD_BUTTONS = QLatin1String("4");
 
 const QString CommonTestUtils::TABLETINFORMATION_DEV1_NAME     = QLatin1String("Device Stylus");
 const QString CommonTestUtils::TABLETINFORMATION_DEV1_TYPE     = QLatin1String("stylus");
@@ -134,7 +139,11 @@ void CommonTestUtils::setValues(TabletInformation& info)
     info.set(TabletInfo::TabletName,   TABLETINFORMATION_TABLET_NAME);
     info.set(TabletInfo::TabletSerial, TABLETINFORMATION_TABLET_SERIAL);
 
-    info.setButtons (TABLETINFORMATION_HAS_BUTTONS);
+    info.set(TabletInfo::HasLeftTouchStrip,  TABLETINFORMATION_HAS_TOUCHSTRIPLEFT);
+    info.set(TabletInfo::HasRightTouchStrip, TABLETINFORMATION_HAS_TOUCHSTRIPRIGHT);
+    info.set(TabletInfo::HasTouchRing,       TABLETINFORMATION_HAS_TOUCHRING);
+    info.set(TabletInfo::HasWheel,           TABLETINFORMATION_HAS_WHEEL);
+
     info.setAvailable (TABLETINFORMATION_IS_AVAILABLE);
 
     DeviceInformation dev1Info (*DeviceType::find(TABLETINFORMATION_DEV1_TYPE), TABLETINFORMATION_DEV1_NAME);

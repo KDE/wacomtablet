@@ -38,10 +38,10 @@ class TabletInformationPrivate;
  *
  * Contains all tablet information which could be gathered by either querying X11
  * or one of the tablet databases.
- * 
+ *
  * DO NOT USE THE MEMBERS OF THIS CLASS, USE THE METHODS! The mebers are only
  * public because D-Bus needs access to them (for now).
- * 
+ *
  * When extending this class, don't forget to update the DBusTabletInterface class as well!
  */
 class TabletInformation
@@ -83,6 +83,26 @@ public:
      * @sa get(const QString&) const
      */
     const QString& get (const TabletInfo& info) const;
+
+
+    /**
+     * Gets a property as bool value.
+     *
+     * @param info The tablet identifier.
+     *
+     * @return True if the property is set to true, else false.
+     */
+    bool getBool (const TabletInfo& info) const;
+
+
+    /**
+     * Gets a property as int value.
+     *
+     * @param info The tablet identifier.
+     *
+     * @return The property value as int or 0.
+     */
+    int getInt (const TabletInfo& info) const;
 
 
     /**
@@ -159,7 +179,7 @@ public:
 
     /**
      * @deprecated Do no longer use this!
-     * 
+     *
      * Flag if this tablet is available.
      *
      * @return True if the tablet is available, else false.
@@ -174,6 +194,25 @@ public:
      * @param value The new value.
      */
     void set (const TabletInfo& info, const QString& value);
+
+
+    /**
+     * Sets a tablet information bool value.
+     *
+     * @param info  The tablet information to set.
+     * @param value The value to set.
+     */
+    void set (const TabletInfo& info, bool value);
+
+
+    /**
+     * Sets a tablet information as bool value from a string.
+     * Valid values are true/on/yes. Values are compared case insensitive.
+     *
+     * @param info  The tablet identifier.
+     * @param value The bool value as string.
+     */
+    void setBool (const TabletInfo& info, const QString& value);
 
 
     /**
@@ -202,14 +241,6 @@ public:
      * @param device The device to add.
      */
     void setDevice (const DeviceInformation& device);
-
-
-    /**
-     * Sets the flag which signals hardware buttons.
-     *
-     * @param value The new value.
-     */
-    void setButtons (bool value);
 
 
 private:

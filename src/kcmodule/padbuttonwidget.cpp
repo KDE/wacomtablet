@@ -83,13 +83,10 @@ void PadButtonWidget::init()
 {
     Q_D( PadButtonWidget );
 
-    QDBusReply<QString> deviceModel = DBusTabletInterface::instance().getInformation(TabletInfo::TabletModel);
-    QDBusReply<QString> deviceId    = DBusTabletInterface::instance().getInformation(TabletInfo::TabletId);
+    QDBusReply<QString> deviceModel  = DBusTabletInterface::instance().getInformation(TabletInfo::TabletModel);
+    QDBusReply<QString> deviceId     = DBusTabletInterface::instance().getInformation(TabletInfo::TabletId);
 
-    KSharedConfig::Ptr deviceConfig = KSharedConfig::openConfig(KStandardDirs::locate("data", QLatin1String( "wacomtablet/data/wacom_devicelist" )), KConfig::SimpleConfig, "data");
-    KConfigGroup deviceGroup = KConfigGroup(deviceConfig, deviceId);
-
-    int padButtons = deviceGroup.readEntry("padbuttons").toInt();
+    int padButtons = DBusTabletInterface::instance().getInformationAsInt(TabletInfo::NumPadButtons);
 
     QLabel *buttonLabel;
     QLabel *actionLabel;
@@ -122,12 +119,12 @@ void PadButtonWidget::init()
         }
     }
 
-    QString padLayout = deviceGroup.readEntry("layout");
+    QString padLayout = DBusTabletInterface::instance().getInformationAsString(TabletInfo::ButtonLayout);
     if (KStandardDirs::exists(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
         d->m_ui->padImage->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
     }
 
-    if (deviceGroup.readEntry("wheel").contains( QLatin1String( "no" ))) {
+    if (DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasWheel)) {
         d->m_ui->wheelGroupBox->setVisible(false);
     } else {
         d->m_ui->wheelUpComboBox->clear();
@@ -137,7 +134,7 @@ void PadButtonWidget::init()
         d->m_ui->wheelGroupBox->setVisible(true);
     }
 
-    if (deviceGroup.readEntry("touchring").contains( QLatin1String( "no" ))) {
+    if (DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasTouchRing)) {
         d->m_ui->tochRingGroupBox->setVisible(false);
     } else {
         d->m_ui->ringUpComboBox->clear();
@@ -147,7 +144,9 @@ void PadButtonWidget::init()
         d->m_ui->tochRingGroupBox->setVisible(true);
     }
 
-    if (deviceGroup.readEntry("touchstripl").contains( QLatin1String( "no" ))) {
+    bool hasLeftTouchStrip = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasLeftTouchStrip);
+
+    if (hasLeftTouchStrip) {
         d->m_ui->stripLUpLabel->setVisible(false);
         d->m_ui->stripLUpComboBox->setVisible(false);
         d->m_ui->stripLUpActionLabel->setVisible(false);
@@ -166,7 +165,10 @@ void PadButtonWidget::init()
         d->m_ui->stripLDnComboBox->setVisible(true);
         d->m_ui->stripLDnActionLabel->setVisible(true);
     }
-    if (deviceGroup.readEntry("touchstripr").contains( QLatin1String( "no" ))) {
+
+    bool hasRightTouchStrip = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasRightTouchStrip);
+
+    if (hasRightTouchStrip) {
         d->m_ui->stripRUpLabel->setVisible(false);
         d->m_ui->stripRUpComboBox->setVisible(false);
         d->m_ui->stripRUpActionLabel->setVisible(false);
@@ -185,7 +187,8 @@ void PadButtonWidget::init()
         d->m_ui->stripRDnComboBox->setVisible(true);
         d->m_ui->stripRDnActionLabel->setVisible(true);
     }
-    if (deviceGroup.readEntry("touchstripl").contains(QLatin1String( "no" )) && deviceGroup.readEntry("touchstripr").contains( QLatin1String( "no" ))) {
+
+    if (hasLeftTouchStrip && hasRightTouchStrip) {
         d->m_ui->tochStripGroupBox->setVisible(false);
     } else {
         d->m_ui->tochStripGroupBox->setVisible(true);

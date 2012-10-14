@@ -185,6 +185,18 @@ const QString& TabletInformation::get (const TabletInfo& info) const
 
 
 
+bool TabletInformation::getBool(const TabletInfo& info) const
+{
+    return (get(info).compare(QLatin1String("true"), Qt::CaseInsensitive) == 0);
+}
+
+
+int TabletInformation::getInt(const TabletInfo& info) const
+{
+    return (get(info).toInt());
+}
+
+
 const QMap< QString, QString >& TabletInformation::getButtonMap() const
 {
     Q_D (const TabletInformation);
@@ -250,8 +262,16 @@ long int TabletInformation::getTabletSerial() const
 
 bool TabletInformation::hasButtons() const
 {
-    Q_D(const TabletInformation);
-    return d->hasButtons;
+    if (getBool (TabletInfo::HasLeftTouchStrip)  ||
+        getBool (TabletInfo::HasRightTouchStrip) ||
+        getBool (TabletInfo::HasTouchRing) ||
+        getBool (TabletInfo::HasWheel) ||
+        getInt  (TabletInfo::NumPadButtons) > 0)
+    {
+        return true;
+    }
+
+    return false;
 }
 
 
@@ -326,10 +346,35 @@ void TabletInformation::set (const TabletInfo& info, const QString& value)
 
 
 
+void TabletInformation::set(const TabletInfo& info, bool value)
+{
+    QString strValue = value ? QLatin1String("true") : QLatin1String("false");
+    set (info, strValue);
+}
+
+
+
+
 void TabletInformation::setAvailable(bool value)
 {
     Q_D(TabletInformation);
     d->isAvailable = value;
+}
+
+
+
+void TabletInformation::setBool(const TabletInfo& info, const QString& value)
+{
+    QLatin1String strValue = QLatin1String("false");
+
+    if (value.compare(QLatin1String("true"), Qt::CaseInsensitive) == 0 ||
+        value.compare(QLatin1String("on"),   Qt::CaseInsensitive) == 0 ||
+        value.compare(QLatin1String("yes"),  Qt::CaseInsensitive) == 0)
+    {
+        strValue = QLatin1String("true");
+    }
+
+    set (info, strValue);
 }
 
 
@@ -346,13 +391,5 @@ void TabletInformation::setDevice (const DeviceInformation& device)
 {
     Q_D(TabletInformation);
     d->deviceMap.insert (device.getType().key(), device);
-}
-
-
-
-void TabletInformation::setButtons(bool value)
-{
-    Q_D(TabletInformation);
-    d->hasButtons = value;
 }
 

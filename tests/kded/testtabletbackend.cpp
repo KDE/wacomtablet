@@ -35,8 +35,8 @@ void TestTabletBackend::initTestCase()
     m_tabletInformation.set (TabletInfo::TabletId,    TabletInfo::TabletId.key());
     m_tabletInformation.set (TabletInfo::TabletModel, TabletInfo::TabletModel.key());
     m_tabletInformation.set (TabletInfo::TabletName,  TabletInfo::TabletName.key());
+    m_tabletInformation.set (TabletInfo::NumPadButtons, QLatin1String("4"));
     m_tabletInformation.setAvailable(true);
-    m_tabletInformation.setButtons(true);
 
     DeviceInformation eraserDevInfo (DeviceType::Eraser, QLatin1String("Eraser Device"));
     DeviceInformation padDevInfo (DeviceType::Eraser, QLatin1String("Pad Device"));
@@ -94,7 +94,7 @@ void TestTabletBackend::testSetDeviceProfile()
     QVERIFY(m_eraserXsetwacomAdaptor->m_properties.contains(Property::Button5.key()));
     QVERIFY(!m_eraserXsetwacomAdaptor->m_properties.contains(Property::CursorAccelAdaptiveDeceleration.key()));
     QCOMPARE(Property::Button5.key(), m_eraserXsetwacomAdaptor->m_properties.value(Property::Button5.key()));
-    
+
     QVERIFY(m_eraserXinputAdaptor->m_properties.contains(Property::CursorAccelAdaptiveDeceleration.key()));
     QVERIFY(!m_eraserXinputAdaptor->m_properties.contains(Property::Button5.key()));
     QCOMPARE(Property::CursorAccelAdaptiveDeceleration.key(), m_eraserXinputAdaptor->m_properties.value(Property::CursorAccelAdaptiveDeceleration.key()));
@@ -133,7 +133,7 @@ void TestTabletBackend::testSetProfile()
     QVERIFY(!m_stylusXinputAdaptor->m_properties.contains(Property::Button8.key()));
     QVERIFY(!m_stylusXsetwacomAdaptor->m_properties.contains(Property::Button8.key()));
     QCOMPARE(Property::Button8.key(), m_eraserXsetwacomAdaptor->m_properties.value(Property::Button8.key()));
-    
+
     QVERIFY(m_stylusXinputAdaptor->m_properties.contains(Property::CursorAccelVelocityScaling.key()));
     QVERIFY(!m_stylusXsetwacomAdaptor->m_properties.contains(Property::CursorAccelVelocityScaling.key()));
     QVERIFY(!m_eraserXinputAdaptor->m_properties.contains(Property::CursorAccelVelocityScaling.key()));
@@ -152,7 +152,7 @@ void TestTabletBackend::testSetProperty()
     m_padXsetwacomAdaptor->m_properties.clear();
     m_stylusXinputAdaptor->m_properties.clear();
     m_stylusXsetwacomAdaptor->m_properties.clear();
-    
+
     // setting a property on an unsupported device type should fail
     QVERIFY(!m_tabletBackend->setProperty(DeviceType::Touch, Property::Gesture, Property::Gesture.key()));
 
@@ -171,7 +171,7 @@ void TestTabletBackend::testSetProperty()
 
     QVERIFY(!m_padXinputAdaptor->m_properties.contains(Property::Mode.key()));
     QVERIFY(!m_padXsetwacomAdaptor->m_properties.contains(Property::Mode.key()));
-    
+
     // set a value on both adaptors
     QVERIFY(m_tabletBackend->setProperty(DeviceType::Pad, Property::Button1, Property::Button1.key()));
     QVERIFY(m_tabletBackend->setProperty(DeviceType::Pad, Property::CursorAccelProfile, Property::CursorAccelProfile.key()));
