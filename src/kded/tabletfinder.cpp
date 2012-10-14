@@ -30,7 +30,7 @@ using namespace Wacom;
 
 namespace Wacom
 {
-    class TabletFinderPrivate 
+    class TabletFinderPrivate
     {
         public:
             typedef QList<TabletInformation> TabletInformationList;
@@ -50,7 +50,7 @@ TabletFinder::TabletFinder(const TabletFinder& finder) : QObject(NULL), d_ptr(ne
     // nothing to do - this class is a singleton and must not be copied
 
     // prevent compiler warning about unused parameter at least for debug builds.
-    assert(&finder != NULL); 
+    assert(&finder != NULL);
 }
 
 TabletFinder::~TabletFinder()
@@ -162,17 +162,13 @@ void TabletFinder::onX11TabletRemoved(int deviceId)
 
 bool TabletFinder::lookupInformation(TabletInformation& info)
 {
-    TabletDatabase        tabletDatabase;
-    QMap<QString,QString> buttonMap;
-
-    if (!tabletDatabase.lookupDevice(info, info.get (TabletInfo::TabletId))) {
+    // lookup information from our tablet database
+    if (!TabletDatabase::instance().lookupTablet(info.get (TabletInfo::TabletId), info)) {
         kDebug() << "Could not find device in database: " << info.get (TabletInfo::TabletId);
         return false;
     }
 
-    if (tabletDatabase.lookupButtonMapping(buttonMap, info.get (TabletInfo::CompanyId), info.get (TabletInfo::TabletId))) {
-        info.setButtonMap(buttonMap);
-    }
+    // TODO use libwacom to get more tablet information
 
     return true;
 }

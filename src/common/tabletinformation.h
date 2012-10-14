@@ -88,7 +88,7 @@ public:
     /**
      * Returns the possibly empty button map of this tablet.
      */
-    const QMap<QString,QString> getButtonMap() const;
+    const QMap<QString,QString>& getButtonMap() const;
 
 
     /**

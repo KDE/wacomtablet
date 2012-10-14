@@ -32,32 +32,15 @@ void TestTabletDatabase::initTestCase()
     QString companyFile   = QLatin1String("testtabletdatabase.companylist");
     QString dataDirectory = KdedTestUtils::getAbsoluteDir(companyFile);
 
-    m_tabletDatabase = new TabletDatabase(dataDirectory, companyFile);
+    TabletDatabase::instance().setDatabase(dataDirectory, companyFile);
 }
 
 
 
 void TestTabletDatabase::testLookupBackend()
 {
-    QCOMPARE(m_tabletDatabase->lookupBackend(QLatin1String("056A")), QLatin1String("wacom-tools"));
-    QCOMPARE(m_tabletDatabase->lookupBackend(QLatin1String("08ca")), QLatin1String("aiptek"));
-}
-
-
-
-void TestTabletDatabase::testLookupButtonMapping()
-{
-    QString companyId = QLatin1String("056a");
-    QString deviceId  = QLatin1String("00df");
-    QMap<QString,QString> buttonMap;
-
-    QVERIFY(m_tabletDatabase->lookupButtonMapping(buttonMap, companyId, deviceId));
-
-    QVERIFY(buttonMap.size() == 4);
-
-    foreach (const QString& key, buttonMap.keys()) {
-        QVERIFY(!buttonMap.value(key).isEmpty());
-    }
+    QCOMPARE(TabletDatabase::instance().lookupBackend(QLatin1String("056A")), QLatin1String("wacom-tools"));
+    QCOMPARE(TabletDatabase::instance().lookupBackend(QLatin1String("08ca")), QLatin1String("aiptek"));
 }
 
 
@@ -66,7 +49,7 @@ void TestTabletDatabase::testLookupDevice()
 {
     TabletInformation info;
 
-    QVERIFY(m_tabletDatabase->lookupDevice(info, QLatin1String("00df")));
+    QVERIFY(TabletDatabase::instance().lookupTablet(QLatin1String("00df"), info));
 
     QCOMPARE(info.get(TabletInfo::CompanyId),   QLatin1String("056A"));
     QCOMPARE(info.get(TabletInfo::CompanyName), QLatin1String("Wacom Co., Ltd"));
@@ -76,11 +59,14 @@ void TestTabletDatabase::testLookupDevice()
     QCOMPARE(info.get(TabletInfo::TabletName),  QLatin1String("Bamboo Create"));
 
     QVERIFY(info.hasButtons());
+
+
+    QMap<QString,QString> buttonMap = info.getButtonMap();
+
+    QVERIFY(buttonMap.size() == 4);
+
+    foreach (const QString& key, buttonMap.keys()) {
+        QVERIFY(!buttonMap.value(key).isEmpty());
+    }
 }
 
-
-
-void TestTabletDatabase::cleanupTestCase()
-{
-    delete (m_tabletDatabase);
-}

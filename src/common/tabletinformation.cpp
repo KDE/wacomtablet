@@ -185,7 +185,7 @@ const QString& TabletInformation::get (const TabletInfo& info) const
 
 
 
-const QMap< QString, QString > TabletInformation::getButtonMap() const
+const QMap< QString, QString >& TabletInformation::getButtonMap() const
 {
     Q_D (const TabletInformation);
     return d->buttonMap;

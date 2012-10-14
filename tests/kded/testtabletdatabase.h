@@ -37,14 +37,7 @@ private slots:
 
     void testLookupBackend();
 
-    void testLookupButtonMapping();
-
     void testLookupDevice();
-
-    void cleanupTestCase();
-
-private:
-    TabletDatabase* m_tabletDatabase;
 };
 }
 
