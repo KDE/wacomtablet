@@ -229,6 +229,8 @@ bool X11InputDevice::hasProperty(const QString& property) const
     Q_D(const X11InputDevice);
 
     if (!isOpen()) {
+        // some devices like the virtual core keyboard/pointer can not be opened
+        kDebug() << QString::fromLatin1("Can not check property '%1' on a device which is not open!").arg(property);
         return false;
     }
 
@@ -291,12 +293,15 @@ bool X11InputDevice::open(Display* display, X11InputDevice::XID id, const QStrin
     }
 
     if (display == NULL || id == 0) {
+        kError() << QString::fromLatin1("Unable to open device '%1' as invalid parameters were provided!").arg(name);
         return false;
     }
 
     XDevice* device = (XDevice*) XOpenDevice(display, id);
 
     if (device == NULL) {
+        // some virtual devices can not be opened
+        kDebug() << QString::fromLatin1("XOpenDevice failed on device id '%1'!").arg(id);
         return false;
     }
 

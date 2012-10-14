@@ -58,7 +58,7 @@ X11TabletFinder::~X11TabletFinder()
 
 
 
-const QList< TabletInformation >& X11TabletFinder::getDevices() const
+const QList< TabletInformation >& X11TabletFinder::getTablets() const
 {
     Q_D (const X11TabletFinder);
 
@@ -111,7 +111,8 @@ bool X11TabletFinder::visit (X11InputDevice& x11device)
     // add device information to tablet map
     addDeviceInformation(deviceInfo);
 
-    return true;
+    // true is only returned if device visiting should be aborted by X11Input
+    return false;
 }
 
 
@@ -163,7 +164,7 @@ const QString X11TabletFinder::getDeviceNode(X11InputDevice& device) const
 {
     QList<QString> values;
 
-    if (!device.getStringProperty(X11Input::PROPERTY_DEVICE_NODE, values, 1) || values.size() == 0) {
+    if (!device.getStringProperty(X11Input::PROPERTY_DEVICE_NODE, values, 1000) || values.size() == 0) {
         kWarning() << QString::fromLatin1("Could not get device node from device '%1'!").arg(device.getName());
         return QString();
     }

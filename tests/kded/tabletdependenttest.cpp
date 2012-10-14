@@ -50,28 +50,65 @@ void TabletDependentTest::findTablet()
     m_isTabletAvailable = false;
 
     if (tabletFinder.scanDevices()) {
-        m_tabletInformation = tabletFinder.getDevices().at(0);
+        m_tabletInformation = tabletFinder.getTablets().at(0);
         m_isTabletAvailable = true;
+
+        printTabletInformation(m_tabletInformation);
     }
 }
 
 
 void TabletDependentTest::printTabletInformation(const TabletInformation& info) const
 {
-    kError() << QLatin1String("\nTablet Information: ")
-             << QString::fromLatin1("\n  Stylus Name  : '%1'").arg(info.getDeviceName(DeviceType::Stylus))
-             << QString::fromLatin1("\n  Eraser Name  : '%1'").arg(info.getDeviceName(DeviceType::Eraser))
-             << QString::fromLatin1("\n  Touch Name   : '%1'").arg(info.getDeviceName(DeviceType::Touch))
-             << QString::fromLatin1("\n  Pad Name     : '%1'").arg(info.getDeviceName(DeviceType::Pad))
-             << QString::fromLatin1("\n  Cursor Name  : '%1'").arg(info.getDeviceName(DeviceType::Cursor))
+    kError() << QString::fromLatin1(
+        "\n\n Tablet Information:"
+        "\n  + Stylus Name   : %1"
+        "\n  + Eraser Name   : %2"
+        "\n  + Touch Name    : %3"
+        "\n  + Pad Name      : %4"
+        "\n  + Cursor Name   : %5"
+        "\n  + Company ID    : %6"
+        "\n  + Company Name  : %7"
+        "\n  + Tablet ID     : %8"
+        "\n  + Tablet Serial : %9"
+        "\n  + Tablet Name   : %10"
+        "\n  + Tablet Model  : %11"
+        "\n"
+    )
+    .arg(info.getDeviceName(DeviceType::Stylus))
+    .arg(info.getDeviceName(DeviceType::Eraser))
+    .arg(info.getDeviceName(DeviceType::Touch))
+    .arg(info.getDeviceName(DeviceType::Pad))
+    .arg(info.getDeviceName(DeviceType::Cursor))
+    .arg(info.get(TabletInfo::CompanyId))
+    .arg(info.get(TabletInfo::CompanyName))
+    .arg(info.get(TabletInfo::TabletId))
+    .arg(info.get(TabletInfo::TabletSerial))
+    .arg(info.get(TabletInfo::TabletName))
+    .arg(info.get(TabletInfo::TabletModel));
 
-             << QString::fromLatin1("\n  Company ID   : '%1'").arg(info.get(TabletInfo::CompanyId))
-             << QString::fromLatin1("\n  Company Name : '%1'").arg(info.get(TabletInfo::CompanyName))
-             << QString::fromLatin1("\n  Tablet ID    : '%1'").arg(info.get(TabletInfo::TabletId))
-             << QString::fromLatin1("\n  Tablet Name  : '%1'").arg(info.get(TabletInfo::TabletName))
-             << QString::fromLatin1("\n  Tablet Model : '%1'").arg(info.get(TabletInfo::TabletModel))
+    foreach (const DeviceType& deviceType, DeviceType::list()) {
 
-             << QString::fromLatin1("\n");
+        const DeviceInformation* deviceInfo = info.getDevice(deviceType);
+
+        if (deviceInfo == NULL) {
+            continue;
+        }
+
+        kError() << QString::fromLatin1(
+            "\n\n Device '%1'"
+            "\n  + Device Id   : %2"
+            "\n  + Product Id  : %3"
+            "\n  + Vendor Id   : %4"
+            "\n  + Device Node : %5"
+            "\n"
+        )
+        .arg(deviceInfo->getName())
+        .arg(deviceInfo->getDeviceId())
+        .arg(deviceInfo->getProductId())
+        .arg(deviceInfo->getVendorId())
+        .arg(deviceInfo->getDeviceNode());
+    }
 }
 
 

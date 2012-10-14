@@ -48,7 +48,7 @@ public:
      *
      * @return A list of devices found.
      */
-    const QList<TabletInformation>& getDevices() const;
+    const QList<TabletInformation>& getTablets() const;
 
     /**
      * Scans for available devices.

@@ -149,7 +149,7 @@ public:
      *
      * @return True if the property could be retrieved, else false.
      */
-    bool getStringProperty (const QString& property, QList<QString>& values, long nelements = 1) const;
+    bool getStringProperty (const QString& property, QList<QString>& values, long nelements = 1024) const;
 
     /**
      * Checks if this device has the given property. The device has to be open for

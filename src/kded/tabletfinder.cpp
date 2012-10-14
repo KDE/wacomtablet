@@ -85,13 +85,15 @@ bool TabletFinder::scan()
     QMap<QString,QString> buttonMap;
 
     if (x11tabletFinder.scanDevices()) {
-        d->tabletList = x11tabletFinder.getDevices();
+        d->tabletList = x11tabletFinder.getTablets();
 
         TabletFinderPrivate::TabletInformationList::Iterator iter;
 
         for (iter = d->tabletList.begin() ; iter != d->tabletList.end() ; ++iter) {
             // lookup device information and button map
             lookupInformation(*iter);
+
+            // emit tablet added signal
             emit tabletAdded(*iter);
         }
 
@@ -123,10 +125,15 @@ void TabletFinder::onX11TabletAdded(int deviceId)
     }
 
     // check if the device id can be found
-    foreach (const TabletInformation& info, x11TabletFinder.getDevices()) {
+    foreach (const TabletInformation& info, x11TabletFinder.getTablets()) {
         if (info.hasDevice(deviceId)) {
-            d->tabletList.append(info);
-            emit tabletAdded(info);
+            // tablet found - lookup additional information
+            TabletInformation tabletInfo = info;
+            lookupInformation(tabletInfo);
+
+            // add tablet to the list of known tablets and emit added signal
+            d->tabletList.append(tabletInfo);
+            emit tabletAdded(tabletInfo);
             return;
         }
     }
