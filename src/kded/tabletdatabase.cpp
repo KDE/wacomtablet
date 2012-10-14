@@ -172,20 +172,22 @@ bool TabletDatabase::getInformation(const KConfigGroup& deviceGroup, const QStri
     // tablet information data is set in one place and not all over this class.
 
     // get general information
-    tabletInfo.set (TabletInfo::TabletId, tabletId.toUpper());
-    tabletInfo.set (TabletInfo::CompanyId, companyId.toUpper());
+    tabletInfo.set (TabletInfo::TabletId,    tabletId.toUpper());
+    tabletInfo.set (TabletInfo::CompanyId,   companyId.toUpper());
     tabletInfo.set (TabletInfo::CompanyName, companyName);
     tabletInfo.set (TabletInfo::TabletModel, deviceGroup.readEntry("model"));
-    tabletInfo.set (TabletInfo::TabletName, deviceGroup.readEntry("name"));
+    tabletInfo.set (TabletInfo::TabletName,  deviceGroup.readEntry("name"));
 
-    if( deviceGroup.readEntry( "padbuttons" )  != QLatin1String( "0" ) ||
-        deviceGroup.readEntry( "wheel" )       != QLatin1String( "no" ) ||
-        deviceGroup.readEntry( "touchring" )   != QLatin1String( "no" ) ||
-        deviceGroup.readEntry( "touchstripl" ) != QLatin1String( "no" ) ||
-        deviceGroup.readEntry( "touchstripr" ) != QLatin1String( "no" ) ) {
+    int numPadButtons = deviceGroup.readEntry("padbuttons").toInt();
+
+    if (numPadButtons > 0  ||
+        deviceGroup.readEntry ("wheel").compare (QLatin1String ("yes"), Qt::CaseInsensitive) == 0 ||
+        deviceGroup.readEntry ("touchring").compare (QLatin1String ("yes"), Qt::CaseInsensitive) == 0 ||
+        deviceGroup.readEntry ("touchstripl").compare (QLatin1String ("yes"), Qt::CaseInsensitive) == 0 ||
+        deviceGroup.readEntry ("touchstripr").compare (QLatin1String ("yes"), Qt::CaseInsensitive) == 0)
+    {
         tabletInfo.setButtons(true);
-    }
-    else {
+    } else {
         tabletInfo.setButtons(false);
     }
 
