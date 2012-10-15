@@ -103,6 +103,7 @@ void TabletHandler::onTabletAdded( const TabletInformation& info )
 
     // if we already have a device ... skip this step
     if(d->tabletBackend) {
+        kDebug() << QString::fromLatin1("Ignoring tablet '%1' as another one is already connected.").arg(info.get(TabletInfo::TabletId));
         return;
     }
 

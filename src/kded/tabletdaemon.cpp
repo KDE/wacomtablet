@@ -167,8 +167,8 @@ void TabletDaemon::setupEventNotifier()
     connect( &X11EventNotifier::instance(), SIGNAL(tabletAdded (int)),                        &TabletFinder::instance(), SLOT(onX11TabletAdded (int)));
     connect( &X11EventNotifier::instance(), SIGNAL(tabletRemoved (int)),                      &TabletFinder::instance(), SLOT(onX11TabletRemoved (int)));
 
-    connect( &TabletFinder::instance(),   SIGNAL(tabletAdded (const TabletInformation)),    &(d->tabletHandler),       SLOT(onTabletAdded (const TabletInformation)));
-    connect( &TabletFinder::instance(),   SIGNAL(tabletRemoved (const TabletInformation)),  &(d->tabletHandler),       SLOT(onTabletRemoved (const TabletInformation)));
+    connect( &TabletFinder::instance(),     SIGNAL(tabletAdded (const TabletInformation)),    &(d->tabletHandler),       SLOT(onTabletAdded (const TabletInformation)));
+    connect( &TabletFinder::instance(),     SIGNAL(tabletRemoved (const TabletInformation)),  &(d->tabletHandler),       SLOT(onTabletRemoved (const TabletInformation)));
 
     X11EventNotifier::instance().start();
 }

@@ -150,15 +150,16 @@ void X11EventNotifier::handleX11InputEvent(XEvent* event)
         for (int i = 0; i < hev->num_info; i++)
         {
             if (info[i].flags & XISlaveRemoved) {
-                kDebug() << "Device removed with id: " << info[i].deviceid;
+                kDebug() << QString::fromLatin1("X11 device with id '%1' removed.").arg(info[i].deviceid);
                 emit tabletRemoved(info[i].deviceid);
 
             } else if (info[i].flags & XISlaveAdded) {
+                kDebug() << QString::fromLatin1("X11 device with id '%1' added.").arg(info[i].deviceid);
 
-                X11InputDevice device (QX11Info::display(), info[i].deviceid, QLatin1String("TempDevice"));
+                X11InputDevice device (QX11Info::display(), info[i].deviceid, QLatin1String("Unknown X11 Device"));
 
                 if (device.isOpen() && device.isTabletDevice()) {
-                    kDebug() << "Wacom Tablet Device added with id: " << info[i].deviceid;
+                    kDebug() << QString::fromLatin1("Wacom tablet device with X11 id '%1' added.").arg(info[i].deviceid);
                     emit tabletAdded(info[i].deviceid);
                 }
             }
@@ -179,33 +180,43 @@ void X11EventNotifier::handleX11InputEvent(XEvent* event)
 void X11EventNotifier::handleX11ScreenEvent(XEvent* event)
 {
     Q_D( X11EventNotifier );
-    
+
     int m_eventBase;
     int m_errorBase;
 
     XRRQueryExtension(QX11Info::display(), &m_eventBase, &m_errorBase);
 
     if (event->type == m_eventBase + RRScreenChangeNotify) {
+        kDebug() << "XRandr screen rotation detected!";
+
         XRRUpdateConfiguration(event);
         Rotation old_r = d->currentRotation;
 
         XRRRotations(QX11Info::display(), DefaultScreen(QX11Info::display()), &(d->currentRotation));
 
         if (old_r != d->currentRotation) {
+            ScreenRotation newRotation = ScreenRotation::NONE;
+
             switch (d->currentRotation) {
                     case RR_Rotate_0:
-                        emit screenRotated(ScreenRotation::NONE);
+                        newRotation = ScreenRotation::NONE;
                         break;
                     case RR_Rotate_90:
-                        emit screenRotated(ScreenRotation::CCW);
+                        newRotation = ScreenRotation::CCW;
                         break;
                     case RR_Rotate_180:
-                        emit screenRotated(ScreenRotation::HALF);
+                        newRotation = ScreenRotation::HALF;
                         break;
                     case RR_Rotate_270:
-                        emit screenRotated(ScreenRotation::CW);
+                        newRotation = ScreenRotation::CW;
                         break;
+                    default:
+                        kError() << QString::fromLatin1("FIXME: Unsupported screen rotation '%1'.").arg(d->currentRotation);
+                        return;
             }
+
+            kDebug() << QString::fromLatin1("XRandr screen rotation detected: '%1'.").arg(newRotation.key());
+            emit screenRotated(newRotation);
         }
     }
 }
