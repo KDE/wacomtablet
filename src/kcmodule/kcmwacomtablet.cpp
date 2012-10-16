@@ -48,10 +48,10 @@ KCMWacomTablet::KCMWacomTablet(QWidget *parent, const QVariantList &)
     m_layout = new QVBoxLayout(this);
     m_layout->setMargin(0);
 
-    m_about = new AboutData("kcm_wacomtablet", ki18n("Graphic Tablet Configuration"),
+    AboutData* about = new AboutData("kcm_wacomtablet", ki18n("Graphic Tablet Configuration"),
                             kcm_version, ki18n("A configurator for graphic tablets"),
                             ki18n("In this module you can configure your Wacom tablet profiles"));
-    setAboutData(m_about);
+    setAboutData(about);
     setButtons(Apply | Help);
 
     initModule();
@@ -60,7 +60,6 @@ KCMWacomTablet::KCMWacomTablet(QWidget *parent, const QVariantList &)
 
 KCMWacomTablet::~KCMWacomTablet()
 {
-    delete m_about;
 }
 
 

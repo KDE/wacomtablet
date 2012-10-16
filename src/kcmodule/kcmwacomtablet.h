@@ -71,7 +71,6 @@ private slots:
 private:
     QVBoxLayout           *m_layout;        /**< Basic layout for the module */
     QPointer<TabletWidget> m_tabletWidget;  /**< Main widget that holds all other tabs */
-    AboutData             *m_about;         /**< The about data returned by the module */
     bool                   m_changed;       /**< Saves if the profiles are changed or not */
 };
 }

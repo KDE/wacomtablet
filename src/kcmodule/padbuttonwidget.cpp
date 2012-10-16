@@ -124,7 +124,7 @@ void PadButtonWidget::init()
         d->m_ui->padImage->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
     }
 
-    if (DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasWheel)) {
+    if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasWheel)) {
         d->m_ui->wheelGroupBox->setVisible(false);
     } else {
         d->m_ui->wheelUpComboBox->clear();
@@ -134,7 +134,7 @@ void PadButtonWidget::init()
         d->m_ui->wheelGroupBox->setVisible(true);
     }
 
-    if (DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasTouchRing)) {
+    if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasTouchRing)) {
         d->m_ui->tochRingGroupBox->setVisible(false);
     } else {
         d->m_ui->ringUpComboBox->clear();
@@ -146,7 +146,7 @@ void PadButtonWidget::init()
 
     bool hasLeftTouchStrip = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasLeftTouchStrip);
 
-    if (hasLeftTouchStrip) {
+    if (!hasLeftTouchStrip) {
         d->m_ui->stripLUpLabel->setVisible(false);
         d->m_ui->stripLUpComboBox->setVisible(false);
         d->m_ui->stripLUpActionLabel->setVisible(false);
@@ -168,7 +168,7 @@ void PadButtonWidget::init()
 
     bool hasRightTouchStrip = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasRightTouchStrip);
 
-    if (hasRightTouchStrip) {
+    if (!hasRightTouchStrip) {
         d->m_ui->stripRUpLabel->setVisible(false);
         d->m_ui->stripRUpComboBox->setVisible(false);
         d->m_ui->stripRUpActionLabel->setVisible(false);
@@ -188,10 +188,10 @@ void PadButtonWidget::init()
         d->m_ui->stripRDnActionLabel->setVisible(true);
     }
 
-    if (hasLeftTouchStrip && hasRightTouchStrip) {
-        d->m_ui->tochStripGroupBox->setVisible(false);
-    } else {
+    if (hasLeftTouchStrip || hasRightTouchStrip) {
         d->m_ui->tochStripGroupBox->setVisible(true);
+    } else {
+        d->m_ui->tochStripGroupBox->setVisible(false);
     }
 }
 
