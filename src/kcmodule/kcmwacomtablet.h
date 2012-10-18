@@ -63,13 +63,12 @@ public:
 
 private slots:
     /**
-      * Initialize the module and set up all widgets
-      * finds the connected tablet and fills in all the values
+      * Initializes the module's user interface.
       */
-    void initModule();
+    void initUi();
 
 private:
-    QVBoxLayout           *m_layout;        /**< Basic layout for the module */
+    QPointer<QVBoxLayout>  m_layout;        /**< Basic layout for the module */
     QPointer<TabletWidget> m_tabletWidget;  /**< Main widget that holds all other tabs */
     bool                   m_changed;       /**< Saves if the profiles are changed or not */
 };

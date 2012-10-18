@@ -36,7 +36,6 @@
 using namespace Wacom;
 
 K_PLUGIN_FACTORY(KCMWacomTabletFactory, registerPlugin<KCMWacomTablet>();)
-
 K_EXPORT_PLUGIN(KCMWacomTabletFactory("kcm_wacomtablet"))
 
 KCMWacomTablet::KCMWacomTablet(QWidget *parent, const QVariantList &)
@@ -44,30 +43,40 @@ KCMWacomTablet::KCMWacomTablet(QWidget *parent, const QVariantList &)
         m_changed(false)
 {
     KGlobal::locale()->insertCatalog( QLatin1String( "wacomtablet" ));
-
-    m_layout = new QVBoxLayout(this);
-    m_layout->setMargin(0);
-
-    AboutData* about = new AboutData("kcm_wacomtablet", ki18n("Graphic Tablet Configuration"),
-                            kcm_version, ki18n("A configurator for graphic tablets"),
-                            ki18n("In this module you can configure your Wacom tablet profiles"));
-    setAboutData(about);
-    setButtons(Apply | Help);
-
-    initModule();
+    initUi();
 }
 
 
 KCMWacomTablet::~KCMWacomTablet()
 {
+    if (m_layout) {
+        delete m_layout;
+    }
+
+    if (m_tabletWidget) {
+        delete m_tabletWidget;
+    }
 }
 
 
-void KCMWacomTablet::initModule()
+void KCMWacomTablet::initUi()
 {
+    // about data will be deleted by KCModule
+    AboutData* about = new AboutData("kcm_wacomtablet", ki18n("Graphic Tablet Configuration"),
+                            kcm_version, ki18n("A configurator for graphic tablets"),
+                            ki18n("In this module you can configure your Wacom tablet profiles"));
+
+    // setup kcm module
+    setAboutData(about);
+    setButtons(Apply | Help);
+
+    // setup module ui
     m_tabletWidget = new TabletWidget(this);
+    m_layout       = new QVBoxLayout(this);
+    m_layout->setMargin(0);
     m_layout->addWidget(m_tabletWidget);
 
+    // connect signals
     connect(m_tabletWidget, SIGNAL(changed(bool)), SIGNAL(changed(bool)));
 }
 
@@ -76,6 +85,7 @@ void KCMWacomTablet::load()
     if (m_tabletWidget) {
         m_tabletWidget->reloadProfile();
     }
+
     emit changed(false);
 }
 
