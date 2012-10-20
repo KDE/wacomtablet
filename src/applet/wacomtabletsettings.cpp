@@ -43,7 +43,8 @@ K_EXPORT_PLASMA_APPLET(tabletsettings, WacomTabletSettings)
 WacomTabletSettings::WacomTabletSettings(QObject *parent, const QVariantList &args)
         : Plasma::PopupApplet(parent, args),
         m_applet(0),
-        m_settingsWidget(0)
+        m_settingsWidget(0),
+        m_watcher(0)
 {
     KGlobal::locale()->insertCatalog( QLatin1String( "wacomtablet" ));
 
@@ -53,7 +54,17 @@ WacomTabletSettings::WacomTabletSettings(QObject *parent, const QVariantList &ar
 
 WacomTabletSettings::~WacomTabletSettings()
 {
-    delete m_applet;
+    if (!m_watcher) {
+        delete m_watcher;
+    }
+
+    if (!m_settingsWidget) {
+        delete m_settingsWidget;
+    }
+
+    if (!m_applet) {
+        delete m_applet;
+    }
 }
 
 void WacomTabletSettings::init()

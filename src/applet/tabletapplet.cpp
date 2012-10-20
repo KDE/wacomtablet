@@ -52,9 +52,6 @@ TabletApplet::TabletApplet( WacomTabletSettings *tabletSettings ) :
     m_deviceName( 0 )
 {
     buildDialog();
-
-    //qDBusRegisterMetaType<Wacom::TabletInformation>();
-    //qDBusRegisterMetaType< QList<Wacom::TabletInformation> >();
 }
 
 TabletApplet::~TabletApplet()

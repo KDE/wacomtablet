@@ -22,6 +22,8 @@
 
 #include <KDE/Plasma/PopupApplet>
 
+#include <QtCore/QPointer>
+
 class QDBusServiceWatcher;
 class KCModuleProxy;
 
@@ -91,9 +93,9 @@ private slots:
     void configAccepted();
 
 private:
-    TabletApplet        *m_applet;         /**< The content widget for this applet. Contains all important values and functions */
-    KCModuleProxy       *m_settingsWidget; /**< Embedded KCM modules in the configuration dialog */
-    QDBusServiceWatcher *m_watcher;        /**< Watches over the conencted dbus service, changes the applet status when the service gets available / unavailable */
+    QPointer<TabletApplet>        m_applet;         /**< The content widget for this applet. Contains all important values and functions */
+    QPointer<KCModuleProxy>       m_settingsWidget; /**< Embedded KCM modules in the configuration dialog */
+    QPointer<QDBusServiceWatcher> m_watcher;        /**< Watches over the conencted dbus service, changes the applet status when the service gets available / unavailable */
 
 }; // CLASS
 }  // NAMESPACE
