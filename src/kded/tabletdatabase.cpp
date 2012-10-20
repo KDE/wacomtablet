@@ -223,10 +223,15 @@ bool TabletDatabase::openConfig(const QString& configFileName, KSharedConfig::Pt
         configFilePath = QString::fromLatin1("%1/%2").arg(d->dataDirectory).arg(configFileName);
     }
 
+    if (configFilePath.isEmpty()) {
+        kWarning() << QString::fromLatin1("Tablet database configuration file '%1' does not exist or is not accessible!").arg(configFileName);
+        return false;
+    }
+
     configFile = KSharedConfig::openConfig (configFilePath, KConfig::SimpleConfig, "data");
 
     if (configFile->groupList().isEmpty()) {
-        kWarning() << QString::fromLatin1("Tablet database configuration file '%1' is empty or does not exist!").arg(configFilePath);
+        kWarning() << QString::fromLatin1("Tablet database configuration file '%1' is empty or not readable!").arg(configFilePath);
         return false;
     }
 
