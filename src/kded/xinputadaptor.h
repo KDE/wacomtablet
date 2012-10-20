@@ -54,7 +54,7 @@ public:
     /**
      * @sa PropertyAdaptor::setProperty(const Property&, const QString&)
      */
-    bool setProperty(const Wacom::Property& property, const QString& value) const;
+    bool setProperty(const Wacom::Property& property, const QString& value);
 
     /**
      * @sa PropertyAdaptor::supportsProperty(const Property&)

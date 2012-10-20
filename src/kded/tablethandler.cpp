@@ -229,14 +229,18 @@ void TabletHandler::setProfile( const QString &profile )
     Q_D( TabletHandler );
 
     if (!d->tabletBackend) {
+        kDebug() << QString::fromLatin1("Can not set tablet profile to '%1' as not backend is available!").arg(profile);
         return;
     }
+
+    kDebug() << QString::fromLatin1("Loading tablet profile '%1'...").arg(profile);
 
     d->profileManager.readProfiles(d->tabletInformation.get(TabletInfo::TabletName));
 
     TabletProfile tabletProfile = d->profileManager.loadProfile(profile);
 
     if (tabletProfile.listDevices().isEmpty()) {
+        kError() << QString::fromLatin1("Tablet profile '%1' does not exist!").arg(profile);
         emit notify( QLatin1String( "tabletError" ),
                      i18n( "Graphic Tablet error" ),
                      i18n( "Profile <b>%1</b> does not exist", profile ) );

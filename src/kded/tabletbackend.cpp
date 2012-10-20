@@ -114,6 +114,7 @@ void TabletBackend::setProfile(const TabletProfile& profile)
 
     foreach(const DeviceType& deviceType, DeviceType::list()) {
         if (d->tabletInformation.hasDevice(deviceType) && profile.hasDevice(deviceType)) {
+            kDebug() << QString::fromLatin1("Setting profile '%1' on tablet '%2', device '%3'").arg(profile.getName()).arg(d->tabletInformation.get(TabletInfo::TabletName)).arg(deviceType.key());
             DeviceProfile deviceProfile = profile.getDevice(deviceType);
             setProfile(deviceType, deviceProfile);
         }

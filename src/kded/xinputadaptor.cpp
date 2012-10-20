@@ -61,6 +61,7 @@ const QList< Property > XinputAdaptor::getProperties() const
 }
 
 
+
 const QString XinputAdaptor::getProperty(const Property& property) const
 {
     Q_D(const XinputAdaptor);
@@ -81,9 +82,11 @@ const QString XinputAdaptor::getProperty(const Property& property) const
 }
 
 
-bool XinputAdaptor::setProperty(const Property& property, const QString& value) const
+bool XinputAdaptor::setProperty(const Property& property, const QString& value)
 {
     Q_D(const XinputAdaptor);
+
+    kDebug() << QString::fromLatin1("Setting property '%1' to '%2'.").arg(property.key()).arg(value);
 
     const XinputProperty* xinputproperty = XinputProperty::map(property);
 
