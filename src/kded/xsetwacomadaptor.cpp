@@ -90,12 +90,12 @@ bool XsetwacomAdaptor::setProperty(const Property& property, const QString& valu
 {
     Q_D( const XsetwacomAdaptor );
 
-    kDebug() << QString::fromLatin1("Setting property '%1' to '%2'.").arg(property.key()).arg(value);
+    kDebug() << QString::fromLatin1("Setting property '%1' to '%2' on device '%3'.").arg(property.key()).arg(value).arg(d->device);
 
     const XsetwacomProperty* xsetproperty = XsetwacomProperty::map(property);
 
     if (xsetproperty == NULL) {
-        kError() << QString::fromLatin1("Can not set unsupported property '%1' to '%2' using xsetwacom!").arg(property.key()).arg(value);
+        kError() << QString::fromLatin1("Can not set unsupported property '%1' to '%2' on device '%3' using xsetwacom!").arg(property.key()).arg(value).arg(d->device);
         return false;
     }
 
