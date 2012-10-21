@@ -21,15 +21,12 @@
 #define TABLETSETTINGS_H
 
 #include <KDE/Plasma/PopupApplet>
-
 #include <QtCore/QPointer>
-
-class QDBusServiceWatcher;
-class KCModuleProxy;
 
 namespace Wacom
 {
 class TabletApplet;
+class WacomTabletSettingsPrivate;
 
 /**
   * This plasma applet provides easy to switch the tablet profiles.
@@ -93,9 +90,8 @@ private slots:
     void configAccepted();
 
 private:
-    QPointer<TabletApplet>        m_applet;         /**< The content widget for this applet. Contains all important values and functions */
-    QPointer<KCModuleProxy>       m_settingsWidget; /**< Embedded KCM modules in the configuration dialog */
-    QPointer<QDBusServiceWatcher> m_watcher;        /**< Watches over the conencted dbus service, changes the applet status when the service gets available / unavailable */
+    Q_DECLARE_PRIVATE (WacomTabletSettings)
+    WacomTabletSettingsPrivate* const d_ptr;
 
 }; // CLASS
 }  // NAMESPACE

@@ -25,21 +25,13 @@
 //Qt include
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
-
-namespace Plasma
-{
-class Label;
-class ComboBox;
-class RadioButton;
-}
 
 class QGraphicsWidget;
-class QGraphicsLinearLayout;
 
 namespace Wacom
 {
 class WacomTabletSettings;
+class TabletAppletPrivate;
 
 /**
   * This class provides the plasma applet with the widget content.
@@ -232,25 +224,10 @@ private:
       */
     void buildErrorDialog();
 
-    WacomTabletSettings   *m_tabletSettings;      /**< Backreference to the tablet popup applet containing this widget */
 
-    QGraphicsWidget       *m_widget;              /**< The graphics widget which displays the content */
-    QGraphicsLinearLayout *m_layoutMain;          /**< Layout of the main widget that contains the title / config and error widgets */
-    QGraphicsWidget       *m_configWidget;        /**< Widget for the config content created by buildConfigDialog() */
-    QGraphicsWidget       *m_errorWidget;         /**< Widget for the error content created by buildErrorDialog() */
+    Q_DECLARE_PRIVATE (TabletApplet)
+    TabletAppletPrivate* const d_ptr;
 
-    QString                m_padName;             /**< Internal cache of the tablet pad name */
-    QString                m_stylusName;          /**< Internal cache of the tablet stylus name */
-    QString                m_eraserName;          /**< Internal cache of the tablet eraser name */
-    QString                m_touchName;          /**< Internal cache of the tablet touch name */
-
-    Plasma::Label         *m_deviceName;          /**< Internal cache of the tablet name */
-    Plasma::Label         *m_errorMsg;            /**< Error message if no tablet or the daemon is not available */
-    Plasma::ComboBox      *m_comboBoxProfile;     /**< The Combox for the profile selection */
-    Plasma::RadioButton   *m_radioButtonAbsolute; /**< The Radiobutton to select the pen absolute mode */
-    Plasma::RadioButton   *m_radioButtonRelative; /**< The Radiobutton to select the pen relative mode */
-    Plasma::RadioButton   *m_radioButtonTouchOn;  /**< The Radiobutton to select the pen absolute mode */
-    Plasma::RadioButton   *m_radioButtonTouchOff; /**< The Radiobutton to select the pen relative mode */
-};
-}
-#endif // TABLETAPPLET_H
+}; // CLASS
+}  // NAMESPACE
+#endif // HEADER PROTECTION
