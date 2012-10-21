@@ -81,8 +81,11 @@ const QString XsetwacomAdaptor::getProperty(const Property& property) const
 
     QString convertedParam = convertParameter (*xsetproperty);
     QString xsetwacomValue = getParameter (d->device, convertedParam);
+    QString convertedValue = convertFromXsetwacomValue (*xsetproperty, xsetwacomValue);
 
-    return convertFromXsetwacomValue (*xsetproperty, xsetwacomValue);
+    kDebug() << QString::fromLatin1("Reading property '%1' from device '%2' -> '%3'.").arg(property.key()).arg(d->device).arg(convertedValue);
+
+    return convertedValue;
 }
 
 
