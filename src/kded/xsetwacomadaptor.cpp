@@ -20,6 +20,7 @@
 #include "debug.h"
 #include "xsetwacomadaptor.h"
 #include "xsetwacomproperty.h"
+#include "stringutils.h"
 
 #include <QtCore/QProcess>
 #include <QtCore/QRegExp>
@@ -188,7 +189,7 @@ bool XsetwacomAdaptor::setInvertScroll(const QString& value)
 {
     Q_D( const XsetwacomAdaptor );
 
-    if (value.compare(QLatin1String("true"), Qt::CaseInsensitive) == 0) {
+    if (StringUtils::asBool(value)) {
         setParameter(d->device, XsetwacomProperty::Button4.key(), QLatin1String("5"));
         setParameter(d->device, XsetwacomProperty::Button5.key(), QLatin1String("4"));
     } else {

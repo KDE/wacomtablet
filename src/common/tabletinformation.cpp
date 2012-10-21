@@ -18,8 +18,8 @@
  */
 
 #include "debug.h"
-
 #include "tabletinformation.h"
+#include "stringutils.h"
 
 namespace Wacom
 {
@@ -187,7 +187,7 @@ const QString& TabletInformation::get (const TabletInfo& info) const
 
 bool TabletInformation::getBool(const TabletInfo& info) const
 {
-    return (get(info).compare(QLatin1String("true"), Qt::CaseInsensitive) == 0);
+    return (StringUtils::asBool (get (info)));
 }
 
 
@@ -365,16 +365,14 @@ void TabletInformation::setAvailable(bool value)
 
 void TabletInformation::setBool(const TabletInfo& info, const QString& value)
 {
-    QLatin1String strValue = QLatin1String("false");
-
-    if (value.compare(QLatin1String("true"), Qt::CaseInsensitive) == 0 ||
-        value.compare(QLatin1String("on"),   Qt::CaseInsensitive) == 0 ||
-        value.compare(QLatin1String("yes"),  Qt::CaseInsensitive) == 0)
+    if (StringUtils::asBool(value))
     {
-        strValue = QLatin1String("true");
+        set (info, QLatin1String("true"));
+    } else {
+        set (info, QLatin1String("false"));
     }
 
-    set (info, strValue);
+
 }
 
 

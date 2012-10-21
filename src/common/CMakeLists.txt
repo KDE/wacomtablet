@@ -13,6 +13,7 @@ set(wacom_common_SRC
     property.cpp
     propertyadaptor.cpp
     screenrotation.cpp
+    stringutils.cpp
     tabletinfo.cpp
     tabletinformation.cpp
     tabletprofile.cpp

@@ -30,6 +30,7 @@
 #include "property.h"
 #include "deviceprofile.h"
 #include "dbustabletinterface.h"
+#include "stringutils.h"
 
 // stdlib
 #include <memory>
@@ -256,7 +257,7 @@ void PadMapping::loadFromProfile()
     // ##################
     d->m_ui->rotationComboBox->setCurrentIndex( deviceProfile.getProperty( Property::Rotate ).toInt() );
 
-    if( deviceProfile.getProperty( Property::RotateWithScreen ) == QLatin1String( "true" ) ) {
+    if ( StringUtils::asBool(deviceProfile.getProperty (Property::RotateWithScreen))) {
         d->m_ui->xrandrRotationCheckBox->setChecked( true );
     }
 

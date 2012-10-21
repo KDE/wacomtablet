@@ -25,6 +25,7 @@
 #include "tabletbackendfactory.h"
 #include "tabletinfo.h"
 #include "devicetype.h"
+#include "stringutils.h"
 
 // common includes
 #include "dbustabletinterface.h" // required to copy TabletInformation from/to QDBusArgument
@@ -158,7 +159,7 @@ void TabletHandler::onScreenRotated( const ScreenRotation& screenRotation )
 
     kDebug() << "xRandR screen rotation detected.";
 
-    if ( stylusProfile.getProperty(Property::RotateWithScreen) == QLatin1String( "true" ) ) {
+    if (StringUtils::asBool (stylusProfile.getProperty (Property::RotateWithScreen))) {
 
         kDebug() << "Rotate tablet :: " << screenRotation.key();
 

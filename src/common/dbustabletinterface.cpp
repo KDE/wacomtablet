@@ -18,6 +18,7 @@
  */
 
 #include "dbustabletinterface.h"
+#include "stringutils.h"
 
 #include <QtCore/QString>
 #include <QtCore/QMetaType>
@@ -121,7 +122,7 @@ bool DBusTabletInterface::getInformationAsBool(const TabletInfo& info)
         return false;
     }
 
-    return (value.value().compare(QLatin1String("true"), Qt::CaseInsensitive) == 0);
+    return (StringUtils::asBool(value.value()));
 }
 
 
