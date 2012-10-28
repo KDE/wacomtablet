@@ -116,6 +116,9 @@ void TabletDaemon::onNotify(const QString& eventId, const QString& title, const 
 
 void TabletDaemon::onProfileChanged(const QString& profile)
 {
+    // disable compiler warning about unused parameters at least in debug mode
+    assert(&profile != NULL);
+
     // When closing the KCM module the KAction destructor disables all global shortcuts.
     // Make sure the global shortcuts are restored when a profile changes. This is not
     // optimal but at least it will enable the shortcuts again.
