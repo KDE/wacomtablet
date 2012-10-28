@@ -31,6 +31,11 @@ namespace Wacom
 // forward declaration
 class TabletBackendPrivate;
 
+/**
+ * The tablet backend which is used to set properties on a tablet.
+ * The properties which are available depend on the property adapters
+ * which were addded to the backend.
+ */
 class TabletBackend : public TabletBackendInterface
 {
 public:

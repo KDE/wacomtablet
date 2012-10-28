@@ -24,9 +24,19 @@
 
 namespace Wacom
 {
+/**
+ * This KAboutData implementatation should be used in every KDE component.
+ * It is here so we have central place where to manage all authors of this
+ * project.
+ */
 class AboutData : public KAboutData
 {
 public:
+    /**
+     * For the parameters of this constructor see the constructor of \a KAboutData.
+     *
+     * @see KAboutData
+     */
     AboutData(const QByteArray& appName, const KLocalizedString& programName, const QByteArray& version,
               const KLocalizedString& shortDescription = KLocalizedString(), const KLocalizedString& otherText = KLocalizedString());
 }; // CLASS

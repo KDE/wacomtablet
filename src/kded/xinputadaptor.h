@@ -31,6 +31,9 @@ namespace Wacom {
 class XinputProperty;
 class XinputAdaptorPrivate;
 
+/**
+ * A property adaptor which uses XInput to set properties on a device.
+ */
 class XinputAdaptor : public PropertyAdaptor
 {
 

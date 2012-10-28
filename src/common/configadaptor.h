@@ -27,11 +27,12 @@
 namespace Wacom {
 
 /**
- * The base class for configuration adpaters.
- * 
+ * The interface for configuration adpaters.
+ *
  * These adaptors support direct reading and writing of KDE config groups as
  * well as property mapping between configuration file keys and config or
- * system properties.
+ * system properties. In case of a general adapter, an adaptee can be provided
+ * where all configuration properties will be read from.
  */
 class ConfigAdaptor : public PropertyAdaptor {
 
@@ -39,18 +40,20 @@ public:
 
     /**
       * Default constructor.
+      *
+      * @param adaptee The property adapter where all properties are read from (possibly NULL).
       */
-    explicit ConfigAdaptor(PropertyAdaptor* adaptee);
+    explicit ConfigAdaptor(PropertyAdaptor* adaptee) : PropertyAdaptor(adaptee) {};
 
     /**
       * Default destructor
       */
-    virtual ~ConfigAdaptor();
+    virtual ~ConfigAdaptor() {};
 
     /**
      * Loads a config from the given config group. The default implementation
      * does nothing and always returns false.
-     * 
+     *
      * @param config The configuration group to load the configuration from.
      *
      * @return True on success, false on error.

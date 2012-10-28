@@ -24,6 +24,12 @@
 
 namespace Wacom
 {
+/**
+ * XInput device visitor.
+ *
+ * This class allows easy access to xinput devices when using
+ * \a X11Input::scanDevices().
+ */
 class X11InputVisitor
 {
 public:

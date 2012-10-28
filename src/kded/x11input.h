@@ -27,6 +27,11 @@
 
 namespace Wacom
 {
+/**
+ * Basic XInput interface. It uses the visitor pattern to allow easy
+ * access to all XInput devices. It also has some helper methods which
+ * are used by different subystems.
+ */
 class X11Input
 {
 public:

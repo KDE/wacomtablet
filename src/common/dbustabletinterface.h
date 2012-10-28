@@ -65,30 +65,85 @@ public:
      */
     static void registerMetaTypes();
 
+    /**
+     * @see DBusTabletService::getDeviceList()
+     */
     QDBusMessage getDeviceList();
 
+    /**
+     * @see DBusTabletService::getDeviceName(const DeviceType&)
+     */
     QDBusMessage getDeviceName (const DeviceType& device);
 
+    /**
+     * @see DBusTabletService::getInformation(const TabletInfo&)
+     */
     QDBusMessage getInformation (const TabletInfo& info);
 
-    bool         getInformationAsBool (const TabletInfo& info);
+    /**
+     * Gets a tablet information value as bool. If there is a problem
+     * getting the value or if the value is not of boolean type, false
+     * will be returned.
+     *
+     * @param info The information property to get.
+     *
+     * @return True if the value is true, else false.
+     */
+    bool getInformationAsBool (const TabletInfo& info);
 
-    int          getInformationAsInt (const TabletInfo& info);
+    /**
+     * Gets a tablet information value as integer. If there is a problem
+     * getting the value or if the value is not an integer, 0 will be returned.
+     *
+     * @param info The information property to get.
+     *
+     * @return The requested value as integer, else 0.
+     */
+    int getInformationAsInt (const TabletInfo& info);
 
-    QString      getInformationAsString (const TabletInfo& info);
+    /**
+     * Gets a tablet information value as string. If there is a problem getting
+     * the value, an empty string will be returned.
+     *
+     * @param info The information property to get.
+     *
+     * @return The value of the requested information property or an empty string.
+     */
+    QString getInformationAsString (const TabletInfo& info);
 
+    /**
+     * @see DBusTabletService::getProfile()
+     */
     QDBusMessage getProfile();
 
+    /**
+     * @see DBusTabletService::getProperty(const DeviceType&, const Property&)
+     */
     QDBusMessage getProperty (const DeviceType& device, const Property& property);
 
+    /**
+     * @see DBusTabletService::hasPadButtons()
+     */
     QDBusMessage hasPadButtons();
 
+    /**
+     * @see DBusTabletService::isAvailable()
+     */
     QDBusMessage isAvailable();
 
+    /**
+     * @see DBusTabletService::listProfiles()
+     */
     QDBusMessage listProfiles();
 
+    /**
+     * @see DBusTabletService::setProfile(const QString&)
+     */
     QDBusMessage setProfile (const QString& profile);
 
+    /**
+     * @see DBusTabletService::setProperty(const DeviceType&, const Property&, const QString&)
+     */
     QDBusMessage setProperty (const DeviceType& device, const Property& property, const QString& value);
 
 

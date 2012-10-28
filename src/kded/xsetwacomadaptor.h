@@ -31,6 +31,9 @@ namespace Wacom {
 class XsetwacomProperty;
 class XsetwacomAdaptorPrivate;
 
+/**
+ * A property adaptor which uses xsetwacom to set properties on a tablet.
+ */
 class XsetwacomAdaptor : public PropertyAdaptor
 {
 
@@ -84,7 +87,7 @@ private:
      * @return The converted value.
      */
     const QString convertFromXsetwacomValue (const XsetwacomProperty& property, const QString& value) const;
-    
+
     /**
      * Converts a value from internal format to xsetwacom format.
      *
@@ -109,7 +112,7 @@ private:
      * Inverts scrolling or sets it back to normal.
      */
     bool setInvertScroll(const QString& value);
-    
+
     /**
      * Sets a parameter using the xsetwacom command line tool. All parameters, values and
      * device names passed to this method have to be in a format which is understood by

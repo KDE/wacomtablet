@@ -1,7 +1,6 @@
 
 set(wacom_common_SRC
     aboutdata.cpp
-    configadaptor.cpp
     dbustabletinterface.cpp
     deviceinformation.cpp
     deviceprofile.cpp

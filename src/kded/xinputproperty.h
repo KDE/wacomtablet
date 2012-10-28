@@ -32,7 +32,7 @@ class XinputProperty;
 typedef PropertySet<XinputProperty> XinputPropertyTemplateSpecialization;
 
 /**
- * Properties supported by Xinput.
+ * Properties supported by the XInputAdaptor.
  */
 class XinputProperty : public XinputPropertyTemplateSpecialization
 {

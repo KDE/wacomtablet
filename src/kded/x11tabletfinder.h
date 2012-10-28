@@ -35,6 +35,9 @@ class X11Input;
 class DeviceInformation;
 class X11TabletFinderPrivate;
 
+/**
+ * A tablet finder which uses the X11 window system to find connected tablets.
+ */
 class X11TabletFinder : public X11InputVisitor
 {
 

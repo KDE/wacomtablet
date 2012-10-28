@@ -33,6 +33,10 @@ namespace Wacom
 
 class X11InputDevicePrivate;
 
+/**
+ * XInput device implementation. It offers access to all X11 input
+ * properties and some helper methods for tablet detection.
+ */
 class X11InputDevice
 {
 public:
@@ -43,7 +47,7 @@ public:
     typedef long unsigned int XID;
     typedef struct _XDeviceInfo XDeviceInfo;
 
-    /* 
+    /*
      * We can not forward declare X11's' anonymous XDevice struct.
      * To keep the header clean from includes we only need for private
      * methods, we just define our own version of this struct.
@@ -89,7 +93,7 @@ public:
 
     /**
      * Gets an Atom property.
-     * 
+     *
      * @param property  The property to get.
      * @param nelements The maximum number of elements to get.
      * @param values    A reference to a QList which will contain the values on success.
@@ -123,7 +127,7 @@ public:
 
     /**
      * Gets a long property.
-     * 
+     *
      * @param property  The property to get.
      * @param nelements The maximum number of elements to get.
      * @param values    A reference to a QList which will contain the values on success.
