@@ -117,6 +117,7 @@ void TabletDaemon::setupActions()
 
     //if someone adds another action also add it to kcmodule/generalwidget.cpp
     d->actionCollection = std::auto_ptr<KActionCollection>(new KActionCollection(this, *(d->applicationData)));
+    d->actionCollection->setConfigGlobal(true);
 
     KAction *action = d->actionCollection->addAction(QLatin1String("Toggle touch tool"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
