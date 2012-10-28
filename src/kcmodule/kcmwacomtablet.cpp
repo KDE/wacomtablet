@@ -22,6 +22,8 @@
 #include "../version.h"
 
 #include "aboutdata.h"
+#include "profilemanagement.h"
+#include "dbustabletinterface.h"
 
 // KDE includes
 #include <KDE/KCModuleLoader>
@@ -56,6 +58,12 @@ KCMWacomTablet::~KCMWacomTablet()
     if (m_tabletWidget) {
         delete m_tabletWidget;
     }
+
+    // This makes sure all global shortcuts are restored by our daemon.
+    // Unfortunately KAction disables all global shortcuts on destruction.
+    // There is no way to stop it from doing that so we have to use this
+    // workaround and reload the current profile here.
+    DBusTabletInterface::instance().setProfile( ProfileManagement::instance().profileName() );
 }
 
 

@@ -53,6 +53,11 @@ namespace Wacom {
   */
 class GeneralWidgetPrivate {
     public:
+        ~GeneralWidgetPrivate() {
+            delete m_actionCollection;
+            delete m_shortcutEditor;
+        }
+
         std::auto_ptr<Ui::GeneralWidget>  m_ui;                /**< Handler to the generalwidget.ui file */
         QPointer<KActionCollection>       m_actionCollection;
         QPointer<KShortcutsEditor>        m_shortcutEditor;

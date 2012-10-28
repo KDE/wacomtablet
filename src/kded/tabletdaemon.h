@@ -75,6 +75,12 @@ public Q_SLOTS:
       */
     void onNotify(const QString& eventId, const QString& title, const QString& message);
 
+    /**
+     * Called when the profile was changed.
+     *
+     * @param profile The name of the new profile.
+     */
+    void onProfileChanged(const QString& profile);
 
 private:
     /**

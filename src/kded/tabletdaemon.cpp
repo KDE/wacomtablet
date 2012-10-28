@@ -82,6 +82,9 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
     // scan for connected devices
     TabletFinder::instance().scan();
 
+    // connect profile changed handler after searching for tablets as this is only used for the global shortcut workaround.
+    connect(&(d->tabletHandler), SIGNAL (profileChanged(const QString&)), this, SLOT (onProfileChanged(const QString&)));
+
     // Connecting this after the device has been set up ensures that no notification is send on startup.
     connect( &(d->tabletHandler), SIGNAL(notify(QString,QString,QString)), this, SLOT(onNotify(QString,QString,QString)) );
 }
@@ -111,13 +114,28 @@ void TabletDaemon::onNotify(const QString& eventId, const QString& title, const 
 
 
 
+void TabletDaemon::onProfileChanged(const QString& profile)
+{
+    // When closing the KCM module the KAction destructor disables all global shortcuts.
+    // Make sure the global shortcuts are restored when a profile changes. This is not
+    // optimal but at least it will enable the shortcuts again.
+    kDebug() << QLatin1String("Restoring global keyboard shortcuts...");
+    setupActions();
+}
+
+
+
 void TabletDaemon::setupActions()
 {
     Q_D( TabletDaemon );
 
     //if someone adds another action also add it to kcmodule/generalwidget.cpp
-    d->actionCollection = std::auto_ptr<KActionCollection>(new KActionCollection(this, *(d->applicationData)));
-    d->actionCollection->setConfigGlobal(true);
+
+    // This method is called multiple times - make sure the action collection is only created once.
+    if (d->actionCollection.get() == NULL) {
+        d->actionCollection = std::auto_ptr<KActionCollection>(new KActionCollection(this, *(d->applicationData)));
+        d->actionCollection->setConfigGlobal(true);
+    }
 
     KAction *action = d->actionCollection->addAction(QLatin1String("Toggle touch tool"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
