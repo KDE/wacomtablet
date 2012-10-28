@@ -157,8 +157,6 @@ void TabletHandler::onScreenRotated( const ScreenRotation& screenRotation )
     TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
     DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
 
-    kDebug() << "xRandR screen rotation detected.";
-
     if (StringUtils::asBool (stylusProfile.getProperty (Property::RotateWithScreen))) {
 
         kDebug() << "Rotate tablet :: " << screenRotation.key();
@@ -169,10 +167,6 @@ void TabletHandler::onScreenRotated( const ScreenRotation& screenRotation )
         if(d->tabletInformation.hasDevice (DeviceType::Touch)) {
             setProperty( DeviceType::Touch, Property::Rotate, QString::fromLatin1( "%1" ).arg( screenRotation.key() ) );
         }
-
-        // TODO: Why do we do this? It will reset the property which we just set!
-        // Removing if for now!
-        //setProfile(d->currentProfile);
     }
 }
 

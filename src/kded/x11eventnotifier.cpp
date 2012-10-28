@@ -187,7 +187,6 @@ void X11EventNotifier::handleX11ScreenEvent(XEvent* event)
     XRRQueryExtension(QX11Info::display(), &m_eventBase, &m_errorBase);
 
     if (event->type == m_eventBase + RRScreenChangeNotify) {
-        kDebug() << "XRandr screen rotation detected!";
 
         XRRUpdateConfiguration(event);
         Rotation old_r = d->currentRotation;
