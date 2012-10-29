@@ -339,6 +339,7 @@ void TabletArea::updateDragHandle()
 
 void TabletArea::getMaxTabletArea()
 {
+    // TODO remove this! This should not use X11 directly but query a property value.
     int ndevices;
     XDevice *dev = NULL;
     Display *dpy = QX11Info::display();

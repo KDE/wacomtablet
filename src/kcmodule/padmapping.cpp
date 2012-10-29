@@ -94,6 +94,8 @@ PadMapping::PadMapping( QWidget *parent )
     connect(d->m_ui->mapToScreen, SIGNAL( toggled( bool ) ), d->m_ui->screenComboBox, SLOT(setEnabled(bool)));
     connect(d->m_ui->screenComboBox, SIGNAL(currentIndexChanged(int)), d->m_screenArea, SLOT(setScreenNumber(int)));
     connect(d->m_ui->partOfScreen, SIGNAL( toggled( bool ) ), this, SLOT(setPartOfScreenUsage(bool)));
+
+    setTool(0);
 }
 
 PadMapping::~PadMapping()
