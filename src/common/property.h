@@ -33,7 +33,7 @@ struct PropertyKeyEqualsFunctor;
 
 /**
  * Do not use this typedef!
- * 
+ *
  * It is a helper typedef to ease maintenance of template parameters.
  */
 typedef Enum<Property, QString, PropertyTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> PropertyTemplateSpecialization;
@@ -41,7 +41,7 @@ typedef Enum<Property, QString, PropertyTemplateSpecializationLessFunctor, Prope
 
 /**
  * Do not use this functor!
- * 
+ *
  * It is required by the Property class and can only be used to sort instances
  * of type PropertyTemplateSpecialization.
  */
@@ -97,7 +97,10 @@ public:
     static const Property Button8;
     static const Property Button9;
     static const Property Button10;
+
+    //! @deprecated No idea what this is for. It will be removed soon.
     static const Property ChangeArea;
+
     static const Property CursorAccelProfile;
     static const Property CursorAccelConstantDeceleration;
     static const Property CursorAccelAdaptiveDeceleration;

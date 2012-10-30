@@ -228,7 +228,7 @@ void PadMapping::saveToProfile()
         // Tablet Area
         // ##################
         propertyValue = d->m_ui->fullTablet->isChecked() ? QLatin1String("true") : QLatin1String("false");
-        touchProfile.setProperty( Property::ChangeArea, propertyValue );
+        touchProfile.setProperty( Property::TabletArea, propertyValue );
 
         touchProfile.setProperty( Property::Area, d->m_tabletArea->getSelectedAreaString() );
 
@@ -295,12 +295,14 @@ void PadMapping::loadFromProfile()
     if( deviceProfile.getProperty( Property::TabletArea ).compare(QLatin1String( "full" ), Qt::CaseInsensitive) == 0 ) {
         d->m_ui->fullTablet->setChecked( true );
         d->m_ui->tabletAreaBox->setEnabled( false );
-    }
+        d->m_ui->forceProportions->setChecked(false);
+    } else {
+        d->m_ui->partOfTablet->setChecked (true);
+        d->m_ui->tabletAreaBox->setEnabled (true);
 
-    if( deviceProfile.getProperty( Property::ForceProportions ).compare(QLatin1String( "true" ), Qt::CaseInsensitive) == 0 ) {
-        d->m_ui->forceProportions->setChecked( true );
-        d->m_ui->partOfTablet->setChecked( true ); // this disables fullTablet, both is not possible
-        d->m_ui->tabletAreaBox->setEnabled( true );
+        if( deviceProfile.getProperty( Property::ForceProportions ).compare(QLatin1String( "true" ), Qt::CaseInsensitive) == 0 ) {
+            d->m_ui->forceProportions->setChecked( true );
+        }
     }
 
     QString workingArea = deviceProfile.getProperty( Property::Area );
