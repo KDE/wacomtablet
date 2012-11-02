@@ -392,18 +392,27 @@ void PadButtonWidget::selectKeyFunction(int selection)
 
 QString PadButtonWidget::transformShortcut(QString sequence)
 {
-    QString transform = sequence;
-    transform.replace( QRegExp( QLatin1String( "^\\s" ) ), QLatin1String( "" ) );
-    transform.replace( QRegExp( QLatin1String( "\\s" ) ), QLatin1String( "+" ) );
+    QString transform = sequence.trimmed();
+    transform.replace( QRegExp( QLatin1String( "\\s+" ) ), QLatin1String( "+" ) );
 
-    QList< KGlobalShortcutInfo > list = KGlobalAccel::getGlobalShortcutsByKey( QKeySequence(transform) );
+    // Do not look up single key shortcuts.
+    // Shortcuts consisting of a single key are most likely not global shortcuts.
+    // Also getGlobalShortcutsByKey() can not resolve single meta-key shortcuts like "shift", "ctrl", etc.
+    QStringList keyList = transform.split(QRegExp(QLatin1String("+")));
 
-    if(!list.isEmpty()) {
-        return list.at(0).uniqueName();
+    if (keyList.isEmpty() || keyList.size() == 1) {
+        return transform;
     }
-    else {
-        sequence.replace( QRegExp( QLatin1String( "([^\\s])\\+" ) ), QLatin1String( "\\1 " ) );
-        sequence = sequence.toLower();
-        return sequence;
+
+    // try to lookup the corresponding global shortcut if available
+    QList< KGlobalShortcutInfo > shortcutList = KGlobalAccel::getGlobalShortcutsByKey( QKeySequence(transform) );
+
+    if(!shortcutList.isEmpty()) {
+        return shortcutList.at(0).uniqueName();
     }
+
+    // no global shortcut available - display as-is
+    sequence.replace( QRegExp( QLatin1String( "([^\\s])\\+" ) ), QLatin1String( "\\1 " ) );
+    sequence = sequence.toLower();
+    return sequence;
 }
