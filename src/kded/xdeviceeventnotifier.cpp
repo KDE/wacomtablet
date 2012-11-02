@@ -85,7 +85,7 @@ bool XDeviceEventNotifier::x11Event(XEvent * event)
                     }
                 }
             }
-            
+
             // only free event data if I own the resource if a different resource called XGetEventData the data will not be set free again here
             if(ownEventData) {
 	        XFreeEventData(QX11Info::display(), cookie);
@@ -96,12 +96,12 @@ bool XDeviceEventNotifier::x11Event(XEvent * event)
         }
     }
     else {
-      
+
       int m_eventBase;
       int m_errorBase;
-      
+
       XRRQueryExtension(QX11Info::display(), &m_eventBase, &m_errorBase);
-      
+
       if (event->type == m_eventBase + RRScreenChangeNotify) {
             XRRUpdateConfiguration(event);
             Rotation old_r = r;
@@ -114,13 +114,13 @@ bool XDeviceEventNotifier::x11Event(XEvent * event)
                                 emit screenRotated(NONE);
                                 break;
                         case RR_Rotate_90:
-                               emit screenRotated(CCW);
+                               emit screenRotated(CW);
                                break;
                         case RR_Rotate_180:
                                emit screenRotated(HALF);
                                break;
                         case RR_Rotate_270:
-                               emit screenRotated(CW);
+                               emit screenRotated(CCW);
                                break;
                 }
             }
@@ -142,12 +142,12 @@ int XDeviceEventNotifier::registerForNewDeviceEvent(Display* display)
     evmask.mask = mask;
 
     XISelectEvents(display, DefaultRootWindow(display), &evmask, 1);
-    
+
     //register RandR events
     int rrmask = RRScreenChangeNotifyMask;
 
     XRRSelectInput(display, DefaultRootWindow(display), 0);
-    XRRSelectInput(display, DefaultRootWindow(display), rrmask); 
+    XRRSelectInput(display, DefaultRootWindow(display), rrmask);
 
     return 0;
 }
