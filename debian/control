@@ -3,14 +3,14 @@ Section: kde
 Priority: extra
 Maintainer: Alexander Maret <alex@maret.de>
 Build-Depends: debhelper (>= 7.3.16), cmake, kdelibs5-dev, pkg-kde-tools (>= 0.6.2),
- libxi-dev, libxrandr-dev
+ libxi-dev, libxrandr-dev, xserver-xorg-input-wacom
 Standards-Version: 3.9.2
 Homepage: http://projects.kde.org/projects/extragear/base/wacomtablet
 
 Package: kde-config-tablet
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Recommends: ${shlibs:Recommends}, xserver-xorg-input-wacom
+Depends: ${shlibs:Depends}, ${misc:Depends}, xserver-xorg-input-wacom
+Recommends: ${shlibs:Recommends}
 Description: implements a KDE configuration GUI for the Wacom drivers
  KDE 4 KCModule
  .
