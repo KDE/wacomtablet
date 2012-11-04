@@ -1,5 +1,7 @@
 /*
- * Copyright 2009,2010,2011 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,19 +20,21 @@
 #ifndef PENWIDGET_H
 #define PENWIDGET_H
 
-//Qt includes
+#include "devicetype.h"
+
 #include <QtGui/QWidget>
 
 namespace Ui
 {
-class PenWidget;
+    class PenWidget;
 }
 
 class KComboBox;
 
 namespace Wacom
 {
-class ProfileManagement;
+
+    class PenWidgetPrivate;
 
 /**
   * The PenWidget class holds all settings for the stylus/eraser pen.
@@ -50,7 +54,7 @@ public:
       * @param profileManager Handles the connection to the config files
       * @param parent parent Widget
       */
-    explicit PenWidget(ProfileManagement *profileManager, QWidget *parent = 0);
+    explicit PenWidget(QWidget *parent = 0);
 
     /**
       * default destructor
@@ -111,6 +115,9 @@ signals:
     void changed();
 
 private:
+
+    QString changePressCurve (const DeviceType& device, const QString& startValue);
+    
     /**
       * Fills the button selection combobox with all available values
       * Used in this way to get no redundant strings in the ui file for
@@ -131,10 +138,10 @@ private:
       */
     QString transformShortcut(QString sequence);
 
-    Ui::PenWidget     *m_ui;                /**< Handler to the penwidget.ui file */
-    ProfileManagement *m_profileManagement; /**< Handler for the profile config connection */
-};
 
-}
+    Q_DECLARE_PRIVATE( PenWidget )
+    PenWidgetPrivate *const d_ptr; /**< d-pointer for this class */
 
+}; // CLASS
+}  // NAMESPACE
 #endif /*PENWIDGET_H*/

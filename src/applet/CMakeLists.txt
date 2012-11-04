@@ -11,7 +11,7 @@ set(tabletsettings_SRCS
     tabletapplet.cpp)
 
 kde4_add_plugin(plasma_applet_wacomtabletsettings ${tabletsettings_SRCS})
-target_link_libraries(plasma_applet_wacomtabletsettings ${KDE4_PLASMA_LIBS} ${KDE4_KUTILS_LIBRARY})
+target_link_libraries(plasma_applet_wacomtabletsettings wacom_common ${KDE4_PLASMA_LIBS} ${KDE4_KUTILS_LIBRARY})
 
 install(TARGETS plasma_applet_wacomtabletsettings DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES plasma-applet-wacomtabletsettings.desktop DESTINATION ${SERVICES_INSTALL_DIR})

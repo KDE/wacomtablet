@@ -1,5 +1,7 @@
 /*
- * Copyright 2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -15,12 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "property.h"
 #include "tabletapplet.h"
 #include "wacomtabletsettings.h"
 
+// common includes
+#include "dbustabletinterface.h"
+#include "devicetype.h"
+
 //KDE inculdes
 #include <KDE/KIconLoader>
-#include <KDE/KSharedConfig>
 #include <KDE/KComboBox>
 #include <KDebug>
 
@@ -34,175 +40,163 @@
 #include <Plasma/Separator>
 
 //Qt includes
-#include <QtDBus/QDBusInterface>
-#include <QtDBus/QDBusReply>
+#include <QtCore/QStringList>
 #include <QtGui/QGraphicsLinearLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QRadioButton>
-#include <QtDBus/QDBusArgument>
-#include <QtDBus/QtDBus>
+
+
+namespace Wacom
+{
+    class TabletAppletPrivate
+    {
+        public:
+            ~TabletAppletPrivate() {
+                delete configWidget;
+                delete errorWidget;
+                delete dialogWidget;
+            }
+
+            bool                            hasTouch;
+            QPointer<QGraphicsWidget>       dialogWidget;      //!< The graphics widget which displays the content.
+            QPointer<QGraphicsWidget>       configWidget;      //!< Widget for the config content created by buildConfigDialog()
+            QPointer<QGraphicsWidget>       errorWidget;       //!< Widget for the error content created by buildErrorDialog()
+
+            // these do not need to be deleted as they are properly parented or are not managed by us
+            QPointer<WacomTabletSettings>   tabletSettings;    //!< A backreference to the tablet popup applet containing this widget - do not delete this.
+            QGraphicsLinearLayout*          layoutMain;        //!< Layout of the main widget that contains the title / config and error widgets
+            Plasma::Label*                  deviceName;        //!< The name of the tablet.
+            Plasma::Label*                  errorMsg;          //!< The error message if no tablet/kded available.
+            Plasma::ComboBox*               profileSelector;   //!< The Combox for the profile selection.
+            Plasma::RadioButton*            modeAbsolute;      //!< The Radiobutton to select the pen absolute mode
+            Plasma::RadioButton*            modeRelative;      //!< The Radiobutton to select the pen absolute mode
+            Plasma::RadioButton*            touchOn;           //!< The Radiobutton to toggle Touch on
+            Plasma::RadioButton*            touchOff;          //!< The Radiobutton to toggle Touch off
+    };
+}
+
 
 using namespace Wacom;
 
-
-QDBusArgument &operator<<( QDBusArgument &argument, const Wacom::DeviceInformation &mystruct )
+TabletApplet::TabletApplet (WacomTabletSettings *tabletSettings) :
+    d_ptr (new TabletAppletPrivate)
 {
-    argument.beginStructure();
-    argument << mystruct.companyID << mystruct.deviceID << mystruct.companyName << mystruct.deviceName << mystruct.deviceModel << mystruct.deviceList << mystruct.padName << mystruct.stylusName << mystruct.eraserName << mystruct.cursorName << mystruct.touchName << mystruct.isDeviceAvailable << mystruct.hasPadButtons;
-    argument.endStructure();
-    return argument;
-}
+    Q_D (TabletApplet);
 
-const QDBusArgument &operator>>( const QDBusArgument &argument, Wacom::DeviceInformation &mystruct )
-{
-    argument.beginStructure();
-    argument >> mystruct.companyID >> mystruct.deviceID >> mystruct.companyName
-             >> mystruct.deviceName >> mystruct.deviceModel >> mystruct.deviceList
-             >> mystruct.padName >> mystruct.stylusName >> mystruct.eraserName
-             >> mystruct.cursorName >> mystruct.touchName >> mystruct.isDeviceAvailable >> mystruct.hasPadButtons;
-    argument.endStructure();
-    return argument;
-}
+    d->tabletSettings = tabletSettings;
 
-TabletApplet::TabletApplet( WacomTabletSettings *tabletSettings ) :
-    m_tabletSettings( tabletSettings ),
-    m_tabletInterface( 0 ),
-    m_deviceInterface( 0 ),
-    m_widget( 0 ),
-    m_deviceName( 0 )
-{
     buildDialog();
-
-    qDBusRegisterMetaType<Wacom::DeviceInformation>();
-    qDBusRegisterMetaType< QList<Wacom::DeviceInformation> >();
 }
 
 TabletApplet::~TabletApplet()
 {
-    delete m_deviceName;
-    delete m_errorMsg;
-    delete m_comboBoxProfile;
-    delete m_radioButtonAbsolute;
-    delete m_radioButtonRelative;
-    delete m_radioButtonTouchOn;
-    delete m_radioButtonTouchOff;
-    delete m_layoutMain;
-    delete m_errorWidget;
-    delete m_configWidget;
-    //delete m_widget;
-
-    delete m_tabletSettings;
-    delete m_tabletInterface;
-    delete m_deviceInterface;
+    delete this->d_ptr;
 }
 
 QGraphicsWidget *TabletApplet::dialog()
 {
-    return m_widget;
+    Q_D (TabletApplet);
+    return d->dialogWidget;
 }
 
-void TabletApplet::connectDBus()
+void TabletApplet::onDBusConnected()
 {
-    delete m_tabletInterface;
-    delete m_deviceInterface;
+    DBusTabletInterface::resetInterface();
 
-    m_tabletInterface = new QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Tablet" ), QLatin1String( "org.kde.Wacom" ) );
-    m_deviceInterface = new QDBusInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Device" ), QLatin1String( "org.kde.WacomDevice" ) );
-
-    if( !m_tabletInterface->isValid() || !m_deviceInterface->isValid() ) {
-        disconnectDBus();
+    if( !DBusTabletInterface::instance().isValid() ) {
+        onDBusDisconnected();
         return;
     }
-    else {
-        //DBus signals
-        connect( m_tabletInterface, SIGNAL( tabletAdded() ), this, SLOT( onTabletAdded() ) );
-        connect( m_tabletInterface, SIGNAL( tabletRemoved() ), this, SLOT( onTabletRemoved() ) );
-        connect( m_tabletInterface, SIGNAL( profileChanged( const QString ) ), this, SLOT( setProfile( const QString ) ) );
 
-        QDBusReply<bool> isAvailable = m_tabletInterface->call( QLatin1String( "tabletAvailable" ) );
+    connect( &DBusTabletInterface::instance(), SIGNAL (tabletAdded()),                  this, SLOT (onTabletAdded()) );
+    connect( &DBusTabletInterface::instance(), SIGNAL (tabletRemoved()),                this, SLOT (onTabletRemoved()) );
+    connect( &DBusTabletInterface::instance(), SIGNAL (profileChanged (const QString)), this, SLOT (setProfile(const QString)) );
 
-        if( isAvailable ) {
-            onTabletAdded();
-        }
-        else {
-            onTabletRemoved();
-        }
+    QDBusReply<bool> isAvailable = DBusTabletInterface::instance().isAvailable();
+
+    if( isAvailable ) {
+        onTabletAdded();
+    } else {
+        onTabletRemoved();
     }
 }
 
-void TabletApplet::disconnectDBus()
+void TabletApplet::onDBusDisconnected()
 {
-    delete m_tabletInterface;
-    m_tabletInterface = 0;
-    delete m_deviceInterface;
-    m_deviceInterface = 0;
-
-    showError( i18n( "D-Bus connection to the kded daemon not available.\n\nPlease start the Wacom tablet daemon.\nThe daemon is responsible for tablet detection and profile support." ) );
-
+    showError( i18n( "D-Bus connection to the kded daemon not available.\n\n"
+                     "Please start the Wacom tablet daemon.\n"
+                     "The daemon is responsible for tablet detection and profile support." ) );
 }
 
 void TabletApplet::updateWidget()
 {
-    QDBusReply<Wacom::DeviceInformation> deviceInfo  = m_deviceInterface->call( QLatin1String( "getAllInformation" ) );
+    Q_D (TabletApplet);
 
-    if( deviceInfo.isValid() ) {
-        m_deviceName->setText( deviceInfo.value().deviceName );
-        m_padName = deviceInfo.value().padName;
-        m_stylusName = deviceInfo.value().stylusName;
-        m_eraserName = deviceInfo.value().eraserName;
-        m_touchName = deviceInfo.value().touchName;
+    QDBusReply<QString> dbusReply;
+
+    dbusReply = DBusTabletInterface::instance().getInformation(TabletInfo::TabletName);
+
+    if (dbusReply.isValid()) {
+        d->deviceName->setText(dbusReply.value());
     }
+
+    dbusReply = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
+    d->hasTouch = (dbusReply.isValid() && !dbusReply.value().isEmpty());
 
     updateProfile();
 }
 
 void TabletApplet::updateProfile()
 {
+    Q_D (TabletApplet);
+
     //get list of all profiles
-    QDBusReply<QStringList> profileList  = m_tabletInterface->call( QLatin1String( "profileList" ) );
+    QDBusReply<QStringList> profileList = DBusTabletInterface::instance().listProfiles();
 
     //fill comboBox
-    m_comboBoxProfile->blockSignals( true );
-    KComboBox *nativeBox = m_comboBoxProfile->nativeWidget();
+    d->profileSelector->blockSignals( true );
+    KComboBox *nativeBox = d->profileSelector->nativeWidget();
     nativeBox->clear();
     nativeBox->addItems( profileList );
 
     //set current profile
-    QDBusReply<QString> profileName  = m_tabletInterface->call( QLatin1String( "profile" ) );
+    QDBusReply<QString> profileName = DBusTabletInterface::instance().getProfile();
 
     int index = nativeBox->findText( profileName );
     nativeBox->setCurrentIndex( index );
-    m_comboBoxProfile->blockSignals( false );
+    d->profileSelector->blockSignals( false );
 
-    QDBusReply<QString> stylusMode  = m_deviceInterface->call( QLatin1String( "getConfiguration" ), m_stylusName, QLatin1String( "Mode" ) );
+    QDBusReply<QString> stylusMode = DBusTabletInterface::instance().getProperty(DeviceType::Stylus, Property::Mode);
+
     if( stylusMode.isValid() ) {
         if( QString( stylusMode ).contains( QLatin1String( "absolute" )) || QString( stylusMode ).contains( QLatin1String( "Absolute" )) ) {
-            m_radioButtonRelative->setChecked( false );
-            m_radioButtonAbsolute->setChecked( true );
-        }
-        else {
-            m_radioButtonRelative->setChecked( true );
-            m_radioButtonAbsolute->setChecked( false );
+            d->modeRelative->setChecked( false );
+            d->modeAbsolute->setChecked( true );
+
+        } else {
+            d->modeRelative->setChecked( true );
+            d->modeAbsolute->setChecked( false );
         }
     }
 
-    if( m_touchName.isEmpty() ) {
-        m_radioButtonTouchOn->setEnabled(false);
-        m_radioButtonTouchOff->setEnabled(false);
-    }
-    else {
-        m_radioButtonTouchOn->setEnabled(true);
-        m_radioButtonTouchOff->setEnabled(true);
+    if (!d->hasTouch) {
+        d->touchOn->setEnabled(false);
+        d->touchOff->setEnabled(false);
 
-        QDBusReply<QString> touchMode  = m_deviceInterface->call( QLatin1String( "getConfiguration" ), m_touchName, QLatin1String( "Touch" ) );
+    } else {
+        d->touchOn->setEnabled(true);
+        d->touchOff->setEnabled(true);
+
+        QDBusReply<QString> touchMode = DBusTabletInterface::instance().getProperty(DeviceType::Touch, Property::Touch);
+
         if( touchMode.isValid() ) {
             if( QString( touchMode ).contains( QLatin1String( "on" ) ) ) {
-                m_radioButtonTouchOff->setChecked( false );
-                m_radioButtonTouchOn->setChecked( true );
+                d->touchOff->setChecked( false );
+                d->touchOn->setChecked( true );
             }
             else {
-                m_radioButtonTouchOff->setChecked( true );
-                m_radioButtonTouchOn->setChecked( false );
+                d->touchOff->setChecked( true );
+                d->touchOn->setChecked( false );
             }
         }
     }
@@ -210,87 +204,99 @@ void TabletApplet::updateProfile()
 
 void TabletApplet::setProfile( const QString &name )
 {
+    Q_D (TabletApplet);
+
     updateProfile();
 
-    m_comboBoxProfile->blockSignals( true );
-    KComboBox *nativeBox = m_comboBoxProfile->nativeWidget();
+    d->profileSelector->blockSignals( true );
+    KComboBox *nativeBox = d->profileSelector->nativeWidget();
     int index = nativeBox->findText( name );
     nativeBox->setCurrentIndex( index );
-    m_comboBoxProfile->blockSignals( false );
+    d->profileSelector->blockSignals( false );
 }
 
 void TabletApplet::switchProfile( const QString &name )
 {
-    m_tabletInterface->call( QLatin1String( "setProfile" ), name );
+    DBusTabletInterface::instance().setProfile(name);
 }
 
 void TabletApplet::rotateNorm()
 {
-    m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_padName, QLatin1String( "Rotate" ), QLatin1String( "NONE" ) );
+    DBusTabletInterface::instance().setProperty(DeviceType::Pad, Property::Rotate, QLatin1String("NONE"));
 }
 
 void TabletApplet::rotateCw()
 {
-    m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_padName, QLatin1String( "Rotate" ), QLatin1String( "CW" ) );
+    DBusTabletInterface::instance().setProperty(DeviceType::Pad, Property::Rotate, QLatin1String("CW"));
 }
 
 void TabletApplet::rotateCcw()
 {
-    m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_padName, QLatin1String( "Rotate" ), QLatin1String( "CCW" ) );
+    DBusTabletInterface::instance().setProperty(DeviceType::Pad, Property::Rotate, QLatin1String("CCW"));
 }
 
 void TabletApplet::rotateHalf()
 {
-    m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_padName, QLatin1String( "Rotate" ), QLatin1String( "HALF" ) );
+    DBusTabletInterface::instance().setProperty(DeviceType::Pad, Property::Rotate, QLatin1String("HALF"));
 }
 
 void TabletApplet::selectAbsoluteMode( bool state )
 {
+    Q_D (TabletApplet);
+
     if( state ) {
-        m_radioButtonRelative->setChecked( false );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_stylusName, QLatin1String( "Mode" ), QLatin1String( "absolute" ) );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_eraserName, QLatin1String( "Mode" ), QLatin1String( "absolute" ) );
+        d->modeRelative->setChecked( false );
+        DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Mode, QLatin1String( "absolute" ));
+        DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Mode, QLatin1String( "absolute" ));
     }
 }
 
 void TabletApplet::selectRelativeMode( bool state )
 {
+    Q_D (TabletApplet);
+
     if( state ) {
-        m_radioButtonAbsolute->setChecked( false );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_stylusName, QLatin1String( "Mode" ), QLatin1String( "relative" ) );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_eraserName, QLatin1String( "Mode" ), QLatin1String( "relative" ) );
+        d->modeAbsolute->setChecked( false );
+        DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Mode, QLatin1String( "relative" ));
+        DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Mode, QLatin1String( "relative" ));
     }
 }
 
 void TabletApplet::setTouchModeOn( bool state )
 {
+    Q_D (TabletApplet);
+
     if( state ) {
-        m_radioButtonTouchOn->setChecked( true );
-        m_radioButtonTouchOff->setChecked( false );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_touchName, QLatin1String( "Touch" ), QLatin1String( "on" ) );
+        d->touchOn->setChecked( true );
+        d->touchOff->setChecked( false );
+        DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Touch, QLatin1String( "on" ));
     }
 }
 
 void TabletApplet::setTouchModeOff( bool state )
 {
+    Q_D (TabletApplet);
+
     if( state ) {
-        m_radioButtonTouchOn->setChecked( false );
-        m_radioButtonTouchOff->setChecked( true );
-        m_deviceInterface->call( QLatin1String( "setConfiguration" ), m_touchName, QLatin1String( "Touch" ), QLatin1String( "off" ) );
+        d->touchOn->setChecked( false );
+        d->touchOff->setChecked( true );
+        DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Touch, QLatin1String( "off" ));
     }
 }
 
 void TabletApplet::buildDialog()
 {
-    //main widget
-    m_widget = new QGraphicsWidget( m_tabletSettings );
-    m_widget->setFocusPolicy( Qt::ClickFocus );
-    m_widget->setMinimumSize( 350, 200 );
-    m_widget->setPreferredSize( 350, 200 );
+    Q_D (TabletApplet);
 
-    m_layoutMain = new QGraphicsLinearLayout( Qt::Vertical, m_widget );
-    m_layoutMain->setSpacing( 5 );
-    m_layoutMain->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
+    //main widget
+    d->dialogWidget = new QGraphicsWidget (d->tabletSettings);
+    d->dialogWidget->setFocusPolicy( Qt::ClickFocus );
+    d->dialogWidget->setMinimumSize( 350, 200 );
+    d->dialogWidget->setPreferredSize( 350, 200 );
+
+    d->layoutMain = new QGraphicsLinearLayout (Qt::Vertical, d->dialogWidget);
+    d->layoutMain->setSpacing( 5 );
+    d->layoutMain->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
 
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //create title block
@@ -298,28 +304,27 @@ void TabletApplet::buildDialog()
     layout_title->setSpacing( 5 );
     layout_title->setOrientation( Qt::Horizontal );
 
-    Plasma::IconWidget *icon = new Plasma::IconWidget( m_widget );
+    Plasma::IconWidget *icon = new Plasma::IconWidget( d->dialogWidget );
     icon->setIcon( KIcon( QLatin1String( "input-tablet" ) ) );
     icon->setMaximumHeight( KIconLoader::SizeMedium );
     icon->setMinimumHeight( KIconLoader::SizeMedium );
     icon->setAcceptHoverEvents( false );
-    m_deviceName = new Plasma::Label( m_widget );
-    m_deviceName->setMaximumHeight( KIconLoader::SizeMedium );
-    m_deviceName->nativeWidget()->setWordWrap( false );
-    m_deviceName->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
+
+    d->deviceName = new Plasma::Label( d->dialogWidget );
+    d->deviceName->setMaximumHeight( KIconLoader::SizeMedium );
+    d->deviceName->nativeWidget()->setWordWrap( false );
+    d->deviceName->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
 
     layout_title->addItem( icon );
-    layout_title->addItem( m_deviceName );
+    layout_title->addItem( d->deviceName );
     layout_title->addStretch();
 
-    m_layoutMain->addItem( layout_title );
+    d->layoutMain->addItem( layout_title );
 
     Plasma::Separator *separator = new Plasma::Separator();
     separator->setOrientation( Qt::Horizontal );
     separator->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
-    m_layoutMain->addItem( separator );
-
-    //m_widget->setMinimumSize(300, 180);
+    d->layoutMain->addItem( separator );
 
     //build  the info dialog
     buildConfigDialog();
@@ -330,12 +335,14 @@ void TabletApplet::buildDialog()
 
 void TabletApplet::buildConfigDialog()
 {
-    //container for the settings when a tablet is available
-    m_configWidget = new QGraphicsWidget();
-    m_configWidget->setFocusPolicy( Qt::ClickFocus );
-    m_configWidget->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
+    Q_D (TabletApplet);
 
-    QGraphicsLinearLayout *layout_tabletWidget = new QGraphicsLinearLayout( Qt::Vertical, m_configWidget );
+    //container for the settings when a tablet is available
+    d->configWidget = new QGraphicsWidget();
+    d->configWidget->setFocusPolicy( Qt::ClickFocus );
+    d->configWidget->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
+
+    QGraphicsLinearLayout *layout_tabletWidget = new QGraphicsLinearLayout( Qt::Vertical, d->configWidget );
     layout_tabletWidget->setSpacing( 0 );
 
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -344,28 +351,28 @@ void TabletApplet::buildConfigDialog()
     layout_profile->setSpacing( 0 );
     layout_profile->setOrientation( Qt::Horizontal );
 
-    Plasma::Label *label_profile = new Plasma::Label( m_configWidget );
+    Plasma::Label *label_profile = new Plasma::Label( d->configWidget );
     label_profile->setMaximumHeight( KIconLoader::SizeMedium );
     label_profile->nativeWidget()->setWordWrap( false );
     label_profile->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
     label_profile->setText( i18n( "Select Profile:" ) );
 
-    m_comboBoxProfile = new Plasma::ComboBox( m_configWidget );
-    connect( m_comboBoxProfile, SIGNAL( textChanged( const QString ) ), this, SLOT( switchProfile( const QString ) ) );
+    d->profileSelector = new Plasma::ComboBox( d->configWidget );
+    connect( d->profileSelector, SIGNAL( textChanged( const QString ) ), this, SLOT( switchProfile( const QString ) ) );
 
     QSizePolicy sizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
     sizePolicy.setHorizontalStretch( 0 );
     sizePolicy.setVerticalStretch( 0 );
-    sizePolicy.setHeightForWidth( m_comboBoxProfile->sizePolicy().hasHeightForWidth() );
-    m_comboBoxProfile->setSizePolicy( sizePolicy );
+    sizePolicy.setHeightForWidth( d->profileSelector->sizePolicy().hasHeightForWidth() );
+    d->profileSelector->setSizePolicy( sizePolicy );
 
     layout_profile->addItem( label_profile );
-    layout_profile->addItem( m_comboBoxProfile );
+    layout_profile->addItem( d->profileSelector );
     layout_tabletWidget->addItem( layout_profile );
 
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // create settings groupbox
-    Plasma::GroupBox *groupBox = new Plasma::GroupBox( m_configWidget );
+    Plasma::GroupBox *groupBox = new Plasma::GroupBox( d->configWidget );
     groupBox->setText( i18nc( "Groupbox Settings for the applet to change some values on the fly", "Settings" ) );
     groupBox->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
 
@@ -384,21 +391,21 @@ void TabletApplet::buildConfigDialog()
     layout_touch->addItem( label_touch );
     layout_touch->addStretch();
 
-    m_radioButtonTouchOn = new Plasma::RadioButton( groupBox );
-    m_radioButtonTouchOn->setText( i18nc( "Touch tool enabled", "On" ) );
-    m_radioButtonTouchOn->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
-    m_radioButtonTouchOn->nativeWidget()->setAutoExclusive( false );
-    m_radioButtonTouchOn->setZValue( 10 );
-    connect( m_radioButtonTouchOn->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( setTouchModeOn( bool ) ) );
-    layout_touch->addItem( m_radioButtonTouchOn );
+    d->touchOn = new Plasma::RadioButton( groupBox );
+    d->touchOn->setText( i18nc( "Touch tool enabled", "On" ) );
+    d->touchOn->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
+    d->touchOn->nativeWidget()->setAutoExclusive( false );
+    d->touchOn->setZValue( 10 );
+    connect( d->touchOn->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( setTouchModeOn( bool ) ) );
+    layout_touch->addItem( d->touchOn );
 
-    m_radioButtonTouchOff = new Plasma::RadioButton( groupBox );
-    m_radioButtonTouchOff->setText( i18nc( "Touch tool disabled", "Off" ) );
-    m_radioButtonTouchOff->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
-    m_radioButtonTouchOff->nativeWidget()->setAutoExclusive( false );
-    m_radioButtonTouchOff->setZValue( 10 );
-    connect( m_radioButtonTouchOff->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( setTouchModeOff( bool ) ) );
-    layout_touch->addItem( m_radioButtonTouchOff );
+    d->touchOff = new Plasma::RadioButton( groupBox );
+    d->touchOff->setText( i18nc( "Touch tool disabled", "Off" ) );
+    d->touchOff->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
+    d->touchOff->nativeWidget()->setAutoExclusive( false );
+    d->touchOff->setZValue( 10 );
+    connect( d->touchOff->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( setTouchModeOff( bool ) ) );
+    layout_touch->addItem( d->touchOff );
 
     //layout_groupbox->addStretch( 20 ); //otherwise the title of the groupbox is not visible
     layout_groupbox->addItem( layout_touch );
@@ -459,21 +466,21 @@ void TabletApplet::buildConfigDialog()
     layout_mode->addItem( label_mode );
     layout_mode->addStretch();
 
-    m_radioButtonAbsolute = new Plasma::RadioButton( groupBox );
-    m_radioButtonAbsolute->setText( i18nc( "absolute pen movement (pen mode)", "Absolute" ) );
-    m_radioButtonAbsolute->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
-    m_radioButtonAbsolute->nativeWidget()->setAutoExclusive( false );
-    m_radioButtonAbsolute->setZValue( 10 );
-    connect( m_radioButtonAbsolute->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( selectAbsoluteMode( bool ) ) );
-    layout_mode->addItem( m_radioButtonAbsolute );
+    d->modeAbsolute = new Plasma::RadioButton( groupBox );
+    d->modeAbsolute->setText( i18nc( "absolute pen movement (pen mode)", "Absolute" ) );
+    d->modeAbsolute->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
+    d->modeAbsolute->nativeWidget()->setAutoExclusive( false );
+    d->modeAbsolute->setZValue( 10 );
+    connect( d->modeAbsolute->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( selectAbsoluteMode( bool ) ) );
+    layout_mode->addItem( d->modeAbsolute );
 
-    m_radioButtonRelative = new Plasma::RadioButton( groupBox );
-    m_radioButtonRelative->setText( i18nc( "relative pen movement (mouse mode)", "Relative" ) );
-    m_radioButtonRelative->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
-    m_radioButtonRelative->nativeWidget()->setAutoExclusive( false );
-    m_radioButtonRelative->setZValue( 10 );
-    connect( m_radioButtonRelative->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( selectRelativeMode( bool ) ) );
-    layout_mode->addItem( m_radioButtonRelative );
+    d->modeRelative = new Plasma::RadioButton( groupBox );
+    d->modeRelative->setText( i18nc( "relative pen movement (mouse mode)", "Relative" ) );
+    d->modeRelative->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
+    d->modeRelative->nativeWidget()->setAutoExclusive( false );
+    d->modeRelative->setZValue( 10 );
+    connect( d->modeRelative->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( selectRelativeMode( bool ) ) );
+    layout_mode->addItem( d->modeRelative );
 
     layout_groupbox->addItem( layout_mode );
     //layout_groupbox->addStretch( 20 );
@@ -483,44 +490,50 @@ void TabletApplet::buildConfigDialog()
 
 void TabletApplet::buildErrorDialog()
 {
-    //container for the settings when the tablet is removed or an error occurred
-    m_errorWidget = new QGraphicsWidget();
-    m_errorWidget->setFocusPolicy( Qt::ClickFocus );
+    Q_D (TabletApplet);
 
-    QGraphicsLinearLayout *layout_error = new QGraphicsLinearLayout( Qt::Horizontal, m_errorWidget );
+    //container for the settings when the tablet is removed or an error occurred
+    d->errorWidget = new QGraphicsWidget();
+    d->errorWidget->setFocusPolicy( Qt::ClickFocus );
+
+    QGraphicsLinearLayout *layout_error = new QGraphicsLinearLayout( Qt::Horizontal, d->errorWidget );
     layout_error->setSpacing( 10 );
     layout_error->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
 
-    Plasma::IconWidget *errIcon = new Plasma::IconWidget( m_errorWidget );
+    Plasma::IconWidget *errIcon = new Plasma::IconWidget( d->errorWidget );
     errIcon->setIcon( KIcon( QLatin1String( "dialog-warning" ) ) );
     errIcon->setMaximumHeight( KIconLoader::SizeMedium );
     errIcon->setMinimumHeight( KIconLoader::SizeMedium );
     errIcon->setAcceptHoverEvents( false );
-    m_errorMsg = new Plasma::Label( m_errorWidget );
-    m_errorMsg->nativeWidget()->setWordWrap( true );
-    m_errorMsg->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
+    d->errorMsg = new Plasma::Label( d->errorWidget );
+    d->errorMsg->nativeWidget()->setWordWrap( true );
+    d->errorMsg->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
 
     layout_error->addItem( errIcon );
-    layout_error->addItem( m_errorMsg );
+    layout_error->addItem( d->errorMsg );
 }
 
 void TabletApplet::showError( const QString &msg )
 {
-    m_deviceName->setText( i18nc( "Title of the applet when an error shows up", "Tablet Error" ) );
-    m_errorMsg->setText( msg );
+    Q_D (TabletApplet);
 
-    m_configWidget->hide();
-    m_layoutMain->removeItem( m_configWidget );
-    m_errorWidget->show();
-    m_layoutMain->addItem( m_errorWidget );
+    d->deviceName->setText( i18nc( "Title of the applet when an error shows up", "Tablet Error" ) );
+    d->errorMsg->setText( msg );
+
+    d->configWidget->hide();
+    d->layoutMain->removeItem( d->configWidget );
+    d->errorWidget->show();
+    d->layoutMain->addItem( d->errorWidget );
 }
 
 void TabletApplet::showApplet()
 {
-    m_errorWidget->hide();
-    m_layoutMain->removeItem( m_errorWidget );
-    m_configWidget->show();
-    m_layoutMain->addItem( m_configWidget );
+    Q_D (TabletApplet);
+
+    d->errorWidget->hide();
+    d->layoutMain->removeItem( d->errorWidget );
+    d->configWidget->show();
+    d->layoutMain->addItem( d->configWidget );
 
     updateWidget();
 }
@@ -532,5 +545,5 @@ void TabletApplet::onTabletAdded()
 
 void TabletApplet::onTabletRemoved()
 {
-    showError( i18n( "No tablet device was found.\n\nPlease connect the device." ) );
+    showError(i18n("No tablet device was found.\n\nPlease connect the device."));
 }

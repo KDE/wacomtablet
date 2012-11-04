@@ -1,5 +1,7 @@
 /*
- * Copyright 2009,2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,32 +20,21 @@
 #ifndef TABLETWIDGET_H
 #define TABLETWIDGET_H
 
-//KDE includes
-#include <KDE/KSharedConfig>
-
-//Qt includes
 #include <QtGui/QWidget>
-#include <QtCore/QPointer>
 
 /**
   * The Ui namespace holds the designer form files for the tablet module
   */
 namespace Ui
 {
-class TabletWidget;
+    class TabletWidget;
 }
-
-class QDBusInterface;
 
 namespace Wacom
 {
-class ProfileManagement;
-class GeneralWidget;
-class PadButtonWidget;
-class PadMapping;
-class ScreenWidget;
-class PenWidget;
-class TouchWidget;
+
+class TabletWidgetPrivate;
+
 
 /**
   * This class implements the tabletwidget.ui designer file
@@ -70,22 +61,16 @@ public:
     ~TabletWidget();
 
     /**
-      * Initialize the widget
-      * creates all necessary setting widgets and connects their signals
-      */
-    void init();
-
-    /**
       * Reloads the profile to its saved values from the config file
       * Resets all made changes so far
       */
     void reloadProfile();
 
     /**
-      * Activates the current profile for all connected devices (pen/stylus/eraser)
-      * Happens when the profile is saved/switched/loaded
+      * Saves the current active profile
+      * Takes the values from each widget and saves them
       */
-    void applyProfile();
+    void saveProfile();
 
 signals:
     /**
@@ -94,6 +79,7 @@ signals:
       * @param change @c true if config changed @c false if not
       */
     void changed(bool change);
+
 
 public slots:
     /**
@@ -116,12 +102,6 @@ public slots:
     void delProfile();
 
     /**
-      * Saves the current active profile
-      * Takes the values from each widget and saves them
-      */
-    void saveProfile();
-
-    /**
       * Switch from one profile to another and updates all other widgets.
       * This slot will be called from the profile selector combobox.
       *
@@ -137,31 +117,67 @@ public slots:
       */
     void profileChanged();
 
+
+private:
+
+    /**
+      * Activates the current profile for all connected devices (pen/stylus/eraser)
+      * Happens when the profile is saved/switched/loaded
+      */
+    void applyProfile();
+
+    /**
+     * Disables the profile selector and hides all configuration tabs.
+     */
+    void hideConfig();
+
+    /**
+     * Hides an error message which was previously shown using showError().
+     * If no error message is active, nothing is done.
+     */
+    void hideError();
+
+    /**
+      * Initialize the widget
+      * creates all necessary setting widgets and connects their signals
+      */
+    void init();
+
+    /**
+     * Reloads profiles from the profile manager and loads them into the profile
+     * selector. If a profile name is given, it will be selected. If no profile
+     * is given the default widget selection method applies.
+     *
+     * @param profile The profile to select (possibly empty)
+     *
+     * @return True if a profile was given and it could be set, else false.
+     */
+    bool refreshProfileSelector(const QString& profile = QString());
+
+    /**
+     * Activates the profile selector and show all configuration tabs depending
+     * on the currently loaded profile. If an error message is currently active,
+     * it will be hidden.
+     */
+    void showConfig();
+
     /**
       * If an error occurs a widget with some additional text is shown instead of the config widget.
-      *
       * Happens if no tablet device can be found or the kded daemon is not working.
       *
       * @param errMsg the message that describes the error in more detail
       */
     void showError(const QString & errMsg);
 
-private:
-    Ui::TabletWidget   *m_ui;                  /**< Handler to the tabletwidget.ui file */
-    KSharedConfig::Ptr  m_profilesConfig;      /**< Handler for the KConfig profile settings */
-    QDBusInterface     *m_tabletInterface;     /**< Connection to the tablet daemon DBus /Tablet Interface */
-    QDBusInterface     *m_deviceInterface;     /**< Connection to the tablet daemon DBus /Device Interface */
-    ProfileManagement  *m_profileManagement;   /**< Handler for the profile config file connection. */
-    GeneralWidget      *m_generalPage;         /**< Widget that shows some basic information about the tablet */
-    PadButtonWidget    *m_padButtonPage;       /**< Widget for the pad button settings */
-    PadMapping         *m_padMappingPage;      /**< Widget for the pad rotation and working area */
-    PadMapping         *m_touchMappingPage;    /**< Widget for the touch rotation and working area */
-    PenWidget          *m_penPage;             /**< Widget for the pen settings (stylus/eraser) */
-    TouchWidget        *m_touchPage;           /**< Widget for the touch settings */
-    bool                m_profileChanged;      /**< True if the profile was changed and not saved yet */
-    QPointer<QWidget>   m_deviceError;         /**< Shows the error widget */
-};
+    /**
+     * Shows a dialog which allows the user to save his changes if the currently
+     * active configuration was changed.
+     */
+    void showSaveChanges();
 
-}
+    Q_DECLARE_PRIVATE( TabletWidget )
+    TabletWidgetPrivate *const d_ptr; /**< d-pointer for this class */
 
+}; // CLASS
+}  // NAMESPACE
 #endif /*TABLETWIDGET_H*/

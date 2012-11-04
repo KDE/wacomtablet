@@ -1,0 +1,24 @@
+Source: wacomtablet
+Section: kde
+Priority: extra
+Maintainer: Alexander Maret <alex@maret.de>
+Build-Depends: debhelper (>= 7.3.16), cmake, kdelibs5-dev, pkg-kde-tools (>= 0.6.2),
+ libxi-dev, libxrandr-dev
+Standards-Version: 3.9.2
+Homepage: http://projects.kde.org/projects/extragear/base/wacomtablet
+
+Package: kde-config-tablet
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: ${shlibs:Recommends}, xserver-xorg-input-wacom
+Description: implements a KDE configuration GUI for the Wacom drivers
+ KDE 4 KCModule
+ .
+ This module implements a GUI for the Wacom Linux Drivers and extends it
+ with profile support to handle different button / pen layouts per profile.
+ .
+ For hardware support have a look at http://www.linuxwacom.sourceforge.net
+ .
+ All tablets can be set up as long as they are found via xorg.conf or HAL 
+ configuration.
+

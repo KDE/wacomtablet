@@ -1,5 +1,7 @@
 /*
- * Copyright 2009,2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -20,6 +22,13 @@
 
 #include "profilemanagement.h"
 
+// common
+#include "tabletinfo.h"
+#include "dbustabletinterface.h"
+
+// stdlib
+#include <memory>
+
 //KDE includes
 #include <KDE/KStandardDirs>
 #include <KDE/KIcon>
@@ -29,6 +38,7 @@
 #include <KDE/KAction>
 
 //Qt includes
+#include <QtCore/QPointer>
 #include <QtCore/QStringList>
 #include <QtDBus/QDBusInterface>
 #include <QtDBus/QDBusReply>
@@ -37,68 +47,93 @@
 
 using namespace Wacom;
 
-GeneralWidget::GeneralWidget(QDBusInterface *deviceInterface, ProfileManagement *profileManager, QWidget *parent)
-        : QWidget(parent),
-        m_ui(new Ui::GeneralWidget),
-        m_deviceInterface(deviceInterface),
-        m_profileManagement(profileManager),
-        m_shortcutEditor(0)
+namespace Wacom {
+/**
+  * Private class for the d-pointer.
+  */
+class GeneralWidgetPrivate {
+    public:
+        ~GeneralWidgetPrivate() {
+            delete m_actionCollection;
+            delete m_shortcutEditor;
+        }
+
+        std::auto_ptr<Ui::GeneralWidget>  m_ui;                /**< Handler to the generalwidget.ui file */
+        QPointer<KActionCollection>       m_actionCollection;
+        QPointer<KShortcutsEditor>        m_shortcutEditor;
+}; // CLASS
+}  // NAMESPACE
+
+
+GeneralWidget::GeneralWidget(QWidget *parent)
+        : QWidget(parent), d_ptr(new GeneralWidgetPrivate)
 {
-    m_ui->setupUi(this);
+    Q_D( GeneralWidget );
+
+    d->m_ui = std::auto_ptr<Ui::GeneralWidget>(new Ui::GeneralWidget);
+    d->m_ui->setupUi(this);
 
     //if someone adds another action also add it to kded/tabletdeamon.cpp
-    m_actionCollection = new KActionCollection(this, KComponentData("wacomtablet"));
-    m_actionCollection->setConfigGlobal(true);
+    d->m_actionCollection = new KActionCollection(this, KComponentData("wacomtablet"));
+    d->m_actionCollection->setConfigGlobal(true);
 
-    KAction *action = m_actionCollection->addAction(QLatin1String("Toggle touch tool"));
+    KAction *action = d->m_actionCollection->addAction(QLatin1String("Toggle touch tool"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
     action->setIcon( KIcon( QLatin1String( "input-tablet" ) ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_T ) );
 
-    action = m_actionCollection->addAction(QLatin1String("Toggle stylus mode"));
+    action = d->m_actionCollection->addAction(QLatin1String("Toggle stylus mode"));
     action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
     action->setIcon( KIcon( QLatin1String( "draw-path" ) ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ));
-    m_shortcutEditor = new KShortcutsEditor(this, KShortcutsEditor::GlobalAction);
-    m_shortcutEditor->addCollection(m_actionCollection, i18n("Wacom Tablet Settings"));
 
-    m_ui->shortcutGroupBox->layout()->addWidget(m_shortcutEditor);
+    d->m_shortcutEditor = new KShortcutsEditor(this, KShortcutsEditor::GlobalAction);
+    d->m_shortcutEditor->addCollection(d->m_actionCollection, i18n("Wacom Tablet Settings"));
 
-    connect(m_shortcutEditor, SIGNAL(keyChange()), this, SLOT(profileChanged()));
+    d->m_ui->shortcutGroupBox->layout()->addWidget(d->m_shortcutEditor);
+
+    connect(d->m_shortcutEditor, SIGNAL(keyChange()), this, SLOT(profileChanged()));
 }
+
 
 GeneralWidget::~GeneralWidget()
 {
-    delete m_ui;
+    delete this->d_ptr;
 }
+
 
 void GeneralWidget::saveToProfile()
 {
-    m_shortcutEditor->save();
+    Q_D( GeneralWidget );
+
+    d->m_shortcutEditor->save();
 }
 
-void GeneralWidget::loadFromProfile()
-{
-}
+
+void GeneralWidget::loadFromProfile() {}
+
 
 void GeneralWidget::profileChanged()
 {
     emit changed();
 }
 
+
 void GeneralWidget::reloadWidget()
 {
+    Q_D( GeneralWidget );
+
     //get information via DBus
-    QDBusReply<QString> deviceModel = m_deviceInterface->call(QLatin1String( "deviceModel" ));
-    QDBusReply<QString> deviceName  = m_deviceInterface->call(QLatin1String( "deviceName" ));
-    QDBusReply<QString> companyName = m_deviceInterface->call(QLatin1String( "companyName" ));
-    QDBusReply<QStringList> inputDevices = m_deviceInterface->call(QLatin1String( "deviceList" ));
+    QDBusReply<QString> deviceModel      = DBusTabletInterface::instance().getInformation(TabletInfo::TabletModel);
+    QDBusReply<QString> deviceName       = DBusTabletInterface::instance().getInformation(TabletInfo::TabletName);
+    QDBusReply<QString> companyName      = DBusTabletInterface::instance().getInformation(TabletInfo::CompanyName);
+    QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList();
 
     //show tablet or generic icon and some tablet information
     KIcon genericTablet( QLatin1String( "input-tablet" ));
-    m_ui->tabletImage->setPixmap(genericTablet.pixmap(128,128));
+    d->m_ui->tabletImage->setPixmap(genericTablet.pixmap(128,128));
 
-    m_ui->comapnyName->setText(companyName);
-    m_ui->tabletName->setText(deviceName);
-    m_ui->deviceList->setText(inputDevices.value().join( QLatin1String( "\n" )));
+    d->m_ui->comapnyName->setText(companyName);
+    d->m_ui->tabletName->setText(deviceName);
+    d->m_ui->deviceList->setText(inputDevices.value().join( QLatin1String( "\n" )));
 }

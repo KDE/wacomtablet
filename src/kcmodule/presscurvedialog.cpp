@@ -1,5 +1,7 @@
 /*
- * Copyright 2009,2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -19,6 +21,7 @@
 #include "ui_presscurvedialog.h"
 
 #include "presscurve.h"
+#include "dbustabletinterface.h"
 
 //KDE includes
 #include <KDE/KDebug>
@@ -31,8 +34,7 @@ using namespace Wacom;
 
 PressCurveDialog::PressCurveDialog(QWidget *parent) :
         QDialog(parent),
-        m_ui(new Ui::PressCurveDialog),
-        m_deviceInterface(0)
+        m_ui(new Ui::PressCurveDialog)
 {
     m_ui->setupUi(this);
 
@@ -44,10 +46,9 @@ PressCurveDialog::~PressCurveDialog()
     delete m_ui;
 }
 
-void PressCurveDialog::setDeviceHandler(QDBusInterface *deviceInterface, const QString & device)
+void PressCurveDialog::setDeviceType (const DeviceType& deviceType)
 {
-    m_deviceInterface = deviceInterface;
-    m_device = device;
+    m_device = deviceType.key();
 }
 
 void PressCurveDialog::setControllPoints(const QString & points)
@@ -77,13 +78,7 @@ QString PressCurveDialog::getControllPoints()
 void PressCurveDialog::updateControlPoints(const QString & points)
 {
     m_ui->pc_Values->setText(points);
-
-    if (!m_deviceInterface) {
-        kError() << "DBus tablet /Device Interface not available";
-        return;
-    }
-
-    m_deviceInterface->call(QLatin1String( "setConfiguration" ), m_device, QLatin1String( "PressureCurve" ), points);
+    DBusTabletInterface::instance().setProperty(*DeviceType::find(m_device), Property::PressureCurve, points);
 }
 
 void PressCurveDialog::accept()

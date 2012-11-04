@@ -1,5 +1,7 @@
 /*
- * Copyright 2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -15,33 +17,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "debug.h"
 #include "tabletdaemon.h"
-#include "devicehandler.h"
+
+#include "dbustabletservice.h"
+#include "tabletfinder.h"
+#include "tablethandler.h"
 #include "wacomadaptor.h"
-#include "wacomdeviceadaptor.h"
+#include "x11eventnotifier.h"
 #include "../version.h"
+
+// common includes
+#include "aboutdata.h"
+
+// stdlib includes
+#include <memory>
 
 // KDE includes
 #include <KDE/KPluginFactory>
-#include <KDE/KAboutData>
 #include <KDE/KNotification>
 #include <KDE/KLocale>
 #include <KDE/KLocalizedString>
 #include <KDE/KIconLoader>
-#include <KDE/KSharedConfig>
 #include <KDE/KComponentData>
 #include <KDE/KActionCollection>
 #include <KDE/KAction>
 #include <KDE/KDebug>
-
-//Qt includes
-#include <QtGui/QX11Info>
-
-// X11 includes
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
-#include <X11/extensions/XInput.h>
-#include <X11/extensions/XInput2.h>
 
 using namespace Wacom;
 
@@ -51,21 +52,21 @@ K_EXPORT_PLUGIN( WacomTabletFactory( "wacomtabletdaemon" ) )
 namespace Wacom {
 /**
   * Private class of the TabletDaemon for the d-pointer
-  *
   */
 class TabletDaemonPrivate {
 public:
-    DeviceHandler       *deviceHandler;  /**< Pointer to the tablet device */
-    XDeviceEventNotifier *xEventNotifier; /**< X11 Event handler to detect when the tablet is connected/removed */
-    KSharedConfig::Ptr  profilesConfig;  /**< Shared pointer to the configuration file that holds all tablet profiles */
-    KComponentData      applicationData; /**< Basic application data */
-    KIconLoader         *iconLoader;     /**< Simple loader for the notification icon */
-    int                 deviceid;        /**< current conencted tablet deviceid. id comes from x11 */
-    QString             curProfile;      /**< currently active profile */
-    bool                initPhase;       /**< used to suppress the tablet add notification on kded loading. */
-    KActionCollection   *actionCollection; /**< Collection of all global actions */
-};
-}
+    TabletDaemonPrivate()
+        : tabletHandler(), dbusTabletService(tabletHandler) {}
+
+    TabletHandler                     tabletHandler;    /**< tablet handler */
+    DBusTabletService                 dbusTabletService;
+    std::auto_ptr<KComponentData>     applicationData;  /**< Basic application data */
+    std::auto_ptr<KActionCollection>  actionCollection; /**< Collection of all global actions */
+
+}; // CLASS
+}  // NAMESPACE
+
+
 
 TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
     : KDEDModule( parent ), d_ptr( new TabletDaemonPrivate )
@@ -73,297 +74,124 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
     Q_UNUSED( args );
     Q_D( TabletDaemon );
 
-    KGlobal::locale()->insertCatalog( QLatin1String( "wacomtablet" ) );
-
-    KAboutData about( "wacomtablet", "wacomtablet", ki18n( "Graphic Tablet Configuration daemon" ), kded_version,
-                      ki18n( "A Wacom tablet control daemon" ),
-                      KAboutData::License_GPL,
-                      ki18n( "(c) 2010 Jörg Ehrichs" ),
-                      KLocalizedString(),
-                      "http://www.etricceline.de" );
-
-    about.addAuthor( ki18n( "Jörg Ehrichs" ), ki18n( "Maintainer" ) , "joerg.ehrichs@gmx.de" );
-
-    d->applicationData = KComponentData( about );
-    d->iconLoader = new KIconLoader( d->applicationData );
-    d->profilesConfig = KSharedConfig::openConfig( QLatin1String( "tabletprofilesrc" ), KConfig::SimpleConfig );
-    d->deviceHandler = new DeviceHandler();
-
-    //DBus connection
-    new WacomAdaptor( this );
-    new WacomDeviceAdaptor( d->deviceHandler );
-    QDBusConnection::sessionBus().registerObject( QLatin1String( "/Tablet" ), this );
-    QDBusConnection::sessionBus().registerObject( QLatin1String( "/Device" ), d->deviceHandler );
-    QDBusConnection::sessionBus().registerService( QLatin1String( "org.kde.Wacom" ) );
-
-
-    d->initPhase = true;
-
-    d->xEventNotifier = new XDeviceEventNotifier();
-
-    d->xEventNotifier->start();
-    connect( d->xEventNotifier, SIGNAL( deviceAdded( int ) ), this, SLOT( deviceAdded( int ) ) );
-    connect( d->xEventNotifier, SIGNAL( deviceRemoved( int ) ), this, SLOT( deviceRemoved( int ) ) );
-    connect( d->xEventNotifier, SIGNAL( screenRotated( TabletRotation ) ), this, SLOT( screenRotated( TabletRotation ) ) );
-
-    //check for devices on startup
-    int deviceid = findTabletDevice();
-    if( deviceid != 0 ) {
-        deviceAdded( deviceid );
-    }
-
-    d->initPhase = false;
-
+    setupApplication();
+    setupDBus();
+    setupEventNotifier();
     setupActions();
+
+    // scan for connected devices
+    TabletFinder::instance().scan();
+
+    // connect profile changed handler after searching for tablets as this is only used for the global shortcut workaround.
+    connect(&(d->tabletHandler), SIGNAL (profileChanged(const QString&)), this, SLOT (onProfileChanged(const QString&)));
+
+    // Connecting this after the device has been set up ensures that no notification is send on startup.
+    connect( &(d->tabletHandler), SIGNAL(notify(QString,QString,QString)), this, SLOT(onNotify(QString,QString,QString)) );
 }
+
+
 
 TabletDaemon::~TabletDaemon()
 {
-    this->d_ptr->xEventNotifier->stop();
-
-    QDBusConnection::sessionBus().unregisterService( QLatin1String( "org.kde.Wacom" ) );
-    delete this->d_ptr->xEventNotifier;
-    delete this->d_ptr->deviceHandler;
-    delete this->d_ptr->iconLoader;
-    delete this->d_ptr->actionCollection;
+    X11EventNotifier::instance().stop();
     delete this->d_ptr;
 }
 
-void TabletDaemon::deviceAdded( int deviceid )
+
+
+void TabletDaemon::onNotify(const QString& eventId, const QString& title, const QString& message)
 {
     Q_D( TabletDaemon );
+    static KIconLoader iconLoader( *(d->applicationData) );
 
-    // if we already have a device ... skip this step
-    if( d->deviceHandler->isDeviceAvailable() ) {
-        return;
-    }
-
-    // No tablet available, so reload tablet information
-    d->deviceHandler->detectTablet();
-
-    // if we found something notify about it and set the default profile to it
-    if( d->deviceHandler->isDeviceAvailable() ) {
-        if( !d->initPhase ) {
-            KNotification *notification = new KNotification( QLatin1String( "tabletAdded" ) );
-            notification->setTitle( i18n( "Tablet added" ) );
-            notification->setText( i18n( "New %1 tablet added", d->deviceHandler->deviceName() ) );
-            notification->setPixmap( d->iconLoader->loadIcon( QLatin1String( "input-tablet" ), KIconLoader::Panel ) );
-            notification->setComponentData( d->applicationData );
-            notification->sendEvent();
-
-            delete notification;
-        }
-
-        d->deviceid = deviceid;
-
-        emit tabletAdded();
-
-        //get last used profilename
-        KSharedConfigPtr config = KSharedConfig::openConfig( QLatin1String( "wacomtablet-kderc" ) );
-        KConfigGroup generalGroup( config, "General" );
-
-        QString profileName = generalGroup.readEntry( "lastprofile", QString() );
-
-        if( profileName.isEmpty() ) {
-            setProfile( QLatin1String( "default" ) );
-        }
-        else {
-            setProfile( profileName );
-        }
-    }
+    KNotification notification(eventId);
+    notification.setTitle(title);
+    notification.setText(message);
+    notification.setComponentData( *(d->applicationData) );
+    notification.setPixmap( iconLoader.loadIcon( QLatin1String( "input-tablet" ), KIconLoader::Panel ) );
+    notification.sendEvent();
 }
 
-void TabletDaemon::deviceRemoved( int deviceid )
+
+
+void TabletDaemon::onProfileChanged(const QString& profile)
 {
-    Q_D( TabletDaemon );
-    if( d->deviceHandler->isDeviceAvailable() ) {
-        if( d->deviceid == deviceid ) {
-            KNotification *notification = new KNotification( QLatin1String( "tabletRemoved" ) );
-            notification->setTitle( i18n( "Tablet removed" ) );
-            notification->setText( i18n( "Tablet %1 removed", d->deviceHandler->deviceName() ) );
-            notification->setComponentData( d->applicationData );
-            notification->sendEvent();
-            d->deviceHandler->clearDeviceInformation();
+    // disable compiler warning about unused parameters at least in debug mode
+    assert(&profile != NULL);
 
-            emit tabletRemoved();
-            delete notification;
-        }
-    }
+    // When closing the KCM module the KAction destructor disables all global shortcuts.
+    // Make sure the global shortcuts are restored when a profile changes. This is not
+    // optimal but at least it will enable the shortcuts again.
+    kDebug() << QLatin1String("Restoring global keyboard shortcuts...");
+    setupActions();
 }
 
-bool TabletDaemon::tabletAvailable() const
-{
-    Q_D( const TabletDaemon );
-    return d->deviceHandler->isDeviceAvailable();
-}
 
-void TabletDaemon::setProfile( const QString &profile )
-{
-    Q_D( TabletDaemon );
-    d->profilesConfig->reparseConfiguration();
-    KConfigGroup deviceGroup = KConfigGroup( d->profilesConfig, d->deviceHandler->deviceName() );
-    KConfigGroup profileGroup = KConfigGroup( &deviceGroup, profile );
-
-    if( profileGroup.groupList().isEmpty() ) {
-        notifyError( i18n( "Profile <b>%1</b> does not exist", profile ) );
-    }
-    else {
-        d->curProfile = profile;
-        d->deviceHandler->applyProfile( &profileGroup );
-
-        emit profileChanged( profile );
-
-        //write as last used profile into the config file
-        KSharedConfigPtr config = KSharedConfig::openConfig( QLatin1String( "wacomtablet-kderc" ) );
-        KConfigGroup generalGroup( config, "General" );
-
-        generalGroup.writeEntry( "lastprofile", profile );
-    }
-}
-
-QString TabletDaemon::profile() const
-{
-    Q_D( const TabletDaemon );
-    return d->curProfile;
-}
-
-QStringList TabletDaemon::profileList() const
-{
-    Q_D( const TabletDaemon );
-
-    //get list of all profiles
-    KSharedConfig::Ptr profilesConfig = KSharedConfig::openConfig( QLatin1String( "tabletprofilesrc" ), KConfig::SimpleConfig );
-    KConfigGroup deviceGroup = KConfigGroup( profilesConfig, d->deviceHandler->deviceName() );
-
-    return deviceGroup.groupList();
-}
-
-void TabletDaemon::notifyError( const QString &message ) const
-{
-    Q_D( const TabletDaemon );
-    KNotification *notification = new KNotification( QLatin1String( "tabletError" ) );
-    notification->setTitle( i18n( "Graphic Tablet error" ) );
-    notification->setText( message );
-    notification->setComponentData( d->applicationData );
-    notification->sendEvent();
-
-    delete notification;
-}
-
-int TabletDaemon::findTabletDevice()
-{
-    bool deviceFound = false;
-    int deviceId = 0;
-    int ndevices;
-    XDeviceInfo *info = XListInputDevices( QX11Info::display(), &ndevices );
-
-    for( int i = 0; i < ndevices; i++ ) {
-        uint wacom_prop = XInternAtom( QX11Info::display(), "Wacom Tool Type", True );
-
-        XDevice *dev = XOpenDevice( QX11Info::display(), info[i].id );
-        if( !dev ) {
-            continue;
-        }
-
-        int natoms;
-        Atom *atoms = XListDeviceProperties( QX11Info::display(), dev, &natoms );
-
-        if( natoms ) {
-            for( int j = 0; j < natoms; j++ ) {
-                if( atoms[j] == wacom_prop ) {
-                    deviceFound = true;
-                    deviceId = info[i].id;
-                }
-            }
-        }
-
-        XFree( atoms );
-        XCloseDevice( QX11Info::display(), dev );
-
-        if( deviceFound ) {
-            break;
-        }
-    }
-
-    XFreeDeviceList( info );
-
-    return deviceId;
-}
 
 void TabletDaemon::setupActions()
 {
     Q_D( TabletDaemon );
 
     //if someone adds another action also add it to kcmodule/generalwidget.cpp
-    d->actionCollection = new KActionCollection( this, d->applicationData );
+
+    // This method is called multiple times - make sure the action collection is only created once.
+    if (d->actionCollection.get() == NULL) {
+        d->actionCollection = std::auto_ptr<KActionCollection>(new KActionCollection(this, *(d->applicationData)));
+        d->actionCollection->setConfigGlobal(true);
+    }
 
     KAction *action = d->actionCollection->addAction(QLatin1String("Toggle touch tool"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_T ) );
-    connect( action, SIGNAL( triggered() ), this, SLOT( actionToggleTouch() ) );
+    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onToggleTouch() ) );
 
     action = d->actionCollection->addAction(QLatin1String("Toggle stylus mode"));
     action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ) );
-    connect( action, SIGNAL( triggered() ), this, SLOT( actionTogglePenMode() ) );
+    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onTogglePenMode() ) );
 }
 
-void TabletDaemon::screenRotated( TabletRotation screenRotation )
+
+
+void TabletDaemon::setupApplication()
 {
-    Q_D( const TabletDaemon );
+    Q_D( TabletDaemon );
 
-    KConfigGroup deviceGroup = KConfigGroup( d->profilesConfig, d->deviceHandler->deviceName() );
-    KConfigGroup configGroup = KConfigGroup( &deviceGroup, d->curProfile );
-    KConfigGroup stylusConfig( &configGroup, QLatin1String( "stylus" ) );
+    KGlobal::locale()->insertCatalog( QLatin1String( "wacomtablet" ) );
 
-    kDebug() << "xRandR screen rotation detected.";
+    static AboutData about( "wacomtablet",
+                            ki18n( "Graphic Tablet Configuration daemon" ),
+                            kded_version, ki18n( "A Wacom tablet control daemon" ) );
 
-    if( stylusConfig.readEntry( QLatin1String( "0RotateWithScreen" ) ) == QLatin1String( "true" ) ) {
-
-        QString rotatecmd;
-
-        switch(screenRotation) {
-        case NONE:
-            rotatecmd = QLatin1String("none");
-            break;
-        case CW:
-            rotatecmd = QLatin1String("cw");
-            break;
-        case CCW:
-            rotatecmd = QLatin1String("ccw");
-            break;
-        case HALF:
-            rotatecmd = QLatin1String("half");
-            break;
-        }
-
-        kDebug() << "Rotate tablet :: " << rotatecmd;
-
-        QString stylusName = d->deviceHandler->stylusName();
-        QString eraserName = d->deviceHandler->eraserName();
-        QString touchName = d->deviceHandler->touchName();
-
-        d->deviceHandler->setConfiguration( stylusName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
-        d->deviceHandler->setConfiguration( eraserName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
-
-        if( !touchName.isEmpty() ) {
-            d->deviceHandler->setConfiguration( touchName, QLatin1String( "Rotate" ), QString::fromLatin1( "%1" ).arg( rotatecmd ) );
-        }
-
-        setProfile(profile());
-    }
+    d->applicationData = std::auto_ptr<KComponentData>(new KComponentData(about));
 }
 
-void TabletDaemon::actionToggleTouch()
+
+
+void TabletDaemon::setupDBus()
 {
-    Q_D( const TabletDaemon );
+    Q_D( TabletDaemon );
 
-    d->deviceHandler->toggleTouch();
+    // connect tablet handler events to D-Bus
+    // this is done here and not in the D-Bus tablet service to facilitate unit testing
+    connect(&(d->tabletHandler), SIGNAL (profileChanged(const QString&)),        &(d->dbusTabletService), SLOT (onProfileChanged(const QString&)));
+    connect(&(d->tabletHandler), SIGNAL (tabletAdded(const TabletInformation&)), &(d->dbusTabletService), SLOT (onTabletAdded(const TabletInformation&)));
+    connect(&(d->tabletHandler), SIGNAL (tabletRemoved()),                       &(d->dbusTabletService), SLOT (onTabletRemoved()));
 }
 
-void TabletDaemon::actionTogglePenMode()
+
+
+void TabletDaemon::setupEventNotifier()
 {
-    Q_D( const TabletDaemon );
+    Q_D( TabletDaemon );
 
-    d->deviceHandler->togglePenMode();
+    connect( &X11EventNotifier::instance(), SIGNAL(screenRotated (ScreenRotation)),           &(d->tabletHandler),       SLOT(onScreenRotated (ScreenRotation)));
+    connect( &X11EventNotifier::instance(), SIGNAL(tabletAdded (int)),                        &TabletFinder::instance(), SLOT(onX11TabletAdded (int)));
+    connect( &X11EventNotifier::instance(), SIGNAL(tabletRemoved (int)),                      &TabletFinder::instance(), SLOT(onX11TabletRemoved (int)));
+
+    connect( &TabletFinder::instance(),     SIGNAL(tabletAdded (const TabletInformation)),    &(d->tabletHandler),       SLOT(onTabletAdded (const TabletInformation)));
+    connect( &TabletFinder::instance(),     SIGNAL(tabletRemoved (const TabletInformation)),  &(d->tabletHandler),       SLOT(onTabletRemoved (const TabletInformation)));
+
+    X11EventNotifier::instance().start();
 }
+

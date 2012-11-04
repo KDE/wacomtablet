@@ -1,5 +1,7 @@
 /*
- * Copyright 2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -27,86 +29,130 @@
 #include <KDE/KDebug>
 
 //Qt includes
-#include <QtDBus/QDBusInterface>
+#include <QtDBus/QDBusConnection>
 #include <QtDBus/QDBusServiceWatcher>
 #include <QtDBus/QDBusReply>
 #include <QtGui/QGraphicsSceneContextMenuEvent>
 
+
+namespace Wacom
+{
+    class WacomTabletSettingsPrivate
+    {
+        public:
+            static const QString DBUS_SERVICE_NAME; // TODO this should be a global definition
+            static const QString DEFAULT_ICON_NAME;
+            static const QString I18N_CATALOG_NAME; // TODO this should be a global definition
+            static const QString KCM_MODULE_NAME;   // TODO this should be a global definition
+
+            ~WacomTabletSettingsPrivate() {
+                delete tabletApplet;
+                delete settingsWidget;
+            }
+
+            QPointer<TabletApplet>  tabletApplet;        //!< The plasma applet widget.
+            QPointer<KCModuleProxy> settingsWidget;      //!< A KCM proxy which loads our normal settings widget.
+            QDBusServiceWatcher     dbusServiceWatcher;  //!< A D-Bus watcher which monitors the availability of the Tablet D-Bus Service.
+
+    }; // PRIVATE CLASS
+
+    /*
+     * Initialize static members.
+     */
+    const QString WacomTabletSettingsPrivate::DBUS_SERVICE_NAME = QLatin1String("org.kde.Wacom");
+    const QString WacomTabletSettingsPrivate::DEFAULT_ICON_NAME = QLatin1String("input-tablet");
+    const QString WacomTabletSettingsPrivate::I18N_CATALOG_NAME = QLatin1String("wacomtablet");
+    const QString WacomTabletSettingsPrivate::KCM_MODULE_NAME   = QLatin1String("kcm_wacomtablet");
+
+} // NAMESPACE WACOM
+
+
+
 using namespace Wacom;
 
-static const char DEFAULT_ICON_NAME[] = "input-tablet";
-
-K_EXPORT_PLASMA_APPLET(tabletsettings, WacomTabletSettings)
+K_EXPORT_PLASMA_APPLET (tabletsettings, WacomTabletSettings)
 
 WacomTabletSettings::WacomTabletSettings(QObject *parent, const QVariantList &args)
         : Plasma::PopupApplet(parent, args),
-        m_applet(0),
-        m_settingsWidget(0),
-        m_tabletInterface(0)
+          d_ptr (new WacomTabletSettingsPrivate)
 {
-    KGlobal::locale()->insertCatalog( QLatin1String( "wacomtablet" ));
+    // init locale
+    KGlobal::locale()->insertCatalog (WacomTabletSettingsPrivate::I18N_CATALOG_NAME);
 
-    setBackgroundHints(StandardBackground);
-    setAspectRatioMode(Plasma::IgnoreAspectRatio);
+    // init plasma widget
+    setBackgroundHints (StandardBackground);
+    setAspectRatioMode (Plasma::IgnoreAspectRatio);
+    setPopupIcon (WacomTabletSettingsPrivate::DEFAULT_ICON_NAME);
 }
+
+
 
 WacomTabletSettings::~WacomTabletSettings()
 {
-    //delete m_applet;
+    delete this->d_ptr;
 }
+
+
 
 void WacomTabletSettings::init()
 {
-    setPopupIcon(QLatin1String( DEFAULT_ICON_NAME ));
+    Q_D (WacomTabletSettings);
 
-    if (!m_applet) {
-        m_applet = new TabletApplet(this);
+    // create applet if is does not yet exist
+    if (!d->tabletApplet) {
+        d->tabletApplet = new TabletApplet(this);
     }
 
-    m_watcher = new QDBusServiceWatcher( QLatin1String("org.kde.Wacom"), QDBusConnection::sessionBus(),
-                                         QDBusServiceWatcher::WatchForRegistration | QDBusServiceWatcher::WatchForUnregistration, this);
+    // init dbus service watcher
+    d->dbusServiceWatcher.setParent(this);
+    d->dbusServiceWatcher.setWatchedServices (QStringList(WacomTabletSettingsPrivate::DBUS_SERVICE_NAME));
+    d->dbusServiceWatcher.setWatchMode (QDBusServiceWatcher::WatchForRegistration | QDBusServiceWatcher::WatchForUnregistration);
+    d->dbusServiceWatcher.setConnection (QDBusConnection::sessionBus());
 
-    connect(m_watcher, SIGNAL(serviceRegistered(QString)), this, SLOT(serviceAvailable()));
-    connect(m_watcher, SIGNAL(serviceUnregistered(QString)), this, SLOT(serviceUnavailable()));
+    connect(&(d->dbusServiceWatcher), SIGNAL(serviceRegistered(QString)),   d->tabletApplet, SLOT(onDBusConnected()));
+    connect(&(d->dbusServiceWatcher), SIGNAL(serviceUnregistered(QString)), d->tabletApplet, SLOT(onDBusDisconnected()));
 
-    m_applet->connectDBus();
+    d->tabletApplet->onDBusConnected();
 }
+
+
 
 QGraphicsWidget *WacomTabletSettings::graphicsWidget()
 {
-    if (!m_applet) {
-        m_applet = new TabletApplet(this);
+    Q_D (WacomTabletSettings);
+
+    if (!d->tabletApplet) {
+        d->tabletApplet = new TabletApplet(this);
     }
 
-    return m_applet->dialog();
+    return d->tabletApplet->dialog();
 }
+
+
 
 void WacomTabletSettings::createConfigurationInterface(KConfigDialog *parent)
 {
-    m_settingsWidget = new KCModuleProxy(QLatin1String( "kcm_wacomtablet" ));
+    Q_D (WacomTabletSettings);
 
-    parent->addPage(m_settingsWidget, m_settingsWidget->moduleInfo().moduleName(),
-                    m_settingsWidget->moduleInfo().icon());
+    if (!d->settingsWidget) {
+        d->settingsWidget = new KCModuleProxy (WacomTabletSettingsPrivate::KCM_MODULE_NAME);
+    }
 
+    parent->addPage(d->settingsWidget, d->settingsWidget->moduleInfo().moduleName(), d->settingsWidget->moduleInfo().icon());
     parent->setButtons(KDialog::Ok | KDialog::Cancel);
+
     connect(parent, SIGNAL(okClicked()), this, SLOT(configAccepted()));
     connect(parent, SIGNAL(applyClicked()), this, SLOT(configAccepted()));
 }
 
+
+
 void WacomTabletSettings::configAccepted()
 {
+    Q_D (WacomTabletSettings);
+
     //Save the configurations of the embedded KCMs
-    m_settingsWidget->save();
-    m_applet->updateProfile();
+    d->settingsWidget->save();
+    d->tabletApplet->updateProfile();
 }
 
-
-void WacomTabletSettings::serviceAvailable()
-{
-    m_applet->connectDBus();
-}
-
-void WacomTabletSettings::serviceUnavailable()
-{
-    m_applet->disconnectDBus();
-}

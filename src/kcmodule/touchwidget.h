@@ -1,5 +1,7 @@
 /*
- * Copyright 2011 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -27,13 +29,14 @@ class TouchWidget;
 
 namespace Wacom
 {
-class ProfileManagement;
+class TouchWidgetPrivate;
+
 
 class TouchWidget : public QWidget
 {
     Q_OBJECT
 public:
-    TouchWidget(ProfileManagement *profileManager, QWidget *parent = 0);
+    TouchWidget(QWidget *parent = 0);
     /**
       * default destructor
       */
@@ -70,9 +73,10 @@ signals:
     void changed();
 
 private:
-    Ui::TouchWidget *m_ui;              /**< Handler to the generalwidget.ui file */
-    ProfileManagement *m_profileManagement; /**< Handler for the profile config connection */
-};
 
-}
+    Q_DECLARE_PRIVATE( TouchWidget )
+    TouchWidgetPrivate *const d_ptr; /**< d-pointer for this class */
+
+}; // CLASS
+}  // NAMESPACE
 #endif // TOUCHWIDGET_H

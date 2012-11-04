@@ -1,5 +1,7 @@
 /*
- * Copyright 2011 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -337,6 +339,7 @@ void TabletArea::updateDragHandle()
 
 void TabletArea::getMaxTabletArea()
 {
+    // TODO remove this! This should not use X11 directly but query a property value.
     int ndevices;
     XDevice *dev = NULL;
     Display *dpy = QX11Info::display();

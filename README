@@ -40,7 +40,12 @@ Dependencies:
 * libxrandr-dev
 
 #################################################################
-# install with
+# build debian package
+
+debuild -us -uc -b
+
+#################################################################
+# or install with
 
 mkdir build
 cd build

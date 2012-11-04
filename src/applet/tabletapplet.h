@@ -1,5 +1,7 @@
 /*
- * Copyright 2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,44 +20,19 @@
 #ifndef TABLETAPPLET_H
 #define TABLETAPPLET_H
 
+#include "tabletinformation.h"
 
 //Qt include
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QMetaType>
 
-namespace Plasma
-{
-class Label;
-class ComboBox;
-class RadioButton;
-}
-
-class QDBusInterface;
 class QGraphicsWidget;
-class QGraphicsLinearLayout;
 
 namespace Wacom
 {
 class WacomTabletSettings;
+class TabletAppletPrivate;
 
-struct DeviceInformation
-{
-    QString companyID;
-    QString deviceID;
-    QString companyName;
-    QString deviceName;
-    QString deviceModel;
-    QStringList deviceList;
-    QString padName;
-    QString stylusName;
-    QString eraserName;
-    QString cursorName;
-    QString touchName;
-    bool isDeviceAvailable;
-    bool hasPadButtons;
-};
 /**
   * This class provides the plasma applet with the widget content.
   *
@@ -99,21 +76,18 @@ public:
       */
     void showApplet();
 
+public Q_SLOTS:
     /**
-      * Connectes the DBus interfaces for the /Tablet and /Device interface
-      *
-      * Prints an error message when one of the interface is not valid
-      *
-      * @return returns true if conenction is valid, false if not
-      */
-    void connectDBus();
+     * Connectes the DBus interfaces for the /Tablet and /Device interface
+     * Prints an error message when one of the interface is not valid
+     */
+    void onDBusConnected();
 
     /**
-      * Disconnects the dbus again
+      * Shows an error that the D-Bus interface is not available.
       */
-    void disconnectDBus();
+    void onDBusDisconnected();
 
-public slots:
     /**
       * Updates the widget content and internal values.
       *
@@ -250,32 +224,10 @@ private:
       */
     void buildErrorDialog();
 
-    WacomTabletSettings   *m_tabletSettings;      /**< Backreference to the tablet popup applet containing this widget */
-    QDBusInterface        *m_tabletInterface;     /**< Connection to the tablet daemon DBus /Tablet Interface */
-    QDBusInterface        *m_deviceInterface;     /**< Connection to the tablet daemon DBus /Device Interface */
 
-    QGraphicsWidget       *m_widget;              /**< The graphics widget which displays the content */
-    QGraphicsLinearLayout *m_layoutMain;          /**< Layout of the main widget that contains the title / config and error widgets */
-    QGraphicsWidget       *m_configWidget;        /**< Widget for the config content created by buildConfigDialog() */
-    QGraphicsWidget       *m_errorWidget;         /**< Widget for the error content created by buildErrorDialog() */
+    Q_DECLARE_PRIVATE (TabletApplet)
+    TabletAppletPrivate* const d_ptr;
 
-    QString                m_padName;             /**< Internal cache of the tablet pad name */
-    QString                m_stylusName;          /**< Internal cache of the tablet stylus name */
-    QString                m_eraserName;          /**< Internal cache of the tablet eraser name */
-    QString                m_touchName;          /**< Internal cache of the tablet touch name */
-
-    Plasma::Label         *m_deviceName;          /**< Internal cache of the tablet name */
-    Plasma::Label         *m_errorMsg;            /**< Error message if no tablet or the daemon is not available */
-    Plasma::ComboBox      *m_comboBoxProfile;     /**< The Combox for the profile selection */
-    Plasma::RadioButton   *m_radioButtonAbsolute; /**< The Radiobutton to select the pen absolute mode */
-    Plasma::RadioButton   *m_radioButtonRelative; /**< The Radiobutton to select the pen relative mode */
-    Plasma::RadioButton   *m_radioButtonTouchOn;  /**< The Radiobutton to select the pen absolute mode */
-    Plasma::RadioButton   *m_radioButtonTouchOff; /**< The Radiobutton to select the pen relative mode */
-};
-
-}
-
-Q_DECLARE_METATYPE(Wacom::DeviceInformation)
-Q_DECLARE_METATYPE(QList<Wacom::DeviceInformation>)
-
-#endif // TABLETAPPLET_H
+}; // CLASS
+}  // NAMESPACE
+#endif // HEADER PROTECTION

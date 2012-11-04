@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@ --with kde
+
+override_dh_shlibdeps:
+	dh_shlibdeps -Xplasma_applet_wacomtabletsettings.so -- -dRecommends debian/kde-config-tablet/usr/lib/kde4/plasma_applet_wacomtabletsettings.so -dDepends

@@ -1,5 +1,7 @@
 /*
- * Copyright 2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,14 +20,8 @@
 #ifndef TABLETDAEMON_H
 #define TABLETDAEMON_H
 
-#include "xdeviceeventnotifier.h"
-
-//KDE includes
 #include <KDE/KDEDModule>
-
-//Qt includes
 #include <QtCore/QVariantList>
-#include <QtCore/QStringList>
 
 /**
   * The wacom namespace holds all classes regarding the tablet daemon / kcmodule and applet.
@@ -52,13 +48,13 @@ class TabletDaemonPrivate;
 class KDE_EXPORT TabletDaemon : public KDEDModule
 {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.kde.Wacom")
+
 public:
     /**
-      * Creates a new daemon module
+      * Creates a new daemon module.
       *
-      * @param parent the parent object
-      * @param args ignored, required by KPlugin signature
+      * @param parent The parent object.
+      * @param args   Ignored, required by KPlugin signature.
       */
     explicit TabletDaemon(QObject *parent = 0, const QVariantList &args = QVariantList());
 
@@ -67,153 +63,54 @@ public:
       */
     virtual ~TabletDaemon();
 
+
 public Q_SLOTS:
-    /**
-      * Checks if a tablet is detected and available for further usage
-      *
-      * Simply redirects to the wacom::DeviceHandler.
-      *
-      * This function is exported on DBus.
-      *
-      * @sa wacom::DeviceHandler::detectTablet()
-      *
-      * @return @c true if tablet is available, @c false otherwise
-      */
-    Q_SCRIPTABLE bool tabletAvailable() const;
 
     /**
-      * Applies a profile to the tablet device
+      * Uses the KDE notification system to display a notification to the user.
       *
-      * The profile must exist in the tabletprofilerc file and thus created by the kcmodule.
-      * Otherwise a notification error is send and shown.
-      *
-      * This function is exported on DBus.
-      *
-      * @param profile name of the profile as specified in the tabletprofilesrc file.
+      * @param eventId The event identifier.
+      * @param title   The notification title.
+      * @param message The notification message.
       */
-    Q_SCRIPTABLE void setProfile(const QString& profile);
+    void onNotify(const QString& eventId, const QString& title, const QString& message);
 
     /**
-      * Returns the current active profile for this tablet.
-      *
-      * This is not necessary the real configuration in case some other program changed the tablet
-      * behaviour. But this is the name of the profile that was used last.
-      * Can be used to show in the applet as information or as beginning selection in the kcmodule.
-      *
-      * This function is exported on DBus.
-      *
-      * @return name of the last used profile
-      */
-    Q_SCRIPTABLE QString profile() const;
-
-    /**
-      * Returns a list of all available profiles
-      *
-      * This way around the plasma applet does not check the local KConfig file itself
-      * and can be used as a remote applet.
-      *
-      * @return the list of all available profiles
-      */
-    Q_SCRIPTABLE QStringList profileList() const;
-
-Q_SIGNALS:
-    /**
-      * Emitted if a new tablet is connected and detected
-      *
-      * This signal is send via DBus to inform other about the recently added device
-      *
-      * @see deviceAdded(const QString& udi)
-      */
-    Q_SCRIPTABLE void tabletAdded();
-
-    /**
-      * Emitted if a known tablet is removed
-      *
-      * This signal is send via DBus to inform other about the recently removed device
-      *
-      * @see deviceRemoved(const QString& udi)
-      */
-    Q_SCRIPTABLE void tabletRemoved();
-
-    /**
-      * Emitted when the profile of the device is changed
-      *
-      * This signal is send via DBus to inform other about the change
-      *
-      * @param profile name of the current profile
-      */
-    Q_SCRIPTABLE void profileChanged(const QString& profile);
-
-private Q_SLOTS:
-    /**
-      * Called when solid detects a new device.
-      *
-      * Checks if the device is a tablet device.
-      * Calls reloadDeviceInformation() from wacom::DeviceHandler.
-      * If a tablet could be detected a notification is send and the default profile will be applied
-      *
-      */
-    void deviceAdded(int deviceid);
-
-    /**
-      * Called when Solid detects a device was removed.
-      *
-      * Checks if the removed device uid is the same as the connected tablet udi.
-      * Sends a notification about the removal and clears the wacom::DeviceHandler cache.
-      *
-      */
-    void deviceRemoved(int deviceid);
-    
-    /**
-     * Rotates the tablet when the screen is rotated
-     * 
-     * @param screenRotation Integer values for the screen rotations
+     * Called when the profile was changed.
+     *
+     * @param profile The name of the new profile.
      */
-    void screenRotated(TabletRotation screenRotation);
-
-    /**
-      * Notify about an error.
-      *
-      * @param message a human readable error message
-      */
-    void notifyError(const QString &message) const;
-
-    /**
-      * Called when the global shortcut is used
-      *
-      * Toggles the touch tool on/off
-      */
-    void actionToggleTouch();
-
-    /**
-      * Called when the global shortcut is used
-      *
-      * Toggles the stylus/eraser to absolute/relative mode
-      */
-    void actionTogglePenMode();
+    void onProfileChanged(const QString& profile);
 
 private:
-    Q_DECLARE_PRIVATE(TabletDaemon)
-
     /**
-      * Used on startup to detect a connected wacom tablet.
-      * This will be done by the eventhandler later on
-      *
-      * @return int x11 device id of the wirst detected wacom tablet
-      */
-    int findTabletDevice();
-
-    /**
-      * Setup the global actions
-      *
-      * This includes toggling the touch tool on/off, changes the stylus mode
-      * and cycle through the available profiles
-      */
+     * Sets up the global shortcut actions.
+     * This method should only be called by a constructor.
+     */
     void setupActions();
 
+    /**
+     * Sets up KDE application data, like i18n and the about dialog.
+     * This method should only be called by a constructor.
+     */
+    void setupApplication();
+
+    /**
+     * Sets up the dbus interfaces.
+     * This method should only be called by a constructor.
+     */
+    void setupDBus();
+
+    /**
+     * Sets up the X event notifier.
+     * This method should only be called by a constructor.
+     */
+    void setupEventNotifier();
+
+
+    Q_DECLARE_PRIVATE(TabletDaemon)
     TabletDaemonPrivate *const d_ptr; /**< d-pointer for this class */
-};
 
-}
-
-#endif
+}; // CLASS
+}  // NAMESPACE
+#endif // HEADER PROTECTION

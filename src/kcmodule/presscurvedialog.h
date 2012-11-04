@@ -1,5 +1,7 @@
 /*
- * Copyright 2009,2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,7 +20,8 @@
 #ifndef PRESSCURVEDIALOG_H
 #define PRESSCURVEDIALOG_H
 
-//Qt includes
+#include "devicetype.h"
+
 #include <QtGui/QDialog>
 
 namespace Ui
@@ -67,7 +70,7 @@ public:
       * @param deviceInterface Interface for the connection to the tablet device.
       * @param device devicename as used by the xsetwacomsetting for the stylus/eraser and named in the xorg.conf or by HAL
       */
-    void setDeviceHandler(QDBusInterface *deviceInterface, const QString & device);
+    void setDeviceType (const DeviceType& deviceType);
 
     /**
       * Returns the changed presscurve control points in the format needed by the xsetwacom settings
@@ -96,11 +99,8 @@ public slots:
 
 private:
     Ui::PressCurveDialog *m_ui;              /**< Handler to the presscurvedialog.ui file */
-    QDBusInterface       *m_deviceInterface; /**< Connection to the tablet daemon DBus /Device Interface */
-    QString               m_device;          /**< Devicename as used by the xsetwacomsetting for the stylus/eraser and named in the xorg.conf or by HAL */
+    QString               m_device;
     PressCurve           *m_pressCurve;      /**< Widget that shows the presscurve and lets him change it */
 };
-
 }
-
 #endif // PRESSCURVEDIALOG_H

@@ -1,5 +1,7 @@
 /*
- * Copyright 2009,2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -29,6 +31,7 @@ class QVBoxLayout;
 
 namespace Wacom
 {
+class AboutData;
 class TabletWidget;
 
 /**
@@ -46,6 +49,7 @@ public:
       * @param parent parent widget
       */
     KCMWacomTablet(QWidget *parent, const QVariantList &);
+    virtual ~KCMWacomTablet();
 
     /**
       * Called when the user hits the default button to reload the saved values from the config file
@@ -59,13 +63,12 @@ public:
 
 private slots:
     /**
-      * Initialize the module and set up all widgets
-      * finds the connected tablet and fills in all the values
+      * Initializes the module's user interface.
       */
-    void initModule();
+    void initUi();
 
 private:
-    QVBoxLayout           *m_layout;        /**< Basic layout for the module */
+    QPointer<QVBoxLayout>  m_layout;        /**< Basic layout for the module */
     QPointer<TabletWidget> m_tabletWidget;  /**< Main widget that holds all other tabs */
     bool                   m_changed;       /**< Saves if the profiles are changed or not */
 };

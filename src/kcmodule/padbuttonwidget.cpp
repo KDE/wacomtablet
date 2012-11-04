@@ -1,5 +1,7 @@
 /*
- * Copyright 2009,2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -21,6 +23,15 @@
 #include "selectkeystroke.h"
 #include "profilemanagement.h"
 
+// common includes
+#include "property.h"
+#include "tabletinfo.h"
+#include "deviceprofile.h"
+#include "dbustabletinterface.h"
+
+// stdlib
+#include<memory>
+
 //KDE includes
 #include <KDE/KComboBox>
 #include <KDE/KStandardDirs>
@@ -36,46 +47,54 @@
 #include <QtCore/QPointer>
 #include <QtDBus/QDBusInterface>
 #include <QtDBus/QDBusReply>
+#include <QList>
 
 using namespace Wacom;
 
-PadButtonWidget::PadButtonWidget(ProfileManagement *profileManager, QWidget *parent)
-        : QWidget(parent),
-        m_ui(new Ui::PadButtonWidget),
-        m_profileManagement(profileManager)
+namespace Wacom {
+/**
+  * Private class for the d-pointer.
+  */
+class PadButtonWidgetPrivate {
+    public:
+        std::auto_ptr<Ui::PadButtonWidget>  m_ui;                /**< Handler to the padbuttonwidget.ui file */
+}; // CLASS
+}  // NAMESPACE
+
+
+PadButtonWidget::PadButtonWidget(QWidget* parent)
+        : QWidget(parent), d_ptr(new PadButtonWidgetPrivate)
 {
-    m_ui->setupUi(this);
+    Q_D( PadButtonWidget );
+
+    d->m_ui = std::auto_ptr<Ui::PadButtonWidget>(new Ui::PadButtonWidget);
+    d->m_ui->setupUi( this );
 
     init();
 }
 
 PadButtonWidget::~PadButtonWidget()
 {
-    delete m_ui;
+    delete this->d_ptr;
 }
+
 
 void PadButtonWidget::init()
 {
-    //get information via DBus
-    QDBusInterface *deviceInterface = new QDBusInterface(QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Device" ), QLatin1String( "org.kde.WacomDevice" ));
+    Q_D( PadButtonWidget );
 
-    QDBusReply<QString> deviceModel = deviceInterface->call(QLatin1String( "deviceModel" ));
-    QDBusReply<QString> deviceId  = deviceInterface->call(QLatin1String( "deviceId" ));
+    QDBusReply<QString> deviceModel  = DBusTabletInterface::instance().getInformation(TabletInfo::TabletModel);
+    QDBusReply<QString> deviceId     = DBusTabletInterface::instance().getInformation(TabletInfo::TabletId);
 
-    delete deviceInterface;
-
-    KSharedConfig::Ptr deviceConfig = KSharedConfig::openConfig(KStandardDirs::locate("data", QLatin1String( "wacomtablet/data/wacom_devicelist" )), KConfig::SimpleConfig, "data");
-    KConfigGroup deviceGroup = KConfigGroup(deviceConfig, deviceId);
-
-    int padButtons = deviceGroup.readEntry("padbuttons").toInt();
+    int padButtons = DBusTabletInterface::instance().getInformationAsInt(TabletInfo::NumPadButtons);
 
     QLabel *buttonLabel;
     QLabel *actionLabel;
     KComboBox *comboBox;
     for (int i = 1;i < 11;i++) {
-        buttonLabel = m_ui->buttonGroupBox->findChild<QLabel *>(QString::fromLatin1("button%1Label").arg(i));
-        actionLabel = m_ui->buttonGroupBox->findChild<QLabel *>(QString::fromLatin1("button%1ActionLabel").arg(i));
-        comboBox = m_ui->buttonGroupBox->findChild<KComboBox *>(QString::fromLatin1("button%1ComboBox").arg(i));
+        buttonLabel = d->m_ui->buttonGroupBox->findChild<QLabel *>(QString::fromLatin1("button%1Label").arg(i));
+        actionLabel = d->m_ui->buttonGroupBox->findChild<QLabel *>(QString::fromLatin1("button%1ActionLabel").arg(i));
+        comboBox = d->m_ui->buttonGroupBox->findChild<KComboBox *>(QString::fromLatin1("button%1ComboBox").arg(i));
 
         if (!buttonLabel) {
             continue;
@@ -100,73 +119,79 @@ void PadButtonWidget::init()
         }
     }
 
-    QString padLayout = deviceGroup.readEntry("layout");
+    QString padLayout = DBusTabletInterface::instance().getInformationAsString(TabletInfo::ButtonLayout);
     if (KStandardDirs::exists(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
-        m_ui->padImage->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
+        d->m_ui->padImage->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
     }
 
-    if (deviceGroup.readEntry("wheel").contains( QLatin1String( "no" ))) {
-        m_ui->wheelGroupBox->setVisible(false);
+    if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasWheel)) {
+        d->m_ui->wheelGroupBox->setVisible(false);
     } else {
-        m_ui->wheelUpComboBox->clear();
-        fillComboBox(m_ui->wheelUpComboBox);
-        m_ui->wheelDnComboBox->clear();
-        fillComboBox(m_ui->wheelDnComboBox);
-        m_ui->wheelGroupBox->setVisible(true);
+        d->m_ui->wheelUpComboBox->clear();
+        fillComboBox(d->m_ui->wheelUpComboBox);
+        d->m_ui->wheelDnComboBox->clear();
+        fillComboBox(d->m_ui->wheelDnComboBox);
+        d->m_ui->wheelGroupBox->setVisible(true);
     }
 
-    if (deviceGroup.readEntry("touchring").contains( QLatin1String( "no" ))) {
-        m_ui->tochRingGroupBox->setVisible(false);
+    if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasTouchRing)) {
+        d->m_ui->tochRingGroupBox->setVisible(false);
     } else {
-        m_ui->ringUpComboBox->clear();
-        fillComboBox(m_ui->ringUpComboBox);
-        m_ui->ringDnComboBox->clear();
-        fillComboBox(m_ui->ringDnComboBox);
-        m_ui->tochRingGroupBox->setVisible(true);
+        d->m_ui->ringUpComboBox->clear();
+        fillComboBox(d->m_ui->ringUpComboBox);
+        d->m_ui->ringDnComboBox->clear();
+        fillComboBox(d->m_ui->ringDnComboBox);
+        d->m_ui->tochRingGroupBox->setVisible(true);
     }
 
-    if (deviceGroup.readEntry("touchstripl").contains( QLatin1String( "no" ))) {
-        m_ui->stripLUpLabel->setVisible(false);
-        m_ui->stripLUpComboBox->setVisible(false);
-        m_ui->stripLUpActionLabel->setVisible(false);
-        m_ui->stripLDnLabel->setVisible(false);
-        m_ui->stripLDnComboBox->setVisible(false);
-        m_ui->stripLDnActionLabel->setVisible(false);
+    bool hasLeftTouchStrip = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasLeftTouchStrip);
+
+    if (!hasLeftTouchStrip) {
+        d->m_ui->stripLUpLabel->setVisible(false);
+        d->m_ui->stripLUpComboBox->setVisible(false);
+        d->m_ui->stripLUpActionLabel->setVisible(false);
+        d->m_ui->stripLDnLabel->setVisible(false);
+        d->m_ui->stripLDnComboBox->setVisible(false);
+        d->m_ui->stripLDnActionLabel->setVisible(false);
     } else {
-        m_ui->stripLUpLabel->setVisible(true);
-        m_ui->stripLUpComboBox->clear();
-        fillComboBox(m_ui->stripLUpComboBox);
-        m_ui->stripLUpComboBox->setVisible(true);
-        m_ui->stripLUpActionLabel->setVisible(true);
-        m_ui->stripLDnLabel->setVisible(true);
-        m_ui->stripLDnComboBox->clear();
-        fillComboBox(m_ui->stripLDnComboBox);
-        m_ui->stripLDnComboBox->setVisible(true);
-        m_ui->stripLDnActionLabel->setVisible(true);
+        d->m_ui->stripLUpLabel->setVisible(true);
+        d->m_ui->stripLUpComboBox->clear();
+        fillComboBox(d->m_ui->stripLUpComboBox);
+        d->m_ui->stripLUpComboBox->setVisible(true);
+        d->m_ui->stripLUpActionLabel->setVisible(true);
+        d->m_ui->stripLDnLabel->setVisible(true);
+        d->m_ui->stripLDnComboBox->clear();
+        fillComboBox(d->m_ui->stripLDnComboBox);
+        d->m_ui->stripLDnComboBox->setVisible(true);
+        d->m_ui->stripLDnActionLabel->setVisible(true);
     }
-    if (deviceGroup.readEntry("touchstripr").contains( QLatin1String( "no" ))) {
-        m_ui->stripRUpLabel->setVisible(false);
-        m_ui->stripRUpComboBox->setVisible(false);
-        m_ui->stripRUpActionLabel->setVisible(false);
-        m_ui->stripRDnLabel->setVisible(false);
-        m_ui->stripRDnComboBox->setVisible(false);
-        m_ui->stripRDnActionLabel->setVisible(false);
+
+    bool hasRightTouchStrip = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasRightTouchStrip);
+
+    if (!hasRightTouchStrip) {
+        d->m_ui->stripRUpLabel->setVisible(false);
+        d->m_ui->stripRUpComboBox->setVisible(false);
+        d->m_ui->stripRUpActionLabel->setVisible(false);
+        d->m_ui->stripRDnLabel->setVisible(false);
+        d->m_ui->stripRDnComboBox->setVisible(false);
+        d->m_ui->stripRDnActionLabel->setVisible(false);
     } else {
-        m_ui->stripRUpLabel->setVisible(true);
-        m_ui->stripRUpComboBox->clear();
-        fillComboBox(m_ui->stripRUpComboBox);
-        m_ui->stripRUpComboBox->setVisible(true);
-        m_ui->stripRUpActionLabel->setVisible(true);
-        m_ui->stripRDnLabel->setVisible(true);
-        m_ui->stripRDnComboBox->clear();
-        fillComboBox(m_ui->stripRDnComboBox);
-        m_ui->stripRDnComboBox->setVisible(true);
-        m_ui->stripRDnActionLabel->setVisible(true);
+        d->m_ui->stripRUpLabel->setVisible(true);
+        d->m_ui->stripRUpComboBox->clear();
+        fillComboBox(d->m_ui->stripRUpComboBox);
+        d->m_ui->stripRUpComboBox->setVisible(true);
+        d->m_ui->stripRUpActionLabel->setVisible(true);
+        d->m_ui->stripRDnLabel->setVisible(true);
+        d->m_ui->stripRDnComboBox->clear();
+        fillComboBox(d->m_ui->stripRDnComboBox);
+        d->m_ui->stripRDnComboBox->setVisible(true);
+        d->m_ui->stripRDnActionLabel->setVisible(true);
     }
-    if (deviceGroup.readEntry("touchstripl").contains(QLatin1String( "no" )) && deviceGroup.readEntry("touchstripr").contains( QLatin1String( "no" ))) {
-        m_ui->tochStripGroupBox->setVisible(false);
+
+    if (hasLeftTouchStrip || hasRightTouchStrip) {
+        d->m_ui->tochStripGroupBox->setVisible(true);
     } else {
-        m_ui->tochStripGroupBox->setVisible(true);
+        d->m_ui->tochStripGroupBox->setVisible(false);
     }
 }
 
@@ -181,40 +206,46 @@ void PadButtonWidget::fillComboBox(KComboBox *comboBox)
 
 void PadButtonWidget::saveToProfile()
 {
-    KConfigGroup padConfig = m_profileManagement->configGroup(QLatin1String( "pad" ));
+    Q_D( PadButtonWidget );
 
-    padConfig.writeEntry("Button1",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button1ComboBox->currentIndex(), m_ui->button1ActionLabel->property("KeySquence").toString()));
-    padConfig.writeEntry("Button2",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button2ComboBox->currentIndex(), m_ui->button2ActionLabel->property("KeySquence").toString()));
-    padConfig.writeEntry("Button3",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button3ComboBox->currentIndex(), m_ui->button3ActionLabel->property("KeySquence").toString()));
-    padConfig.writeEntry("Button4",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button4ComboBox->currentIndex(), m_ui->button4ActionLabel->property("KeySquence").toString()));
-    padConfig.writeEntry("Button5",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button5ComboBox->currentIndex(), m_ui->button5ActionLabel->property("KeySquence").toString()));
-    padConfig.writeEntry("Button6",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button6ComboBox->currentIndex(), m_ui->button6ActionLabel->property("KeySquence").toString()));
-    padConfig.writeEntry("Button7",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button7ComboBox->currentIndex(), m_ui->button7ActionLabel->property("KeySquence").toString()));
-    padConfig.writeEntry("Button8",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button8ComboBox->currentIndex(), m_ui->button8ActionLabel->property("KeySquence").toString()));
-    padConfig.writeEntry("Button9",  m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button9ComboBox->currentIndex(), m_ui->button9ActionLabel->property("KeySquence").toString()));
-    padConfig.writeEntry("Button10", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->button10ComboBox->currentIndex(), m_ui->button10ActionLabel->property("KeySquence").toString()));
+    ProfileManagement* profileManagement = &ProfileManagement::instance();
+    DeviceProfile      padProfile        = profileManagement->loadDeviceProfile(DeviceType::Pad);
 
-    padConfig.writeEntry("StripLeftUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripLUpComboBox->currentIndex(), m_ui->stripLUpActionLabel->property("KeySquence").toString()));
-    padConfig.writeEntry("StripLeftDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripLDnComboBox->currentIndex(), m_ui->stripLDnActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::Button1,  profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button1ComboBox->currentIndex(), d->m_ui->button1ActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::Button2,  profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button2ComboBox->currentIndex(), d->m_ui->button2ActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::Button3,  profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button3ComboBox->currentIndex(), d->m_ui->button3ActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::Button4,  profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button4ComboBox->currentIndex(), d->m_ui->button4ActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::Button5,  profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button5ComboBox->currentIndex(), d->m_ui->button5ActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::Button6,  profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button6ComboBox->currentIndex(), d->m_ui->button6ActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::Button7,  profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button7ComboBox->currentIndex(), d->m_ui->button7ActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::Button8,  profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button8ComboBox->currentIndex(), d->m_ui->button8ActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::Button9,  profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button9ComboBox->currentIndex(), d->m_ui->button9ActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::Button10, profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->button10ComboBox->currentIndex(), d->m_ui->button10ActionLabel->property("KeySquence").toString()));
 
-    padConfig.writeEntry("StripRightUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripRUpComboBox->currentIndex(), m_ui->stripRUpActionLabel->property("KeySquence").toString()));
-    padConfig.writeEntry("StripRightDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->stripRDnComboBox->currentIndex(), m_ui->stripRDnActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::StripLeftUp, profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->stripLUpComboBox->currentIndex(), d->m_ui->stripLUpActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::StripLeftDown, profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->stripLDnComboBox->currentIndex(), d->m_ui->stripLDnActionLabel->property("KeySquence").toString()));
 
-    if (m_ui->ringUpComboBox->isVisible()) {
-        padConfig.writeEntry("XAbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringUpComboBox->currentIndex(), m_ui->ringUpActionLabel->property("KeySquence").toString()));
-        padConfig.writeEntry("XAbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->ringDnComboBox->currentIndex(), m_ui->ringDnActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::StripRightUp, profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->stripRUpComboBox->currentIndex(), d->m_ui->stripRUpActionLabel->property("KeySquence").toString()));
+    padProfile.setProperty(Property::StripRightDown, profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->stripRDnComboBox->currentIndex(), d->m_ui->stripRDnActionLabel->property("KeySquence").toString()));
+
+    if (d->m_ui->ringUpComboBox->isVisible()) {
+        padProfile.setProperty(Property::AbsWheelUp, profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->ringUpComboBox->currentIndex(), d->m_ui->ringUpActionLabel->property("KeySquence").toString()));
+        padProfile.setProperty(Property::AbsWheelDown, profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->ringDnComboBox->currentIndex(), d->m_ui->ringDnActionLabel->property("KeySquence").toString()));
     }
-    if (m_ui->wheelUpComboBox->isVisible()) {
-        padConfig.writeEntry("XAbsWheelUp", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelUpComboBox->currentIndex(), m_ui->wheelUpActionLabel->property("KeySquence").toString()));
-        padConfig.writeEntry("XAbsWheelDown", m_profileManagement->transformButtonToConfig((ProfileManagement::PadButton) m_ui->wheelDnComboBox->currentIndex(), m_ui->wheelDnActionLabel->property("KeySquence").toString()));
+    if (d->m_ui->wheelUpComboBox->isVisible()) {
+        padProfile.setProperty(Property::AbsWheelUp, profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->wheelUpComboBox->currentIndex(), d->m_ui->wheelUpActionLabel->property("KeySquence").toString()));
+        padProfile.setProperty(Property::AbsWheelDown, profileManagement->transformButtonToConfig((ProfileManagement::PadButton) d->m_ui->wheelDnComboBox->currentIndex(), d->m_ui->wheelDnActionLabel->property("KeySquence").toString()));
     }
 
-    padConfig.sync();
+    profileManagement->saveDeviceProfile(padProfile);
 }
 
 void PadButtonWidget::loadFromProfile()
 {
-    KConfigGroup padConfig = m_profileManagement->configGroup(QLatin1String( "pad" ));
+    Q_D( PadButtonWidget );
+
+    ProfileManagement* profileManagement = &ProfileManagement::instance();
+    DeviceProfile      padProfile        = profileManagement->loadDeviceProfile(DeviceType::Pad);
 
     KComboBox *buttonComboBox;
     QLabel *buttonActionLabel;
@@ -222,8 +253,8 @@ void PadButtonWidget::loadFromProfile()
     ProfileManagement::PadButton modeSwitch;
 
     for (int i = 1;i < 11 ;i++) {
-        buttonActionLabel = m_ui->buttonGroupBox->findChild<QLabel *>(QString::fromLatin1("button%1ActionLabel").arg(i));
-        buttonComboBox = m_ui->buttonGroupBox->findChild<KComboBox *>(QString::fromLatin1("button%1ComboBox").arg(i));
+        buttonActionLabel = d->m_ui->buttonGroupBox->findChild<QLabel *>(QString::fromLatin1("button%1ActionLabel").arg(i));
+        buttonComboBox = d->m_ui->buttonGroupBox->findChild<KComboBox *>(QString::fromLatin1("button%1ComboBox").arg(i));
 
         if (!buttonActionLabel) {
             continue;
@@ -232,67 +263,67 @@ void PadButtonWidget::loadFromProfile()
             continue;
         }
 
-        readEntry = padConfig.readEntry(QString::fromLatin1("Button%1").arg(i));
-        modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
+        readEntry = padProfile.getButton(i);
+        modeSwitch = profileManagement->getPadButtonFunction(readEntry);
 
         buttonComboBox->blockSignals(true);
         buttonComboBox->setCurrentIndex(modeSwitch);
         buttonComboBox->blockSignals(false);
-        buttonActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
-        buttonActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+        buttonActionLabel->setText(transformShortcut(profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+        buttonActionLabel->setProperty("KeySquence", profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
     }
 
-    readEntry = padConfig.readEntry("XAbsWheelUp");           //RelWUp is ignored for now
-    modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
-    m_ui->wheelUpComboBox->blockSignals(true);
-    m_ui->wheelUpComboBox->setCurrentIndex(modeSwitch);
-    m_ui->wheelUpComboBox->blockSignals(false);
-    m_ui->wheelUpActionLabel->setText(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
-    m_ui->ringUpComboBox->blockSignals(true);
-    m_ui->ringUpComboBox->setCurrentIndex(modeSwitch);
-    m_ui->ringUpComboBox->blockSignals(false);
-    m_ui->ringUpActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
-    m_ui->ringUpActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    readEntry = padProfile.getProperty(Property::AbsWheelUp);           //RelWUp is ignored for now
+    modeSwitch = profileManagement->getPadButtonFunction(readEntry);
+    d->m_ui->wheelUpComboBox->blockSignals(true);
+    d->m_ui->wheelUpComboBox->setCurrentIndex(modeSwitch);
+    d->m_ui->wheelUpComboBox->blockSignals(false);
+    d->m_ui->wheelUpActionLabel->setText(profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    d->m_ui->ringUpComboBox->blockSignals(true);
+    d->m_ui->ringUpComboBox->setCurrentIndex(modeSwitch);
+    d->m_ui->ringUpComboBox->blockSignals(false);
+    d->m_ui->ringUpActionLabel->setText(transformShortcut(profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    d->m_ui->ringUpActionLabel->setProperty("KeySquence", profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
-    readEntry = padConfig.readEntry("XAbsWheelDown");           //RelWDown is ignored for now
-    modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
-    m_ui->wheelDnComboBox->blockSignals(true);
-    m_ui->wheelDnComboBox->setCurrentIndex(modeSwitch);
-    m_ui->wheelDnComboBox->blockSignals(false);
-    m_ui->wheelDnActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
-    m_ui->ringDnComboBox->blockSignals(true);
-    m_ui->ringDnComboBox->setCurrentIndex(modeSwitch);
-    m_ui->ringDnComboBox->blockSignals(false);
-    m_ui->ringDnActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
-    m_ui->ringDnActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    readEntry = padProfile.getProperty(Property::AbsWheelDown);           //RelWDown is ignored for now
+    modeSwitch = profileManagement->getPadButtonFunction(readEntry);
+    d->m_ui->wheelDnComboBox->blockSignals(true);
+    d->m_ui->wheelDnComboBox->setCurrentIndex(modeSwitch);
+    d->m_ui->wheelDnComboBox->blockSignals(false);
+    d->m_ui->wheelDnActionLabel->setText(transformShortcut(profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    d->m_ui->ringDnComboBox->blockSignals(true);
+    d->m_ui->ringDnComboBox->setCurrentIndex(modeSwitch);
+    d->m_ui->ringDnComboBox->blockSignals(false);
+    d->m_ui->ringDnActionLabel->setText(transformShortcut(profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    d->m_ui->ringDnActionLabel->setProperty("KeySquence", profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
-    readEntry = padConfig.readEntry("StripLeftDown");
-    modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
-    m_ui->stripLDnComboBox->blockSignals(true);
-    m_ui->stripLDnComboBox->setCurrentIndex(modeSwitch);
-    m_ui->stripLDnComboBox->blockSignals(false);
-    m_ui->stripLDnActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
-    readEntry = padConfig.readEntry("StripLeftUp");
-    modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
-    m_ui->stripLUpComboBox->blockSignals(true);
-    m_ui->stripLUpComboBox->setCurrentIndex(modeSwitch);
-    m_ui->stripLUpComboBox->blockSignals(false);
-    m_ui->stripLUpActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
-    m_ui->stripLUpActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    readEntry = padProfile.getProperty(Property::StripLeftDown);
+    modeSwitch = profileManagement->getPadButtonFunction(readEntry);
+    d->m_ui->stripLDnComboBox->blockSignals(true);
+    d->m_ui->stripLDnComboBox->setCurrentIndex(modeSwitch);
+    d->m_ui->stripLDnComboBox->blockSignals(false);
+    d->m_ui->stripLDnActionLabel->setText(transformShortcut(profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    readEntry = padProfile.getProperty(Property::StripLeftUp);
+    modeSwitch = profileManagement->getPadButtonFunction(readEntry);
+    d->m_ui->stripLUpComboBox->blockSignals(true);
+    d->m_ui->stripLUpComboBox->setCurrentIndex(modeSwitch);
+    d->m_ui->stripLUpComboBox->blockSignals(false);
+    d->m_ui->stripLUpActionLabel->setText(transformShortcut(profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    d->m_ui->stripLUpActionLabel->setProperty("KeySquence", profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 
-    readEntry = padConfig.readEntry("StripRightDown");
-    modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
-    m_ui->stripRDnComboBox->blockSignals(true);
-    m_ui->stripRDnComboBox->setCurrentIndex(modeSwitch);
-    m_ui->stripRDnComboBox->blockSignals(false);
-    m_ui->stripRDnActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
-    readEntry = padConfig.readEntry("StripRightUp");
-    modeSwitch = m_profileManagement->getPadButtonFunction(readEntry);
-    m_ui->stripRUpComboBox->blockSignals(true);
-    m_ui->stripRUpComboBox->setCurrentIndex(modeSwitch);
-    m_ui->stripRUpComboBox->blockSignals(false);
-    m_ui->stripRUpActionLabel->setText(transformShortcut(m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
-    m_ui->stripRUpActionLabel->setProperty("KeySquence", m_profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
+    readEntry = padProfile.getProperty(Property::StripRightDown);
+    modeSwitch = profileManagement->getPadButtonFunction(readEntry);
+    d->m_ui->stripRDnComboBox->blockSignals(true);
+    d->m_ui->stripRDnComboBox->setCurrentIndex(modeSwitch);
+    d->m_ui->stripRDnComboBox->blockSignals(false);
+    d->m_ui->stripRDnActionLabel->setText(transformShortcut(profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    readEntry = padProfile.getProperty(Property::StripRightUp);
+    modeSwitch = profileManagement->getPadButtonFunction(readEntry);
+    d->m_ui->stripRUpComboBox->blockSignals(true);
+    d->m_ui->stripRUpComboBox->setCurrentIndex(modeSwitch);
+    d->m_ui->stripRUpComboBox->blockSignals(false);
+    d->m_ui->stripRUpActionLabel->setText(transformShortcut(profileManagement->transformButtonFromConfig(modeSwitch, readEntry)));
+    d->m_ui->stripRUpActionLabel->setProperty("KeySquence", profileManagement->transformButtonFromConfig(modeSwitch, readEntry));
 }
 
 void PadButtonWidget::reloadWidget()
@@ -302,18 +333,20 @@ void PadButtonWidget::reloadWidget()
 
 void PadButtonWidget::selectKeyFunction(int selection)
 {
+    Q_D( PadButtonWidget );
+
     QObject* sender = const_cast<QObject*>(QObject::sender());
     QString senderName = sender->objectName();
     senderName.replace(QRegExp( QLatin1String( "ComboBox") ), QLatin1String( "ActionLabel" ));
 
-    QLabel *buttonActionLabel = m_ui->buttonGroupBox->findChild<QLabel *>(senderName);
+    QLabel *buttonActionLabel = d->m_ui->buttonGroupBox->findChild<QLabel *>(senderName);
 
     if (!buttonActionLabel) {
-        buttonActionLabel = m_ui->tochStripGroupBox->findChild<QLabel *>(senderName);
+        buttonActionLabel = d->m_ui->tochStripGroupBox->findChild<QLabel *>(senderName);
         if (!buttonActionLabel) {
-            buttonActionLabel = m_ui->tochRingGroupBox->findChild<QLabel *>(senderName);
+            buttonActionLabel = d->m_ui->tochRingGroupBox->findChild<QLabel *>(senderName);
             if (!buttonActionLabel) {
-                buttonActionLabel = m_ui->wheelGroupBox->findChild<QLabel *>(senderName);
+                buttonActionLabel = d->m_ui->wheelGroupBox->findChild<QLabel *>(senderName);
                 if (!buttonActionLabel) {
                     kError() << "No ActionLabel found!";
                     return;
@@ -359,18 +392,27 @@ void PadButtonWidget::selectKeyFunction(int selection)
 
 QString PadButtonWidget::transformShortcut(QString sequence)
 {
-    QString transform = sequence;
-    transform.replace( QRegExp( QLatin1String( "^\\s" ) ), QLatin1String( "" ) );
-    transform.replace( QRegExp( QLatin1String( "\\s" ) ), QLatin1String( "+" ) );
+    QString transform = sequence.trimmed();
+    transform.replace( QRegExp( QLatin1String( "\\s+" ) ), QLatin1String( "+" ) );
 
-    QList< KGlobalShortcutInfo > list = KGlobalAccel::getGlobalShortcutsByKey( QKeySequence(transform) );
+    // Do not look up single key shortcuts.
+    // Shortcuts consisting of a single key are most likely not global shortcuts.
+    // Also getGlobalShortcutsByKey() can not resolve single meta-key shortcuts like "shift", "ctrl", etc.
+    QStringList keyList = transform.split(QRegExp(QLatin1String("+")));
 
-    if(!list.isEmpty()) {
-        return list.at(0).uniqueName();
+    if (keyList.isEmpty() || keyList.size() == 1) {
+        return transform;
     }
-    else {
-        sequence.replace( QRegExp( QLatin1String( "([^\\s])\\+" ) ), QLatin1String( "\\1 " ) );
-        sequence = sequence.toLower();
-        return sequence;
+
+    // try to lookup the corresponding global shortcut if available
+    QList< KGlobalShortcutInfo > shortcutList = KGlobalAccel::getGlobalShortcutsByKey( QKeySequence(transform) );
+
+    if(!shortcutList.isEmpty()) {
+        return shortcutList.at(0).uniqueName();
     }
+
+    // no global shortcut available - display as-is
+    sequence.replace( QRegExp( QLatin1String( "([^\\s])\\+" ) ), QLatin1String( "\\1 " ) );
+    sequence = sequence.toLower();
+    return sequence;
 }

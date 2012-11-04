@@ -1,5 +1,7 @@
 /*
- * Copyright 2009,2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -23,13 +25,14 @@
 
 namespace Ui
 {
-class PadButtonWidget;
+    class PadButtonWidget;
 }
 
 class KComboBox;
 
 namespace Wacom
 {
+class PadButtonWidgetPrivate;
 class ProfileManagement;
 
 /**
@@ -49,7 +52,7 @@ public:
       * @param profileManager Handles the connection to the config files
       * @param parent parent Widget
       */
-    explicit PadButtonWidget(ProfileManagement *profileManager, QWidget *parent = 0);
+    explicit PadButtonWidget(QWidget *parent = 0);
 
     /**
       * default destructor
@@ -118,10 +121,10 @@ private:
       */
     QString transformShortcut(QString sequence);
 
-    Ui::PadButtonWidget *m_ui;                /**< Handler to the padbuttonwidget.ui file */
-    ProfileManagement   *m_profileManagement; /**< Handler for the profile config connection */
-};
 
-}
+    Q_DECLARE_PRIVATE( PadButtonWidget )
+    PadButtonWidgetPrivate *const d_ptr; /**< d-pointer for this class */
 
+}; // CLASS
+}  // NAMESPACE
 #endif /*PADBUTTONWIDGET_H*/

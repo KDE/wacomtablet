@@ -1,5 +1,7 @@
 /*
- * Copyright 2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,16 +20,13 @@
 #ifndef TABLETSETTINGS_H
 #define TABLETSETTINGS_H
 
-//Plasma
 #include <KDE/Plasma/PopupApplet>
-
-class QDBusInterface;
-class QDBusServiceWatcher;
-class KCModuleProxy;
+#include <QtCore/QPointer>
 
 namespace Wacom
 {
 class TabletApplet;
+class WacomTabletSettingsPrivate;
 
 /**
   * This plasma applet provides easy to switch the tablet profiles.
@@ -90,27 +89,10 @@ private slots:
       */
     void configAccepted();
 
-    /**
-      * Gets called when the org.kde.Wacom Service will be registered to the dbus
-      *
-      * Happens when the kded is started
-      */
-    void serviceAvailable();
-
-    /**
-      * Gets called when the org.kde.Wacom Service will be unregistered from the dbus
-      *
-      * Happens when the kded is stopped
-      */
-    void serviceUnavailable();
-
 private:
-    TabletApplet   *m_applet;           /**< The content widget for this applet. Contains all important values and functions */
-    KCModuleProxy  *m_settingsWidget;   /**< Embedded KCM modules in the configuration dialog */
-    QDBusInterface *m_tabletInterface;  /**< DBus /Tablet interface to the daemon */
-    QDBusServiceWatcher *m_watcher;     /**< Watches over the conencted dbus service, changes the applet status when the service gets available / unavailable */
-};
+    Q_DECLARE_PRIVATE (WacomTabletSettings)
+    WacomTabletSettingsPrivate* const d_ptr;
 
-}
-
-#endif
+}; // CLASS
+}  // NAMESPACE
+#endif // HEADER PROTECTION
