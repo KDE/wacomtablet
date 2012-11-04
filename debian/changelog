@@ -1,12 +1,19 @@
+wacomtablet (1.99.2-0ppa1) unstable; urgency=low
+
+  * KCM Wacom Tablet 2.0-beta1 relase.
+  * New backend since 1.3.x, no new features.
+
+ -- Alexander Maret <alex@maret.de>  Sun, 04 Nov 2012 15:00:00 +0100
+
 wacomtablet (1.99.1-0ppa1) unstable; urgency=low
 
-  * Alpha2 release.
+  * KCM Wacom Tablet 2.0-alpha2 release.
 
  -- Alexander Maret <alex@maret.de>  Wed, 29 Oct 2012 12:00:00 +0200
 
 wacomtablet (1.99.0-0ppa1) unstable; urgency=low
 
-  * Alpha release.
+  * KCM Wacom Tablet 2.0-alpha1 release.
 
  -- Alexander Maret <alex@maret.de>  Wed, 26 Sep 2012 12:00:00 +0200
  
