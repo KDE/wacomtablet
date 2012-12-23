@@ -186,7 +186,6 @@ Action=Popup
 
 [Event/tabletError]
 Name=A tablet error
-Name[bs]=Greška tableta
 Name[cs]=Chyba tabletu
 Name[da]=Tegnepladefejl
 Name[de]=Tablett-Fehler
