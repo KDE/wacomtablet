@@ -214,6 +214,16 @@ touchring=yes
 touchstripl=no
 touchstripr=no
 
+[002A]
+model=PTH650
+layout=bl_4
+name=Wacom Intuos5 M Pen pad
+padbuttons=9
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+
 [0030]
 model=MODEL_PL400
 layout=unknown
