@@ -156,17 +156,39 @@ void TabletHandler::onScreenRotated( const ScreenRotation& screenRotation )
 
     TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
     DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
+    DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
+    DeviceProfile touchProfile = tabletProfile.getDevice(DeviceType::Touch);
 
     if (StringUtils::asBool (stylusProfile.getProperty (Property::RotateWithScreen))) {
 
         kDebug() << "Rotate tablet :: " << screenRotation.key();
 
+        //FIXME: there is a better way to transform rotation value to int hopefully?
+        int intKey = 0;
+        if( screenRotation.key() == QLatin1String("ccw") )
+            intKey = 1;
+        if( screenRotation.key() == QLatin1String("half") )
+            intKey = 2;
+        if( screenRotation.key() == QLatin1String("cw") )
+            intKey = 3;
+
+        // also save new rotation into the profile
+        // See Bug: 312055
         setProperty( DeviceType::Stylus, Property::Rotate, QString::fromLatin1( "%1" ).arg( screenRotation.key() ) );
+        stylusProfile.setProperty( Property::Rotate, QString::fromLatin1( "%1" ).arg( intKey ) );
+
         setProperty( DeviceType::Eraser, Property::Rotate, QString::fromLatin1( "%1" ).arg( screenRotation.key() ) );
+        eraserProfile.setProperty( Property::Rotate, QString::fromLatin1( "%1" ).arg( intKey ) );
 
         if(d->tabletInformation.hasDevice (DeviceType::Touch)) {
             setProperty( DeviceType::Touch, Property::Rotate, QString::fromLatin1( "%1" ).arg( screenRotation.key() ) );
+            touchProfile.setProperty( Property::Rotate, QString::fromLatin1( "%1" ).arg( intKey ) );
         }
+
+        tabletProfile.setDevice(stylusProfile);
+        tabletProfile.setDevice(eraserProfile);
+        tabletProfile.setDevice(touchProfile);
+        d->profileManager.saveProfile(tabletProfile);
     }
 }
 
