@@ -87,6 +87,10 @@ public:
     static const Property AbsWheelDown;
     static const Property AbsWheelUp;
     static const Property Area;
+    static const Property AreaMapFull; // map tablet area when fullscreen is selected
+    static const Property AreaMapPart; // map tablet area when part of screen is selected
+    static const Property AreaMap0;    // map tablet area when screen 1 is selected
+    static const Property AreaMap1;    // map tablet area when screen 2 is selected
     static const Property Button1;
     static const Property Button2;
     static const Property Button3;
@@ -118,7 +122,6 @@ public:
     static const Property RelWheelUp;
     static const Property Rotate;
     static const Property RotateWithScreen;
-    static const Property ScreenMapping;
     static const Property ScreenNo;
     static const Property ScreenSpace;
     static const Property ScrollDistance;
@@ -127,7 +130,7 @@ public:
     static const Property StripRightDown;
     static const Property StripRightUp;
     static const Property Suppress;
-    static const Property TabletArea;
+    static const Property TabletArea;            //FIXME: not needed anymore?
     static const Property TabletPcButton;
     static const Property TapTime;
     static const Property Threshold;

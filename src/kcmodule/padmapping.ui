@@ -140,7 +140,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox_3">
+      <widget class="QGroupBox" name="groupBox_TabletArea">
        <property name="title">
         <string>Tablet Area</string>
        </property>
@@ -169,26 +169,23 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="forceProportions">
-          <property name="toolTip">
-           <string>Force the tablet to keep the shape of the used screen area.</string>
-          </property>
+         <widget class="QPushButton" name="forceProportions">
           <property name="text">
            <string>Force Proportions</string>
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="KPushButton" name="calibrateButton">
+          <property name="toolTip">
+           <string>Opens a fullscreen window to calibrate the tablet.</string>
+          </property>
+          <property name="text">
+           <string>Calibrate</string>
+          </property>
+         </widget>
+        </item>
        </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="calibrateButton">
-       <property name="toolTip">
-        <string>Opens a fullscreen window to calibrate the tablet.</string>
-       </property>
-       <property name="text">
-        <string>Calibrate</string>
-       </property>
       </widget>
      </item>
      <item>
@@ -268,8 +265,6 @@
   <tabstop>partOfScreen</tabstop>
   <tabstop>fullTablet</tabstop>
   <tabstop>partOfTablet</tabstop>
-  <tabstop>forceProportions</tabstop>
-  <tabstop>calibrateButton</tabstop>
  </tabstops>
  <resources/>
  <connections>
@@ -382,22 +377,6 @@
     <hint type="destinationlabel">
      <x>3</x>
      <y>267</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>forceProportions</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>PadMapping</receiver>
-   <slot>profileChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>38</x>
-     <y>318</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>2</x>
-     <y>302</y>
     </hint>
    </hints>
   </connection>

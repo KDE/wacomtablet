@@ -120,7 +120,6 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     stylusDevice.setProperty(Property::Threshold, QLatin1String("27"));
     stylusDevice.setProperty(Property::Rotate, QLatin1String("none"));
     stylusDevice.setProperty(Property::ForceProportions, QLatin1String("false"));
-    stylusDevice.setProperty(Property::ScreenMapping, QLatin1String("randr"));
     stylusDevice.setProperty(Property::TabletArea, QLatin1String("full"));
 
     QDBusReply<QString> stylusArea = DBusTabletInterface::instance().getProperty( DeviceType::Stylus, Property::Area );
@@ -145,7 +144,6 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     eraserDevice.setProperty(Property::Rotate, QLatin1String("none"));
     eraserDevice.setProperty(Property::ForceProportions, QLatin1String("false"));
-    eraserDevice.setProperty(Property::ScreenMapping, QLatin1String("randr"));
     eraserDevice.setProperty(Property::TabletArea, QLatin1String("full"));
 
     QDBusReply<QString> eraserArea = DBusTabletInterface::instance().getProperty( DeviceType::Eraser, Property::Area );
@@ -164,7 +162,6 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
         touchDevice.setProperty(Property::Rotate, QLatin1String("none"));
         touchDevice.setProperty(Property::ForceProportions, QLatin1String("false"));
-        touchDevice.setProperty(Property::ScreenMapping, QLatin1String("randr"));
         touchDevice.setProperty(Property::TabletArea, QLatin1String("full"));
         touchDevice.setProperty(Property::Mode, QLatin1String("absolute"));
         touchDevice.setProperty(Property::TapTime, QLatin1String("250"));

@@ -118,6 +118,8 @@ void TabletArea::setSelection( QString area )
 
     updateDragHandle();
     update();
+
+    emit sizeChanged(true);
 }
 
 void TabletArea::setSelection( qreal width, qreal height )
@@ -127,6 +129,8 @@ void TabletArea::setSelection( qreal width, qreal height )
 
     updateDragHandle();
     update();
+
+    emit sizeChanged(true);
 }
 
 void TabletArea::paintEvent( QPaintEvent *event )
@@ -253,6 +257,7 @@ void TabletArea::mouseMoveEvent( QMouseEvent *event )
         updateDragHandle();
         update();
 
+        emit sizeChanged( false );
         emit selectedArea( getSelectedAreaString() );
     }
 }

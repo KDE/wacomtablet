@@ -87,6 +87,26 @@ GeneralWidget::GeneralWidget(QWidget *parent)
     action->setIcon( KIcon( QLatin1String( "draw-path" ) ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ));
 
+    action = d->m_actionCollection->addAction(QLatin1String("Toggle screen map selection"));
+    action->setText( i18nc( "@action", "Toggle between fullscreen/first screen/second screen" ) );
+    action->setIcon( KIcon( QLatin1String( "draw-path" ) ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_M ) );
+
+    action = d->m_actionCollection->addAction(QLatin1String("Map to fullscreen"));
+    action->setText( i18nc( "@action", "Map to fullscreen" ) );
+    action->setIcon( KIcon( QLatin1String( "video-display" ) ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_F ) );
+
+    action = d->m_actionCollection->addAction(QLatin1String("Map to screen 1"));
+    action->setText( i18nc( "@action", "Map to screen 1" ) );
+    action->setIcon( KIcon( QLatin1String( "video-display" ) ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_1 ) );
+
+    action = d->m_actionCollection->addAction(QLatin1String("Map to screen 2"));
+    action->setText( i18nc( "@action", "Map to screen 2" ) );
+    action->setIcon( KIcon( QLatin1String( "video-display" ) ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_2 ) );
+
     d->m_shortcutEditor = new KShortcutsEditor(this, KShortcutsEditor::GlobalAction);
     d->m_shortcutEditor->addCollection(d->m_actionCollection, i18n("Wacom Tablet Settings"));
 

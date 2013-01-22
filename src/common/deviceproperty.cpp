@@ -31,6 +31,10 @@ const DeviceProperty DeviceProperty::AbsWheel2Up      ( Property::AbsWheel2Up,  
 const DeviceProperty DeviceProperty::AbsWheelDown     ( Property::AbsWheelDown,     QLatin1String("AbsWheelDown") );
 const DeviceProperty DeviceProperty::AbsWheelUp       ( Property::AbsWheelUp,       QLatin1String("AbsWheelUp") );
 const DeviceProperty DeviceProperty::Area             ( Property::Area,             QLatin1String("Area") );
+const DeviceProperty DeviceProperty::AreaMapFull      ( Property::AreaMapFull,      QLatin1String("AreaMapFull") );
+const DeviceProperty DeviceProperty::AreaMapPart      ( Property::AreaMapPart,      QLatin1String("AreaMapPart") );
+const DeviceProperty DeviceProperty::AreaMap0         ( Property::AreaMap0,         QLatin1String("AreaMap0") );
+const DeviceProperty DeviceProperty::AreaMap1         ( Property::AreaMap1,         QLatin1String("AreaMap1") );
 const DeviceProperty DeviceProperty::Button1          ( Property::Button1,          QLatin1String("Button1") );
 const DeviceProperty DeviceProperty::Button2          ( Property::Button2,          QLatin1String("Button2") );
 const DeviceProperty DeviceProperty::Button3          ( Property::Button3,          QLatin1String("Button3") );
@@ -59,7 +63,6 @@ const DeviceProperty DeviceProperty::RelWheelDown     ( Property::RelWheelDown, 
 const DeviceProperty DeviceProperty::RelWheelUp       ( Property::RelWheelUp,       QLatin1String("RelWheelUp") );
 const DeviceProperty DeviceProperty::Rotate           ( Property::Rotate,           QLatin1String("Rotate") );
 const DeviceProperty DeviceProperty::RotateWithScreen ( Property::RotateWithScreen, QLatin1String("RotateWithScreen") );
-const DeviceProperty DeviceProperty::ScreenMapping    ( Property::ScreenMapping,    QLatin1String("ScreenMapping") );
 const DeviceProperty DeviceProperty::ScreenNo         ( Property::ScreenNo,         QLatin1String("ScreenNo") );
 const DeviceProperty DeviceProperty::ScreenSpace      ( Property::ScreenSpace,      QLatin1String("ScreenSpace") );
 const DeviceProperty DeviceProperty::ScrollDistance   ( Property::ScrollDistance,   QLatin1String("ScrollDistance") );

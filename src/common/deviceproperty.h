@@ -44,6 +44,10 @@ public:
     static const DeviceProperty AbsWheelDown;
     static const DeviceProperty AbsWheelUp;
     static const DeviceProperty Area;
+    static const DeviceProperty AreaMapFull;
+    static const DeviceProperty AreaMapPart;
+    static const DeviceProperty AreaMap0;
+    static const DeviceProperty AreaMap1;
     static const DeviceProperty Button1;
     static const DeviceProperty Button2;
     static const DeviceProperty Button3;
@@ -72,7 +76,6 @@ public:
     static const DeviceProperty RelWheelUp;
     static const DeviceProperty Rotate;
     static const DeviceProperty RotateWithScreen;
-    static const DeviceProperty ScreenMapping;
     static const DeviceProperty ScreenNo;
     static const DeviceProperty ScreenSpace;
     static const DeviceProperty ScrollDistance;

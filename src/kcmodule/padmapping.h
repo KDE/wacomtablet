@@ -100,10 +100,17 @@ public slots:
     /**
       * Updates the tablet area when the selected screen area is changed
       *
-      * Only changes the tablet are if @c force @c proportions is activated.
-      * This ensures the full screen area is mapped onto the tablet without loosing the proportions
+      * loads the tablet area for the new selection
       */
     void updateTabletArea();
+
+    /**
+     * @brief called whenever the tabletArea is changed
+     *
+     * saves the current tablet selection into the m_tablet* strings so the different tablet areas for
+     * each screen mapping can be saved
+     */
+    void saveTabletChanges();
 
 signals:
     /**
@@ -113,14 +120,14 @@ signals:
 
 private slots:
     /**
-      * When the full tablet usage is selected this ensures the force proportions and tabletarea box is disabled
+      * When the full tablet usage is selected this ensures the tabletarea box is disabled
       */
     void setFullTabletUsage(bool useFullArea);
 
     /**
-      * When force proportion is toggled and full tablet still set partOftablet and adjust the tabletarea widget
+      * When force proportion is clicked and full tablet still set partOftablet and adjust the tabletarea widget
       */
-    void setForceProportions(bool useProportionalArea);
+    void setForceProportions();
 
     void setFullScreenUsage(bool fullScreen);
     void setPartOfScreenUsage(bool partOfScreen);

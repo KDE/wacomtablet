@@ -138,6 +138,46 @@ public Q_SLOTS:
       */
     void onToggleTouch();
 
+    /**
+     * @brief Toggles to which screen the stylus/eraser/touch will be mapped
+     *
+     * the order is
+     * @li full
+     * @li screen1
+     * @li screen2
+     */
+    void onToggleScreenMapping();
+
+
+    /**
+     * @brief Maps stylus/eraser/touch to the full available screen space
+     *
+     * in xsetwacom file
+     *  @li copies AreaMapFull to Area
+     *  @li sets ScreenSpace=full
+     */
+    void onMapToFullScreen();
+
+    /**
+     * @brief Maps stylus/eraser/touch to the second screen
+     *
+     * in xsetwacom file
+     *  @li copies AreaMap0 to Area in
+     *  @li sets MapToOutput=0
+     *  @li sets ScreenSpace=map0
+     */
+    void onMapToScreen1();
+
+    /**
+     * @brief Maps stylus/eraser/touch to the second screen
+     *
+     * in xsetwacom file
+     *  @li copies AreaMap1 to Area in
+     *  @li sets MapToOutput=1
+     *  @li sets ScreenSpace=map1
+     */
+    void onMapToScreen2();
+
 
 Q_SIGNALS:
     /**

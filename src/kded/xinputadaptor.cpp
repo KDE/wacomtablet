@@ -164,8 +164,6 @@ const QString XinputAdaptor::getLongProperty(const XinputProperty& property, lon
     return numbersToString<long>(values);
 }
 
-
-
 bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
 {
     Q_D( const XinputAdaptor );
@@ -177,21 +175,8 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     // | 0  h  offsetY |
     // | 0  0     1    |
 
-    QStringList screenList = screenArea.split( QLatin1String( " " ) );
-
-    if( screenList.isEmpty() || screenList.size() != 4 ) {
-        kError() << "mapTabletToScreen :: can't parse ScreenSpace entry '" << screenArea << "' => device:" << d->deviceName;
-        return false;
-    }
-
-    // read in what the user wants to use
-    int screenX = screenList.at( 0 ).toInt();
-    int screenY = screenList.at( 1 ).toInt();
-    int screenW = screenList.at( 2 ).toInt();
-    int screenH = screenList.at( 3 ).toInt();
 
     //use qt to create the real screen space available (the space that corresponse to the identity matrix
-
     QRectF virtualScreen = QRect( 0, 0, 0, 0 );
 
     int num = QApplication::desktop()->numScreens();
@@ -202,6 +187,67 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
         virtualScreen = virtualScreen.united( screen );
     }
     kDebug() << "virtual screen" << virtualScreen;
+
+    // now get the space the user wants to use to map the tablet on it
+    int screenX = 0;
+    int screenY = 0;
+    int screenW = 0;
+    int screenH = 0;
+
+    // here we have either
+    // * full/map0/map1/...
+    // * or 4 values that define the space that will be used
+
+    if( screenArea == QLatin1String("full")) {
+        kDebug() << "map tablet to full screen";
+        screenX = 0;
+        screenY = 0;
+        screenW = virtualScreen.width();
+        screenH = virtualScreen.height();
+
+    }
+    else if( screenArea == QLatin1String("map0")) {
+        kDebug() << "map tablet to screen 0";
+        QRect screen = QApplication::desktop()->screenGeometry( 0 );
+        screenX = screen.x();
+        screenY = screen.y();
+        screenW = screen.width();
+        screenH = screen.height();
+
+    }
+    else if( screenArea == QLatin1String("map1")) {
+        kDebug() << "map tablet to screen 1";
+        if(num >= 2) {
+            QRect screen = QApplication::desktop()->screenGeometry( 1 );
+            screenX = screen.x();
+            screenY = screen.y();
+            screenW = screen.width();
+            screenH = screen.height();
+        }
+        else {
+            kError() << "can't map screen to second monitor. Only 1 Monitor was detected";
+            return false;
+        }
+    }
+    else {
+        kDebug() << "map tablet to part of the  screen: " << screenArea;
+        QStringList screenList = screenArea.split( QLatin1String( " " ) );
+
+        if( screenList.isEmpty() || screenList.size() != 4 ) {
+            kError() << "mapTabletToScreen :: can't parse ScreenSpace entry '" << screenArea << "' => device:" << d->deviceName;
+            return false;
+        }
+
+        // read in what the user wants to use
+        screenX = screenList.at( 0 ).toInt();
+        screenY = screenList.at( 1 ).toInt();
+        screenW = screenList.at( 2 ).toInt();
+        screenH = screenList.at( 3 ).toInt();
+    }
+
+
+
+
 
     // and now the values of the new matrix
     qreal w = ( qreal )screenW / ( qreal )virtualScreen.width();

@@ -149,6 +149,26 @@ void TabletDaemon::setupActions()
     action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ) );
     connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onTogglePenMode() ) );
+
+    action = d->actionCollection->addAction(QLatin1String("Toggle screen map selection"));
+    action->setText( i18nc( "@action", "Toggle between fullscreen/first screen/second screen" ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_M ) );
+    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onToggleScreenMapping() ) );
+
+    action = d->actionCollection->addAction(QLatin1String("Map to fullscreen"));
+    action->setText( i18nc( "@action", "Map to all fullscreen" ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_F ) );
+    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onMapToFullScreen() ) );
+
+    action = d->actionCollection->addAction(QLatin1String("Map to screen 1"));
+    action->setText( i18nc( "@action", "Map to screen 1" ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_1 ) );
+    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onMapToScreen1() ) );
+
+    action = d->actionCollection->addAction(QLatin1String("Map to screen 2"));
+    action->setText( i18nc( "@action", "Map to screen 2" ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_2 ) );
+    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onMapToScreen2() ) );
 }
 
 

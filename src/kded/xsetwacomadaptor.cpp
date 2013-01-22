@@ -203,8 +203,6 @@ bool XsetwacomAdaptor::setInvertScroll(const QString& value)
     return true;
 }
 
-
-
 bool XsetwacomAdaptor::setParameter(const QString& device, const QString& param, const QString& value) const
 {
     QString  cmd = QString::fromLatin1( "xsetwacom set \"%1\" %2 \"%3\"" ).arg( device ).arg( param ).arg( value );

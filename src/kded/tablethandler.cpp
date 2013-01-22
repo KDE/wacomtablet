@@ -251,6 +251,190 @@ void TabletHandler::onToggleTouch()
     d->profileManager.saveProfile(tabletProfile);
 }
 
+void TabletHandler::onToggleScreenMapping()
+{
+    Q_D( TabletHandler );
+
+    if( !d->tabletBackend ) {
+        return;
+    }
+
+    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
+    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
+    QString screenSpace = stylusProfile.getProperty(Property::ScreenSpace);
+
+    if( screenSpace == QLatin1String("full")) {
+        onMapToScreen1();
+    }
+    else if( screenSpace == QLatin1String("map0")) {
+        onMapToScreen2();
+    }
+    else if( screenSpace == QLatin1String("map1")) {
+        onMapToFullScreen();
+    }
+    // in case some invalid data or the "part of screen stuff" was inserted
+    else {
+
+        kDebug() << "default to fullscreen. value: " << screenSpace;
+        onMapToFullScreen();
+    }
+}
+
+void TabletHandler::onMapToFullScreen()
+{
+    Q_D( TabletHandler );
+
+    if( !d->tabletBackend ) {
+        return;
+    }
+
+    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
+    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
+    DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
+    DeviceProfile touchProfile;
+
+    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
+        touchProfile = tabletProfile.getDevice(DeviceType::Touch);
+    }
+
+    // set ScreenSpace to full (so the coordinate transfomation matrix is changed )
+    // copy AreaMapFull to Area so the correct tablet calibration area will be applied
+    stylusProfile.setProperty( Property::ScreenSpace, QLatin1String("full" ) );
+    QString area =  stylusProfile.getProperty(Property::AreaMapFull);
+    stylusProfile.setProperty( Property::Area, area );
+    tabletProfile.setDevice(stylusProfile);
+    d->tabletBackend->setProperty(DeviceType::Stylus, Property::ScreenSpace, QLatin1String("full" ));
+    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Area, area);
+
+    eraserProfile.setProperty( Property::ScreenSpace, QLatin1String("full" ) );
+    area =  eraserProfile.getProperty(Property::AreaMapFull);
+    eraserProfile.setProperty( Property::Area, area );
+    tabletProfile.setDevice(eraserProfile);
+    d->tabletBackend->setProperty(DeviceType::Eraser, Property::ScreenSpace, QLatin1String("full" ));
+    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Area, area);
+
+    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
+        touchProfile.setProperty( Property::ScreenSpace, QLatin1String("full" ) );
+        area =  touchProfile.getProperty(Property::AreaMapFull);
+        touchProfile.setProperty( Property::Area, area );
+        tabletProfile.setDevice(touchProfile);
+        d->tabletBackend->setProperty(DeviceType::Touch, Property::ScreenSpace, QLatin1String("full" ));
+        d->tabletBackend->setProperty(DeviceType::Touch, Property::Area, area);
+    }
+
+    // also set Stylus/eraser to absolute
+    // in relative this setting is useless, so the user definitly wants absolute mode if he uses this settings
+    stylusProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
+    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Mode, QLatin1String("Absolute"));
+    eraserProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
+    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Mode, QLatin1String("Absolute"));
+
+    d->profileManager.saveProfile(tabletProfile);
+}
+
+void TabletHandler::onMapToScreen1()
+{
+    Q_D( TabletHandler );
+
+    if( !d->tabletBackend ) {
+        return;
+    }
+
+    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
+    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
+    DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
+    DeviceProfile touchProfile;
+
+    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
+        touchProfile = tabletProfile.getDevice(DeviceType::Touch);
+    }
+
+    // set ScreenSpace to map0 (so the coordinate transfomation matrix is changed )
+    // copy AreaMap0 to Area so the correct tablet calibration area will be applied
+    stylusProfile.setProperty( Property::ScreenSpace, QLatin1String("map0" ) );
+    QString area =  stylusProfile.getProperty(Property::AreaMap0);
+    stylusProfile.setProperty( Property::Area, area );
+    tabletProfile.setDevice(stylusProfile);
+    d->tabletBackend->setProperty(DeviceType::Stylus, Property::ScreenSpace, QLatin1String("map0" ));
+    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Area, area);
+
+    eraserProfile.setProperty( Property::ScreenSpace, QLatin1String("map0" ) );
+    area =  eraserProfile.getProperty(Property::AreaMap0);
+    eraserProfile.setProperty( Property::Area, area );
+    tabletProfile.setDevice(eraserProfile);
+    d->tabletBackend->setProperty(DeviceType::Eraser, Property::ScreenSpace, QLatin1String("map0" ));
+    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Area, area);
+
+    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
+        touchProfile.setProperty( Property::ScreenSpace, QLatin1String("map0" ) );
+        area =  touchProfile.getProperty(Property::AreaMap0);
+        touchProfile.setProperty( Property::Area, area );
+        tabletProfile.setDevice(touchProfile);
+        d->tabletBackend->setProperty(DeviceType::Touch, Property::ScreenSpace, QLatin1String("map0" ));
+        d->tabletBackend->setProperty(DeviceType::Touch, Property::Area, area);
+    }
+
+    // also set Stylus/eraser to absolute
+    // in relative this setting is useless, so the user definitly wants absolute mode if he uses this settings
+    stylusProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
+    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Mode, QLatin1String("Absolute"));
+    eraserProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
+    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Mode, QLatin1String("Absolute"));
+
+    d->profileManager.saveProfile(tabletProfile);
+}
+
+void TabletHandler::onMapToScreen2()
+{
+    Q_D( TabletHandler );
+
+    if( !d->tabletBackend ) {
+        return;
+    }
+
+    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
+    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
+    DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
+    DeviceProfile touchProfile;
+
+    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
+        touchProfile = tabletProfile.getDevice(DeviceType::Touch);
+    }
+
+    // set ScreenSpace to map0 (so the coordinate transfomation matrix is changed )
+    // copy AreaMap0 to Area so the correct tablet calibration area will be applied
+    stylusProfile.setProperty( Property::ScreenSpace, QLatin1String("map1" ) );
+    QString area =  stylusProfile.getProperty(Property::AreaMap1);
+    stylusProfile.setProperty( Property::Area, area );
+    tabletProfile.setDevice(stylusProfile);
+    d->tabletBackend->setProperty(DeviceType::Stylus, Property::ScreenSpace, QLatin1String("map1" ));
+    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Area, area);
+
+    eraserProfile.setProperty( Property::ScreenSpace, QLatin1String("map1" ) );
+    area =  eraserProfile.getProperty(Property::AreaMap1);
+    eraserProfile.setProperty( Property::Area, area );
+    tabletProfile.setDevice(eraserProfile);
+    d->tabletBackend->setProperty(DeviceType::Eraser, Property::ScreenSpace, QLatin1String("map1" ));
+    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Area, area);
+
+    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
+        touchProfile.setProperty( Property::ScreenSpace, QLatin1String("map1" ) );
+        area =  touchProfile.getProperty(Property::AreaMap1);
+        touchProfile.setProperty( Property::Area, area );
+        tabletProfile.setDevice(touchProfile);
+        d->tabletBackend->setProperty(DeviceType::Touch, Property::ScreenSpace, QLatin1String("map1" ));
+        d->tabletBackend->setProperty(DeviceType::Touch, Property::Area, area);
+    }
+
+    // also set Stylus/eraser to absolute
+    // in relative this setting is useless, so the user definitly wants absolute mode if he uses this settings
+    stylusProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
+    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Mode, QLatin1String("Absolute"));
+    eraserProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
+    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Mode, QLatin1String("Absolute"));
+
+    d->profileManager.saveProfile(tabletProfile);
+}
 
 
 QStringList TabletHandler::listProfiles()
