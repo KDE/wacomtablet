@@ -451,10 +451,10 @@ wheel=no
 touchring=yes
 touchstripl=no
 touchstripr=no
-hwbutton1=1
-hwbutton2=2
-hwbutton3=3
-hwbutton4=8
+hwbutton1=8
+hwbutton2=1
+hwbutton3=9
+hwbutton4=3
 
 [0069]
 model=CTF_430-U
