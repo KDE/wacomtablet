@@ -17,6 +17,9 @@ set(CMAKE_MODULE_PATH
 )
 
 #find_package(LibWacom REQUIRED)
+find_package(XorgWacom REQUIRED)
+
+macro_log_feature(XORGWACOM_FOUND "Xorg-Wacom" "Xorg input wacom driver" "http://linuxwacom.sourceforge.net" TRUE "" "The driver/header files are missing")
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DQT_STRICT_ITERATORS )
 add_definitions( -DQT_NO_CAST_FROM_ASCII )
@@ -32,3 +35,5 @@ add_subdirectory( data )
 add_subdirectory( images )
 add_subdirectory( doc )
 add_subdirectory( tests )
+
+macro_display_feature_log()
