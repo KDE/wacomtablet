@@ -201,13 +201,25 @@ void TabletHandler::onTogglePenMode()
         return;
     }
 
+    // also save the pen mode into the profile to remember the user selection after
+    // the tablet was reconnected
+    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
+    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
+    DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
+
     if(d->tabletInformation.hasDevice(DeviceType::Stylus)) {
         toggleMode(DeviceType::Stylus);
+        stylusProfile.setProperty( Property::Mode, d->tabletBackend->getProperty(DeviceType::Stylus, Property::Mode) );
     }
 
     if(d->tabletInformation.hasDevice(DeviceType::Eraser)) {
         toggleMode(DeviceType::Eraser);
+        eraserProfile.setProperty( Property::Mode, d->tabletBackend->getProperty(DeviceType::Stylus, Property::Mode) );
     }
+
+    tabletProfile.setDevice(stylusProfile);
+    tabletProfile.setDevice(eraserProfile);
+    d->profileManager.saveProfile(tabletProfile);
 }
 
 
@@ -222,11 +234,21 @@ void TabletHandler::onToggleTouch()
 
     QString touchMode = d->tabletBackend->getProperty(DeviceType::Touch, Property::Touch);
 
+    // also save the touch on/off into the profile to remember the user selection after
+    // the tablet was reconnected
+    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
+    DeviceProfile touchProfile = tabletProfile.getDevice(DeviceType::Touch);
+
     if( touchMode.compare( QLatin1String( "off" ), Qt::CaseInsensitive) == 0 ) {
         d->tabletBackend->setProperty(DeviceType::Touch, Property::Touch, QLatin1String("on"));
+        touchProfile.setProperty( Property::Touch, QLatin1String("on" ) );
     } else {
         d->tabletBackend->setProperty(DeviceType::Touch, Property::Touch, QLatin1String("off"));
+        touchProfile.setProperty( Property::Touch, QLatin1String("off") );
     }
+
+    tabletProfile.setDevice(touchProfile);
+    d->profileManager.saveProfile(tabletProfile);
 }
 
 
