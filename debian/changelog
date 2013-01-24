@@ -1,3 +1,14 @@
+wacomtablet (1.99.3-0ppa1) unstable; urgency=low
+
+  * Save changed tablet rotatation when screen rotates to profile
+  * Add support for Wacom Intuos5 M Pen pad
+  * Add FindPkgConfig.cmake for the xorg wacom input driver
+  * Fix hw button assignment for MTE-450
+  * Save touch/pen mode into profile after using the hotkey
+  * Support global shortcuts to switch screen mapping + TabletArea
+
+ -- Jörg Ehrichs <joerg.ehrichs@gmx.de>  Wed, 23 Jan 2013 15:00:00 +0100
+
 wacomtablet (1.99.2-0ppa1) unstable; urgency=low
 
   * KCM Wacom Tablet 2.0-beta1 relase.
