@@ -105,12 +105,11 @@ bool TabletDatabase::lookupTablet(const QString& tabletId, TabletInformation& ta
     }
 
     // find tablet
-    QString      companyId;
     KConfigGroup companyGroup;
     KConfigGroup tabletGroup;
     QString      tabletConfigFile;
 
-    foreach(companyId, companyConfig->groupList()) {
+    foreach(const QString &companyId, companyConfig->groupList()) {
         // get company group section
         companyGroup = KConfigGroup (companyConfig, companyId.toLower());
 

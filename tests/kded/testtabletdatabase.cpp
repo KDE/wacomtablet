@@ -65,7 +65,8 @@ void TestTabletDatabase::testLookupDevice()
 
     QVERIFY(buttonMap.size() == 4);
 
-    foreach (const QString& key, buttonMap.keys()) {
+    QList<QString> keys = buttonMap.keys();
+    foreach (const QString& key, keys) {
         QVERIFY(!buttonMap.value(key).isEmpty());
     }
 }
