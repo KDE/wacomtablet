@@ -70,7 +70,7 @@ Q_SIGNALS:
     void tabletAdded (TabletInformation tabletInformation);
 
     /**
-     * Emited when a tablet is removed.
+     * Emitted when a tablet is removed.
      */
     void tabletRemoved (TabletInformation tabletInformation);
 

@@ -183,7 +183,7 @@ public:
      * @param display    The X11 display to use.
      * @param deviceInfo The X11 device info structure.
      *
-     * @return True if the device was sucessfully opened, else false.
+     * @return True if the device was successfully opened, else false.
      */
     bool open (Display* display, const XDeviceInfo& deviceInfo);
 

@@ -50,7 +50,7 @@ struct PropertySetTemplateSpecializationLessFunctor
  * A typesafe property enumeration template class. It manages property keys,
  * mapping ids and priority handling for different kind of property sets.
  * 
- * Different subystems have different type of property sets and different
+ * Different subsystems have different type of property sets and different
  * property identifier keys. Moreover properties have to be set in a specific
  * order or they might overwrite each other. Still all these property sets
  * have to be mapped on subsystem borders.

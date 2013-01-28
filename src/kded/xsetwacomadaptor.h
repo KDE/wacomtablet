@@ -120,7 +120,7 @@ private:
      *
      * @param device The device to set the parameter for.
      * @param param  The parameter to set.
-     * @param value  The new value of the paramter.
+     * @param value  The new value of the parameter.
      */
     bool setParameter(const QString& device, const QString& param, const QString& value) const;
 

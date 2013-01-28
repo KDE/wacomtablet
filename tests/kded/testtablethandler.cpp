@@ -129,7 +129,7 @@ void TestTabletHandler::testOnScreenRotated()
     // we need the test profile set as it has the required property
     QCOMPARE(m_profileChanged, QLatin1String("test"));
 
-    // compare start paramters
+    // compare start parameters
     QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Eraser, Property::Rotate));
     QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Stylus, Property::Rotate));
     QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(DeviceType::Touch, Property::Rotate));
