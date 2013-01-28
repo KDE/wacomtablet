@@ -393,11 +393,11 @@ void PadMapping::showCalibrationDialog()
         toolName = stylusName.value();
     }
 
-    CalibrationDialog cdlg( toolName );
+    QPointer<CalibrationDialog> cdlg = new CalibrationDialog(toolName);
 
-    cdlg.exec();
+    cdlg->exec();
 
-    QRect newCalibration = cdlg.calibratedArea();
+    QRect newCalibration = cdlg->calibratedArea();
     QString area = QString::fromLatin1( "%1 %2 %3 %4" )
                    .arg( newCalibration.x() )
                    .arg( newCalibration.y() )
@@ -405,6 +405,8 @@ void PadMapping::showCalibrationDialog()
                    .arg( newCalibration.height() );
 
     d->m_tabletArea->setSelection( area );
+
+    delete cdlg;
 }
 
 void PadMapping::updateTabletArea()

@@ -303,13 +303,13 @@ void PenWidget::changeTipPressCurve()
 QString PenWidget::changePressCurve(const DeviceType& deviceType, const QString& startValue)
 {
     QString              result(startValue);
-    PressCurveDialog     selectPC( this );
+    QPointer<PressCurveDialog> selectPC = new PressCurveDialog(this);
 
-    selectPC.setDeviceType(deviceType);
-    selectPC.setControllPoints( startValue );
+    selectPC->setDeviceType(deviceType);
+    selectPC->setControllPoints( startValue );
 
-    if( selectPC.exec() == KDialog::Accepted ) {
-        result = selectPC.getControllPoints();
+    if( selectPC->exec() == KDialog::Accepted ) {
+        result = selectPC->getControllPoints();
         emit changed();
     }
     else {
@@ -318,6 +318,7 @@ QString PenWidget::changePressCurve(const DeviceType& deviceType, const QString&
         DBusTabletInterface::instance().setProperty( deviceType, Property::PressureCurve, startValue );
     }
 
+    delete selectPC;
     return result;
 }
 
