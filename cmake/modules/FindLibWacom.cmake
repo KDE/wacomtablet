@@ -4,6 +4,11 @@
 #  LIBWACOM_INCLUDE_DIRS - The LibWacom include directories
 #  LIBWACOM_LIBRARIES    - The libraries needed to use LibWacom
 #  LIBWACOM_DEFINITIONS  - Compiler switches required for using LibWacom
+#
+# Copyright (c) 2012  Alexander Maret-Huskinson <alex@maret.de>
+#
+# Redistribution and use is allowed according to the terms of the BSD license.
+# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
 find_package(PkgConfig)
 

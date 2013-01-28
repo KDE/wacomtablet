@@ -4,6 +4,11 @@
 #  XORGWACOM_INCLUDE_DIRS - The xserver-xorg-input-wacom include directories
 #  XORGWACOM_LIBRARIES    - The libraries needed to use xserver-xorg-input-wacom
 #  XORGWACOM_DEFINITIONS  - Compiler switches required for using LibWacom
+#
+# Copyright (c) 2013  Jörg Ehrichs <Joerg.Ehrichs@gmx.de>
+#
+# Redistribution and use is allowed according to the terms of the BSD license.
+# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
 find_package(PkgConfig)
 
