@@ -373,7 +373,7 @@ void PadMapping::reloadWidget()
 
     d->m_ui->screenComboBox->blockSignals( true );
     for( int i = 0; i < num; ++i ) {
-        d->m_ui->screenComboBox->addItem( i18n( "Screen %1" ).arg( i+1 ) );
+        d->m_ui->screenComboBox->addItem( i18n( "Screen %1", i+1) );
     }
     d->m_ui->screenComboBox->blockSignals( false );
 }
