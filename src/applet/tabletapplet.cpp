@@ -110,7 +110,7 @@ void TabletApplet::onDBusConnected()
 
     connect( &DBusTabletInterface::instance(), SIGNAL (tabletAdded()),                  this, SLOT (onTabletAdded()) );
     connect( &DBusTabletInterface::instance(), SIGNAL (tabletRemoved()),                this, SLOT (onTabletRemoved()) );
-    connect( &DBusTabletInterface::instance(), SIGNAL (profileChanged (const QString)), this, SLOT (setProfile(const QString)) );
+    connect( &DBusTabletInterface::instance(), SIGNAL (profileChanged(QString)), this, SLOT (setProfile(QString)) );
 
     QDBusReply<bool> isAvailable = DBusTabletInterface::instance().isAvailable();
 
@@ -358,7 +358,7 @@ void TabletApplet::buildConfigDialog()
     label_profile->setText( i18n( "Select Profile:" ) );
 
     d->profileSelector = new Plasma::ComboBox( d->configWidget );
-    connect( d->profileSelector, SIGNAL( textChanged( const QString ) ), this, SLOT( switchProfile( const QString ) ) );
+    connect( d->profileSelector, SIGNAL(textChanged(QString)), this, SLOT(switchProfile(QString)) );
 
     QSizePolicy sizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
     sizePolicy.setHorizontalStretch( 0 );
@@ -396,7 +396,7 @@ void TabletApplet::buildConfigDialog()
     d->touchOn->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
     d->touchOn->nativeWidget()->setAutoExclusive( false );
     d->touchOn->setZValue( 10 );
-    connect( d->touchOn->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( setTouchModeOn( bool ) ) );
+    connect( d->touchOn->nativeWidget(), SIGNAL(clicked(bool)), this, SLOT(setTouchModeOn(bool)) );
     layout_touch->addItem( d->touchOn );
 
     d->touchOff = new Plasma::RadioButton( groupBox );
@@ -404,7 +404,7 @@ void TabletApplet::buildConfigDialog()
     d->touchOff->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
     d->touchOff->nativeWidget()->setAutoExclusive( false );
     d->touchOff->setZValue( 10 );
-    connect( d->touchOff->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( setTouchModeOff( bool ) ) );
+    connect( d->touchOff->nativeWidget(), SIGNAL(clicked(bool)), this, SLOT(setTouchModeOff(bool)) );
     layout_touch->addItem( d->touchOff );
 
     //layout_groupbox->addStretch( 20 ); //otherwise the title of the groupbox is not visible
@@ -425,7 +425,7 @@ void TabletApplet::buildConfigDialog()
     pushButton_norm->setMaximumHeight( KIconLoader::SizeSmallMedium );
     pushButton_norm->setMinimumHeight( KIconLoader::SizeSmallMedium );
     pushButton_norm->setDrawBackground( false );
-    connect( pushButton_norm, SIGNAL( clicked() ), this, SLOT( rotateNorm() ) );
+    connect( pushButton_norm, SIGNAL(clicked()), this, SLOT(rotateNorm()) );
     layout_rotation->addItem( pushButton_norm );
 
     Plasma::IconWidget *pushButton_cw = new Plasma::IconWidget( groupBox );
@@ -433,7 +433,7 @@ void TabletApplet::buildConfigDialog()
     pushButton_cw->setMaximumHeight( KIconLoader::SizeSmallMedium );
     pushButton_cw->setMinimumHeight( KIconLoader::SizeSmallMedium );
     pushButton_cw->setDrawBackground( false );
-    connect( pushButton_cw, SIGNAL( clicked() ), this, SLOT( rotateCw() ) );
+    connect( pushButton_cw, SIGNAL(clicked()), this, SLOT(rotateCw()) );
     layout_rotation->addItem( pushButton_cw );
 
     Plasma::IconWidget *pushButton_ccw = new Plasma::IconWidget( groupBox );
@@ -441,7 +441,7 @@ void TabletApplet::buildConfigDialog()
     pushButton_ccw->setMaximumHeight( KIconLoader::SizeSmallMedium );
     pushButton_ccw->setMinimumHeight( KIconLoader::SizeSmallMedium );
     pushButton_ccw->setDrawBackground( false );
-    connect( pushButton_ccw, SIGNAL( clicked() ), this, SLOT( rotateCcw() ) );
+    connect( pushButton_ccw, SIGNAL(clicked()), this, SLOT(rotateCcw()) );
     layout_rotation->addItem( pushButton_ccw );
 
     Plasma::IconWidget *pushButton_half = new Plasma::IconWidget( groupBox );
@@ -449,7 +449,7 @@ void TabletApplet::buildConfigDialog()
     pushButton_half->setMaximumHeight( KIconLoader::SizeSmallMedium );
     pushButton_half->setMinimumHeight( KIconLoader::SizeSmallMedium );
     pushButton_half->setDrawBackground( false );
-    connect( pushButton_half, SIGNAL( clicked() ), this, SLOT( rotateHalf() ) );
+    connect( pushButton_half, SIGNAL(clicked()), this, SLOT(rotateHalf()) );
     layout_rotation->addItem( pushButton_half );
 
     //layout_groupbox->addStretch( 20 );
@@ -471,7 +471,7 @@ void TabletApplet::buildConfigDialog()
     d->modeAbsolute->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
     d->modeAbsolute->nativeWidget()->setAutoExclusive( false );
     d->modeAbsolute->setZValue( 10 );
-    connect( d->modeAbsolute->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( selectAbsoluteMode( bool ) ) );
+    connect( d->modeAbsolute->nativeWidget(), SIGNAL(clicked(bool)), this, SLOT(selectAbsoluteMode(bool)) );
     layout_mode->addItem( d->modeAbsolute );
 
     d->modeRelative = new Plasma::RadioButton( groupBox );
@@ -479,7 +479,7 @@ void TabletApplet::buildConfigDialog()
     d->modeRelative->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
     d->modeRelative->nativeWidget()->setAutoExclusive( false );
     d->modeRelative->setZValue( 10 );
-    connect( d->modeRelative->nativeWidget(), SIGNAL( clicked( bool ) ), this, SLOT( selectRelativeMode( bool ) ) );
+    connect( d->modeRelative->nativeWidget(), SIGNAL(clicked(bool)), this, SLOT(selectRelativeMode(bool)) );
     layout_mode->addItem( d->modeRelative );
 
     layout_groupbox->addItem( layout_mode );

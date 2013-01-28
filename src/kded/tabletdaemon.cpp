@@ -83,7 +83,7 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
     TabletFinder::instance().scan();
 
     // connect profile changed handler after searching for tablets as this is only used for the global shortcut workaround.
-    connect(&(d->tabletHandler), SIGNAL (profileChanged(const QString&)), this, SLOT (onProfileChanged(const QString&)));
+    connect(&(d->tabletHandler), SIGNAL (profileChanged(QString)), this, SLOT (onProfileChanged(QString)));
 
     // Connecting this after the device has been set up ensures that no notification is send on startup.
     connect( &(d->tabletHandler), SIGNAL(notify(QString,QString,QString)), this, SLOT(onNotify(QString,QString,QString)) );
@@ -143,32 +143,32 @@ void TabletDaemon::setupActions()
     KAction *action = d->actionCollection->addAction(QLatin1String("Toggle touch tool"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_T ) );
-    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onToggleTouch() ) );
+    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onToggleTouch()) );
 
     action = d->actionCollection->addAction(QLatin1String("Toggle stylus mode"));
     action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ) );
-    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onTogglePenMode() ) );
+    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onTogglePenMode()) );
 
     action = d->actionCollection->addAction(QLatin1String("Toggle screen map selection"));
     action->setText( i18nc( "@action", "Toggle between fullscreen/first screen/second screen" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_M ) );
-    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onToggleScreenMapping() ) );
+    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onToggleScreenMapping()) );
 
     action = d->actionCollection->addAction(QLatin1String("Map to fullscreen"));
     action->setText( i18nc( "@action", "Map to all fullscreen" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_F ) );
-    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onMapToFullScreen() ) );
+    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onMapToFullScreen()) );
 
     action = d->actionCollection->addAction(QLatin1String("Map to screen 1"));
     action->setText( i18nc( "@action", "Map to screen 1" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_1 ) );
-    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onMapToScreen1() ) );
+    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onMapToScreen1()) );
 
     action = d->actionCollection->addAction(QLatin1String("Map to screen 2"));
     action->setText( i18nc( "@action", "Map to screen 2" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_2 ) );
-    connect( action, SIGNAL( triggered() ), &(d->tabletHandler), SLOT( onMapToScreen2() ) );
+    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onMapToScreen2()) );
 }
 
 
@@ -194,8 +194,8 @@ void TabletDaemon::setupDBus()
 
     // connect tablet handler events to D-Bus
     // this is done here and not in the D-Bus tablet service to facilitate unit testing
-    connect(&(d->tabletHandler), SIGNAL (profileChanged(const QString&)),        &(d->dbusTabletService), SLOT (onProfileChanged(const QString&)));
-    connect(&(d->tabletHandler), SIGNAL (tabletAdded(const TabletInformation&)), &(d->dbusTabletService), SLOT (onTabletAdded(const TabletInformation&)));
+    connect(&(d->tabletHandler), SIGNAL (profileChanged(QString)),        &(d->dbusTabletService), SLOT (onProfileChanged(QString)));
+    connect(&(d->tabletHandler), SIGNAL (tabletAdded(TabletInformation)), &(d->dbusTabletService), SLOT (onTabletAdded(TabletInformation)));
     connect(&(d->tabletHandler), SIGNAL (tabletRemoved()),                       &(d->dbusTabletService), SLOT (onTabletRemoved()));
 }
 
@@ -205,12 +205,12 @@ void TabletDaemon::setupEventNotifier()
 {
     Q_D( TabletDaemon );
 
-    connect( &X11EventNotifier::instance(), SIGNAL(screenRotated (ScreenRotation)),           &(d->tabletHandler),       SLOT(onScreenRotated (ScreenRotation)));
-    connect( &X11EventNotifier::instance(), SIGNAL(tabletAdded (int)),                        &TabletFinder::instance(), SLOT(onX11TabletAdded (int)));
-    connect( &X11EventNotifier::instance(), SIGNAL(tabletRemoved (int)),                      &TabletFinder::instance(), SLOT(onX11TabletRemoved (int)));
+    connect( &X11EventNotifier::instance(), SIGNAL(screenRotated(ScreenRotation)),           &(d->tabletHandler),       SLOT(onScreenRotated(ScreenRotation)));
+    connect( &X11EventNotifier::instance(), SIGNAL(tabletAdded(int)),                        &TabletFinder::instance(), SLOT(onX11TabletAdded(int)));
+    connect( &X11EventNotifier::instance(), SIGNAL(tabletRemoved(int)),                      &TabletFinder::instance(), SLOT(onX11TabletRemoved(int)));
 
-    connect( &TabletFinder::instance(),     SIGNAL(tabletAdded (const TabletInformation)),    &(d->tabletHandler),       SLOT(onTabletAdded (const TabletInformation)));
-    connect( &TabletFinder::instance(),     SIGNAL(tabletRemoved (const TabletInformation)),  &(d->tabletHandler),       SLOT(onTabletRemoved (const TabletInformation)));
+    connect( &TabletFinder::instance(),     SIGNAL(tabletAdded(TabletInformation)),    &(d->tabletHandler),       SLOT(onTabletAdded(TabletInformation)));
+    connect( &TabletFinder::instance(),     SIGNAL(tabletRemoved(TabletInformation)),  &(d->tabletHandler),       SLOT(onTabletRemoved(TabletInformation)));
 
     X11EventNotifier::instance().start();
 }

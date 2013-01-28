@@ -59,8 +59,8 @@ SelectKeyStroke::SelectKeyStroke( QWidget *parent ) :
     ui->comboBox->addItem( i18nc( "CTRL+META+SHIFT key combination", "CTRL+META+SHIFT" ), QString::fromLatin1( "CTRL+META+SHIFT" ) );
     ui->comboBox->blockSignals( false );
 
-    connect( this, SIGNAL( okClicked() ), this, SLOT( slotOkClicked() ) );
-    connect( ui->kkeysequencewidget, SIGNAL( keySequenceChanged( QKeySequence ) ), this, SLOT( findGlobalShortcut( QKeySequence ) ) );
+    connect( this, SIGNAL(okClicked()), this, SLOT(slotOkClicked()) );
+    connect( ui->kkeysequencewidget, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(findGlobalShortcut(QKeySequence)) );
 }
 
 SelectKeyStroke::~SelectKeyStroke()

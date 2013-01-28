@@ -87,22 +87,22 @@ PadMapping::PadMapping( QWidget *parent )
 
     d->m_ui->screenAreaBox->layout()->addWidget( d->m_screenArea );
 
-    connect( d->m_screenArea, SIGNAL( selectedArea( QString ) ), this, SLOT( profileChanged() ) );
-    connect( d->m_screenArea, SIGNAL( selectedArea( QString ) ), this, SLOT( updateTabletArea() ) );
+    connect( d->m_screenArea, SIGNAL(selectedArea(QString)), this, SLOT(profileChanged()) );
+    connect( d->m_screenArea, SIGNAL(selectedArea(QString)), this, SLOT(updateTabletArea()) );
 
-    connect(d->m_ui->fullScreen, SIGNAL( toggled( bool ) ), this, SLOT(updateTabletArea()));
-    connect(d->m_ui->mapToScreen, SIGNAL( toggled( bool ) ), this, SLOT(updateTabletArea()));
+    connect(d->m_ui->fullScreen, SIGNAL(toggled(bool)), this, SLOT(updateTabletArea()));
+    connect(d->m_ui->mapToScreen, SIGNAL(toggled(bool)), this, SLOT(updateTabletArea()));
     connect(d->m_ui->screenComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateTabletArea()));
-    connect(d->m_ui->partOfScreen, SIGNAL( toggled( bool ) ), this, SLOT(updateTabletArea()));
+    connect(d->m_ui->partOfScreen, SIGNAL(toggled(bool)), this, SLOT(updateTabletArea()));
 
-    connect( d->m_ui->forceProportions, SIGNAL( clicked( ) ), this, SLOT( setForceProportions( ) ) );
-    connect( d->m_ui->fullTablet, SIGNAL( clicked( bool ) ), this, SLOT( setFullTabletUsage( bool ) ) );
+    connect( d->m_ui->forceProportions, SIGNAL(clicked()), this, SLOT(setForceProportions()) );
+    connect( d->m_ui->fullTablet, SIGNAL(clicked(bool)), this, SLOT(setFullTabletUsage(bool)) );
 
-    connect(d->m_ui->fullScreen, SIGNAL( toggled( bool ) ), this, SLOT(setFullScreenUsage(bool)));
-    connect(d->m_ui->mapToScreen, SIGNAL( toggled( bool ) ), this, SLOT(setMapToScreenUsage(bool)));
-    connect(d->m_ui->mapToScreen, SIGNAL( toggled( bool ) ), d->m_ui->screenComboBox, SLOT(setEnabled(bool)));
+    connect(d->m_ui->fullScreen, SIGNAL(toggled(bool)), this, SLOT(setFullScreenUsage(bool)));
+    connect(d->m_ui->mapToScreen, SIGNAL(toggled(bool)), this, SLOT(setMapToScreenUsage(bool)));
+    connect(d->m_ui->mapToScreen, SIGNAL(toggled(bool)), d->m_ui->screenComboBox, SLOT(setEnabled(bool)));
     connect(d->m_ui->screenComboBox, SIGNAL(currentIndexChanged(int)), d->m_screenArea, SLOT(setScreenNumber(int)));
-    connect(d->m_ui->partOfScreen, SIGNAL( toggled( bool ) ), this, SLOT(setPartOfScreenUsage(bool)));
+    connect(d->m_ui->partOfScreen, SIGNAL(toggled(bool)), this, SLOT(setPartOfScreenUsage(bool)));
 
     setTool(0);
 }
@@ -134,11 +134,11 @@ void PadMapping::setTool( int tool )
     d->m_tabletArea->setTool( toolName );
     d->m_ui->tabletAreaBox->layout()->addWidget( d->m_tabletArea );
 
-    connect( d->m_tabletArea, SIGNAL( selectedArea( QString ) ), this, SLOT( profileChanged() ) );
-    connect( d->m_ui->fullTablet, SIGNAL( clicked() ), d->m_tabletArea, SLOT( resetSelection() ) );
+    connect( d->m_tabletArea, SIGNAL(selectedArea(QString)), this, SLOT(profileChanged()) );
+    connect( d->m_ui->fullTablet, SIGNAL(clicked()), d->m_tabletArea, SLOT(resetSelection()) );
 
-    connect( d->m_ui->fullTablet, SIGNAL( toggled( bool ) ), d->m_ui->tabletAreaBox, SLOT( setDisabled( bool ) ) );
-    connect( d->m_tabletArea, SIGNAL( sizeChanged( bool ) ), this, SLOT( saveTabletChanges() ) );
+    connect( d->m_ui->fullTablet, SIGNAL(toggled(bool)), d->m_ui->tabletAreaBox, SLOT(setDisabled(bool)) );
+    connect( d->m_tabletArea, SIGNAL(sizeChanged(bool)), this, SLOT(saveTabletChanges()) );
 }
 
 void PadMapping::saveToProfile()

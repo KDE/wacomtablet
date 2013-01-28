@@ -106,21 +106,21 @@ void TabletWidget::init()
     d->m_ui.delProfileButton->setIcon( KIcon( QLatin1String( "edit-delete-page" ) ) );
 
     // connect profile selector
-    connect( d->m_ui.addProfileButton, SIGNAL( clicked( bool ) ), SLOT( addProfile() ) );
-    connect( d->m_ui.delProfileButton, SIGNAL( clicked( bool ) ), SLOT( delProfile() ) );
-    connect( d->m_ui.profileSelector,  SIGNAL( currentIndexChanged( const QString ) ), SLOT( switchProfile( const QString ) ) );
+    connect( d->m_ui.addProfileButton, SIGNAL(clicked(bool)), SLOT(addProfile()) );
+    connect( d->m_ui.delProfileButton, SIGNAL(clicked(bool)), SLOT(delProfile()) );
+    connect( d->m_ui.profileSelector,  SIGNAL(currentIndexChanged(QString)), SLOT(switchProfile(QString)) );
 
     // connect configuration tabs
-    connect( &(d->m_padButtonPage),    SIGNAL( changed() ), SLOT( profileChanged() ) );
-    connect( &(d->m_padMappingPage),   SIGNAL( changed() ), SLOT( profileChanged() ) );
-    connect( &(d->m_touchMappingPage), SIGNAL( changed() ), SLOT( profileChanged() ) );
-    connect( &(d->m_penPage),          SIGNAL( changed() ), SLOT( profileChanged() ) );
-    connect( &(d->m_touchPage),        SIGNAL( changed() ), SLOT( profileChanged() ) );
-    connect( &(d->m_generalPage),      SIGNAL( changed() ), SLOT( profileChanged() ) );
+    connect( &(d->m_padButtonPage),    SIGNAL(changed()), SLOT(profileChanged()) );
+    connect( &(d->m_padMappingPage),   SIGNAL(changed()), SLOT(profileChanged()) );
+    connect( &(d->m_touchMappingPage), SIGNAL(changed()), SLOT(profileChanged()) );
+    connect( &(d->m_penPage),          SIGNAL(changed()), SLOT(profileChanged()) );
+    connect( &(d->m_touchPage),        SIGNAL(changed()), SLOT(profileChanged()) );
+    connect( &(d->m_generalPage),      SIGNAL(changed()), SLOT(profileChanged()) );
 
     // connect DBus signals
-    connect( dbusTabletInterface, SIGNAL( tabletAdded() ),   SLOT( loadTabletInformation() ) );
-    connect( dbusTabletInterface, SIGNAL( tabletRemoved() ), SLOT( loadTabletInformation() ) );
+    connect( dbusTabletInterface, SIGNAL(tabletAdded()),   SLOT(loadTabletInformation()) );
+    connect( dbusTabletInterface, SIGNAL(tabletRemoved()), SLOT(loadTabletInformation()) );
 }
 
 
@@ -368,7 +368,7 @@ void TabletWidget::showSaveChanges()
         saveDialog->setMainWidget( widget );
         saveDialog->setButtons( KDialog::Apply | KDialog::Cancel );
 
-        connect( saveDialog, SIGNAL( applyClicked() ), saveDialog, SLOT( accept() ) );
+        connect( saveDialog, SIGNAL(applyClicked()), saveDialog, SLOT(accept()) );
 
         if( saveDialog->exec() == KDialog::Accepted ) {
             saveProfile();
