@@ -17,9 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "x11tabletfinder.h"
+
 #include "debug.h"
 #include "deviceinformation.h"
-#include "x11tabletfinder.h"
 #include "x11input.h"
 
 #include <QtCore/QMap>

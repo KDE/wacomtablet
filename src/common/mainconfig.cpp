@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
 #include "mainconfig.h"
+#include "debug.h"
 
 #include <KDE/KSharedConfig>
 #include <KDE/KConfigGroup>

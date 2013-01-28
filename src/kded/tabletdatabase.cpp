@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
-
 #include "tabletdatabase.h"
+#include "debug.h"
 
 #include <KDE/KConfigGroup>
 #include <KDE/KSharedConfig>

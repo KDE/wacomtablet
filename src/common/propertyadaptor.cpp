@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
 #include "propertyadaptor.h"
+#include "debug.h"
 
 using namespace Wacom;
 

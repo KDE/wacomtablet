@@ -17,9 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "tabletprofileconfigadaptor.h"
 #include "debug.h"
 #include "deviceprofileconfigadaptor.h"
-#include "tabletprofileconfigadaptor.h"
+
 
 using namespace Wacom;
 

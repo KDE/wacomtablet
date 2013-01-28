@@ -17,13 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <KDE/KDebug>
-
-#include <QtCore/QHash>
+#include "deviceprofile.h"
 
 #include "property.h"
 #include "deviceproperty.h"
-#include "deviceprofile.h"
+
+#include <KDE/KDebug>
+
+#include <QtCore/QHash>
 
 using namespace Wacom;
 

@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
-
 #include "tablethandler.h"
+#include "debug.h"
 
 #include "tabletbackendinterface.h"
 #include "tabletbackendfactory.h"

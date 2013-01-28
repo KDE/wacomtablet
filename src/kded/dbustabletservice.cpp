@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
-
 #include "dbustabletinterface.h"
+
+#include "debug.h"
 #include "dbustabletservice.h"
 #include "devicetype.h"
 #include "property.h"

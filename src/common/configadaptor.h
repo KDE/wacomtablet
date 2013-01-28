@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIGADAPTER_H
-#define CONFIGADAPTER_H
+#ifndef CONFIGADAPTOR_H
+#define CONFIGADAPTOR_H
 
 #include "propertyadaptor.h"
 

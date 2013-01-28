@@ -17,8 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
 #include "x11input.h"
+
+#include "debug.h"
 #include "x11inputdevice.h"
 #include "x11tabletfinder.h"
 

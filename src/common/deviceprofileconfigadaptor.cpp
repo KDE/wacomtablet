@@ -17,9 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "deviceprofileconfigadaptor.h"
 #include "debug.h"
 #include "deviceproperty.h"
-#include "deviceprofileconfigadaptor.h"
+
 
 #include <QString>
 #include <QStringList>

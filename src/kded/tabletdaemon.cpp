@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
 #include "tabletdaemon.h"
+#include "debug.h"
 
 #include "dbustabletservice.h"
 #include "tabletfinder.h"

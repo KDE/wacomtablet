@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
 #include "x11eventnotifier.h"
+#include "debug.h"
 
 #include "x11input.h"
 #include "x11inputdevice.h"

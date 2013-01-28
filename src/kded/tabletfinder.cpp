@@ -17,8 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
 #include "tabletfinder.h"
+
+#include "debug.h"
 #include "tabletdatabase.h"
 #include "x11tabletfinder.h"
 

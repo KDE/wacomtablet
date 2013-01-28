@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TABLETPROFILECONFIGADAPTER_H
-#define TABLETPROFILECONFIGADAPTER_H
+#ifndef TABLETPROFILECONFIGADAPTOR_H
+#define TABLETPROFILECONFIGADAPTOR_H
 
 #include "configadaptor.h"
 #include "tabletprofile.h"

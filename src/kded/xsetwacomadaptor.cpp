@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
 #include "xsetwacomadaptor.h"
+#include "debug.h"
 #include "xsetwacomproperty.h"
 #include "stringutils.h"
 

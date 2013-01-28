@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROPERTYADAPTER_H
-#define PROPERTYADAPTER_H
+#ifndef PROPERTYADAPTOR_H
+#define PROPERTYADAPTOR_H
 
 #include <QString>
 #include <QList>

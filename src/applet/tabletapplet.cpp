@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "property.h"
 #include "tabletapplet.h"
+#include "property.h"
 #include "wacomtabletsettings.h"
 
 // common includes

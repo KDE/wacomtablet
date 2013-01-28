@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEVICEPROFILECONFIGADAPTER_H
-#define DEVICEPROFILECONFIGADAPTER_H
+#ifndef DEVICEPROFILECONFIGADAPTOR_H
+#define DEVICEPROFILECONFIGADAPTOR_H
 
 #include "configadaptor.h"
 #include "deviceprofile.h"
