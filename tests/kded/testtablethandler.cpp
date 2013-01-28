@@ -152,9 +152,9 @@ void TestTabletHandler::testOnTabletAdded()
 
     // Do not initialize the factory yet so it can not return a backend.
     TabletInformation basicInfo;
-    m_notifyEventId = QString();
-    m_notifyMessage = QString();
-    m_notifyTitle   = QString();
+    m_notifyEventId.clear();
+    m_notifyMessage.clear();
+    m_notifyTitle.clear();
 
 
     // if the tablet backend factory returns NULL adding a tablet should fail
@@ -216,9 +216,9 @@ void TestTabletHandler::testOnTabletRemoved()
     QVERIFY(!m_tabletRemoved);
     QVERIFY(m_tabletAdded);
 
-    m_notifyEventId = QString();
-    m_notifyMessage = QString();
-    m_notifyTitle   = QString();
+    m_notifyEventId.clear();
+    m_notifyMessage.clear();
+    m_notifyTitle.clear();
 
     TabletInformation info;
 
@@ -247,9 +247,9 @@ void TestTabletHandler::testOnTabletRemoved()
 
     // remove the device again.
     m_tabletRemoved = false;
-    m_notifyEventId = QString();
-    m_notifyMessage = QString();
-    m_notifyTitle   = QString();
+    m_notifyEventId.clear();
+    m_notifyMessage.clear();
+    m_notifyTitle.clear();
 
     m_tabletHandler->onTabletRemoved(info);
 

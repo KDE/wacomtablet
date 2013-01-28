@@ -90,7 +90,7 @@ void TestDBusTabletService::onTabletRemoved()
 void TestDBusTabletService::initTestCase()
 {
     m_tabletService       = NULL;
-    m_profileWasChangedTo = QString();
+    m_profileWasChangedTo.clear();
     m_tabletWasAdded      = false;
     m_tabletWasRemoved    = false;
 
@@ -226,7 +226,7 @@ void TestDBusTabletService::testSetProfile()
     QCOMPARE(expectedProfile, actualProfile.value());
 
     // clear the profile manually
-    expectedProfile = QString();
+    expectedProfile.clear();
     DBusTabletInterface::instance().setProfile(expectedProfile);
     QCOMPARE(expectedProfile, m_tabletHandlerMock.m_profile);
     QCOMPARE(expectedProfile, m_profileWasChangedTo);

@@ -229,7 +229,7 @@ void DBusTabletService::onTabletRemoved()
     Q_D ( DBusTabletService );
     TabletInformation empty;
 
-    d->currentProfile    = QString();
+    d->currentProfile.clear();
     d->tabletInformation = empty;
     d->tabletInformation.setAvailable(false);
 
