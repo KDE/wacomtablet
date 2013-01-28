@@ -49,7 +49,7 @@ public:
       *
       * @param tabletSettings the parent widget
       */
-    TabletApplet(WacomTabletSettings *tabletSettings);
+    explicit TabletApplet(WacomTabletSettings *tabletSettings);
 
     /**
       * Destroy this applet

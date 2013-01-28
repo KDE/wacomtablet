@@ -37,3 +37,4 @@ private slots:
 QTEST_MAIN(Wacom::TestTabletProfileConfigAdaptor)
 
 #endif // HEADER PROTECTION
+

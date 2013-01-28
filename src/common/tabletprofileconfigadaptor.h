@@ -38,7 +38,7 @@ public:
     /**
       * Default constructor
       */
-    TabletProfileConfigAdaptor(TabletProfile& profile);
+    explicit TabletProfileConfigAdaptor(TabletProfile& profile);
 
     /**
       * Default destructor

@@ -42,7 +42,7 @@ public:
       *
       * @param parent the parent widget
       */
-    SelectKeyButton(QWidget *parent = 0);
+    explicit SelectKeyButton(QWidget *parent = 0);
 
     /**
       * Destroys the element again.

@@ -40,7 +40,7 @@ class TabletBackend : public TabletBackendInterface
 {
 public:
 
-    TabletBackend(const TabletInformation& tabletInformation);
+    explicit TabletBackend(const TabletInformation& tabletInformation);
     virtual ~TabletBackend();
 
     /**

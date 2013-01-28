@@ -36,7 +36,7 @@ class TouchWidget : public QWidget
 {
     Q_OBJECT
 public:
-    TouchWidget(QWidget *parent = 0);
+    explicit TouchWidget(QWidget *parent = 0);
     /**
       * default destructor
       */

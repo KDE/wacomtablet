@@ -52,7 +52,7 @@ public:
       *
       * @param parent the parent widget that holds this one
       */
-    PressCurve(QWidget *parent = 0);
+    explicit PressCurve(QWidget *parent = 0);
 
     /**
       * Sets the start values for the bezier presscurve via this control points

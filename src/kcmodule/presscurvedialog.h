@@ -48,7 +48,7 @@ public:
       *
       * @param parent parent widget
       */
-    PressCurveDialog(QWidget *parent = 0);
+    explicit PressCurveDialog(QWidget *parent = 0);
 
     /**
       * default destructor

@@ -41,7 +41,7 @@ public:
       *
       * @param parent the parent widget
       */
-    SelectQuoteText(QWidget *parent = 0);
+    explicit SelectQuoteText(QWidget *parent = 0);
 
     /**
       * Destroys the element again.
