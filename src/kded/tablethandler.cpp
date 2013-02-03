@@ -163,25 +163,32 @@ void TabletHandler::onScreenRotated( const ScreenRotation& screenRotation )
         kDebug() << "Rotate tablet :: " << screenRotation.key();
 
         //FIXME: there is a better way to transform rotation value to int hopefully?
+        //       this fixme will be obsolete if the fixme below gets fixed.
         int intKey = 0;
-        if( screenRotation.key() == QLatin1String("ccw") )
+        if( screenRotation == ScreenRotation::CCW )
             intKey = 1;
-        if( screenRotation.key() == QLatin1String("half") )
+        if( screenRotation == ScreenRotation::HALF )
             intKey = 2;
-        if( screenRotation.key() == QLatin1String("cw") )
+        if( screenRotation == ScreenRotation::CW )
             intKey = 3;
 
         // also save new rotation into the profile
         // See Bug: 312055
-        setProperty( DeviceType::Stylus, Property::Rotate, QString::fromLatin1( "%1" ).arg( screenRotation.key() ) );
-        stylusProfile.setProperty( Property::Rotate, QString::fromLatin1( "%1" ).arg( intKey ) );
+        // FIXME: The tablet rotation should not be set in the profile as the screen
+        //        rotation might change after a tablet was unplugged. Instead the KCM
+        //        module should query the tablet for its current rotation. Also on
+        //        startup or whenever a device gets connected the tablet daemon should
+        //        detect the current screen rotation and set it on the device as well
+        //        if auto-rotation is enabled.
+        setProperty( DeviceType::Stylus, Property::Rotate, screenRotation.key() );
+        stylusProfile.setProperty( Property::Rotate, QString::number( intKey ) );
 
-        setProperty( DeviceType::Eraser, Property::Rotate, QString::fromLatin1( "%1" ).arg( screenRotation.key() ) );
-        eraserProfile.setProperty( Property::Rotate, QString::fromLatin1( "%1" ).arg( intKey ) );
+        setProperty( DeviceType::Eraser, Property::Rotate, screenRotation.key() );
+        eraserProfile.setProperty( Property::Rotate, QString::number( intKey ) );
 
         if(d->tabletInformation.hasDevice (DeviceType::Touch)) {
-            setProperty( DeviceType::Touch, Property::Rotate, QString::fromLatin1( "%1" ).arg( screenRotation.key() ) );
-            touchProfile.setProperty( Property::Rotate, QString::fromLatin1( "%1" ).arg( intKey ) );
+            setProperty( DeviceType::Touch, Property::Rotate, screenRotation.key() );
+            touchProfile.setProperty( Property::Rotate, QString::number( intKey ) );
         }
 
         tabletProfile.setDevice(stylusProfile);
