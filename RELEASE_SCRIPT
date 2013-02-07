@@ -1,0 +1,11 @@
+ 
+To release a new version of Wacomtablet you need the following steps:
+
+ * bump version in
+   src/version.h
+   src/applet/plasma-applet-wacomtabletsettings
+   
+ * tag the git repo
+
+ * Get the release script from: git@git.kde.org:releaseme.git
+ * start it with ruby ./wacomtablet.rb
