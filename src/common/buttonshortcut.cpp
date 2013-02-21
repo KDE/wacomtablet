@@ -1,0 +1,485 @@
+/*
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// this include always needs to be the first one!
+#include "debug.h"
+
+#include "buttonshortcut.h"
+
+#include <QtCore/QRegExp>
+#include <QKeySequence>
+
+using namespace Wacom;
+
+const QString ButtonShortcut::TOGGLEMODE_STRING    = QLatin1String("modetoggle");
+const QString ButtonShortcut::TOGGLEDISPLAY_STRING = QLatin1String("displaytoggle");
+
+const char* ButtonShortcut::CONVERT_KEY_MAP_DATA[][2] = {
+    {"plus",  "+"},
+    {"minus", "-"},
+    {"super", "meta"},
+    {NULL, NULL}
+};
+
+namespace Wacom {
+    class ButtonShortcutPrivate {
+        public:
+            ButtonShortcutPrivate() {
+                type   = ButtonShortcut::NONE;
+                button = 0;
+            }
+
+            ButtonShortcut::ShortcutType type;     //!< The shortcut type.
+            QString                      sequence; //!< The key or modifier sequence.
+            int                          button;   //!< The button number.
+    };
+}
+
+
+ButtonShortcut::ButtonShortcut() : d_ptr(new ButtonShortcutPrivate)
+{
+}
+
+
+ButtonShortcut::ButtonShortcut(const ButtonShortcut& that) : d_ptr(new ButtonShortcutPrivate)
+{
+    operator=(that);
+}
+
+
+ButtonShortcut::~ButtonShortcut()
+{
+    delete this->d_ptr;
+}
+
+
+ButtonShortcut& ButtonShortcut::operator=(const ButtonShortcut& that)
+{
+    Q_D ( ButtonShortcut );
+
+    /*
+    d->type     = that.d_ptr->type;
+    d->sequence = that.d_ptr->sequence;
+    d->button   = that.d_ptr->button;
+    */
+
+    *d = *(that.d_ptr);
+    return *this;
+}
+
+
+bool ButtonShortcut::operator==(const ButtonShortcut& that) const
+{
+    Q_D ( const ButtonShortcut );
+
+    if ( d->type != that.d_ptr->type ) {
+        return false;
+    }
+
+    if ( d->button != that.d_ptr->button ) {
+        return false;
+    }
+
+    if ( d->sequence.compare(that.d_ptr->sequence, Qt::CaseInsensitive) != 0 ) {
+        return false;
+    }
+
+    return true;
+}
+
+
+bool ButtonShortcut::operator!=(const ButtonShortcut& that) const
+{
+    return (!operator==(that));
+}
+
+
+void ButtonShortcut::clear()
+{
+    Q_D ( ButtonShortcut );
+
+    d->type   = ButtonShortcut::NONE;
+    d->button = 0;
+    d->sequence.clear();
+}
+
+
+int ButtonShortcut::getButton() const
+{
+    Q_D (const ButtonShortcut);
+    return d->button;
+}
+
+
+ButtonShortcut::ShortcutType ButtonShortcut::getType() const
+{
+    Q_D( const ButtonShortcut );
+    return d->type;
+}
+
+
+bool ButtonShortcut::isButton() const
+{
+    return (getType() == BUTTON);
+}
+
+
+bool ButtonShortcut::isKeystroke() const
+{
+    return (getType() == KEYSTROKE);
+}
+
+
+bool ButtonShortcut::isModifier() const
+{
+    return (getType() == MODIFIER);
+}
+
+
+bool ButtonShortcut::isSet() const
+{
+    return (getType() != NONE);
+}
+
+
+bool ButtonShortcut::isToggle() const
+{
+    return (getType() == TOGGLEDISPLAY || getType() == TOGGLEMODE);
+}
+
+
+bool ButtonShortcut::isToggleDisplay() const
+{
+    return (getType() == TOGGLEDISPLAY);
+}
+
+
+bool ButtonShortcut::isToggleMode() const
+{
+    return (getType() == TOGGLEMODE);
+}
+
+
+bool ButtonShortcut::set(int buttonNumber)
+{
+    Q_D ( ButtonShortcut );
+
+    clear();
+
+    if (buttonNumber > 0 && buttonNumber <= 32) {
+        d->type   = ButtonShortcut::BUTTON;
+        d->button = buttonNumber;
+        return true;
+    }
+
+    return false;
+}
+
+
+bool ButtonShortcut::set(const QString& sequence)
+{
+    clear();
+
+    QString seq = sequence.trimmed();
+
+    if (seq.isEmpty()) {
+        return true;
+    }
+
+    QString toggleRxString = QString::fromLatin1("^(%1|%2)$").arg(TOGGLEDISPLAY_STRING).arg(TOGGLEMODE_STRING);
+    QRegExp toggleRx (toggleRxString, Qt::CaseInsensitive);
+    QRegExp modifierRx (QLatin1String("^(key )?(\\s*\\+?(alt|ctrl|meta|shift|super))+$"), Qt::CaseInsensitive);
+    QRegExp buttonRx (QLatin1String ("^(\\d+)$"), Qt::CaseInsensitive);
+
+    if (seq.contains(buttonRx)) {
+        // this is a button
+        return setButtonSequence(seq);
+
+    } else if (seq.contains(toggleRx)) {
+        // this is a toggle mode
+        return setToggleSequence(seq);
+
+    } else if (seq.contains(modifierRx)) {
+        // this is a modifier sequence
+        return setModifierSequence(seq);
+    }
+
+    // this is probably a key sequence
+    return setKeySequence(seq);
+}
+
+
+bool ButtonShortcut::setToggle(ButtonShortcut::ShortcutType toggle)
+{
+    Q_D ( ButtonShortcut );
+
+    clear();
+
+    if (toggle == ButtonShortcut::TOGGLEDISPLAY || toggle == ButtonShortcut::TOGGLEMODE) {
+        d->type   = toggle;
+        return true;
+    }
+
+    return false;
+}
+
+
+QString ButtonShortcut::toQKeySequenceString() const
+{
+    Q_D (const ButtonShortcut);
+
+    QString keySequence;
+
+    if (d->type == KEYSTROKE) {
+        keySequence = d->sequence;
+        convertKeySequenceToQKeySequenceFormat(keySequence);
+    }
+
+    return keySequence;
+}
+
+
+QString ButtonShortcut::toString() const
+{
+    Q_D (const ButtonShortcut);
+
+    switch (d->type) {
+
+        case BUTTON:
+            return QString::number(d->button);
+
+        case MODIFIER:
+        case KEYSTROKE:
+            return d->sequence;
+
+        case TOGGLEDISPLAY:
+            return TOGGLEDISPLAY_STRING;
+
+        case TOGGLEMODE:
+            return TOGGLEMODE_STRING;
+
+        case NONE:
+            return QLatin1String("0");
+
+        default:
+            kDebug() << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
+    }
+
+    return QLatin1String("0");
+}
+
+
+bool ButtonShortcut::convertKey(QString& key, bool fromStorage) const
+{
+    QMap<QString,QString>::ConstIterator iter;
+    QMap<QString,QString>::ConstIterator iterEnd;
+
+    if (fromStorage) {
+        iter    = getConvertFromStorageMap().find(key.toLower());
+        iterEnd = getConvertFromStorageMap().constEnd();
+    } else {
+        iter    = getConvertToStorageMap().find(key.toLower());
+        iterEnd = getConvertToStorageMap().constEnd();
+    }
+
+    if (iter == iterEnd) {
+        return false;
+    }
+
+    key = iter.value();
+
+    return true;
+}
+
+
+void ButtonShortcut::convertToNormalizedKeySequence(QString& sequence, bool fromStorage) const
+{
+    normalizeKeySequence(sequence);
+
+    QStringList keyList    = sequence.split (QRegExp (QLatin1String ("\\s+")), QString::SkipEmptyParts);
+    bool        isFirstKey = true;
+
+    sequence.clear();
+
+    for (QStringList::iterator iter = keyList.begin() ; iter != keyList.end() ; ++iter) {
+
+        convertKey (*iter, fromStorage);
+
+        if (isFirstKey) {
+            sequence.append(*iter);
+            isFirstKey = false;
+        } else {
+            sequence.append(QString::fromLatin1(" %1").arg(*iter));
+        }
+    }
+}
+
+
+void ButtonShortcut::convertKeySequenceToStorageFormat(QString& sequence) const
+{
+    convertToNormalizedKeySequence(sequence, false);
+    sequence.insert(0, QLatin1String("key "));
+}
+
+
+void ButtonShortcut::convertKeySequenceToQKeySequenceFormat(QString& sequence) const
+{
+    convertToNormalizedKeySequence(sequence, true);
+    sequence.replace(QLatin1String(" "), QLatin1String("+"));
+}
+
+
+
+const QMap< QString, QString >& ButtonShortcut::getConvertFromStorageMap()
+{
+    static QMap<QString, QString> map = initConversionMap(true);
+    return map;
+}
+
+
+const QMap< QString, QString >& ButtonShortcut::getConvertToStorageMap()
+{
+    static QMap<QString, QString> map = initConversionMap(false);
+    return map;
+}
+
+
+QMap< QString, QString > ButtonShortcut::initConversionMap(bool fromStorageMap)
+{
+    QMap<QString, QString> map;
+
+    for (int i = 0 ; ; ++i) {
+        if (CONVERT_KEY_MAP_DATA[i][0] == NULL || CONVERT_KEY_MAP_DATA[i][1] == NULL) {
+            return map;
+        }
+
+        if (fromStorageMap) {
+            map.insert(QLatin1String(CONVERT_KEY_MAP_DATA[i][0]), QLatin1String(CONVERT_KEY_MAP_DATA[i][1]));
+        } else {
+            map.insert(QLatin1String(CONVERT_KEY_MAP_DATA[i][1]), QLatin1String(CONVERT_KEY_MAP_DATA[i][0]));
+        }
+    }
+
+    return map;
+}
+
+
+void ButtonShortcut::normalizeKeySequence(QString& sequence) const
+{
+    // Keys which start with a '-' are invalid. If we encounter such a key,
+    // the whole sequence is invalid.
+    QRegExp invalidKeyRx (QLatin1String ("(^|\\s)-\\S"));
+
+    if (sequence.contains(invalidKeyRx)) {
+        sequence.clear();
+        return;
+    }
+
+    // cleanup leading "key " identifier from xsetwacom sequences
+    sequence.remove(QRegExp (QLatin1String ("^\\s*key\\s+"), Qt::CaseInsensitive));
+
+    // Remove all '+' prefixes from keys.
+    // This will convert shortcuts like "+ctrl +alt" to "ctrl alt", but not
+    // shortcuts like "ctrl +" which is required to keep compatibility to older
+    // (buggy) configuration files.
+    sequence.replace(QRegExp (QLatin1String ("(^|\\s)\\+(\\S)")), QLatin1String ("\\1\\2"));
+
+    // Cleanup plus signs between keys.
+    // This will convert shortcuts like "ctrl+alt+shift" or "Ctrl++" to "ctrl alt shift" or "Ctrl +".
+    sequence.replace (QRegExp (QLatin1String ("(\\S)\\+(\\S)")), QLatin1String ("\\1 \\2"));
+
+    // replace multiple whitespaces with one
+    sequence.replace (QRegExp (QLatin1String ("\\s{2,}")), QLatin1String (" "));
+
+    // trim the string
+    sequence = sequence.trimmed();
+}
+
+
+bool ButtonShortcut::setButtonSequence(const QString& buttonNumber)
+{
+    bool ok     = false;
+    int  button = buttonNumber.toInt(&ok);
+
+    if (!ok) {
+        return false;
+    }
+
+    return set(button);
+}
+
+
+bool ButtonShortcut::setKeySequence(QString sequence)
+{
+    Q_D (ButtonShortcut);
+
+    clear();
+
+    // Check if this keysequence is valid by converting it to a QKeySequence and then back
+    // again. If both sequences are equal the sequence should be valid. This is not very
+    // effective but it should leave us with something KDE can handle.
+    // TODO improve this
+    QString convertedSequence = sequence;
+    convertKeySequenceToQKeySequenceFormat(convertedSequence);
+
+    QKeySequence qkeySequence(convertedSequence);
+    convertedSequence = qkeySequence.toString();
+
+    convertKeySequenceToStorageFormat(convertedSequence);
+    convertKeySequenceToStorageFormat(sequence);
+
+    // we do not allow invalid sequences to be set
+    // the sequences have to be equal and only one sequence is allowed
+    if (sequence.compare(convertedSequence, Qt::CaseInsensitive) != 0 || qkeySequence.count() != 1) {
+        return false;
+    }
+
+    d->type     = ButtonShortcut::KEYSTROKE;
+    d->sequence = sequence;
+
+    return true;
+}
+
+
+bool ButtonShortcut::setModifierSequence(QString sequence)
+{
+    Q_D (ButtonShortcut);
+
+    clear();
+    convertKeySequenceToStorageFormat(sequence);
+
+    d->type     = ButtonShortcut::MODIFIER;
+    d->sequence = sequence;
+
+    return true;
+}
+
+
+bool ButtonShortcut::setToggleSequence(const QString& toggleSequence)
+{
+    if (toggleSequence.startsWith(TOGGLEDISPLAY_STRING, Qt::CaseInsensitive)) {
+        return setToggle(ButtonShortcut::TOGGLEDISPLAY);
+
+    } else if (toggleSequence.startsWith(TOGGLEMODE_STRING, Qt::CaseInsensitive)) {
+        return setToggle(ButtonShortcut::TOGGLEMODE);
+    }
+
+    return false;
+}
+

@@ -18,6 +18,7 @@ set(TEST_LIBRARIES wacom_common ${KDE4_KDECORE_LIBS})
 ## set includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${TEST_INCLUDES})
 
+add_qttest(testbuttonshortcut testbuttonshortcut.cpp ${TEST_SOURCES})
 add_qttest(testenum testenum.cpp ${TEST_SOURCES})
 add_qttest(testproperty testproperty.cpp ${TEST_SOURCES})
 add_qttest(testpropertyset testpropertyset.cpp ${TEST_SOURCES})
