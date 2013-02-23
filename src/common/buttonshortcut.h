@@ -28,60 +28,172 @@ namespace Wacom {
 
 class ButtonShortcutPrivate;
 
+/**
+ * A shortcut class which can handle all supported shortcut types and is
+ * able to convert shortcut sequences between xsetwacom- and QKeySequence-
+ * format.
+ */
 class ButtonShortcut {
+
 public:
 
+    //! The shortcut types supported by this class.
     enum ShortcutType {
         NONE          = 0,
         BUTTON        = 1,
         KEYSTROKE     = 2,
         MODIFIER      = 3,
-
-        TOGGLEMODE    = -1,
-        TOGGLEDISPLAY = -2
+        TOGGLEMODE    = 4,
+        TOGGLEDISPLAY = 5
     };
 
+    //! The string which is returned by toString() if this shortcut is a display-toggle shortcut.
     static const QString TOGGLEDISPLAY_STRING;
+
+    //! The string which is returned by toString() if this shortcut is a mode-toggle shortcut.
     static const QString TOGGLEMODE_STRING;
 
+    //! Default Constructor
     ButtonShortcut();
-    ButtonShortcut(const ButtonShortcut& that);
-    ~ButtonShortcut();
 
+    //! Copy Constructor
+    ButtonShortcut(const ButtonShortcut& that);
+
+    //! Destructor
+    virtual ~ButtonShortcut();
+
+    //! Copy operator.
     ButtonShortcut& operator= (const ButtonShortcut& that);
 
+    //! Equals operator.
     bool operator== (const ButtonShortcut& that) const;
 
+    //! Not-Equals operator.
     bool operator!= (const ButtonShortcut& that) const;
 
+    /**
+     * Clears the current shortcut.
+     */
     void clear();
 
+    /**
+     * Returns the button number as integer if this shortcut is a mouse button
+     * shortcut. If it is not a mouse button shortcut, 0 is returned.
+     *
+     * @return The mouse button number if this shortcut is a button shortcut, else 0.
+     */
     int getButton() const;
 
+    /**
+     * @return The shortcut type.
+     */
     ShortcutType getType() const;
 
+    /**
+     * @return True if this shortcut is a mouse button shortcut, else false.
+     */
     bool isButton() const;
 
+    /**
+     * Checks if this shortcut is a keystroke. This does not include modifier
+     * shortcuts! Modifier shortcuts are a special type as they can not be
+     * handled properly by QKeySequence. Therefore a keystroke is a key sequence
+     * which can be handled by QKeySequence.
+     *
+     * @return True if this shortcut is a keystroke, else false.
+     */
     bool isKeystroke() const;
 
+    /**
+     * Checks if this shortcut is a modifier key sequence. Modifier key sequences
+     * only consist of meta keys (ctrl, alt, shift, meta) and can not be handled
+     * properly by QKeySequence.
+     *
+     * @return True if this shortcut is a modifier shortcut, else false.
+     */
     bool isModifier() const;
 
+    /**
+     * @return True if this shortcut is set, else false.
+     */
     bool isSet() const;
 
+    /**
+     * Checks if this shortcut is a toggle shortcut. Toggle shortcuts are special
+     * mode shortcuts supported by xsetwacom.
+     *
+     * @return True if this shortcut is a toggle shortcut, else false.
+     */
     bool isToggle() const;
 
+    /**
+     * @return True if this shortcut is a display-toggle shortcut, else false.
+     */
     bool isToggleDisplay() const;
 
+    /**
+     * @return True if this shortcut is mode-toggle shortcut, else false.
+     */
     bool isToggleMode() const;
 
+    /**
+     * Sets a button shortcut by button number.
+     *
+     * @param buttonNumber The mouse button number this shortcut represents.
+     *
+     * @return True if the shortcut is valid, else false.
+     */
     bool set(int buttonNumber);
 
+    /**
+     * Sets this shortcut by string. The shortcut can have one of the following
+     * formats:
+     *
+     * - "modetoggle" to set a mode toggle shortcut
+     * - "displaytoggle" to set a display toggle shortcut
+     * - a mouse button number to set a button shortcut, i.e. "2"
+     * - a keystroke in QKeySequence format, i.e. "Ctrl+x"
+     * - a keystroke in xsetwacom format, i.e. "key ctrl x" or "key +ctrl +x"
+     * - a modifier sequence in QKeySequence format, i.e. "Alt+Shift+Ctrl"
+     * - a modifier sequence in xsetwacom format, i.e. "key alt shift" or "key +alt +shift"
+     *
+     * If the shortcut is invalid it will not be set.
+     *
+     * @param sequence The button, toggle, keystroke or modifier shortcut as string.
+     *
+     * @return True if the shortcut is valid, else false.
+     */
     bool set(const QString& sequence);
 
+    /**
+     * Sets a toggle shortcut. Only toggle modes can be passed as parameter.
+     *
+     * @param toggle The toggle mode to set.
+     *
+     * @return True if the shortcut is valid, else false.
+     */
     bool setToggle (ShortcutType toggle);
 
+    /**
+     * Converts the current shortcut to QKeySequence format if possible.
+     * Only keystroke shortcuts can be converted to QKeySequence format.
+     * If the shortcut can not be converted, an empty string is returned.
+     *
+     * @return The shortcut in QKeySequence format or an empty string.
+     */
     QString toQKeySequenceString() const;
 
+    /**
+     * Returns the current shortcut as string in xsetwacom format. This will be:
+     *
+     * - "0" if the sequence is not set
+     * - "modetoggle" if the shortcut is a mode-toggle shortcut.
+     * - "displaytoggle" if the shortcut is a display-toggle shortcut.
+     * - a button number if the shortcut is a mouse button shortcut.
+     * - a modifier or keystroke sequence in xsetwacom format, i.e. "key ctrl x" or "key alt shift"
+     *
+     * @return The shortcut as string in xsetwacom format.
+     */
     QString toString() const;
 
 private:
@@ -99,12 +211,43 @@ private:
      */
     static const char* CONVERT_KEY_MAP_DATA[][2];
 
+    /**
+     * Converts a key from storage format to QKeySequence format or vice versa.
+     * Storage format is actually the format used by xsetwacom.
+     *
+     * @param key The key to convert. This parameter will also contain the conversion result.
+     * @param fromStorage True to convert from xsetwacom to QKeySequence format, False to convert
+     *                    from QKeySequence to xsetwacom format.
+     *
+     * @return True if the key was converted, false if it was not touched.
+     */
     bool convertKey(QString& key, bool fromStorage) const;
 
+    /**
+     * Normalizes the key sequence and converts all keys.
+     * The result is a string of keys seperated by whitespaces.
+     *
+     * @param sequence The sequence to convert. This parameter will also hold the result of the conversion.
+     * @param fromStorage True to convert from xsetwacom to QKeySequence format, False to convert
+     *                    from QKeySequence to xsetwacom format.
+     */
     void convertToNormalizedKeySequence(QString& sequence, bool fromStorage) const;
 
+    /**
+     * Normalizes the key sequence and converts it to storage (=xsetwacom) format.
+     * The result is a string of keys seperated by whitespaces.
+     *
+     * @param sequence The sequence to convert. This parameter will also hold the result of the conversion.
+     */
     void convertKeySequenceToStorageFormat (QString& sequence) const;
 
+
+    /**
+     * Normalizes the key sequence and converts it to QKeySequence format.
+     * The result is a string of keys seperated by whitespaces.
+     *
+     * @param sequence The sequence to convert. This parameter will also hold the result of the conversion.
+     */
     void convertKeySequenceToQKeySequenceFormat (QString& sequence) const;
 
     /**
@@ -140,17 +283,53 @@ private:
      */
     void normalizeKeySequence(QString& sequence) const;
 
+    /**
+     * Sets a button sequence. This method expects that the given sequence is
+     * actually a button sequence. If it is not, this method will fail and the
+     * shortcut will not be set.
+     *
+     * @param buttonNumber The mouse button number as string.
+     *
+     * @return True if the button is valid and was set, else false.
+     */
     bool setButtonSequence(const QString& buttonNumber);
 
+    /**
+     * Set a keystroke sequence. This methods expects that the given sequence
+     * is actually a keystroke sequence. If it is not, this method will fail and
+     * the shortcut will not be set.
+     *
+     * @param sequence The keystroke sequence to set.
+     *
+     * @return True if the sequence is valid and was set, else false.
+     */
     bool setKeySequence(QString sequence);
 
+    /**
+     * Sets a modifier sequence. This method expects that the given sequence
+     * is actually a modifier sequence. If it is not, this method will fail and
+     * the shortcut will not be set.
+     *
+     * @param sequence The modifier sequence to set.
+     *
+     * @return True if the sequence is valid and was set, else false.
+     */
     bool setModifierSequence(QString sequence);
 
+    /**
+     * Sets a toggle sequence. . This method expects that the given sequence
+     * is actually a toggle sequence. If it is not, this method will fail and
+     * the shortcut will not be set.
+     *
+     * @param sequence The toggle sequence to set.
+     *
+     * @return True if the sequence is valid and was set, else false.
+     */
     bool setToggleSequence(const QString& toggleSequence);
 
     Q_DECLARE_PRIVATE( ButtonShortcut )
     ButtonShortcutPrivate *const d_ptr; /**< d-pointer for this class */
-};
 
+};     // CLASS
 }      // NAMESPACE
 #endif // HEADER PROTECTION
