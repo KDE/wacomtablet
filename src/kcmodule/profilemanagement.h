@@ -78,7 +78,7 @@ class ProfileManagement
           * parameter @c device can be one of stylus/pad/eraser/touch or cursor.
           *
           * @param device The device profile to get.
-          * 
+          *
           * @return The device profile of the requested device.
           */
         DeviceProfile loadDeviceProfile(const DeviceType& device);
@@ -108,77 +108,6 @@ class ProfileManagement
           * @return name of the profile in use
           */
         QString profileName() const;
-
-        /** Enumeration for all available tablet pad button actions */
-        enum PadButton {
-            Pad_Disable,        /**< disables the button */
-            Pad_Button,         /**< button action */
-            Pad_Keystroke,      /**< keystroke function action */
-        };
-
-        /** Enumeration for all available tablet pen button actions (stylus/eraser) */
-        enum PenButton {
-            Pen_Disable,        /**< disables the button */
-            Pen_LeftClick,      /**< left click action */
-            Pen_MiddleClick,    /**< middle click action */
-            Pen_RightClick,     /**< right click action */
-            Pen_Button,         /**< button action */
-            Pen_Keystroke,      /**< keystroke function action */
-            Pen_ModeToggle,     /**< toggle between absolute/relative cursor */
-            Pen_DisplayToggle   /**< toggle display (Twinview/single screen) */
-        };
-
-        /**
-          * Transforms the retrieved pad button function from xsetwacom into an Enumeration
-          *
-          * @param buttonParam name of the Button to ask for
-          * @return Button function as Enumeration
-          */
-        PadButton getPadButtonFunction(const QString & buttonParam);
-
-        /**
-          * Transforms the retrieved pen button function from xsetwacom into an Enumeration
-          *
-          * @param buttonParam name of the Button to ask for
-          * @return Button function as Enumeration
-          */
-        PenButton getPenButtonFunction(const QString & buttonParam);
-
-        /**
-          * Transforms the pad button function as read from the GUI into a way the xsetwacom params understand
-          *
-          * @param mode Enumeration function mode
-          * @param buttonParam Value of the button mode
-          * @return xsetwacom compatible representation of the button config
-          */
-        QString transformButtonToConfig(PadButton mode, const QString & buttonParam);
-
-        /**
-          * Transforms the pad button function value as read from the KConfig file into a human readable version
-          *
-          * @param mode Enumeration function mode
-          * @param buttonParam Value of the button mode
-          * @return Human readable button function
-          */
-        QString transformButtonFromConfig(PadButton mode, QString & buttonParam);
-
-        /**
-          * Transforms the pen button function as read from the GUI into a way the xsetwacom params understand
-          *
-          * @param mode Enumeration function mode
-          * @param buttonParam Value of the button mode
-          * @return xsetwacom compatible representation of the button config
-          */
-        QString transformButtonToConfig(PenButton mode, const QString & buttonParam);
-
-        /**
-          * Transforms the pen button function value as read from the KConfig file into a human readable version
-          *
-          * @param mode Enumeration function mode
-          * @param buttonParam Value of the button mode
-          * @return Human readable button function
-          */
-        QString transformButtonFromConfig(PenButton mode, QString & buttonParam);
 
         /**
           * Reloads the profiles

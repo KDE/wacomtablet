@@ -30,12 +30,16 @@ class SelectKeyStroke;
 namespace Wacom
 {
 
+class ButtonShortcut;
+class SelectKeyStrokePrivate;
+
 /**
   * Implements the selectkeystroke.ui designer file
   */
 class SelectKeyStroke : public KDialog
 {
     Q_OBJECT
+
 public:
     /**
       * Creates the KDialog window and set up all elements.
@@ -50,11 +54,19 @@ public:
     ~SelectKeyStroke();
 
     /**
+      * @deprecated Do not use anymore. Use \a shortcut() instead.
+      *
       * Returns the selected key or keystroke as plaintext as used by xsetwacom
       *
       * @return untranslated plaintext string of the keystroke for xsetwacom
       */
     QString keyStroke() const;
+
+    /**
+     * @return The selected shortcut.
+     */
+    const ButtonShortcut& shortcut() const;
+
 
 private slots:
     /**
@@ -70,9 +82,14 @@ private slots:
     void findGlobalShortcut(QKeySequence sequence);
 
 private:
-    Ui::SelectKeyStroke *ui; /**< Ui designer file for this object */
-    QString m_keyStroke;     /**< Cached and parsed string of the keystroke */
-};
+    /**
+     * Sets up the user interface. This should only be called once by the constructor.
+     */
+    void setupUi();
 
-}
-#endif // SELECTKEYSTROKE_H
+    Q_DECLARE_PRIVATE( SelectKeyStroke )
+    SelectKeyStrokePrivate *const d_ptr; //!< D-Pointer for this class.
+
+};     // CLASS
+}      // NAMESPACE
+#endif // HEADER PROTECTION

@@ -53,13 +53,13 @@ void TestXsetwacomAdaptor::testSetProperty()
     adaptor.setProperty(Property::Button2, QLatin1String("3"));
     adaptor.setProperty(Property::Button3, QLatin1String("2"));
 
-    QCOMPARE(adaptor.getProperty(Property::Button2), QLatin1String("button +3 "));
-    QCOMPARE(adaptor.getProperty(Property::Button3), QLatin1String("button +2 "));
+    QCOMPARE(adaptor.getProperty(Property::Button2), QLatin1String("3"));
+    QCOMPARE(adaptor.getProperty(Property::Button3), QLatin1String("2"));
 
     adaptor.setProperty(Property::Button2, QLatin1String("2"));
     adaptor.setProperty(Property::Button3, QLatin1String("3"));
 
-    QCOMPARE(adaptor.getProperty(Property::Button2), QLatin1String("button +2 "));
-    QCOMPARE(adaptor.getProperty(Property::Button3), QLatin1String("button +3 "));
+    QCOMPARE(adaptor.getProperty(Property::Button2), QLatin1String("2"));
+    QCOMPARE(adaptor.getProperty(Property::Button3), QLatin1String("3"));
 }
 

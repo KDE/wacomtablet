@@ -19,6 +19,7 @@
 
 #include "selectkeystroke.h"
 #include "ui_selectkeystroke.h"
+#include "buttonshortcut.h"
 
 #include <KDE/KGlobalAccel>
 #include <kglobalshortcutinfo.h>
@@ -27,75 +28,106 @@
 
 using namespace Wacom;
 
+
+namespace Wacom {
+    class SelectKeyStrokePrivate {
+        public:
+            SelectKeyStrokePrivate() : ui( new Ui::SelectKeyStroke ) {}
+            ~SelectKeyStrokePrivate() {
+                delete ui;
+            }
+
+            Ui::SelectKeyStroke *ui;
+            ButtonShortcut      shortcut;
+    };
+}
+
+
 SelectKeyStroke::SelectKeyStroke( QWidget *parent ) :
-    KDialog( parent ),
-    ui( new Ui::SelectKeyStroke )
+        KDialog( parent ),
+        d_ptr(new SelectKeyStrokePrivate)
 {
-    QWidget *widget = new QWidget( this );
-    ui->setupUi( widget );
-    setMainWidget( widget );
-
-    setButtons( KDialog::Ok | KDialog::Cancel );
-    setCaption( i18n( "Select Key Function" ) );
-
-    ui->kkeysequencewidget->setCheckForConflictsAgainst( KKeySequenceWidget::None );
-    ui->kkeysequencewidget->setModifierlessAllowed( true );
-
-    //fill the combobox with all values
-    ui->comboBox->blockSignals( true );
-    ui->comboBox->addItem( i18nc( "none means no special modifier is used. instead use the values from the Key Sequence Widget", "none" ), QString::fromLatin1( "none" ) );
-    ui->comboBox->addItem( i18nc( "ALT key", "ALT" ), QString::fromLatin1( "ALT" ) );
-    ui->comboBox->addItem( i18nc( "CTRL key", "CTRL" ), QString::fromLatin1( "CTRL" ) );
-    ui->comboBox->addItem( i18nc( "SHIFT key", "SHIFT" ), QString::fromLatin1( "SHIFT" ) );
-    ui->comboBox->addItem( i18nc( "META key", "META" ), QString::fromLatin1( "META" ) );
-    ui->comboBox->addItem( i18nc( "ALT+CTRL key combination", "ALT+CTRL" ), QString::fromLatin1( "ALT+CTRL" ) );
-    ui->comboBox->addItem( i18nc( "ALT+SHIFT key combination", "ALT+SHIFT" ), QString::fromLatin1( "ALT+SHIFT" ) );
-    ui->comboBox->addItem( i18nc( "ALT+META key combination", "ALT+META" ), QString::fromLatin1( "ALT+META" ) );
-    ui->comboBox->addItem( i18nc( "CTRL+SHIFT key combination", "CTRL+SHIFT" ), QString::fromLatin1( "CTRL+SHIFT" ) );
-    ui->comboBox->addItem( i18nc( "CTRL+META key combination", "CTRL+META" ), QString::fromLatin1( "CTRL+META" ) );
-    ui->comboBox->addItem( i18nc( "SHIFT+META key combination", "SHIFT+META" ), QString::fromLatin1( "SHIFT+META" ) );
-    ui->comboBox->addItem( i18nc( "ALT+CTRL+META key combination", "ALT+CTRL+META" ), QString::fromLatin1( "ALT+CTRL+META" ) );
-    ui->comboBox->addItem( i18nc( "ALT+CTRL+SHIFT key combination", "ALT+CTRL+SHIFT" ), QString::fromLatin1( "ALT+CTRL+SHIFT" ) );
-    ui->comboBox->addItem( i18nc( "CTRL+META+SHIFT key combination", "CTRL+META+SHIFT" ), QString::fromLatin1( "CTRL+META+SHIFT" ) );
-    ui->comboBox->blockSignals( false );
-
-    connect( this, SIGNAL(okClicked()), this, SLOT(slotOkClicked()) );
-    connect( ui->kkeysequencewidget, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(findGlobalShortcut(QKeySequence)) );
+    setupUi();
 }
 
 SelectKeyStroke::~SelectKeyStroke()
 {
-    delete ui;
+    delete this->d_ptr;
 }
 
 QString SelectKeyStroke::keyStroke() const
 {
-    return m_keyStroke;
+    Q_D (const SelectKeyStroke);
+    return d->shortcut.toString();
 }
+
+const ButtonShortcut& SelectKeyStroke::shortcut() const
+{
+    Q_D (const SelectKeyStroke);
+    return d->shortcut;
+}
+
 
 void SelectKeyStroke::slotOkClicked()
 {
+    Q_D (SelectKeyStroke);
 
-    if( ui->comboBox->currentIndex() != 0 ) {
-        int index = ui->comboBox->currentIndex();
-        m_keyStroke = ui->comboBox->itemData( index ).toString();
+    if( d->ui->comboBox->currentIndex() != 0 ) {
+        int index = d->ui->comboBox->currentIndex();
+        d->shortcut = d->ui->comboBox->itemData( index ).toString();
     }
     else {
-        m_keyStroke = ui->kkeysequencewidget->keySequence().toString();
+        d->shortcut = d->ui->kkeysequencewidget->keySequence().toString();
     }
-
-    m_keyStroke.replace( QRegExp( QLatin1String( "([^\\s])\\+" ) ), QLatin1String( "\\1 " ) );
-    m_keyStroke = m_keyStroke.toLower();
 }
 
 void SelectKeyStroke::findGlobalShortcut( QKeySequence sequence )
 {
+    Q_D (SelectKeyStroke);
+
     QList< KGlobalShortcutInfo > list = KGlobalAccel::getGlobalShortcutsByKey( sequence );
 
     if( !list.isEmpty() ) {
-        ui->globalShortcut->setText( list.at( 0 ).uniqueName() );
+        d->ui->globalShortcut->setText( list.at( 0 ).uniqueName() );
     }
     else {
-        ui->globalShortcut->clear();
+        d->ui->globalShortcut->clear();
     }
+}
+
+
+void SelectKeyStroke::setupUi()
+{
+    Q_D (SelectKeyStroke);
+
+    QWidget *widget = new QWidget( this );
+    d->ui->setupUi( widget );
+
+    d->ui->kkeysequencewidget->setCheckForConflictsAgainst( KKeySequenceWidget::None );
+    d->ui->kkeysequencewidget->setModifierlessAllowed( true );
+
+    //fill the combobox with all values
+    d->ui->comboBox->blockSignals( true );
+    d->ui->comboBox->addItem( i18nc( "none means no special modifier is used. instead use the values from the Key Sequence Widget", "none" ), QString::fromLatin1( "none" ) );
+    d->ui->comboBox->addItem( i18nc( "ALT key", "ALT" ), QString::fromLatin1( "ALT" ) );
+    d->ui->comboBox->addItem( i18nc( "CTRL key", "CTRL" ), QString::fromLatin1( "CTRL" ) );
+    d->ui->comboBox->addItem( i18nc( "SHIFT key", "SHIFT" ), QString::fromLatin1( "SHIFT" ) );
+    d->ui->comboBox->addItem( i18nc( "META key", "META" ), QString::fromLatin1( "META" ) );
+    d->ui->comboBox->addItem( i18nc( "ALT+CTRL key combination", "ALT+CTRL" ), QString::fromLatin1( "ALT+CTRL" ) );
+    d->ui->comboBox->addItem( i18nc( "ALT+SHIFT key combination", "ALT+SHIFT" ), QString::fromLatin1( "ALT+SHIFT" ) );
+    d->ui->comboBox->addItem( i18nc( "ALT+META key combination", "ALT+META" ), QString::fromLatin1( "ALT+META" ) );
+    d->ui->comboBox->addItem( i18nc( "CTRL+SHIFT key combination", "CTRL+SHIFT" ), QString::fromLatin1( "CTRL+SHIFT" ) );
+    d->ui->comboBox->addItem( i18nc( "CTRL+META key combination", "CTRL+META" ), QString::fromLatin1( "CTRL+META" ) );
+    d->ui->comboBox->addItem( i18nc( "SHIFT+META key combination", "SHIFT+META" ), QString::fromLatin1( "SHIFT+META" ) );
+    d->ui->comboBox->addItem( i18nc( "ALT+CTRL+META key combination", "ALT+CTRL+META" ), QString::fromLatin1( "ALT+CTRL+META" ) );
+    d->ui->comboBox->addItem( i18nc( "ALT+CTRL+SHIFT key combination", "ALT+CTRL+SHIFT" ), QString::fromLatin1( "ALT+CTRL+SHIFT" ) );
+    d->ui->comboBox->addItem( i18nc( "CTRL+META+SHIFT key combination", "CTRL+META+SHIFT" ), QString::fromLatin1( "CTRL+META+SHIFT" ) );
+    d->ui->comboBox->blockSignals( false );
+
+    setMainWidget( widget );
+    setButtons( KDialog::Ok | KDialog::Cancel );
+    setCaption( i18n( "Select Key Function" ) );
+
+    connect( this, SIGNAL(okClicked()), this, SLOT(slotOkClicked()) );
+    connect( d->ui->kkeysequencewidget, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(findGlobalShortcut(QKeySequence)) );
 }

@@ -25,15 +25,37 @@
 #include <QtCore/QRegExp>
 #include <QKeySequence>
 
+#include <KDE/KLocalizedString>
+
+
 using namespace Wacom;
 
 const QString ButtonShortcut::TOGGLEMODE_STRING    = QLatin1String("modetoggle");
 const QString ButtonShortcut::TOGGLEDISPLAY_STRING = QLatin1String("displaytoggle");
 
+/*
+ * When mapping multiple keys to the same name, the last entry
+ * will be the default one. This is because QMap.find() returns
+ * the most recently added value as default.
+ *
+ * Example:
+ *
+ * super_l = meta
+ * super   = meta  <-- default entry when searching for "meta"
+ *
+ */
 const char* ButtonShortcut::CONVERT_KEY_MAP_DATA[][2] = {
-    {"plus",  "+"},
-    {"minus", "-"},
-    {"super", "meta"},
+    {"alt_l",   "alt"},
+    {"alt_r",   "alt"},
+    {"alt",     "alt"},  // "alt" default
+    {"ctrl_l",  "ctrl"},
+    {"ctrl_r",  "ctrl"},
+    {"ctrl",    "ctrl"}, // "ctrl" default
+    {"plus",    "+"},
+    {"minus",   "-"},
+    {"super_l", "meta"},
+    {"super_r", "meta"},
+    {"super",   "meta"}, // "super" default
     {NULL, NULL}
 };
 
@@ -63,6 +85,12 @@ ButtonShortcut::ButtonShortcut(const ButtonShortcut& that) : d_ptr(new ButtonSho
 }
 
 
+ButtonShortcut::ButtonShortcut(const QString& shortcut) : d_ptr(new ButtonShortcutPrivate)
+{
+    set(shortcut);
+}
+
+
 ButtonShortcut::~ButtonShortcut()
 {
     delete this->d_ptr;
@@ -73,13 +101,14 @@ ButtonShortcut& ButtonShortcut::operator=(const ButtonShortcut& that)
 {
     Q_D ( ButtonShortcut );
 
-    /*
-    d->type     = that.d_ptr->type;
-    d->sequence = that.d_ptr->sequence;
-    d->button   = that.d_ptr->button;
-    */
-
     *d = *(that.d_ptr);
+    return *this;
+}
+
+
+ButtonShortcut& ButtonShortcut::operator=(const QString& shortcut)
+{
+    set(shortcut);
     return *this;
 }
 
@@ -176,7 +205,7 @@ bool ButtonShortcut::isToggleMode() const
 }
 
 
-bool ButtonShortcut::set(int buttonNumber)
+bool ButtonShortcut::setButton(int buttonNumber)
 {
     Q_D ( ButtonShortcut );
 
@@ -202,10 +231,10 @@ bool ButtonShortcut::set(const QString& sequence)
         return true;
     }
 
-    QString toggleRxString = QString::fromLatin1("^(%1|%2)$").arg(TOGGLEDISPLAY_STRING).arg(TOGGLEMODE_STRING);
+    QString toggleRxString = QString::fromLatin1("^(?:%1|%2)$").arg(TOGGLEDISPLAY_STRING).arg(TOGGLEMODE_STRING);
     QRegExp toggleRx (toggleRxString, Qt::CaseInsensitive);
-    QRegExp modifierRx (QLatin1String("^(key )?(\\s*\\+?(alt|ctrl|meta|shift|super))+$"), Qt::CaseInsensitive);
-    QRegExp buttonRx (QLatin1String ("^(\\d+)$"), Qt::CaseInsensitive);
+    QRegExp modifierRx (QLatin1String("^(?:key )?(?:\\s*\\+?(?:alt|ctrl|meta|shift|super))+$"), Qt::CaseInsensitive);
+    QRegExp buttonRx (QLatin1String ("^(?:button\\s+)?\\+?\\d+$"), Qt::CaseInsensitive);
 
     if (seq.contains(buttonRx)) {
         // this is a button
@@ -240,7 +269,56 @@ bool ButtonShortcut::setToggle(ButtonShortcut::ShortcutType toggle)
 }
 
 
-QString ButtonShortcut::toQKeySequenceString() const
+const QString ButtonShortcut::toDisplayString() const
+{
+    Q_D (const ButtonShortcut);
+
+    QString displayString;
+    int     buttonNr = getButton();
+
+    switch (d->type) {
+        case BUTTON:
+            if (buttonNr == 1) {
+                displayString = i18nc("Left mouse button click.", "Left Click");
+            } else if (buttonNr == 2) {
+                displayString = i18nc("Middle mouse button click.", "Middle Click");
+            } else if (buttonNr == 3) {
+                displayString = i18nc("Right mouse button click.", "Right Click");
+            } else if (buttonNr == 4) {
+                displayString = i18nc("Mouse wheel up.", "Mouse Wheel Up");
+            } else if (buttonNr == 5) {
+                displayString = i18nc("Mouse wheel down.", "Mouse Wheel Down");
+            } else {
+                displayString = i18nc("Click of mouse button with number #", "Button %1 Click", buttonNr);
+            }
+            break;
+
+        case MODIFIER:
+        case KEYSTROKE:
+            displayString = d->sequence;
+            convertKeySequenceToQKeySequenceFormat(displayString);
+            break;
+
+        case TOGGLEDISPLAY:
+            displayString = i18nc("Toggle tablet display mode.", "Toggle Display");
+            break;
+
+        case TOGGLEMODE:
+            displayString = i18nc("Toggle tablet relative/absolute mode.", "Toggle Mode");
+            break;
+
+        case NONE:
+            break;
+
+        default:
+            kDebug() << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
+    }
+
+    return displayString;
+}
+
+
+const QString ButtonShortcut::toQKeySequenceString() const
 {
     Q_D (const ButtonShortcut);
 
@@ -255,33 +333,39 @@ QString ButtonShortcut::toQKeySequenceString() const
 }
 
 
-QString ButtonShortcut::toString() const
+const QString ButtonShortcut::toString() const
 {
     Q_D (const ButtonShortcut);
+
+    QString shortcutString = QLatin1String("0");
 
     switch (d->type) {
 
         case BUTTON:
-            return QString::number(d->button);
+            shortcutString = QString::number(d->button);
+            break;
 
         case MODIFIER:
         case KEYSTROKE:
-            return d->sequence;
+            shortcutString = QString::fromLatin1("key %2").arg(d->sequence);
+            break;
 
         case TOGGLEDISPLAY:
-            return TOGGLEDISPLAY_STRING;
+            shortcutString = TOGGLEDISPLAY_STRING;
+            break;
 
         case TOGGLEMODE:
-            return TOGGLEMODE_STRING;
+            shortcutString = TOGGLEMODE_STRING;
+            break;
 
         case NONE:
-            return QLatin1String("0");
+            break;
 
         default:
             kDebug() << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
     }
 
-    return QLatin1String("0");
+    return shortcutString.toLower();
 }
 
 
@@ -320,6 +404,7 @@ void ButtonShortcut::convertToNormalizedKeySequence(QString& sequence, bool from
     for (QStringList::iterator iter = keyList.begin() ; iter != keyList.end() ; ++iter) {
 
         convertKey (*iter, fromStorage);
+        prettiyKey (*iter);
 
         if (isFirstKey) {
             sequence.append(*iter);
@@ -334,7 +419,6 @@ void ButtonShortcut::convertToNormalizedKeySequence(QString& sequence, bool from
 void ButtonShortcut::convertKeySequenceToStorageFormat(QString& sequence) const
 {
     convertToNormalizedKeySequence(sequence, false);
-    sequence.insert(0, QLatin1String("key "));
 }
 
 
@@ -382,13 +466,13 @@ QMap< QString, QString > ButtonShortcut::initConversionMap(bool fromStorageMap)
 
 void ButtonShortcut::normalizeKeySequence(QString& sequence) const
 {
-    // Keys which start with a '-' are invalid. If we encounter such a key,
-    // the whole sequence is invalid.
-    QRegExp invalidKeyRx (QLatin1String ("(^|\\s)-\\S"));
+    // When setting a shortcut like "ctrl+x", xsetwacom will convert it to "key +ctrl +x -x"
+    // therefore we just truncate the string on the first "-key" we find.
+    QRegExp minusKeyRx (QLatin1String ("(^|\\s)-\\S"));
+    int     pos = 0;
 
-    if (sequence.contains(invalidKeyRx)) {
-        sequence.clear();
-        return;
+    if ((pos = minusKeyRx.indexIn(sequence, 0)) != -1) {
+        sequence = sequence.left(pos);
     }
 
     // cleanup leading "key " identifier from xsetwacom sequences
@@ -412,8 +496,20 @@ void ButtonShortcut::normalizeKeySequence(QString& sequence) const
 }
 
 
-bool ButtonShortcut::setButtonSequence(const QString& buttonNumber)
+void ButtonShortcut::prettiyKey(QString& key) const
 {
+    if (!key.isEmpty()) {
+        key = key.toLower();
+        key[0] = key.at(0).toUpper();
+    }
+}
+
+
+bool ButtonShortcut::setButtonSequence(const QString& buttonSequence)
+{
+    QString buttonNumber = buttonSequence;
+    buttonNumber.remove(QRegExp (QLatin1String ("^\\s*button\\s+"), Qt::CaseInsensitive));
+
     bool ok     = false;
     int  button = buttonNumber.toInt(&ok);
 
@@ -421,7 +517,7 @@ bool ButtonShortcut::setButtonSequence(const QString& buttonNumber)
         return false;
     }
 
-    return set(button);
+    return setButton(button);
 }
 
 

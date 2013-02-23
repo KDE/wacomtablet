@@ -21,6 +21,7 @@
 #include "debug.h"
 #include "xsetwacomproperty.h"
 #include "stringutils.h"
+#include "buttonshortcut.h"
 
 #include <QtCore/QProcess>
 #include <QtCore/QRegExp>
@@ -81,11 +82,13 @@ const QString XsetwacomAdaptor::getProperty(const Property& property) const
 
     QString convertedParam = convertParameter (*xsetproperty);
     QString xsetwacomValue = getParameter (d->device, convertedParam);
-    QString convertedValue = convertFromXsetwacomValue (*xsetproperty, xsetwacomValue);
 
-    kDebug() << QString::fromLatin1("Reading property '%1' from device '%2' -> '%3'.").arg(property.key()).arg(d->device).arg(convertedValue);
+    // convert value to a unified format
+    convertFromXsetwacomValue (*xsetproperty, xsetwacomValue);
 
-    return convertedValue;
+    kDebug() << QString::fromLatin1("Reading property '%1' from device '%2' -> '%3'.").arg(property.key()).arg(d->device).arg(xsetwacomValue);
+
+    return xsetwacomValue;
 }
 
 
@@ -109,7 +112,8 @@ bool XsetwacomAdaptor::setProperty(const Property& property, const QString& valu
     } else {
         // normal property
         QString convertedParam = convertParameter(*xsetproperty);
-        QString convertedValue = convertToXsetwacomValue(*xsetproperty, value);
+        QString convertedValue = value;
+        convertToXsetwacomValue(*xsetproperty, convertedValue);
 
         return setParameter(d->device, convertedParam, convertedValue);
     }
@@ -131,11 +135,10 @@ const QString XsetwacomAdaptor::convertParameter(const XsetwacomProperty& param)
 
     QString modifiedParam = param.key();
 
-    // convert button values
+    // convert tablet button number to hardware button number
     QRegExp rx(QLatin1String("^Button\\s*([0-9]+)$"), Qt::CaseInsensitive);
-    int pos = 0;
 
-    if ((pos = rx.indexIn(modifiedParam, pos)) != -1) {
+    if (rx.indexIn(modifiedParam, 0) != -1) {
         QString hwButtonNumber = rx.cap(1);
         QString kernelButtonNumber;
 
@@ -147,6 +150,8 @@ const QString XsetwacomAdaptor::convertParameter(const XsetwacomProperty& param)
             kernelButtonNumber = hwButtonNumber;
         }
 
+        //kDebug() << QString::fromLatin1("Mapping tablet button %1 to X11 buton %2.").arg(hwButtonNumber).arg(kernelButtonNumber);
+
         modifiedParam = QString(QLatin1String("Button %1")).arg(kernelButtonNumber);
     }
 
@@ -154,19 +159,30 @@ const QString XsetwacomAdaptor::convertParameter(const XsetwacomProperty& param)
 }
 
 
-
-const QString XsetwacomAdaptor::convertFromXsetwacomValue(const XsetwacomProperty& property, const QString& value) const
+void XsetwacomAdaptor::convertButtonShortcut (const XsetwacomProperty& property, QString& value) const
 {
-    // TODO convert the value to internal format
-    return value;
+    QRegExp rx (QLatin1String("^Button\\s*[0-9]+$"), Qt::CaseInsensitive);
+
+    if (rx.indexIn(property.key(), 0) != -1) {
+        ButtonShortcut buttonshortcut(value);
+        value = buttonshortcut.toString();
+    }
 }
 
 
 
-const QString XsetwacomAdaptor::convertToXsetwacomValue(const XsetwacomProperty& property, const QString& value) const
+void XsetwacomAdaptor::convertFromXsetwacomValue(const XsetwacomProperty& property, QString& value) const
 {
-    // TODO convert the value to xsetwacom format
-    return value;
+    // convert button shortcuts to a unified format
+    convertButtonShortcut(property, value);
+}
+
+
+
+void XsetwacomAdaptor::convertToXsetwacomValue(const XsetwacomProperty& property, QString& value) const
+{
+    // convert button shortcuts to a unified format
+    convertButtonShortcut(property, value);
 }
 
 

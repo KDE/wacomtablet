@@ -57,13 +57,31 @@ public:
     ButtonShortcut();
 
     //! Copy Constructor
-    ButtonShortcut(const ButtonShortcut& that);
+    explicit ButtonShortcut(const ButtonShortcut& that);
+
+    /**
+     * @brief Shortcut assignment constructor.
+     *
+     * Assigns a shortcut as returned by toString().
+     *
+     * @param shortcut The shortcut to assign.
+     */
+    explicit ButtonShortcut(const QString& shortcut);
 
     //! Destructor
     virtual ~ButtonShortcut();
 
     //! Copy operator.
     ButtonShortcut& operator= (const ButtonShortcut& that);
+
+    /**
+     * @brief Shortcut assignment operator.
+     *
+     * Assigns a shortcut as returned by toString().
+     *
+     * @param shortcut The shortcut to assign.
+     */
+    ButtonShortcut& operator= (const QString& shortcut);
 
     //! Equals operator.
     bool operator== (const ButtonShortcut& that) const;
@@ -143,7 +161,7 @@ public:
      *
      * @return True if the shortcut is valid, else false.
      */
-    bool set(int buttonNumber);
+    bool setButton(int buttonNumber);
 
     /**
      * Sets this shortcut by string. The shortcut can have one of the following
@@ -175,13 +193,21 @@ public:
     bool setToggle (ShortcutType toggle);
 
     /**
+     * Converts the shortcut to a translated, human readable string.
+     * The result can not be used as input string for this class!
+     *
+     * @return The current shortcut as readble string.
+     */
+    const QString toDisplayString() const;
+
+    /**
      * Converts the current shortcut to QKeySequence format if possible.
      * Only keystroke shortcuts can be converted to QKeySequence format.
      * If the shortcut can not be converted, an empty string is returned.
      *
      * @return The shortcut in QKeySequence format or an empty string.
      */
-    QString toQKeySequenceString() const;
+    const QString toQKeySequenceString() const;
 
     /**
      * Returns the current shortcut as string in xsetwacom format. This will be:
@@ -194,7 +220,7 @@ public:
      *
      * @return The shortcut as string in xsetwacom format.
      */
-    QString toString() const;
+    const QString toString() const;
 
 private:
 
@@ -234,7 +260,7 @@ private:
     void convertToNormalizedKeySequence(QString& sequence, bool fromStorage) const;
 
     /**
-     * Normalizes the key sequence and converts it to storage (=xsetwacom) format.
+     * Normalizes the key sequence and converts it to storage format.
      * The result is a string of keys seperated by whitespaces.
      *
      * @param sequence The sequence to convert. This parameter will also hold the result of the conversion.
@@ -284,15 +310,22 @@ private:
     void normalizeKeySequence(QString& sequence) const;
 
     /**
+     * Prettifies a key by converting the first character to uppercase.
+     *
+     * @param key The key to prettify, this will also contain the result.
+     */
+    void prettiyKey (QString& key) const;
+
+    /**
      * Sets a button sequence. This method expects that the given sequence is
      * actually a button sequence. If it is not, this method will fail and the
      * shortcut will not be set.
      *
-     * @param buttonNumber The mouse button number as string.
+     * @param buttonSequence The mouse button number as string.
      *
      * @return True if the button is valid and was set, else false.
      */
-    bool setButtonSequence(const QString& buttonNumber);
+    bool setButtonSequence(const QString& buttonSequence);
 
     /**
      * Set a keystroke sequence. This methods expects that the given sequence

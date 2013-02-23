@@ -152,16 +152,26 @@ void TestButtonShortcut::testAssignment()
     ButtonShortcut toggleShortcut;
     ButtonShortcut strokeShortcut;
 
-    buttonShortcut.set(2);
+    buttonShortcut.setButton(2);
     modifierShortcut.set(QLatin1String("key ctrl shift"));
     toggleShortcut.setToggle(ButtonShortcut::TOGGLEDISPLAY);
     strokeShortcut.set(QLatin1String("key ctrl a"));
 
+    // Test Constructors.
     ButtonShortcut copyShortcut(buttonShortcut);
     assertEquals(copyShortcut, buttonShortcut);
     assertButton(copyShortcut, buttonShortcut.getButton());
 
+    ButtonShortcut copyShortcut2 (modifierShortcut.toString());
+    assertEquals(copyShortcut2, modifierShortcut);
+    assertModifier(copyShortcut2, modifierShortcut.toString());
+
+    // Test Assignment Operators
     copyShortcut = modifierShortcut;
+    assertEquals(copyShortcut, modifierShortcut);
+    assertModifier(copyShortcut, modifierShortcut.toString());
+
+    copyShortcut = modifierShortcut.toString();
     assertEquals(copyShortcut, modifierShortcut);
     assertModifier(copyShortcut, modifierShortcut.toString());
 
@@ -169,11 +179,23 @@ void TestButtonShortcut::testAssignment()
     assertEquals(copyShortcut, toggleShortcut);
     assertToggle(copyShortcut, copyShortcut.getType());
 
+    copyShortcut = toggleShortcut.toString();
+    assertEquals(copyShortcut, toggleShortcut);
+    assertToggle(copyShortcut, copyShortcut.getType());
+
     copyShortcut = strokeShortcut;
     assertEquals(copyShortcut, strokeShortcut);
     assertKeyStroke(copyShortcut, strokeShortcut.toString(), false);
 
+    copyShortcut = strokeShortcut.toString();
+    assertEquals(copyShortcut, strokeShortcut);
+    assertKeyStroke(copyShortcut, strokeShortcut.toString(), false);
+
     copyShortcut = buttonShortcut;
+    assertEquals(copyShortcut, buttonShortcut);
+    assertButton(copyShortcut, buttonShortcut.getButton());
+
+    copyShortcut = buttonShortcut.toString();
     assertEquals(copyShortcut, buttonShortcut);
     assertButton(copyShortcut, buttonShortcut.getButton());
 }
@@ -186,7 +208,7 @@ void TestButtonShortcut::testButton()
 
     ButtonShortcut shortcut;
 
-    shortcut.set(minButtonNr);
+    shortcut.setButton(minButtonNr);
     assertButton(shortcut, minButtonNr);
 
     shortcut.set(QString::number(minButtonNr));
@@ -198,11 +220,20 @@ void TestButtonShortcut::testButton()
     shortcut.set(QString::number(maxButtonNr));
     assertButton(shortcut, maxButtonNr);
 
-    shortcut.set(maxButtonNr);
+    shortcut.setButton(maxButtonNr);
     assertButton(shortcut, maxButtonNr);
 
     shortcut.clear();
     assertUnset(shortcut);
+
+    shortcut.set(QLatin1String("button 2"));
+    assertButton(shortcut, 2);
+
+    shortcut.set(QLatin1String("Button 3"));
+    assertButton(shortcut, 3);
+
+    shortcut.set(QLatin1String(" button +4 "));
+    assertButton(shortcut, 4);
 }
 
 
@@ -223,7 +254,6 @@ void TestButtonShortcut::testInvalidKeyStrokes()
 {
     QList<QString> inputList;
 
-    inputList.append(QLatin1String("button 1"));
     inputList.append(QLatin1String("A+B"));
     inputList.append(QLatin1String("Ctrl+b+a"));
 
@@ -241,35 +271,37 @@ void TestButtonShortcut::testKeyStrokes()
     // key is input, value is expected output value
     QMap<QString, QString> inputMap;
 
-    inputMap.insert(QLatin1String("A"), QLatin1String("key A"));
-    inputMap.insert(QLatin1String("key A"), QLatin1String("key A"));
-    inputMap.insert(QLatin1String("key +A"), QLatin1String("key A"));
+    inputMap.insert(QLatin1String("A"), QLatin1String("key a"));
+    inputMap.insert(QLatin1String("key A"), QLatin1String("key a"));
+    inputMap.insert(QLatin1String("key +A"), QLatin1String("key a"));
 
-    inputMap.insert(QLatin1String("Ctrl+X"), QLatin1String("key Ctrl X"));
-    inputMap.insert(QLatin1String("Ctrl X"), QLatin1String("key Ctrl X"));
-    inputMap.insert(QLatin1String("key Ctrl+X"), QLatin1String("key Ctrl X"));
-    inputMap.insert(QLatin1String("key +Ctrl +X"), QLatin1String("key Ctrl X"));
-    inputMap.insert(QLatin1String("key Ctrl X"), QLatin1String("key Ctrl X"));
+    inputMap.insert(QLatin1String("Ctrl+X"), QLatin1String("key ctrl x"));
+    inputMap.insert(QLatin1String("Ctrl X"), QLatin1String("key ctrl x"));
+    inputMap.insert(QLatin1String("key Ctrl+X"), QLatin1String("key ctrl x"));
+    inputMap.insert(QLatin1String("key +Ctrl +X"), QLatin1String("key ctrl x"));
+    inputMap.insert(QLatin1String("key Ctrl X"), QLatin1String("key ctrl x"));
+    inputMap.insert(QLatin1String("key +Ctrl +X -X"), QLatin1String("key ctrl x"));
+    inputMap.insert(QLatin1String("key +Ctrl +X -x -a"), QLatin1String("key ctrl x"));
 
-    inputMap.insert(QLatin1String("Meta+X"), QLatin1String("key super X"));
-    inputMap.insert(QLatin1String("Meta X"), QLatin1String("key super X"));
-    inputMap.insert(QLatin1String("key Meta+X"), QLatin1String("key super X"));
-    inputMap.insert(QLatin1String("key +Meta +X"), QLatin1String("key super X"));
-    inputMap.insert(QLatin1String("key Meta X"), QLatin1String("key super X"));
+    inputMap.insert(QLatin1String("Meta+X"), QLatin1String("key super x"));
+    inputMap.insert(QLatin1String("Meta X"), QLatin1String("key super x"));
+    inputMap.insert(QLatin1String("key Meta+X"), QLatin1String("key super x"));
+    inputMap.insert(QLatin1String("key +Meta +X"), QLatin1String("key super x"));
+    inputMap.insert(QLatin1String("key Meta X"), QLatin1String("key super x"));
 
     inputMap.insert(QLatin1String("+"), QLatin1String("key plus"));
-    inputMap.insert(QLatin1String("Ctrl++"), QLatin1String("key Ctrl plus"));
+    inputMap.insert(QLatin1String("Ctrl++"), QLatin1String("key ctrl plus"));
     inputMap.insert(QLatin1String("key +"), QLatin1String("key plus"));
     inputMap.insert(QLatin1String("key ++"), QLatin1String("key plus"));
-    inputMap.insert(QLatin1String("key Ctrl +"), QLatin1String("key Ctrl plus"));
-    inputMap.insert(QLatin1String("key +Ctrl ++"), QLatin1String("key Ctrl plus"));
+    inputMap.insert(QLatin1String("key Ctrl +"), QLatin1String("key ctrl plus"));
+    inputMap.insert(QLatin1String("key +Ctrl ++"), QLatin1String("key ctrl plus"));
 
     inputMap.insert(QLatin1String("-"), QLatin1String("key minus"));
-    inputMap.insert(QLatin1String("Ctrl+-"), QLatin1String("key Ctrl minus"));
+    inputMap.insert(QLatin1String("Ctrl+-"), QLatin1String("key ctrl minus"));
     inputMap.insert(QLatin1String("key -"), QLatin1String("key minus"));
     inputMap.insert(QLatin1String("key +-"), QLatin1String("key minus"));
-    inputMap.insert(QLatin1String("key Ctrl -"), QLatin1String("key Ctrl minus"));
-    inputMap.insert(QLatin1String("key +Ctrl +-"), QLatin1String("key Ctrl minus"));
+    inputMap.insert(QLatin1String("key Ctrl -"), QLatin1String("key ctrl minus"));
+    inputMap.insert(QLatin1String("key +Ctrl +-"), QLatin1String("key ctrl minus"));
 
 
     ButtonShortcut shortcut;
@@ -291,37 +323,37 @@ void TestButtonShortcut::testModifier()
 {
     // key is input, value is expected output value
     QMap<QString, QString> inputMap;
-    inputMap.insert(QLatin1String("Ctrl+Alt+Shift+Super"), QLatin1String("key Ctrl Alt Shift Super"));
-    inputMap.insert(QLatin1String("Ctrl+Alt+Shift+Meta"), QLatin1String("key Ctrl Alt Shift super"));
-    inputMap.insert(QLatin1String("Shift+Meta+Ctrl"), QLatin1String("key Shift super Ctrl"));
-    inputMap.insert(QLatin1String("Alt+Ctrl"), QLatin1String("key Alt Ctrl"));
-    inputMap.insert(QLatin1String("Shift"), QLatin1String("key Shift"));
+    inputMap.insert(QLatin1String("Ctrl+Alt+Shift+Super"), QLatin1String("key ctrl alt shift super"));
+    inputMap.insert(QLatin1String("Ctrl+Alt+Shift+Meta"), QLatin1String("key ctrl alt shift super"));
+    inputMap.insert(QLatin1String("Shift+Meta+Ctrl"), QLatin1String("key shift super ctrl"));
+    inputMap.insert(QLatin1String("Alt+Ctrl"), QLatin1String("key alt ctrl"));
+    inputMap.insert(QLatin1String("Shift"), QLatin1String("key shift"));
     inputMap.insert(QLatin1String("Meta"), QLatin1String("key super"));
-    inputMap.insert(QLatin1String("Super"), QLatin1String("key Super"));
+    inputMap.insert(QLatin1String("Super"), QLatin1String("key super"));
 
-    inputMap.insert(QLatin1String("key Ctrl+Alt+Shift+Super"), QLatin1String("key Ctrl Alt Shift Super"));
-    inputMap.insert(QLatin1String("key Ctrl+Alt+Shift+Meta"), QLatin1String("key Ctrl Alt Shift super"));
-    inputMap.insert(QLatin1String("key Shift+Meta+Ctrl"), QLatin1String("key Shift super Ctrl"));
-    inputMap.insert(QLatin1String("key Alt+Ctrl"), QLatin1String("key Alt Ctrl"));
-    inputMap.insert(QLatin1String("key Shift"), QLatin1String("key Shift"));
+    inputMap.insert(QLatin1String("key Ctrl+Alt+Shift+Super"), QLatin1String("key ctrl alt shift super"));
+    inputMap.insert(QLatin1String("key Ctrl+Alt+Shift+Meta"), QLatin1String("key ctrl alt shift super"));
+    inputMap.insert(QLatin1String("key Shift+Meta+Ctrl"), QLatin1String("key shift super ctrl"));
+    inputMap.insert(QLatin1String("key Alt+Ctrl"), QLatin1String("key alt ctrl"));
+    inputMap.insert(QLatin1String("key Shift"), QLatin1String("key shift"));
     inputMap.insert(QLatin1String("key Meta"), QLatin1String("key super"));
-    inputMap.insert(QLatin1String("key Super"), QLatin1String("key Super"));
+    inputMap.insert(QLatin1String("key Super"), QLatin1String("key super"));
 
-    inputMap.insert(QLatin1String("key +Ctrl +Alt +Shift +Super"), QLatin1String("key Ctrl Alt Shift Super"));
-    inputMap.insert(QLatin1String("key +Ctrl +Alt +Shift +Meta"), QLatin1String("key Ctrl Alt Shift super"));
-    inputMap.insert(QLatin1String("key +Shift +Meta +Ctrl"), QLatin1String("key Shift super Ctrl"));
-    inputMap.insert(QLatin1String("key +Alt +Ctrl"), QLatin1String("key Alt Ctrl"));
-    inputMap.insert(QLatin1String("key +Shift"), QLatin1String("key Shift"));
+    inputMap.insert(QLatin1String("key +Ctrl +Alt +Shift +Super"), QLatin1String("key ctrl alt shift super"));
+    inputMap.insert(QLatin1String("key +Ctrl +Alt +Shift +Meta"), QLatin1String("key ctrl alt shift super"));
+    inputMap.insert(QLatin1String("key +Shift +Meta +Ctrl"), QLatin1String("key shift super ctrl"));
+    inputMap.insert(QLatin1String("key +Alt +Ctrl"), QLatin1String("key alt ctrl"));
+    inputMap.insert(QLatin1String("key +Shift"), QLatin1String("key shift"));
     inputMap.insert(QLatin1String("key +Meta"), QLatin1String("key super"));
-    inputMap.insert(QLatin1String("key +Super"), QLatin1String("key Super"));
+    inputMap.insert(QLatin1String("key +Super"), QLatin1String("key super"));
 
-    inputMap.insert(QLatin1String("Ctrl Alt Shift Super"), QLatin1String("key Ctrl Alt Shift Super"));
-    inputMap.insert(QLatin1String("Ctrl Alt Shift Meta"), QLatin1String("key Ctrl Alt Shift super"));
-    inputMap.insert(QLatin1String("Shift Meta Ctrl"), QLatin1String("key Shift super Ctrl"));
-    inputMap.insert(QLatin1String("Alt Ctrl"), QLatin1String("key Alt Ctrl"));
-    inputMap.insert(QLatin1String("Shift"), QLatin1String("key Shift"));
+    inputMap.insert(QLatin1String("Ctrl Alt Shift Super"), QLatin1String("key ctrl alt shift super"));
+    inputMap.insert(QLatin1String("Ctrl Alt Shift Meta"), QLatin1String("key ctrl alt shift super"));
+    inputMap.insert(QLatin1String("Shift Meta Ctrl"), QLatin1String("key shift super ctrl"));
+    inputMap.insert(QLatin1String("Alt Ctrl"), QLatin1String("key alt ctrl"));
+    inputMap.insert(QLatin1String("Shift"), QLatin1String("key shift"));
     inputMap.insert(QLatin1String("Meta"), QLatin1String("key super"));
-    inputMap.insert(QLatin1String("Super"), QLatin1String("key Super"));
+    inputMap.insert(QLatin1String("Super"), QLatin1String("key super"));
 
     ButtonShortcut shortcut;
 
@@ -353,11 +385,11 @@ void TestButtonShortcut::testQKeySequences()
     inputMap.insert(QLatin1String("key +Ctrl +X"), QLatin1String("Ctrl+X"));
     inputMap.insert(QLatin1String("key Ctrl X"), QLatin1String("Ctrl+X"));
 
-    inputMap.insert(QLatin1String("Meta+X"), QLatin1String("meta+X"));
-    inputMap.insert(QLatin1String("Meta X"), QLatin1String("meta+X"));
-    inputMap.insert(QLatin1String("key Meta+X"), QLatin1String("meta+X"));
-    inputMap.insert(QLatin1String("key +Meta +X"), QLatin1String("meta+X"));
-    inputMap.insert(QLatin1String("key Meta X"), QLatin1String("meta+X"));
+    inputMap.insert(QLatin1String("Meta+X"), QLatin1String("Meta+X"));
+    inputMap.insert(QLatin1String("Meta X"), QLatin1String("Meta+X"));
+    inputMap.insert(QLatin1String("key Meta+X"), QLatin1String("Meta+X"));
+    inputMap.insert(QLatin1String("key +Meta +X"), QLatin1String("Meta+X"));
+    inputMap.insert(QLatin1String("key Meta X"), QLatin1String("Meta+X"));
 
     ButtonShortcut shortcut;
 
@@ -369,7 +401,7 @@ void TestButtonShortcut::testQKeySequences()
         assertUnset(shortcut);
 
         shortcut.set(inputIter.key().toLower());
-        assertKeyStroke(shortcut, inputIter.value().toLower(), true);
+        assertKeyStroke(shortcut, inputIter.value(), true);
     }
 }
 

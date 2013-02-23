@@ -50,7 +50,7 @@ public:
 private slots:
 
     void testAssignment();
-    
+
     void testButton();
 
     void testInvalidKeyStrokes();

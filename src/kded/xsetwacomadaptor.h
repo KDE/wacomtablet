@@ -79,24 +79,29 @@ private:
     const QString convertParameter (const XsetwacomProperty& param) const;
 
     /**
+     * Makes sure a button shortcut is in the correct format. The result of the
+     * conversion will be stored in the \a value parameter. If the property is
+     * not a button shortcut, the value is left untouched.
+     *
+     * @param value The shortuct to validate.
+     */
+    void convertButtonShortcut (const XsetwacomProperty& property, QString& value) const;
+
+    /**
      * Converts a value from xsetwacom format to internal format.
      *
-     * @param property The property the value is from.
-     * @param vlaue    The value of the property.
-     *
-     * @return The converted value.
+     * @param property The property this value belongs to.
+     * @param value    The value of the property. This will also contain the result of the conversion.
      */
-    const QString convertFromXsetwacomValue (const XsetwacomProperty& property, const QString& value) const;
+    void convertFromXsetwacomValue (const XsetwacomProperty& property, QString& value) const;
 
     /**
      * Converts a value from internal format to xsetwacom format.
      *
      * @param property The property the value belongs to.
-     * @param value    The value of the property.
-     *
-     * @return The converted value.
+     * @param value    The value of the property. This will also contain the result of the conversion.
      */
-    const QString convertToXsetwacomValue (const XsetwacomProperty& property, const QString& value) const;
+    void convertToXsetwacomValue (const XsetwacomProperty& property, QString& value) const;
 
     /**
      * Gets a parameter using the xsetwacom command line tool. All parameters to this

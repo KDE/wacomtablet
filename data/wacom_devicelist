@@ -1023,10 +1023,10 @@ wheel=no
 touchring=no
 touchstripl=no
 touchstripr=no
-hwbutton1=3
-hwbutton2=8
-hwbutton3=9
-hwbutton4=1
+hwbutton1=1
+hwbutton2=9
+hwbutton3=8
+hwbutton4=3
 
 [00E2]
 model=unknown
