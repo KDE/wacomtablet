@@ -43,8 +43,6 @@ public:
 
     void assertModifier (const ButtonShortcut& shortcut, const QString& sequence) const;
 
-    void assertToggle (const ButtonShortcut& shortcut, ButtonShortcut::ShortcutType type) const;
-
     void assertUnset (const ButtonShortcut& shortcut) const;
 
 private slots:
@@ -60,8 +58,6 @@ private slots:
     void testModifier();
 
     void testQKeySequences();
-
-    void testToggle();
 
     void testEmpty();
 

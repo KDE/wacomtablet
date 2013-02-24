@@ -54,13 +54,8 @@ public:
      */
     enum PenButtonAction {
         ActionDisabled,     //!< disables the button
-        ActionLeftClick,    //!< left mouse click
-        ActionMiddleClick,  //!< middle mouse click
-        ActionRightClick,   //!< right mouse action
         ActionMouseClick,   //!< special mouse button click
-        ActionKeyStroke,    //!< keyboard shortcut
-        ActionToggleMode,   //!< toggle between absolute/relative cursor
-        ActionToggleDisplay //!< toggle display (Twinview/single screen)
+        ActionKeyStroke     //!< keyboard shortcut
     };
 
     /**

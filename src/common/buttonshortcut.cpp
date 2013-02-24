@@ -30,9 +30,6 @@
 
 using namespace Wacom;
 
-const QString ButtonShortcut::TOGGLEMODE_STRING    = QLatin1String("modetoggle");
-const QString ButtonShortcut::TOGGLEDISPLAY_STRING = QLatin1String("displaytoggle");
-
 /*
  * When mapping multiple keys to the same name, the last entry
  * will be the default one. This is because QMap.find() returns
@@ -187,24 +184,6 @@ bool ButtonShortcut::isSet() const
 }
 
 
-bool ButtonShortcut::isToggle() const
-{
-    return (getType() == TOGGLEDISPLAY || getType() == TOGGLEMODE);
-}
-
-
-bool ButtonShortcut::isToggleDisplay() const
-{
-    return (getType() == TOGGLEDISPLAY);
-}
-
-
-bool ButtonShortcut::isToggleMode() const
-{
-    return (getType() == TOGGLEMODE);
-}
-
-
 bool ButtonShortcut::setButton(int buttonNumber)
 {
     Q_D ( ButtonShortcut );
@@ -231,18 +210,12 @@ bool ButtonShortcut::set(const QString& sequence)
         return true;
     }
 
-    QString toggleRxString = QString::fromLatin1("^(?:%1|%2)$").arg(TOGGLEDISPLAY_STRING).arg(TOGGLEMODE_STRING);
-    QRegExp toggleRx (toggleRxString, Qt::CaseInsensitive);
     QRegExp modifierRx (QLatin1String("^(?:key )?(?:\\s*\\+?(?:alt|ctrl|meta|shift|super))+$"), Qt::CaseInsensitive);
     QRegExp buttonRx (QLatin1String ("^(?:button\\s+)?\\+?\\d+$"), Qt::CaseInsensitive);
 
     if (seq.contains(buttonRx)) {
         // this is a button
         return setButtonSequence(seq);
-
-    } else if (seq.contains(toggleRx)) {
-        // this is a toggle mode
-        return setToggleSequence(seq);
 
     } else if (seq.contains(modifierRx)) {
         // this is a modifier sequence
@@ -251,21 +224,6 @@ bool ButtonShortcut::set(const QString& sequence)
 
     // this is probably a key sequence
     return setKeySequence(seq);
-}
-
-
-bool ButtonShortcut::setToggle(ButtonShortcut::ShortcutType toggle)
-{
-    Q_D ( ButtonShortcut );
-
-    clear();
-
-    if (toggle == ButtonShortcut::TOGGLEDISPLAY || toggle == ButtonShortcut::TOGGLEMODE) {
-        d->type   = toggle;
-        return true;
-    }
-
-    return false;
 }
 
 
@@ -289,7 +247,7 @@ const QString ButtonShortcut::toDisplayString() const
             } else if (buttonNr == 5) {
                 displayString = i18nc("Mouse wheel down.", "Mouse Wheel Down");
             } else {
-                displayString = i18nc("Click of mouse button with number #", "Button %1 Click", buttonNr);
+                displayString = i18nc("Click of mouse button with number #", "Extra Button %1", buttonNr);
             }
             break;
 
@@ -297,14 +255,6 @@ const QString ButtonShortcut::toDisplayString() const
         case KEYSTROKE:
             displayString = d->sequence;
             convertKeySequenceToQKeySequenceFormat(displayString);
-            break;
-
-        case TOGGLEDISPLAY:
-            displayString = i18nc("Toggle tablet display mode.", "Toggle Display");
-            break;
-
-        case TOGGLEMODE:
-            displayString = i18nc("Toggle tablet relative/absolute mode.", "Toggle Mode");
             break;
 
         case NONE:
@@ -348,14 +298,6 @@ const QString ButtonShortcut::toString() const
         case MODIFIER:
         case KEYSTROKE:
             shortcutString = QString::fromLatin1("key %2").arg(d->sequence);
-            break;
-
-        case TOGGLEDISPLAY:
-            shortcutString = TOGGLEDISPLAY_STRING;
-            break;
-
-        case TOGGLEMODE:
-            shortcutString = TOGGLEMODE_STRING;
             break;
 
         case NONE:
@@ -404,7 +346,7 @@ void ButtonShortcut::convertToNormalizedKeySequence(QString& sequence, bool from
     for (QStringList::iterator iter = keyList.begin() ; iter != keyList.end() ; ++iter) {
 
         convertKey (*iter, fromStorage);
-        prettiyKey (*iter);
+        prettifyKey (*iter);
 
         if (isFirstKey) {
             sequence.append(*iter);
@@ -496,7 +438,7 @@ void ButtonShortcut::normalizeKeySequence(QString& sequence) const
 }
 
 
-void ButtonShortcut::prettiyKey(QString& key) const
+void ButtonShortcut::prettifyKey(QString& key) const
 {
     if (!key.isEmpty()) {
         key = key.toLower();
@@ -529,7 +471,8 @@ bool ButtonShortcut::setKeySequence(QString sequence)
 
     // Check if this keysequence is valid by converting it to a QKeySequence and then back
     // again. If both sequences are equal the sequence should be valid. This is not very
-    // effective but it should leave us with something KDE can handle.
+    // effective but it leaves us with something KDE can handle and it makes sure a key
+    // is always converted to its default key name if there are multiple mappings.
     // TODO improve this
     QString convertedSequence = sequence;
     convertKeySequenceToQKeySequenceFormat(convertedSequence);
@@ -565,17 +508,3 @@ bool ButtonShortcut::setModifierSequence(QString sequence)
 
     return true;
 }
-
-
-bool ButtonShortcut::setToggleSequence(const QString& toggleSequence)
-{
-    if (toggleSequence.startsWith(TOGGLEDISPLAY_STRING, Qt::CaseInsensitive)) {
-        return setToggle(ButtonShortcut::TOGGLEDISPLAY);
-
-    } else if (toggleSequence.startsWith(TOGGLEMODE_STRING, Qt::CaseInsensitive)) {
-        return setToggle(ButtonShortcut::TOGGLEMODE);
-    }
-
-    return false;
-}
-

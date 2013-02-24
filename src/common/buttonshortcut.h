@@ -42,16 +42,8 @@ public:
         NONE          = 0,
         BUTTON        = 1,
         KEYSTROKE     = 2,
-        MODIFIER      = 3,
-        TOGGLEMODE    = 4,
-        TOGGLEDISPLAY = 5
+        MODIFIER      = 3
     };
-
-    //! The string which is returned by toString() if this shortcut is a display-toggle shortcut.
-    static const QString TOGGLEDISPLAY_STRING;
-
-    //! The string which is returned by toString() if this shortcut is a mode-toggle shortcut.
-    static const QString TOGGLEMODE_STRING;
 
     //! Default Constructor
     ButtonShortcut();
@@ -137,24 +129,6 @@ public:
     bool isSet() const;
 
     /**
-     * Checks if this shortcut is a toggle shortcut. Toggle shortcuts are special
-     * mode shortcuts supported by xsetwacom.
-     *
-     * @return True if this shortcut is a toggle shortcut, else false.
-     */
-    bool isToggle() const;
-
-    /**
-     * @return True if this shortcut is a display-toggle shortcut, else false.
-     */
-    bool isToggleDisplay() const;
-
-    /**
-     * @return True if this shortcut is mode-toggle shortcut, else false.
-     */
-    bool isToggleMode() const;
-
-    /**
      * Sets a button shortcut by button number.
      *
      * @param buttonNumber The mouse button number this shortcut represents.
@@ -182,15 +156,6 @@ public:
      * @return True if the shortcut is valid, else false.
      */
     bool set(const QString& sequence);
-
-    /**
-     * Sets a toggle shortcut. Only toggle modes can be passed as parameter.
-     *
-     * @param toggle The toggle mode to set.
-     *
-     * @return True if the shortcut is valid, else false.
-     */
-    bool setToggle (ShortcutType toggle);
 
     /**
      * Converts the shortcut to a translated, human readable string.
@@ -314,7 +279,7 @@ private:
      *
      * @param key The key to prettify, this will also contain the result.
      */
-    void prettiyKey (QString& key) const;
+    void prettifyKey (QString& key) const;
 
     /**
      * Sets a button sequence. This method expects that the given sequence is
@@ -348,17 +313,6 @@ private:
      * @return True if the sequence is valid and was set, else false.
      */
     bool setModifierSequence(QString sequence);
-
-    /**
-     * Sets a toggle sequence. . This method expects that the given sequence
-     * is actually a toggle sequence. If it is not, this method will fail and
-     * the shortcut will not be set.
-     *
-     * @param sequence The toggle sequence to set.
-     *
-     * @return True if the sequence is valid and was set, else false.
-     */
-    bool setToggleSequence(const QString& toggleSequence);
 
     Q_DECLARE_PRIVATE( ButtonShortcut )
     ButtonShortcutPrivate *const d_ptr; /**< d-pointer for this class */

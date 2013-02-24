@@ -22,13 +22,10 @@
 
 #include <KDE/KDialog>
 
-namespace Ui
-{
-class SelectKeyButton;
-}
-
 namespace Wacom
 {
+
+class SelectKeyButtonPrivate;
 
 /**
   * Implements the selectkeybutton.ui designer file
@@ -36,6 +33,7 @@ namespace Wacom
 class SelectKeyButton : public KDialog
 {
     Q_OBJECT
+
 public:
     /**
       * Creates the KDialog window and set up all elements.
@@ -49,12 +47,22 @@ public:
       */
     ~SelectKeyButton();
 
+
     /**
-      * The selected button number
-      *
-      * @return button selection as sting "Button i"
-      */
-    QString keyButton() const;
+     * Gets the selected button number. If no button was selected, 0 is returned.
+     *
+     * @return The selected button number or 0.
+     */
+    int getButton() const;
+
+
+    /**
+     * Sets the button number.
+     *
+     * @param buttonNumber The button number to set.
+     */
+    void setButton(int buttonNumber);
+
 
 private slots:
     /**
@@ -63,12 +71,19 @@ private slots:
       * Regardless of the translation of the .ui file this parse the selection back to
       * "Button i" because xsetwacom only accept this values.
       */
-    void slotOkClicked();
+    void onOkClicked();
+
 
 private:
-    Ui::SelectKeyButton *ui; /**< Ui designer file for this object */
-    QString m_keyButton;     /**< The selected button as parsed text ready for xsetwacom usage */
-};
 
-}
-#endif // SELECTKEYBUTTON_H
+    /**
+     * Sets up the widget. Should only be called once by the constructor.
+     */
+    void setupUi();
+
+    Q_DECLARE_PRIVATE(SelectKeyButton)
+    SelectKeyButtonPrivate *const d_ptr; //!< D-Pointer for this class.
+
+}; // CLASS
+}  // NAMESPACE
+#endif // HEADER PROTECTION

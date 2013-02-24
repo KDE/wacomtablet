@@ -260,14 +260,9 @@ QString PenWidget::changePressCurve(const DeviceType& deviceType, const QString&
 void PenWidget::fillComboBox( KComboBox *comboBox )
 {
     comboBox->blockSignals( true );
-    comboBox->addItem( i18nc( "Disable button function", "Disable" ), PenWidget::ActionDisabled );
-    comboBox->addItem( i18nc( "Left mouse click", "Left Click" ), PenWidget::ActionLeftClick );
-    comboBox->addItem( i18nc( "Middle mouse click", "Middle Click" ), PenWidget::ActionMiddleClick );
-    comboBox->addItem( i18nc( "Right mouse click", "Right Click" ), PenWidget::ActionRightClick );
-    comboBox->addItem( i18nc( "Indicates the use of one of the standard buttons (1-32)", "Button..." ), PenWidget::ActionMouseClick );
-    comboBox->addItem( i18nc( "Indicates the use of a specific key/keystroke", "Keystroke..." ), PenWidget::ActionKeyStroke );
-    comboBox->addItem( i18nc( "Function to toggle between absolute/relative mousemode", "Mode Toggle" ), PenWidget::ActionToggleMode );
-    comboBox->addItem( i18nc( "Function to toggle between single/multi display support", "Display Toggle" ), PenWidget::ActionToggleDisplay );
+    comboBox->addItem( i18nc( "Disable button function", "Disabled" ), PenWidget::ActionDisabled );
+    comboBox->addItem( i18nc( "Indicates the use of one of the standard buttons (1-32)", "Mouse..." ), PenWidget::ActionMouseClick );
+    comboBox->addItem( i18nc( "Indicates the use of a specific keyboard key/shortcut", "Keyboard..." ), PenWidget::ActionKeyStroke );
     comboBox->blockSignals( false );
 }
 
@@ -278,25 +273,10 @@ PenWidget::PenButtonAction PenWidget::getButtonAction(const ButtonShortcut& shor
     PenButtonAction action = PenWidget::ActionDisabled;
 
     if (shortcut.isButton()) {
-        if (shortcut.getButton() == 1) {
-            action = PenWidget::ActionLeftClick;
-        } else if (shortcut.getButton() == 2) {
-            action = PenWidget::ActionMiddleClick;
-        } else if (shortcut.getButton() == 3) {
-            action = PenWidget::ActionRightClick;
-        } else {
-            action = PenWidget::ActionMouseClick;
-        }
+        action = PenWidget::ActionMouseClick;
 
     } else if (shortcut.isKeystroke() || shortcut.isModifier()) {
         action = PenWidget::ActionKeyStroke;
-
-    } else if (shortcut.isToggle()) {
-        if (shortcut.isToggleDisplay()) {
-            action = PenWidget::ActionToggleDisplay;
-        } else if (shortcut.isToggleMode()) {
-            action = PenWidget::ActionToggleMode;
-        }
     }
 
     return action;
@@ -343,29 +323,21 @@ void PenWidget::onButtonActionSelectionChanged(int selection, KComboBox& combo, 
     // get the action associated with this selection
     PenButtonAction action = (PenButtonAction)(combo.itemData(selection).toInt());
 
-    // shortcut defaults to previous value in case the user changes his mind
-    ButtonShortcut  shortcut(getButtonActionShortcut(&label));
+    // determine new shortcut
+    ButtonShortcut previousShortcut(getButtonActionShortcut(&label));
+    ButtonShortcut shortcut(previousShortcut);
 
     switch( action ) {
         case PenWidget::ActionDisabled:
             shortcut.clear();
             break;
 
-        case PenWidget::ActionLeftClick:
-            shortcut.setButton(1);
-            break;
-
-        case PenWidget::ActionMiddleClick:
-            shortcut.setButton(2);
-            break;
-
-        case PenWidget::ActionRightClick:
-            shortcut.setButton(3);
-            break;
-
         case PenWidget::ActionMouseClick:
+            if (previousShortcut.isButton()) {
+                skb->setButton(previousShortcut.getButton());
+            }
             if (skb->exec() == QDialog::Accepted) {
-                shortcut = skb->keyButton();
+                shortcut.setButton(skb->getButton());
             }
             break;
 
@@ -374,21 +346,18 @@ void PenWidget::onButtonActionSelectionChanged(int selection, KComboBox& combo, 
                 shortcut = sks->shortcut();
             }
             break;
-
-        case PenWidget::ActionToggleDisplay:
-            shortcut.setToggle(ButtonShortcut::TOGGLEDISPLAY);
-            break;
-
-        case PenWidget::ActionToggleMode:
-            shortcut.setToggle(ButtonShortcut::TOGGLEMODE);
-            break;
     }
 
     delete skb;
     delete sks;
 
+    // update UI widgets
     setButtonActionShortcut(&combo, &label, shortcut.toString());
-    emit changed();
+
+    // emit changed signal if the shortcut changed
+    if (shortcut != previousShortcut) {
+        emit changed();
+    }
 }
 
 

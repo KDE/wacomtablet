@@ -33,9 +33,6 @@ void TestButtonShortcut::assertButton(const ButtonShortcut& shortcut, int button
 
     QVERIFY(!shortcut.isKeystroke());
     QVERIFY(!shortcut.isModifier());
-    QVERIFY(!shortcut.isToggle());
-    QVERIFY(!shortcut.isToggleDisplay());
-    QVERIFY(!shortcut.isToggleMode());
 
     QCOMPARE(buttonNumber, shortcut.getButton());
     QCOMPARE(QString::number(buttonNumber), shortcut.toString());
@@ -53,9 +50,6 @@ void TestButtonShortcut::assertEquals(const ButtonShortcut& shortcut1, const But
     QVERIFY(shortcut1.isButton() == shortcut2.isButton());
     QVERIFY(shortcut1.isKeystroke() == shortcut2.isKeystroke());
     QVERIFY(shortcut1.isModifier() == shortcut2.isModifier());
-    QVERIFY(shortcut1.isToggle() == shortcut2.isToggle());
-    QVERIFY(shortcut1.isToggleDisplay() == shortcut2.isToggleDisplay());
-    QVERIFY(shortcut1.isToggleMode() == shortcut2.isToggleMode());
     QCOMPARE(shortcut1.toString(), shortcut2.toString());
     QCOMPARE(shortcut2.toQKeySequenceString(), shortcut2.toQKeySequenceString());
 }
@@ -66,9 +60,6 @@ void TestButtonShortcut::assertKeySequence(const ButtonShortcut& shortcut, const
     QVERIFY(shortcut.isSet());
 
     QVERIFY(!shortcut.isButton());
-    QVERIFY(!shortcut.isToggle());
-    QVERIFY(!shortcut.isToggleDisplay());
-    QVERIFY(!shortcut.isToggleMode());
 
     QCOMPARE(0, shortcut.getButton());
 
@@ -100,44 +91,12 @@ void TestButtonShortcut::assertModifier(const ButtonShortcut& shortcut, const QS
 }
 
 
-void TestButtonShortcut::assertToggle(const ButtonShortcut& shortcut, ButtonShortcut::ShortcutType type) const
-{
-    QVERIFY(shortcut.isSet());
-    QVERIFY(shortcut.isToggle());
-
-    QVERIFY(!shortcut.isButton());
-    QVERIFY(!shortcut.isKeystroke());
-    QVERIFY(!shortcut.isModifier());
-
-    QCOMPARE(0, shortcut.getButton());
-    QVERIFY(shortcut.toQKeySequenceString().isEmpty());
-
-
-    if (type == ButtonShortcut::TOGGLEDISPLAY) {
-        QCOMPARE(ButtonShortcut::TOGGLEDISPLAY, shortcut.getType());
-        QCOMPARE(ButtonShortcut::TOGGLEDISPLAY_STRING, shortcut.toString());
-
-        QVERIFY(shortcut.isToggleDisplay());
-        QVERIFY(!shortcut.isToggleMode());
-    } else {
-        QCOMPARE(ButtonShortcut::TOGGLEMODE, shortcut.getType());
-        QCOMPARE(ButtonShortcut::TOGGLEMODE_STRING, shortcut.toString());
-
-        QVERIFY(shortcut.isToggleMode());
-        QVERIFY(!shortcut.isToggleDisplay());
-    }
-}
-
-
 void TestButtonShortcut::assertUnset(const ButtonShortcut& shortcut) const
 {
     QVERIFY(!shortcut.isSet());
     QVERIFY(!shortcut.isButton());
     QVERIFY(!shortcut.isKeystroke());
     QVERIFY(!shortcut.isModifier());
-    QVERIFY(!shortcut.isToggle());
-    QVERIFY(!shortcut.isToggleDisplay());
-    QVERIFY(!shortcut.isToggleMode());
 
     QCOMPARE(0, shortcut.getButton());
     QCOMPARE(QLatin1String("0"), shortcut.toString());
@@ -149,12 +108,10 @@ void TestButtonShortcut::testAssignment()
 {
     ButtonShortcut buttonShortcut;
     ButtonShortcut modifierShortcut;
-    ButtonShortcut toggleShortcut;
     ButtonShortcut strokeShortcut;
 
     buttonShortcut.setButton(2);
     modifierShortcut.set(QLatin1String("key ctrl shift"));
-    toggleShortcut.setToggle(ButtonShortcut::TOGGLEDISPLAY);
     strokeShortcut.set(QLatin1String("key ctrl a"));
 
     // Test Constructors.
@@ -174,14 +131,6 @@ void TestButtonShortcut::testAssignment()
     copyShortcut = modifierShortcut.toString();
     assertEquals(copyShortcut, modifierShortcut);
     assertModifier(copyShortcut, modifierShortcut.toString());
-
-    copyShortcut = toggleShortcut;
-    assertEquals(copyShortcut, toggleShortcut);
-    assertToggle(copyShortcut, copyShortcut.getType());
-
-    copyShortcut = toggleShortcut.toString();
-    assertEquals(copyShortcut, toggleShortcut);
-    assertToggle(copyShortcut, copyShortcut.getType());
 
     copyShortcut = strokeShortcut;
     assertEquals(copyShortcut, strokeShortcut);
@@ -405,27 +354,4 @@ void TestButtonShortcut::testQKeySequences()
     }
 }
 
-
-void TestButtonShortcut::testToggle()
-{
-    ButtonShortcut shortcut;
-
-    shortcut.setToggle(ButtonShortcut::TOGGLEDISPLAY);
-    assertToggle(shortcut, ButtonShortcut::TOGGLEDISPLAY);
-
-    shortcut.clear();
-    assertUnset(shortcut);
-
-    shortcut.setToggle(ButtonShortcut::TOGGLEMODE);
-    assertToggle(shortcut, ButtonShortcut::TOGGLEMODE);
-
-    shortcut.set(ButtonShortcut::TOGGLEDISPLAY_STRING);
-    assertToggle(shortcut, ButtonShortcut::TOGGLEDISPLAY);
-
-    shortcut.clear();
-    assertUnset(shortcut);
-
-    shortcut.set(ButtonShortcut::TOGGLEMODE_STRING);
-    assertToggle(shortcut, ButtonShortcut::TOGGLEMODE);
-}
 

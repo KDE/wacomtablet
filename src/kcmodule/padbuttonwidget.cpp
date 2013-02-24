@@ -324,9 +324,9 @@ void PadButtonWidget::fillComboBox(KComboBox *comboBox)
 {
     comboBox->clear();
     comboBox->blockSignals(true);
-    comboBox->addItem(i18nc("Disable button function", "Disable"), PadButtonWidget::ActionDisabled);
-    comboBox->addItem(i18nc("Indicates the use of one of the standard buttons (1-32)", "Button..."), PadButtonWidget::ActionMouseClick);
-    comboBox->addItem(i18nc("Indicates the use of a specific key/keystroke", "Keystroke..."), PadButtonWidget::ActionKeyStroke);
+    comboBox->addItem(i18nc("Disable button function", "Disabled"), PadButtonWidget::ActionDisabled);
+    comboBox->addItem(i18nc("Indicates the use of one of the standard buttons (1-32)", "Mouse..."), PadButtonWidget::ActionMouseClick);
+    comboBox->addItem(i18nc("Indicates the use of a specific key/keystroke", "Keyboard..."), PadButtonWidget::ActionKeyStroke);
     comboBox->blockSignals(false);
 }
 
@@ -385,8 +385,9 @@ void PadButtonWidget::onButtonActionSelectionChanged(int selection, KComboBox& c
     // get the action associated with this selection
     PadButtonAction action = (PadButtonAction)(combo.itemData(selection).toInt());
 
-    // shortcut defaults to previous value in case the user changes his mind
-    ButtonShortcut shortcut(getButtonActionShortcut(&label));
+    // determine new shortcut
+    ButtonShortcut previousShortcut(getButtonActionShortcut(&label));
+    ButtonShortcut shortcut(previousShortcut);
 
     switch (action) {
         case PadButtonWidget::ActionDisabled:
@@ -394,8 +395,11 @@ void PadButtonWidget::onButtonActionSelectionChanged(int selection, KComboBox& c
             break;
 
         case PadButtonWidget::ActionMouseClick:
+            if (previousShortcut.isButton()) {
+                skb->setButton(previousShortcut.getButton());
+            }
             if (skb->exec() == QDialog::Accepted) {
-                shortcut = skb->keyButton();
+                shortcut.setButton(skb->getButton());
             }
             break;
 
@@ -409,8 +413,13 @@ void PadButtonWidget::onButtonActionSelectionChanged(int selection, KComboBox& c
     delete skb;
     delete sks;
 
+    // update ui elements
     setButtonActionShortcut(&combo, &label, shortcut.toString());
-    emit changed();
+
+    // signal change event if user changed something
+    if (shortcut != previousShortcut) {
+        emit changed();
+    }
 }
 
 

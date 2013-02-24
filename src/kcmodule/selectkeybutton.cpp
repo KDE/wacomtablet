@@ -22,39 +22,89 @@
 
 using namespace Wacom;
 
+namespace Wacom {
+    class SelectKeyButtonPrivate {
+        public:
+            SelectKeyButtonPrivate() : ui(new Ui::SelectKeyButton) {
+                button = 0;
+            }
+
+            ~SelectKeyButtonPrivate() {
+                delete ui;
+            }
+
+            Ui::SelectKeyButton* ui;
+            int                  button;
+    };
+}
+
 SelectKeyButton::SelectKeyButton(QWidget *parent) :
         KDialog(parent),
-        ui(new Ui::SelectKeyButton)
+        d_ptr(new SelectKeyButtonPrivate)
 {
-    QWidget *widget = new QWidget(this);
-    ui->setupUi(widget);
-    setMainWidget(widget);
-
-    setButtons(KDialog::Ok | KDialog::Cancel);
-    setCaption(i18n("Select Key Button"));
-
-    for (int i = 1;i < 33;++i) {
-        ui->kcombobox->addItem(i18nc("Pad Button action", "Button %1", i), i);
-    }
-
-    connect(this, SIGNAL(okClicked()), this, SLOT(slotOkClicked()));
-
+    setupUi();
 }
+
 
 SelectKeyButton::~SelectKeyButton()
 {
-    delete ui;
+    delete this->d_ptr;
 }
 
-QString SelectKeyButton::keyButton() const
+
+int SelectKeyButton::getButton() const
 {
-    return m_keyButton;
+    Q_D( const SelectKeyButton );
+    return d->button;
 }
 
-void SelectKeyButton::slotOkClicked()
+
+void SelectKeyButton::setButton(int buttonNumber)
 {
-    // we need "Button i" as text for the wacom driver
-    // but the text is translated into something else
-    // so the current index will be transferred back to the original text
-    m_keyButton = QString::fromLatin1("Button %1").arg(ui->kcombobox->currentIndex() + 1);
+    Q_D( SelectKeyButton );
+
+    int selection = d->ui->kcombobox->findData(buttonNumber);
+
+    if (selection != -1) {
+        d->button = buttonNumber;
+
+        d->ui->kcombobox->blockSignals(true);
+        d->ui->kcombobox->setCurrentIndex(selection);
+        d->ui->kcombobox->blockSignals(false);
+    }
+}
+
+
+void SelectKeyButton::onOkClicked()
+{
+    Q_D (SelectKeyButton);
+    d->button = d->ui->kcombobox->itemData(d->ui->kcombobox->currentIndex()).toInt();
+}
+
+
+void SelectKeyButton::setupUi()
+{
+    Q_D(SelectKeyButton);
+
+    QWidget *widget = new QWidget(this);
+    d->ui->setupUi(widget);
+
+    // populate dropdown
+    d->ui->kcombobox->addItem(i18nc("Left mouse button click.",   "Left Click"),       1);
+    d->ui->kcombobox->addItem(i18nc("Middle mouse button click.", "Middle Click"),     2);
+    d->ui->kcombobox->addItem(i18nc("Right mouse button click.",  "Right Click"),      3);
+    d->ui->kcombobox->addItem(i18nc("Mouse wheel up.",            "Mouse Wheel Up"),   4);
+    d->ui->kcombobox->addItem(i18nc("Mouse wheel down.",          "Mouse Wheel Down"), 5);
+
+    for (int i = 6 ; i < 33 ; ++i) {
+        d->ui->kcombobox->addItem(i18nc("Extra mouse button click.", "Extra Button %1", i), i);
+    }
+
+    // initialize KDialog
+    setCaption(i18n("Select a Mouse Button"));
+    setMainWidget(widget);
+    setButtons(KDialog::Ok | KDialog::Cancel);
+
+    // connect signals
+    connect(this, SIGNAL(okClicked()), this, SLOT(onOkClicked()));
 }
