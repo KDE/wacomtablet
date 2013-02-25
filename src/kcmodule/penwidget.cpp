@@ -298,7 +298,7 @@ const QString PenWidget::getShortcutDisplayName(const ButtonShortcut& shortcut) 
     QString displayName;
 
     // lookup keystrokes from the global list of shortcuts
-    if (shortcut.isKeystroke() && shortcut.isSet()) {
+    if (shortcut.isKeystroke()) {
         QList< KGlobalShortcutInfo > globalShortcutList = KGlobalAccel::getGlobalShortcutsByKey(QKeySequence(shortcut.toQKeySequenceString()));
 
         if(!globalShortcutList.isEmpty()) {
@@ -342,8 +342,9 @@ void PenWidget::onButtonActionSelectionChanged(int selection, KComboBox& combo, 
             break;
 
         case PenWidget::ActionKeyStroke:
+            sks->setShortcut(previousShortcut);
             if (sks->exec() == QDialog::Accepted) {
-                shortcut = sks->shortcut();
+                shortcut = sks->getShortcut();
             }
             break;
     }

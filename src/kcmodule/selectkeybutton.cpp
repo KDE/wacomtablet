@@ -101,7 +101,7 @@ void SelectKeyButton::setupUi()
     }
 
     // initialize KDialog
-    setCaption(i18n("Select a Mouse Button"));
+    setCaption(i18n("Select Mouse Action"));
     setMainWidget(widget);
     setButtons(KDialog::Ok | KDialog::Cancel);
 

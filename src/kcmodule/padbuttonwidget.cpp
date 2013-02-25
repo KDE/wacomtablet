@@ -360,7 +360,7 @@ const QString PadButtonWidget::getShortcutDisplayName(const ButtonShortcut& shor
     QString displayName;
 
     // lookup keystrokes from the global list of shortcuts
-    if (shortcut.isKeystroke() && shortcut.isSet()) {
+    if (shortcut.isKeystroke()) {
         QList< KGlobalShortcutInfo > globalShortcutList = KGlobalAccel::getGlobalShortcutsByKey(QKeySequence(shortcut.toQKeySequenceString()));
 
         if(!globalShortcutList.isEmpty()) {
@@ -404,8 +404,9 @@ void PadButtonWidget::onButtonActionSelectionChanged(int selection, KComboBox& c
             break;
 
         case PadButtonWidget::ActionKeyStroke:
+            sks->setShortcut(previousShortcut);
             if (sks->exec() == QDialog::Accepted) {
-                shortcut = sks->shortcut();
+                shortcut = sks->getShortcut();
             }
             break;
     }

@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "debug.h" // always needs to be first include
+
 #include "selectkeystroke.h"
 #include "ui_selectkeystroke.h"
 #include "buttonshortcut.h"
@@ -37,6 +39,7 @@ namespace Wacom {
                 delete ui;
             }
 
+            QWidget             *mainWidget; // does not need to be deleted as it is properly parented.
             Ui::SelectKeyStroke *ui;
             ButtonShortcut      shortcut;
     };
@@ -55,79 +58,181 @@ SelectKeyStroke::~SelectKeyStroke()
     delete this->d_ptr;
 }
 
-QString SelectKeyStroke::keyStroke() const
-{
-    Q_D (const SelectKeyStroke);
-    return d->shortcut.toString();
-}
-
-const ButtonShortcut& SelectKeyStroke::shortcut() const
+const ButtonShortcut& SelectKeyStroke::getShortcut() const
 {
     Q_D (const SelectKeyStroke);
     return d->shortcut;
 }
 
 
-void SelectKeyStroke::slotOkClicked()
+void SelectKeyStroke::setShortcut(const ButtonShortcut& shortcut)
 {
     Q_D (SelectKeyStroke);
 
-    if( d->ui->comboBox->currentIndex() != 0 ) {
-        int index = d->ui->comboBox->currentIndex();
-        d->shortcut = d->ui->comboBox->itemData( index ).toString();
-    }
-    else {
-        d->shortcut = d->ui->kkeysequencewidget->keySequence().toString();
-    }
+    d->shortcut = shortcut;
+
+    updateModifierWidgets(shortcut);
+    updateShortcutWidgets(shortcut);
+    updateActionName(shortcut);
 }
 
-void SelectKeyStroke::findGlobalShortcut( QKeySequence sequence )
+
+void SelectKeyStroke::onModifierChanged(int state)
 {
-    Q_D (SelectKeyStroke);
+    Q_D (const SelectKeyStroke);
 
-    QList< KGlobalShortcutInfo > list = KGlobalAccel::getGlobalShortcutsByKey( sequence );
+    // prevent compiler warning about unused parameters at least in debug mode
+    assert(state != 0 || state == 0);
 
-    if( !list.isEmpty() ) {
-        d->ui->globalShortcut->setText( list.at( 0 ).uniqueName() );
+    // build new shortcut sequence
+    QString shortcutString;
+
+    if (d->ui->ctrlModifierCheckBox->isChecked()) {
+        shortcutString.append(QString::fromLatin1(" %1").arg(QLatin1String(" Ctrl")));
     }
-    else {
-        d->ui->globalShortcut->clear();
+
+    if (d->ui->altModifierCheckBox->isChecked()) {
+        shortcutString.append(QString::fromLatin1(" %1").arg(QLatin1String(" Alt")));
     }
+
+    if (d->ui->metaModifierCheckBox->isChecked()) {
+        shortcutString.append(QString::fromLatin1(" %1").arg(QLatin1String(" Meta")));
+    }
+
+    if (d->ui->shiftModifierCheckBox->isChecked()) {
+        shortcutString.append(QString::fromLatin1(" %1").arg(QLatin1String(" Shift")));
+    }
+
+    setShortcut(ButtonShortcut(shortcutString));
 }
+
+
+void SelectKeyStroke::onModifiersCleared(bool checked)
+{
+    // prevent compiler warning about unused parameters at least in debug mode
+    assert(checked || !checked);
+
+    setShortcut(ButtonShortcut());
+}
+
+
+
+void SelectKeyStroke::onShortcutChanged(QKeySequence sequence)
+{
+    setShortcut(ButtonShortcut(sequence.toString()));
+}
+
 
 
 void SelectKeyStroke::setupUi()
 {
     Q_D (SelectKeyStroke);
 
-    QWidget *widget = new QWidget( this );
-    d->ui->setupUi( widget );
+    // setup main widget
+    d->mainWidget = new QWidget( this );
+    d->ui->setupUi( d->mainWidget );
 
-    d->ui->kkeysequencewidget->setCheckForConflictsAgainst( KKeySequenceWidget::None );
-    d->ui->kkeysequencewidget->setModifierlessAllowed( true );
+    connect( d->ui->ctrlModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)) );
+    connect( d->ui->altModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)) );
+    connect( d->ui->metaModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)) );
+    connect( d->ui->shiftModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)) );
 
-    //fill the combobox with all values
-    d->ui->comboBox->blockSignals( true );
-    d->ui->comboBox->addItem( i18nc( "none means no special modifier is used. instead use the values from the Key Sequence Widget", "none" ), QString::fromLatin1( "none" ) );
-    d->ui->comboBox->addItem( i18nc( "ALT key", "ALT" ), QString::fromLatin1( "ALT" ) );
-    d->ui->comboBox->addItem( i18nc( "CTRL key", "CTRL" ), QString::fromLatin1( "CTRL" ) );
-    d->ui->comboBox->addItem( i18nc( "SHIFT key", "SHIFT" ), QString::fromLatin1( "SHIFT" ) );
-    d->ui->comboBox->addItem( i18nc( "META key", "META" ), QString::fromLatin1( "META" ) );
-    d->ui->comboBox->addItem( i18nc( "ALT+CTRL key combination", "ALT+CTRL" ), QString::fromLatin1( "ALT+CTRL" ) );
-    d->ui->comboBox->addItem( i18nc( "ALT+SHIFT key combination", "ALT+SHIFT" ), QString::fromLatin1( "ALT+SHIFT" ) );
-    d->ui->comboBox->addItem( i18nc( "ALT+META key combination", "ALT+META" ), QString::fromLatin1( "ALT+META" ) );
-    d->ui->comboBox->addItem( i18nc( "CTRL+SHIFT key combination", "CTRL+SHIFT" ), QString::fromLatin1( "CTRL+SHIFT" ) );
-    d->ui->comboBox->addItem( i18nc( "CTRL+META key combination", "CTRL+META" ), QString::fromLatin1( "CTRL+META" ) );
-    d->ui->comboBox->addItem( i18nc( "SHIFT+META key combination", "SHIFT+META" ), QString::fromLatin1( "SHIFT+META" ) );
-    d->ui->comboBox->addItem( i18nc( "ALT+CTRL+META key combination", "ALT+CTRL+META" ), QString::fromLatin1( "ALT+CTRL+META" ) );
-    d->ui->comboBox->addItem( i18nc( "ALT+CTRL+SHIFT key combination", "ALT+CTRL+SHIFT" ), QString::fromLatin1( "ALT+CTRL+SHIFT" ) );
-    d->ui->comboBox->addItem( i18nc( "CTRL+META+SHIFT key combination", "CTRL+META+SHIFT" ), QString::fromLatin1( "CTRL+META+SHIFT" ) );
-    d->ui->comboBox->blockSignals( false );
+    connect( d->ui->modifierClearButton, SIGNAL(clicked(bool)), this, SLOT(onModifiersCleared(bool)) );
 
-    setMainWidget( widget );
+    connect( d->ui->shortcutSelectorWidget, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(onShortcutChanged(QKeySequence)) );
+
+    // setup kdialog
+    setMainWidget( d->mainWidget );
     setButtons( KDialog::Ok | KDialog::Cancel );
-    setCaption( i18n( "Select Key Function" ) );
+    setCaption( i18n( "Select Keyboard Action" ) );
 
-    connect( this, SIGNAL(okClicked()), this, SLOT(slotOkClicked()) );
-    connect( d->ui->kkeysequencewidget, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(findGlobalShortcut(QKeySequence)) );
+    setShortcut(ButtonShortcut());
+}
+
+
+void SelectKeyStroke::updateActionName(const ButtonShortcut& shortcut)
+{
+    Q_D(SelectKeyStroke);
+
+    QString displayName;
+
+    if (!shortcut.isSet()) {
+        displayName = i18n("No action set.");
+
+    } else if (shortcut.isKeystroke()) {
+        // lookup keystrokes from the global list of shortcuts
+        QList< KGlobalShortcutInfo > globalShortcutList = KGlobalAccel::getGlobalShortcutsByKey(QKeySequence(shortcut.toQKeySequenceString()));
+
+        if(!globalShortcutList.isEmpty()) {
+            displayName = globalShortcutList.at(0).uniqueName();
+        }
+    }
+
+    // set default display name if we do not have one yet
+    if (displayName.isEmpty()) {
+        displayName = shortcut.toDisplayString();
+    }
+
+    d->ui->actionNameLabel->setText(displayName);
+}
+
+
+void SelectKeyStroke::updateModifierWidgets(const ButtonShortcut& shortcut)
+{
+    Q_D(SelectKeyStroke);
+
+    if (shortcut.isModifier()) {
+        // shortcut is a modifier sequence - set checkboxes accordingly
+        QString shortcutString = shortcut.toString();
+        bool    isChecked      = false;
+
+        isChecked = shortcutString.contains(QLatin1String("ctrl"), Qt::CaseInsensitive);
+        updateQCheckBox(*(d->ui->ctrlModifierCheckBox),  isChecked, true);
+
+        isChecked = shortcutString.contains(QLatin1String("alt"), Qt::CaseInsensitive);
+        updateQCheckBox(*(d->ui->altModifierCheckBox),   isChecked, true);
+
+        isChecked = (shortcutString.contains(QLatin1String("super"), Qt::CaseInsensitive) || shortcutString.contains(QLatin1String("meta"), Qt::CaseInsensitive));
+        updateQCheckBox(*(d->ui->metaModifierCheckBox),  isChecked, true);
+
+        isChecked = shortcutString.contains(QLatin1String("shift"), Qt::CaseInsensitive);
+        updateQCheckBox(*(d->ui->shiftModifierCheckBox), isChecked, true);
+
+    } else {
+        // shortcut is unknown or not set, all widgets are available but not set
+        updateQCheckBox(*(d->ui->ctrlModifierCheckBox),  false, true);
+        updateQCheckBox(*(d->ui->altModifierCheckBox),   false, true);
+        updateQCheckBox(*(d->ui->metaModifierCheckBox),  false, true);
+        updateQCheckBox(*(d->ui->shiftModifierCheckBox), false, true);
+    }
+}
+
+
+void SelectKeyStroke::updateQCheckBox(QCheckBox& checkbox, bool isChecked, bool isEnabled) const
+{
+    checkbox.blockSignals(true);
+    checkbox.setChecked(isChecked);
+    checkbox.setEnabled(isEnabled);
+    checkbox.blockSignals(false);
+}
+
+
+void SelectKeyStroke::updateShortcutWidgets(const ButtonShortcut& shortcut)
+{
+    Q_D(SelectKeyStroke);
+
+    if (shortcut.isKeystroke()) {
+        // shortcut is a key sequence - update it accordingly
+        QKeySequence qkeySequence = QKeySequence::fromString(shortcut.toQKeySequenceString());
+
+        d->ui->shortcutSelectorWidget->blockSignals(true);
+        d->ui->shortcutSelectorWidget->setKeySequence(qkeySequence);
+        d->ui->shortcutSelectorWidget->blockSignals(false);
+
+    } else {
+        // shortcut is unknown or not set - input is available
+        d->ui->shortcutSelectorWidget->blockSignals(true);
+        d->ui->shortcutSelectorWidget->clearKeySequence();
+        d->ui->shortcutSelectorWidget->blockSignals(false);
+    }
 }

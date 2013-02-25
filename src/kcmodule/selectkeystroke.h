@@ -27,6 +27,9 @@ namespace Ui
 class SelectKeyStroke;
 }
 
+class KKeySequenceWidget;
+class QCheckBox;
+
 namespace Wacom
 {
 
@@ -54,38 +57,51 @@ public:
     ~SelectKeyStroke();
 
     /**
-      * @deprecated Do not use anymore. Use \a shortcut() instead.
-      *
-      * Returns the selected key or keystroke as plaintext as used by xsetwacom
-      *
-      * @return untranslated plaintext string of the keystroke for xsetwacom
-      */
-    QString keyStroke() const;
-
-    /**
      * @return The selected shortcut.
      */
-    const ButtonShortcut& shortcut() const;
+    const ButtonShortcut& getShortcut() const;
+
+    /**
+     * Sets a shortcut.
+     *
+     * @param shortcut The shortcut to set.
+     */
+    void setShortcut(const ButtonShortcut& shortcut);
 
 
 private slots:
-    /**
-      * Called when the used clicks ok in the dialog.
-      *
-      * Either the text from the combobox or from the sequencewidget are used.
-      * All "+" strings are replaced with spaces and instead of the translated
-      * values the original values are used as expected by xsetwacom.
-      * The output can be used directly for the xsetwacom command
-      */
-    void slotOkClicked();
 
-    void findGlobalShortcut(QKeySequence sequence);
+    /**
+     * Called when the keyboard shortcut sequence is modified.
+     */
+    void onShortcutChanged (QKeySequence sequence);
+
+    /**
+     * Called when the state of a modifier checkbox changes.
+     */
+    void onModifierChanged(int state);
+
+    /**
+     * Called when the button is clicked to clear the modifiers.
+     */
+    void onModifiersCleared(bool checked);
+    
 
 private:
+
     /**
      * Sets up the user interface. This should only be called once by the constructor.
      */
     void setupUi();
+
+    void updateActionName (const ButtonShortcut& shortcut);
+
+    void updateModifierWidgets (const ButtonShortcut& shortcut);
+
+    void updateQCheckBox (QCheckBox& checkbox, bool isChecked, bool isEnabled) const;
+
+    void updateShortcutWidgets (const ButtonShortcut& shortcut);
+
 
     Q_DECLARE_PRIVATE( SelectKeyStroke )
     SelectKeyStrokePrivate *const d_ptr; //!< D-Pointer for this class.
