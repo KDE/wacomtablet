@@ -53,8 +53,7 @@ public:
      */
     enum PadButtonAction {
         ActionDisabled,
-        ActionMouseClick,
-        ActionKeyStroke
+        ActionSelected
     };
 
     /**

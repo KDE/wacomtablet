@@ -88,6 +88,12 @@ ButtonShortcut::ButtonShortcut(const QString& shortcut) : d_ptr(new ButtonShortc
 }
 
 
+ButtonShortcut::ButtonShortcut(int buttonNumber) : d_ptr(new ButtonShortcutPrivate)
+{
+    setButton(buttonNumber);
+}
+
+
 ButtonShortcut::~ButtonShortcut()
 {
     delete this->d_ptr;
@@ -247,7 +253,7 @@ const QString ButtonShortcut::toDisplayString() const
             } else if (buttonNr == 5) {
                 displayString = i18nc("Mouse wheel down.", "Mouse Wheel Down");
             } else {
-                displayString = i18nc("Click of mouse button with number #", "Extra Button %1", buttonNr);
+                displayString = i18nc("Click of mouse button with number #", "Mouse Button %1", buttonNr);
             }
             break;
 

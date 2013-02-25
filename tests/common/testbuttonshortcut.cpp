@@ -123,6 +123,10 @@ void TestButtonShortcut::testAssignment()
     assertEquals(copyShortcut2, modifierShortcut);
     assertModifier(copyShortcut2, modifierShortcut.toString());
 
+    ButtonShortcut copyShortcut3 (buttonShortcut.getButton());
+    assertEquals(copyShortcut3, buttonShortcut);
+    assertButton(copyShortcut3, buttonShortcut.getButton());
+
     // Test Assignment Operators
     copyShortcut = modifierShortcut;
     assertEquals(copyShortcut, modifierShortcut);
@@ -153,12 +157,17 @@ void TestButtonShortcut::testAssignment()
 void TestButtonShortcut::testButton()
 {
     int minButtonNr = 1;
+    int medButtonNr = 5;
     int maxButtonNr = 32;
 
-    ButtonShortcut shortcut;
+    ButtonShortcut shortcut(medButtonNr);
+    assertButton(shortcut, medButtonNr);
 
     shortcut.setButton(minButtonNr);
     assertButton(shortcut, minButtonNr);
+
+    shortcut.setButton(medButtonNr);
+    assertButton(shortcut, medButtonNr);
 
     shortcut.set(QString::number(minButtonNr));
     assertButton(shortcut, minButtonNr);

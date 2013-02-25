@@ -1,6 +1,8 @@
 ########### next target ###############
 
 set( kcm_tablet_SRCS
+     buttonactionselectiondialog.cpp
+     buttonactionselectionwidget.cpp
      generalwidget.cpp
      kcmwacomtablet.cpp
      padmapping.cpp
@@ -9,8 +11,6 @@ set( kcm_tablet_SRCS
      presscurve.cpp
      presscurvedialog.cpp
      profilemanagement.cpp
-     selectkeybutton.cpp
-     selectkeystroke.cpp
      tabletwidget.cpp
      calibrationdialog.cpp
      touchwidget.cpp
@@ -19,6 +19,7 @@ set( kcm_tablet_SRCS
 )
 
 kde4_add_ui_files( kcm_tablet_SRCS
+                   buttonactionselectionwidget.ui
                    errorwidget.ui
                    generalwidget.ui
                    padmapping.ui
@@ -26,8 +27,6 @@ kde4_add_ui_files( kcm_tablet_SRCS
                    padbuttonwidget.ui
                    presscurvedialog.ui
                    saveprofile.ui
-                   selectkeybutton.ui
-                   selectkeystroke.ui
                    tabletwidget.ui
                    touchwidget.ui
 )

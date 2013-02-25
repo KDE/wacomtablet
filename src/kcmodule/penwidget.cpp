@@ -18,10 +18,9 @@
  */
 
 #include "penwidget.h"
-
 #include "ui_penwidget.h"
-#include "selectkeybutton.h"
-#include "selectkeystroke.h"
+
+#include "buttonactionselectiondialog.h"
 #include "presscurvedialog.h"
 #include "profilemanagement.h"
 
@@ -260,26 +259,15 @@ QString PenWidget::changePressCurve(const DeviceType& deviceType, const QString&
 void PenWidget::fillComboBox( KComboBox *comboBox )
 {
     comboBox->blockSignals( true );
-    comboBox->addItem( i18nc( "Disable button function", "Disabled" ), PenWidget::ActionDisabled );
-    comboBox->addItem( i18nc( "Indicates the use of one of the standard buttons (1-32)", "Mouse..." ), PenWidget::ActionMouseClick );
-    comboBox->addItem( i18nc( "Indicates the use of a specific keyboard key/shortcut", "Keyboard..." ), PenWidget::ActionKeyStroke );
+    comboBox->addItem( i18nc( "Disable button function",      "Disabled" ),  PenWidget::ActionDisabled );
+    comboBox->addItem( i18nc("Indicates an assigned action.", "Action..." ), PenWidget::ActionSelected);
     comboBox->blockSignals( false );
 }
 
 
 PenWidget::PenButtonAction PenWidget::getButtonAction(const ButtonShortcut& shortcut) const
 {
-    // determine combo box selection to set
-    PenButtonAction action = PenWidget::ActionDisabled;
-
-    if (shortcut.isButton()) {
-        action = PenWidget::ActionMouseClick;
-
-    } else if (shortcut.isKeystroke() || shortcut.isModifier()) {
-        action = PenWidget::ActionKeyStroke;
-    }
-
-    return action;
+    return (shortcut.isSet() ? PenWidget::ActionSelected : PenWidget::ActionDisabled);
 }
 
 
@@ -317,8 +305,7 @@ const QString PenWidget::getShortcutDisplayName(const ButtonShortcut& shortcut) 
 
 void PenWidget::onButtonActionSelectionChanged(int selection, KComboBox& combo, QLabel& label)
 {
-    QPointer <SelectKeyButton> skb = new SelectKeyButton( this );
-    QPointer <SelectKeyStroke> sks = new SelectKeyStroke( this );
+    QPointer <ButtonActionSelectionDialog> selectionDialog = new ButtonActionSelectionDialog(this);
 
     // get the action associated with this selection
     PenButtonAction action = (PenButtonAction)(combo.itemData(selection).toInt());
@@ -332,25 +319,16 @@ void PenWidget::onButtonActionSelectionChanged(int selection, KComboBox& combo, 
             shortcut.clear();
             break;
 
-        case PenWidget::ActionMouseClick:
-            if (previousShortcut.isButton()) {
-                skb->setButton(previousShortcut.getButton());
-            }
-            if (skb->exec() == QDialog::Accepted) {
-                shortcut.setButton(skb->getButton());
-            }
-            break;
+        case PenWidget::ActionSelected:
+            selectionDialog->setShortcut(previousShortcut);
 
-        case PenWidget::ActionKeyStroke:
-            sks->setShortcut(previousShortcut);
-            if (sks->exec() == QDialog::Accepted) {
-                shortcut = sks->getShortcut();
+            if (selectionDialog->exec() == QDialog::Accepted) {
+                shortcut = selectionDialog->getShortcut();
             }
             break;
     }
 
-    delete skb;
-    delete sks;
+    delete selectionDialog;
 
     // update UI widgets
     setButtonActionShortcut(&combo, &label, shortcut.toString());

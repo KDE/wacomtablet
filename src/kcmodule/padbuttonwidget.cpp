@@ -19,8 +19,8 @@
 
 #include "padbuttonwidget.h"
 #include "ui_padbuttonwidget.h"
-#include "selectkeybutton.h"
-#include "selectkeystroke.h"
+
+#include "buttonactionselectiondialog.h"
 #include "profilemanagement.h"
 
 // common includes
@@ -324,24 +324,15 @@ void PadButtonWidget::fillComboBox(KComboBox *comboBox)
 {
     comboBox->clear();
     comboBox->blockSignals(true);
-    comboBox->addItem(i18nc("Disable button function", "Disabled"), PadButtonWidget::ActionDisabled);
-    comboBox->addItem(i18nc("Indicates the use of one of the standard buttons (1-32)", "Mouse..."), PadButtonWidget::ActionMouseClick);
-    comboBox->addItem(i18nc("Indicates the use of a specific key/keystroke", "Keyboard..."), PadButtonWidget::ActionKeyStroke);
+    comboBox->addItem(i18nc("Disable button function",       "Disabled"),  PadButtonWidget::ActionDisabled);
+    comboBox->addItem(i18nc("Indicates an assigned action.", "Action..."), PadButtonWidget::ActionSelected);
     comboBox->blockSignals(false);
 }
 
 
 PadButtonWidget::PadButtonAction PadButtonWidget::getButtonAction(const ButtonShortcut& shortcut) const
 {
-    PadButtonAction action = PadButtonWidget::ActionDisabled;
-
-    if (shortcut.isButton()) {
-        action = PadButtonWidget::ActionMouseClick;
-    } else if (shortcut.isKeystroke() || shortcut.isModifier()) {
-        action = PadButtonWidget::ActionKeyStroke;
-    }
-
-    return action;
+    return (shortcut.isSet() ? PadButtonWidget::ActionSelected : PadButtonWidget::ActionDisabled);
 }
 
 
@@ -379,8 +370,7 @@ const QString PadButtonWidget::getShortcutDisplayName(const ButtonShortcut& shor
 
 void PadButtonWidget::onButtonActionSelectionChanged(int selection, KComboBox& combo, QLabel& label)
 {
-    QPointer <SelectKeyButton> skb      = new SelectKeyButton(this);
-    QPointer <SelectKeyStroke> sks      = new SelectKeyStroke(this);
+    QPointer <ButtonActionSelectionDialog> selectionDialog = new ButtonActionSelectionDialog(this);
 
     // get the action associated with this selection
     PadButtonAction action = (PadButtonAction)(combo.itemData(selection).toInt());
@@ -394,25 +384,16 @@ void PadButtonWidget::onButtonActionSelectionChanged(int selection, KComboBox& c
             shortcut.clear();
             break;
 
-        case PadButtonWidget::ActionMouseClick:
-            if (previousShortcut.isButton()) {
-                skb->setButton(previousShortcut.getButton());
-            }
-            if (skb->exec() == QDialog::Accepted) {
-                shortcut.setButton(skb->getButton());
-            }
-            break;
+        case PadButtonWidget::ActionSelected:
+            selectionDialog->setShortcut(previousShortcut);
 
-        case PadButtonWidget::ActionKeyStroke:
-            sks->setShortcut(previousShortcut);
-            if (sks->exec() == QDialog::Accepted) {
-                shortcut = sks->getShortcut();
+            if (selectionDialog->exec() == QDialog::Accepted) {
+                shortcut = selectionDialog->getShortcut();
             }
             break;
     }
 
-    delete skb;
-    delete sks;
+    delete selectionDialog;
 
     // update ui elements
     setButtonActionShortcut(&combo, &label, shortcut.toString());

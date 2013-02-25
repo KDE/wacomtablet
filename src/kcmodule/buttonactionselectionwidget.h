@@ -17,44 +17,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SELECTKEYSTROKE_H
-#define SELECTKEYSTROKE_H
+#ifndef BUTTONACTIONSELECTIONWIDGET_H
+#define BUTTONACTIONSELECTIONWIDGET_H
 
-#include <KDE/KDialog>
+#include <QWidget>
 
-namespace Ui
-{
-class SelectKeyStroke;
+class QCheckBox;
+class QKeySequence;
+
+namespace Ui {
+    class ButtonActionSelectionWidget;
 }
 
-class KKeySequenceWidget;
-class QCheckBox;
-
-namespace Wacom
-{
+namespace Wacom {
 
 class ButtonShortcut;
-class SelectKeyStrokePrivate;
+class ButtonActionSelectionWidgetPrivate;
 
-/**
-  * Implements the selectkeystroke.ui designer file
-  */
-class SelectKeyStroke : public KDialog
+class ButtonActionSelectionWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    /**
-      * Creates the KDialog window and set up all elements.
-      *
-      * @param parent the parent widget
-      */
-    explicit SelectKeyStroke(QWidget *parent = 0);
+    explicit ButtonActionSelectionWidget(QWidget* parent = 0);
 
-    /**
-      * Destroys the element again.
-      */
-    ~SelectKeyStroke();
+    virtual ~ButtonActionSelectionWidget();
 
     /**
      * @return The selected shortcut.
@@ -66,10 +53,15 @@ public:
      *
      * @param shortcut The shortcut to set.
      */
-    void setShortcut(const ButtonShortcut& shortcut);
+    void setShortcut (const ButtonShortcut& shortcut);
 
 
 private slots:
+
+    /**
+     * Called when one of the clear buttons is clicked.
+     */
+    void onClearButtonClicked (bool checked);
 
     /**
      * Called when the keyboard shortcut sequence is modified.
@@ -79,13 +71,14 @@ private slots:
     /**
      * Called when the state of a modifier checkbox changes.
      */
-    void onModifierChanged(int state);
+    void onModifierChanged (int state);
 
     /**
-     * Called when the button is clicked to clear the modifiers.
+     * Called when the mouse button selection was changed.
      */
-    void onModifiersCleared(bool checked);
-    
+    void onMouseSelectionChanged (int index);
+
+
 
 private:
 
@@ -94,18 +87,20 @@ private:
      */
     void setupUi();
 
-    void updateActionName (const ButtonShortcut& shortcut);
+    void updateCurrentActionLabel (const ButtonShortcut& shortcut);
 
     void updateModifierWidgets (const ButtonShortcut& shortcut);
 
-    void updateQCheckBox (QCheckBox& checkbox, bool isChecked, bool isEnabled) const;
+    void updateMouseButtonSeletion (const ButtonShortcut& shortcut);
+
+    void updateQCheckBox (QCheckBox& checkbox, bool isChecked) const;
 
     void updateShortcutWidgets (const ButtonShortcut& shortcut);
 
 
-    Q_DECLARE_PRIVATE( SelectKeyStroke )
-    SelectKeyStrokePrivate *const d_ptr; //!< D-Pointer for this class.
+    Q_DECLARE_PRIVATE(ButtonActionSelectionWidget)
+    ButtonActionSelectionWidgetPrivate *const d_ptr; //!< D-Pointer for this class.
 
-};     // CLASS
-}      // NAMESPACE
+}; // CLASS
+}  // NAMESPACE
 #endif // HEADER PROTECTION

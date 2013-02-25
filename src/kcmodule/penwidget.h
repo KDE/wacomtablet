@@ -54,8 +54,7 @@ public:
      */
     enum PenButtonAction {
         ActionDisabled,     //!< disables the button
-        ActionMouseClick,   //!< special mouse button click
-        ActionKeyStroke     //!< keyboard shortcut
+        ActionSelected      //!< select an action
     };
 
     /**

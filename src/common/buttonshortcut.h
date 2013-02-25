@@ -60,6 +60,15 @@ public:
      */
     explicit ButtonShortcut(const QString& shortcut);
 
+    /**
+     * @brief Button assignment constructor.
+     *
+     * Assigns a button number to the shortcut.
+     *
+     * @param buttonNumber The button number to assign.
+     */
+    explicit ButtonShortcut(int buttonNumber);
+
     //! Destructor
     virtual ~ButtonShortcut();
 
