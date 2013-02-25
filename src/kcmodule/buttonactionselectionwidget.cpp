@@ -121,7 +121,7 @@ void ButtonActionSelectionWidget::onMouseSelectionChanged(int index)
     Q_D (const ButtonActionSelectionWidget);
 
     int button = d->ui->mouseComboBox->itemData(index).toInt();
-    setShortcut(ButtonShortcut(QString::number(button)));
+    setShortcut(ButtonShortcut(button));
 }
 
 
