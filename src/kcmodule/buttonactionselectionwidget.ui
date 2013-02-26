@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>379</width>
-    <height>147</height>
+    <height>151</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -87,7 +87,9 @@
            </size>
           </property>
           <property name="icon">
-           <iconset theme="edit-clear-locationbar-rtl"/>
+           <iconset theme="edit-clear-locationbar-rtl">
+            <normaloff/>
+           </iconset>
           </property>
          </widget>
         </item>
@@ -322,6 +324,19 @@
       </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <spacer name="freeSpaceSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
