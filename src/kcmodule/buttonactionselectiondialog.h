@@ -27,6 +27,9 @@ namespace Wacom {
 class ButtonShortcut;
 class ButtonActionSelectionDialogPrivate;
 
+/**
+ * A dialog which displays the button action selection widget.
+ */
 class ButtonActionSelectionDialog : public KDialog
 {
     Q_OBJECT
@@ -37,6 +40,10 @@ public:
     virtual ~ButtonActionSelectionDialog();
 
     /**
+     * Gets the shortcut which was selected by the user. If the
+     * user canceled the dialog, the last shortcut which was set
+     * using \a setShortcut(const ButtonShortcut&) will be returned.
+     *
      * @return The selected button shortcut.
      */
     const ButtonShortcut& getShortcut() const;
@@ -48,6 +55,13 @@ public:
      */
     void setShortcut(const ButtonShortcut& shortcut);
 
+
+private slots:
+
+    /**
+     * Called when the user confirms the dialog with the OK button.
+     */
+    void onOkClicked();
 
 private:
 

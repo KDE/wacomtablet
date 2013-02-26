@@ -44,7 +44,7 @@ public:
     virtual ~ButtonActionSelectionWidget();
 
     /**
-     * @return The selected shortcut.
+     * @return The currently selected shortcut.
      */
     const ButtonShortcut& getShortcut() const;
 
@@ -87,14 +87,45 @@ private:
      */
     void setupUi();
 
-    void updateCurrentActionLabel (const ButtonShortcut& shortcut);
+    /**
+     * Determines a name for the current shortcut and updates the
+     * name widget. This will also take into account global shortcuts.
+     *
+     * @param shortcut The current shortcut.
+     */
+    void updateCurrentActionName (const ButtonShortcut& shortcut);
 
+    /**
+     * Updates the modifier selection widgets for the current shortcut.
+     * While the update is in progress all signals will be blocked.
+     *
+     * @param shortcut The current shortcut.
+     */
     void updateModifierWidgets (const ButtonShortcut& shortcut);
 
+    /**
+     * Updates the mouse button selection for the current shortcut.
+     * While the update is in progress all signals will be blocked.
+     *
+     * @param shortcut The current shortcut.
+     */
     void updateMouseButtonSeletion (const ButtonShortcut& shortcut);
 
+    /**
+     * Updates the checked state of a  QCheckBox. While the
+     * update is in progress all signals will be blocked.
+     *
+     * @param checkbox The checkbox to update.
+     * @param isChecked A flag to signal if the checkbox is checked.
+     */
     void updateQCheckBox (QCheckBox& checkbox, bool isChecked) const;
 
+    /**
+     * Updates the keyboard shortcut widget according to the current shortcut.
+     * While the update is in progress all shortcut widgets will be blocked.
+     *
+     * @param shortcut The current shortcut.
+     */
     void updateShortcutWidgets (const ButtonShortcut& shortcut);
 
 

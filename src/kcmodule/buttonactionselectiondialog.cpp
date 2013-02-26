@@ -31,8 +31,8 @@ using namespace Wacom;
 namespace Wacom {
     class ButtonActionSelectionDialogPrivate {
         public:
-            // no need to delete this as it is properly parented
-            ButtonActionSelectionWidget* selectionWidget;
+            ButtonShortcut               shortcut;
+            ButtonActionSelectionWidget* selectionWidget; // no need to delete this widget as it is properly parented.
     };
 }
 
@@ -46,6 +46,8 @@ ButtonActionSelectionDialog::ButtonActionSelectionDialog(QWidget* parent)
     setMainWidget(d->selectionWidget);
     setButtons( KDialog::Ok | KDialog::Cancel );
     setCaption( i18nc( "The action that will be assigned to a tablet button.", "Select Button Action" ) );
+
+    connect( this, SIGNAL(okClicked()), this, SLOT(onOkClicked()) );
 }
 
 
@@ -58,12 +60,20 @@ ButtonActionSelectionDialog::~ButtonActionSelectionDialog()
 const ButtonShortcut& ButtonActionSelectionDialog::getShortcut() const
 {
     Q_D (const ButtonActionSelectionDialog);
-    return d->selectionWidget->getShortcut();
+    return d->shortcut;
 }
 
 
 void ButtonActionSelectionDialog::setShortcut(const ButtonShortcut& shortcut)
 {
     Q_D (ButtonActionSelectionDialog);
+    d->shortcut = shortcut;
     d->selectionWidget->setShortcut(shortcut);
+}
+
+
+void ButtonActionSelectionDialog::onOkClicked()
+{
+    Q_D (ButtonActionSelectionDialog);
+    d->shortcut = d->selectionWidget->getShortcut();
 }

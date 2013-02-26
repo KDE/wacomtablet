@@ -386,10 +386,8 @@ void PadButtonWidget::onButtonActionSelectionChanged(int selection, KComboBox& c
 
         case PadButtonWidget::ActionSelected:
             selectionDialog->setShortcut(previousShortcut);
-
-            if (selectionDialog->exec() == QDialog::Accepted) {
-                shortcut = selectionDialog->getShortcut();
-            }
+            selectionDialog->exec();
+            shortcut = selectionDialog->getShortcut();
             break;
     }
 

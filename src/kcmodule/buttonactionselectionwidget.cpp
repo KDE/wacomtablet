@@ -73,7 +73,7 @@ void ButtonActionSelectionWidget::setShortcut(const ButtonShortcut& shortcut)
     updateMouseButtonSeletion(shortcut);
     updateModifierWidgets(shortcut);
     updateShortcutWidgets(shortcut);
-    updateCurrentActionLabel(shortcut);
+    updateCurrentActionName(shortcut);
 }
 
 
@@ -142,14 +142,11 @@ void ButtonActionSelectionWidget::setupUi()
 
     // add mouse buttons to dropdown menu
     d->ui->mouseComboBox->addItem(i18nc("Select a mouse button from a dropwdown.", "Select Button..."), 0);
-    d->ui->mouseComboBox->addItem(ButtonShortcut(1).toDisplayString(), 1);
-    d->ui->mouseComboBox->addItem(ButtonShortcut(2).toDisplayString(), 2);
-    d->ui->mouseComboBox->addItem(ButtonShortcut(3).toDisplayString(), 3);
-    d->ui->mouseComboBox->addItem(ButtonShortcut(4).toDisplayString(), 4);
-    d->ui->mouseComboBox->addItem(ButtonShortcut(5).toDisplayString(), 5);
 
-    for (int i = 6 ; i < 33 ; ++i) {
-        d->ui->mouseComboBox->addItem(ButtonShortcut(i).toDisplayString(), i);
+    ButtonShortcut shortcut;
+    for (int i = 1 ; i < 33 ; ++i) {
+        shortcut.setButton(i);
+        d->ui->mouseComboBox->addItem(shortcut.toDisplayString(), i);
     }
 
     connect( d->ui->mouseComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onMouseSelectionChanged(int)) );
@@ -167,17 +164,19 @@ void ButtonActionSelectionWidget::setupUi()
 }
 
 
-void ButtonActionSelectionWidget::updateCurrentActionLabel(const ButtonShortcut& shortcut)
+void ButtonActionSelectionWidget::updateCurrentActionName(const ButtonShortcut& shortcut)
 {
     Q_D(ButtonActionSelectionWidget);
 
+    // determine a display name
     QString displayName;
 
     if (!shortcut.isSet()) {
+        // no shortcut set
         displayName = i18nc("No button action assigned.", "None");
 
     } else if (shortcut.isKeystroke()) {
-        // lookup keystrokes from the global list of shortcuts
+        // shortcut is a keyboard shortcut - use global shortcut name if available
         QList< KGlobalShortcutInfo > globalShortcutList = KGlobalAccel::getGlobalShortcutsByKey(QKeySequence(shortcut.toQKeySequenceString()));
 
         if(!globalShortcutList.isEmpty()) {
@@ -185,12 +184,19 @@ void ButtonActionSelectionWidget::updateCurrentActionLabel(const ButtonShortcut&
         }
     }
 
-    // set default display name if we do not have one yet
+    // use default display name if we do not have one yet
     if (displayName.isEmpty()) {
         displayName = shortcut.toDisplayString();
     }
 
-    d->ui->actionNameLineEdit->setText(displayName);
+    // update current action
+    if (!shortcut.isSet()) {
+        d->ui->actionNameLineEdit->setEnabled(false);
+        d->ui->actionNameLineEdit->setText(displayName);
+    } else {
+        d->ui->actionNameLineEdit->setEnabled(true);
+        d->ui->actionNameLineEdit->setText(displayName);
+    }
 }
 
 
