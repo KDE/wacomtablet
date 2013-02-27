@@ -3,6 +3,7 @@
 set( kcm_tablet_SRCS
      buttonactionselectiondialog.cpp
      buttonactionselectionwidget.cpp
+     buttonactionselectorwidget.cpp
      generalwidget.cpp
      kcmwacomtablet.cpp
      padmapping.cpp
@@ -20,6 +21,7 @@ set( kcm_tablet_SRCS
 
 kde4_add_ui_files( kcm_tablet_SRCS
                    buttonactionselectionwidget.ui
+                   buttonactionselectorwidget.ui
                    errorwidget.ui
                    generalwidget.ui
                    padmapping.ui

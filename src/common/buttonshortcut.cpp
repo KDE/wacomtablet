@@ -26,6 +26,7 @@
 #include <QKeySequence>
 
 #include <KDE/KLocalizedString>
+#include <KDE/KGlobalAccel>
 
 
 using namespace Wacom;
@@ -237,30 +238,42 @@ const QString ButtonShortcut::toDisplayString() const
 {
     Q_D (const ButtonShortcut);
 
-    QString displayString;
-    int     buttonNr = getButton();
+    QList< KGlobalShortcutInfo > globalShortcutList;
+    QString                      displayString;
+    int                          buttonNr = getButton();
 
     switch (d->type) {
         case BUTTON:
             if (buttonNr == 1) {
-                displayString = i18nc("Left mouse button click.", "Left Click");
+                displayString = i18nc("Tablet button triggers a left mouse button click.", "Left Mouse Button Click");
             } else if (buttonNr == 2) {
-                displayString = i18nc("Middle mouse button click.", "Middle Click");
+                displayString = i18nc("Tablet button triggers a middle mouse button click.", "Middle Mouse Button Click");
             } else if (buttonNr == 3) {
-                displayString = i18nc("Right mouse button click.", "Right Click");
+                displayString = i18nc("Tablet button triggers a right mouse button click.", "Right Mouse Button Click");
             } else if (buttonNr == 4) {
-                displayString = i18nc("Mouse wheel up.", "Mouse Wheel Up");
+                displayString = i18nc("Tablet button triggers mouse wheel up.", "Mouse Wheel Up");
             } else if (buttonNr == 5) {
-                displayString = i18nc("Mouse wheel down.", "Mouse Wheel Down");
+                displayString = i18nc("Tablet button triggers mouse wheel down.", "Mouse Wheel Down");
             } else {
-                displayString = i18nc("Click of mouse button with number #", "Mouse Button %1", buttonNr);
+                displayString = i18nc("Tablet button triggers a click of mouse button with number #", "Mouse Button %1 Click", buttonNr);
             }
             break;
 
         case MODIFIER:
+            displayString = d->sequence;
+            convertKeySequenceToQKeySequenceFormat(displayString);
+            break;
+
         case KEYSTROKE:
             displayString = d->sequence;
             convertKeySequenceToQKeySequenceFormat(displayString);
+
+            // check if a global shortcut is assigned to this sequence
+            globalShortcutList = KGlobalAccel::getGlobalShortcutsByKey(QKeySequence(displayString));
+
+            if(!globalShortcutList.isEmpty()) {
+                displayString = globalShortcutList.at(0).uniqueName();
+            }
             break;
 
         case NONE:

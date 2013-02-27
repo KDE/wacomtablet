@@ -71,14 +71,10 @@ PenWidget::PenWidget( QWidget* parent )
     d->ui = std::auto_ptr<Ui::PenWidget>(new Ui::PenWidget);
     d->ui->setupUi( this );
 
-    fillComboBox( d->ui->button2ComboBox );
-    fillComboBox( d->ui->button3ComboBox );
-
     d->ui->penLabel->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/pen.png"))));
 
-    //TODO Don't show double click slider box
-    // does not work yet
-    d->ui->DblClickBox->hide();
+    connect ( d->ui->button2ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onButtonActionChanged()) );
+    connect ( d->ui->button3ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onButtonActionChanged()) );
 }
 
 PenWidget::~PenWidget()
@@ -103,10 +99,10 @@ void PenWidget::saveToProfile()
     stylusProfile.setProperty( Property::PressureCurve, d->ui->tipPressureButton->property( "curve" ).toString() );
 
     // button 2 and 3 config
-    eraserProfile.setProperty( Property::Button2, getButtonActionShortcut(d->ui->button2ActionLabel) );
-    eraserProfile.setProperty( Property::Button3, getButtonActionShortcut(d->ui->button3ActionLabel) );
-    stylusProfile.setProperty( Property::Button2, getButtonActionShortcut(d->ui->button2ActionLabel) );
-    stylusProfile.setProperty( Property::Button3, getButtonActionShortcut(d->ui->button3ActionLabel) );
+    eraserProfile.setProperty( Property::Button2, d->ui->button2ActionSelector->getShortcut().toString() );
+    eraserProfile.setProperty( Property::Button3, d->ui->button3ActionSelector->getShortcut().toString() );
+    stylusProfile.setProperty( Property::Button2, d->ui->button2ActionSelector->getShortcut().toString() );
+    stylusProfile.setProperty( Property::Button3, d->ui->button3ActionSelector->getShortcut().toString() );
 
     //stylusProfile.setProperty( "DoubleClickInterval", ui->doubleClickSlider->value() );
     //eraserProfile.setProperty( "DoubleClickInterval", ui->doubleClickSlider->value() );
@@ -149,17 +145,14 @@ void PenWidget::loadFromProfile()
     d->ui->tipSlider->setValue( stylusProfile.getProperty( Property::Threshold ).toInt() );
     d->ui->tipPressureButton->setProperty( "curve", stylusProfile.getProperty( Property::PressureCurve ) );
 
-    // button 2 and 3 config
+    // Button Actions
     QString propertyValue;
 
     propertyValue = stylusProfile.getProperty( Property::Button2 );
-    setButtonActionShortcut(d->ui->button2ComboBox, d->ui->button2ActionLabel, propertyValue);
+    d->ui->button2ActionSelector->setShortcut(ButtonShortcut(propertyValue));
 
     propertyValue = stylusProfile.getProperty( Property::Button3 );
-    setButtonActionShortcut(d->ui->button3ComboBox, d->ui->button3ActionLabel, propertyValue);
-
-    //Double Click Distance
-    //ui->doubleClickSlider->setValue( stylusProfile.getProperty( "DoubleClickInterval" ).toInt() );
+    d->ui->button3ActionSelector->setShortcut(ButtonShortcut(propertyValue));
 
     // Cursor Settings
     if( stylusProfile.getProperty( Property::Mode ).toInt() == 1 || stylusProfile.getProperty( Property::Mode ) == QLatin1String( "absolute" ) ) {
@@ -171,7 +164,7 @@ void PenWidget::loadFromProfile()
         d->ui->radioButton_Relative->setChecked( true );
     }
 
-    // hover click settings
+    // Hover Settings
     QString tabletPCButton = stylusProfile.getProperty( Property::TabletPcButton );
     if( tabletPCButton == QLatin1String( "on" ) ) {
         d->ui->tpcCheckBox->setChecked( true );
@@ -179,8 +172,6 @@ void PenWidget::loadFromProfile()
     else {
         d->ui->tpcCheckBox->setChecked( false );
     }
-
-    //ui->cursorProximity->setValue( cursorConfig.readEntry( QLatin1String( "CursorProximity" ) ).toInt() );
 }
 
 void PenWidget::profileChanged()
@@ -190,32 +181,6 @@ void PenWidget::profileChanged()
 
 void PenWidget::reloadWidget()
 {
-}
-
-void PenWidget::selectKeyFunction( int selection )
-{
-    Q_D( PenWidget );
-
-    QObject *sender = const_cast<QObject *>( QObject::sender() );
-
-    if (!sender) {
-        kWarning() << QLatin1String("PenWidget::selectKeyFunction() was called manually but it should only be called by Qt's signal-slot mechanism!");
-        return;
-    }
-
-    QString buttonActionComboBoxName = sender->objectName();
-    QString buttonActionLabelName = buttonActionComboBoxName;
-    buttonActionLabelName.replace( QLatin1String( "ComboBox" ), QLatin1String( "ActionLabel" ) );
-
-    KComboBox *buttonActionComboBox = d->ui->buttonGroupBox->findChild<KComboBox *>( buttonActionComboBoxName );
-    QLabel    *buttonActionLabel    = d->ui->buttonGroupBox->findChild<QLabel *>( buttonActionLabelName );
-
-    if( !buttonActionComboBox || !buttonActionLabel ) {
-        kError() << "No ActionLabel, ComboBox pair found!";
-        return;
-    }
-
-    onButtonActionSelectionChanged(selection, *buttonActionComboBox, *buttonActionLabel);
 }
 
 void PenWidget::changeEraserPressCurve()
@@ -233,6 +198,13 @@ void PenWidget::changeTipPressCurve()
     QString result = changePressCurve(DeviceType::Stylus, d->ui->tipPressureButton->property( "curve" ).toString());
     d->ui->tipPressureButton->setProperty( "curve", result );
 }
+
+
+void PenWidget::onButtonActionChanged()
+{
+    emit changed();
+}
+
 
 QString PenWidget::changePressCurve(const DeviceType& deviceType, const QString& startValue)
 {
@@ -256,112 +228,4 @@ QString PenWidget::changePressCurve(const DeviceType& deviceType, const QString&
     return result;
 }
 
-void PenWidget::fillComboBox( KComboBox *comboBox )
-{
-    comboBox->blockSignals( true );
-    comboBox->addItem( i18nc( "Disable button function",      "Disabled" ),  PenWidget::ActionDisabled );
-    comboBox->addItem( i18nc("Indicates an assigned action.", "Action..." ), PenWidget::ActionSelected);
-    comboBox->blockSignals( false );
-}
-
-
-PenWidget::PenButtonAction PenWidget::getButtonAction(const ButtonShortcut& shortcut) const
-{
-    return (shortcut.isSet() ? PenWidget::ActionSelected : PenWidget::ActionDisabled);
-}
-
-
-const QString PenWidget::getButtonActionShortcut(QLabel* label) const
-{
-    if (!label) {
-        return QString();
-    }
-
-    return ButtonShortcut(label->property(LABEL_PROPERTY_KEYSEQUENCE).toString()).toString();
-}
-
-
-const QString PenWidget::getShortcutDisplayName(const ButtonShortcut& shortcut) const
-{
-    QString displayName;
-
-    // lookup keystrokes from the global list of shortcuts
-    if (shortcut.isKeystroke()) {
-        QList< KGlobalShortcutInfo > globalShortcutList = KGlobalAccel::getGlobalShortcutsByKey(QKeySequence(shortcut.toQKeySequenceString()));
-
-        if(!globalShortcutList.isEmpty()) {
-            displayName = globalShortcutList.at(0).uniqueName();
-        }
-    }
-
-    // use the standard display string if a name could not be determined by now
-    if (displayName.isEmpty()) {
-        displayName = shortcut.toDisplayString();
-    }
-
-    return displayName;
-}
-
-
-void PenWidget::onButtonActionSelectionChanged(int selection, KComboBox& combo, QLabel& label)
-{
-    QPointer <ButtonActionSelectionDialog> selectionDialog = new ButtonActionSelectionDialog(this);
-
-    // get the action associated with this selection
-    PenButtonAction action = (PenButtonAction)(combo.itemData(selection).toInt());
-
-    // determine new shortcut
-    ButtonShortcut previousShortcut(getButtonActionShortcut(&label));
-    ButtonShortcut shortcut(previousShortcut);
-
-    switch( action ) {
-        case PenWidget::ActionDisabled:
-            shortcut.clear();
-            break;
-
-        case PenWidget::ActionSelected:
-            selectionDialog->setShortcut(previousShortcut);
-            selectionDialog->exec();
-            shortcut = selectionDialog->getShortcut();
-            break;
-    }
-
-    delete selectionDialog;
-
-    // update UI widgets
-    setButtonActionShortcut(&combo, &label, shortcut.toString());
-
-    // emit changed signal if the shortcut changed
-    if (shortcut != previousShortcut) {
-        emit changed();
-    }
-}
-
-
-bool PenWidget::setButtonActionShortcut(KComboBox* combo, QLabel* label, const QString& shortcutSequence) const
-{
-    if (!combo || !label) {
-        return false;
-    }
-
-    ButtonShortcut shortcut(shortcutSequence);
-
-    // determine combo box selection to set
-    int comboItemData = getButtonAction(shortcut);
-    int comboIndex    = combo->findData(comboItemData);
-
-    if (comboIndex == -1) {
-        return false;
-    }
-
-    // set combo box and label
-    combo->blockSignals(true);
-    combo->setCurrentIndex(comboIndex);
-    combo->blockSignals(false);
-
-    label->setText(getShortcutDisplayName(shortcut));
-    label->setProperty(LABEL_PROPERTY_KEYSEQUENCE, shortcut.toString());
-
-    return true;
-}
 

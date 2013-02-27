@@ -69,6 +69,11 @@ private slots:
     void onShortcutChanged (QKeySequence sequence);
 
     /**
+     * Called when the user tries to select the action text.
+     */
+    void onActionLineEditSelectionChanged();
+
+    /**
      * Called when the state of a modifier checkbox changes.
      */
     void onModifierChanged (int state);

@@ -91,14 +91,6 @@ public slots:
     void loadFromProfile();
 
     /**
-      * Opens a new dialogue for the buttons to select the button function.
-      * Fires the changed() signal afterwards to inform the main widget that unsaved changes are available
-      *
-      * @param selection button index @see WacomInterface::PenButton Enumaration
-      */
-    void selectKeyFunction(int selection);
-
-    /**
       * Called whenever a value other than the pen buttons is changed.
       * Fires the changed() signal afterwards to inform the main widget that unsaved changes are available
       */
@@ -124,76 +116,19 @@ signals:
       */
     void changed();
 
+
+private slots:
+
+    void onButtonActionChanged();
+
+
 private:
     /**
      * The property name which is used to store a shortcut in a label.
      */
     static const char* LABEL_PROPERTY_KEYSEQUENCE;
 
-
     QString changePressCurve (const DeviceType& device, const QString& startValue);
-
-    /**
-      * Fills the button selection combobox with all available values
-      * Used in this way to get no redundant strings in the ui file for
-      * any given translator. Thus reduce the strings necessary to translate.
-      *
-      * @param comboBox the combobox where the values are added to
-      */
-    void fillComboBox(KComboBox *comboBox);
-
-    /**
-     * Determines the button action the given shortcut represents.
-     *
-     * @param shortcut The shortcut to analyze.
-     *
-     * @return The associated button action.
-     */
-    PenButtonAction getButtonAction (const ButtonShortcut& shortcut) const;
-
-    /**
-     * Gets the shortcut sequence from the given action label in a format
-     * that can be stored in the device profile.
-     *
-     * @param label The label to get the shortcut sequence from.
-     *
-     * @return The shortcut as string.
-     */
-    const QString getButtonActionShortcut (QLabel* label) const;
-
-    /**
-     * Determines the display name of a shortcut. This is either the name
-     * of the global shortcut associated with this key sequence or the
-     * display string returned by \a ButtonShortcut.
-     *
-     * @param shortcut The shortcut to get the display name from.
-     *
-     * @return The shortcut's display name or an empty string if the shortcut is not set.
-     */
-    const QString getShortcutDisplayName (const ButtonShortcut& shortcut) const;
-
-    /**
-     * This is called when the user selects a different entry from the
-     * pen button actions dropdown menu.
-     *
-     * @param selection The item number which was selected from the combo box.
-     * @param combo The action combo box which was changed.
-     * @param label The action label which belongs to this combo box.
-     */
-    void onButtonActionSelectionChanged(int selection, KComboBox& combo, QLabel& label);
-
-    /**
-     * Sets a shortcut on the given action label and updates the selection
-     * of the given combo box.
-     *
-     * @param combo The combo box to update.
-     * @param label The action label to set the shortcut on.
-     * @param shortcutSequence The shortcut to set.
-     *
-     * @return True if the shortcut was set and the combo box updated, else false.
-     */
-    bool setButtonActionShortcut(KComboBox* combo, QLabel* label, const QString& shortcutSequence) const;
-
 
     Q_DECLARE_PRIVATE( PenWidget )
     PenWidgetPrivate *const d_ptr; /**< d-pointer for this class */

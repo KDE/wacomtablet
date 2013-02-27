@@ -150,8 +150,6 @@ public:
      * Sets this shortcut by string. The shortcut can have one of the following
      * formats:
      *
-     * - "modetoggle" to set a mode toggle shortcut
-     * - "displaytoggle" to set a display toggle shortcut
      * - a mouse button number to set a button shortcut, i.e. "2"
      * - a keystroke in QKeySequence format, i.e. "Ctrl+x"
      * - a keystroke in xsetwacom format, i.e. "key ctrl x" or "key +ctrl +x"
@@ -169,6 +167,7 @@ public:
     /**
      * Converts the shortcut to a translated, human readable string.
      * The result can not be used as input string for this class!
+     * If no shortcut is set, an empty string is returned.
      *
      * @return The current shortcut as readble string.
      */

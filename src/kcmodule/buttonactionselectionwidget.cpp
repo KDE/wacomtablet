@@ -24,9 +24,6 @@
 
 #include "buttonshortcut.h"
 
-#include <KDE/KGlobalAccel>
-//#include <kglobalshortcutinfo.h>
-
 #include <QtCore/QString>
 
 using namespace Wacom;
@@ -86,6 +83,13 @@ void ButtonActionSelectionWidget::onClearButtonClicked(bool checked)
 }
 
 
+void ButtonActionSelectionWidget::onActionLineEditSelectionChanged()
+{
+    Q_D (ButtonActionSelectionWidget);
+    d->ui->actionNameLineEdit->deselect();
+}
+
+
 void ButtonActionSelectionWidget::onModifierChanged(int state)
 {
     Q_D (const ButtonActionSelectionWidget);
@@ -140,8 +144,12 @@ void ButtonActionSelectionWidget::setupUi()
     // setup main widget
     d->ui->setupUi( this );
 
+    // set mouse and keyboard label icons
+    d->ui->mouseIconLabel->setPixmap(QIcon::fromTheme(QLatin1String("input-mouse")).pixmap(QSize(48,48)));
+    d->ui->keyboardIconLabel->setPixmap(QIcon::fromTheme(QLatin1String("input-keyboard")).pixmap(QSize(48,48)));
+
     // add mouse buttons to dropdown menu
-    d->ui->mouseComboBox->addItem(i18nc("Select a mouse button from a dropwdown.", "Select Button..."), 0);
+    d->ui->mouseComboBox->addItem(i18nc("Select a mouse button from a dropwdown.", "Click to select..."), 0);
 
     ButtonShortcut shortcut;
     for (int i = 1 ; i < 33 ; ++i) {
@@ -160,6 +168,8 @@ void ButtonActionSelectionWidget::setupUi()
 
     connect( d->ui->shortcutSelectorWidget, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(onShortcutChanged(QKeySequence)) );
 
+    connect( d->ui->actionNameLineEdit, SIGNAL(selectionChanged()), this, SLOT(onActionLineEditSelectionChanged()) );
+
     setShortcut(ButtonShortcut());
 }
 
@@ -168,34 +178,13 @@ void ButtonActionSelectionWidget::updateCurrentActionName(const ButtonShortcut& 
 {
     Q_D(ButtonActionSelectionWidget);
 
-    // determine a display name
-    QString displayName;
-
-    if (!shortcut.isSet()) {
-        // no shortcut set
-        displayName = i18nc("No button action assigned.", "None");
-
-    } else if (shortcut.isKeystroke()) {
-        // shortcut is a keyboard shortcut - use global shortcut name if available
-        QList< KGlobalShortcutInfo > globalShortcutList = KGlobalAccel::getGlobalShortcutsByKey(QKeySequence(shortcut.toQKeySequenceString()));
-
-        if(!globalShortcutList.isEmpty()) {
-            displayName = globalShortcutList.at(0).uniqueName();
-        }
-    }
-
-    // use default display name if we do not have one yet
-    if (displayName.isEmpty()) {
-        displayName = shortcut.toDisplayString();
-    }
-
     // update current action
     if (!shortcut.isSet()) {
         d->ui->actionNameLineEdit->setEnabled(false);
-        d->ui->actionNameLineEdit->setText(displayName);
+        d->ui->actionNameLineEdit->setText(shortcut.toDisplayString());
     } else {
         d->ui->actionNameLineEdit->setEnabled(true);
-        d->ui->actionNameLineEdit->setText(displayName);
+        d->ui->actionNameLineEdit->setText(shortcut.toDisplayString());
     }
 }
 
