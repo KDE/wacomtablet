@@ -21,6 +21,7 @@
 #include "ui_padbuttonwidget.h"
 
 #include "buttonactionselectiondialog.h"
+#include "buttonactionselectorwidget.h"
 #include "profilemanagement.h"
 
 // common includes
@@ -53,18 +54,17 @@
 using namespace Wacom;
 
 /*
- * Static class members.
- */
-const char* PadButtonWidget::LABEL_PROPERTY_KEYSEQUENCE = "KeySequence";
-
-
-/*
  * D-Pointer class for private members.
  */
 namespace Wacom {
     class PadButtonWidgetPrivate {
         public:
-            std::auto_ptr<Ui::PadButtonWidget>  ui;
+            PadButtonWidgetPrivate() : ui(new Ui::PadButtonWidget) {}
+            ~PadButtonWidgetPrivate() {
+                delete ui;
+            }
+
+            Ui::PadButtonWidget* ui;
     };
 } // NAMESPACE
 
@@ -73,121 +73,14 @@ namespace Wacom {
 PadButtonWidget::PadButtonWidget(QWidget* parent)
         : QWidget(parent), d_ptr(new PadButtonWidgetPrivate)
 {
-    Q_D( PadButtonWidget );
-
-    d->ui = std::auto_ptr<Ui::PadButtonWidget>(new Ui::PadButtonWidget);
-    d->ui->setupUi( this );
-
-    init();
+    setupUi();
+    reloadWidget();
 }
 
 
 PadButtonWidget::~PadButtonWidget()
 {
     delete this->d_ptr;
-}
-
-
-void PadButtonWidget::init()
-{
-    Q_D( PadButtonWidget );
-
-    QDBusReply<QString> deviceModel  = DBusTabletInterface::instance().getInformation(TabletInfo::TabletModel);
-    QDBusReply<QString> deviceId     = DBusTabletInterface::instance().getInformation(TabletInfo::TabletId);
-
-    int padButtons = DBusTabletInterface::instance().getInformationAsInt(TabletInfo::NumPadButtons);
-
-    QLabel    *buttonLabel;
-    QLabel    *actionLabel;
-    KComboBox *comboBox;
-
-    for (int i = 1;i < 11;i++) {
-        buttonLabel = d->ui->buttonGroupBox->findChild<QLabel *>(QString::fromLatin1("button%1Label").arg(i));
-        actionLabel = d->ui->buttonGroupBox->findChild<QLabel *>(QString::fromLatin1("button%1ActionLabel").arg(i));
-        comboBox    = d->ui->buttonGroupBox->findChild<KComboBox *>(QString::fromLatin1("button%1ComboBox").arg(i));
-
-        if (!buttonLabel || !actionLabel || !comboBox) {
-            continue;
-        }
-
-        if (i <= padButtons) {
-            buttonLabel->setVisible(true);
-            actionLabel->setVisible(true);
-            fillComboBox(comboBox);
-            comboBox->setVisible(true);
-        } else {
-            buttonLabel->setVisible(false);
-            actionLabel->setVisible(false);
-            comboBox->setVisible(false);
-        }
-    }
-
-    QString padLayout = DBusTabletInterface::instance().getInformationAsString(TabletInfo::ButtonLayout);
-    if (KStandardDirs::exists(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
-        d->ui->padImage->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
-    }
-
-    if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasWheel)) {
-        d->ui->wheelGroupBox->setVisible(false);
-    } else {
-        fillComboBox(d->ui->wheelUpComboBox);
-        fillComboBox(d->ui->wheelDnComboBox);
-        d->ui->wheelGroupBox->setVisible(true);
-    }
-
-    if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasTouchRing)) {
-        d->ui->tochRingGroupBox->setVisible(false);
-    } else {
-        fillComboBox(d->ui->ringUpComboBox);
-        fillComboBox(d->ui->ringDnComboBox);
-        d->ui->tochRingGroupBox->setVisible(true);
-    }
-
-    bool hasLeftTouchStrip = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasLeftTouchStrip);
-
-    if (!hasLeftTouchStrip) {
-        d->ui->stripLUpLabel->setVisible(false);
-        d->ui->stripLUpComboBox->setVisible(false);
-        d->ui->stripLUpActionLabel->setVisible(false);
-        d->ui->stripLDnLabel->setVisible(false);
-        d->ui->stripLDnComboBox->setVisible(false);
-        d->ui->stripLDnActionLabel->setVisible(false);
-    } else {
-        d->ui->stripLUpLabel->setVisible(true);
-        fillComboBox(d->ui->stripLUpComboBox);
-        d->ui->stripLUpComboBox->setVisible(true);
-        d->ui->stripLUpActionLabel->setVisible(true);
-        d->ui->stripLDnLabel->setVisible(true);
-        fillComboBox(d->ui->stripLDnComboBox);
-        d->ui->stripLDnComboBox->setVisible(true);
-        d->ui->stripLDnActionLabel->setVisible(true);
-    }
-
-    bool hasRightTouchStrip = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasRightTouchStrip);
-
-    if (!hasRightTouchStrip) {
-        d->ui->stripRUpLabel->setVisible(false);
-        d->ui->stripRUpComboBox->setVisible(false);
-        d->ui->stripRUpActionLabel->setVisible(false);
-        d->ui->stripRDnLabel->setVisible(false);
-        d->ui->stripRDnComboBox->setVisible(false);
-        d->ui->stripRDnActionLabel->setVisible(false);
-    } else {
-        d->ui->stripRUpLabel->setVisible(true);
-        fillComboBox(d->ui->stripRUpComboBox);
-        d->ui->stripRUpComboBox->setVisible(true);
-        d->ui->stripRUpActionLabel->setVisible(true);
-        d->ui->stripRDnLabel->setVisible(true);
-        fillComboBox(d->ui->stripRDnComboBox);
-        d->ui->stripRDnComboBox->setVisible(true);
-        d->ui->stripRDnActionLabel->setVisible(true);
-    }
-
-    if (hasLeftTouchStrip || hasRightTouchStrip) {
-        d->ui->tochStripGroupBox->setVisible(true);
-    } else {
-        d->ui->tochStripGroupBox->setVisible(false);
-    }
 }
 
 
@@ -199,28 +92,48 @@ void PadButtonWidget::saveToProfile()
     DeviceProfile      padProfile        = profileManagement->loadDeviceProfile(DeviceType::Pad);
 
     // save button shortcuts
-    QLabel *buttonActionLabel;
+    ButtonActionSelectorWidget* buttonSelector;
 
     for (int i = 1 ; i < 11 ; ++i) {
-        buttonActionLabel = d->ui->buttonGroupBox->findChild<QLabel *>(QString::fromLatin1("button%1ActionLabel").arg(i));
-        padProfile.setButton(i, getButtonActionShortcut(buttonActionLabel));
+        buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
+
+        if (buttonSelector && buttonSelector->isVisible()) {
+            padProfile.setButton(i, buttonSelector->getShortcut().toString());
+        }
     }
 
     // save strip shortcuts
-    padProfile.setProperty(Property::StripLeftUp, getButtonActionShortcut(d->ui->stripLUpActionLabel));
-    padProfile.setProperty(Property::StripLeftDown, getButtonActionShortcut(d->ui->stripLDnActionLabel));
-    padProfile.setProperty(Property::StripRightUp, getButtonActionShortcut(d->ui->stripRUpActionLabel));
-    padProfile.setProperty(Property::StripRightDown, getButtonActionShortcut(d->ui->stripRDnActionLabel));
+    if (d->ui->touchStripGroupBox->isVisible()) {
+        if (d->ui->leftStripWidget->isVisible()) {
+            padProfile.setProperty(Property::StripLeftUp,    d->ui->leftStripUpSelector->getShortcut().toString());
+            padProfile.setProperty(Property::StripLeftDown,  d->ui->leftStripDownSelector->getShortcut().toString());
+        }
 
-    // save wheel and ring shortcuts
-    if (d->ui->ringUpComboBox->isVisible()) {
-        padProfile.setProperty(Property::AbsWheelUp, getButtonActionShortcut(d->ui->ringUpActionLabel));
-        padProfile.setProperty(Property::AbsWheelDown, getButtonActionShortcut(d->ui->ringDnActionLabel));
+        if (d->ui->rightStripWidget->isVisible()) {
+            padProfile.setProperty(Property::StripRightUp,   d->ui->rightStripUpSelector->getShortcut().toString());
+            padProfile.setProperty(Property::StripRightDown, d->ui->rightStripDownSelector->getShortcut().toString());
+        }
     }
 
-    if (d->ui->wheelUpComboBox->isVisible()) {
-        padProfile.setProperty(Property::AbsWheelUp, getButtonActionShortcut(d->ui->wheelUpActionLabel));
-        padProfile.setProperty(Property::AbsWheelDown, getButtonActionShortcut(d->ui->wheelDnActionLabel));
+    // save wheel and ring shortcuts
+    if (d->ui->touchRingGroupBox->isVisible() || d->ui->wheelGroupBox->isVisible()) {
+        // ring and wheel shortcuts are treated the same but only one value may be written,
+        // as the other one could be empty. Use whichever value we can get our hands on first.
+        if (d->ui->ringUpSelector->getShortcut().isSet()) {
+            padProfile.setProperty(Property::AbsWheelUp,   d->ui->ringUpSelector->getShortcut().toString());
+            padProfile.setProperty(Property::AbsWheelUp,   d->ui->ringUpSelector->getShortcut().toString());
+        } else {
+            padProfile.setProperty(Property::AbsWheelUp,   d->ui->wheelUpSelector->getShortcut().toString());
+            padProfile.setProperty(Property::AbsWheelUp,   d->ui->wheelUpSelector->getShortcut().toString());
+        }
+
+        if (d->ui->ringDownSelector->getShortcut().isSet()) {
+            padProfile.setProperty(Property::AbsWheelDown, d->ui->ringDownSelector->getShortcut().toString());
+            padProfile.setProperty(Property::AbsWheelDown, d->ui->ringDownSelector->getShortcut().toString());
+        } else {
+            padProfile.setProperty(Property::AbsWheelDown, d->ui->wheelDownSelector->getShortcut().toString());
+            padProfile.setProperty(Property::AbsWheelDown, d->ui->wheelDownSelector->getShortcut().toString());
+        }
     }
 
     profileManagement->saveDeviceProfile(padProfile);
@@ -236,197 +149,157 @@ void PadButtonWidget::loadFromProfile()
     QString            propertyValue;
 
     // set button shortcuts
-    KComboBox *buttonComboBox;
-    QLabel    *buttonActionLabel;
+    ButtonActionSelectorWidget* buttonSelector;
 
     for (int i = 1;i < 11 ;i++) {
-        buttonActionLabel = d->ui->buttonGroupBox->findChild<QLabel *>(QString::fromLatin1("button%1ActionLabel").arg(i));
-        buttonComboBox    = d->ui->buttonGroupBox->findChild<KComboBox *>(QString::fromLatin1("button%1ComboBox").arg(i));
-        propertyValue     = padProfile.getButton(i);
+        buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
+        propertyValue  = padProfile.getButton(i);
 
-        setButtonActionShortcut(buttonComboBox, buttonActionLabel, propertyValue);
+        if (buttonSelector) {
+            buttonSelector->setShortcut(ButtonShortcut(propertyValue));
+        }
     }
 
     // set wheel and ring shortcuts
     propertyValue = padProfile.getProperty(Property::AbsWheelUp);
-    setButtonActionShortcut(d->ui->wheelUpComboBox, d->ui->wheelUpActionLabel, propertyValue);
-    setButtonActionShortcut(d->ui->ringUpComboBox, d->ui->ringUpActionLabel, propertyValue);
+    d->ui->wheelUpSelector->setShortcut(ButtonShortcut(propertyValue));
+    d->ui->ringUpSelector->setShortcut(ButtonShortcut(propertyValue));
 
     propertyValue = padProfile.getProperty(Property::AbsWheelDown);
-    setButtonActionShortcut(d->ui->wheelDnComboBox, d->ui->wheelDnActionLabel, propertyValue);
-    setButtonActionShortcut(d->ui->ringDnComboBox, d->ui->ringDnActionLabel, propertyValue);
+    d->ui->wheelDownSelector->setShortcut(ButtonShortcut(propertyValue));
+    d->ui->ringDownSelector->setShortcut(ButtonShortcut(propertyValue));
 
     // set strip shortcuts
-    propertyValue = padProfile.getProperty(Property::StripLeftDown);
-    setButtonActionShortcut(d->ui->stripLDnComboBox, d->ui->stripLDnActionLabel, propertyValue);
-
     propertyValue = padProfile.getProperty(Property::StripLeftUp);
-    setButtonActionShortcut(d->ui->stripLUpComboBox, d->ui->stripLUpActionLabel, propertyValue);
+    d->ui->leftStripUpSelector->setShortcut(ButtonShortcut(propertyValue));
 
-    propertyValue = padProfile.getProperty(Property::StripRightDown);
-    setButtonActionShortcut(d->ui->stripRDnComboBox, d->ui->stripRDnActionLabel, propertyValue);
+    propertyValue = padProfile.getProperty(Property::StripLeftDown);
+    d->ui->leftStripDownSelector->setShortcut(ButtonShortcut(propertyValue));
 
     propertyValue = padProfile.getProperty(Property::StripRightUp);
-    setButtonActionShortcut(d->ui->stripRUpComboBox, d->ui->stripRUpActionLabel, propertyValue);
+    d->ui->rightStripUpSelector->setShortcut(ButtonShortcut(propertyValue));
+
+    propertyValue = padProfile.getProperty(Property::StripRightDown);
+    d->ui->rightStripDownSelector->setShortcut(ButtonShortcut(propertyValue));
 }
+
 
 void PadButtonWidget::reloadWidget()
 {
-    init();
-}
-
-
-
-void PadButtonWidget::selectKeyFunction(int selection)
-{
     Q_D( PadButtonWidget );
 
-    QObject* sender = const_cast<QObject*>(QObject::sender());
+    QDBusReply<QString> deviceModel  = DBusTabletInterface::instance().getInformation(TabletInfo::TabletModel);
+    QDBusReply<QString> deviceId     = DBusTabletInterface::instance().getInformation(TabletInfo::TabletId);
 
-    if (!sender) {
-        kWarning() << QLatin1String("PadButtonWidget::selectKeyFunction() was called manually but it should only be called by Qt's signal-slot mechanism!");
-        return;
-    }
+    int padButtons = DBusTabletInterface::instance().getInformationAsInt(TabletInfo::NumPadButtons);
 
-    QString buttonActionComboBoxName = sender->objectName();
-    QString buttonActionLabelName = buttonActionComboBoxName;
-    buttonActionLabelName.replace( QLatin1String( "ComboBox" ), QLatin1String( "ActionLabel" ) );
+    QLabel*                     buttonLabel;
+    ButtonActionSelectorWidget* buttonSelector;
 
-    KComboBox* buttonActionComboBox = d->ui->buttonGroupBox->findChild<KComboBox *>(buttonActionComboBoxName);
-    QLabel*    buttonActionLabel    = d->ui->buttonGroupBox->findChild<QLabel *>(buttonActionLabelName);
+    for (int i = 1;i < 11;i++) {
+        buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
+        buttonLabel    = this->findChild<QLabel *>(QString::fromLatin1("button%1Label").arg(i));
 
-    if (!buttonActionLabel || !buttonActionComboBox) {
-        buttonActionComboBox = d->ui->tochStripGroupBox->findChild<KComboBox *>(buttonActionComboBoxName);
-        buttonActionLabel    = d->ui->tochStripGroupBox->findChild<QLabel *>(buttonActionLabelName);
+        if (!buttonSelector || !buttonLabel) {
+            continue;
+        }
 
-        if (!buttonActionLabel || !buttonActionComboBox) {
-            buttonActionComboBox = d->ui->tochRingGroupBox->findChild<KComboBox *>(buttonActionComboBoxName);
-            buttonActionLabel    = d->ui->tochRingGroupBox->findChild<QLabel *>(buttonActionLabelName);
-
-            if (!buttonActionLabel || !buttonActionComboBox) {
-                buttonActionComboBox = d->ui->wheelGroupBox->findChild<KComboBox *>(buttonActionComboBoxName);
-                buttonActionLabel    = d->ui->wheelGroupBox->findChild<QLabel *>(buttonActionLabelName);
-
-                if (!buttonActionLabel || !buttonActionComboBox) {
-                    kError() << "Internal Error: No ActionLabel/ActionComboBox pair found!";
-                    return;
-                }
-            }
+        if (i <= padButtons) {
+            buttonLabel->setVisible(true);
+            buttonSelector->setVisible(true);
+        } else {
+            buttonLabel->setVisible(false);
+            buttonSelector->setVisible(false);
         }
     }
 
-    onButtonActionSelectionChanged(selection, *buttonActionComboBox, *buttonActionLabel);
-}
-
-
-
-void PadButtonWidget::fillComboBox(KComboBox *comboBox)
-{
-    comboBox->clear();
-    comboBox->blockSignals(true);
-    comboBox->addItem(i18nc("Disable button function",       "Disabled"),  PadButtonWidget::ActionDisabled);
-    comboBox->addItem(i18nc("Indicates an assigned action.", "Action..."), PadButtonWidget::ActionSelected);
-    comboBox->blockSignals(false);
-}
-
-
-PadButtonWidget::PadButtonAction PadButtonWidget::getButtonAction(const ButtonShortcut& shortcut) const
-{
-    return (shortcut.isSet() ? PadButtonWidget::ActionSelected : PadButtonWidget::ActionDisabled);
-}
-
-
-const QString PadButtonWidget::getButtonActionShortcut(QLabel* label) const
-{
-    if (!label || !label->isVisible()) {
-        return QString();
+    QString padLayout = DBusTabletInterface::instance().getInformationAsString(TabletInfo::ButtonLayout);
+    if (KStandardDirs::exists(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
+        d->ui->padImage->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
     }
 
-    return ButtonShortcut(label->property(LABEL_PROPERTY_KEYSEQUENCE).toString()).toString();
-}
+    bool hasLeftTouchStrip  = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasLeftTouchStrip);
+    bool hasRightTouchStrip = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasRightTouchStrip);
 
+    if (!hasLeftTouchStrip && !hasRightTouchStrip) {
+        d->ui->touchStripGroupBox->setVisible(false);
 
-const QString PadButtonWidget::getShortcutDisplayName(const ButtonShortcut& shortcut) const
-{
-    QString displayName;
+    } else {
+        d->ui->touchStripGroupBox->setVisible(true);
 
-    // lookup keystrokes from the global list of shortcuts
-    if (shortcut.isKeystroke()) {
-        QList< KGlobalShortcutInfo > globalShortcutList = KGlobalAccel::getGlobalShortcutsByKey(QKeySequence(shortcut.toQKeySequenceString()));
+        // Hide the strip input widgets directly instead of
+        // their parent widget, to keep the layout stable.
+        // Hiding the parent widget will mess up the layout!
+        if (!hasLeftTouchStrip) {
+            d->ui->leftStripUpLabel->setVisible(false);
+            d->ui->leftStripUpSelector->setVisible(false);
+            d->ui->leftStripDownLabel->setVisible(false);
+            d->ui->leftStripDownSelector->setVisible(false);
+        } else {
+            d->ui->leftStripUpLabel->setVisible(true);
+            d->ui->leftStripUpSelector->setVisible(true);
+            d->ui->leftStripDownLabel->setVisible(true);
+            d->ui->leftStripDownSelector->setVisible(true);
+        }
 
-        if(!globalShortcutList.isEmpty()) {
-            displayName = globalShortcutList.at(0).uniqueName();
+        if (!hasRightTouchStrip) {
+            d->ui->rightStripUpLabel->setVisible(false);
+            d->ui->rightStripUpSelector->setVisible(false);
+            d->ui->rightStripDownLabel->setVisible(false);
+            d->ui->rightStripDownSelector->setVisible(false);
+        } else {
+            d->ui->rightStripUpLabel->setVisible(true);
+            d->ui->rightStripUpSelector->setVisible(true);
+            d->ui->rightStripDownLabel->setVisible(true);
+            d->ui->rightStripDownSelector->setVisible(true);
         }
     }
 
-    // use the standard display string if a name could not be determined by now
-    if (displayName.isEmpty()) {
-        displayName = shortcut.toDisplayString();
+    if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasTouchRing)) {
+        d->ui->touchRingGroupBox->setVisible(false);
+    } else {
+        d->ui->touchRingGroupBox->setVisible(true);
     }
 
-    return displayName;
-}
-
-
-void PadButtonWidget::onButtonActionSelectionChanged(int selection, KComboBox& combo, QLabel& label)
-{
-    QPointer <ButtonActionSelectionDialog> selectionDialog = new ButtonActionSelectionDialog(this);
-
-    // get the action associated with this selection
-    PadButtonAction action = (PadButtonAction)(combo.itemData(selection).toInt());
-
-    // determine new shortcut
-    ButtonShortcut previousShortcut(getButtonActionShortcut(&label));
-    ButtonShortcut shortcut(previousShortcut);
-
-    switch (action) {
-        case PadButtonWidget::ActionDisabled:
-            shortcut.clear();
-            break;
-
-        case PadButtonWidget::ActionSelected:
-            selectionDialog->setShortcut(previousShortcut);
-            selectionDialog->exec();
-            shortcut = selectionDialog->getShortcut();
-            break;
-    }
-
-    delete selectionDialog;
-
-    // update ui elements
-    setButtonActionShortcut(&combo, &label, shortcut.toString());
-
-    // signal change event if user changed something
-    if (shortcut != previousShortcut) {
-        emit changed();
+    if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasWheel)) {
+        d->ui->wheelGroupBox->setVisible(false);
+    } else {
+        d->ui->wheelGroupBox->setVisible(true);
     }
 }
 
 
-
-bool PadButtonWidget::setButtonActionShortcut(KComboBox* combo, QLabel* label, const QString& shortcutSequence) const
+void PadButtonWidget::onButtonActionChanged()
 {
-    if (!combo || !label) {
-        return false;
-    }
+    emit changed();
+}
 
-    ButtonShortcut shortcut(shortcutSequence);
 
-    // find combo box entry
-    int comboItemData = getButtonAction(shortcut);
-    int comboIndex    = combo->findData(comboItemData);
+void PadButtonWidget::setupUi()
+{
+    Q_D (PadButtonWidget);
 
-    if (comboIndex == -1) {
-        return false;
-    }
+    d->ui->setupUi( this );
 
-    // update combo box and label
-    combo->blockSignals(true);
-    combo->setCurrentIndex(comboItemData);
-    combo->blockSignals(false);
+    connect ( d->ui->button1ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button2ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button3ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button4ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button5ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button6ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button7ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button8ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button9ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button10ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
 
-    label->setText(getShortcutDisplayName(shortcut));
-    label->setProperty(LABEL_PROPERTY_KEYSEQUENCE, shortcut.toString());
+    connect ( d->ui->leftStripUpSelector,    SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->leftStripDownSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->rightStripUpSelector,   SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->rightStripDownSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
 
-    return true;
+    connect ( d->ui->ringUpSelector,         SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->ringDownSelector,       SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+
+    connect ( d->ui->wheelUpSelector,        SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->wheelDownSelector,      SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
 }

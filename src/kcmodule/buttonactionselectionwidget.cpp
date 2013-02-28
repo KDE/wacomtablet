@@ -132,7 +132,9 @@ void ButtonActionSelectionWidget::onMouseSelectionChanged(int index)
 
 void ButtonActionSelectionWidget::onShortcutChanged(QKeySequence sequence)
 {
-    setShortcut(ButtonShortcut(sequence.toString()));
+    // By adding the "key" modifier, we make sure that shortcuts
+    // like "1" do not get mistaken as a mouse button action.
+    setShortcut(ButtonShortcut(QString::fromLatin1("key %1").arg(sequence.toString())));
 }
 
 
