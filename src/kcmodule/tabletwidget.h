@@ -167,7 +167,7 @@ private:
       *
       * @param errMsg the message that describes the error in more detail
       */
-    void showError(const QString & errMsg);
+    void showError(const QString& errorTitle, const QString & errorMsg);
 
     /**
      * Shows a dialog which allows the user to save his changes if the currently

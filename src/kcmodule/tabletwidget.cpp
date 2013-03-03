@@ -98,7 +98,7 @@ void TabletWidget::init()
 
     // setup error widget
     d->m_deviceErrorUi.setupUi(&(d->m_deviceError));
-    d->m_deviceErrorUi.errorImage->setPixmap( KIconLoader::global()->loadIcon( QLatin1String( "dialog-warning" ), KIconLoader::NoGroup, 128 ) );
+    d->m_deviceErrorUi.errorImage->setPixmap( KIconLoader::global()->loadIcon( QLatin1String( "dialog-warning" ), KIconLoader::NoGroup, 64 ) );
 
     // setup normal ui
     d->m_ui.setupUi( this );
@@ -129,16 +129,16 @@ void TabletWidget::loadTabletInformation()
     QDBusReply<bool> isAvailable = DBusTabletInterface::instance().isAvailable();
 
     if( !isAvailable.isValid() ) {
-        QString errmsg = i18n( "D-Bus connection to the kded daemon not available.\n\n"
-                               "Please start the Wacom tablet daemon and try again.\n"
-                               "The daemon is responsible for tablet detection and profile support." );
-        showError( errmsg );
+        QString errorTitle = i18n( "KDE tablet service not found" );
+        QString errorMsg   = i18n( "Please start the Wacom tablet service and try again.\n"
+                                   "The daemon is required for tablet detection and profile support." );
+        showError( errorTitle, errorMsg );
 
     } else if( !isAvailable ) {
-        QString errmsg = i18n( "No tablet device was found.\n\n"
-                               "Please connect the device before you start this module.\n"
-                               "If the device is already connected refer to the help file for any further information." );
-        showError( errmsg );
+        QString errorTitle = i18n( "No tablet device detected" );
+        QString errorMsg   = i18n( "Please connect a tablet device to continue.\n"
+                                   "If your device is already connected it is currently unsupported." );
+        showError( errorTitle, errorMsg );
 
     } else {
         showConfig();
@@ -231,14 +231,15 @@ void TabletWidget::profileChanged()
 }
 
 
-void TabletWidget::showError( const QString &errMsg )
+void TabletWidget::showError( const QString& errorTitle, const QString &errorMsg )
 {
     Q_D( TabletWidget );
 
     hideError();
     hideConfig();
 
-    d->m_deviceErrorUi.errorText->setText (errMsg);
+    d->m_deviceErrorUi.errorTitle->setText(errorTitle);
+    d->m_deviceErrorUi.errorText->setText (errorMsg);
     d->m_ui.verticalLayout->addWidget (&(d->m_deviceError));
     d->m_deviceError.setVisible(true);
 }
