@@ -181,13 +181,7 @@ void ButtonActionSelectionWidget::updateCurrentActionName(const ButtonShortcut& 
     Q_D(ButtonActionSelectionWidget);
 
     // update current action
-    if (!shortcut.isSet()) {
-        d->ui->actionNameLineEdit->setEnabled(false);
-        d->ui->actionNameLineEdit->setText(shortcut.toDisplayString());
-    } else {
-        d->ui->actionNameLineEdit->setEnabled(true);
-        d->ui->actionNameLineEdit->setText(shortcut.toDisplayString());
-    }
+    d->ui->actionNameLineEdit->setText(shortcut.toDisplayString());
 }
 
 

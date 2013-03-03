@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>353</width>
-    <height>151</height>
+    <width>364</width>
+    <height>155</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -210,15 +210,12 @@
        </spacer>
       </item>
       <item row="4" column="1">
-       <widget class="QLineEdit" name="actionNameLineEdit">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
+       <widget class="Wacom::ButtonActionDisplayWidget" name="actionNameLineEdit">
         <property name="readOnly">
          <bool>true</bool>
         </property>
         <property name="placeholderText">
-         <string>Please select an action.</string>
+         <string extracomment="Select an action which will be assigned to a tablet button.">Please select an action.</string>
         </property>
        </widget>
       </item>
@@ -277,6 +274,11 @@
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Wacom::ButtonActionDisplayWidget</class>
+   <extends>QLineEdit</extends>
+   <header>buttonactiondisplaywidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

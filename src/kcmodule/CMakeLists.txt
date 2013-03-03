@@ -1,6 +1,7 @@
 ########### next target ###############
 
 set( kcm_tablet_SRCS
+     buttonactiondisplaywidget.cpp
      buttonactionselectiondialog.cpp
      buttonactionselectionwidget.cpp
      buttonactionselectorwidget.cpp

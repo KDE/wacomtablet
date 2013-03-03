@@ -93,7 +93,7 @@ void ButtonActionSelectorWidget::onButtonActionSelectorClicked()
 void ButtonActionSelectorWidget::onLineEditSelectionChanged()
 {
     Q_D (ButtonActionSelectorWidget);
-    d->ui->actionNameLineEdit->deselect();
+    d->ui->actionNameDisplayWidget->deselect();
 }
 
 
@@ -103,8 +103,9 @@ void ButtonActionSelectorWidget::setupUi()
 
     d->ui->setupUi( this );
 
-    connect ( d->ui->actionSelectionButton, SIGNAL (clicked(bool)),      this, SLOT (onButtonActionSelectorClicked()) );
-    connect ( d->ui->actionNameLineEdit,    SIGNAL (selectionChanged()), this, SLOT (onLineEditSelectionChanged()) );
+    connect ( d->ui->actionSelectionButton,   SIGNAL (clicked(bool)),      this, SLOT (onButtonActionSelectorClicked()) );
+    connect ( d->ui->actionNameDisplayWidget, SIGNAL (selectionChanged()), this, SLOT (onLineEditSelectionChanged()) );
+    connect ( d->ui->actionNameDisplayWidget, SIGNAL (mousePressed()),     this, SLOT (onButtonActionSelectorClicked()) );
 
     setShortcut(ButtonShortcut());
 }
@@ -116,15 +117,9 @@ void ButtonActionSelectorWidget::updateActionName(const ButtonShortcut& shortcut
 
     QString displayName = shortcut.toDisplayString();
 
-    if (!shortcut.isSet()) {
-        d->ui->actionNameLineEdit->setEnabled(false);
-    } else {
-        d->ui->actionNameLineEdit->setEnabled(true);
-    }
-
-    d->ui->actionNameLineEdit->blockSignals(true);
-    d->ui->actionNameLineEdit->setText(displayName);
-    d->ui->actionNameLineEdit->blockSignals(false);
+    d->ui->actionNameDisplayWidget->blockSignals(true);
+    d->ui->actionNameDisplayWidget->setText(displayName);
+    d->ui->actionNameDisplayWidget->blockSignals(false);
 }
 
 

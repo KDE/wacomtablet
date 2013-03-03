@@ -42,27 +42,18 @@
        <normaloff/>
       </iconset>
      </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item>
-    <widget class="KLineEdit" name="actionNameLineEdit">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
+    <widget class="Wacom::ButtonActionDisplayWidget" name="actionNameDisplayWidget">
      <property name="readOnly">
       <bool>true</bool>
      </property>
      <property name="placeholderText">
-      <string extracomment="The tablet button has not action assigned to it.">No Action Assigned</string>
-     </property>
-     <property name="showClearButton" stdset="0">
-      <bool>true</bool>
+      <string extracomment="Click to assign an action (shortcut) to a tablet button.">Click to assign an action.</string>
      </property>
     </widget>
    </item>
@@ -70,9 +61,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KLineEdit</class>
+   <class>Wacom::ButtonActionDisplayWidget</class>
    <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <header>buttonactiondisplaywidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
