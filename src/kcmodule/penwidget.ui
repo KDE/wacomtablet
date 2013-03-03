@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>685</width>
-    <height>416</height>
+    <width>548</width>
+    <height>397</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,15 +22,347 @@
      <property name="spacing">
       <number>10</number>
      </property>
+     <item row="1" column="1">
+      <widget class="QGroupBox" name="buttonGroupBox">
+       <property name="title">
+        <string>Button Settings</string>
+       </property>
+       <layout class="QFormLayout" name="formLayout_3">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::ExpandingFieldsGrow</enum>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="labelButton3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Button 3</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="Wacom::ButtonActionSelectorWidget" name="button3ActionSelector" native="true"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="labelButton2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Button 2</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="Wacom::ButtonActionSelectorWidget" name="button2ActionSelector" native="true"/>
+        </item>
+        <item row="4" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <spacer name="tpcSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>32</width>
+              <height>0</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="tpcCheckBox">
+            <property name="toolTip">
+             <string>If selected, the stylus must be in contact with the tablet for a stylus side button to work.
+If deselected, stylus buttons will work once the stylus is in proximity of the tablet.</string>
+            </property>
+            <property name="text">
+             <string>Tap to execute action.</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="0" column="0" rowspan="3">
+      <layout class="QVBoxLayout" name="penLayout">
+       <property name="spacing">
+        <number>-1</number>
+       </property>
+       <item>
+        <spacer name="penTopSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="penLabel">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>300</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="penBottomSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item row="0" column="1">
+      <widget class="QGroupBox" name="eraserBox">
+       <property name="title">
+        <string>Eraser Feel</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <layout class="QVBoxLayout" name="eraserFeelSliderLayout">
+          <item>
+           <widget class="QSlider" name="eraserSlider">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Set the minimum pressure necessary to generate a Button event for the stylus/tip, eraser, or touch.
+ The pressure levels of all tablets are normalized to 2048 levels irregardless of the actual hardware supported levels.
+This parameter is independent of the PressureCurve parameter.</string>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>2000</number>
+            </property>
+            <property name="singleStep">
+             <number>20</number>
+            </property>
+            <property name="value">
+             <number>27</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksBelow</enum>
+            </property>
+            <property name="tickInterval">
+             <number>250</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="eraserFeelSliderLablesLayout">
+            <item>
+             <widget class="QLabel" name="labelSlow_2">
+              <property name="text">
+               <string comment="slow movement of the cursor (minimal value)">Soft</string>
+              </property>
+              <property name="buddy">
+               <cstring>eraserSlider</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="eraserFeelSliderLabelsSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::MinimumExpanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelFast_2">
+              <property name="text">
+               <string comment="fast movement of the cursor (maximal value)">Firm</string>
+              </property>
+              <property name="buddy">
+               <cstring>eraserSlider</cstring>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="eraserPressureButtonLayout">
+          <item>
+           <spacer name="eraserPressureButtonSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::MinimumExpanding</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="eraserPressureButton">
+            <property name="toolTip">
+             <string>Defines the pressure sensitivity with a bezier curve</string>
+            </property>
+            <property name="text">
+             <string>Edit Press Curve...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::MinimumExpanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>1</width>
+            <height>0</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QGroupBox" name="trackingModeGroupBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>Tracking Mode</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QRadioButton" name="radioButton_Absolute">
+          <property name="toolTip">
+           <string>The mouse cursor will move exactly to the position on the tablet.</string>
+          </property>
+          <property name="text">
+           <string comment="absolute pen movement (pen mode)">Map to Screen (Absolute Mode)</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="radioButton_Relative">
+          <property name="toolTip">
+           <string>The mouse cursor can be moved freely. The tablet working space does not represent the screen space
+ The speed of the mouse is the same as specified for any other mouse pointer. This can be changed in the mouse setting section</string>
+          </property>
+          <property name="text">
+           <string comment="relative pen movement (mouse mode)">Map to Cursor (Relative Mode)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::MinimumExpanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>1</width>
+            <height>0</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
      <item row="2" column="1">
       <widget class="QGroupBox" name="tipFeelGroupBox">
        <property name="title">
         <string>Tip Feel</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
-        <property name="margin">
-         <number>8</number>
-        </property>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
@@ -155,323 +487,6 @@ This parameter is independent of the PressureCurve parameter.</string>
         </item>
        </layout>
       </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QGroupBox" name="cursorGroupBox">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="title">
-        <string>Cursor Settings</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_7">
-        <item>
-         <widget class="QCheckBox" name="tpcCheckBox">
-          <property name="toolTip">
-           <string>If enabled pressing a button is recognized when the pen is above the tablet. If disabled the click and tap function is active</string>
-          </property>
-          <property name="text">
-           <string>use Hover Click</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>10</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButton_Absolute">
-          <property name="toolTip">
-           <string>The mouse cursor will move exactly to the position on the tablet.</string>
-          </property>
-          <property name="text">
-           <string comment="absolute pen movement (pen mode)">Absolute (Pen Mode)</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="radioButton_Relative">
-          <property name="toolTip">
-           <string>The mouse cursor can be moved freely. The tablet working space does not represent the screen space
- The speed of the mouse is the same as specified for any other mouse pointer. This can be changed in the mouse setting section</string>
-          </property>
-          <property name="text">
-           <string comment="relative pen movement (mouse mode)">Relative (Mouse Mode)</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_4">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>1</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QGroupBox" name="eraserBox">
-       <property name="title">
-        <string>Eraser Feel</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <property name="margin">
-         <number>8</number>
-        </property>
-        <item>
-         <layout class="QVBoxLayout" name="eraserFeelSliderLayout">
-          <item>
-           <widget class="QSlider" name="eraserSlider">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Set the minimum pressure necessary to generate a Button event for the stylus/tip, eraser, or touch.
- The pressure levels of all tablets are normalized to 2048 levels irregardless of the actual hardware supported levels.
-This parameter is independent of the PressureCurve parameter.</string>
-            </property>
-            <property name="minimum">
-             <number>0</number>
-            </property>
-            <property name="maximum">
-             <number>2000</number>
-            </property>
-            <property name="singleStep">
-             <number>20</number>
-            </property>
-            <property name="value">
-             <number>27</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="tickPosition">
-             <enum>QSlider::TicksBelow</enum>
-            </property>
-            <property name="tickInterval">
-             <number>250</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="eraserFeelSliderLablesLayout">
-            <item>
-             <widget class="QLabel" name="labelSlow_2">
-              <property name="text">
-               <string comment="slow movement of the cursor (minimal value)">Soft</string>
-              </property>
-              <property name="buddy">
-               <cstring>eraserSlider</cstring>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="eraserFeelSliderLabelsSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::MinimumExpanding</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="labelFast_2">
-              <property name="text">
-               <string comment="fast movement of the cursor (maximal value)">Firm</string>
-              </property>
-              <property name="buddy">
-               <cstring>eraserSlider</cstring>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="eraserPressureButtonLayout">
-          <item>
-           <spacer name="eraserPressureButtonSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::MinimumExpanding</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="eraserPressureButton">
-            <property name="toolTip">
-             <string>Defines the pressure sensitivity with a bezier curve</string>
-            </property>
-            <property name="text">
-             <string>Edit Press Curve...</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QGroupBox" name="buttonGroupBox">
-       <property name="title">
-        <string>Button Settings</string>
-       </property>
-       <layout class="QFormLayout" name="formLayout_3">
-        <property name="fieldGrowthPolicy">
-         <enum>QFormLayout::ExpandingFieldsGrow</enum>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="labelButton3">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Button 3</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="Wacom::ButtonActionSelectorWidget" name="button3ActionSelector" native="true"/>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="labelButton2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Button 2</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="Wacom::ButtonActionSelectorWidget" name="button2ActionSelector" native="true"/>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="0" column="0" rowspan="3">
-      <layout class="QVBoxLayout" name="penLayout">
-       <property name="spacing">
-        <number>-1</number>
-       </property>
-       <item>
-        <spacer name="penTopSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QLabel" name="penLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>40</width>
-           <height>300</height>
-          </size>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="penBottomSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
      </item>
     </layout>
    </item>

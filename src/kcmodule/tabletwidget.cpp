@@ -324,11 +324,11 @@ void TabletWidget::showConfig()
     // initialize configuration tabs
     d->m_ui.deviceTabWidget->clear();
     d->m_ui.deviceTabWidget->addTab( &(d->m_generalPage), i18nc( "Basic overview page for the tablet hardware", "General" ) );
-    d->m_ui.deviceTabWidget->addTab( &(d->m_penPage), i18n( "Pen" ) );
+    d->m_ui.deviceTabWidget->addTab( &(d->m_penPage), i18n( "Stylus" ) );
 
     QDBusReply<bool> hasPadButtons = DBusTabletInterface::instance().hasPadButtons();
     if( hasPadButtons ) {
-        d->m_ui.deviceTabWidget->addTab( &(d->m_padButtonPage), i18n( "Pad Buttons" ) );
+        d->m_ui.deviceTabWidget->addTab( &(d->m_padButtonPage), i18n( "Express Buttons" ) );
     }
 
     QDBusReply<QString> touchAvailable = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
