@@ -24,19 +24,14 @@
 
 #include <QtGui/QWidget>
 
-namespace Ui
-{
-    class PenWidget;
-}
-
-class KComboBox;
-class QLabel;
-
 namespace Wacom
 {
 
 class PenWidgetPrivate;
+
 class ButtonShortcut;
+class DeviceType;
+class Property;
 
 /**
   * The PenWidget class holds all settings for the stylus/eraser pen.
@@ -49,14 +44,6 @@ class PenWidget : public QWidget
     Q_OBJECT
 
 public:
-    /**
-     * Enumeration for all available tablet pen button actions (stylus/eraser)
-     */
-    enum PenButtonAction {
-        ActionDisabled,     //!< disables the button
-        ActionSelected      //!< select an action
-    };
-
     /**
       * default constructor
       * Initialize the widget.
@@ -72,18 +59,6 @@ public:
     ~PenWidget();
 
     /**
-      * Saves all values to the current profile
-      */
-    void saveToProfile();
-
-    /**
-      * Reloads the widget when the status of the tablet device changes (connects/disconnects)
-      *
-      */
-    void reloadWidget();
-
-public slots:
-    /**
       * Called whenever the profile is switched or the widget needs to be reinitialized.
       *
       * Updates all values on the widget to the values from the profile.
@@ -91,24 +66,37 @@ public slots:
     void loadFromProfile();
 
     /**
+      * Reloads the widget when the status of the tablet device changes (connects/disconnects)
+      */
+    void reloadWidget();
+
+    /**
+      * Saves all values to the current profile
+      */
+    void saveToProfile();
+
+
+public slots:
+    /**
+      * Opens a dialogue that allows the visual selection of the presscurve
+      * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
+      * directly in the dialogue as well
+      */
+    void onChangeEraserPressCurve();
+
+    /**
+      * Opens a dialogue that allows the visual selection of the presscurve
+      * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
+      * directly in the dialogue as well
+      */
+    void onChangeTipPressCurve();
+
+    /**
       * Called whenever a value other than the pen buttons is changed.
       * Fires the changed() signal afterwards to inform the main widget that unsaved changes are available
       */
-    void profileChanged();
+    void onProfileChanged();
 
-    /**
-      * Opens a dialogue that allows the visual selection of the presscurve
-      * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
-      * directly in the dialogue as well
-      */
-    void changeEraserPressCurve();
-
-    /**
-      * Opens a dialogue that allows the visual selection of the presscurve
-      * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
-      * directly in the dialogue as well
-      */
-    void changeTipPressCurve();
 
 signals:
     /**
@@ -117,18 +105,37 @@ signals:
     void changed();
 
 
-private slots:
+protected:
 
-    void onButtonActionChanged();
+    const QString getButtonShortcut (const Property& button) const;
+
+    const QString getPressureCurve ( const DeviceType& device ) const;
+
+    const QString getPressureFeel ( const DeviceType& device ) const;
+
+    const QString getTabletPcButton() const;
+
+    const QString getTrackingMode () const;
+
+    void setButtonShortcut (const Property& button, const QString& shortcut);
+
+    void setPressureCurve (const DeviceType& device, const QString& value);
+
+    void setPressureFeel (const DeviceType& device, const QString& value);
+
+    void setTabletPcButton (const QString& value);
+
+    void setTrackingMode (const QString& value);
 
 
 private:
-    /**
-     * The property name which is used to store a shortcut in a label.
-     */
-    static const char* LABEL_PROPERTY_KEYSEQUENCE;
 
-    QString changePressCurve (const DeviceType& device, const QString& startValue);
+    void changePressCurve (const DeviceType& deviceType);
+
+    /**
+     * Sets up the user interface widgets. Should only be called once by a constructor.
+     */
+    void setupUi();
 
     Q_DECLARE_PRIVATE( PenWidget )
     PenWidgetPrivate *const d_ptr; /**< d-pointer for this class */

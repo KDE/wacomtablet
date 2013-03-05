@@ -30,9 +30,6 @@
 #include "dbustabletinterface.h"
 #include "buttonshortcut.h"
 
-// stdlib
-#include <memory>
-
 //KDE includes
 #include <KDE/KStandardDirs>
 #include <KDE/KGlobalAccel>
@@ -48,17 +45,17 @@
 using namespace Wacom;
 
 /*
- * Static class members.
- */
-const char* PenWidget::LABEL_PROPERTY_KEYSEQUENCE = "KeySequence";
-
-/*
  * D-Pointer class for private members.
  */
 namespace Wacom {
     class PenWidgetPrivate {
         public:
-            std::auto_ptr<Ui::PenWidget>  ui;                /**< Handler to the penwidget.ui file */
+            PenWidgetPrivate() : ui(new Ui::PenWidget) {}
+            ~PenWidgetPrivate() {
+                delete ui;
+            }
+
+            Ui::PenWidget* ui;
     };
 } // NAMESPACE
 
@@ -66,15 +63,7 @@ namespace Wacom {
 PenWidget::PenWidget( QWidget* parent )
     : QWidget( parent ), d_ptr(new PenWidgetPrivate)
 {
-    Q_D( PenWidget );
-
-    d->ui = std::auto_ptr<Ui::PenWidget>(new Ui::PenWidget);
-    d->ui->setupUi( this );
-
-    d->ui->penLabel->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/pen.png"))));
-
-    connect ( d->ui->button2ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onButtonActionChanged()) );
-    connect ( d->ui->button3ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onButtonActionChanged()) );
+    setupUi();
 }
 
 PenWidget::~PenWidget()
@@ -83,79 +72,220 @@ PenWidget::~PenWidget()
 }
 
 
-void PenWidget::saveToProfile()
+void PenWidget::loadFromProfile()
 {
-    Q_D( PenWidget );
-
     ProfileManagement* profileManagement = &ProfileManagement::instance();
 
     DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( DeviceType::Stylus );
     DeviceProfile eraserProfile = profileManagement->loadDeviceProfile( DeviceType::Eraser );
 
     // eraser feel / tip feel
-    eraserProfile.setProperty( Property::Threshold, QString::number(d->ui->eraserSlider->value()) );
-    eraserProfile.setProperty( Property::PressureCurve, d->ui->eraserPressureButton->property( "curve" ).toString() );
-    stylusProfile.setProperty( Property::Threshold, QString::number(d->ui->tipSlider->value()) );
-    stylusProfile.setProperty( Property::PressureCurve, d->ui->tipPressureButton->property( "curve" ).toString() );
+    setPressureFeel  ( DeviceType::Eraser, eraserProfile.getProperty( Property::Threshold ) );
+    setPressureCurve ( DeviceType::Eraser, eraserProfile.getProperty( Property::PressureCurve ) );
+    setPressureFeel  ( DeviceType::Stylus, stylusProfile.getProperty( Property::Threshold ) );
+    setPressureCurve ( DeviceType::Stylus, stylusProfile.getProperty( Property::PressureCurve ) );
+
+    // Button Actions
+    setButtonShortcut ( Property::Button2, stylusProfile.getProperty( Property::Button2 ) );
+    setButtonShortcut ( Property::Button3, stylusProfile.getProperty( Property::Button3 ) );
+
+    // Tracking Mode
+    setTrackingMode ( stylusProfile.getProperty( Property::Mode ) );
+
+    // Tap to Click
+    setTabletPcButton ( stylusProfile.getProperty( Property::TabletPcButton ) );
+}
+
+
+void PenWidget::reloadWidget()
+{
+    // nothing to do
+}
+
+
+void PenWidget::saveToProfile()
+{
+    ProfileManagement* profileManagement = &ProfileManagement::instance();
+
+    DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( DeviceType::Stylus );
+    DeviceProfile eraserProfile = profileManagement->loadDeviceProfile( DeviceType::Eraser );
+
+    // eraser / tip pressure
+    eraserProfile.setProperty( Property::Threshold,     getPressureFeel(DeviceType::Eraser) );
+    eraserProfile.setProperty( Property::PressureCurve, getPressureCurve(DeviceType::Eraser) );
+    stylusProfile.setProperty( Property::Threshold,     getPressureFeel(DeviceType::Stylus) );
+    stylusProfile.setProperty( Property::PressureCurve, getPressureCurve(DeviceType::Stylus) );
 
     // button 2 and 3 config
-    eraserProfile.setProperty( Property::Button2, d->ui->button2ActionSelector->getShortcut().toString() );
-    eraserProfile.setProperty( Property::Button3, d->ui->button3ActionSelector->getShortcut().toString() );
-    stylusProfile.setProperty( Property::Button2, d->ui->button2ActionSelector->getShortcut().toString() );
-    stylusProfile.setProperty( Property::Button3, d->ui->button3ActionSelector->getShortcut().toString() );
+    eraserProfile.setProperty( Property::Button2, getButtonShortcut(Property::Button2) );
+    eraserProfile.setProperty( Property::Button3, getButtonShortcut(Property::Button3) );
+    stylusProfile.setProperty( Property::Button2, getButtonShortcut(Property::Button2) );
+    stylusProfile.setProperty( Property::Button3, getButtonShortcut(Property::Button3) );
 
-    //stylusProfile.setProperty( "DoubleClickInterval", ui->doubleClickSlider->value() );
-    //eraserProfile.setProperty( "DoubleClickInterval", ui->doubleClickSlider->value() );
+    // tracking mode
+    stylusProfile.setProperty( Property::Mode, getTrackingMode() );
+    eraserProfile.setProperty( Property::Mode, getTrackingMode() );
 
-    if( d->ui->radioButton_Absolute->isChecked() ) {
-        stylusProfile.setProperty( Property::Mode, QLatin1String("absolute") );
-        eraserProfile.setProperty( Property::Mode, QLatin1String("absolute") );
-    }
-    else {
-        stylusProfile.setProperty( Property::Mode, QLatin1String("relative") );
-        eraserProfile.setProperty( Property::Mode, QLatin1String("relative") );
-    }
-
-    if( d->ui->tpcCheckBox->isChecked() ) {
-        stylusProfile.setProperty( Property::TabletPcButton, QLatin1String("on") );
-    }
-    else {
-        stylusProfile.setProperty( Property::TabletPcButton, QLatin1String("off") );
-    }
+    // tap to click
+    stylusProfile.setProperty( Property::TabletPcButton, getTabletPcButton() );
 
     profileManagement->saveDeviceProfile(stylusProfile);
     profileManagement->saveDeviceProfile(eraserProfile);
 }
 
 
+void PenWidget::onChangeEraserPressCurve()
+{
+    changePressCurve(DeviceType::Eraser);
+}
 
-void PenWidget::loadFromProfile()
+
+void PenWidget::onChangeTipPressCurve()
+{
+    changePressCurve(DeviceType::Stylus);
+}
+
+
+void PenWidget::onProfileChanged()
+{
+    emit changed();
+}
+
+
+const QString PenWidget::getButtonShortcut(const Property& button) const
+{
+    Q_D( const PenWidget );
+
+    ButtonShortcut shortcut;
+
+    if (button == Property::Button2) {
+        shortcut = d->ui->button2ActionSelector->getShortcut();
+    } else if (button == Property::Button3) {
+        shortcut = d->ui->button3ActionSelector->getShortcut();
+    } else {
+        kError() << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
+    }
+
+    return shortcut.toString();
+}
+
+
+const QString PenWidget::getPressureCurve(const DeviceType& type) const
+{
+    Q_D (const PenWidget);
+
+    QString result;
+
+    if (type == DeviceType::Stylus) {
+        return d->ui->tipPressureButton->property( "curve" ).toString();
+
+    } else if (type == DeviceType::Eraser) {
+        return d->ui->eraserPressureButton->property( "curve" ).toString();
+
+    } else {
+        kError() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+    }
+
+    return QString();
+}
+
+
+const QString PenWidget::getPressureFeel(const DeviceType& type) const
+{
+    Q_D (const PenWidget);
+
+    if (type == DeviceType::Stylus) {
+        return QString::number(d->ui->tipSlider->value());
+
+    } else if (type == DeviceType::Eraser) {
+        return QString::number(d->ui->eraserSlider->value());
+
+    } else {
+        kError() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+    }
+
+    return QString();
+}
+
+
+const QString PenWidget::getTabletPcButton() const
+{
+    Q_D (const PenWidget);
+    return (d->ui->tpcCheckBox->isChecked() ? QLatin1String("on") : QLatin1String("off"));
+}
+
+
+const QString PenWidget::getTrackingMode() const
+{
+    Q_D (const PenWidget);
+    return (d->ui->radioButton_Absolute->isChecked() ? QLatin1String("absolute") : QLatin1String("relative"));
+}
+
+
+void PenWidget::setButtonShortcut(const Property& button, const QString& shortcut)
 {
     Q_D( PenWidget );
 
-    ProfileManagement* profileManagement = &ProfileManagement::instance();
+    if (button == Property::Button2) {
+        d->ui->button2ActionSelector->setShortcut(ButtonShortcut(shortcut));
 
-    DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( DeviceType::Stylus );
-    DeviceProfile eraserProfile = profileManagement->loadDeviceProfile( DeviceType::Eraser );
-    DeviceProfile cursorProfile = profileManagement->loadDeviceProfile( DeviceType::Cursor );
+    } else if (button == Property::Button3) {
+        d->ui->button3ActionSelector->setShortcut(ButtonShortcut(shortcut));
 
-    // eraser feel / tip feel
-    d->ui->eraserSlider->setValue( eraserProfile.getProperty( Property::Threshold ).toInt() );
-    d->ui->eraserPressureButton->setProperty( "curve", eraserProfile.getProperty( Property::PressureCurve ) );
-    d->ui->tipSlider->setValue( stylusProfile.getProperty( Property::Threshold ).toInt() );
-    d->ui->tipPressureButton->setProperty( "curve", stylusProfile.getProperty( Property::PressureCurve ) );
+    } else {
+        kError() << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
+    }
+}
 
-    // Button Actions
-    QString propertyValue;
 
-    propertyValue = stylusProfile.getProperty( Property::Button2 );
-    d->ui->button2ActionSelector->setShortcut(ButtonShortcut(propertyValue));
+void PenWidget::setPressureCurve(const DeviceType& type, const QString& value)
+{
+    Q_D( PenWidget );
 
-    propertyValue = stylusProfile.getProperty( Property::Button3 );
-    d->ui->button3ActionSelector->setShortcut(ButtonShortcut(propertyValue));
+    if (type == DeviceType::Stylus) {
+        d->ui->tipPressureButton->setProperty( "curve", value );
 
-    // Cursor Settings
-    if( stylusProfile.getProperty( Property::Mode ).toInt() == 1 || stylusProfile.getProperty( Property::Mode ) == QLatin1String( "absolute" ) ) {
+    } else if (type == DeviceType::Eraser) {
+        d->ui->eraserPressureButton->setProperty( "curve", value );
+
+    } else {
+        kError() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+    }
+}
+
+
+void PenWidget::setPressureFeel(const DeviceType& type, const QString& value)
+{
+    Q_D( PenWidget );
+    if (type == DeviceType::Stylus) {
+        d->ui->tipSlider->setValue(value.toInt());
+
+    } else if (type == DeviceType::Eraser) {
+        d->ui->eraserSlider->setValue(value.toInt());
+
+    } else {
+        kError() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+    }
+}
+
+
+void PenWidget::setTabletPcButton(const QString& value)
+{
+    Q_D( PenWidget );
+
+    if( value.compare(QLatin1String( "on" ), Qt::CaseInsensitive) == 0 ) {
+        d->ui->tpcCheckBox->setChecked( true );
+    } else {
+        d->ui->tpcCheckBox->setChecked( false );
+    }
+}
+
+
+void PenWidget::setTrackingMode(const QString& value)
+{
+    Q_D( PenWidget );
+
+    if( value.toInt() == 1 || value.compare(QLatin1String( "absolute" ), Qt::CaseInsensitive) == 0 ) {
         d->ui->radioButton_Absolute->setChecked( true );
         d->ui->radioButton_Relative->setChecked( false );
     }
@@ -163,69 +293,45 @@ void PenWidget::loadFromProfile()
         d->ui->radioButton_Absolute->setChecked( false );
         d->ui->radioButton_Relative->setChecked( true );
     }
-
-    // Hover Settings
-    QString tabletPCButton = stylusProfile.getProperty( Property::TabletPcButton );
-    if( tabletPCButton == QLatin1String( "on" ) ) {
-        d->ui->tpcCheckBox->setChecked( true );
-    }
-    else {
-        d->ui->tpcCheckBox->setChecked( false );
-    }
-}
-
-void PenWidget::profileChanged()
-{
-    emit changed();
-}
-
-void PenWidget::reloadWidget()
-{
-}
-
-void PenWidget::changeEraserPressCurve()
-{
-    Q_D( PenWidget );
-
-    QString result = changePressCurve(DeviceType::Eraser, d->ui->eraserPressureButton->property( "curve" ).toString());
-    d->ui->eraserPressureButton->setProperty( "curve", result );
-}
-
-void PenWidget::changeTipPressCurve()
-{
-    Q_D( PenWidget );
-
-    QString result = changePressCurve(DeviceType::Stylus, d->ui->tipPressureButton->property( "curve" ).toString());
-    d->ui->tipPressureButton->setProperty( "curve", result );
 }
 
 
-void PenWidget::onButtonActionChanged()
+void PenWidget::changePressCurve(const DeviceType& deviceType)
 {
-    emit changed();
-}
+    PressCurveDialog selectPC(this);
 
+    QString startValue = getPressureCurve(deviceType);
+    QString result (startValue);
 
-QString PenWidget::changePressCurve(const DeviceType& deviceType, const QString& startValue)
-{
-    QString              result(startValue);
-    QPointer<PressCurveDialog> selectPC = new PressCurveDialog(this);
+    selectPC.setDeviceType( deviceType );
+    selectPC.setControllPoints( startValue );
 
-    selectPC->setDeviceType(deviceType);
-    selectPC->setControllPoints( startValue );
+    if( selectPC.exec() == KDialog::Accepted ) {
+        result = selectPC.getControllPoints();
 
-    if( selectPC->exec() == KDialog::Accepted ) {
-        result = selectPC->getControllPoints();
-        emit changed();
-    }
-    else {
+    } else {
         // reset the current pressurecurve to what is specified in the profile
         // rather than stick to the curve the user declined in the dialogue
         DBusTabletInterface::instance().setProperty( deviceType, Property::PressureCurve, startValue );
     }
 
-    delete selectPC;
-    return result;
+    if (result != startValue) {
+        setPressureCurve( deviceType, selectPC.getControllPoints() );
+        emit changed();
+    }
+}
+
+
+void PenWidget::setupUi()
+{
+    Q_D( PenWidget );
+
+    d->ui->setupUi( this );
+
+    d->ui->penLabel->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/pen.png"))));
+
+    connect ( d->ui->button2ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
+    connect ( d->ui->button3ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
 }
 
 
