@@ -20,8 +20,6 @@
 #ifndef PENWIDGET_H
 #define PENWIDGET_H
 
-#include "devicetype.h"
-
 #include <QtGui/QWidget>
 
 namespace Wacom

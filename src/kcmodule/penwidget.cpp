@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "debug.h" // always needs to be first include
+
 #include "penwidget.h"
 #include "ui_penwidget.h"
 
@@ -32,15 +34,9 @@
 
 //KDE includes
 #include <KDE/KStandardDirs>
-#include <KDE/KGlobalAccel>
-#include <kglobalshortcutinfo.h>
-#include <KDE/KDebug>
 
 //Qt includes
 #include <QtGui/QPixmap>
-#include <QtGui/QLabel>
-#include <QtCore/QPointer>
-#include <QtDBus/QDBusReply>
 
 using namespace Wacom;
 
@@ -174,8 +170,6 @@ const QString PenWidget::getPressureCurve(const DeviceType& type) const
 {
     Q_D (const PenWidget);
 
-    QString result;
-
     if (type == DeviceType::Stylus) {
         return d->ui->tipPressureButton->property( "curve" ).toString();
 
@@ -249,7 +243,7 @@ void PenWidget::setPressureCurve(const DeviceType& type, const QString& value)
         d->ui->eraserPressureButton->setProperty( "curve", value );
 
     } else {
-        kError() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+        kError() << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
     }
 }
 
@@ -257,6 +251,7 @@ void PenWidget::setPressureCurve(const DeviceType& type, const QString& value)
 void PenWidget::setPressureFeel(const DeviceType& type, const QString& value)
 {
     Q_D( PenWidget );
+
     if (type == DeviceType::Stylus) {
         d->ui->tipSlider->setValue(value.toInt());
 
@@ -264,7 +259,7 @@ void PenWidget::setPressureFeel(const DeviceType& type, const QString& value)
         d->ui->eraserSlider->setValue(value.toInt());
 
     } else {
-        kError() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+        kError() << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
     }
 }
 
@@ -316,7 +311,7 @@ void PenWidget::changePressCurve(const DeviceType& deviceType)
     }
 
     if (result != startValue) {
-        setPressureCurve( deviceType, selectPC.getControllPoints() );
+        setPressureCurve( deviceType, result );
         emit changed();
     }
 }
