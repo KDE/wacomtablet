@@ -98,7 +98,7 @@ void TabletWidget::init()
 
     // setup error widget
     d->m_deviceErrorUi.setupUi(&(d->m_deviceError));
-    d->m_deviceErrorUi.errorImage->setPixmap( KIconLoader::global()->loadIcon( QLatin1String( "dialog-warning" ), KIconLoader::NoGroup, 64 ) );
+    d->m_deviceErrorUi.errorImage->setPixmap( KIconLoader::global()->loadIcon( QLatin1String( "dialog-warning" ), KIconLoader::NoGroup, 48 ) );
 
     // setup normal ui
     d->m_ui.setupUi( this );
