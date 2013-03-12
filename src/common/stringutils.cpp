@@ -20,7 +20,9 @@
 #include "stringutils.h"
 #include "debug.h"
 
+#include <QtCore/QRect>
 #include <QtCore/QRegExp>
+#include <QtCore/QStringList>
 
 using namespace Wacom;
 
@@ -34,3 +36,34 @@ bool StringUtils::asBool (const QString& value)
             trimmedValue.compare(QLatin1String("yes"),  Qt::CaseInsensitive) == 0);
 }
 
+
+const QRect StringUtils::toQRect(const QString& value, bool allowOnlyPositiveValues)
+{
+    QRect       rect;
+    QStringList rectValues = value.split(QLatin1String(" "), QString::SkipEmptyParts);
+
+    if (rectValues.count() != 4) {
+        return rect;
+    }
+
+    bool xOk, yOk, widthOk, heightOk;
+    int x      = rectValues.at(0).toInt(&xOk);
+    int y      = rectValues.at(1).toInt(&yOk);
+    int width  = rectValues.at(2).toInt(&widthOk);
+    int height = rectValues.at(3).toInt(&heightOk);
+
+    if ( !xOk || !yOk || !widthOk || !heightOk ) {
+        return rect;
+    }
+
+    if (allowOnlyPositiveValues && (x < 0 || y < 0 || width < 0 || height < 0)) {
+        return rect;
+    }
+
+    rect.setX(x);
+    rect.setY(y);
+    rect.setWidth(width);
+    rect.setHeight(height);
+
+    return rect;
+}

@@ -25,9 +25,8 @@
 #include "profilemanagement.h"
 #include "generalwidget.h"
 #include "padbuttonwidget.h"
-#include "padmapping.h"
 #include "penwidget.h"
-#include "touchwidget.h"
+#include "tabletpagewidget.h"
 
 // common
 #include "dbustabletinterface.h"
@@ -58,10 +57,8 @@ class TabletWidgetPrivate {
         Ui::TabletWidget m_ui;                  /**< Handler to the tabletwidget.ui file */
         GeneralWidget    m_generalPage;         /**< Widget that shows some basic information about the tablet */
         PadButtonWidget  m_padButtonPage;       /**< Widget for the pad button settings */
-        PadMapping       m_padMappingPage;      /**< Widget for the pad rotation and working area */
-        PadMapping       m_touchMappingPage;    /**< Widget for the touch rotation and working area */
+        TabletPageWidget m_padPage;
         PenWidget        m_penPage;             /**< Widget for the pen settings (stylus/eraser) */
-        TouchWidget      m_touchPage;           /**< Widget for the touch settings */
         QWidget          m_deviceError;         /**< Shows the error widget */
         Ui::ErrorWidget  m_deviceErrorUi;       //!< The error widget's UI.
         bool             m_profileChanged;      /**< True if the profile was changed and not saved yet */
@@ -112,10 +109,8 @@ void TabletWidget::init()
 
     // connect configuration tabs
     connect( &(d->m_padButtonPage),    SIGNAL(changed()), SLOT(profileChanged()) );
-    connect( &(d->m_padMappingPage),   SIGNAL(changed()), SLOT(profileChanged()) );
-    connect( &(d->m_touchMappingPage), SIGNAL(changed()), SLOT(profileChanged()) );
+    connect( &(d->m_padPage),          SIGNAL(changed()), SLOT(profileChanged()) );
     connect( &(d->m_penPage),          SIGNAL(changed()), SLOT(profileChanged()) );
-    connect( &(d->m_touchPage),        SIGNAL(changed()), SLOT(profileChanged()) );
     connect( &(d->m_generalPage),      SIGNAL(changed()), SLOT(profileChanged()) );
 
     // connect DBus signals
@@ -177,10 +172,8 @@ void TabletWidget::saveProfile()
 
     d->m_generalPage.saveToProfile();
     d->m_padButtonPage.saveToProfile();
-    d->m_padMappingPage.saveToProfile();
-    d->m_touchMappingPage.saveToProfile();
+    d->m_padPage.saveToProfile();
     d->m_penPage.saveToProfile();
-    d->m_touchPage.saveToProfile();
 
     d->m_profileChanged = false;
     emit changed( false );
@@ -206,10 +199,8 @@ void TabletWidget::reloadProfile()
 
     d->m_generalPage.loadFromProfile();
     d->m_padButtonPage.loadFromProfile();
-    d->m_padMappingPage.loadFromProfile();
-    d->m_touchMappingPage.loadFromProfile();
+    d->m_padPage.loadFromProfile();
     d->m_penPage.loadFromProfile();
-    d->m_touchPage.loadFromProfile();
 
     d->m_profileChanged = false;
     emit changed( false );
@@ -299,12 +290,8 @@ void TabletWidget::showConfig()
 
     d->m_generalPage.reloadWidget();
     d->m_padButtonPage.reloadWidget();
-    d->m_padMappingPage.setTool(0);
-    d->m_padMappingPage.reloadWidget();
-    d->m_touchMappingPage.setTool(1);
-    d->m_touchMappingPage.reloadWidget();
+    d->m_padPage.reloadWidget();
     d->m_penPage.reloadWidget();
-    d->m_touchPage.reloadWidget();
 
 
     // initialize profile selector
@@ -331,16 +318,7 @@ void TabletWidget::showConfig()
         d->m_ui.deviceTabWidget->addTab( &(d->m_padButtonPage), i18n( "Express Buttons" ) );
     }
 
-    QDBusReply<QString> touchAvailable = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
-    QString touchName = touchAvailable.value();
-    if( !touchName.isEmpty() ) {
-        d->m_ui.deviceTabWidget->addTab( &(d->m_touchPage), i18n( "Touch" ) );
-    }
-
-    d->m_ui.deviceTabWidget->addTab( &(d->m_padMappingPage), i18n( "Pad Mapping" ) );
-    if( !touchName.isEmpty() ) {
-        d->m_ui.deviceTabWidget->addTab( &(d->m_touchMappingPage), i18n( "Touch Mapping" ) );
-    }
+    d->m_ui.deviceTabWidget->addTab( &(d->m_padPage), i18n ("Tablet") );
 
     d->m_ui.deviceTabWidget->setEnabled( true );
     d->m_ui.deviceTabWidget->setVisible( true );

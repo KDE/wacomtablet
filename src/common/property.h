@@ -121,8 +121,26 @@ public:
     static const Property RelWheelDown;
     static const Property RelWheelUp;
     static const Property Rotate;
+
+    /**
+     * Determines if the tablet should be auto-rotated when the screen is rotated.
+     * Valid values are:
+     *
+     * - "on"       : Auto rotation is enabled.
+     * - "off"      : Auto rotation is disabled.
+     * - "inverted" : Auto rotation is enabled and inverted.
+     */
     static const Property RotateWithScreen;
     static const Property ScreenNo;
+
+    /**
+     * Maps the tablet area to a screen space.
+     * Valid values are:
+     *
+     * - "full"             : Maps the tablet to the full screen.
+     * - "mapX"             : Maps the tablet to monitor X.
+     * - "x y width height" : Maps the tablet to the given area.
+     */
     static const Property ScreenSpace;
     static const Property ScrollDistance;
     static const Property StripLeftDown;
@@ -130,7 +148,15 @@ public:
     static const Property StripRightDown;
     static const Property StripRightUp;
     static const Property Suppress;
-    static const Property TabletArea;            //FIXME: not needed anymore?
+
+    /**
+     * The tablet area on which the screen space is mapped.
+     * Valid values are:
+     *
+     * - "full"             : Maps the screen space to the full tablet.
+     * - "x y width height" : Maps the screen space to the given area.
+     */
+    static const Property TabletArea;
     static const Property TabletPcButton;
     static const Property TapTime;
     static const Property Threshold;

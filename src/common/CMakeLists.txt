@@ -18,6 +18,10 @@ set(wacom_common_SRC
     tabletinformation.cpp
     tabletprofile.cpp
     tabletprofileconfigadaptor.cpp
+    x11info.cpp
+    x11input.cpp
+    x11inputdevice.cpp
+    x11wacom.cpp
 )
 
 

@@ -17,36 +17,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "selectquotetext.h"
-#include "ui_selectquotetext.h"
+#ifndef X11INFO_H
+#define X11INFO_H
 
-using namespace Wacom;
+#include <QtCore/QList>
+#include <QtCore/QRectF>
 
-SelectQuoteText::SelectQuoteText(QWidget *parent) :
-        KDialog(parent),
-        ui(new Ui::SelectQuoteText)
+namespace Wacom
 {
-    QWidget *widget = new QWidget(this);
-    ui->setupUi(widget);
-    setMainWidget(widget);
 
-    setButtons(KDialog::Ok | KDialog::Cancel);
-    setCaption(i18n("Select Quote Text"));
-
-    connect(this, SIGNAL(okClicked()), this, SLOT(slotOkClicked()));
-}
-
-SelectQuoteText::~SelectQuoteText()
+/**
+ * A static class with some helper methods to get information about the running X server.
+ */
+class X11Info
 {
-    delete ui;
-}
+public:
 
-QString SelectQuoteText::quoteText() const 
-{
-    return m_quoteText;
-}
+    /**
+     * Returns a list of all X11 screen geometries.
+     *
+     * @return List of X11 screen geometries.
+     */
+    static const QList< QRect > getScreens();
 
-void SelectQuoteText::slotOkClicked()
-{
-    m_quoteText = ui->klineedit->text();
-}
+    /**
+     * @return All screens united as one rectangle.
+     */
+    static const QRect getScreensUnited();
+
+}; // CLASS
+}  // NAMESPACE
+#endif // HEADER PROTECTION

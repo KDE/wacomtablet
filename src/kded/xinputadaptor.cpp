@@ -23,6 +23,7 @@
 #include "xinputproperty.h"
 #include "x11input.h"
 #include "x11inputdevice.h"
+#include "x11wacom.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -262,7 +263,7 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     kDebug() << "0" << h << offsetY;
     kDebug() << "0" << "0" << "1";
 
-    return X11Input::setCoordinateTransformationMatrix(d->deviceName, offsetX, offsetY, w, h);
+    return X11Wacom::setCoordinateTransformationMatrix(d->deviceName, offsetX, offsetY, w, h);
 }
 
 

@@ -29,8 +29,7 @@ namespace Wacom
 {
 /**
  * Basic XInput interface. It uses the visitor pattern to allow easy
- * access to all XInput devices. It also has some helper methods which
- * are used by different subsystems.
+ * access to all XInput devices.
  */
 class X11Input
 {
@@ -44,6 +43,7 @@ public:
     static const QString PROPERTY_DEVICE_NODE;
     static const QString PROPERTY_TRANSFORM_MATRIX;
     static const QString PROPERTY_WACOM_SERIAL_IDS;
+    static const QString PROPERTY_WACOM_TABLET_AREA;
     static const QString PROPERTY_WACOM_TOOL_TYPE;
 
     /**
@@ -62,13 +62,6 @@ public:
      * iteration or abort it.
      */
     static void scanDevices(X11InputVisitor& visitor);
-
-    /**
-     * Sets the coordinate transformation property on the given device.
-     *
-     * @return True on success, false on error.
-     */
-    static bool setCoordinateTransformationMatrix(const QString& deviceName, qreal offsetX, qreal offsetY, qreal width, qreal height);
 
 }; // CLASS
 }  // NAMESPACE

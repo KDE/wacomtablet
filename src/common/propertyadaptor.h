@@ -31,7 +31,7 @@ class PropertyAdaptorPrivate;
 
 /**
  * The interface class for property adaptors.
- * 
+ *
  * These adaptors are used to map properties between different subsystems.
  * They are also used to convert property values between the internal storage
  * format of the adapted object and the global data format.
@@ -49,7 +49,7 @@ public:
      * Gets a list of properties which can be set or get.
      * The default implementation tries to get a list of properties from the
      * adapted object or returns an empty list if no object is set.
-     * 
+     *
      * @return List of available config properties as string.
      */
     virtual const QList<Property> getProperties() const;
@@ -58,17 +58,29 @@ public:
      * Gets a property value. The default implementation tries to get the value
      * from the adapted object and returns it as-is or returns an empty string
      * of no object is set.
-     * 
+     *
      * @param property The property to get.
-     * 
+     *
      * @return The property value.
      */
     virtual const QString getProperty(const Property& property) const;
 
+
+    /**
+     * Gets a property value as boolean. If the conversion to boolean fails,
+     * false is returned.
+     *
+     * @param property The property to get.
+     *
+     * @return The property value as boolean or false if the value can not be converted.
+     */
+    virtual bool getPropertyAsBool(const Property& property) const;
+
+
     /**
      * Sets a property value. The default implementation passes the value to the
      * adapted object as-is or does nothing if no object is set.
-     * 
+     *
      * @param property The property.
      * @param value    The new value to set.
      *

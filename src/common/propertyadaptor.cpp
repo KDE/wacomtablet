@@ -17,8 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "debug.h" // always needs to be first include
+
 #include "propertyadaptor.h"
-#include "debug.h"
+
+#include "stringutils.h"
+
 
 using namespace Wacom;
 
@@ -54,7 +58,7 @@ PropertyAdaptor::~PropertyAdaptor()
 const QList<Property> PropertyAdaptor::getProperties() const
 {
     Q_D( const PropertyAdaptor );
-    
+
     if (d->adaptee != NULL) {
         return d->adaptee->getProperties();
     }
@@ -66,7 +70,7 @@ const QList<Property> PropertyAdaptor::getProperties() const
 const QString PropertyAdaptor::getProperty ( const Property& property ) const
 {
     Q_D( const PropertyAdaptor );
-    
+
     if (d->adaptee != NULL) {
         return d->adaptee->getProperty(property);
     }
@@ -75,10 +79,17 @@ const QString PropertyAdaptor::getProperty ( const Property& property ) const
     return QString();
 }
 
+
+bool PropertyAdaptor::getPropertyAsBool(const Property& property) const
+{
+    return StringUtils::asBool(getProperty(property));
+}
+
+
 bool PropertyAdaptor::setProperty ( const Property& property, const QString& value )
 {
     Q_D( PropertyAdaptor );
-    
+
     if (d->adaptee != NULL) {
         return d->adaptee->setProperty(property, value);
     }

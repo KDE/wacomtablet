@@ -26,7 +26,7 @@
    <item>
     <widget class="QGroupBox" name="buttonGroupBox">
      <property name="title">
-      <string>Express Keys</string>
+      <string>Express Buttons</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>

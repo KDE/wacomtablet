@@ -46,7 +46,6 @@ public:
       * default constructor
       * Initialize the widget.
       *
-      * @param profileManager Handles the connection to the config files
       * @param parent parent Widget
       */
     explicit PenWidget(QWidget *parent = 0);

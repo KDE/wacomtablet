@@ -21,7 +21,6 @@
 
 #include "debug.h"
 #include "x11inputdevice.h"
-#include "x11tabletfinder.h"
 
 #include <QtCore/QString>
 #include <QtCore/QList>
@@ -42,6 +41,7 @@ const QString X11Input::PROPERTY_DEVICE_PRODUCT_ID = QLatin1String ("Device Prod
 const QString X11Input::PROPERTY_DEVICE_NODE       = QLatin1String ("Device Node");
 const QString X11Input::PROPERTY_TRANSFORM_MATRIX  = QLatin1String ("Coordinate Transformation Matrix");
 const QString X11Input::PROPERTY_WACOM_SERIAL_IDS  = QLatin1String (WACOM_PROP_SERIALIDS);
+const QString X11Input::PROPERTY_WACOM_TABLET_AREA = QLatin1String (WACOM_PROP_TABLET_AREA);
 const QString X11Input::PROPERTY_WACOM_TOOL_TYPE   = QLatin1String (WACOM_PROP_TOOL_TYPE);
 
 bool X11Input::findDevice(const QString& deviceName, X11InputDevice& device)
@@ -90,34 +90,5 @@ void X11Input::scanDevices(X11InputVisitor& visitor)
     if (info) {
         XFreeDeviceList (info);
     }
-}
-
-
-
-bool X11Input::setCoordinateTransformationMatrix(const QString& deviceName, qreal offsetX, qreal offsetY, qreal width, qreal height)
-{
-    X11InputDevice device;
-
-    if (!findDevice(deviceName, device)) {
-        return false;
-    }
-
-    /*
-     *  | width  0       offsetX |
-     *  | 0      height  offsetY |
-     *  | 0      0          1    |
-     */
-    QList<float> matrix;
-    matrix.append(width);
-    matrix.append(0);
-    matrix.append(offsetX);
-    matrix.append(0);
-    matrix.append(height);
-    matrix.append(offsetY);
-    matrix.append(0);
-    matrix.append(0);
-    matrix.append(1);
-
-    return device.setFloatProperty(X11Input::PROPERTY_TRANSFORM_MATRIX, matrix);
 }
 

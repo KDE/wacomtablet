@@ -17,39 +17,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRINGUTILS_H
-#define STRINGUTILS_H
+#ifndef SCREENAREASELECTIONDIALOG_H
+#define SCREENAREASELECTIONDIALOG_H
 
+#include <KDE/KDialog>
+
+#include <QtCore/QList>
+#include <QtCore/QRect>
 #include <QtCore/QString>
-
-class QRect;
 
 namespace Wacom
 {
-class StringUtils
+
+class ScreenAreaSelectionDialogPrivate;
+
+class ScreenAreaSelectionDialog : public KDialog
 {
+    Q_OBJECT
+
 public:
-    /**
-     * Trimms the input value and checks if it is one of '1', 'true', 'on' or 'yes'.
-     *
-     * @param value The value to returen as bool.
-     *
-     * @return True if the input string is one of "1/true/on/yes", else false.
-     */
-    static bool asBool (const QString& value);
 
+    explicit ScreenAreaSelectionDialog(QWidget* parent = 0);
 
-    /**
-     * Converts a string to a rectangle. If the conversion fails an empty
-     * rectangle is returned. The format of the string is expected to be
-     * "x y width height". Multiple whitespaces are ignored.
-     *
-     * @param value The rectangle as string.
-     * @param allowOnlyPositiveValues If this flag is set, only values >= 0 are accepted as valid.
-     *
-     * @return The string as rectangle.
-     */
-    static const QRect toQRect(const QString& value, bool allowOnlyPositiveValues = false);
+    virtual ~ScreenAreaSelectionDialog();
+
+    QString getSelection() const;
+
+    void setSelection( const QString& selection);
+
+    void setupWidget( const QList<QRect>& screenAreas, const QRect& tabletArea, const QRect& selectedTabletArea, const QString& tabletAreaCaption = QString() );
+
+private:
+
+    void setupUi();
+
+    Q_DECLARE_PRIVATE(ScreenAreaSelectionDialog)
+    ScreenAreaSelectionDialogPrivate *const d_ptr; //!< D-Pointer for this class.
 
 }; // CLASS
 }  // NAMESPACE

@@ -17,39 +17,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STRINGUTILS_H
-#define STRINGUTILS_H
+#ifndef X11WACOM_H
+#define X11WACOM_H
 
+#include "devicetype.h"
+
+#include <QtCore/QRectF>
 #include <QtCore/QString>
-
-class QRect;
 
 namespace Wacom
 {
-class StringUtils
+
+/**
+ * A static class which offers some helper methods to access
+ * Wacom devices using xinput.
+ */
+class X11Wacom
 {
 public:
+
     /**
-     * Trimms the input value and checks if it is one of '1', 'true', 'on' or 'yes'.
+     * Returns the maximum size of the given tablet device.
      *
-     * @param value The value to returen as bool.
+     * @param deviceName The name of the device to get the area from.
      *
-     * @return True if the input string is one of "1/true/on/yes", else false.
+     * @return The maximum size of the tablet area.
      */
-    static bool asBool (const QString& value);
+    static const QRect getMaximumTabletArea(const QString& deviceName);
 
 
     /**
-     * Converts a string to a rectangle. If the conversion fails an empty
-     * rectangle is returned. The format of the string is expected to be
-     * "x y width height". Multiple whitespaces are ignored.
+     * Sets the coordinate transformation property on the given device.
      *
-     * @param value The rectangle as string.
-     * @param allowOnlyPositiveValues If this flag is set, only values >= 0 are accepted as valid.
-     *
-     * @return The string as rectangle.
+     * @return True on success, false on error.
      */
-    static const QRect toQRect(const QString& value, bool allowOnlyPositiveValues = false);
+    static bool setCoordinateTransformationMatrix(const QString& deviceName, qreal offsetX, qreal offsetY, qreal width, qreal height);
+
 
 }; // CLASS
 }  // NAMESPACE

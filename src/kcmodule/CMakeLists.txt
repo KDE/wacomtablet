@@ -1,23 +1,25 @@
 ########### next target ###############
 
 set( kcm_tablet_SRCS
+     areaselectionwidget.cpp
      buttonactiondisplaywidget.cpp
      buttonactionselectiondialog.cpp
      buttonactionselectionwidget.cpp
      buttonactionselectorwidget.cpp
+     calibrationdialog.cpp
      generalwidget.cpp
      kcmwacomtablet.cpp
-     padmapping.cpp
      padbuttonwidget.cpp
      penwidget.cpp
      presscurve.cpp
      presscurvedialog.cpp
      profilemanagement.cpp
+     screenareaselectiondialog.cpp
+     screenareaselectionwidget.cpp
+     tabletareaselectiondialog.cpp
+     tabletareaselectionwidget.cpp
+     tabletpagewidget.cpp
      tabletwidget.cpp
-     calibrationdialog.cpp
-     touchwidget.cpp
-     tabletarea.cpp
-     screenarea.cpp
 )
 
 kde4_add_ui_files( kcm_tablet_SRCS
@@ -25,13 +27,14 @@ kde4_add_ui_files( kcm_tablet_SRCS
                    buttonactionselectorwidget.ui
                    errorwidget.ui
                    generalwidget.ui
-                   padmapping.ui
-                   penwidget.ui
                    padbuttonwidget.ui
+                   penwidget.ui
                    presscurvedialog.ui
                    saveprofile.ui
+                   screenareaselectionwidget.ui
+                   tabletareaselectionwidget.ui
+                   tabletpagewidget.ui
                    tabletwidget.ui
-                   touchwidget.ui
 )
 
 kde4_add_plugin(kcm_wacomtablet ${kcm_tablet_SRCS})

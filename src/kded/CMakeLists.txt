@@ -22,8 +22,6 @@ set(kded_wacomtablet_SRCS
     tabletfinder.cpp
     tablethandler.cpp
     x11eventnotifier.cpp
-    x11input.cpp
-    x11inputdevice.cpp
     x11tabletfinder.cpp
     xinputadaptor.cpp
     xinputproperty.cpp

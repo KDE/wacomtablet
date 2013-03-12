@@ -421,6 +421,8 @@ bool X11InputDevice::getProperty(const QString& property, X11InputDevice::Atom e
         values.append(*((T*)(data + i)));
     }
 
+    XFree(data);
+
     return true;
 }
 
