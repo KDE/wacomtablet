@@ -62,10 +62,13 @@ public:
     static const ScreenRotation HALF;
     static const ScreenRotation CW;
 
+    static const ScreenRotation AUTO;
+    static const ScreenRotation AUTO_INVERTED;
+
 private:
 
     ScreenRotation (const QString& key) : ScreenRotationTemplateSpecialization(this, key) {}
-    
+
 }; // CLASS
 
 /*

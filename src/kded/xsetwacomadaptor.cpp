@@ -22,6 +22,7 @@
 #include "xsetwacomproperty.h"
 #include "stringutils.h"
 #include "buttonshortcut.h"
+#include "screenrotation.h"
 
 #include <QtCore/QProcess>
 #include <QtCore/QRegExp>
@@ -108,6 +109,9 @@ bool XsetwacomAdaptor::setProperty(const Property& property, const QString& valu
     // check for special property
     if (property == Property::InvertScroll) {
         return setInvertScroll(value);
+
+    } else if (property == Property::Rotate) {
+        return setRotation(value);
 
     } else {
         // normal property
@@ -218,6 +222,27 @@ bool XsetwacomAdaptor::setInvertScroll(const QString& value)
 
     return true;
 }
+
+
+bool XsetwacomAdaptor::setRotation(const QString& value)
+{
+    Q_D( const XsetwacomAdaptor );
+
+    const ScreenRotation* lookup   = ScreenRotation::find(value);
+    ScreenRotation        rotation = (lookup != NULL) ? *lookup : ScreenRotation::NONE;
+
+    // only accept real rotations
+    if (rotation == ScreenRotation::NONE || rotation == ScreenRotation::CW ||
+        rotation == ScreenRotation::CCW  || rotation == ScreenRotation::HALF) {
+        setParameter(d->device, XsetwacomProperty::Rotate.key(), rotation.key());
+        return true;
+    }
+
+    // do not set this value as it is not a real screen rotation
+    // probably some auto-mode.
+    return false;
+}
+
 
 bool XsetwacomAdaptor::setParameter(const QString& device, const QString& param, const QString& value) const
 {

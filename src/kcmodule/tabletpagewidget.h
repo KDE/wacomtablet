@@ -100,8 +100,6 @@ signals:
 
 protected:
 
-    const QString getAutoRotation() const;
-
     const QString getGestureSupportEnabled() const;
 
     const QString& getPadScreenAreaMapping() const;
@@ -139,8 +137,6 @@ protected:
     bool isGesturesSupportEnabled() const;
 
     bool isTouchSupportEnabled() const;
-
-    void setAutoRotation(const QString& value);
 
     void setAutoRotationEnabled (bool value);
 

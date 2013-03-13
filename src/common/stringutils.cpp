@@ -67,3 +67,36 @@ const QRect StringUtils::toQRect(const QString& value, bool allowOnlyPositiveVal
 
     return rect;
 }
+
+
+
+const QRect StringUtils::toQRectByCoordinates(const QString& value, bool allowOnlyPositiveValues)
+{
+    QRect       rect;
+    QStringList rectValues = value.split(QLatin1String(" "), QString::SkipEmptyParts);
+
+    if (rectValues.count() != 4) {
+        return rect;
+    }
+
+    bool x1Ok, y1Ok, x2Ok, y2Ok;
+    int x1 = rectValues.at(0).toInt(&x1Ok);
+    int y1 = rectValues.at(1).toInt(&y1Ok);
+    int x2 = rectValues.at(2).toInt(&x2Ok);
+    int y2 = rectValues.at(3).toInt(&y2Ok);
+
+    if ( !x1Ok || !y1Ok || !x2Ok || !y2Ok ) {
+        return rect;
+    }
+
+    if (allowOnlyPositiveValues && (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0)) {
+        return rect;
+    }
+
+    rect.setX(x1);
+    rect.setY(y1);
+    rect.setWidth(x2 - x1);
+    rect.setHeight(y2 - y1);
+
+    return rect;
+}

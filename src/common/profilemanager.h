@@ -29,7 +29,7 @@
 namespace Wacom {
 
 class ProfileManagerPrivate;
-    
+
 /**
   * A tablet profile manager.
   *
@@ -40,7 +40,7 @@ class ProfileManagerPrivate;
   * can be loaded at a time.
   *
   * Profile hierarchy in configuration file:
-  * 
+  *
   * + TABLET IDENTIFIER -> TABLET PROFILE -> DEVICE PROFILE
   *                                       -> DEVICE PROFILE
   *                                       -> ...
@@ -78,7 +78,7 @@ public:
      * Deletes the given profile from the currently loaded tablet.
      */
     bool deleteProfile(const QString& profile);
-    
+
     /**
      * Checks if the given tablet device identifier exists in the configuration file.
      * If it exists, profiles are registered for this tablet identifier and they can
@@ -109,14 +109,14 @@ public:
      * Checks if profiles have been loaded.
      */
     bool isLoaded() const;
-    
+
     /**
-     * Lists all tablet identifier which can be loaded using ProfileManager::loadProfiles(const QString&)
+     * Lists all tablet identifier which can be loaded using ProfileManager::readProfiles(const QString&)
      *
      * @return List of tablet device identifiers.
      */
     const QStringList listIdentifiers() const;
-    
+
     /**
      * Lists all profiles that have been loaded.
      *

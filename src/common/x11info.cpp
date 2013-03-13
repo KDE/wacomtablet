@@ -21,14 +21,51 @@
 
 #include <QtGui/QApplication>
 #include <QtGui/QDesktopWidget>
-#include <QtGui/QX11Info>
+
+#include <X11/X.h>
+#include <X11/Xlib.h>
+#include <X11/extensions/Xrandr.h>
 
 using namespace Wacom;
 
 
-const QList< QRect > X11Info::getScreens()
+int X11Info::getDefaultScreen()
 {
+    return DefaultScreen(QX11Info::display());
+}
 
+
+Display* X11Info::getDisplay()
+{
+    return QX11Info::display();
+}
+
+
+const QRect X11Info::getDisplayGeometry()
+{
+    QList< QRect > screens = getScreenGeometries();
+    QRect unitedScreen(0, 0, 0, 0);
+
+    for (int i = 0 ; i < screens.size() ; ++i) {
+        unitedScreen = unitedScreen.united(screens.at(i));
+    }
+
+    return unitedScreen;
+}
+
+
+int X11Info::getNumberOfScreens()
+{
+    if (QApplication::desktop()->isVirtualDesktop()) {
+        return QApplication::desktop()->numScreens();
+    }
+
+    return 1;
+}
+
+
+const QList< QRect > X11Info::getScreenGeometries()
+{
     QList< QRect > screens;
 
     if( QApplication::desktop()->isVirtualDesktop() ) {
@@ -47,17 +84,33 @@ const QList< QRect > X11Info::getScreens()
 }
 
 
-
-const QRect X11Info::getScreensUnited()
+const ScreenRotation X11Info::getScreenRotation()
 {
-    QList< QRect > screens = getScreens();
-    QRect unitedScreen;
+    Rotation       xrandrRotation;
+    ScreenRotation currentRotation = ScreenRotation::NONE;
 
-    for (int i = 0 ; i < screens.size() ; ++i) {
-        unitedScreen = unitedScreen.united(screens.at(i));
+    XRRRotations(getDisplay(), getDefaultScreen(), &xrandrRotation);
+
+    // we are translating this to a monitor rotation, not the rotation
+    // of the canvas
+    switch (xrandrRotation) {
+        case RR_Rotate_0:
+            currentRotation = ScreenRotation::NONE;
+            break;
+        case RR_Rotate_90:
+            currentRotation = ScreenRotation::CW;
+            break;
+        case RR_Rotate_180:
+            currentRotation = ScreenRotation::HALF;
+            break;
+        case RR_Rotate_270:
+            currentRotation = ScreenRotation::CCW;
+            break;
+        default:
+            // defaults to NONE
+            break;
     }
 
-    return unitedScreen;
+    return currentRotation;
 }
-
 

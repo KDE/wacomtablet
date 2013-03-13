@@ -36,3 +36,6 @@ const ScreenRotation ScreenRotation::NONE ( QLatin1String("none") );
 const ScreenRotation ScreenRotation::CCW ( QLatin1String("ccw") );
 const ScreenRotation ScreenRotation::HALF    ( QLatin1String("half") );
 const ScreenRotation ScreenRotation::CW ( QLatin1String("cw") );
+
+const ScreenRotation ScreenRotation::AUTO ( QLatin1String("auto") );
+const ScreenRotation ScreenRotation::AUTO_INVERTED ( QLatin1String("auto-inverted") );

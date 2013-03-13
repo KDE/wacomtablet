@@ -64,10 +64,16 @@ const QString TabletAreaSelectionWidget::getSelection() const
     Q_D(const TabletAreaSelectionWidget);
 
     if (d->ui->fullTabletRadioButton->isChecked()) {
-        return QLatin1String("full");
+        return QLatin1String("-1 -1 -1 -1");
     }
 
-    return d->ui->areaWidget->getSelectionAsString();
+    // convert rectangle to "x1 y1 x2 y2" format.
+    QRect selection = d->ui->areaWidget->getSelection();
+
+    return QString::fromLatin1("%1 %2 %3 %4").arg(selection.x())
+                                             .arg(selection.y())
+                                             .arg(selection.x() + selection.width())
+                                             .arg(selection.y() + selection.height());
 }
 
 
@@ -75,14 +81,14 @@ void TabletAreaSelectionWidget::setSelection(const QString& selection)
 {
     Q_D(const TabletAreaSelectionWidget);
 
-    if (selection.compare(QLatin1String("full"), Qt::CaseInsensitive) == 0) {
+    if (selection.compare(QLatin1String("-1 -1 -1 -1"), Qt::CaseInsensitive) == 0) {
 
         // full screen selection
         setTabletAreaType(TabletAreaSelectionWidget::FullTabletArea);
 
     } else {
         // area or invalid selection
-        QRect selectionRect = StringUtils::toQRect(selection);
+        QRect selectionRect = StringUtils::toQRectByCoordinates(selection);
 
         if (selectionRect.isEmpty()) {
             // invalid selection => full screen

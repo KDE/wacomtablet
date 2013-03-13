@@ -27,17 +27,19 @@
 #include "stringutils.h"
 
 // common includes
-#include "dbustabletinterface.h" // required to copy TabletInformation from/to QDBusArgument
 #include "deviceprofile.h"
 #include "tabletdatabase.h"
 #include "mainconfig.h"
 #include "profilemanager.h"
 #include "tabletprofile.h"
+#include "x11info.h"
+
+#include <QtCore/QList>
+#include <QtCore/QRect>
+#include <QtCore/QRegExp>
 
 #include <KDE/KLocalizedString>
 
-#include <QtDBus/QDBusArgument>
-#include <X11/Xlib.h>
 
 namespace Wacom
 {
@@ -102,32 +104,43 @@ void TabletHandler::onTabletAdded( const TabletInformation& info )
     Q_D( TabletHandler );
 
     // if we already have a device ... skip this step
-    if(d->tabletBackend) {
+    if(hasTablet()) {
         kDebug() << QString::fromLatin1("Ignoring tablet '%1' as another one is already connected.").arg(info.get(TabletInfo::TabletId));
         return;
     }
 
+    kDebug() << "Taking control of new tablet" << info.get(TabletInfo::TabletName)
+             << "(" << info.get(TabletInfo::TabletId) << ") ["
+             << (info.hasDevice(DeviceType::Stylus) ? "stylus" : "")
+             << (info.hasDevice(DeviceType::Eraser) ? "eraser" : "")
+             << (info.hasDevice(DeviceType::Pad)    ? "pad"    : "")
+             << (info.hasDevice(DeviceType::Touch)  ? "touch"  : "")
+             << (info.hasDevice(DeviceType::Cursor) ? "cursor" : "")
+             << "]";
+
     // create tablet backend
-    d->tabletInformation = info;
-    d->tabletBackend     = TabletBackendFactory::createBackend(d->tabletInformation);
+    clearTabletInformation();
+    d->tabletBackend = TabletBackendFactory::createBackend(info);
 
     if (d->tabletBackend == NULL) {
-        clearTabletInformation();
-        return;
+        return; // no valid backend found
     }
 
+    // update tablet information
+    d->tabletInformation = info;
     d->tabletInformation.setAvailable(true);
 
     // if we found something notify about it and set the default profile to it
     emit notify( QLatin1String("tabletAdded"),
-                 i18n("Tablet added"),
-                 i18n("New %1 tablet added",
+                 i18n("Tablet Connected"),
+                 i18n("New tablet '%1' connected.",
                  d->tabletInformation.get(TabletInfo::TabletName) ));
-
-    emit tabletAdded(d->tabletInformation);
 
     // set profile which was last used
     setProfile(d->mainConfig.getLastProfile());
+
+    // notify everyone else about the new tablet
+    emit tabletAdded(d->tabletInformation);
 }
 
 
@@ -153,48 +166,38 @@ void TabletHandler::onScreenRotated( const ScreenRotation& screenRotation )
 {
     Q_D( TabletHandler );
 
-    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
-    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
-    DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
-    DeviceProfile touchProfile = tabletProfile.getDevice(DeviceType::Touch);
+    // determine auto-rotation configuration and new rotation
+    TabletProfile   tabletProfile      = d->profileManager.loadProfile(d->currentProfile);
+    DeviceProfile   stylusProfile      = tabletProfile.getDevice(DeviceType::Stylus);
 
-    if (StringUtils::asBool (stylusProfile.getProperty (Property::RotateWithScreen))) {
+    QString               rotateProperty   = stylusProfile.getProperty( Property::Rotate);
+    const ScreenRotation* lookupRotation   = ScreenRotation::find(rotateProperty);
+    ScreenRotation        tabletRotation   = (lookupRotation != NULL) ? *lookupRotation : ScreenRotation::NONE;
 
-        kDebug() << "Rotate tablet :: " << screenRotation.key();
+    bool                  doAutoInvert     = (tabletRotation == ScreenRotation::AUTO_INVERTED);
+    bool                  doAutoRotation   = (doAutoInvert || tabletRotation == ScreenRotation::AUTO);
+    ScreenRotation        newRotation      = screenRotation;
 
-        //FIXME: there is a better way to transform rotation value to int hopefully?
-        //       this fixme will be obsolete if the fixme below gets fixed.
-        int intKey = 0;
-        if( screenRotation == ScreenRotation::CCW )
-            intKey = 1;
-        if( screenRotation == ScreenRotation::HALF )
-            intKey = 2;
-        if( screenRotation == ScreenRotation::CW )
-            intKey = 3;
-
-        // also save new rotation into the profile
-        // See Bug: 312055
-        // FIXME: The tablet rotation should not be set in the profile as the screen
-        //        rotation might change after a tablet was unplugged. Instead the KCM
-        //        module should query the tablet for its current rotation. Also on
-        //        startup or whenever a device gets connected the tablet daemon should
-        //        detect the current screen rotation and set it on the device as well
-        //        if auto-rotation is enabled.
-        setProperty( DeviceType::Stylus, Property::Rotate, screenRotation.key() );
-        stylusProfile.setProperty( Property::Rotate, QString::number( intKey ) );
-
-        setProperty( DeviceType::Eraser, Property::Rotate, screenRotation.key() );
-        eraserProfile.setProperty( Property::Rotate, QString::number( intKey ) );
-
-        if(d->tabletInformation.hasDevice (DeviceType::Touch)) {
-            setProperty( DeviceType::Touch, Property::Rotate, screenRotation.key() );
-            touchProfile.setProperty( Property::Rotate, QString::number( intKey ) );
+    if (doAutoInvert) {
+        // the user wants inverted auto-rotation
+        if (screenRotation == ScreenRotation::CW) {
+            newRotation = ScreenRotation::CCW;
+        } else if (screenRotation == ScreenRotation::CCW) {
+            newRotation = ScreenRotation::CW;
         }
+    }
 
-        tabletProfile.setDevice(stylusProfile);
-        tabletProfile.setDevice(eraserProfile);
-        tabletProfile.setDevice(touchProfile);
-        d->profileManager.saveProfile(tabletProfile);
+    if (!doAutoRotation) {
+        return; // auto-rotation is disabled
+    }
+
+    kDebug() << "Rotate tablet :: " << newRotation.key();
+
+    setProperty( DeviceType::Stylus, Property::Rotate, newRotation.key() );
+    setProperty( DeviceType::Eraser, Property::Rotate, newRotation.key() );
+
+    if(hasDevice(DeviceType::Touch)) {
+        setProperty( DeviceType::Touch, Property::Rotate, newRotation.key() );
     }
 }
 
@@ -203,7 +206,7 @@ void TabletHandler::onTogglePenMode()
 {
     Q_D( TabletHandler );
 
-    if( !d->tabletBackend ) {
+    if( !hasTablet() || !hasDevice(DeviceType::Stylus)) {
         return;
     }
 
@@ -213,14 +216,12 @@ void TabletHandler::onTogglePenMode()
     DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
     DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
 
-    if(d->tabletInformation.hasDevice(DeviceType::Stylus)) {
-        toggleMode(DeviceType::Stylus);
-        stylusProfile.setProperty( Property::Mode, d->tabletBackend->getProperty(DeviceType::Stylus, Property::Mode) );
-    }
+    QString newMode = toggleMode(DeviceType::Stylus);
+    stylusProfile.setProperty( Property::Mode, newMode );
 
-    if(d->tabletInformation.hasDevice(DeviceType::Eraser)) {
-        toggleMode(DeviceType::Eraser);
-        eraserProfile.setProperty( Property::Mode, d->tabletBackend->getProperty(DeviceType::Stylus, Property::Mode) );
+    if(hasDevice(DeviceType::Eraser)) {
+        setProperty(DeviceType::Eraser, Property::Mode, newMode);
+        eraserProfile.setProperty( Property::Mode, newMode );
     }
 
     tabletProfile.setDevice(stylusProfile);
@@ -234,11 +235,11 @@ void TabletHandler::onToggleTouch()
 {
     Q_D( TabletHandler );
 
-    if( !d->tabletBackend || !d->tabletInformation.hasDevice(DeviceType::Touch) ) {
+    if( !hasDevice(DeviceType::Touch) ) {
         return;
     }
 
-    QString touchMode = d->tabletBackend->getProperty(DeviceType::Touch, Property::Touch);
+    QString touchMode = getProperty(DeviceType::Touch, Property::Touch);
 
     // also save the touch on/off into the profile to remember the user selection after
     // the tablet was reconnected
@@ -246,10 +247,10 @@ void TabletHandler::onToggleTouch()
     DeviceProfile touchProfile = tabletProfile.getDevice(DeviceType::Touch);
 
     if( touchMode.compare( QLatin1String( "off" ), Qt::CaseInsensitive) == 0 ) {
-        d->tabletBackend->setProperty(DeviceType::Touch, Property::Touch, QLatin1String("on"));
+        setProperty(DeviceType::Touch, Property::Touch, QLatin1String("on"));
         touchProfile.setProperty( Property::Touch, QLatin1String("on" ) );
     } else {
-        d->tabletBackend->setProperty(DeviceType::Touch, Property::Touch, QLatin1String("off"));
+        setProperty(DeviceType::Touch, Property::Touch, QLatin1String("off"));
         touchProfile.setProperty( Property::Touch, QLatin1String("off") );
     }
 
@@ -257,189 +258,61 @@ void TabletHandler::onToggleTouch()
     d->profileManager.saveProfile(tabletProfile);
 }
 
+
 void TabletHandler::onToggleScreenMapping()
 {
     Q_D( TabletHandler );
 
-    if( !d->tabletBackend ) {
+    if (!hasTablet()) {
         return;
     }
 
-    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
-    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
-    QString screenSpace = stylusProfile.getProperty(Property::ScreenSpace);
+    QRegExp monitorRegExp(QLatin1String("map(\\d+)"), Qt::CaseInsensitive);
 
-    if( screenSpace == QLatin1String("full")) {
-        onMapToScreen1();
-    }
-    else if( screenSpace == QLatin1String("map0")) {
-        onMapToScreen2();
-    }
-    else if( screenSpace == QLatin1String("map1")) {
-        onMapToFullScreen();
-    }
-    // in case some invalid data or the "part of screen stuff" was inserted
-    else {
+    TabletProfile tabletProfile  = d->profileManager.loadProfile(d->currentProfile);
+    DeviceProfile stylusProfile  = tabletProfile.getDevice(DeviceType::Stylus);
+    QString       mapping        = stylusProfile.getProperty(Property::ScreenSpace);
 
-        kDebug() << "default to fullscreen. value: " << screenSpace;
-        onMapToFullScreen();
+    if (mapping.compare(QLatin1String("full"), Qt::CaseInsensitive) == 0) {
+        mapping = QLatin1String("map0");
+
+    } else if (monitorRegExp.indexIn(mapping, 0) != -1) {
+        int screen = monitorRegExp.cap(1).toInt() + 1;
+
+        if (screen >= X11Info::getNumberOfScreens()) {
+            mapping = QLatin1String("full");
+        } else {
+            mapping = QString::fromLatin1("map%1").arg(screen);
+        }
+
+    } else {
+        // area mapping - use fullscreen
+        mapping = QLatin1String("full");
     }
+
+    mapTabletToOutput(mapping);
 }
+
 
 void TabletHandler::onMapToFullScreen()
 {
-    Q_D( TabletHandler );
-
-    if( !d->tabletBackend ) {
-        return;
-    }
-
-    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
-    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
-    DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
-    DeviceProfile touchProfile;
-
-    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
-        touchProfile = tabletProfile.getDevice(DeviceType::Touch);
-    }
-
-    // set ScreenSpace to full (so the coordinate transfomation matrix is changed )
-    // copy AreaMapFull to Area so the correct tablet calibration area will be applied
-    stylusProfile.setProperty( Property::ScreenSpace, QLatin1String("full" ) );
-    QString area =  stylusProfile.getProperty(Property::AreaMapFull);
-    stylusProfile.setProperty( Property::Area, area );
-    tabletProfile.setDevice(stylusProfile);
-    d->tabletBackend->setProperty(DeviceType::Stylus, Property::ScreenSpace, QLatin1String("full" ));
-    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Area, area);
-
-    eraserProfile.setProperty( Property::ScreenSpace, QLatin1String("full" ) );
-    area =  eraserProfile.getProperty(Property::AreaMapFull);
-    eraserProfile.setProperty( Property::Area, area );
-    tabletProfile.setDevice(eraserProfile);
-    d->tabletBackend->setProperty(DeviceType::Eraser, Property::ScreenSpace, QLatin1String("full" ));
-    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Area, area);
-
-    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
-        touchProfile.setProperty( Property::ScreenSpace, QLatin1String("full" ) );
-        area =  touchProfile.getProperty(Property::AreaMapFull);
-        touchProfile.setProperty( Property::Area, area );
-        tabletProfile.setDevice(touchProfile);
-        d->tabletBackend->setProperty(DeviceType::Touch, Property::ScreenSpace, QLatin1String("full" ));
-        d->tabletBackend->setProperty(DeviceType::Touch, Property::Area, area);
-    }
-
-    // also set Stylus/eraser to absolute
-    // in relative this setting is useless, so the user definitly wants absolute mode if he uses this settings
-    stylusProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
-    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Mode, QLatin1String("Absolute"));
-    eraserProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
-    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Mode, QLatin1String("Absolute"));
-
-    d->profileManager.saveProfile(tabletProfile);
+    mapTabletToOutput(QLatin1String("full"));
 }
+
+
 
 void TabletHandler::onMapToScreen1()
 {
-    Q_D( TabletHandler );
-
-    if( !d->tabletBackend ) {
-        return;
-    }
-
-    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
-    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
-    DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
-    DeviceProfile touchProfile;
-
-    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
-        touchProfile = tabletProfile.getDevice(DeviceType::Touch);
-    }
-
-    // set ScreenSpace to map0 (so the coordinate transfomation matrix is changed )
-    // copy AreaMap0 to Area so the correct tablet calibration area will be applied
-    stylusProfile.setProperty( Property::ScreenSpace, QLatin1String("map0" ) );
-    QString area =  stylusProfile.getProperty(Property::AreaMap0);
-    stylusProfile.setProperty( Property::Area, area );
-    tabletProfile.setDevice(stylusProfile);
-    d->tabletBackend->setProperty(DeviceType::Stylus, Property::ScreenSpace, QLatin1String("map0" ));
-    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Area, area);
-
-    eraserProfile.setProperty( Property::ScreenSpace, QLatin1String("map0" ) );
-    area =  eraserProfile.getProperty(Property::AreaMap0);
-    eraserProfile.setProperty( Property::Area, area );
-    tabletProfile.setDevice(eraserProfile);
-    d->tabletBackend->setProperty(DeviceType::Eraser, Property::ScreenSpace, QLatin1String("map0" ));
-    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Area, area);
-
-    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
-        touchProfile.setProperty( Property::ScreenSpace, QLatin1String("map0" ) );
-        area =  touchProfile.getProperty(Property::AreaMap0);
-        touchProfile.setProperty( Property::Area, area );
-        tabletProfile.setDevice(touchProfile);
-        d->tabletBackend->setProperty(DeviceType::Touch, Property::ScreenSpace, QLatin1String("map0" ));
-        d->tabletBackend->setProperty(DeviceType::Touch, Property::Area, area);
-    }
-
-    // also set Stylus/eraser to absolute
-    // in relative this setting is useless, so the user definitly wants absolute mode if he uses this settings
-    stylusProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
-    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Mode, QLatin1String("Absolute"));
-    eraserProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
-    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Mode, QLatin1String("Absolute"));
-
-    d->profileManager.saveProfile(tabletProfile);
+    mapTabletToOutput(QLatin1String("map0"));
 }
+
+
 
 void TabletHandler::onMapToScreen2()
 {
-    Q_D( TabletHandler );
-
-    if( !d->tabletBackend ) {
-        return;
+    if (X11Info::getNumberOfScreens() >= 2) {
+        mapTabletToOutput(QLatin1String("map1"));
     }
-
-    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
-    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
-    DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
-    DeviceProfile touchProfile;
-
-    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
-        touchProfile = tabletProfile.getDevice(DeviceType::Touch);
-    }
-
-    // set ScreenSpace to map0 (so the coordinate transfomation matrix is changed )
-    // copy AreaMap0 to Area so the correct tablet calibration area will be applied
-    stylusProfile.setProperty( Property::ScreenSpace, QLatin1String("map1" ) );
-    QString area =  stylusProfile.getProperty(Property::AreaMap1);
-    stylusProfile.setProperty( Property::Area, area );
-    tabletProfile.setDevice(stylusProfile);
-    d->tabletBackend->setProperty(DeviceType::Stylus, Property::ScreenSpace, QLatin1String("map1" ));
-    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Area, area);
-
-    eraserProfile.setProperty( Property::ScreenSpace, QLatin1String("map1" ) );
-    area =  eraserProfile.getProperty(Property::AreaMap1);
-    eraserProfile.setProperty( Property::Area, area );
-    tabletProfile.setDevice(eraserProfile);
-    d->tabletBackend->setProperty(DeviceType::Eraser, Property::ScreenSpace, QLatin1String("map1" ));
-    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Area, area);
-
-    if(d->tabletInformation.hasDevice(DeviceType::Touch)) {
-        touchProfile.setProperty( Property::ScreenSpace, QLatin1String("map1" ) );
-        area =  touchProfile.getProperty(Property::AreaMap1);
-        touchProfile.setProperty( Property::Area, area );
-        tabletProfile.setDevice(touchProfile);
-        d->tabletBackend->setProperty(DeviceType::Touch, Property::ScreenSpace, QLatin1String("map1" ));
-        d->tabletBackend->setProperty(DeviceType::Touch, Property::Area, area);
-    }
-
-    // also set Stylus/eraser to absolute
-    // in relative this setting is useless, so the user definitly wants absolute mode if he uses this settings
-    stylusProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
-    d->tabletBackend->setProperty(DeviceType::Stylus, Property::Mode, QLatin1String("Absolute"));
-    eraserProfile.setProperty( Property::Mode, QLatin1String("Absolute" ) );
-    d->tabletBackend->setProperty(DeviceType::Eraser, Property::Mode, QLatin1String("Absolute"));
-
-    d->profileManager.saveProfile(tabletProfile);
 }
 
 
@@ -457,7 +330,7 @@ void TabletHandler::setProfile( const QString &profile )
 {
     Q_D( TabletHandler );
 
-    if (!d->tabletBackend) {
+    if (!hasTablet()) {
         kDebug() << QString::fromLatin1("Can not set tablet profile to '%1' as not backend is available!").arg(profile);
         return;
     }
@@ -475,6 +348,14 @@ void TabletHandler::setProfile( const QString &profile )
                      i18n( "Profile <b>%1</b> does not exist", profile ) );
 
     } else {
+        // Set rotation if auto-rotation is enabled.
+        // This is necessary because the user could change the rotation of the tablet in the KCM
+        // and then immediately switch to auto-rotation. In this case the tablet would still be
+        // rotated in the wrong direction. Also on startup the current rotation has to be set
+        // according to the current screen rotation.
+        onScreenRotated(X11Info::getScreenRotation());
+
+        // set profile
         d->currentProfile = profile;
         d->tabletBackend->setProfile(tabletProfile);
         d->mainConfig.setLastProfile(profile);
@@ -488,12 +369,74 @@ void TabletHandler::setProperty(const DeviceType& deviceType, const Property& pr
 {
     Q_D( TabletHandler );
 
-    if (!d->tabletBackend) {
+    if (!hasTablet()) {
         kError() << QString::fromLatin1("Unable to set property '%1' on device '%2' to '%3' as no device is currently available!").arg(property.key()).arg(deviceType.key()).arg(value);
         return;
     }
 
     d->tabletBackend->setProperty(deviceType, property, value);
+}
+
+
+
+bool TabletHandler::hasDevice(const DeviceType& type) const
+{
+    Q_D( const TabletHandler );
+
+    return (hasTablet() && d->tabletInformation.hasDevice(type));
+}
+
+
+
+bool TabletHandler::hasTablet() const
+{
+    Q_D( const TabletHandler );
+
+    return (d->tabletBackend != NULL);
+}
+
+
+
+void TabletHandler::mapTabletToOutput(const QString& output)
+{
+    Q_D( TabletHandler );
+
+    if (!hasTablet()) {
+        return; // we do not have a tablet
+    }
+
+    QString       absoluteMode  = QLatin1String("absolute");
+    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
+    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
+    DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
+    DeviceProfile touchProfile  = tabletProfile.getDevice(DeviceType::Touch);
+
+    // map the tablet to the output geometry
+    // also set the tablet to absolute mode as output mapping does not work in relative mode
+    // the profiles needs to be updated or else the current setting will be reset each time it is reloaded
+    setProperty(DeviceType::Stylus, Property::Mode, absoluteMode);
+    setProperty(DeviceType::Stylus, Property::ScreenSpace, output);
+
+    setProperty(DeviceType::Eraser, Property::Mode, absoluteMode);
+    setProperty(DeviceType::Eraser, Property::ScreenSpace, output);
+
+    stylusProfile.setProperty(Property::Mode, absoluteMode);
+    stylusProfile.setProperty(Property::ScreenSpace, output);
+    eraserProfile.setProperty(Property::Mode, absoluteMode);
+    eraserProfile.setProperty(Property::ScreenSpace, output);
+    tabletProfile.setDevice(stylusProfile);
+    tabletProfile.setDevice(eraserProfile);
+
+    if (hasDevice(DeviceType::Touch)) {
+        setProperty(DeviceType::Touch, Property::Mode, absoluteMode);
+        setProperty(DeviceType::Touch, Property::ScreenSpace, output);
+
+        touchProfile.setProperty(Property::Mode, absoluteMode);
+        touchProfile.setProperty(Property::ScreenSpace, output);
+        tabletProfile.setDevice(touchProfile);
+    }
+
+    d->profileManager.saveProfile(tabletProfile);
 }
 
 
@@ -514,19 +457,17 @@ void TabletHandler::clearTabletInformation()
 
 
 
-void TabletHandler::toggleMode(const DeviceType& type)
+const QString TabletHandler::toggleMode(const DeviceType& type)
 {
-    Q_D( TabletHandler );
+    QString mode = getProperty(type, Property::Mode);
 
-    if (!d->tabletBackend) {
-        return;
-    }
-
-    QString mode = d->tabletBackend->getProperty(type, Property::Mode);
-
-    if( mode.compare( QLatin1String( "Absolute" ), Qt::CaseInsensitive ) == 0 ) {
-        d->tabletBackend->setProperty(type, Property::Mode, QLatin1String("Relative"));
+    if( mode.compare( QLatin1String( "absolute" ), Qt::CaseInsensitive ) == 0 ) {
+        mode = QLatin1String("relative");
+        setProperty(type, Property::Mode, mode);
     } else {
-        d->tabletBackend->setProperty(type, Property::Mode, QLatin1String("Absolute"));
+        mode = QLatin1String("absolute");
+        setProperty(type, Property::Mode, mode);
     }
+
+    return mode;
 }

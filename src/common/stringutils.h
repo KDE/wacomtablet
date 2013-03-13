@@ -51,6 +51,20 @@ public:
      */
     static const QRect toQRect(const QString& value, bool allowOnlyPositiveValues = false);
 
+
+    /**
+     * Converts a string to a rectangle. If the conversion fails and empty
+     * rectangle is returned. The format of the string is expected to be
+     * "x1 y1 x2 y2". Multiple whitespaces are ignored.
+     *
+     * @param value The value as string.
+     * @param allowOnlyPositiveValues If this flag is set, only values >= 0 are accepted as valid.
+     *
+     * @return The string as rectangle.
+     */
+    static const QRect toQRectByCoordinates(const QString& value, bool allowOnlyPositiveValues = false);
+
 }; // CLASS
 }  // NAMESPACE
 #endif // HEADER PROTECTION
+

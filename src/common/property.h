@@ -86,11 +86,28 @@ public:
     static const Property AbsWheel2Up;
     static const Property AbsWheelDown;
     static const Property AbsWheelUp;
+
+    /**
+     * The tablet area to which the screen space gets mapped to.
+     * Valid values are:
+     *
+     * - "-1 -1 -1 -1" : Map to maximum size.
+     * - "x1 y1 x2 y2" : Map to the given rectangle. Beware that x2, y2 are coordinates and not width/height.
+     */
     static const Property Area;
+
+    //! @deprecated Will be removed.
     static const Property AreaMapFull; // map tablet area when fullscreen is selected
+
+    //! @deprecated Will be removed.
     static const Property AreaMapPart; // map tablet area when part of screen is selected
+
+    //! @deprecated Will be removed.
     static const Property AreaMap0;    // map tablet area when screen 1 is selected
+
+    //! @deprecated Will be removed.
     static const Property AreaMap1;    // map tablet area when screen 2 is selected
+
     static const Property Button1;
     static const Property Button2;
     static const Property Button3;
@@ -112,25 +129,48 @@ public:
     static const Property CursorProximity;
     static const Property ForceProportions;
     static const Property Gesture;
+
+    //! @deprecated Will be removed.
     static const Property InvertScroll;
+
+    /**
+     * @deprecated Use ScreenSpace instead.
+     */
     static const Property MapToOutput;
+
+    //! @deprecated Will be removed.
     static const Property MMonitor;
+
+    /**
+     * The stylus/eraser/touch tracking mode.
+     * Valid values are:
+     *
+     * - "absolute" : Absolute tracking mode.
+     * - "relative" : Relative tracking mode.
+     */
     static const Property Mode;
     static const Property PressureCurve;
     static const Property RawSample;
     static const Property RelWheelDown;
     static const Property RelWheelUp;
-    static const Property Rotate;
 
     /**
-     * Determines if the tablet should be auto-rotated when the screen is rotated.
+     * Determines if the tablet should get rotated.
      * Valid values are:
      *
-     * - "on"       : Auto rotation is enabled.
-     * - "off"      : Auto rotation is disabled.
-     * - "inverted" : Auto rotation is enabled and inverted.
+     * - "none"          : The tablet does not get rotated.
+     * - "cw"            : The tablet is rotated clockwise.
+     * - "ccw"           : The tablet is rotated counterclockwise.
+     * - "half"          : The tablet is rotated upside down.
+     * - "auto"          : The tablet is auto rotated with the screen.
+     * - "auto-inverted" : The tablet is auto rotated with the screen and clockwise/counterclockwise rotation is inverted.
      */
+    static const Property Rotate;
+
+    //! @deprecated Will be removed.
     static const Property RotateWithScreen;
+
+    //! @deprecated Will be removed.
     static const Property ScreenNo;
 
     /**
@@ -161,9 +201,16 @@ public:
     static const Property TapTime;
     static const Property Threshold;
     static const Property Touch;
+
+    //! @deprecated Will be removed.
     static const Property TVResolution0;
+
+    //! @deprecated Will be removed.
     static const Property TVResolution1;
+
+    //! @deprecated Will be removed.
     static const Property TwinView;
+
     static const Property ZoomDistance;
 
 

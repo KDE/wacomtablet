@@ -113,10 +113,16 @@ void TabletBackend::setProfile(const TabletProfile& profile)
     Q_D(TabletBackend);
 
     foreach(const DeviceType& deviceType, DeviceType::list()) {
-        if (d->tabletInformation.hasDevice(deviceType) && profile.hasDevice(deviceType)) {
-            kDebug() << QString::fromLatin1("Setting profile '%1' on tablet '%2', device '%3'").arg(profile.getName()).arg(d->tabletInformation.get(TabletInfo::TabletName)).arg(deviceType.key());
-            DeviceProfile deviceProfile = profile.getDevice(deviceType);
-            setProfile(deviceType, deviceProfile);
+        if (d->tabletInformation.hasDevice(deviceType)) {
+            if (profile.hasDevice(deviceType)) {
+                kDebug() << QString::fromLatin1("Setting profile '%1' on tablet '%2', device '%3'").arg(profile.getName()).arg(d->tabletInformation.get(TabletInfo::TabletName)).arg(deviceType.key());
+                DeviceProfile deviceProfile = profile.getDevice(deviceType);
+                setProfile(deviceType, deviceProfile);
+            } else {
+                kDebug() << QString::fromLatin1("Skipping '%1' settings as the current profile does not contain any settings for this device...").arg(deviceType.key());
+            }
+        } else {
+            kDebug() << QString::fromLatin1("Skipping '%1' settings as the device does not support it...").arg(deviceType.key());
         }
     }
 }

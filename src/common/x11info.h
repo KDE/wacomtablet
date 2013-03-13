@@ -20,30 +20,68 @@
 #ifndef X11INFO_H
 #define X11INFO_H
 
+#include "screenrotation.h"
+
 #include <QtCore/QList>
 #include <QtCore/QRectF>
+
+#include <QtGui/QX11Info>
 
 namespace Wacom
 {
 
 /**
  * A static class with some helper methods to get information about the running X server.
+ * This should be used by all our classes instead of QX11Info. This way we have all X
+ * specific stuff in one place.
  */
 class X11Info
 {
 public:
 
     /**
-     * Returns a list of all X11 screen geometries.
-     *
-     * @return List of X11 screen geometries.
+     * @return The default screen for the application.
      */
-    static const QList< QRect > getScreens();
+    static int getDefaultScreen();
+
+    /**
+     * @return The default display for the application.
+     */
+    static Display* getDisplay();
 
     /**
      * @return All screens united as one rectangle.
      */
-    static const QRect getScreensUnited();
+    static const QRect getDisplayGeometry();
+
+
+    /**
+     * @return The number of screens the current display has.
+     */
+    static int getNumberOfScreens();
+
+    /**
+     * Returns a list of all X11 screen geometries.
+     *
+     * @return List of X11 screen geometries.
+     */
+    static const QList< QRect > getScreenGeometries();
+
+    /**
+     * Gets the current rotation of the screen. This is based on the monitor
+     * rotation and not the rotation of the canvas. If the monitor is e.g.
+     * rotated to the right, then the canvas is rotated to the left.
+     *
+     * @return The current rotation as seen by the monitor.
+     */
+    static const ScreenRotation getScreenRotation();
+
+
+private:
+
+    X11Info() {
+        // no instance required - it's all static.
+    }
 
 }; // CLASS
 }  // NAMESPACE

@@ -17,18 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "debug.h" // always needs to be first include
+
 #include "xinputadaptor.h"
 
-#include "debug.h"
+#include "stringutils.h"
 #include "xinputproperty.h"
 #include "x11input.h"
 #include "x11inputdevice.h"
+#include "x11info.h"
 #include "x11wacom.h"
 
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QtCore/QProcess>
 #include <QtCore/QRegExp>
+#include <X11/Xlib.h>
 
 using namespace Wacom;
 
@@ -166,6 +170,8 @@ const QString XinputAdaptor::getLongProperty(const XinputProperty& property, lon
     return numbersToString<long>(values);
 }
 
+
+
 bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
 {
     Q_D( const XinputAdaptor );
@@ -177,86 +183,55 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     // | 0  h  offsetY |
     // | 0  0     1    |
 
-
-    //use qt to create the real screen space available (the space that corresponse to the identity matrix
-    QRectF virtualScreen = QRect( 0, 0, 0, 0 );
-
-    int num = QApplication::desktop()->numScreens();
-
-    for( int i = 0; i < num; i++ ) {
-        QRect screen = QApplication::desktop()->screenGeometry( i );
-
-        virtualScreen = virtualScreen.united( screen );
+    if (screenArea.isEmpty()) {
+        return false; // nothing to do
     }
-    kDebug() << "virtual screen" << virtualScreen;
 
-    // now get the space the user wants to use to map the tablet on it
-    int screenX = 0;
-    int screenY = 0;
-    int screenW = 0;
-    int screenH = 0;
+    // get the space the user wants to use to map the tablet
+    QRect          screenAreaGeometry;
+    QRect          fullScreenGeometry = X11Info::getDisplayGeometry();
+    QRegExp        monitorRegExp(QLatin1String("map(\\d+)"), Qt::CaseInsensitive);
 
-    // here we have either
-    // * full/map0/map1/...
-    // * or 4 values that define the space that will be used
+    if (screenArea.compare(QLatin1String("full"), Qt::CaseInsensitive) == 0) {
+        // full screen area selected
+        screenAreaGeometry = fullScreenGeometry;
 
-    if( screenArea == QLatin1String("full")) {
-        kDebug() << "map tablet to full screen";
-        screenX = 0;
-        screenY = 0;
-        screenW = virtualScreen.width();
-        screenH = virtualScreen.height();
+    } else if (monitorRegExp.indexIn(screenArea, 0) != -1) {
+        // monitor selected
+        int            screenNum  = monitorRegExp.cap(1).toInt();
+        QList< QRect > screenList = X11Info::getScreenGeometries();
 
-    }
-    else if( screenArea == QLatin1String("map0")) {
-        kDebug() << "map tablet to screen 0";
-        QRect screen = QApplication::desktop()->screenGeometry( 0 );
-        screenX = screen.x();
-        screenY = screen.y();
-        screenW = screen.width();
-        screenH = screen.height();
+        if (screenNum >= screenList.count()) {
+            // the selected monitor is no longer connected - use full screen
+            screenAreaGeometry = fullScreenGeometry;
 
-    }
-    else if( screenArea == QLatin1String("map1")) {
-        kDebug() << "map tablet to screen 1";
-        if(num >= 2) {
-            QRect screen = QApplication::desktop()->screenGeometry( 1 );
-            screenX = screen.x();
-            screenY = screen.y();
-            screenW = screen.width();
-            screenH = screen.height();
+        } else {
+            // use the given monitor geometry
+            screenAreaGeometry = screenList.at(screenNum);
         }
-        else {
-            kError() << "can't map screen to second monitor. Only 1 Monitor was detected";
-            return false;
-        }
-    }
-    else {
-        kDebug() << "map tablet to part of the  screen: " << screenArea;
-        QStringList screenList = screenArea.split( QLatin1String( " " ) );
 
-        if( screenList.isEmpty() || screenList.size() != 4 ) {
+    } else {
+        // geometry selected
+        screenAreaGeometry = StringUtils::toQRect(screenArea, true);
+
+        if (screenAreaGeometry.isEmpty()) {
+            // the input is invalid - use full screen
             kError() << "mapTabletToScreen :: can't parse ScreenSpace entry '" << screenArea << "' => device:" << d->deviceName;
-            return false;
+            screenAreaGeometry = fullScreenGeometry;
         }
-
-        // read in what the user wants to use
-        screenX = screenList.at( 0 ).toInt();
-        screenY = screenList.at( 1 ).toInt();
-        screenW = screenList.at( 2 ).toInt();
-        screenH = screenList.at( 3 ).toInt();
     }
 
+    // calculate the new transformation matrix
+    int screenX = screenAreaGeometry.x();
+    int screenY = screenAreaGeometry.y();
+    int screenW = screenAreaGeometry.width();
+    int screenH = screenAreaGeometry.height();
 
+    qreal w = ( qreal )screenW / ( qreal )fullScreenGeometry.width();
+    qreal h = ( qreal )screenH / ( qreal )fullScreenGeometry.height();
 
-
-
-    // and now the values of the new matrix
-    qreal w = ( qreal )screenW / ( qreal )virtualScreen.width();
-    qreal h = ( qreal )screenH / ( qreal )virtualScreen.height();
-
-    qreal offsetX = ( qreal )screenX / ( qreal )virtualScreen.width();
-    qreal offsetY = ( qreal )screenY / ( qreal )virtualScreen.height();
+    qreal offsetX = ( qreal )screenX / ( qreal )fullScreenGeometry.width();
+    qreal offsetY = ( qreal )screenY / ( qreal )fullScreenGeometry.height();
 
     kDebug() << "Apply Coordinate Transformation Matrix";
     kDebug() << w << "0" << offsetX;

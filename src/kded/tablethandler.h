@@ -100,7 +100,7 @@ public:
 public Q_SLOTS:
     /**
       * @brief Handles the connection of a new tablet device.
-      * 
+      *
       * This slot has to be connected to the X device event notifier and
       * executed when a new tablet device is plugged in.
       *
@@ -158,6 +158,7 @@ public Q_SLOTS:
      */
     void onMapToFullScreen();
 
+
     /**
      * @brief Maps stylus/eraser/touch to the second screen
      *
@@ -209,6 +210,32 @@ Q_SIGNALS:
 private:
 
     /**
+     * Checks if the current tablet supports the given device type.
+     *
+     * @param type The device type to check for.
+     *
+     * @return True if the tablet supports the given device, else false.
+     */
+    bool hasDevice( const DeviceType& type) const;
+
+
+    /**
+     * Checks if there currently is a tablet available.
+     *
+     * @return True if a tablet is available, else false.
+     */
+    bool hasTablet() const;
+
+
+    /**
+     * Maps the stylus, eraser and touch device to the given output.
+     *
+     * @param output A value which is valid for Property::MapToOutput.
+     */
+    void mapTabletToOutput(const QString& output);
+
+
+    /**
       * resets all device information
       */
     void clearTabletInformation();
@@ -218,10 +245,12 @@ private:
      * Toggles the cursor mode (absolute/relative) for the given device.
      *
      * @param type The device to toggle the cursor mode for.
+     *
+     * @return The new mode which was toggled to - either "absolute" or "relative".
      */
-    void toggleMode(const DeviceType& type);
+    const QString toggleMode(const DeviceType& type);
 
-    
+
     Q_DECLARE_PRIVATE(TabletHandler)
     TabletHandlerPrivate *const d_ptr; /**< d-pointer for this class */
 

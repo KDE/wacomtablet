@@ -119,6 +119,11 @@ private:
     bool setInvertScroll(const QString& value);
 
     /**
+     * Sets the tablet rotation.
+     */
+    bool setRotation(const QString& value);
+
+    /**
      * Sets a parameter using the xsetwacom command line tool. All parameters, values and
      * device names passed to this method have to be in a format which is understood by
      * xsetwacom.
