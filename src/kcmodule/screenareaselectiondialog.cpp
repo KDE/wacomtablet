@@ -22,6 +22,8 @@
 #include "screenareaselectiondialog.h"
 
 #include "screenareaselectionwidget.h"
+#include "stringutils.h"
+#include "x11info.h"
 
 #include <KDE/KLocalizedString>
 
@@ -72,6 +74,31 @@ void ScreenAreaSelectionDialog::setupWidget(const QList< QRect >& screenAreas, c
     Q_D(ScreenAreaSelectionDialog);
 
     d->selectionWidget->setupWidget(screenAreas, tabletArea, selectedTabletArea, tabletAreaCaption);
+}
+
+
+void ScreenAreaSelectionDialog::setupWidget(const QRect& fullTabletArea, const QString& selectedTabletArea, const QString& tabletAreaCaption)
+{
+    Q_D(ScreenAreaSelectionDialog);
+
+    QList< QRect > screenAreas  = X11Info::getScreenGeometries();
+    QRect          selectedRect = convertSelectedTabletAreaToQRect(selectedTabletArea, fullTabletArea);
+
+    d->selectionWidget->setupWidget(screenAreas, fullTabletArea, selectedRect, tabletAreaCaption);
+}
+
+
+const QRect ScreenAreaSelectionDialog::convertSelectedTabletAreaToQRect(const QString& selectedTabletArea, const QRect& fullTabletArea) const
+{
+    QRect result = StringUtils::toQRectByCoordinates(selectedTabletArea);
+
+    if (!result.isValid() ||
+        selectedTabletArea.contains(QLatin1String("-1 -1 -1 -1")) ||
+        selectedTabletArea.contains(QLatin1String("full"), Qt::CaseInsensitive) ) {
+        result = fullTabletArea;
+    }
+
+    return result;
 }
 
 

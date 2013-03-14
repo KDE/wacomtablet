@@ -93,7 +93,7 @@ void ScreenAreaSelectionWidget::setSelection(const QString& selection)
 {
     Q_D(ScreenAreaSelectionWidget);
 
-    QRegExp monitorRegExp(QLatin1String("^\\s*map(\\d+)\\s*$"), Qt::CaseInsensitive);
+    QRegExp monitorRegExp(QLatin1String("map(\\d+)"), Qt::CaseInsensitive);
 
     if (selection.compare(QLatin1String("full"), Qt::CaseInsensitive) == 0 ) {
         // full screen selection
@@ -111,7 +111,7 @@ void ScreenAreaSelectionWidget::setSelection(const QString& selection)
             setScreenAreaType(ScreenAreaSelectionWidget::FullScreenArea);
         } else {
             setScreenAreaType(ScreenAreaSelectionWidget::PartialScreenArea);
-            d->ui->screenArea->setSelection(selection);
+            d->ui->screenArea->setSelection(rectSelection);
         }
     }
 }

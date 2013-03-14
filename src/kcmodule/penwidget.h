@@ -112,8 +112,6 @@ protected:
 
     const QString getTabletPcButton() const;
 
-    const QString getTrackingMode () const;
-
     void setButtonShortcut (const Property& button, const QString& shortcut);
 
     void setPressureCurve (const DeviceType& device, const QString& value);
@@ -121,8 +119,6 @@ protected:
     void setPressureFeel (const DeviceType& device, const QString& value);
 
     void setTabletPcButton (const QString& value);
-
-    void setTrackingMode (const QString& value);
 
 
 private:

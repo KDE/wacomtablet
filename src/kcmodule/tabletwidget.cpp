@@ -27,9 +27,11 @@
 #include "padbuttonwidget.h"
 #include "penwidget.h"
 #include "tabletpagewidget.h"
+#include "touchpagewidget.h"
 
 // common
 #include "dbustabletinterface.h"
+#include "devicetype.h"
 
 // stdlib
 #include <memory>
@@ -54,14 +56,16 @@ namespace Wacom {
   */
 class TabletWidgetPrivate {
     public:
-        Ui::TabletWidget m_ui;                  /**< Handler to the tabletwidget.ui file */
-        GeneralWidget    m_generalPage;         /**< Widget that shows some basic information about the tablet */
-        PadButtonWidget  m_padButtonPage;       /**< Widget for the pad button settings */
-        TabletPageWidget m_padPage;
-        PenWidget        m_penPage;             /**< Widget for the pen settings (stylus/eraser) */
-        QWidget          m_deviceError;         /**< Shows the error widget */
-        Ui::ErrorWidget  m_deviceErrorUi;       //!< The error widget's UI.
-        bool             m_profileChanged;      /**< True if the profile was changed and not saved yet */
+        Ui::TabletWidget ui;                 //!< This user interface.
+
+        GeneralWidget    generalPage;        //!< Widget that shows some basic information about the tablet.
+        PenWidget        stylusPage;         //!< Widget for the pen settings (stylus/eraser).
+        PadButtonWidget  buttonPage;         //!< Widget for the express button settings.
+        TabletPageWidget tabletPage;         //!< Widget for the tablet settings.
+        TouchPageWidget  touchPage;          //!< Widget for the touch settings.
+        QWidget          deviceErrorWidget;  //!< Device error widget.
+        Ui::ErrorWidget  deviceErrorUi;      //!< Device error widget ui.
+        bool             profileChanged;     //!< True if the profile was changed and not saved yet.
 }; // CLASS
 }  // NAMESPACE
 
@@ -70,7 +74,7 @@ class TabletWidgetPrivate {
 TabletWidget::TabletWidget( QWidget *parent )
     : QWidget( parent ), d_ptr(new TabletWidgetPrivate)
 {
-    init();
+    setupUi();
     loadTabletInformation();
 }
 
@@ -81,7 +85,7 @@ TabletWidget::~TabletWidget()
 
 
 
-void TabletWidget::init()
+void TabletWidget::setupUi()
 {
     Q_D( TabletWidget );
 
@@ -91,27 +95,28 @@ void TabletWidget::init()
         kDebug() << "DBus interface not available";
     }
 
-    d->m_profileChanged    = false;
+    d->profileChanged    = false;
 
     // setup error widget
-    d->m_deviceErrorUi.setupUi(&(d->m_deviceError));
-    d->m_deviceErrorUi.errorImage->setPixmap( KIconLoader::global()->loadIcon( QLatin1String( "dialog-warning" ), KIconLoader::NoGroup, 48 ) );
+    d->deviceErrorUi.setupUi(&(d->deviceErrorWidget));
+    d->deviceErrorUi.errorImage->setPixmap( KIconLoader::global()->loadIcon( QLatin1String( "dialog-warning" ), KIconLoader::NoGroup, 48 ) );
 
     // setup normal ui
-    d->m_ui.setupUi( this );
-    d->m_ui.addProfileButton->setIcon( KIcon( QLatin1String( "document-new" ) ) );
-    d->m_ui.delProfileButton->setIcon( KIcon( QLatin1String( "edit-delete-page" ) ) );
+    d->ui.setupUi( this );
+    d->ui.addProfileButton->setIcon( KIcon( QLatin1String( "document-new" ) ) );
+    d->ui.delProfileButton->setIcon( KIcon( QLatin1String( "edit-delete-page" ) ) );
 
     // connect profile selector
-    connect( d->m_ui.addProfileButton, SIGNAL(clicked(bool)), SLOT(addProfile()) );
-    connect( d->m_ui.delProfileButton, SIGNAL(clicked(bool)), SLOT(delProfile()) );
-    connect( d->m_ui.profileSelector,  SIGNAL(currentIndexChanged(QString)), SLOT(switchProfile(QString)) );
+    connect( d->ui.addProfileButton, SIGNAL(clicked(bool)), SLOT(addProfile()) );
+    connect( d->ui.delProfileButton, SIGNAL(clicked(bool)), SLOT(delProfile()) );
+    connect( d->ui.profileSelector,  SIGNAL(currentIndexChanged(QString)), SLOT(switchProfile(QString)) );
 
     // connect configuration tabs
-    connect( &(d->m_padButtonPage),    SIGNAL(changed()), SLOT(profileChanged()) );
-    connect( &(d->m_padPage),          SIGNAL(changed()), SLOT(profileChanged()) );
-    connect( &(d->m_penPage),          SIGNAL(changed()), SLOT(profileChanged()) );
-    connect( &(d->m_generalPage),      SIGNAL(changed()), SLOT(profileChanged()) );
+    connect( &(d->generalPage), SIGNAL(changed()), SLOT(profileChanged()) );
+    connect( &(d->stylusPage),  SIGNAL(changed()), SLOT(profileChanged()) );
+    connect( &(d->buttonPage),  SIGNAL(changed()), SLOT(profileChanged()) );
+    connect( &(d->tabletPage),  SIGNAL(changed()), SLOT(profileChanged()) );
+    connect( &(d->touchPage),   SIGNAL(changed()), SLOT(profileChanged()) );
 
     // connect DBus signals
     connect( dbusTabletInterface, SIGNAL(tabletAdded()),   SLOT(loadTabletInformation()) );
@@ -162,7 +167,7 @@ void TabletWidget::delProfile()
 
     ProfileManagement::instance().deleteProfile();
     refreshProfileSelector();
-    switchProfile( d->m_ui.profileSelector->currentText() );
+    switchProfile( d->ui.profileSelector->currentText() );
 }
 
 
@@ -170,12 +175,13 @@ void TabletWidget::saveProfile()
 {
     Q_D( TabletWidget );
 
-    d->m_generalPage.saveToProfile();
-    d->m_padButtonPage.saveToProfile();
-    d->m_padPage.saveToProfile();
-    d->m_penPage.saveToProfile();
+    d->generalPage.saveToProfile();
+    d->stylusPage.saveToProfile();
+    d->buttonPage.saveToProfile();
+    d->tabletPage.saveToProfile();
+    d->touchPage.saveToProfile();
 
-    d->m_profileChanged = false;
+    d->profileChanged = false;
     emit changed( false );
 
     applyProfile();
@@ -197,12 +203,13 @@ void TabletWidget::reloadProfile()
 {
     Q_D( TabletWidget );
 
-    d->m_generalPage.loadFromProfile();
-    d->m_padButtonPage.loadFromProfile();
-    d->m_padPage.loadFromProfile();
-    d->m_penPage.loadFromProfile();
+    d->generalPage.loadFromProfile();
+    d->stylusPage.loadFromProfile();
+    d->buttonPage.loadFromProfile();
+    d->tabletPage.loadFromProfile();
+    d->touchPage.loadFromProfile();
 
-    d->m_profileChanged = false;
+    d->profileChanged = false;
     emit changed( false );
 }
 
@@ -217,7 +224,7 @@ void TabletWidget::profileChanged()
 {
     Q_D( TabletWidget );
 
-    d->m_profileChanged = true;
+    d->profileChanged = true;
     emit changed( true );
 }
 
@@ -229,10 +236,10 @@ void TabletWidget::showError( const QString& errorTitle, const QString &errorMsg
     hideError();
     hideConfig();
 
-    d->m_deviceErrorUi.errorTitle->setText(errorTitle);
-    d->m_deviceErrorUi.errorText->setText (errorMsg);
-    d->m_ui.verticalLayout->addWidget (&(d->m_deviceError));
-    d->m_deviceError.setVisible(true);
+    d->deviceErrorUi.errorTitle->setText(errorTitle);
+    d->deviceErrorUi.errorText->setText (errorMsg);
+    d->ui.verticalLayout->addWidget (&(d->deviceErrorWidget));
+    d->deviceErrorWidget.setVisible(true);
 }
 
 
@@ -240,10 +247,10 @@ void TabletWidget::hideConfig()
 {
     Q_D( TabletWidget );
 
-    d->m_ui.profileSelector->setEnabled( false );
-    d->m_ui.addProfileButton->setEnabled( false );
-    d->m_ui.delProfileButton->setEnabled( false );
-    d->m_ui.deviceTabWidget->setVisible( false );
+    d->ui.profileSelector->setEnabled( false );
+    d->ui.addProfileButton->setEnabled( false );
+    d->ui.delProfileButton->setEnabled( false );
+    d->ui.deviceTabWidget->setVisible( false );
 }
 
 
@@ -251,8 +258,8 @@ void TabletWidget::hideError()
 {
     Q_D( TabletWidget );
 
-    d->m_deviceError.setVisible(false);
-    d->m_ui.verticalLayout->removeWidget (&(d->m_deviceError));
+    d->deviceErrorWidget.setVisible(false);
+    d->ui.verticalLayout->removeWidget (&(d->deviceErrorWidget));
 }
 
 
@@ -263,16 +270,16 @@ bool TabletWidget::refreshProfileSelector ( const QString& profile )
     int         index    = -1;
     QStringList profiles = ProfileManagement::instance().availableProfiles();
 
-    d->m_ui.profileSelector->blockSignals( true );
-    d->m_ui.profileSelector->clear();
-    d->m_ui.profileSelector->addItems( profiles );
+    d->ui.profileSelector->blockSignals( true );
+    d->ui.profileSelector->clear();
+    d->ui.profileSelector->addItems( profiles );
 
     if (!profile.isEmpty()) {
-        index = d->m_ui.profileSelector->findText( profile );
-        d->m_ui.profileSelector->setCurrentIndex( index );
+        index = d->ui.profileSelector->findText( profile );
+        d->ui.profileSelector->setCurrentIndex( index );
     }
 
-    d->m_ui.profileSelector->blockSignals( false );
+    d->ui.profileSelector->blockSignals( false );
 
     return (index >= 0);
 }
@@ -288,20 +295,21 @@ void TabletWidget::showConfig()
     // reload profile and widget data
     ProfileManagement::instance().reload();
 
-    d->m_generalPage.reloadWidget();
-    d->m_padButtonPage.reloadWidget();
-    d->m_padPage.reloadWidget();
-    d->m_penPage.reloadWidget();
+    d->generalPage.reloadWidget();
+    d->stylusPage.reloadWidget();
+    d->buttonPage.reloadWidget();
+    d->tabletPage.reloadWidget();
+    d->touchPage.reloadWidget();
 
 
     // initialize profile selector
-    d->m_ui.profileSelector->setEnabled( true );
-    d->m_ui.addProfileButton->setEnabled( true );
-    d->m_ui.delProfileButton->setEnabled( true );
+    d->ui.profileSelector->setEnabled( true );
+    d->ui.addProfileButton->setEnabled( true );
+    d->ui.delProfileButton->setEnabled( true );
 
     if( ProfileManagement::instance().availableProfiles().isEmpty() ) {
         ProfileManagement::instance().createNewProfile();
-        ProfileManagement::instance().setProfileName( QLatin1String( "default" ) );
+        ProfileManagement::instance().setProfileName( QLatin1String( "Default" ) );
         applyProfile();
     }
 
@@ -309,25 +317,33 @@ void TabletWidget::showConfig()
 
 
     // initialize configuration tabs
-    d->m_ui.deviceTabWidget->clear();
-    d->m_ui.deviceTabWidget->addTab( &(d->m_generalPage), i18nc( "Basic overview page for the tablet hardware", "General" ) );
-    d->m_ui.deviceTabWidget->addTab( &(d->m_penPage), i18n( "Stylus" ) );
+    d->ui.deviceTabWidget->clear();
+    d->ui.deviceTabWidget->addTab( &(d->generalPage), i18nc( "Basic overview page for the tablet hardware", "General" ) );
+    d->ui.deviceTabWidget->addTab( &(d->stylusPage), i18n( "Stylus" ) );
 
     QDBusReply<bool> hasPadButtons = DBusTabletInterface::instance().hasPadButtons();
-    if( hasPadButtons ) {
-        d->m_ui.deviceTabWidget->addTab( &(d->m_padButtonPage), i18n( "Express Buttons" ) );
+
+    if( hasPadButtons.isValid() && hasPadButtons.value() ) {
+        d->ui.deviceTabWidget->addTab( &(d->buttonPage), i18n( "Express Buttons" ) );
     }
 
-    d->m_ui.deviceTabWidget->addTab( &(d->m_padPage), i18n ("Tablet") );
+    d->ui.deviceTabWidget->addTab( &(d->tabletPage), i18n ("Tablet") );
 
-    d->m_ui.deviceTabWidget->setEnabled( true );
-    d->m_ui.deviceTabWidget->setVisible( true );
+    QDBusReply<QString> touchDeviceName = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
+    bool                hasTouchDevice  = (touchDeviceName.isValid() && !touchDeviceName.value().isEmpty());
+
+    if (hasTouchDevice) {
+        d->ui.deviceTabWidget->addTab( &(d->touchPage), i18n ("Touch") );
+    }
+
+    d->ui.deviceTabWidget->setEnabled( true );
+    d->ui.deviceTabWidget->setVisible( true );
 
 
     // switch to the currently active profile
     QDBusReply<QString> profile = DBusTabletInterface::instance().getProfile();
     if( profile.isValid() ) {
-        d->m_ui.profileSelector->setCurrentItem( profile );
+        d->ui.profileSelector->setCurrentItem( profile );
         switchProfile( profile );
     }
 }
@@ -337,7 +353,7 @@ void TabletWidget::showSaveChanges()
 {
     Q_D( TabletWidget );
 
-    if( d->m_profileChanged ) {
+    if( d->profileChanged ) {
         QPointer<KDialog> saveDialog = new KDialog();
         QWidget*          widget     = new QWidget( this );
 

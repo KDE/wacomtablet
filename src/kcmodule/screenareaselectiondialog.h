@@ -45,9 +45,15 @@ public:
 
     void setSelection( const QString& selection);
 
+    //! @deprecated use the other method
     void setupWidget( const QList<QRect>& screenAreas, const QRect& tabletArea, const QRect& selectedTabletArea, const QString& tabletAreaCaption = QString() );
 
+    void setupWidget( const QRect& fullTabletArea, const QString& selectedTabletArea, const QString& tabletAreaCaption = QString() );
+
+
 private:
+
+    const QRect convertSelectedTabletAreaToQRect(const QString& selectedTabletArea, const QRect& fullTabletArea) const;
 
     void setupUi();
 

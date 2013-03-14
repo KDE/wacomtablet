@@ -22,8 +22,12 @@
 #include "tabletareaselectiondialog.h"
 #include "tabletareaselectionwidget.h"
 
-#include <KDE/KLocalizedString>
+#include "stringutils.h"
+#include "x11info.h"
 
+#include <QtCore/QRegExp>
+
+#include <KDE/KLocalizedString>
 
 using namespace Wacom;
 
@@ -71,10 +75,47 @@ void TabletAreaSelectionDialog::setupWidget(const QRect& tabletArea, const QList
 }
 
 
-void TabletAreaSelectionDialog::onOkClicked()
+void TabletAreaSelectionDialog::setupWidget(const QRect& fullTabletArea, const QString& selectedScreenArea, const QString& deviceName)
 {
+    Q_D(TabletAreaSelectionDialog);
 
+    QList< QRect > screenAreas  = X11Info::getScreenGeometries();
+    QRect          selectedRect = convertScreenAreaMappingToQRect(screenAreas, selectedScreenArea);
+
+    d->selectionWidget->setupWidget(fullTabletArea, screenAreas, selectedRect, deviceName);
 }
+
+
+const QRect TabletAreaSelectionDialog::convertScreenAreaMappingToQRect(const QList< QRect >& screenAreas, const QString& selectedScreenArea) const
+{
+    QRect result(0, 0, 0, 0);
+
+    QRegExp monitorRegExp(QLatin1String("map(\\d+)"), Qt::CaseInsensitive);
+
+    if (selectedScreenArea.contains(QLatin1String("full"), Qt::CaseInsensitive)) {
+
+        // full screen mapping - unite all X11 screens to one big rectangle
+        foreach (QRect screen, screenAreas) {
+            result = result.united(screen);
+        }
+
+    } else if (monitorRegExp.indexIn(selectedScreenArea, 0) != -1) {
+
+        // monitor mapping
+        int screenNum = monitorRegExp.cap(1).toInt();
+
+        if ( 0 <= screenNum && screenNum < screenAreas.count() ) {
+            result = screenAreas.at(screenNum);
+        }
+
+    } else {
+        // area mapping
+        result = StringUtils::toQRect(selectedScreenArea, true);
+    }
+
+    return result;
+}
+
 
 
 void TabletAreaSelectionDialog::setupUi()
@@ -87,5 +128,5 @@ void TabletAreaSelectionDialog::setupUi()
     setButtons( KDialog::Ok | KDialog::Cancel );
     setCaption( i18nc( "Dialog title from a dialog which lets the user select an area of the tablet where the screen space will be mapped to.", "Select a Tablet Area" ) );
 
-    connect( this, SIGNAL(okClicked()), this, SLOT(onOkClicked()) );
+    //connect( this, SIGNAL(okClicked()), this, SLOT(onOkClicked()) );
 }

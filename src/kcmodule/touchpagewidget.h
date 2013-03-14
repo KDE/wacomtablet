@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PADTABWIDGET_H
-#define PADTABWIDGET_H
+#ifndef TOUCHPAGEWIDGET_H
+#define TOUCHPAGEWIDGET_H
 
 #include <QtGui/QWidget>
 #include <QtCore/QString>
@@ -28,17 +28,16 @@ class QRect;
 namespace Wacom
 {
 
-class TabletPageWidgetPrivate;
+class TouchPageWidgetPrivate;
 
-class TabletPageWidget : public QWidget
+class TouchPageWidget : public QWidget
 {
     Q_OBJECT
 
 public:
 
-    explicit TabletPageWidget( QWidget *parent = 0 );
-
-    virtual ~TabletPageWidget();
+    explicit TouchPageWidget(QWidget* parent = 0);
+    virtual ~TouchPageWidget();
 
     void loadFromProfile();
 
@@ -50,9 +49,9 @@ public:
 public slots:
 
     /**
-     * Called when the user enables/disables the auto-rotation checkbox.
+     * Called when the user enables/disables gesture support.
      */
-    void onAutoRotateChanged (int state);
+    void onGesturesModeChanged(int state);
 
     /**
      * Called when any profile property value changes.
@@ -60,14 +59,19 @@ public slots:
     void onProfileChanged();
 
     /**
-     * Called when the user presses the pad screen mapping button.
+     * Called when the user presses the touch screen mapping button.
      */
     void onScreenMappingClicked();
 
     /**
-     * Called when the user presses the pad tablet mapping button.
+     * Called when the user presses the touch tablet mapping button.
      */
     void onTabletMappingClicked();
+
+    /**
+     * Called when the user enables/disables touch support.
+     */
+    void onTouchModeChanged(int state);
 
     /**
      * Called when the state of the absolute tracking mode changes.
@@ -80,6 +84,7 @@ public slots:
     void onTrackingModeRelative(bool activated);
 
 
+
 signals:
 
     /**
@@ -90,41 +95,49 @@ signals:
 
 protected:
 
-    const QString getRotation() const;
+    const QString getGestureSupportEnabled() const;
 
     const QString& getScreenAreaMapping() const;
 
+    const QString getScrollDistance() const;
+
     const QString& getTabletAreaMapping() const;
+
+    const QString getTapTime() const;
+
+    const QString getTouchSupportEnabled() const;
 
     const QString getTrackingMode() const;
 
-    bool isAutoRotationEnabled() const;
+    const QString getZoomDistance() const;
 
-    bool isAutoRotateInversionEnabled() const;
+    bool isGesturesSupportEnabled() const;
 
-    void setAutoRotationEnabled (bool value);
+    bool isTouchSupportEnabled() const;
 
-    void setAutoRotateInversionEnabled(bool value);
-
-    void setRotation(const QString& value);
+    void setGesturesSupportEnabled(bool value);
 
     void setScreenAreaMapping(const QString& value);
 
+    void setScrollDistance(const QString& value);
+
     void setTabletAreaMapping(const QString& value);
 
+    void setTapTime(const QString& value);
+
     void setTrackingMode(const QString& value);
+
+    void setTouchSupportEnabled(bool value);
+
+    void setZoomDistance(const QString& value);
 
 
 private:
 
-    /**
-     * Initializes UI widgets.
-     * Should only be called once by the constructor.
-     */
     void setupUi();
 
-    Q_DECLARE_PRIVATE( TabletPageWidget )
-    TabletPageWidgetPrivate *const d_ptr; //!< D-Pointer for this class.
+    Q_DECLARE_PRIVATE( TouchPageWidget )
+    TouchPageWidgetPrivate *const d_ptr; //!< D-Pointer for this class.
 
 }; // CLASS
 }  // NAMESPACE

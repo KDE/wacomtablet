@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>438</width>
-    <height>463</height>
+    <width>471</width>
+    <height>266</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,134 +17,15 @@
    <item>
     <widget class="QGroupBox" name="generalGroupBox">
      <property name="title">
-      <string>General</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QGroupBox" name="rotationGroupBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="title">
-         <string>Rotation</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="KComboBox" name="rotatationSelectionComboBox"/>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="rotateWithScreenCheckBox">
-           <property name="text">
-            <string>Auto-Rotate with Screen</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="rotateWithScreenInvertCheckBox">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Invert Auto-Rotation</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="rotatationFreeSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::MinimumExpanding</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>1</width>
-             <height>5</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="padMappingGroupBox">
-        <property name="title">
-         <string>Pad Mapping</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QPushButton" name="padMappingScreenButton">
-           <property name="text">
-            <string>Map Tablet Surface to Screen ...</string>
-           </property>
-           <property name="icon">
-            <iconset theme="video-display">
-             <normaloff/>
-            </iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="padMappingTabletButton">
-           <property name="text">
-            <string>Map Screen to Tablet Surface ...</string>
-           </property>
-           <property name="icon">
-            <iconset theme="input-tablet">
-             <normaloff/>
-            </iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="padMappingFreeSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::MinimumExpanding</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>1</width>
-             <height>5</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="touchGroupBox">
-     <property name="title">
-      <string>Touch</string>
+      <string>Tablet</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QCheckBox" name="touchCheckBox">
-        <property name="text">
-         <string>Enable Touch</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="touchHLayout1">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QGroupBox" name="trackingModeGroupBox">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
           <property name="title">
-           <string>Tracking Mode</string>
+           <string>Stylus Tracking Mode</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
@@ -158,6 +39,9 @@
              <property name="text">
               <string>Map to Screen (Absolute Mode)</string>
              </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
@@ -170,9 +54,6 @@
              </property>
              <property name="text">
               <string>Map to Cursor (Relative Mode)</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -196,16 +77,13 @@
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="touchMappingGroupBox">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
+         <widget class="QGroupBox" name="padMappingGroupBox">
           <property name="title">
-           <string>Touch Mapping</string>
+           <string>Tablet Mapping</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
+          <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QPushButton" name="touchMappingScreenButton">
+            <widget class="QPushButton" name="padMappingScreenButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -213,7 +91,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Map Touch Surface to Screen ...</string>
+              <string>Map Tablet Area to Screen ...</string>
              </property>
              <property name="icon">
               <iconset theme="video-display">
@@ -223,15 +101,9 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="touchMappingTabletButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
+            <widget class="QPushButton" name="padMappingTabletButton">
              <property name="text">
-              <string>Map Screen to Touch Surface ...</string>
+              <string>Map Screen to Tablet Area ...</string>
              </property>
              <property name="icon">
               <iconset theme="input-tablet">
@@ -241,7 +113,7 @@
             </widget>
            </item>
            <item>
-            <spacer name="touchMappingFreeSpacer">
+            <spacer name="padMappingFreeSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -262,121 +134,60 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="gesturesCheckBox">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>Enable Gestures</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="touchHLayout2">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QGroupBox" name="gesturesGroupBox">
-          <property name="enabled">
-           <bool>false</bool>
+         <widget class="QGroupBox" name="rotationGroupBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
           <property name="title">
-           <string>Gestures</string>
+           <string>Orientation</string>
           </property>
-          <layout class="QFormLayout" name="formLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="scrollDistanceLabel">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="KComboBox" name="rotatationSelectionComboBox"/>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="rotateWithScreenCheckBox">
+             <property name="text">
+              <string>Auto-Rotate with Screen</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="rotateWithScreenInvertCheckBox">
+             <property name="enabled">
+              <bool>false</bool>
              </property>
              <property name="text">
-              <string>Scroll Distance</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              <string>Invert Auto-Rotation</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QSpinBox" name="scrollDistanceSpinBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+           <item>
+            <spacer name="rotatationFreeSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
-             <property name="maximum">
-              <number>1000</number>
+             <property name="sizeType">
+              <enum>QSizePolicy::MinimumExpanding</enum>
              </property>
-             <property name="singleStep">
-              <number>10</number>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>1</width>
+               <height>5</height>
+              </size>
              </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="zoomDistanceLabel">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Zoom Distance</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="zoomDistanceSpinBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maximum">
-              <number>1000</number>
-             </property>
-             <property name="singleStep">
-              <number>10</number>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="tapTimeLabel">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Tap Time</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QSpinBox" name="tapTimeSpinBox">
-             <property name="maximum">
-              <number>1000</number>
-             </property>
-             <property name="singleStep">
-              <number>10</number>
-             </property>
-            </widget>
+            </spacer>
            </item>
           </layout>
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="dummyWidget" native="true"/>
+         <widget class="QWidget" name="widget" native="true"/>
         </item>
        </layout>
       </item>
@@ -446,7 +257,7 @@
    <sender>padMappingScreenButton</sender>
    <signal>clicked()</signal>
    <receiver>TabletPageWidget</receiver>
-   <slot>onPadScreenMappingClicked()</slot>
+   <slot>onScreenMappingClicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>300</x>
@@ -462,155 +273,11 @@
    <sender>padMappingTabletButton</sender>
    <signal>clicked()</signal>
    <receiver>TabletPageWidget</receiver>
-   <slot>onPadTabletMappingClicked()</slot>
+   <slot>onTabletMappingClicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>300</x>
      <y>99</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>231</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>touchCheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>TabletPageWidget</receiver>
-   <slot>onTouchModeChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>203</x>
-     <y>194</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>231</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>trackAbsoluteRadioButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>TabletPageWidget</receiver>
-   <slot>onProfileChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>109</x>
-     <y>247</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>231</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>trackRelativeRadioButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>TabletPageWidget</receiver>
-   <slot>onProfileChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>109</x>
-     <y>272</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>231</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>touchMappingScreenButton</sender>
-   <signal>clicked()</signal>
-   <receiver>TabletPageWidget</receiver>
-   <slot>onTouchScreenMappingClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>302</x>
-     <y>249</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>231</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>touchMappingTabletButton</sender>
-   <signal>clicked()</signal>
-   <receiver>TabletPageWidget</receiver>
-   <slot>onTouchTabletMappingClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>302</x>
-     <y>278</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>231</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>scrollDistanceSpinBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>TabletPageWidget</receiver>
-   <slot>onProfileChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>120</x>
-     <y>375</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>231</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>zoomDistanceSpinBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>TabletPageWidget</receiver>
-   <slot>onProfileChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>120</x>
-     <y>401</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>231</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tapTimeSpinBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>TabletPageWidget</receiver>
-   <slot>onProfileChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>120</x>
-     <y>427</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>231</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gesturesCheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>TabletPageWidget</receiver>
-   <slot>onGesturesModeChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>203</x>
-     <y>322</y>
     </hint>
     <hint type="destinationlabel">
      <x>203</x>
@@ -634,15 +301,45 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>trackAbsoluteRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>TabletPageWidget</receiver>
+   <slot>onTrackingModeAbsolute(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>122</x>
+     <y>69</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>235</x>
+     <y>132</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>trackRelativeRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>TabletPageWidget</receiver>
+   <slot>onTrackingModeRelative(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>122</x>
+     <y>94</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>235</x>
+     <y>132</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onAutoRotateChanged(int)</slot>
-  <slot>onPadScreenMappingClicked()</slot>
-  <slot>onPadTabletMappingClicked()</slot>
-  <slot>onTouchModeChanged(int)</slot>
-  <slot>onGesturesModeChanged(int)</slot>
+  <slot>onScreenMappingClicked()</slot>
+  <slot>onTabletMappingClicked()</slot>
   <slot>onProfileChanged()</slot>
-  <slot>onTouchScreenMappingClicked()</slot>
-  <slot>onTouchTabletMappingClicked()</slot>
+  <slot>onTrackingModeAbsolute(bool)</slot>
+  <slot>onTrackingModeRelative(bool)</slot>
  </slots>
 </ui>

@@ -146,14 +146,6 @@ public:
 
 
     /**
-     * Selects an area.
-     *
-     * @param selection The area to select.
-     */
-    void setSelection(const QString& selection);
-
-
-    /**
      * Sets the widget's target size. This is only a hint for the widget
      * to determine the approximate size it should target for when scaling the
      * areas. As long as the ratio does not fit to the ratio of the displayed

@@ -22,6 +22,7 @@
 
 #include <KDE/KDialog>
 #include <QtCore/QRect>
+#include <QtCore/QList>
 
 namespace Wacom
 {
@@ -42,18 +43,15 @@ public:
 
     void setSelection(const QString& selection);
 
+    //! @deprecated Use the other method.
     void setupWidget( const QRect& tabletArea, const QList< QRect >& screenAreas, const QRect& screenAreaSelection, const QString& deviceName );
 
-
-private slots:
-
-    /**
-     * Called when the user confirms the dialog with the OK button.
-     */
-    void onOkClicked();
+    void setupWidget( const QRect& fullTabletArea, const QString& selectedScreenArea, const QString& deviceName );
 
 
 private:
+
+    const QRect convertScreenAreaMappingToQRect( const QList< QRect >& screenAreas, const QString& selectedScreenArea ) const;
 
     void setupUi();
 

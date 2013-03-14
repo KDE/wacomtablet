@@ -20,6 +20,7 @@ set( kcm_tablet_SRCS
      tabletareaselectionwidget.cpp
      tabletpagewidget.cpp
      tabletwidget.cpp
+     touchpagewidget.cpp
 )
 
 kde4_add_ui_files( kcm_tablet_SRCS
@@ -35,6 +36,7 @@ kde4_add_ui_files( kcm_tablet_SRCS
                    tabletareaselectionwidget.ui
                    tabletpagewidget.ui
                    tabletwidget.ui
+                   touchpagewidget.ui
 )
 
 kde4_add_plugin(kcm_wacomtablet ${kcm_tablet_SRCS})

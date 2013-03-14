@@ -267,24 +267,6 @@ void AreaSelectionWidget::setSelection(int areaIndex)
 
 
 
-void AreaSelectionWidget::setSelection(const QString& selection)
-{
-    QStringList selectionList = selection.split(QLatin1String(" "), QString::SkipEmptyParts);
-
-    if (selectionList.size() != 4) {
-        return;
-    }
-
-    QRect selectionRect;
-    selectionRect.setX(selectionList.at(0).toInt());
-    selectionRect.setY(selectionList.at(1).toInt());
-    selectionRect.setWidth(selectionList.at(2).toInt());
-    selectionRect.setHeight(selectionList.at(3).toInt());
-
-    setSelection(selectionRect);
-}
-
-
 void AreaSelectionWidget::setWidgetTargetSize(const QSize& size)
 {
     Q_D(AreaSelectionWidget);

@@ -85,9 +85,6 @@ void PenWidget::loadFromProfile()
     setButtonShortcut ( Property::Button2, stylusProfile.getProperty( Property::Button2 ) );
     setButtonShortcut ( Property::Button3, stylusProfile.getProperty( Property::Button3 ) );
 
-    // Tracking Mode
-    setTrackingMode ( stylusProfile.getProperty( Property::Mode ) );
-
     // Tap to Click
     setTabletPcButton ( stylusProfile.getProperty( Property::TabletPcButton ) );
 }
@@ -117,10 +114,6 @@ void PenWidget::saveToProfile()
     eraserProfile.setProperty( Property::Button3, getButtonShortcut(Property::Button3) );
     stylusProfile.setProperty( Property::Button2, getButtonShortcut(Property::Button2) );
     stylusProfile.setProperty( Property::Button3, getButtonShortcut(Property::Button3) );
-
-    // tracking mode
-    stylusProfile.setProperty( Property::Mode, getTrackingMode() );
-    eraserProfile.setProperty( Property::Mode, getTrackingMode() );
 
     // tap to click
     stylusProfile.setProperty( Property::TabletPcButton, getTabletPcButton() );
@@ -209,13 +202,6 @@ const QString PenWidget::getTabletPcButton() const
 }
 
 
-const QString PenWidget::getTrackingMode() const
-{
-    Q_D (const PenWidget);
-    return (d->ui->radioButton_Absolute->isChecked() ? QLatin1String("absolute") : QLatin1String("relative"));
-}
-
-
 void PenWidget::setButtonShortcut(const Property& button, const QString& shortcut)
 {
     Q_D( PenWidget );
@@ -272,21 +258,6 @@ void PenWidget::setTabletPcButton(const QString& value)
         d->ui->tpcCheckBox->setChecked( true );
     } else {
         d->ui->tpcCheckBox->setChecked( false );
-    }
-}
-
-
-void PenWidget::setTrackingMode(const QString& value)
-{
-    Q_D( PenWidget );
-
-    if( value.toInt() == 1 || value.compare(QLatin1String( "absolute" ), Qt::CaseInsensitive) == 0 ) {
-        d->ui->radioButton_Absolute->setChecked( true );
-        d->ui->radioButton_Relative->setChecked( false );
-    }
-    else {
-        d->ui->radioButton_Absolute->setChecked( false );
-        d->ui->radioButton_Relative->setChecked( true );
     }
 }
 

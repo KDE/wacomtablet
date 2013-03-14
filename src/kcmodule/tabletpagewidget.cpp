@@ -49,20 +49,15 @@ namespace Wacom
                 delete ui;
             }
 
-            Ui::TabletPageWidget* ui;                      // Our UI widget.
+            Ui::TabletPageWidget* ui;                // Our UI widget.
 
-            QString               padScreenAreaMapping;    // The current screen mapping of the pad.
-            QString               padTabletAreaMapping;    // The current tablet mapping of the pad.
-            QString               touchScreenAreaMapping;  // The current screen mapping of the touch device.
-            QString               touchTabletAreaMapping;  // The current tablet mapping of the touch device.
+            QRect                 tabletAreaFull;    // The full tablet area as rectangle.
+            QString               tabletAreaMapping; // The current tablet mapping of the pad.
+            QString               screenAreaMapping; // The current screen mapping of the pad.
 
-            QString               deviceNameStylus;        // The Xinput name of the stylus device of the current tablet.
-            QString               deviceNameTouch;         // The Xinput name of the touch device of the current tablet.
+            QString               deviceNameStylus;  // The Xinput name of the stylus device of the current tablet.
+            QString               deviceNameTouch;   // The Xinput name of the touch device of the current tablet.
 
-            QList< QRect >        screenAreas;             // A list of all X11 screens as rectangles.
-
-            QRect                 tabletAreaPad;           // The maximum pad area as rectangle.
-            QRect                 tabletAreaTouch;         // The maximum touch area as rectangle.
     };
 }
 
@@ -83,24 +78,12 @@ TabletPageWidget::~TabletPageWidget()
 void TabletPageWidget::loadFromProfile()
 {
     ProfileManagement* profileManagement = &ProfileManagement::instance();
-
-    DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( DeviceType::Stylus );
-    DeviceProfile touchProfile  = profileManagement->loadDeviceProfile( DeviceType::Touch );
-
-    // set all properties no matter if the tablet supports that device
-    // to get all widgets properly initialized.
+    DeviceProfile      stylusProfile     = profileManagement->loadDeviceProfile( DeviceType::Stylus );
 
     setRotation( stylusProfile.getProperty( Property::Rotate ) );
-    setPadScreenAreaMapping( stylusProfile.getProperty( Property::ScreenSpace ) );
-    setPadTabletAreaMapping( stylusProfile.getProperty( Property::Area ) );
-    setTouchSupportEnabled( touchProfile.getPropertyAsBool( Property::Touch ) );
-    setTrackingMode( touchProfile.getProperty( Property::Mode ) );
-    setTouchScreenAreaMapping( touchProfile.getProperty( Property::ScreenSpace ) );
-    setTouchTabletAreaMapping( touchProfile.getProperty( Property::Area ) );
-    setGesturesSupportEnabled( touchProfile.getPropertyAsBool( Property::Gesture ) );
-    setScrollDistance( touchProfile.getProperty( Property::ScrollDistance ) );
-    setZoomDistance( touchProfile.getProperty( Property::ZoomDistance ) );
-    setTapTime( touchProfile.getProperty( Property::TapTime ) );
+    setScreenAreaMapping( stylusProfile.getProperty( Property::ScreenSpace ) );
+    setTabletAreaMapping( stylusProfile.getProperty( Property::Area ) );
+    setTrackingMode(stylusProfile.getProperty( Property::Mode ));
 }
 
 
@@ -115,33 +98,16 @@ void TabletPageWidget::reloadWidget()
     // update name and maximum tablet area for all devices
     d->deviceNameStylus.clear();
     d->deviceNameTouch.clear();
-    d->tabletAreaPad   = QRect();
-    d->tabletAreaTouch = QRect();
+    d->tabletAreaFull = QRect();
 
     if (stylusDeviceNameReply.isValid()) {
         d->deviceNameStylus = stylusDeviceNameReply.value();
-        d->tabletAreaPad    = X11Wacom::getMaximumTabletArea(stylusDeviceNameReply.value());
+        d->tabletAreaFull    = X11Wacom::getMaximumTabletArea(stylusDeviceNameReply.value());
     }
 
     if (touchDeviceNameReply.isValid()) {
         d->deviceNameTouch = touchDeviceNameReply.value();
-        d->tabletAreaTouch = X11Wacom::getMaximumTabletArea(touchDeviceNameReply.value());
     }
-
-    // get a list of all X11 screens
-    d->screenAreas = X11Info::getScreenGeometries();
-
-    // hide or display touch settings
-    if (d->deviceNameTouch.isEmpty()) {
-        // no touch device available
-        d->ui->touchGroupBox->setEnabled(false);
-        d->ui->touchGroupBox->setVisible(false);
-    } else  {
-        // touch device is supported
-        d->ui->touchGroupBox->setEnabled(true);
-        d->ui->touchGroupBox->setVisible(true);
-    }
-
 }
 
 
@@ -156,26 +122,20 @@ void TabletPageWidget::saveToProfile()
     DeviceProfile eraserProfile = profileManagement->loadDeviceProfile( DeviceType::Eraser );
     DeviceProfile touchProfile  = profileManagement->loadDeviceProfile( DeviceType::Touch );
 
-    stylusProfile.setProperty ( Property::Rotate,           getRotation() );
-    eraserProfile.setProperty ( Property::Rotate,           getRotation() );
-    touchProfile.setProperty  ( Property::Rotate,           getRotation() );
-    padProfile.setProperty    ( Property::Rotate,           QString()); // make sure it is not set on the pad - will mess up touch
+    stylusProfile.setProperty ( Property::Rotate,      getRotation() );
+    eraserProfile.setProperty ( Property::Rotate,      getRotation() );
+    touchProfile.setProperty  ( Property::Rotate,      getRotation() );
+    padProfile.setProperty    ( Property::Rotate,      QString()); // make sure it is not set on the pad - will mess up touch
 
-    stylusProfile.setProperty ( Property::ScreenSpace,      getPadScreenAreaMapping() );
-    eraserProfile.setProperty ( Property::ScreenSpace,      getPadScreenAreaMapping() );
+    stylusProfile.setProperty ( Property::ScreenSpace, getScreenAreaMapping() );
+    eraserProfile.setProperty ( Property::ScreenSpace, getScreenAreaMapping() );
 
-    stylusProfile.setProperty ( Property::Area,             getPadTabletAreaMapping() );
-    eraserProfile.setProperty ( Property::Area,             getPadTabletAreaMapping() );
-    padProfile.setProperty    ( Property::Area,             QString() ); // make sure it is not set on the pad
+    stylusProfile.setProperty ( Property::Area,        getTabletAreaMapping() );
+    eraserProfile.setProperty ( Property::Area,        getTabletAreaMapping() );
+    padProfile.setProperty    ( Property::Area,        QString() ); // make sure it is not set on the pad
 
-    touchProfile.setProperty  ( Property::Touch,            getTouchSupportEnabled() );
-    touchProfile.setProperty  ( Property::Mode,             getTrackingMode() );
-    touchProfile.setProperty  ( Property::ScreenSpace,      getTouchScreenAreaMapping() );
-    touchProfile.setProperty  ( Property::Area,             getTouchTabletAreaMapping() );
-    touchProfile.setProperty  ( Property::Gesture,          getGestureSupportEnabled() );
-    touchProfile.setProperty  ( Property::ScrollDistance,   getScrollDistance() );
-    touchProfile.setProperty  ( Property::ZoomDistance,     getZoomDistance() );
-    touchProfile.setProperty  ( Property::TapTime,          getTapTime() );
+    stylusProfile.setProperty ( Property::Mode,        getTrackingMode());
+    eraserProfile.setProperty ( Property::Mode,        getTrackingMode());
 
     profileManagement->saveDeviceProfile(padProfile);
     profileManagement->saveDeviceProfile(stylusProfile);
@@ -194,14 +154,13 @@ void TabletPageWidget::onAutoRotateChanged(int state)
 }
 
 
-void TabletPageWidget::onGesturesModeChanged(int state)
+void TabletPageWidget::onProfileChanged()
 {
-    setGesturesSupportEnabled(state == Qt::Checked);
-    onProfileChanged();
+    emit changed();
 }
 
 
-void TabletPageWidget::onPadScreenMappingClicked()
+void TabletPageWidget::onScreenMappingClicked()
 {
     Q_D(TabletPageWidget);
 
@@ -209,114 +168,51 @@ void TabletPageWidget::onPadScreenMappingClicked()
 
     ScreenAreaSelectionDialog selectionDialog;
 
-    selectionDialog.setupWidget( d->screenAreas, d->tabletAreaPad, getPadTabletAreaMappingRect(), tabletAreaCaption );
-    selectionDialog.setSelection( d->padScreenAreaMapping );
+    selectionDialog.setupWidget( d->tabletAreaFull, getTabletAreaMapping(), tabletAreaCaption );
+    selectionDialog.setSelection( d->screenAreaMapping );
 
     if (selectionDialog.exec() == KDialog::Accepted) {
-        d->padScreenAreaMapping = selectionDialog.getSelection();
+        d->screenAreaMapping = selectionDialog.getSelection();
         onProfileChanged();
     }
 }
 
 
-void TabletPageWidget::onPadTabletMappingClicked()
+void TabletPageWidget::onTabletMappingClicked()
 {
     Q_D(TabletPageWidget);
 
     TabletAreaSelectionDialog selectionDialog;
 
-    selectionDialog.setupWidget( d->tabletAreaPad, d->screenAreas, getPadScreenAreaMappingRect(), d->deviceNameStylus );
-    selectionDialog.setSelection( getPadTabletAreaMapping() );
+    selectionDialog.setupWidget( d->tabletAreaFull, getScreenAreaMapping(), d->deviceNameStylus );
+    selectionDialog.setSelection( getTabletAreaMapping() );
 
     if (selectionDialog.exec() == KDialog::Accepted) {
-        d->padTabletAreaMapping = selectionDialog.getSelection();
+        d->tabletAreaMapping = selectionDialog.getSelection();
         onProfileChanged();
     }
 }
 
 
-void TabletPageWidget::onProfileChanged()
+void TabletPageWidget::onTrackingModeAbsolute(bool activated)
 {
-    emit changed();
-}
+    if (!activated) {
+        return;
+    }
 
-
-void TabletPageWidget::onTouchModeChanged(int state)
-{
-    setTouchSupportEnabled(state == Qt::Checked);
+    setTrackingMode(QLatin1String("absolute"));
     onProfileChanged();
 }
 
 
-void TabletPageWidget::onTouchScreenMappingClicked()
+void TabletPageWidget::onTrackingModeRelative(bool activated)
 {
-    Q_D(TabletPageWidget);
-
-    QString tabletAreaCaption = i18n("Touch Area");
-
-    ScreenAreaSelectionDialog selectionDialog;
-
-    selectionDialog.setupWidget( d->screenAreas, d->tabletAreaTouch, getTouchTabletAreaMappingRect(), tabletAreaCaption );
-    selectionDialog.setSelection( getTouchScreenAreaMapping() );
-
-    if (selectionDialog.exec() == KDialog::Accepted) {
-        d->touchScreenAreaMapping = selectionDialog.getSelection();
-        onProfileChanged();
+    if (!activated) {
+        return;
     }
-}
 
-
-void TabletPageWidget::onTouchTabletMappingClicked()
-{
-    Q_D(TabletPageWidget);
-
-    TabletAreaSelectionDialog selectionDialog;
-
-    selectionDialog.setupWidget( d->tabletAreaTouch, d->screenAreas, getTouchScreenAreaMappingRect(), d->deviceNameTouch );
-    selectionDialog.setSelection( getTouchTabletAreaMapping() );
-
-    if (selectionDialog.exec() == KDialog::Accepted) {
-        d->touchTabletAreaMapping = selectionDialog.getSelection();
-        onProfileChanged();
-    }
-}
-
-
-const QString TabletPageWidget::getGestureSupportEnabled() const
-{
-    return (isGesturesSupportEnabled() ? QLatin1String("on") : QLatin1String("off"));
-}
-
-
-const QString& TabletPageWidget::getPadScreenAreaMapping() const
-{
-    Q_D (const TabletPageWidget);
-
-    return d->padScreenAreaMapping;
-}
-
-
-const QRect TabletPageWidget::getPadScreenAreaMappingRect() const
-{
-    Q_D (const TabletPageWidget);
-
-    return convertScreenAreaMappingToQRect(d->padScreenAreaMapping);
-}
-
-
-const QString& TabletPageWidget::getPadTabletAreaMapping() const
-{
-    Q_D (const TabletPageWidget);
-
-    return d->padTabletAreaMapping;
-}
-
-
-const QRect TabletPageWidget::getPadTabletAreaMappingRect() const
-{
-    Q_D (const TabletPageWidget);
-
-    return convertTabletAreaMappingToQRect(d->padTabletAreaMapping, d->tabletAreaPad);
+    setTrackingMode(QLatin1String("relative"));
+    onProfileChanged();
 }
 
 
@@ -341,59 +237,20 @@ const QString TabletPageWidget::getRotation() const
 }
 
 
-const QString TabletPageWidget::getScrollDistance() const
+const QString& TabletPageWidget::getScreenAreaMapping() const
 {
     Q_D (const TabletPageWidget);
 
-    return QString::number(d->ui->scrollDistanceSpinBox->value());
+    return d->screenAreaMapping;
 }
 
 
-const QString TabletPageWidget::getTapTime() const
+const QString& TabletPageWidget::getTabletAreaMapping() const
 {
     Q_D (const TabletPageWidget);
 
-    return QString::number(d->ui->tapTimeSpinBox->value());
+    return d->tabletAreaMapping;
 }
-
-
-const QString& TabletPageWidget::getTouchScreenAreaMapping() const
-{
-    Q_D (const TabletPageWidget);
-
-    return d->touchScreenAreaMapping;
-}
-
-
-const QRect TabletPageWidget::getTouchScreenAreaMappingRect() const
-{
-    Q_D (const TabletPageWidget);
-
-    return convertScreenAreaMappingToQRect(d->touchScreenAreaMapping);
-}
-
-
-const QString TabletPageWidget::getTouchSupportEnabled() const
-{
-    return (isTouchSupportEnabled() ? QLatin1String("on") : QLatin1String("off"));
-}
-
-
-const QString& TabletPageWidget::getTouchTabletAreaMapping() const
-{
-    Q_D (const TabletPageWidget);
-
-    return d->touchTabletAreaMapping;
-}
-
-
-const QRect TabletPageWidget::getTouchTabletAreaMappingRect() const
-{
-    Q_D (const TabletPageWidget);
-
-    return convertTabletAreaMappingToQRect(d->touchTabletAreaMapping, d->tabletAreaTouch);
-}
-
 
 
 const QString TabletPageWidget::getTrackingMode() const
@@ -405,14 +262,6 @@ const QString TabletPageWidget::getTrackingMode() const
     }
 
     return QLatin1String("relative");
-}
-
-
-const QString TabletPageWidget::getZoomDistance() const
-{
-    Q_D (const TabletPageWidget);
-
-    return QString::number(d->ui->zoomDistanceSpinBox->value());
 }
 
 
@@ -429,21 +278,6 @@ bool TabletPageWidget::isAutoRotationEnabled() const
     Q_D (const TabletPageWidget);
 
     return d->ui->rotateWithScreenCheckBox->isChecked();
-}
-
-
-bool TabletPageWidget::isGesturesSupportEnabled() const
-{
-    Q_D (const TabletPageWidget);
-
-    return (d->ui->gesturesCheckBox->isChecked() && d->ui->touchGroupBox->isEnabled());
-}
-
-bool TabletPageWidget::isTouchSupportEnabled() const
-{
-    Q_D (const TabletPageWidget);
-
-    return (d->ui->touchCheckBox->isChecked() && d->ui->touchGroupBox->isEnabled());
 }
 
 
@@ -476,39 +310,6 @@ void TabletPageWidget::setAutoRotationEnabled(bool value)
 }
 
 
-void TabletPageWidget::setGesturesSupportEnabled(bool value)
-{
-    Q_D (TabletPageWidget);
-
-    d->ui->gesturesGroupBox->setEnabled(value);
-
-    d->ui->gesturesCheckBox->blockSignals(true);
-    d->ui->gesturesCheckBox->setChecked(value);
-    d->ui->gesturesCheckBox->blockSignals(false);
-}
-
-
-void TabletPageWidget::setPadScreenAreaMapping(const QString& value)
-{
-    Q_D (TabletPageWidget);
-
-    d->padScreenAreaMapping = value;
-}
-
-
-void TabletPageWidget::setPadTabletAreaMapping(const QString& value)
-{
-    Q_D (TabletPageWidget);
-
-    if (value.isEmpty() || value.compare(QLatin1String("full"), Qt::CaseInsensitive) == 0) {
-        d->padTabletAreaMapping = QLatin1String("-1 -1 -1 -1");
-
-    } else {
-        d->padTabletAreaMapping = value;
-    }
-}
-
-
 void TabletPageWidget::setRotation(const QString& value)
 {
     Q_D (TabletPageWidget);
@@ -535,61 +336,23 @@ void TabletPageWidget::setRotation(const QString& value)
 }
 
 
-void TabletPageWidget::setScrollDistance(const QString& value)
+void TabletPageWidget::setScreenAreaMapping(const QString& value)
 {
     Q_D (TabletPageWidget);
 
-    d->ui->scrollDistanceSpinBox->blockSignals(true);
-    d->ui->scrollDistanceSpinBox->setValue(value.toInt());
-    d->ui->scrollDistanceSpinBox->blockSignals(false);
+    d->screenAreaMapping = value;
 }
 
 
-void TabletPageWidget::setTapTime(const QString& value)
-{
-    Q_D (TabletPageWidget);
-
-    d->ui->tapTimeSpinBox->blockSignals(true);
-    d->ui->tapTimeSpinBox->setValue(value.toInt());
-    d->ui->tapTimeSpinBox->blockSignals(false);
-}
-
-
-void TabletPageWidget::setTouchScreenAreaMapping(const QString& value)
-{
-    Q_D (TabletPageWidget);
-
-    d->touchScreenAreaMapping = value;
-}
-
-
-void TabletPageWidget::setTouchSupportEnabled(bool value)
-{
-    Q_D (TabletPageWidget);
-
-    d->ui->trackingModeGroupBox->setEnabled(value);
-    d->ui->touchMappingGroupBox->setEnabled(value);
-    d->ui->gesturesCheckBox->setEnabled(value);
-
-    if (isGesturesSupportEnabled()) {
-        d->ui->gesturesGroupBox->setEnabled(value);
-    }
-
-    d->ui->touchCheckBox->blockSignals(true);
-    d->ui->touchCheckBox->setChecked(value);
-    d->ui->touchCheckBox->blockSignals(false);
-}
-
-
-void TabletPageWidget::setTouchTabletAreaMapping(const QString& value)
+void TabletPageWidget::setTabletAreaMapping(const QString& value)
 {
     Q_D (TabletPageWidget);
 
     if (value.isEmpty() || value.compare(QLatin1String("full"), Qt::CaseInsensitive) == 0) {
-        d->touchTabletAreaMapping = QLatin1String("-1 -1 -1 -1");
+        d->tabletAreaMapping = QLatin1String("-1 -1 -1 -1");
 
     } else {
-        d->touchTabletAreaMapping = value;
+        d->tabletAreaMapping = value;
     }
 }
 
@@ -601,10 +364,15 @@ void TabletPageWidget::setTrackingMode(const QString& value)
     d->ui->trackAbsoluteRadioButton->blockSignals(true);
     d->ui->trackRelativeRadioButton->blockSignals(true);
 
-    if (value.compare(QLatin1String("absolute"), Qt::CaseInsensitive) == 0) {
+    if (value.contains(QLatin1String("absolute"), Qt::CaseInsensitive)) {
+        d->ui->padMappingScreenButton->setEnabled(true);
         d->ui->trackAbsoluteRadioButton->setChecked(true);
         d->ui->trackRelativeRadioButton->setChecked(false);
     } else {
+        // screen mapping has to be reset and disabled, as it does not work in relative mode
+        setScreenAreaMapping(QLatin1String("full"));
+        d->ui->padMappingScreenButton->setEnabled(false);
+
         d->ui->trackAbsoluteRadioButton->setChecked(false);
         d->ui->trackRelativeRadioButton->setChecked(true);
     }
@@ -612,62 +380,6 @@ void TabletPageWidget::setTrackingMode(const QString& value)
     d->ui->trackAbsoluteRadioButton->blockSignals(false);
     d->ui->trackRelativeRadioButton->blockSignals(false);
 }
-
-
-void TabletPageWidget::setZoomDistance(const QString& value)
-{
-    Q_D (TabletPageWidget);
-
-    d->ui->zoomDistanceSpinBox->blockSignals(true);
-    d->ui->zoomDistanceSpinBox->setValue(value.toInt());
-    d->ui->zoomDistanceSpinBox->blockSignals(false);
-}
-
-
-const QRect TabletPageWidget::convertScreenAreaMappingToQRect(const QString& areaMapping) const
-{
-    Q_D( const TabletPageWidget );
-
-    QRect result;
-
-    QRegExp monitorRegExp(QLatin1String("^\\s*map(\\d+)\\s*$"), Qt::CaseInsensitive);
-
-    if (areaMapping.compare(QLatin1String("full"), Qt::CaseInsensitive) == 0) {
-
-        // full screen mapping - unite all X11 screens to one big rectangle
-        foreach (QRect screen, d->screenAreas) {
-            result = result.united(screen);
-        }
-
-    } else if (monitorRegExp.indexIn(areaMapping, 0) != -1) {
-
-        // monitor mapping
-        int screenNum = monitorRegExp.cap(1).toInt();
-
-        if ( 0 <= screenNum && screenNum < d->screenAreas.count() ) {
-            result = d->screenAreas.at(screenNum);
-        }
-
-    } else {
-        // area mapping
-        result = StringUtils::toQRect(areaMapping, true);
-    }
-
-    return result;
-}
-
-
-const QRect TabletPageWidget::convertTabletAreaMappingToQRect(const QString& areaMapping, const QRect& areaMappingMax) const
-{
-    QRect result = StringUtils::toQRectByCoordinates(areaMapping);
-
-    if (!result.isValid() || areaMapping == QLatin1String("-1 -1 -1 -1") || areaMapping == QLatin1String("full") ) {
-        result = areaMappingMax;
-    }
-
-    return result;
-}
-
 
 
 void TabletPageWidget::setupUi()
@@ -679,7 +391,7 @@ void TabletPageWidget::setupUi()
     // fill rotation combo box
     // xsetwacom's rotation is based on coordinate rotation, but we are asking the user for a tablet rotation.
     // Therefore we have to swap the values for clockwise and counterclockwise rotation.
-    d->ui->rotatationSelectionComboBox->addItem(i18nc("No rotation is applied to the tablet.", "No Rotation"), ScreenRotation::NONE.key());
+    d->ui->rotatationSelectionComboBox->addItem(i18nc("Either no orientation or the current screen orientation is applied to the tablet.", "Default Orientation"), ScreenRotation::NONE.key());
     d->ui->rotatationSelectionComboBox->addItem(i18nc("The tablet will be rotated clockwise.", "Rotate Tablet Clockwise"), ScreenRotation::CCW.key());
     d->ui->rotatationSelectionComboBox->addItem(i18nc("The tablet will be rotated counterclockwise.", "Rotate Tablet Counterclockwise"), ScreenRotation::CW.key());
     d->ui->rotatationSelectionComboBox->addItem(i18nc("The tablet will be rotated up side down.", "Rotate Tablet Upside-Down"), ScreenRotation::HALF.key());

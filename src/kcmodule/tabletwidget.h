@@ -141,7 +141,7 @@ private:
       * Initialize the widget
       * creates all necessary setting widgets and connects their signals
       */
-    void init();
+    void setupUi();
 
     /**
      * Reloads profiles from the profile manager and loads them into the profile
