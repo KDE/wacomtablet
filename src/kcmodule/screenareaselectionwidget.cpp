@@ -95,7 +95,7 @@ void ScreenAreaSelectionWidget::setSelection(const QString& selection)
 
     QRegExp monitorRegExp(QLatin1String("map(\\d+)"), Qt::CaseInsensitive);
 
-    if (selection.compare(QLatin1String("full"), Qt::CaseInsensitive) == 0 ) {
+    if (selection.contains(QLatin1String("full"), Qt::CaseInsensitive)) {
         // full screen selection
         setScreenAreaType(ScreenAreaSelectionWidget::FullScreenArea);
 

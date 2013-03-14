@@ -60,6 +60,7 @@ public:
 
     /**
      * Returns the current selection as string.
+     * Format is: "x y width height"
      *
      * @return The current selection as string.
      */

@@ -23,13 +23,14 @@
 #include <QtGui/QWidget>
 #include <QtCore/QString>
 
-class QRect;
-
 namespace Wacom
 {
 
 class TabletPageWidgetPrivate;
 
+/**
+ * The "Tablet" tab of the main KCM widget.
+ */
 class TabletPageWidget : public QWidget
 {
     Q_OBJECT
@@ -40,10 +41,19 @@ public:
 
     virtual ~TabletPageWidget();
 
+    /**
+     * Loads settings from the current profile and updates the widget accordingly.
+     */
     void loadFromProfile();
 
+    /**
+     * Reinitializes the widget when a new tablet gets connected.
+     */
     void reloadWidget();
 
+    /**
+     * Saves the current settings to the current profile.
+     */
     void saveToProfile();
 
 
@@ -90,36 +100,120 @@ signals:
 
 protected:
 
+    /**
+     * Gets the current rotation in profile format.
+     * These are the values returned by ScreenRotation.key().
+     *
+     * @return The current rotation in profile format.
+     */
     const QString getRotation() const;
 
+    /**
+     * Gets the current screen area mapping in profile format.
+     * Possible return values are:
+     *
+     * - "full"               : Full desktop selection.
+     * - "mapX"               : Monitor X was selected (0 <= X < number of Screens)
+     * - "x1 y1 width height" : An area was selected.
+     *
+     * @return The current screen area mapping in profile format.
+     */
     const QString& getScreenAreaMapping() const;
 
+    /**
+     * Gets the current tablet area mapping in profile format.
+     * Possible return values are:
+     *
+     * "-1 -1 -1 -1" : The whole tablet area was selected.
+     * "x1 y1 x2 y2" : An area was selected with the top left corner at (x1/y1) and
+     *                 the bottom right corner at (x2/y2).
+     *
+     * @return The current tablet mapping in profile format.
+     */
     const QString& getTabletAreaMapping() const;
 
+    /**
+     * Gets the current tracking mode selection.
+     *
+     * @return Either "absolute" or "relative".
+     */
     const QString getTrackingMode() const;
 
+    /**
+     * Checks if auto-rotation or inverted auto-rotation is enabled.
+     *
+     * @return True if auto-rotation is enabled, else false.
+     */
     bool isAutoRotationEnabled() const;
 
+    /**
+     * Check if inverted auto-rotation is enabled.
+     *
+     * @return True if inverted auto-rotation is active, else false.
+     */
     bool isAutoRotateInversionEnabled() const;
 
+    /**
+     * Changes the auto-rotation configuration and updates the widgets.
+     *
+     * @param value True to enable auto-rotation, false to disable it.
+     */
     void setAutoRotationEnabled (bool value);
 
+    /**
+     * Changes the inverte-auto rotation configuration. This will not
+     * update the auto-rotation flag.
+     *
+     * @param value True to enable inverted auto-rotation, false to disable it.
+     */
     void setAutoRotateInversionEnabled(bool value);
 
+    /**
+     * Sets the auto-rotation settings based on a string in profile format
+     * and updates all widgets accordingly. Valid values for the parameter
+     * are all values returned by ScreenRotation::key().
+     *
+     * @param value The new rotation in profile format.
+     */
     void setRotation(const QString& value);
 
+    /**
+     * Sets a new screen area mapping and updates all widgets accordingly.
+     * The given value has to be in profile format. Valid values are:
+     *
+     * - "full"               : Full desktop selection.
+     * - "mapX"               : Monitor X gets selected (0 <= X < number of Screens)
+     * - "x1 y1 width height" : An area gets selected.
+     *
+     * @param value The new screen area mapping selection.
+     */
     void setScreenAreaMapping(const QString& value);
 
+    /**
+     * Sets a new tablet area mapping and updates all widgets accordingly.
+     * The given value has to be in profile format. Valid values are:
+     *
+     * "-1 -1 -1 -1" : The whole tablet area gets selected.
+     * "x1 y1 x2 y2" : An area gets selected with the top left corner at (x1/y1) and
+     *                 the bottom right corner at (x2/y2).
+     *
+     * @param value The new tablet area mapping in profile format.
+     */
     void setTabletAreaMapping(const QString& value);
 
+
+    /**
+     * Sets the tracking mode and updates all widgets accordingly.
+     *
+     * @param value Either "absolute" or "relative"
+     */
     void setTrackingMode(const QString& value);
 
 
 private:
 
     /**
-     * Initializes UI widgets.
-     * Should only be called once by the constructor.
+     * Initializes this widget. Must only be called once by the constructor.
      */
     void setupUi();
 

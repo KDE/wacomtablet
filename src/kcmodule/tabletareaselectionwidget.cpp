@@ -26,7 +26,6 @@
 #include "stringutils.h"
 
 #include <QtCore/QList>
-#include <QtCore/QRect>
 
 using namespace Wacom;
 

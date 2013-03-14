@@ -68,13 +68,6 @@ void TabletAreaSelectionDialog::setSelection(const QString& selection)
 }
 
 
-void TabletAreaSelectionDialog::setupWidget(const QRect& tabletArea, const QList< QRect >& screenAreas, const QRect& screenAreaSelection, const QString& deviceName)
-{
-    Q_D(TabletAreaSelectionDialog);
-    d->selectionWidget->setupWidget(tabletArea, screenAreas, screenAreaSelection, deviceName);
-}
-
-
 void TabletAreaSelectionDialog::setupWidget(const QRect& fullTabletArea, const QString& selectedScreenArea, const QString& deviceName)
 {
     Q_D(TabletAreaSelectionDialog);

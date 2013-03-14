@@ -146,17 +146,8 @@ const QRect AreaSelectionWidget::getSelection() const
 
 const QString AreaSelectionWidget::getSelectionAsString() const
 {
-    Q_D(const AreaSelectionWidget);
-
-    QRect   area       = getSelection();
-    QString areaString = QLatin1String("-1 -1 -1 -1");
-
-    // only return real values if the user did not select the full display area
-    if (area != d->rectVirtualArea) {
-        areaString = QString::fromLatin1("%1 %2 %3 %4").arg(area.x()).arg(area.y()).arg(area.width()).arg(area.height());
-    }
-
-    return areaString;
+    QRect area = getSelection();
+    return QString::fromLatin1("%1 %2 %3 %4").arg(area.x()).arg(area.y()).arg(area.width()).arg(area.height());
 }
 
 
