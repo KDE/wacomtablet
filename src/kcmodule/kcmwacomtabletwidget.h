@@ -17,24 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TABLETWIDGET_H
-#define TABLETWIDGET_H
+#ifndef KCMWACOMTABLETWIDGET_H
+#define KCMWACOMTABLETWIDGET_H
 
 #include <QtGui/QWidget>
-
-/**
-  * The Ui namespace holds the designer form files for the tablet module
-  */
-namespace Ui
-{
-    class TabletWidget;
-}
 
 namespace Wacom
 {
 
-class TabletWidgetPrivate;
-
+class KCMWacomTabletWidgetPrivate;
 
 /**
   * This class implements the tabletwidget.ui designer file
@@ -43,7 +34,7 @@ class TabletWidgetPrivate;
   * selector and handles all profiles.
   * The subgroup setting widgets for the pad/stylus/eraser are grouped together in an KTabWidget
   */
-class TabletWidget : public QWidget
+class KCMWacomTabletWidget : public QWidget
 {
     Q_OBJECT
 
@@ -53,12 +44,12 @@ public:
       *
       * @param parent Parent widget
       */
-    explicit TabletWidget(QWidget *parent = 0);
+    explicit KCMWacomTabletWidget(QWidget *parent = 0);
 
     /**
       * default destructor
       */
-    ~TabletWidget();
+    ~KCMWacomTabletWidget();
 
     /**
       * Reloads the profile to its saved values from the config file
@@ -175,9 +166,9 @@ private:
      */
     void showSaveChanges();
 
-    Q_DECLARE_PRIVATE( TabletWidget )
-    TabletWidgetPrivate *const d_ptr; /**< d-pointer for this class */
+    Q_DECLARE_PRIVATE( KCMWacomTabletWidget )
+    KCMWacomTabletWidgetPrivate *const d_ptr; /**< d-pointer for this class */
 
 }; // CLASS
 }  // NAMESPACE
-#endif /*TABLETWIDGET_H*/
+#endif /*KCMWACOMTABLETWIDGET_H*/

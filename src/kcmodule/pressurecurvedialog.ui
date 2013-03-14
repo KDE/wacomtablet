@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PressCurveDialog</class>
- <widget class="QDialog" name="PressCurveDialog">
+ <class>PressureCurveDialog</class>
+ <widget class="QDialog" name="PressureCurveDialog">
   <property name="windowModality">
    <enum>Qt::NonModal</enum>
   </property>
@@ -47,7 +47,7 @@ Drag around the dots to change the behavior</string>
     </widget>
    </item>
    <item>
-    <widget class="Wacom::PressCurve" name="pc_Widget" native="true">
+    <widget class="Wacom::PressureCurveWidget" name="pc_Widget" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -110,7 +110,7 @@ Drag around the dots to change the behavior</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Wacom::PressCurve</class>
+   <class>Wacom::PressureCurveWidget</class>
    <extends>QWidget</extends>
    <header>presscurve.h</header>
    <container>1</container>
@@ -121,7 +121,7 @@ Drag around the dots to change the behavior</string>
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>PressCurveDialog</receiver>
+   <receiver>PressureCurveDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -137,7 +137,7 @@ Drag around the dots to change the behavior</string>
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>PressCurveDialog</receiver>
+   <receiver>PressureCurveDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">

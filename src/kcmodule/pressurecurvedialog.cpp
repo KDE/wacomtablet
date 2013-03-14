@@ -17,10 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "presscurvedialog.h"
-#include "ui_presscurvedialog.h"
+#include "pressurecurvedialog.h"
+#include "ui_pressurecurvedialog.h"
 
-#include "presscurve.h"
+#include "pressurecurvewidget.h"
 #include "dbustabletinterface.h"
 
 //KDE includes
@@ -32,26 +32,26 @@
 
 using namespace Wacom;
 
-PressCurveDialog::PressCurveDialog(QWidget *parent) :
+PressureCurveDialog::PressureCurveDialog(QWidget *parent) :
         QDialog(parent),
-        m_ui(new Ui::PressCurveDialog)
+        m_ui(new Ui::PressureCurveDialog)
 {
     m_ui->setupUi(this);
 
     connect(m_ui->pc_Widget, SIGNAL(controlPointsChanged(QString)), SLOT(updateControlPoints(QString)));
 }
 
-PressCurveDialog::~PressCurveDialog()
+PressureCurveDialog::~PressureCurveDialog()
 {
     delete m_ui;
 }
 
-void PressCurveDialog::setDeviceType (const DeviceType& deviceType)
+void PressureCurveDialog::setDeviceType (const DeviceType& deviceType)
 {
     m_device = deviceType.key();
 }
 
-void PressCurveDialog::setControllPoints(const QString & points)
+void PressureCurveDialog::setControllPoints(const QString & points)
 {
     QStringList splitPoints = points.split(QLatin1Char( ' ' ));
 
@@ -70,22 +70,22 @@ void PressCurveDialog::setControllPoints(const QString & points)
     m_ui->pc_Values->setText(QString::fromLatin1("%1 %2 %3 %4").arg(p1).arg(p2).arg(p3).arg(p4));
 }
 
-QString PressCurveDialog::getControllPoints()
+QString PressureCurveDialog::getControllPoints()
 {
     return m_ui->pc_Values->text();
 }
 
-void PressCurveDialog::updateControlPoints(const QString & points)
+void PressureCurveDialog::updateControlPoints(const QString & points)
 {
     m_ui->pc_Values->setText(points);
     DBusTabletInterface::instance().setProperty(*DeviceType::find(m_device), Property::PressureCurve, points);
 }
 
-void PressCurveDialog::accept()
+void PressureCurveDialog::accept()
 {
     done(KDialog::Accepted);
 }
-void PressCurveDialog::reject()
+void PressureCurveDialog::reject()
 {
     done(KDialog::Rejected);
 }

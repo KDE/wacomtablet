@@ -19,11 +19,11 @@
 
 #include "debug.h" // always needs to be first include
 
-#include "penwidget.h"
-#include "ui_penwidget.h"
+#include "styluspagewidget.h"
+#include "ui_styluspagewidget.h"
 
 #include "buttonactionselectiondialog.h"
-#include "presscurvedialog.h"
+#include "pressurecurvedialog.h"
 #include "profilemanagement.h"
 
 // common includes
@@ -44,31 +44,31 @@ using namespace Wacom;
  * D-Pointer class for private members.
  */
 namespace Wacom {
-    class PenWidgetPrivate {
+    class StylusPageWidgetPrivate {
         public:
-            PenWidgetPrivate() : ui(new Ui::PenWidget) {}
-            ~PenWidgetPrivate() {
+            StylusPageWidgetPrivate() : ui(new Ui::StylusPageWidget) {}
+            ~StylusPageWidgetPrivate() {
                 delete ui;
             }
 
-            Ui::PenWidget* ui;
+            Ui::StylusPageWidget* ui;
     };
 } // NAMESPACE
 
 
-PenWidget::PenWidget( QWidget* parent )
-    : QWidget( parent ), d_ptr(new PenWidgetPrivate)
+StylusPageWidget::StylusPageWidget( QWidget* parent )
+    : QWidget( parent ), d_ptr(new StylusPageWidgetPrivate)
 {
     setupUi();
 }
 
-PenWidget::~PenWidget()
+StylusPageWidget::~StylusPageWidget()
 {
     delete this->d_ptr;
 }
 
 
-void PenWidget::loadFromProfile()
+void StylusPageWidget::loadFromProfile()
 {
     ProfileManagement* profileManagement = &ProfileManagement::instance();
 
@@ -90,13 +90,13 @@ void PenWidget::loadFromProfile()
 }
 
 
-void PenWidget::reloadWidget()
+void StylusPageWidget::reloadWidget()
 {
     // nothing to do
 }
 
 
-void PenWidget::saveToProfile()
+void StylusPageWidget::saveToProfile()
 {
     ProfileManagement* profileManagement = &ProfileManagement::instance();
 
@@ -123,27 +123,27 @@ void PenWidget::saveToProfile()
 }
 
 
-void PenWidget::onChangeEraserPressCurve()
+void StylusPageWidget::onChangeEraserPressureCurve()
 {
-    changePressCurve(DeviceType::Eraser);
+    changePressureCurve(DeviceType::Eraser);
 }
 
 
-void PenWidget::onChangeTipPressCurve()
+void StylusPageWidget::onChangeTipPressureCurve()
 {
-    changePressCurve(DeviceType::Stylus);
+    changePressureCurve(DeviceType::Stylus);
 }
 
 
-void PenWidget::onProfileChanged()
+void StylusPageWidget::onProfileChanged()
 {
     emit changed();
 }
 
 
-const QString PenWidget::getButtonShortcut(const Property& button) const
+const QString StylusPageWidget::getButtonShortcut(const Property& button) const
 {
-    Q_D( const PenWidget );
+    Q_D( const StylusPageWidget );
 
     ButtonShortcut shortcut;
 
@@ -159,9 +159,9 @@ const QString PenWidget::getButtonShortcut(const Property& button) const
 }
 
 
-const QString PenWidget::getPressureCurve(const DeviceType& type) const
+const QString StylusPageWidget::getPressureCurve(const DeviceType& type) const
 {
-    Q_D (const PenWidget);
+    Q_D (const StylusPageWidget);
 
     if (type == DeviceType::Stylus) {
         return d->ui->tipPressureButton->property( "curve" ).toString();
@@ -177,9 +177,9 @@ const QString PenWidget::getPressureCurve(const DeviceType& type) const
 }
 
 
-const QString PenWidget::getPressureFeel(const DeviceType& type) const
+const QString StylusPageWidget::getPressureFeel(const DeviceType& type) const
 {
-    Q_D (const PenWidget);
+    Q_D (const StylusPageWidget);
 
     if (type == DeviceType::Stylus) {
         return QString::number(d->ui->tipSlider->value());
@@ -195,16 +195,16 @@ const QString PenWidget::getPressureFeel(const DeviceType& type) const
 }
 
 
-const QString PenWidget::getTabletPcButton() const
+const QString StylusPageWidget::getTabletPcButton() const
 {
-    Q_D (const PenWidget);
+    Q_D (const StylusPageWidget);
     return (d->ui->tpcCheckBox->isChecked() ? QLatin1String("on") : QLatin1String("off"));
 }
 
 
-void PenWidget::setButtonShortcut(const Property& button, const QString& shortcut)
+void StylusPageWidget::setButtonShortcut(const Property& button, const QString& shortcut)
 {
-    Q_D( PenWidget );
+    Q_D( StylusPageWidget );
 
     if (button == Property::Button2) {
         d->ui->button2ActionSelector->setShortcut(ButtonShortcut(shortcut));
@@ -218,9 +218,9 @@ void PenWidget::setButtonShortcut(const Property& button, const QString& shortcu
 }
 
 
-void PenWidget::setPressureCurve(const DeviceType& type, const QString& value)
+void StylusPageWidget::setPressureCurve(const DeviceType& type, const QString& value)
 {
-    Q_D( PenWidget );
+    Q_D( StylusPageWidget );
 
     if (type == DeviceType::Stylus) {
         d->ui->tipPressureButton->setProperty( "curve", value );
@@ -234,9 +234,9 @@ void PenWidget::setPressureCurve(const DeviceType& type, const QString& value)
 }
 
 
-void PenWidget::setPressureFeel(const DeviceType& type, const QString& value)
+void StylusPageWidget::setPressureFeel(const DeviceType& type, const QString& value)
 {
-    Q_D( PenWidget );
+    Q_D( StylusPageWidget );
 
     if (type == DeviceType::Stylus) {
         d->ui->tipSlider->setValue(value.toInt());
@@ -250,9 +250,9 @@ void PenWidget::setPressureFeel(const DeviceType& type, const QString& value)
 }
 
 
-void PenWidget::setTabletPcButton(const QString& value)
+void StylusPageWidget::setTabletPcButton(const QString& value)
 {
-    Q_D( PenWidget );
+    Q_D( StylusPageWidget );
 
     if( value.compare(QLatin1String( "on" ), Qt::CaseInsensitive) == 0 ) {
         d->ui->tpcCheckBox->setChecked( true );
@@ -262,9 +262,9 @@ void PenWidget::setTabletPcButton(const QString& value)
 }
 
 
-void PenWidget::changePressCurve(const DeviceType& deviceType)
+void StylusPageWidget::changePressureCurve(const DeviceType& deviceType)
 {
-    PressCurveDialog selectPC(this);
+    PressureCurveDialog selectPC(this);
 
     QString startValue = getPressureCurve(deviceType);
     QString result (startValue);
@@ -288,9 +288,9 @@ void PenWidget::changePressCurve(const DeviceType& deviceType)
 }
 
 
-void PenWidget::setupUi()
+void StylusPageWidget::setupUi()
 {
-    Q_D( PenWidget );
+    Q_D( StylusPageWidget );
 
     d->ui->setupUi( this );
 

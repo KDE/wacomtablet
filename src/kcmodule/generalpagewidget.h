@@ -17,62 +17,58 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PADBUTTONWIDGET_H
-#define PADBUTTONWIDGET_H
+#ifndef GENERALPAGEWIDGET_H
+#define GENERALPAGEWIDGET_H
 
-//Qt includes
 #include <QtGui/QWidget>
 
 namespace Ui
 {
-    class PadButtonWidget;
+    class GeneralPageWidget;
 }
 
-class KComboBox;
-class QLabel;
+class QDBusInterface;
 
 namespace Wacom
 {
-
-class PadButtonWidgetPrivate;
-class ButtonShortcut;
+    class ProfileManagement;
+    class GeneralPageWidgetPrivate;
 
 /**
-  * The PadButton widget contains all settings to assign the buttons on the tablet pad
+  * This class shows some general information about the detected tablet device.
   *
-  * The available number of buttons as well as the availability of vertical/horizontal strip
-  * or TouchRing is defined by the wacom_devicelist settings file in the data folder.
+  * Shows an image and the name plus all detected input devices (pad/stylus/eraser and so on).
+  * Mainly used as debug output and to help the user to realize that his tablet
+  * was detected correctly.
   */
-class PadButtonWidget : public QWidget
+class GeneralPageWidget : public QWidget
 {
     Q_OBJECT
 
 public:
     /**
-      * default constructor
+      * Default constructor
       *
-      * @param profileManager Handles the connection to the config files
-      * @param parent parent Widget
+      * @param parent the parent widget
       */
-    explicit PadButtonWidget(QWidget *parent = 0);
+    explicit GeneralPageWidget(QWidget* parent = 0);
 
     /**
       * default destructor
       */
-    ~PadButtonWidget();
+    ~GeneralPageWidget();
 
     /**
       * Saves all values to the current profile
       */
     void saveToProfile();
 
+public slots:
     /**
-      * Reloads the widget when the status of the tablet device changes (connects/disconnects)
-      *
+      * When called the widget information will be refreshed
       */
     void reloadWidget();
 
-public slots:
     /**
       * Called whenever the profile is switched or the widget needs to be reinitialized.
       *
@@ -80,30 +76,22 @@ public slots:
       */
     void loadFromProfile();
 
+    /**
+      * Called whenever a value is changed.
+      * Fires the changed() signal afterwards to inform the main widget that unsaved changes are available.
+      */
+    void profileChanged();
+
 signals:
     /**
-      * Used to inform the main widget that unsaved changes in the current profile are available
+      * Used to inform the main widget that unsaved changes in the current profile are available.
       */
     void changed();
 
-private slots:
-
-    /**
-     * Called when a button action changed.
-     */
-    void onButtonActionChanged();
-
-
 private:
-
-    /**
-     * Sets up the UI. Should only be called once by the constructor.
-     */
-    void setupUi();
-
-    Q_DECLARE_PRIVATE( PadButtonWidget )
-    PadButtonWidgetPrivate *const d_ptr; //!< The D-Pointer of this class.
+    Q_DECLARE_PRIVATE( GeneralPageWidget )
+    GeneralPageWidgetPrivate *const d_ptr; /**< d-pointer for this class */
 
 }; // CLASS
 }  // NAMESPACE
-#endif /*PADBUTTONWIDGET_H*/
+#endif // GENERALPAGEWIDGET_H

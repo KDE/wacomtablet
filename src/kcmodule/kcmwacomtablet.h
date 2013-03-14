@@ -32,7 +32,7 @@ class QVBoxLayout;
 namespace Wacom
 {
 class AboutData;
-class TabletWidget;
+class KCMWacomTabletWidget;
 
 /**
   * This class is the starting point for the tablet KCModule
@@ -68,9 +68,9 @@ private slots:
     void initUi();
 
 private:
-    QPointer<QVBoxLayout>  m_layout;        /**< Basic layout for the module */
-    QPointer<TabletWidget> m_tabletWidget;  /**< Main widget that holds all other tabs */
-    bool                   m_changed;       /**< Saves if the profiles are changed or not */
+    QPointer<QVBoxLayout>          m_layout;        /**< Basic layout for the module */
+    QPointer<KCMWacomTabletWidget> m_tabletWidget;  /**< Main widget that holds all other tabs */
+    bool                           m_changed;       /**< Saves if the profiles are changed or not */
 };
 }
 #endif // KCMWACOMTABLET_H

@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PRESSCURVEDIALOG_H
-#define PRESSCURVEDIALOG_H
+#ifndef PRESSURECURVEDIALOG_H
+#define PRESSURECURVEDIALOG_H
 
 #include "devicetype.h"
 
@@ -26,20 +26,20 @@
 
 namespace Ui
 {
-class PressCurveDialog;
+class PressureCurveDialog;
 }
 
 class QDBusInterface;
 
 namespace Wacom
 {
-class PressCurve;
+class PressureCurveWidget;
 
 /**
-  * This dialog shows the PressCurve and lets the uses change it on the fly
+  * This dialog shows the PressureCurveWidget and lets the uses change it on the fly
   * The pressure is animated when the suer uses his pen inside the widget
   */
-class PressCurveDialog : public QDialog
+class PressureCurveDialog : public QDialog
 {
     Q_OBJECT
 public:
@@ -48,12 +48,12 @@ public:
       *
       * @param parent parent widget
       */
-    explicit PressCurveDialog(QWidget *parent = 0);
+    explicit PressureCurveDialog(QWidget *parent = 0);
 
     /**
       * default destructor
       */
-    ~PressCurveDialog();
+    ~PressureCurveDialog();
 
     /**
       * Sets the controllpoints to some starting values
@@ -98,9 +98,9 @@ public slots:
     void reject();
 
 private:
-    Ui::PressCurveDialog *m_ui;              /**< Handler to the presscurvedialog.ui file */
-    QString               m_device;
-    PressCurve           *m_pressCurve;      /**< Widget that shows the presscurve and lets him change it */
+    Ui::PressureCurveDialog *m_ui;              /**< Handler to the presscurvedialog.ui file */
+    QString                  m_device;
+    PressureCurveWidget     *m_pressCurve;      /**< Widget that shows the presscurve and lets him change it */
 };
 }
-#endif // PRESSCURVEDIALOG_H
+#endif // PRESSURECURVEDIALOG_H

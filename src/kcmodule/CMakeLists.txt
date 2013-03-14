@@ -6,36 +6,36 @@ set( kcm_tablet_SRCS
      buttonactionselectiondialog.cpp
      buttonactionselectionwidget.cpp
      buttonactionselectorwidget.cpp
+     buttonpagewidget.cpp
      calibrationdialog.cpp
-     generalwidget.cpp
+     generalpagewidget.cpp
      kcmwacomtablet.cpp
-     padbuttonwidget.cpp
-     penwidget.cpp
-     presscurve.cpp
-     presscurvedialog.cpp
+     kcmwacomtabletwidget.cpp
+     pressurecurvewidget.cpp
+     pressurecurvedialog.cpp
      profilemanagement.cpp
      screenareaselectiondialog.cpp
      screenareaselectionwidget.cpp
+     styluspagewidget.cpp
      tabletareaselectiondialog.cpp
      tabletareaselectionwidget.cpp
      tabletpagewidget.cpp
-     tabletwidget.cpp
      touchpagewidget.cpp
 )
 
 kde4_add_ui_files( kcm_tablet_SRCS
                    buttonactionselectionwidget.ui
                    buttonactionselectorwidget.ui
+                   buttonpagewidget.ui
                    errorwidget.ui
-                   generalwidget.ui
-                   padbuttonwidget.ui
-                   penwidget.ui
-                   presscurvedialog.ui
+                   generalpagewidget.ui
+                   kcmwacomtabletwidget.ui
+                   pressurecurvedialog.ui
                    saveprofile.ui
                    screenareaselectionwidget.ui
+                   styluspagewidget.ui
                    tabletareaselectionwidget.ui
                    tabletpagewidget.ui
-                   tabletwidget.ui
                    touchpagewidget.ui
 )
 

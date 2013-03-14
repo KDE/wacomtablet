@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PRESSCURVE_H
-#define PRESSCURVE_H
+#ifndef PRESSURECURVEWIDGET_H
+#define PRESSURECURVEWIDGET_H
 
 //Qt includes
 #include <QtGui/QWidget>
@@ -42,7 +42,7 @@ namespace Wacom
   *
   * @see http://doc.trolltech.com/4.5/qtabletevent.html
   */
-class PressCurve : public QWidget
+class PressureCurveWidget : public QWidget
 {
     Q_OBJECT
 
@@ -52,7 +52,7 @@ public:
       *
       * @param parent the parent widget that holds this one
       */
-    explicit PressCurve(QWidget *parent = 0);
+    explicit PressureCurveWidget(QWidget *parent = 0);
 
     /**
       * Sets the start values for the bezier presscurve via this control points
@@ -162,4 +162,4 @@ private:
 
 }
 
-#endif // PRESSCURVE_H
+#endif // PRESSURECURVEWIDGET_H

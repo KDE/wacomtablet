@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PenWidget</class>
- <widget class="QWidget" name="PenWidget">
+ <class>StylusPageWidget</class>
+ <widget class="QWidget" name="StylusPageWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -466,7 +466,7 @@ This parameter is independent of the PressureCurve parameter.</string>
   <connection>
    <sender>eraserSlider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>PenWidget</receiver>
+   <receiver>StylusPageWidget</receiver>
    <slot>onProfileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -482,7 +482,7 @@ This parameter is independent of the PressureCurve parameter.</string>
   <connection>
    <sender>tipSlider</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>PenWidget</receiver>
+   <receiver>StylusPageWidget</receiver>
    <slot>onProfileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -498,8 +498,8 @@ This parameter is independent of the PressureCurve parameter.</string>
   <connection>
    <sender>eraserPressureButton</sender>
    <signal>clicked()</signal>
-   <receiver>PenWidget</receiver>
-   <slot>onChangeEraserPressCurve()</slot>
+   <receiver>StylusPageWidget</receiver>
+   <slot>onChangeEraserPressureCurve()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>320</x>
@@ -514,7 +514,7 @@ This parameter is independent of the PressureCurve parameter.</string>
   <connection>
    <sender>tpcCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>PenWidget</receiver>
+   <receiver>StylusPageWidget</receiver>
    <slot>onProfileChanged()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -530,8 +530,8 @@ This parameter is independent of the PressureCurve parameter.</string>
   <connection>
    <sender>tipPressureButton</sender>
    <signal>clicked()</signal>
-   <receiver>PenWidget</receiver>
-   <slot>onChangeTipPressCurve()</slot>
+   <receiver>StylusPageWidget</receiver>
+   <slot>onChangeTipPressureCurve()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>323</x>
@@ -546,9 +546,9 @@ This parameter is independent of the PressureCurve parameter.</string>
  </connections>
  <slots>
   <slot>onProfileChanged()</slot>
-  <slot>onChangeEraserPressCurve()</slot>
+  <slot>onChangeEraserPressureCurve()</slot>
   <slot>showPenModeSettings()</slot>
   <slot>showMouseModeSettings()</slot>
-  <slot>onChangeTipPressCurve()</slot>
+  <slot>onChangeTipPressureCurve()</slot>
  </slots>
 </ui>

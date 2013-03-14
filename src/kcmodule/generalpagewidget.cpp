@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "generalwidget.h"
-#include "ui_generalwidget.h"
+#include "generalpagewidget.h"
+#include "ui_generalpagewidget.h"
 
 #include "profilemanagement.h"
 
@@ -51,26 +51,26 @@ namespace Wacom {
 /**
   * Private class for the d-pointer.
   */
-class GeneralWidgetPrivate {
+class GeneralPageWidgetPrivate {
     public:
-        ~GeneralWidgetPrivate() {
+        ~GeneralPageWidgetPrivate() {
             delete m_actionCollection;
             delete m_shortcutEditor;
         }
 
-        std::auto_ptr<Ui::GeneralWidget>  m_ui;                /**< Handler to the generalwidget.ui file */
+        std::auto_ptr<Ui::GeneralPageWidget>  m_ui;                /**< Handler to the generalwidget.ui file */
         QPointer<KActionCollection>       m_actionCollection;
         QPointer<KShortcutsEditor>        m_shortcutEditor;
 }; // CLASS
 }  // NAMESPACE
 
 
-GeneralWidget::GeneralWidget(QWidget *parent)
-        : QWidget(parent), d_ptr(new GeneralWidgetPrivate)
+GeneralPageWidget::GeneralPageWidget(QWidget *parent)
+        : QWidget(parent), d_ptr(new GeneralPageWidgetPrivate)
 {
-    Q_D( GeneralWidget );
+    Q_D( GeneralPageWidget );
 
-    d->m_ui = std::auto_ptr<Ui::GeneralWidget>(new Ui::GeneralWidget);
+    d->m_ui = std::auto_ptr<Ui::GeneralPageWidget>(new Ui::GeneralPageWidget);
     d->m_ui->setupUi(this);
 
     //if someone adds another action also add it to kded/tabletdeamon.cpp
@@ -116,32 +116,32 @@ GeneralWidget::GeneralWidget(QWidget *parent)
 }
 
 
-GeneralWidget::~GeneralWidget()
+GeneralPageWidget::~GeneralPageWidget()
 {
     delete this->d_ptr;
 }
 
 
-void GeneralWidget::saveToProfile()
+void GeneralPageWidget::saveToProfile()
 {
-    Q_D( GeneralWidget );
+    Q_D( GeneralPageWidget );
 
     d->m_shortcutEditor->save();
 }
 
 
-void GeneralWidget::loadFromProfile() {}
+void GeneralPageWidget::loadFromProfile() {}
 
 
-void GeneralWidget::profileChanged()
+void GeneralPageWidget::profileChanged()
 {
     emit changed();
 }
 
 
-void GeneralWidget::reloadWidget()
+void GeneralPageWidget::reloadWidget()
 {
-    Q_D( GeneralWidget );
+    Q_D( GeneralPageWidget );
 
     //get information via DBus
     QDBusReply<QString> deviceModel      = DBusTabletInterface::instance().getInformation(TabletInfo::TabletModel);

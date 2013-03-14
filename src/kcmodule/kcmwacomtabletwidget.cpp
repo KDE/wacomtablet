@@ -17,24 +17,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "tabletwidget.h"
-#include "ui_tabletwidget.h"
+#include "kcmwacomtabletwidget.h"
+#include "ui_kcmwacomtabletwidget.h"
 #include "ui_saveprofile.h"
 #include "ui_errorwidget.h"
 
 #include "profilemanagement.h"
-#include "generalwidget.h"
-#include "padbuttonwidget.h"
-#include "penwidget.h"
+#include "generalpagewidget.h"
+#include "styluspagewidget.h"
+#include "buttonpagewidget.h"
 #include "tabletpagewidget.h"
 #include "touchpagewidget.h"
 
 // common
 #include "dbustabletinterface.h"
 #include "devicetype.h"
-
-// stdlib
-#include <memory>
 
 //KDE includes
 #include <KDE/KInputDialog>
@@ -54,40 +51,40 @@ namespace Wacom {
 /**
   * Private class for the d-pointer.
   */
-class TabletWidgetPrivate {
+class KCMWacomTabletWidgetPrivate {
     public:
-        Ui::TabletWidget ui;                 //!< This user interface.
+        Ui::KCMWacomTabletWidget ui;                 //!< This user interface.
 
-        GeneralWidget    generalPage;        //!< Widget that shows some basic information about the tablet.
-        PenWidget        stylusPage;         //!< Widget for the pen settings (stylus/eraser).
-        PadButtonWidget  buttonPage;         //!< Widget for the express button settings.
-        TabletPageWidget tabletPage;         //!< Widget for the tablet settings.
-        TouchPageWidget  touchPage;          //!< Widget for the touch settings.
-        QWidget          deviceErrorWidget;  //!< Device error widget.
-        Ui::ErrorWidget  deviceErrorUi;      //!< Device error widget ui.
-        bool             profileChanged;     //!< True if the profile was changed and not saved yet.
+        GeneralPageWidget generalPage;        //!< Widget that shows some basic information about the tablet.
+        StylusPageWidget  stylusPage;         //!< Widget for the pen settings (stylus/eraser).
+        ButtonPageWidget  buttonPage;         //!< Widget for the express button settings.
+        TabletPageWidget  tabletPage;         //!< Widget for the tablet settings.
+        TouchPageWidget   touchPage;          //!< Widget for the touch settings.
+        QWidget           deviceErrorWidget;  //!< Device error widget.
+        Ui::ErrorWidget   deviceErrorUi;      //!< Device error widget ui.
+        bool              profileChanged;     //!< True if the profile was changed and not saved yet.
 }; // CLASS
 }  // NAMESPACE
 
 
 
-TabletWidget::TabletWidget( QWidget *parent )
-    : QWidget( parent ), d_ptr(new TabletWidgetPrivate)
+KCMWacomTabletWidget::KCMWacomTabletWidget( QWidget *parent )
+    : QWidget( parent ), d_ptr(new KCMWacomTabletWidgetPrivate)
 {
     setupUi();
     loadTabletInformation();
 }
 
-TabletWidget::~TabletWidget()
+KCMWacomTabletWidget::~KCMWacomTabletWidget()
 {
     delete this->d_ptr;
 }
 
 
 
-void TabletWidget::setupUi()
+void KCMWacomTabletWidget::setupUi()
 {
-    Q_D( TabletWidget );
+    Q_D( KCMWacomTabletWidget );
 
     DBusTabletInterface* dbusTabletInterface = &DBusTabletInterface::instance();
 
@@ -124,7 +121,7 @@ void TabletWidget::setupUi()
 }
 
 
-void TabletWidget::loadTabletInformation()
+void KCMWacomTabletWidget::loadTabletInformation()
 {
     QDBusReply<bool> isAvailable = DBusTabletInterface::instance().isAvailable();
 
@@ -146,7 +143,7 @@ void TabletWidget::loadTabletInformation()
 }
 
 
-void TabletWidget::addProfile()
+void KCMWacomTabletWidget::addProfile()
 {
     bool ok;
     QString text = KInputDialog::getText( i18n( "Add new profile" ),
@@ -161,9 +158,9 @@ void TabletWidget::addProfile()
 }
 
 
-void TabletWidget::delProfile()
+void KCMWacomTabletWidget::delProfile()
 {
-    Q_D( TabletWidget );
+    Q_D( KCMWacomTabletWidget );
 
     ProfileManagement::instance().deleteProfile();
     refreshProfileSelector();
@@ -171,9 +168,9 @@ void TabletWidget::delProfile()
 }
 
 
-void TabletWidget::saveProfile()
+void KCMWacomTabletWidget::saveProfile()
 {
-    Q_D( TabletWidget );
+    Q_D( KCMWacomTabletWidget );
 
     d->generalPage.saveToProfile();
     d->stylusPage.saveToProfile();
@@ -188,7 +185,7 @@ void TabletWidget::saveProfile()
 }
 
 
-void TabletWidget::switchProfile( const QString &profile )
+void KCMWacomTabletWidget::switchProfile( const QString &profile )
 {
     showSaveChanges();
 
@@ -199,9 +196,9 @@ void TabletWidget::switchProfile( const QString &profile )
 }
 
 
-void TabletWidget::reloadProfile()
+void KCMWacomTabletWidget::reloadProfile()
 {
-    Q_D( TabletWidget );
+    Q_D( KCMWacomTabletWidget );
 
     d->generalPage.loadFromProfile();
     d->stylusPage.loadFromProfile();
@@ -214,24 +211,24 @@ void TabletWidget::reloadProfile()
 }
 
 
-void TabletWidget::applyProfile()
+void KCMWacomTabletWidget::applyProfile()
 {
     DBusTabletInterface::instance().setProfile( ProfileManagement::instance().profileName() );
 }
 
 
-void TabletWidget::profileChanged()
+void KCMWacomTabletWidget::profileChanged()
 {
-    Q_D( TabletWidget );
+    Q_D( KCMWacomTabletWidget );
 
     d->profileChanged = true;
     emit changed( true );
 }
 
 
-void TabletWidget::showError( const QString& errorTitle, const QString &errorMsg )
+void KCMWacomTabletWidget::showError( const QString& errorTitle, const QString &errorMsg )
 {
-    Q_D( TabletWidget );
+    Q_D( KCMWacomTabletWidget );
 
     hideError();
     hideConfig();
@@ -243,9 +240,9 @@ void TabletWidget::showError( const QString& errorTitle, const QString &errorMsg
 }
 
 
-void TabletWidget::hideConfig()
+void KCMWacomTabletWidget::hideConfig()
 {
-    Q_D( TabletWidget );
+    Q_D( KCMWacomTabletWidget );
 
     d->ui.profileSelector->setEnabled( false );
     d->ui.addProfileButton->setEnabled( false );
@@ -254,18 +251,18 @@ void TabletWidget::hideConfig()
 }
 
 
-void TabletWidget::hideError()
+void KCMWacomTabletWidget::hideError()
 {
-    Q_D( TabletWidget );
+    Q_D( KCMWacomTabletWidget );
 
     d->deviceErrorWidget.setVisible(false);
     d->ui.verticalLayout->removeWidget (&(d->deviceErrorWidget));
 }
 
 
-bool TabletWidget::refreshProfileSelector ( const QString& profile )
+bool KCMWacomTabletWidget::refreshProfileSelector ( const QString& profile )
 {
-    Q_D( TabletWidget );
+    Q_D( KCMWacomTabletWidget );
 
     int         index    = -1;
     QStringList profiles = ProfileManagement::instance().availableProfiles();
@@ -285,9 +282,9 @@ bool TabletWidget::refreshProfileSelector ( const QString& profile )
 }
 
 
-void TabletWidget::showConfig()
+void KCMWacomTabletWidget::showConfig()
 {
-    Q_D( TabletWidget );
+    Q_D( KCMWacomTabletWidget );
 
     // make sure no error message is active
     hideError();
@@ -349,9 +346,9 @@ void TabletWidget::showConfig()
 }
 
 
-void TabletWidget::showSaveChanges()
+void KCMWacomTabletWidget::showSaveChanges()
 {
-    Q_D( TabletWidget );
+    Q_D( KCMWacomTabletWidget );
 
     if( d->profileChanged ) {
         QPointer<KDialog> saveDialog = new KDialog();

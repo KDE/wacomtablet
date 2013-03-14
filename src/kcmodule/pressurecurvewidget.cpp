@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "presscurve.h"
+#include "pressurecurvewidget.h"
 
 //Qt includes
 #include <QtGui/QPainter>
@@ -27,7 +27,7 @@
 
 using namespace Wacom;
 
-PressCurve::PressCurve(QWidget *parent) :
+PressureCurveWidget::PressureCurveWidget(QWidget *parent) :
         QWidget(parent),
         m_pointSize(10),
         m_pointColor(Qt::red),
@@ -39,7 +39,7 @@ PressCurve::PressCurve(QWidget *parent) :
     setAutoFillBackground(true);
 }
 
-void PressCurve::setControlPoints(qreal p1, qreal p2, qreal p3, qreal p4)
+void PressureCurveWidget::setControlPoints(qreal p1, qreal p2, qreal p3, qreal p4)
 {
     // change y values upside down (xsetwacom has 0,0 in the lower left QWidget in the upper left)
     p2 = 100 - p2;
@@ -48,24 +48,24 @@ void PressCurve::setControlPoints(qreal p1, qreal p2, qreal p3, qreal p4)
     m_cP2 = QPointF((p3 / 100.0) * width() , (p4 / 100.0) * height());
 }
 
-void PressCurve::mousePressEvent(QMouseEvent * event)
+void PressureCurveWidget::mousePressEvent(QMouseEvent * event)
 {
     setNearestPoint(event->posF());
 }
 
-void PressCurve::mouseMoveEvent(QMouseEvent * event)
+void PressureCurveWidget::mouseMoveEvent(QMouseEvent * event)
 {
     moveControlPoint(event->posF());
     update();
 }
 
-void PressCurve::mouseReleaseEvent(QMouseEvent * event)
+void PressureCurveWidget::mouseReleaseEvent(QMouseEvent * event)
 {
     Q_UNUSED(event);
     m_activePoint = 0;
 }
 
-void PressCurve::resizeEvent(QResizeEvent * event)
+void PressureCurveWidget::resizeEvent(QResizeEvent * event)
 {
     // avoid unpredictable ratio on first initialisation
     if (event->oldSize().width() == -1) {
@@ -81,7 +81,7 @@ void PressCurve::resizeEvent(QResizeEvent * event)
     m_cP2.setY(m_cP2.y() * yRatio);
 }
 
-void PressCurve::tabletEvent(QTabletEvent * event)
+void PressureCurveWidget::tabletEvent(QTabletEvent * event)
 {
     event->accept();
     m_presssure = event->pressure();
@@ -101,7 +101,7 @@ void PressCurve::tabletEvent(QTabletEvent * event)
     update();
 }
 
-void PressCurve::setNearestPoint(const QPointF & pos)
+void PressureCurveWidget::setNearestPoint(const QPointF & pos)
 {
     qreal d1 = QLineF(pos, m_cP1).length();
     qreal d2 = QLineF(pos, m_cP2).length();
@@ -113,7 +113,7 @@ void PressCurve::setNearestPoint(const QPointF & pos)
     }
 }
 
-void PressCurve::moveControlPoint(const QPointF & pos)
+void PressureCurveWidget::moveControlPoint(const QPointF & pos)
 {
     int x;
     int y;
@@ -161,7 +161,7 @@ void PressCurve::moveControlPoint(const QPointF & pos)
     emit controlPointsChanged(pointsString);
 }
 
-void PressCurve::paintEvent(QPaintEvent * event)
+void PressureCurveWidget::paintEvent(QPaintEvent * event)
 {
     Q_UNUSED(event);
 

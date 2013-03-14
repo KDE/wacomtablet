@@ -18,7 +18,7 @@
  */
 
 #include "kcmwacomtablet.h"
-#include "tabletwidget.h"
+#include "kcmwacomtabletwidget.h"
 #include "../version.h"
 
 #include "aboutdata.h"
@@ -79,7 +79,7 @@ void KCMWacomTablet::initUi()
     setButtons(Apply | Help);
 
     // setup module ui
-    m_tabletWidget = new TabletWidget(this);
+    m_tabletWidget = new KCMWacomTabletWidget(this);
     m_layout       = new QVBoxLayout(this);
     m_layout->setMargin(0);
     m_layout->addWidget(m_tabletWidget);

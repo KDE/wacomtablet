@@ -17,27 +17,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PENWIDGET_H
-#define PENWIDGET_H
+#ifndef STYLUSPAGEWIDGET_H
+#define STYLUSPAGEWIDGET_H
 
 #include <QtGui/QWidget>
 
 namespace Wacom
 {
 
-class PenWidgetPrivate;
+class StylusPageWidgetPrivate;
 
 class ButtonShortcut;
 class DeviceType;
 class Property;
 
 /**
-  * The PenWidget class holds all settings for the stylus/eraser pen.
+  * The StylusPageWidget class holds all settings for the stylus/eraser pen.
   * Through the xsetwacom interface the widget can manipulate the two buttons,
   * tip press curve, absolute/relative mode, double tab speed and across monitor support
   * via the Twinview options.
   */
-class PenWidget : public QWidget
+class StylusPageWidget : public QWidget
 {
     Q_OBJECT
 
@@ -48,12 +48,12 @@ public:
       *
       * @param parent parent Widget
       */
-    explicit PenWidget(QWidget *parent = 0);
+    explicit StylusPageWidget(QWidget *parent = 0);
 
     /**
       * default destructor
       */
-    ~PenWidget();
+    ~StylusPageWidget();
 
     /**
       * Called whenever the profile is switched or the widget needs to be reinitialized.
@@ -79,14 +79,14 @@ public slots:
       * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
       * directly in the dialogue as well
       */
-    void onChangeEraserPressCurve();
+    void onChangeEraserPressureCurve();
 
     /**
       * Opens a dialogue that allows the visual selection of the presscurve
       * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
       * directly in the dialogue as well
       */
-    void onChangeTipPressCurve();
+    void onChangeTipPressureCurve();
 
     /**
       * Called whenever a value other than the pen buttons is changed.
@@ -123,16 +123,16 @@ protected:
 
 private:
 
-    void changePressCurve (const DeviceType& deviceType);
+    void changePressureCurve (const DeviceType& deviceType);
 
     /**
      * Sets up the user interface widgets. Should only be called once by a constructor.
      */
     void setupUi();
 
-    Q_DECLARE_PRIVATE( PenWidget )
-    PenWidgetPrivate *const d_ptr; /**< d-pointer for this class */
+    Q_DECLARE_PRIVATE( StylusPageWidget )
+    StylusPageWidgetPrivate *const d_ptr; /**< d-pointer for this class */
 
 }; // CLASS
 }  // NAMESPACE
-#endif /*PENWIDGET_H*/
+#endif /*STYLUSPAGEWIDGET_H*/

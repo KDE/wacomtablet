@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "padbuttonwidget.h"
-#include "ui_padbuttonwidget.h"
+#include "buttonpagewidget.h"
+#include "ui_buttonpagewidget.h"
 
 #include "buttonactionselectiondialog.h"
 #include "buttonactionselectorwidget.h"
@@ -57,36 +57,36 @@ using namespace Wacom;
  * D-Pointer class for private members.
  */
 namespace Wacom {
-    class PadButtonWidgetPrivate {
+    class ButtonPageWidgetPrivate {
         public:
-            PadButtonWidgetPrivate() : ui(new Ui::PadButtonWidget) {}
-            ~PadButtonWidgetPrivate() {
+            ButtonPageWidgetPrivate() : ui(new Ui::ButtonPageWidget) {}
+            ~ButtonPageWidgetPrivate() {
                 delete ui;
             }
 
-            Ui::PadButtonWidget* ui;
+            Ui::ButtonPageWidget* ui;
     };
 } // NAMESPACE
 
 
 
-PadButtonWidget::PadButtonWidget(QWidget* parent)
-        : QWidget(parent), d_ptr(new PadButtonWidgetPrivate)
+ButtonPageWidget::ButtonPageWidget(QWidget* parent)
+        : QWidget(parent), d_ptr(new ButtonPageWidgetPrivate)
 {
     setupUi();
     reloadWidget();
 }
 
 
-PadButtonWidget::~PadButtonWidget()
+ButtonPageWidget::~ButtonPageWidget()
 {
     delete this->d_ptr;
 }
 
 
-void PadButtonWidget::saveToProfile()
+void ButtonPageWidget::saveToProfile()
 {
-    Q_D( PadButtonWidget );
+    Q_D( ButtonPageWidget );
 
     ProfileManagement* profileManagement = &ProfileManagement::instance();
     DeviceProfile      padProfile        = profileManagement->loadDeviceProfile(DeviceType::Pad);
@@ -140,9 +140,9 @@ void PadButtonWidget::saveToProfile()
 }
 
 
-void PadButtonWidget::loadFromProfile()
+void ButtonPageWidget::loadFromProfile()
 {
-    Q_D( PadButtonWidget );
+    Q_D( ButtonPageWidget );
 
     ProfileManagement* profileManagement = &ProfileManagement::instance();
     DeviceProfile      padProfile        = profileManagement->loadDeviceProfile(DeviceType::Pad);
@@ -184,9 +184,9 @@ void PadButtonWidget::loadFromProfile()
 }
 
 
-void PadButtonWidget::reloadWidget()
+void ButtonPageWidget::reloadWidget()
 {
-    Q_D( PadButtonWidget );
+    Q_D( ButtonPageWidget );
 
     QDBusReply<QString> deviceModel  = DBusTabletInterface::instance().getInformation(TabletInfo::TabletModel);
     QDBusReply<QString> deviceId     = DBusTabletInterface::instance().getInformation(TabletInfo::TabletId);
@@ -269,15 +269,15 @@ void PadButtonWidget::reloadWidget()
 }
 
 
-void PadButtonWidget::onButtonActionChanged()
+void ButtonPageWidget::onButtonActionChanged()
 {
     emit changed();
 }
 
 
-void PadButtonWidget::setupUi()
+void ButtonPageWidget::setupUi()
 {
-    Q_D (PadButtonWidget);
+    Q_D (ButtonPageWidget);
 
     d->ui->setupUi( this );
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PadButtonWidget</class>
- <widget class="QWidget" name="PadButtonWidget">
+ <class>ButtonPageWidget</class>
+ <widget class="QWidget" name="ButtonPageWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
