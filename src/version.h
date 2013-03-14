@@ -1,5 +1,7 @@
 /*
- * Copyright 2010 Jörg Ehrichs <joerg.ehichs@gmx.de>
+ * This file is part of the KDE wacomtablet project. For copyright
+ * information and license terms see the AUTHORS and COPYING files
+ * in the top-level directory of this distribution.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -19,10 +21,10 @@
 #define WACOMTABLETVERSION_H
 
 // Version of the kcontrol module
-static const char kcm_version[] = "1.99.3";
+static const char kcm_version[] = "1.99.4";
 
 //version of the kde demon
-static const char kded_version[] = "1.99.3";
+static const char kded_version[] = "1.99.4";
 
 //version of the plasma applet
 //version info is in applet/plasma-applet-wacomtable.desktop
