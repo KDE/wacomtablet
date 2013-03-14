@@ -269,18 +269,18 @@ void TestTabletHandler::testOnTogglePenMode()
     m_backendMock->setProperty(DeviceType::Stylus, Property::Mode, QLatin1String("Absolute"));
     m_backendMock->setProperty(DeviceType::Eraser, Property::Mode, QLatin1String("Absolute"));
 
-    QCOMPARE(QLatin1String("Absolute"), m_backendMock->getProperty(DeviceType::Eraser, Property::Mode));
-    QCOMPARE(QLatin1String("Absolute"), m_backendMock->getProperty(DeviceType::Stylus, Property::Mode));
+    QCOMPARE(m_backendMock->getProperty(DeviceType::Eraser, Property::Mode), QLatin1String("Absolute"));
+    QCOMPARE(m_backendMock->getProperty(DeviceType::Stylus, Property::Mode), QLatin1String("Absolute"));
 
     m_tabletHandler->onTogglePenMode();
 
-    QCOMPARE(QLatin1String("Relative"), m_backendMock->getProperty(DeviceType::Eraser, Property::Mode));
-    QCOMPARE(QLatin1String("Relative"), m_backendMock->getProperty(DeviceType::Stylus, Property::Mode));
+    QCOMPARE(m_backendMock->getProperty(DeviceType::Eraser, Property::Mode), QLatin1String("relative"));
+    QCOMPARE(m_backendMock->getProperty(DeviceType::Stylus, Property::Mode), QLatin1String("relative"));
 
     m_tabletHandler->onTogglePenMode();
 
-    QCOMPARE(QLatin1String("Absolute"), m_backendMock->getProperty(DeviceType::Eraser, Property::Mode));
-    QCOMPARE(QLatin1String("Absolute"), m_backendMock->getProperty(DeviceType::Stylus, Property::Mode));
+    QCOMPARE(m_backendMock->getProperty(DeviceType::Eraser, Property::Mode), QLatin1String("absolute"));
+    QCOMPARE(m_backendMock->getProperty(DeviceType::Stylus, Property::Mode), QLatin1String("absolute"));
 
     QWARN("testOnTogglePenMode(): PASSED!");
 }

@@ -82,6 +82,12 @@ class Property : public PropertyTemplateSpecialization {
 
 public:
 
+    /**
+     * The action to which absolute wheel up/down should be mapped.
+     * See any button property for the list of valid values.
+     *
+     * @sa Property::Button1
+     */
     static const Property AbsWheel2Down;
     static const Property AbsWheel2Up;
     static const Property AbsWheelDown;
@@ -96,18 +102,18 @@ public:
      */
     static const Property Area;
 
-    //! @deprecated Will be removed.
-    static const Property AreaMapFull; // map tablet area when fullscreen is selected
-
-    //! @deprecated Will be removed.
-    static const Property AreaMapPart; // map tablet area when part of screen is selected
-
-    //! @deprecated Will be removed.
-    static const Property AreaMap0;    // map tablet area when screen 1 is selected
-
-    //! @deprecated Will be removed.
-    static const Property AreaMap1;    // map tablet area when screen 2 is selected
-
+    /**
+     * The button shortcut action assigned to this button.
+     * This property supports quite a lot of values. Use the \a ButtonShortcut class to parse them.
+     * Valid values are:
+     *
+     * - "key [shortcut]"  : A keyboard shortcut. [shortcut] are some key combinations.
+     * - "button [number]" : A mouse button shortcut. [number] is a mouse button number.
+     * - "[number]"        : A mouse button shortcut. [number] is a mouse button number.
+     * - and a few others  : Qt shortcuts and others.
+     *
+     * @sa ButtonShortcut
+     */
     static const Property Button1;
     static const Property Button2;
     static const Property Button3;
@@ -119,27 +125,50 @@ public:
     static const Property Button9;
     static const Property Button10;
 
-    //! @deprecated No idea what this is for. It will be removed soon.
-    static const Property ChangeArea;
-
+    /**
+     * Mouse cursor settings, not yet used.
+     */
     static const Property CursorAccelProfile;
     static const Property CursorAccelConstantDeceleration;
     static const Property CursorAccelAdaptiveDeceleration;
     static const Property CursorAccelVelocityScaling;
+
+    /**
+     * The cursor distance for proximity-out in distance from the tablet.
+     * Valid values are numbers > 0.
+     *
+     * We do not use this property but it is supported by xsetwacom and
+     * can be set manually in our profile configuration file.
+     */
     static const Property CursorProximity;
-    static const Property ForceProportions;
+
+    /**
+     * Enables/disables gesture support.
+     * Valid values are "on" or "off".
+     */
     static const Property Gesture;
 
-    //! @deprecated Will be removed.
+    /**
+     * Invert the scroll direction of the touch device.
+     * Does not work atm.
+     */
     static const Property InvertScroll;
 
     /**
-     * @deprecated Use ScreenSpace instead.
+     * @deprecated Use Property::ScreenSpace instead.
+     *
+     * Maps the tablet/touch to a monitor. Accepts any values which are
+     * accepted by xsetwacom.
+     *
+     * We do not use this property but it is here so the user can add an
+     * entry to his tablet profile configuration file which will then be set
+     * automatically with xsetwacom. However our configuration dialog
+     * ignores this property and we might even override it with
+     * our \a ScreenSpace property.
+     *
+     * @sa Property::ScreenSpace
      */
     static const Property MapToOutput;
-
-    //! @deprecated Will be removed.
-    static const Property MMonitor;
 
     /**
      * The stylus/eraser/touch tracking mode.
@@ -149,8 +178,26 @@ public:
      * - "relative" : Relative tracking mode.
      */
     static const Property Mode;
+
+    /**
+     * Bezier curve for pressure.
+     * A string consisting of 4 integer values from 0-100.
+     */
     static const Property PressureCurve;
+
+    /**
+     * Number of raw data used to filter the points.
+     * Valid values are numbers > 0.
+     */
     static const Property RawSample;
+
+
+    /**
+     * The action to which relative wheel up/down should be mapped.
+     * See any button property for the list of valid values.
+     *
+     * @sa Property::Button1
+     */
     static const Property RelWheelDown;
     static const Property RelWheelUp;
 
@@ -167,12 +214,6 @@ public:
      */
     static const Property Rotate;
 
-    //! @deprecated Will be removed.
-    static const Property RotateWithScreen;
-
-    //! @deprecated Will be removed.
-    static const Property ScreenNo;
-
     /**
      * Maps the tablet area to a screen space.
      * Valid values are:
@@ -182,11 +223,28 @@ public:
      * - "x y width height" : Maps the tablet to the given area.
      */
     static const Property ScreenSpace;
+
+    /**
+     * Minimum motion before sending a scroll gesture.
+     * Valid values are numbers >= 0;
+     */
     static const Property ScrollDistance;
+
+    /**
+     * The action to which left/right strip up/down should be mapped.
+     * See any button property for the list of valid values.
+     *
+     * @sa Property::Button1
+     */
     static const Property StripLeftDown;
     static const Property StripLeftUp;
     static const Property StripRightDown;
     static const Property StripRightUp;
+
+    /**
+     * Number of points trimmed.
+     * Valid values are numbers >= 0.
+     */
     static const Property Suppress;
 
     /**
@@ -197,20 +255,36 @@ public:
      * - "x y width height" : Maps the screen space to the given area.
      */
     static const Property TabletArea;
+
+    /**
+     * Tap to Click. Valid values are "on" or "off".
+     * If  on, the stylus must be in contact with the screen for a stylus side button to work.
+     * If off, stylus buttons will work once the stylus is in proximity of the tablet.
+     */
     static const Property TabletPcButton;
+
+    /**
+     * Minimum time between taps for a right click.
+     * Valid values are numbers >= 0.
+     */
     static const Property TapTime;
+
+    /**
+     * Sets tip/eraser pressure threshold.
+     * Valid values are numbers >= 0.
+     */
     static const Property Threshold;
+
+    /**
+     * Enables/disables touch support.
+     * Valid values are either "on" or "off".
+     */
     static const Property Touch;
 
-    //! @deprecated Will be removed.
-    static const Property TVResolution0;
-
-    //! @deprecated Will be removed.
-    static const Property TVResolution1;
-
-    //! @deprecated Will be removed.
-    static const Property TwinView;
-
+    /**
+     * Minimum distance for a zoom gesture.
+     * Valid values are numbers > 0.
+     */
     static const Property ZoomDistance;
 
 

@@ -119,8 +119,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     stylusDevice.setProperty(Property::PressureCurve, QLatin1String("0 0 100 100"));
     stylusDevice.setProperty(Property::Threshold, QLatin1String("27"));
     stylusDevice.setProperty(Property::Rotate, QLatin1String("none"));
-    stylusDevice.setProperty(Property::ForceProportions, QLatin1String("false"));
-    stylusDevice.setProperty(Property::TabletArea, QLatin1String("full"));
+    stylusDevice.setProperty(Property::TabletArea, QLatin1String("-1 -1 -1 -1"));
 
     QDBusReply<QString> stylusArea = DBusTabletInterface::instance().getProperty( DeviceType::Stylus, Property::Area );
     stylusDevice.setProperty(Property::Area, stylusArea.isValid() ? stylusArea.value() : QLatin1String("0 0 0 0"));
@@ -143,8 +142,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     // TODO RawFilter, Suppress, RawSample, MapToOutput
 
     eraserDevice.setProperty(Property::Rotate, QLatin1String("none"));
-    eraserDevice.setProperty(Property::ForceProportions, QLatin1String("false"));
-    eraserDevice.setProperty(Property::TabletArea, QLatin1String("full"));
+    eraserDevice.setProperty(Property::TabletArea, QLatin1String("-1 -1 -1 -1"));
 
     QDBusReply<QString> eraserArea = DBusTabletInterface::instance().getProperty( DeviceType::Eraser, Property::Area );
     eraserDevice.setProperty(Property::Area, eraserArea.isValid() ? eraserArea.value() : QLatin1String("0 0 0 0"));
@@ -161,8 +159,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
         DeviceProfile touchDevice = tabletProfile.getDevice(DeviceType::Touch);
 
         touchDevice.setProperty(Property::Rotate, QLatin1String("none"));
-        touchDevice.setProperty(Property::ForceProportions, QLatin1String("false"));
-        touchDevice.setProperty(Property::TabletArea, QLatin1String("full"));
+        touchDevice.setProperty(Property::TabletArea, QLatin1String("-1 -1 -1 -1"));
         touchDevice.setProperty(Property::Mode, QLatin1String("absolute"));
         touchDevice.setProperty(Property::TapTime, QLatin1String("250"));
 

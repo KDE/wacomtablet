@@ -112,7 +112,7 @@ Drag around the dots to change the behavior</string>
   <customwidget>
    <class>Wacom::PressureCurveWidget</class>
    <extends>QWidget</extends>
-   <header>presscurve.h</header>
+   <header>pressurecurvewidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -33,16 +33,12 @@ PropertyTemplateSpecialization::Container PropertyTemplateSpecialization::instan
 
 /*
  * Instanciate Properties.
- */ 
+ */
 const Property Property::AbsWheel2Down    ( QLatin1String("AbsWheel2Down") );
 const Property Property::AbsWheel2Up      ( QLatin1String("AbsWheel2Up") );
 const Property Property::AbsWheelDown     ( QLatin1String("AbsWheelDown") );
 const Property Property::AbsWheelUp       ( QLatin1String("AbsWheelUp") );
 const Property Property::Area             ( QLatin1String("Area") );
-const Property Property::AreaMapFull      ( QLatin1String("AreaMapFull") );
-const Property Property::AreaMapPart      ( QLatin1String("AreaMapPart") );
-const Property Property::AreaMap0         ( QLatin1String("AreaMap0") );
-const Property Property::AreaMap1         ( QLatin1String("AreaMap1") );
 const Property Property::Button1          ( QLatin1String("Button1") );
 const Property Property::Button2          ( QLatin1String("Button2") );
 const Property Property::Button3          ( QLatin1String("Button3") );
@@ -53,25 +49,20 @@ const Property Property::Button7          ( QLatin1String("Button7") );
 const Property Property::Button8          ( QLatin1String("Button8") );
 const Property Property::Button9          ( QLatin1String("Button9") );
 const Property Property::Button10         ( QLatin1String("Button10") );
-const Property Property::ChangeArea       ( QLatin1String("ChangeArea") );
 const Property Property::CursorAccelProfile              ( QLatin1String("CursorAccelProfile") );
 const Property Property::CursorAccelConstantDeceleration ( QLatin1String("CursorAccelConstantDeceleration") );
 const Property Property::CursorAccelAdaptiveDeceleration ( QLatin1String("CursorAccelAdaptiveDeceleration") );
 const Property Property::CursorAccelVelocityScaling      ( QLatin1String("CursorAccelVelocityScaling") );
 const Property Property::CursorProximity  ( QLatin1String("CursorProximity") );
-const Property Property::ForceProportions ( QLatin1String("ForceProportions") );
 const Property Property::Gesture          ( QLatin1String("Gesture") );
 const Property Property::InvertScroll     ( QLatin1String("InvertScroll") );
 const Property Property::MapToOutput      ( QLatin1String("MapToOutput") );
-const Property Property::MMonitor         ( QLatin1String("MMonitor") );
 const Property Property::Mode             ( QLatin1String("Mode") );
 const Property Property::PressureCurve    ( QLatin1String("PressureCurve") );
 const Property Property::RawSample        ( QLatin1String("RawSample") );
 const Property Property::RelWheelDown     ( QLatin1String("RelWheelDown") );
 const Property Property::RelWheelUp       ( QLatin1String("RelWheelUp") );
 const Property Property::Rotate           ( QLatin1String("Rotate") );
-const Property Property::RotateWithScreen ( QLatin1String("RotateWithScreen") );
-const Property Property::ScreenNo         ( QLatin1String("ScreenNo") );
 const Property Property::ScreenSpace      ( QLatin1String("ScreenSpace") );
 const Property Property::ScrollDistance   ( QLatin1String("ScrollDistance") );
 const Property Property::StripLeftDown    ( QLatin1String("StripLeftDown") );
@@ -84,7 +75,4 @@ const Property Property::TabletPcButton   ( QLatin1String("TabletPcButton") );
 const Property Property::TapTime          ( QLatin1String("TapTime") );
 const Property Property::Threshold        ( QLatin1String("Threshold") );
 const Property Property::Touch            ( QLatin1String("Touch") );
-const Property Property::TVResolution0    ( QLatin1String("TVResolution0") );
-const Property Property::TVResolution1    ( QLatin1String("TVResolution1") );
-const Property Property::TwinView         ( QLatin1String("TwinView") );
 const Property Property::ZoomDistance     ( QLatin1String("ZoomDistance") );

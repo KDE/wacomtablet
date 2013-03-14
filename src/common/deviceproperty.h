@@ -44,10 +44,6 @@ public:
     static const DeviceProperty AbsWheelDown;
     static const DeviceProperty AbsWheelUp;
     static const DeviceProperty Area;
-    static const DeviceProperty AreaMapFull;
-    static const DeviceProperty AreaMapPart;
-    static const DeviceProperty AreaMap0;
-    static const DeviceProperty AreaMap1;
     static const DeviceProperty Button1;
     static const DeviceProperty Button2;
     static const DeviceProperty Button3;
@@ -58,25 +54,20 @@ public:
     static const DeviceProperty Button8;
     static const DeviceProperty Button9;
     static const DeviceProperty Button10;
-    static const DeviceProperty ChangeArea;
     static const DeviceProperty CursorAccelProfile;
     static const DeviceProperty CursorAccelConstantDeceleration;
     static const DeviceProperty CursorAccelAdaptiveDeceleration;
     static const DeviceProperty CursorAccelVelocityScaling;
     static const DeviceProperty CursorProximity;
-    static const DeviceProperty ForceProportions;
     static const DeviceProperty Gesture;
     static const DeviceProperty InvertScroll;
     static const DeviceProperty MapToOutput;
-    static const DeviceProperty MMonitor;
     static const DeviceProperty Mode;
     static const DeviceProperty PressureCurve;
     static const DeviceProperty RawSample;
     static const DeviceProperty RelWheelDown;
     static const DeviceProperty RelWheelUp;
     static const DeviceProperty Rotate;
-    static const DeviceProperty RotateWithScreen;
-    static const DeviceProperty ScreenNo;
     static const DeviceProperty ScreenSpace;
     static const DeviceProperty ScrollDistance;
     static const DeviceProperty StripLeftDown;
@@ -89,9 +80,6 @@ public:
     static const DeviceProperty TapTime;
     static const DeviceProperty Threshold;
     static const DeviceProperty Touch;
-    static const DeviceProperty TVResolution0;
-    static const DeviceProperty TVResolution1;
-    static const DeviceProperty TwinView;
     static const DeviceProperty ZoomDistance;
 
 private:
