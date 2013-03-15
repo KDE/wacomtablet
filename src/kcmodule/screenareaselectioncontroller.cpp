@@ -45,7 +45,7 @@ namespace Wacom
 
 
 ScreenAreaSelectionController::ScreenAreaSelectionController()
-        : d_ptr(new ScreenAreaSelectionControllerPrivate)
+        : QObject(), d_ptr(new ScreenAreaSelectionControllerPrivate)
 {
     // nothing to do, except for initializing our private class
 }

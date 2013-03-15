@@ -22,9 +22,6 @@
 #include "tabletareaselectionview.h"
 #include "ui_tabletareaselectionview.h"
 
-#include "calibrationdialog.h"
-#include "stringutils.h"
-
 #include <QtCore/QList>
 
 using namespace Wacom;
@@ -40,7 +37,6 @@ namespace Wacom
             }
 
             Ui::TabletAreaSelectionView* ui;
-            QString                        deviceName;
     }; // PRIVATE CLASS
 } // NAMESPACE
 
@@ -58,115 +54,102 @@ TabletAreaSelectionView::~TabletAreaSelectionView()
 }
 
 
-const QString TabletAreaSelectionView::getSelection() const
+const QRect TabletAreaSelectionView::getSelection() const
 {
     Q_D(const TabletAreaSelectionView);
-
-    if (d->ui->fullTabletRadioButton->isChecked()) {
-        return QLatin1String("-1 -1 -1 -1");
-    }
-
-    // convert rectangle to "x1 y1 x2 y2" format.
-    QRect selection = d->ui->areaWidget->getSelection();
-
-    return QString::fromLatin1("%1 %2 %3 %4").arg(selection.x())
-                                             .arg(selection.y())
-                                             .arg(selection.x() + selection.width())
-                                             .arg(selection.y() + selection.height());
+    return d->ui->areaWidget->getSelection();
 }
 
 
-void TabletAreaSelectionView::setSelection(const QString& selection)
-{
-    Q_D(const TabletAreaSelectionView);
-
-    if (selection.compare(QLatin1String("-1 -1 -1 -1"), Qt::CaseInsensitive) == 0) {
-
-        // full screen selection
-        setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
-
-    } else {
-        // area or invalid selection
-        QRect selectionRect = StringUtils::toQRectByCoordinates(selection);
-
-        if (selectionRect.isEmpty()) {
-            // invalid selection => full screen
-            setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
-
-        } else {
-            // area selection
-            setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
-            d->ui->areaWidget->setSelection(selectionRect);
-        }
-    }
-}
-
-
-void TabletAreaSelectionView::setupWidget(const QRect& tabletArea, const QList< QRect >& screenAreas, const QRect& screenAreaSelection, const QString& deviceName)
+void TabletAreaSelectionView::selectAll()
 {
     Q_D(TabletAreaSelectionView);
 
-    d->deviceName = deviceName;
+    setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
+    d->ui->areaWidget->clearSelection();
+}
 
-    setupScreenArea(screenAreas, screenAreaSelection);
-    setupTabletArea(tabletArea);
+
+void TabletAreaSelectionView::selectPart(const QRect& selection)
+{
+    Q_D(TabletAreaSelectionView);
+
+    setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
+    d->ui->areaWidget->setSelection(selection);
+}
+
+
+void TabletAreaSelectionView::setupScreens(const QList< QRect >& screenGeometries, const QRect& screenSelection, const QSize& widgetTargetSize)
+{
+    Q_D(TabletAreaSelectionView);
+
+    d->ui->screenArea->setEnabled(false);
+    d->ui->screenArea->setWidgetTargetSize(widgetTargetSize);
+    d->ui->screenArea->setFont(QFont(QLatin1String("sans"), 8));
+
+    if (screenGeometries.count() > 0) {
+
+        d->ui->screenArea->setDrawAreaCaptions(true);
+        d->ui->screenArea->setDrawSelectionCaption(true);
+
+        QStringList captions;
+
+        for (int i = 0 ; i < screenGeometries.count() ; ++i) {
+            captions.append(QString::number(i+1));
+        }
+
+        d->ui->screenArea->setAreas(screenGeometries, captions);
+
+    } else {
+        // no valid parameters passed, draw error box
+        d->ui->screenArea->setDrawAreaCaptions(true);
+        d->ui->screenArea->setDrawSelectionCaption(false);
+        d->ui->screenArea->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
+    }
+
+    // defaults to full selection
+    d->ui->screenArea->setSelection(screenSelection);
+}
+
+
+
+void TabletAreaSelectionView::setupTablet(const QRect& geometry, const QSize& widgetTargetSize)
+{
+    Q_D(TabletAreaSelectionView);
+
+    d->ui->areaWidget->setWidgetTargetSize(widgetTargetSize);
+    d->ui->areaWidget->setOutOfBoundsMargin(.1);
+
+    if (geometry.isValid()) {
+        QString caption = QString::fromLatin1("%1x%2").arg(geometry.width()).arg(geometry.height());
+
+        d->ui->areaWidget->setDrawAreaCaptions(true);
+        d->ui->areaWidget->setDrawSelectionCaption(true);
+        d->ui->areaWidget->setArea(geometry, caption);
+
+    } else {
+        // draw error message
+        d->ui->areaWidget->setDrawAreaCaptions(true);
+        d->ui->areaWidget->setDrawSelectionCaption(false);
+        d->ui->areaWidget->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
+    }
+
+    // defaults to full selection
     setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
 }
 
 
+
+
 void TabletAreaSelectionView::onCalibrateClicked()
 {
-    Q_D(TabletAreaSelectionView);
-
-    CalibrationDialog calibDialog(d->deviceName);
-    calibDialog.exec();
-
-    QRect area = calibDialog.calibratedArea();
-    setSelection(area);
-
-    emit changed();
+    emit signalCalibrateClicked();
 }
 
 
 void TabletAreaSelectionView::onForceProportionsClicked()
 {
-    Q_D(TabletAreaSelectionView);
-
-    QRect tabletArea          = d->ui->areaWidget->getVirtualArea();
-    QRect screenAreaSelection = d->ui->screenArea->getSelection();
-
-    if (screenAreaSelection.isEmpty()) {
-        return;
-    }
-
-    qreal screenAreaSelectionRatio = (float)screenAreaSelection.width() / screenAreaSelection.height();
-    qreal newWidth, newHeight;
-
-    if (screenAreaSelection.width() > screenAreaSelection.height()) {
-
-        newWidth  = tabletArea.width();
-        newHeight = newWidth / screenAreaSelectionRatio;
-
-        if (newHeight > tabletArea.height()) {
-            newHeight = tabletArea.height();
-            newWidth  = newHeight * screenAreaSelectionRatio;
-        }
-
-    } else {
-
-        newHeight = tabletArea.height();
-        newWidth  = newHeight * screenAreaSelectionRatio;
-
-        if (newWidth > tabletArea.width()) {
-            newWidth  = tabletArea.width();
-            newHeight = newWidth / screenAreaSelectionRatio;
-        }
-    }
-
-    setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
-    setSelection(QRect(0, 0, qRound(newWidth), qRound(newHeight)));
-
-    emit changed();
+    emit signalSetScreenProportions();
 }
 
 
@@ -176,13 +159,6 @@ void TabletAreaSelectionView::onFullTabletSelected(bool checked)
         return;
     }
     setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
-    emit changed();
-}
-
-
-void TabletAreaSelectionView::onTabletAreaChanged()
-{
-    emit changed();
 }
 
 
@@ -192,20 +168,19 @@ void TabletAreaSelectionView::onTabletAreaSelected(bool checked)
         return;
     }
     setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
-    emit changed();
 }
 
 
 void TabletAreaSelectionView::setSelection(const QRect& selection)
 {
-    Q_D(TabletAreaSelectionView);
-
-    d->ui->areaWidget->setSelection(selection);
-
-    if (isFullAreaSelection(selection)) {
-        setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
+    if (selection.isValid()) {
+        if (isFullAreaSelection(selection)) {
+            selectAll();
+        } else {
+            selectPart(selection);
+        }
     } else {
-        setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
+        selectAll();
     }
 }
 
@@ -254,70 +229,14 @@ bool TabletAreaSelectionView::isFullAreaSelection(const QRect& selection) const
 }
 
 
-void TabletAreaSelectionView::setupScreenArea(const QList< QRect >& screenAreas, const QRect& screenAreaSelection)
-{
-    Q_D(TabletAreaSelectionView);
-
-    d->ui->screenArea->setEnabled(false);
-    d->ui->screenArea->setWidgetTargetSize(QSize(150,150));
-    d->ui->screenArea->setFont(QFont(QLatin1String("sans"), 8));
-
-    if (screenAreas.size() > 0) {
-
-        d->ui->screenArea->setDrawAreaCaptions(true);
-        d->ui->screenArea->setDrawSelectionCaption(true);
-
-        QStringList captions;
-
-        for (int i = 0 ; i < screenAreas.size() ; ++i) {
-            captions.append(QString::number(i+1));
-        }
-
-        d->ui->screenArea->setAreas(screenAreas, captions);
-        d->ui->screenArea->setSelection(screenAreaSelection);
-
-    } else {
-        d->ui->screenArea->setDrawAreaCaptions(true);
-        d->ui->screenArea->setDrawSelectionCaption(false);
-        d->ui->screenArea->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
-    }
-}
-
-
-void TabletAreaSelectionView::setupTabletArea(const QRect& tabletArea)
-{
-    Q_D(TabletAreaSelectionView);
-
-    d->ui->areaWidget->setWidgetTargetSize(QSize(400,400));
-    d->ui->areaWidget->setOutOfBoundsMargin(.1);
-
-    if (tabletArea.isValid()) {
-        QString tabletCaption = QString::fromLatin1("%1x%2").arg(tabletArea.width()).arg(tabletArea.height());
-
-        d->ui->areaWidget->setDrawAreaCaptions(true);
-        d->ui->areaWidget->setDrawSelectionCaption(true);
-        d->ui->areaWidget->setArea(tabletArea, tabletCaption);
-
-    } else {
-        d->ui->areaWidget->setDrawAreaCaptions(true);
-        d->ui->areaWidget->setDrawSelectionCaption(false);
-        d->ui->areaWidget->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
-    }
-}
-
-
 void TabletAreaSelectionView::setupUi()
 {
     Q_D(TabletAreaSelectionView);
 
     d->ui->setupUi(this);
 
-    setupTabletArea();
-    setupScreenArea();
-
-    connect( d->ui->areaWidget, SIGNAL(selectionChanged()), this, SLOT(onTabletAreaChanged()) );
-
-    setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
+    setupScreens(QList<QRect>(), QRect(), QSize(150,150));
+    setupTablet(QRect(), QSize(400,400));
 }
 
 

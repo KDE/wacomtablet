@@ -20,7 +20,7 @@
 #include "debug.h" // always needs to be first include
 
 #include "tabletareaselectiondialog.h"
-#include "tabletareaselectionview.h"
+#include "tabletareaselectionwidget.h"
 
 #include "stringutils.h"
 #include "x11info.h"
@@ -36,7 +36,7 @@ namespace Wacom
     class TabletAreaSelectionDialogPrivate
     {
         public:
-            TabletAreaSelectionView* selectionWidget; // no need to delete this widget as it is properly parented.
+            TabletAreaSelectionWidget* selectionWidget; // no need to delete this widget as it is properly parented.
     }; // PRIVATE CLASS
 } // NAMESPACE
 
@@ -57,65 +57,24 @@ TabletAreaSelectionDialog::~TabletAreaSelectionDialog()
 const QString TabletAreaSelectionDialog::getSelection() const
 {
     Q_D(const TabletAreaSelectionDialog);
+
     return d->selectionWidget->getSelection();
 }
 
 
-void TabletAreaSelectionDialog::setSelection(const QString& selection)
-{
-    Q_D(TabletAreaSelectionDialog);
-    d->selectionWidget->setSelection(selection);
-}
-
-
-void TabletAreaSelectionDialog::setupWidget(const QRect& fullTabletArea, const QString& selectedScreenArea, const QString& deviceName)
+void TabletAreaSelectionDialog::setupWidget(const QString& tabletSelection, const QString& screenSelection, const QString& deviceName)
 {
     Q_D(TabletAreaSelectionDialog);
 
-    QList< QRect > screenAreas  = X11Info::getScreenGeometries();
-    QRect          selectedRect = convertScreenAreaMappingToQRect(screenAreas, selectedScreenArea);
-
-    d->selectionWidget->setupWidget(fullTabletArea, screenAreas, selectedRect, deviceName);
+    d->selectionWidget->setupWidget(tabletSelection, screenSelection, deviceName);
 }
-
-
-const QRect TabletAreaSelectionDialog::convertScreenAreaMappingToQRect(const QList< QRect >& screenAreas, const QString& selectedScreenArea) const
-{
-    QRect result(0, 0, 0, 0);
-
-    QRegExp monitorRegExp(QLatin1String("map(\\d+)"), Qt::CaseInsensitive);
-
-    if (selectedScreenArea.contains(QLatin1String("full"), Qt::CaseInsensitive)) {
-
-        // full screen mapping - unite all X11 screens to one big rectangle
-        foreach (QRect screen, screenAreas) {
-            result = result.united(screen);
-        }
-
-    } else if (monitorRegExp.indexIn(selectedScreenArea, 0) != -1) {
-
-        // monitor mapping
-        int screenNum = monitorRegExp.cap(1).toInt();
-
-        if ( 0 <= screenNum && screenNum < screenAreas.count() ) {
-            result = screenAreas.at(screenNum);
-        }
-
-    } else {
-        // area mapping
-        result = StringUtils::toQRect(selectedScreenArea, true);
-    }
-
-    return result;
-}
-
 
 
 void TabletAreaSelectionDialog::setupUi()
 {
     Q_D(TabletAreaSelectionDialog);
 
-    d->selectionWidget = new TabletAreaSelectionView(this);
+    d->selectionWidget = new TabletAreaSelectionWidget(this);
 
     setMainWidget(d->selectionWidget);
     setButtons( KDialog::Ok | KDialog::Cancel );

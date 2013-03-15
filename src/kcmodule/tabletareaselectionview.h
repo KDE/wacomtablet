@@ -20,6 +20,7 @@
 #ifndef TABLETAREASELECTIONVIEW_H
 #define TABLETAREASELECTIONVIEW_H
 
+#include <QtCore/QObject>
 #include <QtCore/QRect>
 #include <QtCore/QString>
 #include <QtGui/QWidget>
@@ -45,68 +46,61 @@ public:
 
 
     /**
-     * Gets the current tablet area selection in profile format.
-     * Possible return values are:
-     *
-     * - "-1 -1 -1 -1" : The full tablet area was selected.
-     * - "x1 y1 x2 y2" : An area was selected with the top left corner at (x1/y1)
-     *                   and the bottom right corner at (x2/y2).
-     *
-     * @return The current selection in profile format.
+     * @return The current selection as rectangle.
      */
-    const QString getSelection() const;
+    const QRect getSelection() const;
 
 
     /**
-     * Sets the current selection from a profile format string.
-     * Valid values are:
-     *
-     * - "-1 -1 -1 -1" : The full tablet area gets selected.
-     * - "x1 y1 x2 y2" : An area gets selected with the top left corner at (x1/y1)
-     *                   and the bottom right corner at (x2/y2).
-     *
-     * @param selection The new selection.
+     * Selects all of the tablet.
      */
-    void setSelection( const QString& selection );
+    void selectAll();
+
+    /**
+     * Selects part of the tablet.
+     *
+     * @param selection The part to select, may not be empty.
+     */
+    void selectPart(const QRect& selection);
 
 
     /**
-     * Sets up the widget. This method has to be called before a
-     * selection can be set. The method can be called at any time
-     * to reinitilize the widget.
+     * Sets up the screen area widget.
      *
-     * @param tabletArea The geometry of the full tablet area.
-     * @param screenAreas The geometries of all X11 screens currently available.
-     * @param screenAreaSelection The geometry of the current screen area selection.
-     * @param deviceName The Xinput name of the tablet device which is configured.
+     * @param screenGeometries The X11 geometries of the connected screens.
+     * @param widgetTargetSize The target size of the screen area widget.
      */
-    void setupWidget( const QRect& tabletArea, const QList< QRect >& screenAreas, const QRect& screenAreaSelection, const QString& deviceName );
+    void setupScreens( const QList< QRect >& screenGeometries, const QRect& screenSelection, const QSize& widgetTargetSize );
+
+
+    /**
+     * Sets up the tablet area widget.
+     *
+     * @param geometry The geometry of the tablet.
+     * @param widgetTargetSize The target size of the tablet area widget.
+     */
+    void setupTablet( const QRect& geometry, const QSize& widgetTargetSize );
 
 
 public slots:
 
     /**
-     * Called when the user wants to calibrate the current device.
+     * Called by the UI when the user wants to calibrate the current device.
      */
     void onCalibrateClicked();
 
     /**
-     * Called when the user wants to adjust the selection to the screen proportions.
+     * Called by the UI when the user wants to adjust the selection to the screen proportions.
      */
     void onForceProportionsClicked();
 
     /**
-     * Called when the user wants to select the full tablet area.
+     * Called by the UI when the user wants to select the full tablet area.
      */
     void onFullTabletSelected(bool checked);
 
     /**
-     * Called when the user changes the tablet area selection.
-     */
-    void onTabletAreaChanged();
-
-    /**
-     * Called when the user wants to select an area of the tablet.
+     * Called by the UI when the user wants to select an area of the tablet.
      */
     void onTabletAreaSelected(bool checked);
 
@@ -114,9 +108,16 @@ public slots:
 signals:
 
     /**
-     * Emitted when the configuration changes.
+     * Signals the controller that the user wants to calibrate the tablet.
      */
-    void changed();
+    void signalCalibrateClicked();
+
+
+    /**
+     * Signals the controller that the user wants to set screen proportions.
+     */
+    void signalSetScreenProportions();
+
 
 
 protected:
@@ -131,7 +132,11 @@ protected:
 
 
     /**
-     * Sets a selection based on the given geometry.
+     * Sets a selection on the tablet based on the given geometry.
+     * This does not update any other widgets. It only tells the
+     * area widget to select the specified area. However a check
+     * is done if the selection is valid. If it is invalid, the full
+     * area will be selected.
      *
      * @param selection The geometry of the new selection.
      */
@@ -162,21 +167,6 @@ private:
      * Sets up this widget. Must only be called once by the constructor.
      */
     void setupUi();
-
-    /**
-     * Sets up the screen area widget.
-     *
-     * @param screenAreas A list of X11 screen geometries.
-     * @param screenAreaSelection The selection to set.
-     */
-    void setupScreenArea(const QList< QRect >& screenAreas = QList<QRect>(), const QRect& screenAreaSelection = QRect());
-
-    /**
-     * Sets up the tablet area widget.
-     *
-     * @param tabletArea The geometry of the tablet area.
-     */
-    void setupTabletArea(const QRect& tabletArea = QRect());
 
 
     Q_DECLARE_PRIVATE(TabletAreaSelectionView)

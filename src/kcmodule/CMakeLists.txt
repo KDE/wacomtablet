@@ -19,8 +19,10 @@ set( kcm_tablet_SRCS
      screenareaselectionview.cpp
      screenareaselectionwidget.cpp
      styluspagewidget.cpp
+     tabletareaselectioncontroller.cpp
      tabletareaselectiondialog.cpp
      tabletareaselectionview.cpp
+     tabletareaselectionwidget.cpp
      tabletpagewidget.cpp
      touchpagewidget.cpp
 )

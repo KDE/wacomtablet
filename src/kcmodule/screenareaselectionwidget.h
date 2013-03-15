@@ -20,6 +20,7 @@
 #ifndef SCREENAREASELECTIONWIDGET_H
 #define SCREENAREASELECTIONWIDGET_H
 
+#include <QtCore/QObject>
 #include <QtCore/QRect>
 #include <QtCore/QList>
 #include <QtGui/QWidget>
@@ -30,7 +31,7 @@ namespace Wacom
 class ScreenAreaSelectionWidgetPrivate;
 
 /**
- * The presenter widget which intializes the ScreenAreaSelectionViewand
+ * The presenter widget which intializes the ScreenAreaSelectionView and
  * the ScreenAreaSelectionController.
  */
 class ScreenAreaSelectionWidget : public QWidget
