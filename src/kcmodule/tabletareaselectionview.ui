@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TabletAreaSelectionWidget</class>
- <widget class="QWidget" name="TabletAreaSelectionWidget">
+ <class>TabletAreaSelectionView</class>
+ <widget class="QWidget" name="TabletAreaSelectionView">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -120,7 +120,7 @@
   <connection>
    <sender>calibrateButton</sender>
    <signal>clicked()</signal>
-   <receiver>TabletAreaSelectionWidget</receiver>
+   <receiver>TabletAreaSelectionView</receiver>
    <slot>onCalibrateClicked()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -136,7 +136,7 @@
   <connection>
    <sender>forceProportionsButton</sender>
    <signal>clicked()</signal>
-   <receiver>TabletAreaSelectionWidget</receiver>
+   <receiver>TabletAreaSelectionView</receiver>
    <slot>onForceProportionsClicked()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -152,7 +152,7 @@
   <connection>
    <sender>fullTabletRadioButton</sender>
    <signal>toggled(bool)</signal>
-   <receiver>TabletAreaSelectionWidget</receiver>
+   <receiver>TabletAreaSelectionView</receiver>
    <slot>onFullTabletSelected(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -168,7 +168,7 @@
   <connection>
    <sender>tabletAreaRadioButton</sender>
    <signal>toggled(bool)</signal>
-   <receiver>TabletAreaSelectionWidget</receiver>
+   <receiver>TabletAreaSelectionView</receiver>
    <slot>onTabletAreaSelected(bool)</slot>
    <hints>
     <hint type="sourcelabel">

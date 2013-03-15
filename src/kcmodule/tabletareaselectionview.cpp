@@ -19,8 +19,8 @@
 
 #include "debug.h" // always needs to be first include
 
-#include "tabletareaselectionwidget.h"
-#include "ui_tabletareaselectionwidget.h"
+#include "tabletareaselectionview.h"
+#include "ui_tabletareaselectionview.h"
 
 #include "calibrationdialog.h"
 #include "stringutils.h"
@@ -31,36 +31,36 @@ using namespace Wacom;
 
 namespace Wacom
 {
-    class TabletAreaSelectionWidgetPrivate
+    class TabletAreaSelectionViewPrivate
     {
         public:
-            TabletAreaSelectionWidgetPrivate() : ui(new Ui::TabletAreaSelectionWidget) {}
-            ~TabletAreaSelectionWidgetPrivate() {
+            TabletAreaSelectionViewPrivate() : ui(new Ui::TabletAreaSelectionView) {}
+            ~TabletAreaSelectionViewPrivate() {
                 delete ui;
             }
 
-            Ui::TabletAreaSelectionWidget* ui;
+            Ui::TabletAreaSelectionView* ui;
             QString                        deviceName;
     }; // PRIVATE CLASS
 } // NAMESPACE
 
 
-TabletAreaSelectionWidget::TabletAreaSelectionWidget(QWidget* parent)
-        : QWidget(parent), d_ptr(new TabletAreaSelectionWidgetPrivate)
+TabletAreaSelectionView::TabletAreaSelectionView(QWidget* parent)
+        : QWidget(parent), d_ptr(new TabletAreaSelectionViewPrivate)
 {
     setupUi();
 }
 
 
-TabletAreaSelectionWidget::~TabletAreaSelectionWidget()
+TabletAreaSelectionView::~TabletAreaSelectionView()
 {
     delete this->d_ptr;
 }
 
 
-const QString TabletAreaSelectionWidget::getSelection() const
+const QString TabletAreaSelectionView::getSelection() const
 {
-    Q_D(const TabletAreaSelectionWidget);
+    Q_D(const TabletAreaSelectionView);
 
     if (d->ui->fullTabletRadioButton->isChecked()) {
         return QLatin1String("-1 -1 -1 -1");
@@ -76,14 +76,14 @@ const QString TabletAreaSelectionWidget::getSelection() const
 }
 
 
-void TabletAreaSelectionWidget::setSelection(const QString& selection)
+void TabletAreaSelectionView::setSelection(const QString& selection)
 {
-    Q_D(const TabletAreaSelectionWidget);
+    Q_D(const TabletAreaSelectionView);
 
     if (selection.compare(QLatin1String("-1 -1 -1 -1"), Qt::CaseInsensitive) == 0) {
 
         // full screen selection
-        setTabletAreaType(TabletAreaSelectionWidget::FullTabletArea);
+        setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
 
     } else {
         // area or invalid selection
@@ -91,32 +91,32 @@ void TabletAreaSelectionWidget::setSelection(const QString& selection)
 
         if (selectionRect.isEmpty()) {
             // invalid selection => full screen
-            setTabletAreaType(TabletAreaSelectionWidget::FullTabletArea);
+            setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
 
         } else {
             // area selection
-            setTabletAreaType(TabletAreaSelectionWidget::PartialTabletArea);
+            setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
             d->ui->areaWidget->setSelection(selectionRect);
         }
     }
 }
 
 
-void TabletAreaSelectionWidget::setupWidget(const QRect& tabletArea, const QList< QRect >& screenAreas, const QRect& screenAreaSelection, const QString& deviceName)
+void TabletAreaSelectionView::setupWidget(const QRect& tabletArea, const QList< QRect >& screenAreas, const QRect& screenAreaSelection, const QString& deviceName)
 {
-    Q_D(TabletAreaSelectionWidget);
+    Q_D(TabletAreaSelectionView);
 
     d->deviceName = deviceName;
 
     setupScreenArea(screenAreas, screenAreaSelection);
     setupTabletArea(tabletArea);
-    setTabletAreaType(TabletAreaSelectionWidget::FullTabletArea);
+    setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
 }
 
 
-void TabletAreaSelectionWidget::onCalibrateClicked()
+void TabletAreaSelectionView::onCalibrateClicked()
 {
-    Q_D(TabletAreaSelectionWidget);
+    Q_D(TabletAreaSelectionView);
 
     CalibrationDialog calibDialog(d->deviceName);
     calibDialog.exec();
@@ -128,9 +128,9 @@ void TabletAreaSelectionWidget::onCalibrateClicked()
 }
 
 
-void TabletAreaSelectionWidget::onForceProportionsClicked()
+void TabletAreaSelectionView::onForceProportionsClicked()
 {
-    Q_D(TabletAreaSelectionWidget);
+    Q_D(TabletAreaSelectionView);
 
     QRect tabletArea          = d->ui->areaWidget->getVirtualArea();
     QRect screenAreaSelection = d->ui->screenArea->getSelection();
@@ -163,61 +163,61 @@ void TabletAreaSelectionWidget::onForceProportionsClicked()
         }
     }
 
-    setTabletAreaType(TabletAreaSelectionWidget::PartialTabletArea);
+    setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
     setSelection(QRect(0, 0, qRound(newWidth), qRound(newHeight)));
 
     emit changed();
 }
 
 
-void TabletAreaSelectionWidget::onFullTabletSelected(bool checked)
+void TabletAreaSelectionView::onFullTabletSelected(bool checked)
 {
     if (!checked) {
         return;
     }
-    setTabletAreaType(TabletAreaSelectionWidget::FullTabletArea);
+    setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
     emit changed();
 }
 
 
-void TabletAreaSelectionWidget::onTabletAreaChanged()
+void TabletAreaSelectionView::onTabletAreaChanged()
 {
     emit changed();
 }
 
 
-void TabletAreaSelectionWidget::onTabletAreaSelected(bool checked)
+void TabletAreaSelectionView::onTabletAreaSelected(bool checked)
 {
     if (!checked) {
         return;
     }
-    setTabletAreaType(TabletAreaSelectionWidget::PartialTabletArea);
+    setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
     emit changed();
 }
 
 
-void TabletAreaSelectionWidget::setSelection(const QRect& selection)
+void TabletAreaSelectionView::setSelection(const QRect& selection)
 {
-    Q_D(TabletAreaSelectionWidget);
+    Q_D(TabletAreaSelectionView);
 
     d->ui->areaWidget->setSelection(selection);
 
     if (isFullAreaSelection(selection)) {
-        setTabletAreaType(TabletAreaSelectionWidget::FullTabletArea);
+        setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
     } else {
-        setTabletAreaType(TabletAreaSelectionWidget::PartialTabletArea);
+        setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
     }
 }
 
 
-void TabletAreaSelectionWidget::setTabletAreaType(TabletAreaSelectionWidget::TabletAreaType type)
+void TabletAreaSelectionView::setTabletAreaType(TabletAreaSelectionView::TabletAreaType type)
 {
-    Q_D(TabletAreaSelectionWidget);
+    Q_D(TabletAreaSelectionView);
 
     d->ui->fullTabletRadioButton->blockSignals(true);
     d->ui->tabletAreaRadioButton->blockSignals(true);
 
-    if (type == TabletAreaSelectionWidget::FullTabletArea) {
+    if (type == TabletAreaSelectionView::FullTabletArea) {
         d->ui->fullTabletRadioButton->setChecked(true);
         d->ui->tabletAreaRadioButton->setChecked(false);
 
@@ -237,9 +237,9 @@ void TabletAreaSelectionWidget::setTabletAreaType(TabletAreaSelectionWidget::Tab
 
 
 
-bool TabletAreaSelectionWidget::isFullAreaSelection(const QRect& selection) const
+bool TabletAreaSelectionView::isFullAreaSelection(const QRect& selection) const
 {
-    Q_D (const TabletAreaSelectionWidget);
+    Q_D (const TabletAreaSelectionView);
 
     return (
         !selection.isValid() ||
@@ -254,9 +254,9 @@ bool TabletAreaSelectionWidget::isFullAreaSelection(const QRect& selection) cons
 }
 
 
-void TabletAreaSelectionWidget::setupScreenArea(const QList< QRect >& screenAreas, const QRect& screenAreaSelection)
+void TabletAreaSelectionView::setupScreenArea(const QList< QRect >& screenAreas, const QRect& screenAreaSelection)
 {
-    Q_D(TabletAreaSelectionWidget);
+    Q_D(TabletAreaSelectionView);
 
     d->ui->screenArea->setEnabled(false);
     d->ui->screenArea->setWidgetTargetSize(QSize(150,150));
@@ -284,9 +284,9 @@ void TabletAreaSelectionWidget::setupScreenArea(const QList< QRect >& screenArea
 }
 
 
-void TabletAreaSelectionWidget::setupTabletArea(const QRect& tabletArea)
+void TabletAreaSelectionView::setupTabletArea(const QRect& tabletArea)
 {
-    Q_D(TabletAreaSelectionWidget);
+    Q_D(TabletAreaSelectionView);
 
     d->ui->areaWidget->setWidgetTargetSize(QSize(400,400));
     d->ui->areaWidget->setOutOfBoundsMargin(.1);
@@ -306,9 +306,9 @@ void TabletAreaSelectionWidget::setupTabletArea(const QRect& tabletArea)
 }
 
 
-void TabletAreaSelectionWidget::setupUi()
+void TabletAreaSelectionView::setupUi()
 {
-    Q_D(TabletAreaSelectionWidget);
+    Q_D(TabletAreaSelectionView);
 
     d->ui->setupUi(this);
 
@@ -317,7 +317,7 @@ void TabletAreaSelectionWidget::setupUi()
 
     connect( d->ui->areaWidget, SIGNAL(selectionChanged()), this, SLOT(onTabletAreaChanged()) );
 
-    setTabletAreaType(TabletAreaSelectionWidget::FullTabletArea);
+    setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
 }
 
 

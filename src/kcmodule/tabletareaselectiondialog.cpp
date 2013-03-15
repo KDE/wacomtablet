@@ -20,7 +20,7 @@
 #include "debug.h" // always needs to be first include
 
 #include "tabletareaselectiondialog.h"
-#include "tabletareaselectionwidget.h"
+#include "tabletareaselectionview.h"
 
 #include "stringutils.h"
 #include "x11info.h"
@@ -36,7 +36,7 @@ namespace Wacom
     class TabletAreaSelectionDialogPrivate
     {
         public:
-            TabletAreaSelectionWidget* selectionWidget; // no need to delete this widget as it is properly parented.
+            TabletAreaSelectionView* selectionWidget; // no need to delete this widget as it is properly parented.
     }; // PRIVATE CLASS
 } // NAMESPACE
 
@@ -115,7 +115,7 @@ void TabletAreaSelectionDialog::setupUi()
 {
     Q_D(TabletAreaSelectionDialog);
 
-    d->selectionWidget = new TabletAreaSelectionWidget(this);
+    d->selectionWidget = new TabletAreaSelectionView(this);
 
     setMainWidget(d->selectionWidget);
     setButtons( KDialog::Ok | KDialog::Cancel );

@@ -20,7 +20,7 @@ set( kcm_tablet_SRCS
      screenareaselectionwidget.cpp
      styluspagewidget.cpp
      tabletareaselectiondialog.cpp
-     tabletareaselectionwidget.cpp
+     tabletareaselectionview.cpp
      tabletpagewidget.cpp
      touchpagewidget.cpp
 )
@@ -36,7 +36,7 @@ kde4_add_ui_files( kcm_tablet_SRCS
                    saveprofile.ui
                    screenareaselectionview.ui
                    styluspagewidget.ui
-                   tabletareaselectionwidget.ui
+                   tabletareaselectionview.ui
                    tabletpagewidget.ui
                    touchpagewidget.ui
 )

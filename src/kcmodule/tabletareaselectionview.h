@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TABLETAREASELECTIONWIDGET_H
-#define TABLETAREASELECTIONWIDGET_H
+#ifndef TABLETAREASELECTIONVIEW_H
+#define TABLETAREASELECTIONVIEW_H
 
 #include <QtCore/QRect>
 #include <QtCore/QString>
@@ -27,21 +27,21 @@
 namespace Wacom
 {
 
-class TabletAreaSelectionWidgetPrivate;
+class TabletAreaSelectionViewPrivate;
 
 /**
  * A widget which displays the current screen area selection and lets
  * the user map this selection to a tablet area.
  */
-class TabletAreaSelectionWidget : public QWidget
+class TabletAreaSelectionView : public QWidget
 {
     Q_OBJECT
 
 public:
 
-    explicit TabletAreaSelectionWidget( QWidget* parent = 0 );
+    explicit TabletAreaSelectionView( QWidget* parent = 0 );
 
-    virtual ~TabletAreaSelectionWidget();
+    virtual ~TabletAreaSelectionView();
 
 
     /**
@@ -179,8 +179,8 @@ private:
     void setupTabletArea(const QRect& tabletArea = QRect());
 
 
-    Q_DECLARE_PRIVATE(TabletAreaSelectionWidget)
-    TabletAreaSelectionWidgetPrivate *const d_ptr; //!< D-Pointer for this class.
+    Q_DECLARE_PRIVATE(TabletAreaSelectionView)
+    TabletAreaSelectionViewPrivate *const d_ptr; //!< D-Pointer for this class.
 
 }; // CLASS
 }  // NAMESPACE
