@@ -20,8 +20,9 @@
 #ifndef SCREENAREASELECTIONWIDGET_H
 #define SCREENAREASELECTIONWIDGET_H
 
-#include <QtCore/QRect>
 #include <QtCore/QList>
+#include <QtCore/QRect>
+#include <QtCore/QSize>
 #include <QtGui/QWidget>
 
 namespace Wacom
@@ -43,85 +44,17 @@ public:
 
     virtual ~ScreenAreaSelectionWidget();
 
-    /**
-     * Returns the current selection in profile format.
-     * Possible return values are:
-     *
-     * "full"             : Fullscreen selection.
-     * "mapX"             : Monitor X was selected ( 0 <= X < number of Screens)
-     * "x y width height" : An area was selected.
-     *
-     * @return The current selection as string in storage format.
-     */
-    QString getSelection() const;
 
     /**
-     * Sets the current selection according to a string in storage format.
-     * Before this method can be called, the widget has to be setup.
-     * Valid values are:
-     *
-     * empty string       : Selects the whole screen.
-     * "full"             : Selects the whole desktop.
-     * "mapX"             : Selects monitor X (0 <= X < number of Screens).
-     * "x y width height" : Selects an area.
-     *
-     * @param selection The new selection as string.
+     * @return The currently selected monitor or -1 if the whole desktop is selected.
      */
-    void setSelection( const QString& selection);
+    int getSelectedMonitor() const;
 
     /**
-     * Sets up this widget. This is required before it can be used.
-     * This method can be called at any time.
-     *
-     * @param screenAreas        The geometries of all X11 screens.
-     * @param tabletArea         The geometry of the full tablet area.
-     * @param selectedTabletArea The geometry of the selected tablet area.
-     * @param tabletAreaCaption  The caption for the tablet area.
+     * Selects the whole desktop.
      */
-    void setupWidget( const QList<QRect>& screenAreas, const QRect& tabletArea, const QRect& selectedTabletArea, const QString& tabletAreaCaption = QString());
+    void setFullScreenSelection();
 
-
-public slots:
-
-    /**
-     * Called when the user selects full screen mapping
-     */
-    void onFullScreenSelected(bool checked);
-
-    /**
-     * Called when the user selects a monitor screen.
-     */
-    void onMonitorScreenSelected();
-
-    /**
-     * Called when the user selects monitor mapping.
-     */
-    void onMonitorSelected(bool checked);
-
-    /**
-     * Called when the user wants to select a screen area.
-     */
-    void onPartialScreenSelected(bool checked);
-
-
-signals:
-
-    /**
-     * Emitted when any value changes.
-     */
-    void changed();
-
-
-protected:
-
-    /**
-     * The different mapping types which can be selected.
-     */
-    enum ScreenAreaType {
-        FullScreenArea,    //!< Selects the whole desktop.
-        MonitorArea,       //!< Selects monitor mapping.
-        PartialScreenArea  //!< Selects area mapping.
-    };
 
     /**
      * Updates the selected area based on a selected monitor screen.
@@ -132,20 +65,73 @@ protected:
 
 
     /**
+     * Sets up the screen area widget with the given screen areas.
+     *
+     * @param screenAreas The screen areas to display.
+     */
+    void setupScreens( const QList< QRect >& screenGeometries, const QSize& widgetTargetSize );
+
+
+    /**
+     * Sets up the tablet area widget with the given area and selection.
+     *
+     * @param tabletArea The maximum area of the tablet.
+     * @param selectedTabletArea The selected tablet area.
+     */
+    void setupTablet(const QRect& geometry, const QRect& selection, const QString& caption, const QSize& widgetTargetSize);
+
+
+
+public slots:
+
+    /**
+     * Called by the UI when the user selects full screen mapping.
+     */
+    void onFullScreenSelected(bool checked);
+
+    /**
+     * Called by the UI when the user selects a monitor screen.
+     */
+    void onMonitorScreenSelected();
+
+    /**
+     * Called by the UI when the user selects monitor mapping.
+     */
+    void onMonitorSelected(bool checked);
+
+
+signals:
+
+    /**
+     * Signals the controller that the user selected the full screen area.
+     * Should only be used by the controller.
+     */
+    void signalFullScreenSelected();
+
+    /**
+     * Signals the controller that the user selected a monitor.
+     * Should only be used by the controller.
+     */
+    void signalMonitorSelected(int screenNum);
+
+
+protected:
+
+    /**
+     * The different mapping types which can be selected.
+     */
+    enum ScreenAreaType {
+        FullScreenArea,    //!< Selects the whole desktop.
+        MonitorArea,       //!< Selects monitor mapping.
+    };
+
+    /**
      * Updates the widgets and the selection according to the given area mapping.
      *
      * @param areaType The new area mapping.
      */
     void setScreenAreaType( ScreenAreaType areaType );
 
-
-private slots:
-
-    /**
-     * Called when the selection of the area widget is changed using
-     * the drag handles.
-     */
-    void onScreenAreaChanged();
 
 private:
 
@@ -156,21 +142,6 @@ private:
      * @param screenAreas The currently available screens.
      */
     void setupMonitorComboBox ( const QList<QRect>& screenAreas );
-
-    /**
-     * Sets up the screen area widget with the given screen areas.
-     *
-     * @param screenAreas The screen areas to display.
-     */
-    void setupScreenArea( const QList<QRect>& screenAreas = QList<QRect>() );
-
-    /**
-     * Sets up the tablet area widget with the given area and selection.
-     *
-     * @param tabletArea The maximum area of the tablet.
-     * @param selectedTabletArea The selected tablet area.
-     */
-    void setupTabletArea (const QRect& tabletArea = QRect(), const QRect& selectedTabletArea = QRect(), const QString& tabletAreaCaption = QString());
 
     /**
      * Sets up the user interface. Must only be called once by a constructor!

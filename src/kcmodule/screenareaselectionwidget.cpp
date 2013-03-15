@@ -22,8 +22,6 @@
 #include "screenareaselectionwidget.h"
 #include "ui_screenareaselectionwidget.h"
 
-#include "stringutils.h"
-
 #include <KDE/KLocalizedString>
 
 #include <QtCore/QRegExp>
@@ -62,102 +60,22 @@ ScreenAreaSelectionWidget::~ScreenAreaSelectionWidget()
 }
 
 
-QString ScreenAreaSelectionWidget::getSelection() const
+int ScreenAreaSelectionWidget::getSelectedMonitor() const
 {
     Q_D(const ScreenAreaSelectionWidget);
 
-    QString selection;
-
-    if (d->ui->selectFullScreenRadio->isChecked()) {
-        selection = QLatin1String("full");
-
-    } else if (d->ui->selectMonitorRadio->isChecked()) {
-
-        if (d->ui->selectMonitorCombo->count() == 0) {
-            // combo box not initialized!
-            selection = QLatin1String("full");
-
-        } else {
-            selection = d->ui->selectMonitorCombo->itemData(d->ui->selectMonitorCombo->currentIndex()).toString();
-        }
-
-    } else {
-        selection = d->ui->screenArea->getSelectionAsString();
+    if (d->ui->selectMonitorRadio->isChecked()) {
+        return d->ui->selectMonitorCombo->currentIndex();
     }
 
-    return selection;
+    // no monitor selected
+    return -1;
 }
 
 
-void ScreenAreaSelectionWidget::setSelection(const QString& selection)
+void ScreenAreaSelectionWidget::setFullScreenSelection()
 {
-    Q_D(ScreenAreaSelectionWidget);
-
-    QRegExp monitorRegExp(QLatin1String("map(\\d+)"), Qt::CaseInsensitive);
-
-    if (selection.contains(QLatin1String("full"), Qt::CaseInsensitive)) {
-        // full screen selection
-        setScreenAreaType(ScreenAreaSelectionWidget::FullScreenArea);
-
-    } else if (monitorRegExp.indexIn(selection, 0) != -1) {
-        // monitor selection
-        setMonitorSelection(monitorRegExp.cap(1).toInt());
-
-    } else {
-        // partial or invalid selection
-        QRect rectSelection = StringUtils::toQRect(selection, true);
-
-        if (!rectSelection.isValid()) {
-            setScreenAreaType(ScreenAreaSelectionWidget::FullScreenArea);
-        } else {
-            setScreenAreaType(ScreenAreaSelectionWidget::PartialScreenArea);
-            d->ui->screenArea->setSelection(rectSelection);
-        }
-    }
-}
-
-
-void ScreenAreaSelectionWidget::setupWidget(const QList< QRect >& screenAreas, const QRect& tabletArea, const QRect& selectedTabletArea, const QString& tabletAreaCaption)
-{
-    setupTabletArea(tabletArea, selectedTabletArea, tabletAreaCaption);
-    setupScreenArea(screenAreas);
-    setupMonitorComboBox(screenAreas);
     setScreenAreaType(ScreenAreaSelectionWidget::FullScreenArea);
-}
-
-
-void ScreenAreaSelectionWidget::onFullScreenSelected(bool checked)
-{
-    if (checked) {
-        setScreenAreaType(ScreenAreaSelectionWidget::FullScreenArea);
-        emit changed();
-    }
-}
-
-
-void ScreenAreaSelectionWidget::onMonitorScreenSelected()
-{
-    Q_D(const ScreenAreaSelectionWidget);
-    setMonitorSelection(d->ui->selectMonitorCombo->currentIndex());
-    emit changed();
-}
-
-
-void ScreenAreaSelectionWidget::onMonitorSelected(bool checked)
-{
-    if (checked) {
-        setScreenAreaType(ScreenAreaSelectionWidget::MonitorArea);
-        emit changed();
-    }
-}
-
-
-void ScreenAreaSelectionWidget::onPartialScreenSelected(bool checked)
-{
-    if (checked) {
-        setScreenAreaType(ScreenAreaSelectionWidget::PartialScreenArea);
-        emit changed();
-    }
 }
 
 
@@ -169,7 +87,7 @@ void ScreenAreaSelectionWidget::setMonitorSelection(const int screenNum)
         return; // no screens available
     }
 
-    // setScreenAreaType() passes -1 to signal that the default/current selection should be set
+    // determine selected screen
     int selectScreen = (screenNum < 0) ? d->ui->selectMonitorCombo->currentIndex() : screenNum;
 
     if ( selectScreen < 0 || selectScreen >= d->ui->selectMonitorCombo->count() || selectScreen >= d->screenAreas.count() ) {
@@ -194,20 +112,97 @@ void ScreenAreaSelectionWidget::setMonitorSelection(const int screenNum)
 
 
 
+void ScreenAreaSelectionWidget::setupScreens(const QList< QRect >& screenGeometries, const QSize& widgetTargetSize)
+{
+    Q_D(ScreenAreaSelectionWidget);
+
+    d->ui->screenArea->setWidgetTargetSize(widgetTargetSize);
+
+    if (screenGeometries.size() > 0) {
+        d->ui->screenArea->setDrawAreaCaptions(true);
+        d->ui->screenArea->setDrawSelectionCaption(true);
+
+        QStringList captions;
+
+        for (int i = 0 ; i < screenGeometries.size() ; ++i) {
+            captions.append(QString::number(i+1));
+        }
+
+        d->ui->screenArea->setAreas(screenGeometries, captions);
+
+    } else {
+        d->ui->screenArea->setDrawAreaCaptions(true);
+        d->ui->screenArea->setDrawSelectionCaption(false);
+
+        d->ui->screenArea->setArea(QRect(0, 0, 1920, 1200), i18n("Internal Error"));
+    }
+
+    setupMonitorComboBox(screenGeometries);
+}
+
+
+
+
+void ScreenAreaSelectionWidget::setupTablet(const QRect& geometry, const QRect& selection, const QString& caption, const QSize& widgetTargetSize)
+{
+    Q_D(ScreenAreaSelectionWidget);
+
+    d->ui->tabletArea->setWidgetTargetSize(widgetTargetSize);
+    d->ui->tabletArea->setFont(QFont(QLatin1String("sans"), 8));
+    d->ui->tabletArea->setOutOfBoundsMargin(.1);
+    d->ui->tabletArea->setEnabled(false);
+
+    if (!geometry.isValid()) {
+        d->ui->tabletArea->setDrawAreaCaptions(true);
+        d->ui->tabletArea->setDrawSelectionCaption(false);
+        d->ui->tabletArea->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
+
+    } else {
+        d->ui->tabletArea->setDrawAreaCaptions(true);
+        d->ui->tabletArea->setDrawSelectionCaption(true);
+        d->ui->tabletArea->setArea(geometry, caption);
+        d->ui->tabletArea->setSelection(selection);
+    }
+}
+
+
+
+void ScreenAreaSelectionWidget::onFullScreenSelected(bool checked)
+{
+    if (checked) {
+        emit signalFullScreenSelected();
+    }
+}
+
+
+void ScreenAreaSelectionWidget::onMonitorScreenSelected()
+{
+    Q_D(const ScreenAreaSelectionWidget);
+
+    emit signalMonitorSelected(d->ui->selectMonitorCombo->currentIndex());
+}
+
+
+void ScreenAreaSelectionWidget::onMonitorSelected(bool checked)
+{
+    if (checked) {
+        emit signalMonitorSelected(0);
+    }
+}
+
+
 void ScreenAreaSelectionWidget::setScreenAreaType(ScreenAreaSelectionWidget::ScreenAreaType areaType)
 {
     Q_D (ScreenAreaSelectionWidget);
 
     d->ui->selectFullScreenRadio->blockSignals(true);
     d->ui->selectMonitorRadio->blockSignals(true);
-    d->ui->selectAreaRadio->blockSignals(true);
 
     switch (areaType) {
 
         case ScreenAreaSelectionWidget::FullScreenArea:
             d->ui->selectMonitorCombo->setEnabled(false);
             d->ui->selectMonitorRadio->setChecked(false);
-            d->ui->selectAreaRadio->setChecked(false);
             d->ui->selectFullScreenRadio->setChecked(true);
 
             d->ui->screenArea->setEnabled(false);
@@ -216,31 +211,14 @@ void ScreenAreaSelectionWidget::setScreenAreaType(ScreenAreaSelectionWidget::Scr
 
         case ScreenAreaSelectionWidget::MonitorArea:
             d->ui->selectFullScreenRadio->setChecked(false);
-            d->ui->selectAreaRadio->setChecked(false);
             d->ui->selectMonitorRadio->setChecked(true);
             d->ui->selectMonitorCombo->setEnabled(true);
             setMonitorSelection(-1);
-            break;
-
-        case ScreenAreaSelectionWidget::PartialScreenArea:
-            d->ui->selectFullScreenRadio->setChecked(false);
-            d->ui->selectMonitorCombo->setEnabled(false);
-            d->ui->selectMonitorRadio->setChecked(false);
-            d->ui->selectAreaRadio->setChecked(true);
-
-            d->ui->screenArea->setEnabled(true);
             break;
     }
 
     d->ui->selectFullScreenRadio->blockSignals(false);
     d->ui->selectMonitorRadio->blockSignals(false);
-    d->ui->selectAreaRadio->blockSignals(false);
-}
-
-
-void ScreenAreaSelectionWidget::onScreenAreaChanged()
-{
-    emit changed();
 }
 
 
@@ -265,66 +243,14 @@ void ScreenAreaSelectionWidget::setupMonitorComboBox(const QList< QRect >& scree
 
 
 
-void ScreenAreaSelectionWidget::setupScreenArea(const QList< QRect >& screenAreas)
-{
-    Q_D(ScreenAreaSelectionWidget);
-
-    d->ui->screenArea->setWidgetTargetSize(QSize(400,400));
-
-    if (screenAreas.size() > 0) {
-        d->ui->screenArea->setDrawAreaCaptions(true);
-        d->ui->screenArea->setDrawSelectionCaption(true);
-
-        QStringList captions;
-
-        for (int i = 0 ; i < screenAreas.size() ; ++i) {
-            captions.append(QString::number(i+1));
-        }
-
-        d->ui->screenArea->setAreas(screenAreas, captions);
-
-    } else {
-        d->ui->screenArea->setDrawAreaCaptions(true);
-        d->ui->screenArea->setDrawSelectionCaption(false);
-
-        d->ui->screenArea->setArea(QRect(0, 0, 1920, 1200), i18n("Internal Error"));
-    }
-}
-
-
-void ScreenAreaSelectionWidget::setupTabletArea(const QRect& tabletArea, const QRect& selectedTabletArea, const QString& tabletAreaCaption)
-{
-    Q_D(ScreenAreaSelectionWidget);
-
-    d->ui->tabletArea->setWidgetTargetSize(QSize(150,150));
-    d->ui->tabletArea->setFont(QFont(QLatin1String("sans"), 8));
-    d->ui->tabletArea->setOutOfBoundsMargin(.1);
-    d->ui->tabletArea->setEnabled(false);
-
-    if (!tabletArea.isValid()) {
-        d->ui->tabletArea->setDrawAreaCaptions(true);
-        d->ui->tabletArea->setDrawSelectionCaption(false);
-        d->ui->tabletArea->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
-
-    } else {
-        d->ui->tabletArea->setDrawAreaCaptions(true);
-        d->ui->tabletArea->setDrawSelectionCaption(true);
-        d->ui->tabletArea->setArea(tabletArea, tabletAreaCaption);
-        d->ui->tabletArea->setSelection(selectedTabletArea);
-    }
-}
-
-
 void ScreenAreaSelectionWidget::setupUi()
 {
     Q_D(ScreenAreaSelectionWidget);
 
     d->ui->setupUi(this);
 
-    setupTabletArea();
-    setupScreenArea();
-
-    connect( d->ui->screenArea, SIGNAL(selectionChanged()), this, SLOT(onScreenAreaChanged()) );
+    setupTablet(QRect(), QRect(), QString(), QSize(150, 150));
+    setupScreens(QList<QRect>(), QSize(400,400));
 
     setScreenAreaType(ScreenAreaSelectionWidget::FullScreenArea);
 }

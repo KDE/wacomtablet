@@ -80,20 +80,10 @@ public:
      * @param tabletAreaCaption  An optional tablet area caption.
      *
      */
-    void setupWidget( const QRect& fullTabletArea, const QString& selectedTabletArea, const QString& tabletAreaCaption = QString() );
+    void setupWidget( const QString& screenSelection, const QString& tabletSelection, const QString& tabletCaption, const QString& deviceName );
 
 
 private:
-
-    /**
-     * Converts a tablet area selection from profile format to a QRect.
-     *
-     * @param selectedTabletArea The selected tablet area.
-     * @param fullTabletArea     The full tablet area.
-     *
-     * @return The selection as rectangle.
-     */
-    const QRect convertSelectedTabletAreaToQRect(const QString& selectedTabletArea, const QRect& fullTabletArea) const;
 
     /**
      * Sets up the UI, must only be called once by the constructor.

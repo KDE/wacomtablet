@@ -153,9 +153,7 @@ void TouchPageWidget::onScreenMappingClicked()
     QString tabletAreaCaption = i18n("Touch Area");
 
     ScreenAreaSelectionDialog selectionDialog;
-
-    selectionDialog.setupWidget( d->tabletAreaFull, getTabletAreaMapping(), tabletAreaCaption );
-    selectionDialog.setSelection( getScreenAreaMapping() );
+    selectionDialog.setupWidget( d->screenAreaMapping, d->tabletAreaMapping, tabletAreaCaption, d->touchDeviceName );
 
     if (selectionDialog.exec() == KDialog::Accepted) {
         d->screenAreaMapping = selectionDialog.getSelection();

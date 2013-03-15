@@ -58,13 +58,6 @@
           </item>
          </layout>
         </item>
-        <item>
-         <widget class="QRadioButton" name="selectAreaRadio">
-          <property name="text">
-           <string>Screen Area</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </item>
@@ -140,22 +133,6 @@
     <hint type="sourcelabel">
      <x>73</x>
      <y>106</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>269</x>
-     <y>195</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>selectAreaRadio</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>ScreenAreaSelectionWidget</receiver>
-   <slot>onPartialScreenSelected(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>135</x>
-     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>269</x>

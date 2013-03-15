@@ -14,7 +14,9 @@ set( kcm_tablet_SRCS
      pressurecurvewidget.cpp
      pressurecurvedialog.cpp
      profilemanagement.cpp
+     screenareaselectioncontroller.cpp
      screenareaselectiondialog.cpp
+     screenareaselectionpresenterwidget.cpp
      screenareaselectionwidget.cpp
      styluspagewidget.cpp
      tabletareaselectiondialog.cpp

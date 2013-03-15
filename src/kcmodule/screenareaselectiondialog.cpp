@@ -20,8 +20,8 @@
 #include "debug.h" // always needs to be first include
 
 #include "screenareaselectiondialog.h"
+#include "screenareaselectionpresenterwidget.h"
 
-#include "screenareaselectionwidget.h"
 #include "stringutils.h"
 #include "x11info.h"
 
@@ -34,7 +34,7 @@ namespace Wacom
     class ScreenAreaSelectionDialogPrivate
     {
         public:
-            ScreenAreaSelectionWidget* selectionWidget; // no need to delete this widget as it is properly parented.
+            ScreenAreaSelectionPresenterWidget* selectionPresenter; // no need to delete this widget as it is properly parented.
     }; // CLASS
 } // NAMESPACE
 
@@ -56,7 +56,7 @@ QString ScreenAreaSelectionDialog::getSelection() const
 {
     Q_D(const ScreenAreaSelectionDialog);
 
-    return d->selectionWidget->getSelection();
+    return d->selectionPresenter->getSelection();
 }
 
 
@@ -64,43 +64,25 @@ void ScreenAreaSelectionDialog::setSelection(const QString& selection)
 {
     Q_D(ScreenAreaSelectionDialog);
 
-    d->selectionWidget->setSelection(selection);
+    d->selectionPresenter->setSelection(selection);
 }
 
 
-void ScreenAreaSelectionDialog::setupWidget(const QRect& fullTabletArea, const QString& selectedTabletArea, const QString& tabletAreaCaption)
+void ScreenAreaSelectionDialog::setupWidget(const QString& screenSelection, const QString& tabletSelection, const QString& tabletCaption, const QString& deviceName)
 {
     Q_D(ScreenAreaSelectionDialog);
 
-    QList< QRect > screenAreas  = X11Info::getScreenGeometries();
-    QRect          selectedRect = convertSelectedTabletAreaToQRect(selectedTabletArea, fullTabletArea);
-
-    d->selectionWidget->setupWidget(screenAreas, fullTabletArea, selectedRect, tabletAreaCaption);
+    d->selectionPresenter->setupWidget(screenSelection, tabletSelection, tabletCaption, deviceName);
 }
-
-
-const QRect ScreenAreaSelectionDialog::convertSelectedTabletAreaToQRect(const QString& selectedTabletArea, const QRect& fullTabletArea) const
-{
-    QRect result = StringUtils::toQRectByCoordinates(selectedTabletArea);
-
-    if (!result.isValid() ||
-        selectedTabletArea.contains(QLatin1String("-1 -1 -1 -1")) ||
-        selectedTabletArea.contains(QLatin1String("full"), Qt::CaseInsensitive) ) {
-        result = fullTabletArea;
-    }
-
-    return result;
-}
-
 
 
 void ScreenAreaSelectionDialog::setupUi()
 {
     Q_D(ScreenAreaSelectionDialog);
 
-    d->selectionWidget = new ScreenAreaSelectionWidget(this);
+    d->selectionPresenter = new ScreenAreaSelectionPresenterWidget(this);
 
-    setMainWidget(d->selectionWidget);
+    setMainWidget(d->selectionPresenter);
     setButtons( KDialog::Ok | KDialog::Cancel );
     setCaption( i18nc( "Dialog title from a dialog which lets the user select an area of the screen where the tablet space will be mapped to.", "Select a Screen Area" ) );
 
