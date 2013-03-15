@@ -20,7 +20,7 @@
 #include "debug.h" // always needs to be first include
 
 #include "screenareaselectiondialog.h"
-#include "screenareaselectionpresenterwidget.h"
+#include "screenareaselectionwidget.h"
 
 #include "stringutils.h"
 #include "x11info.h"
@@ -34,7 +34,7 @@ namespace Wacom
     class ScreenAreaSelectionDialogPrivate
     {
         public:
-            ScreenAreaSelectionPresenterWidget* selectionPresenter; // no need to delete this widget as it is properly parented.
+            ScreenAreaSelectionWidget* selectionPresenter; // no need to delete this widget as it is properly parented.
     }; // CLASS
 } // NAMESPACE
 
@@ -80,7 +80,7 @@ void ScreenAreaSelectionDialog::setupUi()
 {
     Q_D(ScreenAreaSelectionDialog);
 
-    d->selectionPresenter = new ScreenAreaSelectionPresenterWidget(this);
+    d->selectionPresenter = new ScreenAreaSelectionWidget(this);
 
     setMainWidget(d->selectionPresenter);
     setButtons( KDialog::Ok | KDialog::Cancel );

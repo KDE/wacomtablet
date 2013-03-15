@@ -20,7 +20,7 @@
 #include "debug.h" // always needs to be first include
 
 #include "screenareaselectioncontroller.h"
-#include "screenareaselectionwidget.h"
+#include "screenareaselectionview.h"
 
 #include "stringutils.h"
 #include "x11info.h"
@@ -36,7 +36,7 @@ namespace Wacom
             ScreenAreaSelectionControllerPrivate() {
                 widget = NULL;
             }
-            ScreenAreaSelectionWidget* widget;           // passed by the presenter
+            ScreenAreaSelectionView*   widget;           // passed by the presenter
             QString                    deviceName;       // The Xinput device name we are handling
             QList< QRect >             screenGeometries; // The X11 screen geometries.
             QRect                      tabletGeometry;   // The tablet geometry.
@@ -114,7 +114,7 @@ void ScreenAreaSelectionController::setupController(const QString& screenSelecti
 }
 
 
-void ScreenAreaSelectionController::setWidget(ScreenAreaSelectionWidget* widget)
+void ScreenAreaSelectionController::setView(ScreenAreaSelectionView* widget)
 {
     Q_D(ScreenAreaSelectionController);
 

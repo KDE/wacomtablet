@@ -26,11 +26,11 @@ namespace Wacom
 {
 
 class ScreenAreaSelectionControllerPrivate;
-class ScreenAreaSelectionWidget;
+class ScreenAreaSelectionView;
 
 
 /**
- * The controller class which controls the ScreenAreaSelectionWidget.
+ * The controller class which controls the ScreenAreaSelectionView.
  */
 class ScreenAreaSelectionController : public QObject
 {
@@ -84,7 +84,7 @@ public:
      *
      * @param widget The widget to control
      */
-    void setWidget(ScreenAreaSelectionWidget* widget);
+    void setView(ScreenAreaSelectionView* widget);
 
 
 public slots:
