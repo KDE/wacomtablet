@@ -68,6 +68,7 @@ public:
     static const DeviceProperty RelWheelDown;
     static const DeviceProperty RelWheelUp;
     static const DeviceProperty Rotate;
+    static const DeviceProperty ScreenMap;
     static const DeviceProperty ScreenSpace;
     static const DeviceProperty ScrollDistance;
     static const DeviceProperty StripLeftDown;

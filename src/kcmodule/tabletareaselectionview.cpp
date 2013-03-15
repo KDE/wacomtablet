@@ -61,7 +61,7 @@ const QRect TabletAreaSelectionView::getSelection() const
 }
 
 
-void TabletAreaSelectionView::selectAll()
+void TabletAreaSelectionView::selectFullTablet()
 {
     Q_D(TabletAreaSelectionView);
 
@@ -70,7 +70,7 @@ void TabletAreaSelectionView::selectAll()
 }
 
 
-void TabletAreaSelectionView::selectPart(const QRect& selection)
+void TabletAreaSelectionView::selectPartOfTablet(const QRect& selection)
 {
     Q_D(TabletAreaSelectionView);
 
@@ -79,10 +79,38 @@ void TabletAreaSelectionView::selectPart(const QRect& selection)
 }
 
 
-void TabletAreaSelectionView::setupScreens(const QList< QRect >& screenGeometries, const QRect& screenSelection, const QSize& widgetTargetSize)
+void TabletAreaSelectionView::select(int screenNumber, const QRect& tabletSelection)
 {
     Q_D(TabletAreaSelectionView);
 
+    if (screenNumber < 0) {
+        // select full desktop
+        d->ui->screenArea->clearSelection();
+        d->ui->warningLabel->setText(QString());
+    } else {
+        // select monitor
+        d->ui->screenArea->setSelection(screenNumber);
+        d->ui->warningLabel->setText(i18n("Screen mapping is only available in absolute mode."));
+    }
+
+    if( tabletSelection == d->ui->areaWidget->getVirtualArea() ){
+        // full tablet selection
+        selectFullTablet();
+    } else {
+        // part of tablet selection
+        selectPartOfTablet(tabletSelection);
+    }
+}
+
+
+void TabletAreaSelectionView::setupScreens(const QList< QRect >& screenGeometries, const QSize& widgetTargetSize)
+{
+    Q_D(TabletAreaSelectionView);
+
+    // disable screen toggling by default
+    d->ui->screenToggleButton->setEnabled(false);
+
+    // setup screen area
     d->ui->screenArea->setEnabled(false);
     d->ui->screenArea->setWidgetTargetSize(widgetTargetSize);
     d->ui->screenArea->setFont(QFont(QLatin1String("sans"), 8));
@@ -100,6 +128,11 @@ void TabletAreaSelectionView::setupScreens(const QList< QRect >& screenGeometrie
 
         d->ui->screenArea->setAreas(screenGeometries, captions);
 
+        // allow screen toggling if we have more than one screen
+        if (screenGeometries.count() > 1) {
+            d->ui->screenToggleButton->setEnabled(true);
+        }
+
     } else {
         // no valid parameters passed, draw error box
         d->ui->screenArea->setDrawAreaCaptions(true);
@@ -108,7 +141,7 @@ void TabletAreaSelectionView::setupScreens(const QList< QRect >& screenGeometrie
     }
 
     // defaults to full selection
-    d->ui->screenArea->setSelection(screenSelection);
+    d->ui->screenArea->clearSelection();
 }
 
 
@@ -162,6 +195,12 @@ void TabletAreaSelectionView::onFullTabletSelected(bool checked)
 }
 
 
+void TabletAreaSelectionView::onScreenToggle()
+{
+    emit signalScreenToggle();
+}
+
+
 void TabletAreaSelectionView::onTabletAreaSelected(bool checked)
 {
     if (!checked) {
@@ -175,12 +214,12 @@ void TabletAreaSelectionView::setSelection(const QRect& selection)
 {
     if (selection.isValid()) {
         if (isFullAreaSelection(selection)) {
-            selectAll();
+            selectFullTablet();
         } else {
-            selectPart(selection);
+            selectPartOfTablet(selection);
         }
     } else {
-        selectAll();
+        selectFullTablet();
     }
 }
 
@@ -235,7 +274,7 @@ void TabletAreaSelectionView::setupUi()
 
     d->ui->setupUi(this);
 
-    setupScreens(QList<QRect>(), QRect(), QSize(150,150));
+    setupScreens(QList<QRect>(), QSize(150,150));
     setupTablet(QRect(), QSize(400,400));
 }
 

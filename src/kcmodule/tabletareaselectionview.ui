@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
-    <height>262</height>
+    <width>555</width>
+    <height>232</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,9 +21,23 @@
        <property name="title">
         <string>Screen</string>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="Wacom::AreaSelectionWidget" name="screenArea" native="true"/>
+         <layout class="QHBoxLayout" name="screenCenterLayout">
+          <item>
+           <widget class="Wacom::AreaSelectionWidget" name="screenArea" native="true"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="screenToggleButton">
+          <property name="text">
+           <string>Toggle Screen</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -79,7 +93,7 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>1</width>
-         <height>85</height>
+         <height>5</height>
         </size>
        </property>
       </spacer>
@@ -91,14 +105,28 @@
      <property name="title">
       <string>Tablet</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="Wacom::AreaSelectionWidget" name="areaWidget" native="true">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <layout class="QHBoxLayout" name="areaCenterLayout">
+        <item>
+         <widget class="Wacom::AreaSelectionWidget" name="areaWidget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="warningLabel">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
         </property>
        </widget>
       </item>
@@ -181,11 +209,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>screenToggleButton</sender>
+   <signal>clicked()</signal>
+   <receiver>TabletAreaSelectionView</receiver>
+   <slot>onScreenToggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>150</x>
+     <y>96</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>130</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onCalibrateClicked()</slot>
   <slot>onForceProportionsClicked()</slot>
   <slot>onFullTabletSelected(bool)</slot>
   <slot>onTabletAreaSelected(bool)</slot>
+  <slot>onScreenToggle()</slot>
  </slots>
 </ui>

@@ -55,6 +55,7 @@ const DeviceProperty DeviceProperty::RawSample        ( Property::RawSample,    
 const DeviceProperty DeviceProperty::RelWheelDown     ( Property::RelWheelDown,     QLatin1String("RelWheelDown") );
 const DeviceProperty DeviceProperty::RelWheelUp       ( Property::RelWheelUp,       QLatin1String("RelWheelUp") );
 const DeviceProperty DeviceProperty::Rotate           ( Property::Rotate,           QLatin1String("Rotate") );
+const DeviceProperty DeviceProperty::ScreenMap        ( Property::ScreenMap,        QLatin1String("ScreenMap") );
 const DeviceProperty DeviceProperty::ScreenSpace      ( Property::ScreenSpace,      QLatin1String("ScreenSpace") );
 const DeviceProperty DeviceProperty::ScrollDistance   ( Property::ScrollDistance,   QLatin1String("ScrollDistance") );
 const DeviceProperty DeviceProperty::StripLeftDown    ( Property::StripLeftDown,    QLatin1String("StripLeftDown") );

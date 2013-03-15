@@ -82,7 +82,7 @@ void TabletPageWidget::loadFromProfile()
 
     setRotation( stylusProfile.getProperty( Property::Rotate ) );
     setScreenAreaMapping( stylusProfile.getProperty( Property::ScreenSpace ) );
-    setTabletAreaMapping( stylusProfile.getProperty( Property::Area ) );
+    setTabletAreaMapping( stylusProfile.getProperty( Property::ScreenMap ) );
     setTrackingMode(stylusProfile.getProperty( Property::Mode ));
 }
 
@@ -130,9 +130,9 @@ void TabletPageWidget::saveToProfile()
     stylusProfile.setProperty ( Property::ScreenSpace, getScreenAreaMapping() );
     eraserProfile.setProperty ( Property::ScreenSpace, getScreenAreaMapping() );
 
-    stylusProfile.setProperty ( Property::Area,        getTabletAreaMapping() );
-    eraserProfile.setProperty ( Property::Area,        getTabletAreaMapping() );
-    padProfile.setProperty    ( Property::Area,        QString() ); // make sure it is not set on the pad
+    stylusProfile.setProperty ( Property::ScreenMap,   getTabletAreaMapping() );
+    eraserProfile.setProperty ( Property::ScreenMap,   getTabletAreaMapping() );
+    padProfile.setProperty    ( Property::ScreenMap,   QString() ); // make sure it is not set on the pad
 
     stylusProfile.setProperty ( Property::Mode,        getTrackingMode());
     eraserProfile.setProperty ( Property::Mode,        getTrackingMode());
@@ -181,10 +181,11 @@ void TabletPageWidget::onTabletMappingClicked()
     Q_D(TabletPageWidget);
 
     TabletAreaSelectionDialog selectionDialog;
-    selectionDialog.setupWidget( getTabletAreaMapping(), getScreenAreaMapping(), d->deviceNameStylus);
+    selectionDialog.setupWidget( getTabletAreaMapping(), d->deviceNameStylus);
+    selectionDialog.select( getScreenAreaMapping() );
 
     if (selectionDialog.exec() == KDialog::Accepted) {
-        d->tabletAreaMapping = selectionDialog.getSelection();
+        d->tabletAreaMapping = selectionDialog.getMappings();
         onProfileChanged();
     }
 }

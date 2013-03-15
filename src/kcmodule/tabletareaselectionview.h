@@ -54,14 +54,23 @@ public:
     /**
      * Selects all of the tablet.
      */
-    void selectAll();
+    void selectFullTablet();
 
     /**
      * Selects part of the tablet.
      *
      * @param selection The part to select, may not be empty.
      */
-    void selectPart(const QRect& selection);
+    void selectPartOfTablet(const QRect& selection);
+
+
+    /**
+     * Switches to the given screen and selects the given tablet region.
+     *
+     * @param screenNumber The screen number to switch to.
+     * @param tabletSelection The selection to set on the tablet.
+     */
+    void select(int screenNumber, const QRect& tabletSelection);
 
 
     /**
@@ -70,7 +79,7 @@ public:
      * @param screenGeometries The X11 geometries of the connected screens.
      * @param widgetTargetSize The target size of the screen area widget.
      */
-    void setupScreens( const QList< QRect >& screenGeometries, const QRect& screenSelection, const QSize& widgetTargetSize );
+    void setupScreens( const QList< QRect >& screenGeometries, const QSize& widgetTargetSize );
 
 
     /**
@@ -100,6 +109,11 @@ public slots:
     void onFullTabletSelected(bool checked);
 
     /**
+     * Called by the UI when the user wants to toggle the screen.
+     */
+    void onScreenToggle();
+
+    /**
      * Called by the UI when the user wants to select an area of the tablet.
      */
     void onTabletAreaSelected(bool checked);
@@ -111,6 +125,12 @@ signals:
      * Signals the controller that the user wants to calibrate the tablet.
      */
     void signalCalibrateClicked();
+
+
+    /**
+     * Signals the controller that the user wants to toggle the screen.
+     */
+    void signalScreenToggle();
 
 
     /**

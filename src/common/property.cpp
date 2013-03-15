@@ -63,6 +63,7 @@ const Property Property::RawSample        ( QLatin1String("RawSample") );
 const Property Property::RelWheelDown     ( QLatin1String("RelWheelDown") );
 const Property Property::RelWheelUp       ( QLatin1String("RelWheelUp") );
 const Property Property::Rotate           ( QLatin1String("Rotate") );
+const Property Property::ScreenMap        ( QLatin1String("ScreenMap") );
 const Property Property::ScreenSpace      ( QLatin1String("ScreenSpace") );
 const Property Property::ScrollDistance   ( QLatin1String("ScrollDistance") );
 const Property Property::StripLeftDown    ( QLatin1String("StripLeftDown") );

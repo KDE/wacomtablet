@@ -214,15 +214,28 @@ public:
      */
     static const Property Rotate;
 
+
     /**
-     * Maps the tablet area to a screen space.
+     * Maps the screen spaces to the tablet.
+     *
+     * Format is:
+     *
+     *  "desktop:x1 y1 x2 y2" : The full desktop mapping
+     *  "mapX:x1 y1 x2 y2"    : The map for monitor X
+     *
+     * Multiple of these values can be separated by '|'.
+     */
+    static const Property ScreenMap;
+
+    /**
+     * The current screen space which is being used to map the tablet.
      * Valid values are:
      *
      * - "full"             : Maps the tablet to the full screen.
      * - "mapX"             : Maps the tablet to monitor X.
-     * - "x y width height" : Maps the tablet to the given area.
      */
     static const Property ScreenSpace;
+
 
     /**
      * Minimum motion before sending a scroll gesture.

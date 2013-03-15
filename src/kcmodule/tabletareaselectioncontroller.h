@@ -39,30 +39,12 @@ public:
     virtual ~TabletAreaSelectionController();
 
 
-    /**
-     * Gets the current tablet area selection in profile format.
-     * Possible return values are:
-     *
-     * - "-1 -1 -1 -1" : The full tablet area was selected.
-     * - "x1 y1 x2 y2" : An area was selected with the top left corner at (x1/y1)
-     *                   and the bottom right corner at (x2/y2).
-     *
-     * @return The current selection in profile format.
-     */
-    const QString getSelection() const;
+    const QString getMappings() const;
 
 
-    /**
-     * Sets the current selection from a profile format string.
-     * Valid values are:
-     *
-     * - "-1 -1 -1 -1" : The full tablet area gets selected.
-     * - "x1 y1 x2 y2" : An area gets selected with the top left corner at (x1/y1)
-     *                   and the bottom right corner at (x2/y2).
-     *
-     * @param selection The new selection.
-     */
-    void setSelection(const QString& selection);
+    void select(int screenNumber);
+
+    void select(const QString& screenSpace);
 
 
     /**
@@ -74,14 +56,7 @@ public:
     void setView(TabletAreaSelectionView* view);
 
 
-    /**
-     * Sets up the controller. This needs a valid view to be set first.
-     *
-     * @param tabletSelection The tablet selection in property format.
-     * @param screenSelection The screen selection in property format.
-     * @param deviceName      The name of the X11 Xinput device which is being configured.
-     */
-    void setupController (const QString& tabletSelection, const QString& screenSelection, const QString& deviceName);
+    void setupController( const QString& mappings, const QString& deviceName );
 
 
 public slots:
@@ -92,6 +67,11 @@ public slots:
     void onCalibrateClicked();
 
     /**
+     * Called by the view when the user wants to toggle the screen.
+     */
+    void onScreenToggle();
+
+    /**
      * Called by the view when the user wants to set screen proportions on his tablet.
      */
     void onSetScreenProportions();
@@ -99,16 +79,20 @@ public slots:
 
 private:
 
-    /**
-     * Converts a screen area selection in profile format to a geometry.
-     *
-     * @param screenAreas A list of X11 screen areas currently available.
-     * @param selectedScreenArea The screen area to convert.
-     *
-     * @return The selected screen area as geometry.
-     */
-    const QRect convertScreenAreaMappingToQRect( const QList< QRect >& screenAreas, const QString& selectedScreenArea ) const;
+    int convertScreenSpaceToScreenNumber (const QString& screenMap ) const;
 
+    const QRect convertTabletAreaToQRect(const QString& tabletArea, const QRect& tabletGeometry) const;
+
+    const QString convertQRectToTabletArea(const QRect& tabletRect, const QRect& tabletGeometry) const;
+
+
+    const QRect getScreenGeometry(int screenNumber) const;
+
+    const QRect& getMapping(int screenNumber) const;
+
+    void setMapping(int screenNumber, const QRect& mapping);
+
+    void setMappings(const QString& mappings);
 
     /**
      * @return True if this controller has a view, else false.

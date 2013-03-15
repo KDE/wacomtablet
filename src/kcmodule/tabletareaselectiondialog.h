@@ -50,11 +50,13 @@ public:
      *
      * @return The current selection in profile format.
      */
-    const QString getSelection() const;
+    const QString getMappings() const;
 
+    void select(int screenNumber);
 
-    void setupWidget(const QString& tabletSelection, const QString& screenSelection, const QString& deviceName);
+    void select(const QString& screenSpace);
 
+    void setupWidget( const QString& mappings, const QString& deviceName );
 
 private:
 

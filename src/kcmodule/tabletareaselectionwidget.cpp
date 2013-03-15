@@ -51,21 +51,36 @@ TabletAreaSelectionWidget::~TabletAreaSelectionWidget()
 }
 
 
-const QString TabletAreaSelectionWidget::getSelection() const
+const QString TabletAreaSelectionWidget::getMappings() const
 {
     Q_D(const TabletAreaSelectionWidget);
 
-    return d->controller.getSelection();
+    return d->controller.getMappings();
 }
 
 
-void TabletAreaSelectionWidget::setupWidget(const QString& tabletSelection, const QString& screenSelection, const QString& deviceName)
+void TabletAreaSelectionWidget::select(int screenNumber)
 {
     Q_D(TabletAreaSelectionWidget);
 
-    d->controller.setupController(tabletSelection, screenSelection, deviceName);
+    d->controller.select(screenNumber);
 }
 
+
+void TabletAreaSelectionWidget::select(const QString& screenSpace)
+{
+    Q_D(TabletAreaSelectionWidget);
+
+    d->controller.select(screenSpace);
+}
+
+
+void TabletAreaSelectionWidget::setupWidget(const QString& mappings, const QString& deviceName)
+{
+    Q_D(TabletAreaSelectionWidget);
+
+    d->controller.setupController(mappings, deviceName);
+}
 
 
 void TabletAreaSelectionWidget::setupUi()

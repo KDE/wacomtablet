@@ -83,7 +83,7 @@ void TouchPageWidget::loadFromProfile()
     setTouchSupportEnabled( touchProfile.getPropertyAsBool( Property::Touch ) );
     setTrackingMode( touchProfile.getProperty( Property::Mode ) );
     setScreenAreaMapping( touchProfile.getProperty( Property::ScreenSpace ) );
-    setTabletAreaMapping( touchProfile.getProperty( Property::Area ) );
+    setTabletAreaMapping( touchProfile.getProperty( Property::ScreenMap ) );
     setGesturesSupportEnabled( touchProfile.getPropertyAsBool( Property::Gesture ) );
     setScrollDistance( touchProfile.getProperty( Property::ScrollDistance ) );
     setZoomDistance( touchProfile.getProperty( Property::ZoomDistance ) );
@@ -123,7 +123,7 @@ void TouchPageWidget::saveToProfile()
     touchProfile.setProperty  ( Property::Touch,            getTouchSupportEnabled() );
     touchProfile.setProperty  ( Property::Mode,             getTrackingMode() );
     touchProfile.setProperty  ( Property::ScreenSpace,      getScreenAreaMapping() );
-    touchProfile.setProperty  ( Property::Area,             getTabletAreaMapping() );
+    touchProfile.setProperty  ( Property::ScreenMap,        getTabletAreaMapping() );
     touchProfile.setProperty  ( Property::Gesture,          getGestureSupportEnabled() );
     touchProfile.setProperty  ( Property::ScrollDistance,   getScrollDistance() );
     touchProfile.setProperty  ( Property::ZoomDistance,     getZoomDistance() );
@@ -167,10 +167,11 @@ void TouchPageWidget::onTabletMappingClicked()
     Q_D(TouchPageWidget);
 
     TabletAreaSelectionDialog selectionDialog;
-    selectionDialog.setupWidget( getTabletAreaMapping(), getScreenAreaMapping(), d->touchDeviceName);
+    selectionDialog.setupWidget( getTabletAreaMapping(), d->touchDeviceName);
+    selectionDialog.select( getScreenAreaMapping() );
 
     if (selectionDialog.exec() == KDialog::Accepted) {
-        d->tabletAreaMapping = selectionDialog.getSelection();
+        d->tabletAreaMapping = selectionDialog.getMappings();
         onProfileChanged();
     }
 }
