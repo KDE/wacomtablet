@@ -271,26 +271,22 @@ void TabletHandler::onToggleScreenMapping()
 
     TabletProfile tabletProfile  = d->profileManager.loadProfile(d->currentProfile);
     DeviceProfile stylusProfile  = tabletProfile.getDevice(DeviceType::Stylus);
-    QString       mapping        = stylusProfile.getProperty(Property::ScreenSpace);
+    QString       screenSpace    = stylusProfile.getProperty(Property::ScreenSpace);
+    int           screenCount    = X11Info::getNumberOfScreens();
 
-    if (mapping.compare(QLatin1String("full"), Qt::CaseInsensitive) == 0) {
-        mapping = QLatin1String("map0");
-
-    } else if (monitorRegExp.indexIn(mapping, 0) != -1) {
+    if (monitorRegExp.indexIn(screenSpace, 0) != -1) {
         int screen = monitorRegExp.cap(1).toInt() + 1;
 
-        if (screen >= X11Info::getNumberOfScreens()) {
-            mapping = QLatin1String("full");
+        if (screen >= screenCount) {
+            screenSpace = QLatin1String("full");
         } else {
-            mapping = QString::fromLatin1("map%1").arg(screen);
+            screenSpace = QString::fromLatin1("map%1").arg(screen);
         }
-
     } else {
-        // area mapping - use fullscreen
-        mapping = QLatin1String("full");
+        screenSpace = (screenCount == 1) ? QLatin1String("full") : QLatin1String("map0");
     }
 
-    mapTabletToOutput(mapping);
+    mapTabletToOutput(screenSpace);
 }
 
 
@@ -378,6 +374,26 @@ void TabletHandler::setProperty(const DeviceType& deviceType, const Property& pr
 }
 
 
+const QString TabletHandler::getScreenSpaceMapping(const QString& screenSpace, const QString& screenMapping) const
+{
+    QString screen = screenSpace;
+    QString mapping;
+
+    if (screenSpace.contains(QLatin1String("full"), Qt::CaseInsensitive)) {
+        screen = QLatin1String("desktop");
+    }
+
+    QString regexStr = QString::fromLatin1("%1:\\s*((?:-?\\d+\\s*){4})").arg(screen);
+    QRegExp regex(regexStr, Qt::CaseInsensitive);
+
+    if (regex.indexIn(screenMapping, 0) != -1) {
+        mapping = regex.cap(1).trimmed();
+    }
+
+    return mapping;
+}
+
+
 
 bool TabletHandler::hasDevice(const DeviceType& type) const
 {
@@ -405,34 +421,45 @@ void TabletHandler::mapTabletToOutput(const QString& output)
         return; // we do not have a tablet
     }
 
-    QString       absoluteMode  = QLatin1String("absolute");
-    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
-    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
-    DeviceProfile eraserProfile = tabletProfile.getDevice(DeviceType::Eraser);
-    DeviceProfile touchProfile  = tabletProfile.getDevice(DeviceType::Touch);
+    QString       absoluteMode   = QLatin1String("absolute");
+    TabletProfile tabletProfile  = d->profileManager.loadProfile(d->currentProfile);
+    DeviceProfile stylusProfile  = tabletProfile.getDevice(DeviceType::Stylus);
+    DeviceProfile eraserProfile  = tabletProfile.getDevice(DeviceType::Eraser);
+    DeviceProfile touchProfile   = tabletProfile.getDevice(DeviceType::Touch);
+
+    QString       tabletMap      = stylusProfile.getProperty(Property::ScreenMap);
+    QString       touchMap       = touchProfile.getProperty(Property::ScreenMap);
+    QString       tabletMapping  = getScreenSpaceMapping(output, tabletMap);
+    QString       touchMapping   = getScreenSpaceMapping(output, touchMap);
 
     // map the tablet to the output geometry
     // also set the tablet to absolute mode as output mapping does not work in relative mode
     // the profiles needs to be updated or else the current setting will be reset each time it is reloaded
     setProperty(DeviceType::Stylus, Property::Mode, absoluteMode);
     setProperty(DeviceType::Stylus, Property::ScreenSpace, output);
+    setProperty(DeviceType::Stylus, Property::Area, tabletMapping);
 
     setProperty(DeviceType::Eraser, Property::Mode, absoluteMode);
     setProperty(DeviceType::Eraser, Property::ScreenSpace, output);
+    setProperty(DeviceType::Eraser, Property::Area, tabletMapping);
 
     stylusProfile.setProperty(Property::Mode, absoluteMode);
     stylusProfile.setProperty(Property::ScreenSpace, output);
+    stylusProfile.setProperty(Property::Area, tabletMapping);
     eraserProfile.setProperty(Property::Mode, absoluteMode);
     eraserProfile.setProperty(Property::ScreenSpace, output);
+    eraserProfile.setProperty(Property::Area, tabletMapping);
     tabletProfile.setDevice(stylusProfile);
     tabletProfile.setDevice(eraserProfile);
 
     if (hasDevice(DeviceType::Touch)) {
         setProperty(DeviceType::Touch, Property::Mode, absoluteMode);
         setProperty(DeviceType::Touch, Property::ScreenSpace, output);
+        setProperty(DeviceType::Touch, Property::Area, touchMapping);
 
         touchProfile.setProperty(Property::Mode, absoluteMode);
         touchProfile.setProperty(Property::ScreenSpace, output);
+        touchProfile.setProperty(Property::Area, touchMapping);
         tabletProfile.setDevice(touchProfile);
     }
 

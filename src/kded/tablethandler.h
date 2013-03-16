@@ -209,6 +209,10 @@ Q_SIGNALS:
 
 private:
 
+
+    const QString getScreenSpaceMapping(const QString& screenSpace, const QString& screenMapping) const;
+
+
     /**
      * Checks if the current tablet supports the given device type.
      *
