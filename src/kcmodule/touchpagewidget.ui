@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>438</width>
-    <height>310</height>
+    <width>543</width>
+    <height>335</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,6 +22,9 @@
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
        <widget class="QCheckBox" name="touchCheckBox">
+        <property name="toolTip">
+         <string>If enabled the tablet will emit touch events.</string>
+        </property>
         <property name="text">
          <string>Enable Touch</string>
         </property>
@@ -33,6 +36,9 @@
          <widget class="QGroupBox" name="trackingModeGroupBox">
           <property name="enabled">
            <bool>false</bool>
+          </property>
+          <property name="toolTip">
+           <string>Defines how the cursor movement mode will be used.</string>
           </property>
           <property name="title">
            <string>Touch Tracking Mode</string>
@@ -121,6 +127,9 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="toolTip">
+              <string>Allows to specify the tabletarea for different screen selections in absolute cursor mode.</string>
+             </property>
              <property name="text">
               <string>Map Screen to Touch Area ...</string>
              </property>
@@ -157,6 +166,9 @@
         <property name="enabled">
          <bool>false</bool>
         </property>
+        <property name="toolTip">
+         <string>If enabled the touch events can recognize gestures.</string>
+        </property>
         <property name="text">
          <string>Enable Gestures</string>
         </property>
@@ -180,6 +192,9 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Minimum motion before sending a scroll gesture.</string>
              </property>
              <property name="text">
               <string>Scroll Distance</string>
@@ -213,6 +228,9 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="toolTip">
+              <string>Minimum distance for a zoom gesture is recognized.</string>
+             </property>
              <property name="text">
               <string>Zoom Distance</string>
              </property>
@@ -244,6 +262,9 @@
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Minimum time between taps for a right click.</string>
              </property>
              <property name="text">
               <string>Tap Time</string>

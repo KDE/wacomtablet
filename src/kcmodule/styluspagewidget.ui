@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>374</width>
-    <height>369</height>
+    <height>404</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,6 +24,9 @@
      </property>
      <item row="1" column="1">
       <widget class="QGroupBox" name="buttonGroupBox">
+       <property name="toolTip">
+        <string>Defines the button action on the stylus.</string>
+       </property>
        <property name="title">
         <string>Button Settings</string>
        </property>
@@ -102,6 +105,9 @@ If deselected, stylus buttons will work once the stylus is in proximity of the t
      </item>
      <item row="0" column="1">
       <widget class="QGroupBox" name="eraserBox">
+       <property name="toolTip">
+        <string>Sets eraser pressure threshold.</string>
+       </property>
        <property name="title">
         <string>Eraser Feel</string>
        </property>
@@ -243,6 +249,9 @@ This parameter is independent of the PressureCurve parameter.</string>
      </item>
      <item row="2" column="1">
       <widget class="QGroupBox" name="tipFeelGroupBox">
+       <property name="toolTip">
+        <string>Sets stylus pressure threshold.</string>
+       </property>
        <property name="title">
         <string>Tip Feel</string>
        </property>

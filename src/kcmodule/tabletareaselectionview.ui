@@ -6,132 +6,155 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>555</width>
-    <height>232</height>
+    <width>619</width>
+    <height>324</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
-    <layout class="QVBoxLayout" name="controlsLayout">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>The tablet area defines how the screen space is mapped onto the tablet. For each screen a differend valid tablet area can be selected.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QGroupBox" name="screenGroupBox">
-       <property name="title">
-        <string>Screen</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <layout class="QHBoxLayout" name="screenCenterLayout">
+      <layout class="QVBoxLayout" name="controlsLayout">
+       <item>
+        <widget class="QGroupBox" name="screenGroupBox">
+         <property name="title">
+          <string>Screen</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="Wacom::AreaSelectionWidget" name="screenArea" native="true"/>
+           <layout class="QHBoxLayout" name="screenCenterLayout">
+            <item>
+             <widget class="Wacom::AreaSelectionWidget" name="screenArea" native="true"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="screenToggleButton">
+            <property name="toolTip">
+             <string>Toggle between fullscreen and each single screen.</string>
+            </property>
+            <property name="text">
+             <string>Toggle Screen</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="controlsGroupBox">
+         <property name="toolTip">
+          <string>Select the valid tablet area used for the selected screen space.</string>
+         </property>
+         <property name="title">
+          <string>Map Screen To</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QRadioButton" name="fullTabletRadioButton">
+            <property name="text">
+             <string>Full Tablet</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="tabletAreaRadioButton">
+            <property name="text">
+             <string>Tablet Area</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="forceProportionsButton">
+            <property name="toolTip">
+             <string>Set the tablet area proportional to the selected screen area.</string>
+            </property>
+            <property name="text">
+             <string>Set Screen Proportions</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="calibrateButton">
+            <property name="text">
+             <string>Calibrate</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="controlsFreeSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Expanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>1</width>
+           <height>5</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="tabletGroupBox">
+       <property name="title">
+        <string>Tablet</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QHBoxLayout" name="areaCenterLayout">
+          <item>
+           <widget class="Wacom::AreaSelectionWidget" name="areaWidget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="screenToggleButton">
+         <widget class="QLabel" name="warningLabel">
           <property name="text">
-           <string>Toggle Screen</string>
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignHCenter|Qt::AlignTop</set>
           </property>
          </widget>
         </item>
        </layout>
       </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="controlsGroupBox">
-       <property name="title">
-        <string>Map Screen To</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QRadioButton" name="fullTabletRadioButton">
-          <property name="text">
-           <string>Full Tablet</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="tabletAreaRadioButton">
-          <property name="text">
-           <string>Tablet Area</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="forceProportionsButton">
-          <property name="text">
-           <string>Set Screen Proportions</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="calibrateButton">
-          <property name="text">
-           <string>Calibrate</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <spacer name="controlsFreeSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>1</width>
-         <height>5</height>
-        </size>
-       </property>
-      </spacer>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="tabletGroupBox">
-     <property name="title">
-      <string>Tablet</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <layout class="QHBoxLayout" name="areaCenterLayout">
-        <item>
-         <widget class="Wacom::AreaSelectionWidget" name="areaWidget" native="true">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QLabel" name="warningLabel">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignHCenter|Qt::AlignTop</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
    </item>
   </layout>
  </widget>

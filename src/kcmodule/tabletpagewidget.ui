@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>471</width>
-    <height>266</height>
+    <width>544</width>
+    <height>287</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,6 +24,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QGroupBox" name="trackingModeGroupBox">
+          <property name="toolTip">
+           <string>Defines how the cursor movement mode will be used.</string>
+          </property>
           <property name="title">
            <string>Stylus Tracking Mode</string>
           </property>
@@ -102,6 +105,9 @@
            </item>
            <item>
             <widget class="QPushButton" name="padMappingTabletButton">
+             <property name="toolTip">
+              <string>Allows to specify the tabletarea for different screen selections  in absolute cursor mode.</string>
+             </property>
              <property name="text">
               <string>Map Screen to Tablet Area ...</string>
              </property>
@@ -143,6 +149,9 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="toolTip">
+           <string>Changes the orientation of the tablet.</string>
+          </property>
           <property name="title">
            <string>Orientation</string>
           </property>
@@ -152,6 +161,9 @@
            </item>
            <item>
             <widget class="QCheckBox" name="rotateWithScreenCheckBox">
+             <property name="toolTip">
+              <string>If enabled, the tablet rotates together with the screen.</string>
+             </property>
              <property name="text">
               <string>Auto-Rotate with Screen</string>
              </property>
@@ -161,6 +173,9 @@
             <widget class="QCheckBox" name="rotateWithScreenInvertCheckBox">
              <property name="enabled">
               <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>If enabled the tablet automatic rotation will be inversed.</string>
              </property>
              <property name="text">
               <string>Invert Auto-Rotation</string>
