@@ -24,6 +24,7 @@
 #include "tabletbackendfactory.h"
 #include "tabletinfo.h"
 #include "devicetype.h"
+#include "screenspace.h"
 #include "stringutils.h"
 
 // common includes
@@ -214,8 +215,8 @@ void TabletHandler::onTogglePenMode()
     TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
     DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
 
-    QString trackingMode = stylusProfile.getProperty(Property::Mode);
-    QString screenSpace  = stylusProfile.getProperty(Property::ScreenSpace);
+    QString     trackingMode = stylusProfile.getProperty(Property::Mode);
+    ScreenSpace screenSpace(stylusProfile.getProperty(Property::ScreenSpace));
 
     // toggle tracking mode
     if (trackingMode.contains(QLatin1String("relative"), Qt::CaseInsensitive)) {
@@ -225,7 +226,7 @@ void TabletHandler::onTogglePenMode()
         // if the new mode is "relative" we have to switch to full desktop
         // as screen mappings are not supported in absolute mode
         trackingMode = QLatin1String("relative");
-        screenSpace  = QLatin1String("desktop");
+        screenSpace  = ScreenSpace::desktop();
     }
 
     // map tablet to output which will also save the current mode in the profile
@@ -273,39 +274,36 @@ void TabletHandler::onToggleScreenMapping()
         return;
     }
 
-    QRegExp monitorRegExp(QLatin1String("map(\\d+)"), Qt::CaseInsensitive);
-
     TabletProfile tabletProfile  = d->profileManager.loadProfile(d->currentProfile);
     DeviceProfile stylusProfile  = tabletProfile.getDevice(DeviceType::Stylus);
-    QString       screenSpace    = stylusProfile.getProperty(Property::ScreenSpace);
-    int           screenCount    = X11Info::getNumberOfScreens();
+    ScreenSpace   screenSpace    = ScreenSpace(stylusProfile.getProperty(Property::ScreenSpace));
 
-    if (monitorRegExp.indexIn(screenSpace, 0) != -1) {
-        int screenNumber = monitorRegExp.cap(1).toInt() + 1;
-
-        if (screenNumber >= screenCount) {
-            screenSpace = QLatin1String("desktop");
-        } else {
-            screenSpace = QString::fromLatin1("map%1").arg(screenNumber);
-        }
+    if (screenSpace.isMonitor()) {
+        // get next monitor - mapTabletToOutput() will handle disconnected monitors
+        int screenNumber = screenSpace.getScreenNumber() + 1;
+        screenSpace = ScreenSpace::monitor(screenNumber);
     } else {
-        screenSpace = (screenCount == 1) ? QLatin1String("desktop") : QLatin1String("map0");
+        screenSpace = ScreenSpace::monitor(0);
     }
 
-    mapTabletToOutput(screenSpace);
+    mapTabletToOutput(screenSpace.toString());
 }
 
 
 void TabletHandler::onMapToFullScreen()
 {
-    mapTabletToOutput(QLatin1String("desktop"));
+    mapTabletToOutput(ScreenSpace::desktop().toString());
 }
 
 
 
 void TabletHandler::onMapToScreen1()
 {
-    mapTabletToOutput(QLatin1String("map0"));
+    if (X11Info::getNumberOfScreens() == 1) {
+        mapTabletToOutput(ScreenSpace::desktop().toString());
+    } else {
+        mapTabletToOutput(ScreenSpace::monitor(0).toString());
+    }
 }
 
 
@@ -313,7 +311,7 @@ void TabletHandler::onMapToScreen1()
 void TabletHandler::onMapToScreen2()
 {
     if (X11Info::getNumberOfScreens() >= 2) {
-        mapTabletToOutput(QLatin1String("map1"));
+        mapTabletToOutput(ScreenSpace::monitor(1).toString());
     }
 }
 
@@ -380,14 +378,10 @@ void TabletHandler::setProperty(const DeviceType& deviceType, const Property& pr
 }
 
 
-const QString TabletHandler::getScreenSpaceMapping(const QString& screenSpace, const QString& screenMapping) const
+const QString TabletHandler::getScreenSpaceMapping(const ScreenSpace& screenSpace, const QString& screenMapping) const
 {
-    QString screen  = screenSpace;
+    QString screen  = screenSpace.toString();
     QString mapping = QLatin1String("-1 -1 -1 -1"); // defaults to full screen mapping
-
-    if (screenSpace.contains(QLatin1String("full"), Qt::CaseInsensitive)) {
-        screen = QLatin1String("desktop");
-    }
 
     // extract screen space mapping from map
     // map format is "desktop:x1 y1 x2 y2|map0:x1 y1 x2 y2|map1:x1 y1 x2 y2|..."
@@ -420,22 +414,38 @@ bool TabletHandler::hasTablet() const
 }
 
 
-void TabletHandler::mapDeviceToOutput(const DeviceType& device, const QString& screenSpace, const QString& trackingMode, TabletProfile& tabletProfile)
+void TabletHandler::mapDeviceToOutput(const DeviceType& device, const ScreenSpace& screenSpace, const QString& trackingMode, TabletProfile& tabletProfile)
 {
     if (!hasTablet()) {
         return; // we do not have a tablet
     }
 
+    ScreenSpace screen(screenSpace);
+    int         screenCount = X11Info::getNumberOfScreens();
+
+    if (screen.isMonitor()) {
+        if (screen.isMonitor(0) && screenCount == 1) {
+            // we got only one screen
+            // map to desktop as this allows relative mode as well
+            screen = ScreenSpace::desktop();
+
+        } else if (screen.getScreenNumber() >= screenCount) {
+            // requested screen got disconnected
+            // use desktop instead
+            screen = ScreenSpace::desktop();
+        }
+    }
+
     DeviceProfile deviceProfile = tabletProfile.getDevice(device);
     QString       screenMap     = deviceProfile.getProperty(Property::ScreenMap);
-    QString       tabletArea    = getScreenSpaceMapping(screenSpace, screenMap);
+    QString       tabletArea    = getScreenSpaceMapping(screen, screenMap);
 
     setProperty(device, Property::Mode, trackingMode);
-    setProperty(device, Property::ScreenSpace, screenSpace);
+    setProperty(device, Property::ScreenSpace, screen.toString());
     setProperty(device, Property::Area, tabletArea);
 
     deviceProfile.setProperty(Property::Mode, trackingMode);
-    deviceProfile.setProperty(Property::ScreenSpace, screenSpace);
+    deviceProfile.setProperty(Property::ScreenSpace, screen.toString());
     deviceProfile.setProperty(Property::Area, tabletArea);
 
     tabletProfile.setDevice(deviceProfile);
@@ -443,7 +453,7 @@ void TabletHandler::mapDeviceToOutput(const DeviceType& device, const QString& s
 
 
 
-void TabletHandler::mapTabletToOutput(const QString& output, const QString& trackingMode)
+void TabletHandler::mapTabletToOutput(const ScreenSpace& screenSpace, const QString& trackingMode)
 {
     Q_D( TabletHandler );
 
@@ -453,8 +463,8 @@ void TabletHandler::mapTabletToOutput(const QString& output, const QString& trac
 
     TabletProfile tabletProfile  = d->profileManager.loadProfile(d->currentProfile);
 
-    mapDeviceToOutput(DeviceType::Stylus, output, trackingMode, tabletProfile);
-    mapDeviceToOutput(DeviceType::Eraser, output, trackingMode, tabletProfile);
+    mapDeviceToOutput(DeviceType::Stylus, screenSpace, trackingMode, tabletProfile);
+    mapDeviceToOutput(DeviceType::Eraser, screenSpace, trackingMode, tabletProfile);
 
     d->profileManager.saveProfile(tabletProfile);
 }

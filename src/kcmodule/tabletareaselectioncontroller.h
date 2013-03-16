@@ -84,8 +84,6 @@ public slots:
 
 private:
 
-    int convertScreenSpaceToScreenNumber (const QString& screenMap ) const;
-
     const QRect convertTabletAreaToQRect(const QString& tabletArea, const QRect& tabletGeometry) const;
 
     const QString convertQRectToTabletArea(const QRect& tabletRect, const QRect& tabletGeometry) const;

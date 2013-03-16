@@ -27,6 +27,7 @@
 #include "profilemanagement.h"
 #include "property.h"
 #include "screenrotation.h"
+#include "screenspace.h"
 #include "screenareaselectiondialog.h"
 #include "stringutils.h"
 #include "tabletareaselectiondialog.h"
@@ -367,7 +368,7 @@ void TabletPageWidget::setTrackingMode(const QString& value)
         d->ui->trackRelativeRadioButton->setChecked(false);
     } else {
         // screen mapping has to be reset and disabled, as it does not work in relative mode
-        setScreenAreaMapping(QLatin1String("full"));
+        setScreenAreaMapping(ScreenSpace::desktop().toString());
         d->ui->padMappingScreenButton->setEnabled(false);
 
         d->ui->trackAbsoluteRadioButton->setChecked(false);

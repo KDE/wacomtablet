@@ -110,13 +110,8 @@ protected:
 
     /**
      * Gets the current screen area mapping in profile format.
-     * Possible return values are:
      *
-     * - "full"               : Full desktop selection.
-     * - "mapX"               : Monitor X was selected (0 <= X < number of Screens)
-     * - "x1 y1 width height" : An area was selected.
-     *
-     * @return The current screen area mapping in profile format.
+     * @return A screen mapping as returned by ScreenSpace::toString().
      */
     const QString& getScreenAreaMapping() const;
 
@@ -179,11 +174,7 @@ protected:
 
     /**
      * Sets a new screen area mapping and updates all widgets accordingly.
-     * The given value has to be in profile format. Valid values are:
-     *
-     * - "full"               : Full desktop selection.
-     * - "mapX"               : Monitor X gets selected (0 <= X < number of Screens)
-     * - "x1 y1 width height" : An area gets selected.
+     * The given value has to be in profile format as returned by ScreenSpace::toString()
      *
      * @param value The new screen area mapping selection.
      */

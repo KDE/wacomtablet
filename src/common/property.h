@@ -220,8 +220,7 @@ public:
      *
      * Format is:
      *
-     *  "desktop:x1 y1 x2 y2" : The full desktop mapping
-     *  "mapX:x1 y1 x2 y2"    : The map for monitor X
+     *  "SP:x1 y1 x2 y2" (SP = ScreenSpace returned by ScreenSpace::toString()).
      *
      * Multiple of these values can be separated by '|'.
      */
@@ -229,10 +228,7 @@ public:
 
     /**
      * The current screen space which is being used to map the tablet.
-     * Valid values are:
-     *
-     * - "full"             : Maps the tablet to the full screen.
-     * - "mapX"             : Maps the tablet to monitor X.
+     * Valid values are screen space strings returned by ScreenSpace::toString().
      */
     static const Property ScreenSpace;
 

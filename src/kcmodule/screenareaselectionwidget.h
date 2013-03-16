@@ -44,11 +44,7 @@ public:
     virtual ~ScreenAreaSelectionWidget();
 
     /**
-     * Returns the current selection in profile format.
-     * Possible return values are:
-     *
-     * "full"             : Fullscreen selection.
-     * "mapX"             : Monitor X was selected ( 0 <= X < number of Screens)
+     * Returns the current selection in profile format as returned by ScreenSpace::toString().
      *
      * @return The current selection as string in storage format.
      */
@@ -57,13 +53,8 @@ public:
     /**
      * Sets the current selection according to a string in storage format.
      * Before this method can be called, the widget has to be setup.
-     * Valid values are:
      *
-     * empty string       : Selects the whole screen.
-     * "full"             : Selects the whole desktop.
-     * "mapX"             : Selects monitor X (0 <= X < number of Screens).
-     *
-     * @param selection The new selection as string.
+     * @param selection The new selection as returned by ScreenSpace::toString().
      */
     void setSelection(const QString& selection);
 

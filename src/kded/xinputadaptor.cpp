@@ -21,6 +21,7 @@
 
 #include "xinputadaptor.h"
 
+#include "screenspace.h"
 #include "stringutils.h"
 #include "xinputproperty.h"
 #include "x11input.h"
@@ -190,15 +191,15 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     // get the space the user wants to use to map the tablet
     QRect          screenAreaGeometry;
     QRect          fullScreenGeometry = X11Info::getDisplayGeometry();
-    QRegExp        monitorRegExp(QLatin1String("map(\\d+)"), Qt::CaseInsensitive);
+    ScreenSpace    screenSpace(screenArea);
 
-    if (screenArea.compare(QLatin1String("full"), Qt::CaseInsensitive) == 0) {
+    if (screenSpace.isDesktop()) {
         // full screen area selected
         screenAreaGeometry = fullScreenGeometry;
 
-    } else if (monitorRegExp.indexIn(screenArea, 0) != -1) {
+    } else if (screenSpace.isMonitor()) {
         // monitor selected
-        int            screenNum  = monitorRegExp.cap(1).toInt();
+        int            screenNum  = screenSpace.getScreenNumber();
         QList< QRect > screenList = X11Info::getScreenGeometries();
 
         if (screenNum >= screenList.count()) {

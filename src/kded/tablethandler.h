@@ -31,6 +31,7 @@
 
 namespace Wacom
 {
+class ScreenSpace;
 class TabletProfile;
 class TabletHandlerPrivate;
 
@@ -216,7 +217,7 @@ private:
      *
      * @return The tablet area mapping for the given screen space.
      */
-    const QString getScreenSpaceMapping(const QString& screenSpace, const QString& screenMapping) const;
+    const QString getScreenSpaceMapping(const ScreenSpace& screenSpace, const QString& screenMapping) const;
 
 
     /**
@@ -247,16 +248,16 @@ private:
      * @param trackingMode The tracking mode to apply.
      * @param tabletProfile The profile to update.
      */
-    void mapDeviceToOutput(const Wacom::DeviceType& device, const QString& screenSpace, const QString& trackingMode, Wacom::TabletProfile& tabletProfile);
+    void mapDeviceToOutput(const Wacom::DeviceType& device, const ScreenSpace& screenSpace, const QString& trackingMode, TabletProfile& tabletProfile);
 
     /**
      * Maps the stylus, eraser and touch device to the given output and
      * updates the profiles accordingly. If no mapping is configured the
      * device is mapped to the full desktop.
      *
-     * @param output Either "desktop" or a monitor map "mapX" (0 <= X < number of screens>).
+     * @param output A string returned by ScreenSpace::toString()
      */
-    void mapTabletToOutput(const QString& output, const QString& trackingMode = QLatin1String("absolute"));
+    void mapTabletToOutput(const ScreenSpace& screenSpace, const QString& trackingMode = QLatin1String("absolute"));
 
 
     /**

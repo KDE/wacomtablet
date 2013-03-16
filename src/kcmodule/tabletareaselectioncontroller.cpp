@@ -23,6 +23,7 @@
 #include "tabletareaselectionview.h"
 #include "calibrationdialog.h"
 
+#include "screenspace.h"
 #include "stringutils.h"
 #include "x11info.h"
 #include "x11wacom.h"
@@ -69,27 +70,26 @@ const QString TabletAreaSelectionController::getMappings() const
 
     QHash<int,QRect>::const_iterator mapping = d->mappings.constBegin();
 
-    QString separator = QLatin1String("|");
-    QString screen;
-    QString area;
-    QString mappings;
+    QString     separator = QLatin1String("|");
+    ScreenSpace screen;
+    QString     area;
+    QString     mappings;
 
     for ( ; mapping != d->mappings.constEnd() ; ++mapping) {
 
         area = convertQRectToTabletArea(mapping.value(), d->tabletGeometry);
 
         if (mapping.key() >= 0) {
-            screen = QString::fromLatin1("map%1").arg(mapping.key());
+            screen = ScreenSpace::monitor(mapping.key());
         } else {
-            screen = QLatin1String("desktop");
+            screen = ScreenSpace::desktop();
         }
 
         if (!mappings.isEmpty()) {
             mappings.append(separator);
         }
 
-        mappings.append(QString::fromLatin1("%1:%2").arg(screen).arg(area));
-
+        mappings.append(QString::fromLatin1("%1:%2").arg(screen.toString()).arg(area));
     }
 
     return mappings;
@@ -128,7 +128,7 @@ void TabletAreaSelectionController::select(int screenNumber)
 
 void TabletAreaSelectionController::select(const QString& screenSpace)
 {
-    select(convertScreenSpaceToScreenNumber(screenSpace));
+    select(ScreenSpace(screenSpace).getScreenNumber());
 }
 
 
@@ -245,26 +245,6 @@ bool TabletAreaSelectionController::hasView() const
 
 
 
-int TabletAreaSelectionController::convertScreenSpaceToScreenNumber(const QString& screenMap) const
-{
-    // default is full desktop
-    int result = -1;
-
-    // check if a monitor was selected
-    QRegExp monitorRegExp(QLatin1String("map(\\d+)"), Qt::CaseInsensitive);
-
-    if (monitorRegExp.indexIn(screenMap, 0) != -1) {
-        result = monitorRegExp.cap(1).toInt();
-
-        if (result < 0) {
-            result = -1;
-        }
-    }
-
-    return result;
-}
-
-
 const QRect TabletAreaSelectionController::convertTabletAreaToQRect(const QString& tabletArea, const QRect& tabletGeometry) const
 {
     QRect result;
@@ -347,7 +327,8 @@ void TabletAreaSelectionController::setMappings(const QString& mappings)
     QStringList screenMappings = mappings.split(QLatin1String("|"));
     QString     separator(QLatin1String(":"));
     QStringList mapping;
-    QString     screen, selection;
+    ScreenSpace screen;
+    QString     selection;
     int         screenNumber;
     QRect       selectionRect;
 
@@ -360,10 +341,10 @@ void TabletAreaSelectionController::setMappings(const QString& mappings)
             continue;
         }
 
-        screen        = mapping.at(0).trimmed();
+        screen        = ScreenSpace(mapping.at(0).trimmed());
         selection     = mapping.at(1).trimmed();
         selectionRect = convertTabletAreaToQRect(selection, d->tabletGeometry);
-        screenNumber  = convertScreenSpaceToScreenNumber(screen);
+        screenNumber  = screen.getScreenNumber();
 
         d->mappings.insert(screenNumber, selectionRect);
     }
