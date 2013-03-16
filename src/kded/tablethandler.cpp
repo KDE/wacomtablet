@@ -299,11 +299,7 @@ void TabletHandler::onMapToFullScreen()
 
 void TabletHandler::onMapToScreen1()
 {
-    if (X11Info::getNumberOfScreens() == 1) {
-        mapPenToScreenSpace(ScreenSpace::desktop().toString());
-    } else {
-        mapPenToScreenSpace(ScreenSpace::monitor(0).toString());
-    }
+    mapPenToScreenSpace(ScreenSpace::monitor(0).toString());
 }
 
 
