@@ -18,7 +18,7 @@ Components:
 * kded:
 	runs in the background, detects a connected tablet and applies the pad button / stylus profile
 	detects xrandr rotation and rotates the tablet with it
-	apply global shortcuts for the the touch on/off stylus feature
+	apply global shortcuts for the touch on/off stylus feature
 
 * kcontrol module:
 	unified gui to set-up the buttons and other aspects of the tablet

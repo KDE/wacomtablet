@@ -119,7 +119,7 @@
 
         <para>
             The pen that is used together with the tablet has two different sides, the main side is called stylus the other end is the eraser.
-            In this tab you can change any aspect of the pen from the button assignement to the pressure curve and threshold.
+            In this tab you can change any aspect of the pen from the button assignment to the pressure curve and threshold.
         </para>
 
         <sect2 id="eraser-settings">
@@ -140,7 +140,7 @@
 
             <para>
                 If <guilabel>Tap to execute action</guilabel> is enabled the stylus must be in contact with the tablet in order to allow the button action
-                to be executed. If this option is disabled each the butto naction work also when the stylus is hovering above the tablet.
+                to be executed. If this option is disabled each the button action work also when the stylus is hovering above the tablet.
             </para>
         </sect2>
 
@@ -159,7 +159,7 @@
 
         <para>
             The <guilabel>Express Buttons</guilabel> tab allow to set specific button actions for all hardware buttons for the tablet.
-            To change the used action, you need to click into the editbox and choose the action in the new dialog.
+            To change the used action, you need to click into the edit box and choose the action in the new dialog.
         </para>
     </sect1>
 
@@ -218,7 +218,7 @@
 
        <para>
            The <guilabel>Touch</guilabel> tab allows to set further properties for the touch part of the tablet (if available).
-           It is possible to disable the touch feature via the <guilabel>Enable Touch</guilabel> checkbox. Also a global shortcut exist that allows to enable/disable the touch feature.
+           It is possible to disable the touch feature via the <guilabel>Enable Touch</guilabel> check box. Also a global shortcut exist that allows to enable/disable the touch feature.
        </para>
 
        <sect2 id="touch-tracking">
