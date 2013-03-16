@@ -1,3 +1,11 @@
+wacomtablet (1.99.5-0ppa1) unstable; urgency=low
+
+  * KCM Wacom Tablet 2.0-beta5 release.
+  * Tablet areas can now be selected for each screen independently.
+  * All screen mapping can now be handled with one dialog.
+
+ -- Alexander Maret <alex@maret.de>  Sat, 16 Mar 2013 16:00:00 +0100
+
 wacomtablet (1.99.4-0ppa1) unstable; urgency=low
 
   * KCM Wacom Tablet 2.0-beta4 release.
