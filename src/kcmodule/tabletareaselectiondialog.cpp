@@ -96,6 +96,7 @@ void TabletAreaSelectionDialog::setupUi()
     setMainWidget(d->selectionWidget);
     setButtons( KDialog::Ok | KDialog::Cancel );
     setCaption( i18nc( "Dialog title from a dialog which lets the user select an area of the tablet where the screen space will be mapped to.", "Select a Tablet Area" ) );
+    setWindowIcon( KIcon( QLatin1String("input-tablet") ) );
 
     //connect( this, SIGNAL(okClicked()), this, SLOT(onOkClicked()) );
 }
