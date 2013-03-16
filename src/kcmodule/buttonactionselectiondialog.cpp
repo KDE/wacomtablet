@@ -46,6 +46,7 @@ ButtonActionSelectionDialog::ButtonActionSelectionDialog(QWidget* parent)
     setMainWidget(d->selectionWidget);
     setButtons( KDialog::Ok | KDialog::Cancel );
     setCaption( i18nc( "The action that will be assigned to a tablet button.", "Select Button Action" ) );
+    setWindowIcon( KIcon( QLatin1String("input-tablet") ) );
 
     connect( this, SIGNAL(okClicked()), this, SLOT(onOkClicked()) );
 }
