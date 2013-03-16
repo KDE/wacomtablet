@@ -64,10 +64,14 @@ TabletAreaSelectionController::~TabletAreaSelectionController()
 }
 
 
-const QString TabletAreaSelectionController::getMappings() const
+const QString TabletAreaSelectionController::getMappings()
 {
     Q_D(const TabletAreaSelectionController);
 
+    // make sure the current mapping is included
+    setMapping(d->currentScreen, d->view->getSelection());
+
+    // create mapping string
     QHash<int,QRect>::const_iterator mapping = d->mappings.constBegin();
 
     QString     separator = QLatin1String("|");

@@ -54,9 +54,9 @@ TabletAreaSelectionDialog::~TabletAreaSelectionDialog()
 }
 
 
-const QString TabletAreaSelectionDialog::getMappings() const
+const QString TabletAreaSelectionDialog::getMappings()
 {
-    Q_D(const TabletAreaSelectionDialog);
+    Q_D(TabletAreaSelectionDialog);
 
     return d->selectionWidget->getMappings();
 }

@@ -37,7 +37,7 @@ public:
     explicit TabletAreaSelectionWidget(QWidget* parent = 0);
     virtual ~TabletAreaSelectionWidget();
 
-    const QString getMappings() const;
+    const QString getMappings();
 
     const QString getScreenSpace() const;
 

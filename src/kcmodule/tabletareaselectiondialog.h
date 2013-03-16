@@ -50,7 +50,7 @@ public:
      *
      * @return The current selection in profile format.
      */
-    const QString getMappings() const;
+    const QString getMappings();
 
     const QString getScreenSpace() const;
 

@@ -44,7 +44,7 @@ public:
      *
      * @return The current screen space mapping.
      */
-    const QString getMappings() const;
+    const QString getMappings();
 
     /**
      * @return The current screen space which was selected.
