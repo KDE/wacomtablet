@@ -14,10 +14,6 @@ set( kcm_tablet_SRCS
      pressurecurvewidget.cpp
      pressurecurvedialog.cpp
      profilemanagement.cpp
-     screenareaselectioncontroller.cpp
-     screenareaselectiondialog.cpp
-     screenareaselectionview.cpp
-     screenareaselectionwidget.cpp
      styluspagewidget.cpp
      tabletareaselectioncontroller.cpp
      tabletareaselectiondialog.cpp
@@ -36,7 +32,6 @@ kde4_add_ui_files( kcm_tablet_SRCS
                    kcmwacomtabletwidget.ui
                    pressurecurvedialog.ui
                    saveprofile.ui
-                   screenareaselectionview.ui
                    styluspagewidget.ui
                    tabletareaselectionview.ui
                    tabletpagewidget.ui

@@ -28,7 +28,6 @@
 #include "property.h"
 #include "screenrotation.h"
 #include "screenspace.h"
-#include "screenareaselectiondialog.h"
 #include "stringutils.h"
 #include "tabletareaselectiondialog.h"
 #include "x11info.h"
@@ -144,22 +143,6 @@ void TouchPageWidget::onGesturesModeChanged(int state)
 void TouchPageWidget::onProfileChanged()
 {
     emit changed();
-}
-
-
-void TouchPageWidget::onScreenMappingClicked()
-{
-    Q_D(TouchPageWidget);
-
-    QString tabletAreaCaption = i18n("Touch Area");
-
-    ScreenAreaSelectionDialog selectionDialog;
-    selectionDialog.setupWidget( d->screenAreaMapping, d->tabletAreaMapping, tabletAreaCaption, d->touchDeviceName );
-
-    if (selectionDialog.exec() == KDialog::Accepted) {
-        d->screenAreaMapping = selectionDialog.getSelection();
-        onProfileChanged();
-    }
 }
 
 
@@ -365,14 +348,11 @@ void TouchPageWidget::setTrackingMode(const QString& value)
     d->ui->trackRelativeRadioButton->blockSignals(true);
 
     if (value.contains(QLatin1String("absolute"), Qt::CaseInsensitive)) {
-        d->ui->touchMappingScreenButton->setEnabled(true);
         d->ui->trackAbsoluteRadioButton->setChecked(true);
         d->ui->trackRelativeRadioButton->setChecked(false);
     } else {
         // screen mapping has to be reset and disabled, as it does not work in relative mode
         setScreenAreaMapping(ScreenSpace::desktop().toString());
-        d->ui->touchMappingScreenButton->setEnabled(false);
-
         d->ui->trackAbsoluteRadioButton->setChecked(false);
         d->ui->trackRelativeRadioButton->setChecked(true);
     }

@@ -83,33 +83,21 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QPushButton" name="padMappingScreenButton">
+            <widget class="QPushButton" name="padMappingTabletButton">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="text">
-              <string>Map Tablet Area to Screen ...</string>
-             </property>
-             <property name="icon">
-              <iconset theme="video-display">
-               <normaloff/>
-              </iconset>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="padMappingTabletButton">
              <property name="toolTip">
               <string>Allows to specify the tabletarea for different screen selections  in absolute cursor mode.</string>
              </property>
              <property name="text">
-              <string>Map Screen to Tablet Area ...</string>
+              <string>Map Tablet Area to Screen</string>
              </property>
              <property name="icon">
-              <iconset theme="input-tablet">
+              <iconset theme="video-display">
                <normaloff/>
               </iconset>
              </property>
@@ -266,22 +254,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>padMappingScreenButton</sender>
-   <signal>clicked()</signal>
-   <receiver>TabletPageWidget</receiver>
-   <slot>onScreenMappingClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>300</x>
-     <y>70</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>231</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>padMappingTabletButton</sender>
    <signal>clicked()</signal>
    <receiver>TabletPageWidget</receiver>
@@ -348,7 +320,6 @@
  </connections>
  <slots>
   <slot>onAutoRotateChanged(int)</slot>
-  <slot>onScreenMappingClicked()</slot>
   <slot>onTabletMappingClicked()</slot>
   <slot>onProfileChanged()</slot>
   <slot>onTrackingModeAbsolute(bool)</slot>

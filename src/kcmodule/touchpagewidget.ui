@@ -99,27 +99,9 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <widget class="QPushButton" name="touchMappingScreenButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Map Touch Area to Screen ...</string>
-             </property>
-             <property name="icon">
-              <iconset theme="video-display">
-               <normaloff/>
-              </iconset>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="touchMappingTabletButton">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -128,7 +110,7 @@
               <string>Allows to specify the tabletarea for different screen selections in absolute cursor mode.</string>
              </property>
              <property name="text">
-              <string>Map Screen to Touch Area ...</string>
+              <string>Map Touch Area to Screen</string>
              </property>
              <property name="icon">
               <iconset theme="input-tablet">
@@ -361,22 +343,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>touchMappingScreenButton</sender>
-   <signal>clicked()</signal>
-   <receiver>TouchPageWidget</receiver>
-   <slot>onScreenMappingClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>302</x>
-     <y>249</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>203</x>
-     <y>231</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>touchMappingTabletButton</sender>
    <signal>clicked()</signal>
    <receiver>TouchPageWidget</receiver>
@@ -461,7 +427,6 @@
   <slot>onTouchModeChanged(int)</slot>
   <slot>onGesturesModeChanged(int)</slot>
   <slot>onProfileChanged()</slot>
-  <slot>onScreenMappingClicked()</slot>
   <slot>onTabletMappingClicked()</slot>
   <slot>onTrackingModeAbsolute(bool)</slot>
   <slot>onTrackingModeRelative(bool)</slot>

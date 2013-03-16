@@ -70,11 +70,6 @@ public slots:
     void onProfileChanged();
 
     /**
-     * Called when the user presses the pad screen mapping button.
-     */
-    void onScreenMappingClicked();
-
-    /**
      * Called when the user presses the pad tablet mapping button.
      */
     void onTabletMappingClicked();

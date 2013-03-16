@@ -69,11 +69,6 @@ public slots:
     void onProfileChanged();
 
     /**
-     * Called when the user presses the touch screen mapping button.
-     */
-    void onScreenMappingClicked();
-
-    /**
      * Called when the user presses the touch tablet mapping button.
      */
     void onTabletMappingClicked();
