@@ -286,13 +286,13 @@ void TabletHandler::onToggleScreenMapping()
         screenSpace = ScreenSpace::monitor(0);
     }
 
-    mapTabletToOutput(screenSpace.toString());
+    mapPenToScreenSpace(screenSpace.toString());
 }
 
 
 void TabletHandler::onMapToFullScreen()
 {
-    mapTabletToOutput(ScreenSpace::desktop().toString());
+    mapPenToScreenSpace(ScreenSpace::desktop().toString());
 }
 
 
@@ -300,9 +300,9 @@ void TabletHandler::onMapToFullScreen()
 void TabletHandler::onMapToScreen1()
 {
     if (X11Info::getNumberOfScreens() == 1) {
-        mapTabletToOutput(ScreenSpace::desktop().toString());
+        mapPenToScreenSpace(ScreenSpace::desktop().toString());
     } else {
-        mapTabletToOutput(ScreenSpace::monitor(0).toString());
+        mapPenToScreenSpace(ScreenSpace::monitor(0).toString());
     }
 }
 
@@ -311,7 +311,7 @@ void TabletHandler::onMapToScreen1()
 void TabletHandler::onMapToScreen2()
 {
     if (X11Info::getNumberOfScreens() >= 2) {
-        mapTabletToOutput(ScreenSpace::monitor(1).toString());
+        mapPenToScreenSpace(ScreenSpace::monitor(1).toString());
     }
 }
 
@@ -348,6 +348,9 @@ void TabletHandler::setProfile( const QString &profile )
                      i18n( "Profile <b>%1</b> does not exist", profile ) );
 
     } else {
+        // set profile
+        d->currentProfile = profile;
+
         // Set rotation if auto-rotation is enabled.
         // This is necessary because the user could change the rotation of the tablet in the KCM
         // and then immediately switch to auto-rotation. In this case the tablet would still be
@@ -355,8 +358,12 @@ void TabletHandler::setProfile( const QString &profile )
         // according to the current screen rotation.
         onScreenRotated(X11Info::getScreenRotation());
 
-        // set profile
-        d->currentProfile = profile;
+        // set screen space area
+        // This is necessary to ensure the correct area map is used. Somone might have changed
+        // the ScreenSpace property without updating the Area property.
+        mapTabletToCurrentScreenSpace(tabletProfile);
+
+        // set profile on tablet
         d->tabletBackend->setProfile(tabletProfile);
         d->mainConfig.setLastProfile(profile);
         emit profileChanged( profile );
@@ -416,8 +423,8 @@ bool TabletHandler::hasTablet() const
 
 void TabletHandler::mapDeviceToOutput(const DeviceType& device, const ScreenSpace& screenSpace, const QString& trackingMode, TabletProfile& tabletProfile)
 {
-    if (!hasTablet()) {
-        return; // we do not have a tablet
+    if (!hasTablet() || !hasDevice(device)) {
+        return; // we do not have a tablet or the requested device
     }
 
     ScreenSpace screen(screenSpace);
@@ -453,7 +460,7 @@ void TabletHandler::mapDeviceToOutput(const DeviceType& device, const ScreenSpac
 
 
 
-void TabletHandler::mapTabletToOutput(const ScreenSpace& screenSpace, const QString& trackingMode)
+void TabletHandler::mapPenToScreenSpace(const ScreenSpace& screenSpace, const QString& trackingMode)
 {
     Q_D( TabletHandler );
 
@@ -469,6 +476,25 @@ void TabletHandler::mapTabletToOutput(const ScreenSpace& screenSpace, const QStr
     d->profileManager.saveProfile(tabletProfile);
 }
 
+
+void TabletHandler::mapTabletToCurrentScreenSpace(TabletProfile& tabletProfile)
+{
+    Q_D( TabletHandler );
+
+    DeviceProfile stylusProfile = tabletProfile.getDevice(DeviceType::Stylus);
+    DeviceProfile touchProfile  = tabletProfile.getDevice(DeviceType::Touch);
+
+    QString       stylusMode    = stylusProfile.getProperty(Property::Mode);
+    ScreenSpace   stylusSpace   = ScreenSpace(stylusProfile.getProperty(Property::ScreenSpace));
+    QString       touchMode     = touchProfile.getProperty(Property::Mode);
+    ScreenSpace   touchSpace    = ScreenSpace(touchProfile.getProperty(Property::Touch));
+
+    mapDeviceToOutput(DeviceType::Stylus, stylusSpace, stylusMode, tabletProfile);
+    mapDeviceToOutput(DeviceType::Eraser, stylusSpace, stylusMode, tabletProfile);
+    mapDeviceToOutput(DeviceType::Touch,  touchSpace,  touchMode,  tabletProfile);
+
+    d->profileManager.saveProfile(tabletProfile);
+}
 
 
 void TabletHandler::clearTabletInformation()

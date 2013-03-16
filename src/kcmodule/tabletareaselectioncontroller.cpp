@@ -96,6 +96,19 @@ const QString TabletAreaSelectionController::getMappings() const
 }
 
 
+const QString TabletAreaSelectionController::getScreenSpace() const
+{
+    Q_D(const TabletAreaSelectionController);
+
+    if (d->currentScreen >= 0) {
+        return ScreenSpace::monitor(d->currentScreen).toString();
+    }
+
+    return ScreenSpace::desktop().toString();
+}
+
+
+
 void TabletAreaSelectionController::select(int screenNumber)
 {
     Q_D(TabletAreaSelectionController);

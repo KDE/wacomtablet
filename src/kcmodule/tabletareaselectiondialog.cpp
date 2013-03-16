@@ -62,6 +62,15 @@ const QString TabletAreaSelectionDialog::getMappings() const
 }
 
 
+const QString TabletAreaSelectionDialog::getScreenSpace() const
+{
+    Q_D(const TabletAreaSelectionDialog);
+
+    return d->selectionWidget->getScreenSpace();
+}
+
+
+
 void TabletAreaSelectionDialog::select(int screenNumber)
 {
     Q_D(TabletAreaSelectionDialog);

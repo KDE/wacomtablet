@@ -46,9 +46,20 @@ public:
      */
     const QString getMappings() const;
 
+    /**
+     * @return The current screen space which was selected.
+     */
+    const QString getScreenSpace() const;
 
+    /**
+     * Shows the selection for the given screen number (-1 <= screenNumber < number of screens).
+     * -1 shows the selection for the full desktop.
+     */
     void select(int screenNumber);
 
+    /**
+     * Shows the selection for the given screen space.
+     */
     void select(const QString& screenSpace);
 
 

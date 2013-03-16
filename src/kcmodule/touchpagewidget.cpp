@@ -155,7 +155,8 @@ void TouchPageWidget::onTabletMappingClicked()
     selectionDialog.select( getScreenAreaMapping() );
 
     if (selectionDialog.exec() == KDialog::Accepted) {
-        d->tabletAreaMapping = selectionDialog.getMappings();
+        setTabletAreaMapping(selectionDialog.getMappings());
+        setScreenAreaMapping(selectionDialog.getScreenSpace());
         onProfileChanged();
     }
 }

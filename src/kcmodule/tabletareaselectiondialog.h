@@ -52,6 +52,8 @@ public:
      */
     const QString getMappings() const;
 
+    const QString getScreenSpace() const;
+
     void select(int screenNumber);
 
     void select(const QString& screenSpace);

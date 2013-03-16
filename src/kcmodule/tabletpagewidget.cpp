@@ -129,6 +129,8 @@ void TabletPageWidget::saveToProfile()
 
     stylusProfile.setProperty ( Property::ScreenSpace, getScreenAreaMapping() );
     eraserProfile.setProperty ( Property::ScreenSpace, getScreenAreaMapping() );
+    padProfile.setProperty    ( Property::ScreenSpace, QString()); // should not be set on the pad, causes trouble
+    padProfile.setProperty    ( Property::Area,        QString()); // should not be set on the pad, causes trouble
 
     stylusProfile.setProperty ( Property::ScreenMap,   getTabletAreaMapping() );
     eraserProfile.setProperty ( Property::ScreenMap,   getTabletAreaMapping() );
@@ -169,7 +171,8 @@ void TabletPageWidget::onTabletMappingClicked()
     selectionDialog.select( getScreenAreaMapping() );
 
     if (selectionDialog.exec() == KDialog::Accepted) {
-        d->tabletAreaMapping = selectionDialog.getMappings();
+        setTabletAreaMapping(selectionDialog.getMappings());
+        setScreenAreaMapping(selectionDialog.getScreenSpace());
         onProfileChanged();
     }
 }

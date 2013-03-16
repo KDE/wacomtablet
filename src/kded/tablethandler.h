@@ -257,7 +257,16 @@ private:
      *
      * @param output A string returned by ScreenSpace::toString()
      */
-    void mapTabletToOutput(const ScreenSpace& screenSpace, const QString& trackingMode = QLatin1String("absolute"));
+    void mapPenToScreenSpace(const ScreenSpace& screenSpace, const QString& trackingMode = QLatin1String("absolute"));
+
+
+    /**
+     * Maps stylus/eraser/touch to their current screen space.
+     * The tablet profile will be saved after the operation is complete.
+     *
+     * @param tabletProfile The tablet profile to use.
+     */
+    void mapTabletToCurrentScreenSpace(TabletProfile& tabletProfile);
 
 
     /**
