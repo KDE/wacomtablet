@@ -197,19 +197,18 @@ void X11EventNotifier::handleX11ScreenEvent(XEvent* event)
         if (old_r != d->currentRotation) {
             ScreenRotation newRotation = ScreenRotation::NONE;
 
-            // if the screen is rotated to the right, the tablet was actually rotated to the left.
             switch (d->currentRotation) {
                     case RR_Rotate_0:
                         newRotation = ScreenRotation::NONE;
                         break;
                     case RR_Rotate_90:
-                        newRotation = ScreenRotation::CW;
+                        newRotation = ScreenRotation::CCW;
                         break;
                     case RR_Rotate_180:
                         newRotation = ScreenRotation::HALF;
                         break;
                     case RR_Rotate_270:
-                        newRotation = ScreenRotation::CCW;
+                        newRotation = ScreenRotation::CW;
                         break;
                     default:
                         kError() << QString::fromLatin1("FIXME: Unsupported screen rotation '%1'.").arg(d->currentRotation);
