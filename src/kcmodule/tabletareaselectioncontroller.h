@@ -39,6 +39,11 @@ public:
     virtual ~TabletAreaSelectionController();
 
 
+    /**
+     * Get the screen space mapping as a string in profile format.
+     *
+     * @return The current screen space mapping.
+     */
     const QString getMappings() const;
 
 

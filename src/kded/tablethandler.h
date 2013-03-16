@@ -210,6 +210,12 @@ Q_SIGNALS:
 private:
 
 
+    /**
+     * Extracts a screen space mapping from a screen space map in profile format.
+     * Returns "-1 -1 -1 -1" if no mapping is available.
+     *
+     * @return The tablet area mapping for the given screen space.
+     */
     const QString getScreenSpaceMapping(const QString& screenSpace, const QString& screenMapping) const;
 
 
@@ -232,27 +238,31 @@ private:
 
 
     /**
-     * Maps the stylus, eraser and touch device to the given output.
+     * Maps a tablet device to a screen and updated its profile.
+     * However the profile will not be saved, only updated with
+     * the new settings.
      *
-     * @param output A value which is valid for Property::MapToOutput.
+     * @param device The device to map.
+     * @param screepSpace The screen space to map the device to.
+     * @param trackingMode The tracking mode to apply.
+     * @param tabletProfile The profile to update.
      */
-    void mapTabletToOutput(const QString& output);
+    void mapDeviceToOutput(const Wacom::DeviceType& device, const QString& screenSpace, const QString& trackingMode, Wacom::TabletProfile& tabletProfile);
+
+    /**
+     * Maps the stylus, eraser and touch device to the given output and
+     * updates the profiles accordingly. If no mapping is configured the
+     * device is mapped to the full desktop.
+     *
+     * @param output Either "desktop" or a monitor map "mapX" (0 <= X < number of screens>).
+     */
+    void mapTabletToOutput(const QString& output, const QString& trackingMode = QLatin1String("absolute"));
 
 
     /**
       * resets all device information
       */
     void clearTabletInformation();
-
-
-    /**
-     * Toggles the cursor mode (absolute/relative) for the given device.
-     *
-     * @param type The device to toggle the cursor mode for.
-     *
-     * @return The new mode which was toggled to - either "absolute" or "relative".
-     */
-    const QString toggleMode(const DeviceType& type);
 
 
     Q_DECLARE_PRIVATE(TabletHandler)
