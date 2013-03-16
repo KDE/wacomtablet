@@ -225,6 +225,7 @@ void TabletAreaSelectionController::onSetScreenProportions()
         return;
     }
 
+    // calculate new height and width of the selection
     qreal screenAreaSelectionRatio = (float)screenSelection.width() / screenSelection.height();
     qreal newWidth, newHeight;
 
@@ -249,7 +250,11 @@ void TabletAreaSelectionController::onSetScreenProportions()
         }
     }
 
-    setSelection(QRect(0, 0, qRound(newWidth), qRound(newHeight)));
+    // calculate x and y to center the selection
+    int newX = (int)((tabletGeometry.width() - newWidth) / 2.);
+    int newY = (int)((tabletGeometry.height() - newHeight) / 2.);
+
+    setSelection(QRect(newX, newY, qRound(newWidth), qRound(newHeight)));
 }
 
 
