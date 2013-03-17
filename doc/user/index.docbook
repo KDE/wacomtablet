@@ -203,7 +203,7 @@
        <sect2 id="tablet-area-mapping">
            <title>Tablet Mapping</title>
            <para>
-               This mapping allows to specify the proportions of the tablet that will be used for each screen. This is necessary to keep the tablet area proportional to the used screen space in absolute stylus tracking mode.
+               This mapping allows to specify the proportions of the tablet that will be used for each screen. This is necessary to keep the tablet area proportional to the used screen space in absolute stylus tracking mode. For more information check the <link linkend="area-selection">Area Selection Dialog</link> section.
            </para>
            <note>
                <para>
@@ -275,7 +275,7 @@
        <sect2 id="touch-area-mapping">
            <title>Touch Mapping</title>
            <para>
-               This mapping allows to specify the proportions of the touch device that will be used for each screen. This is necessary to keep the tablet area proportional to the used screen space in absolute stylus tracking mode.
+               This mapping allows to specify the proportions of the touch device that will be used for each screen. This is necessary to keep the tablet area proportional to the used screen space in absolute stylus tracking mode. For more information check the <link linkend="area-selection">Area Selection Dialog</link> section.
            </para>
            <note>
                <para>
@@ -291,17 +291,6 @@
         <title>Presscurve Dialog</title>
 
         <para>
-            The Presscurve defines how the pressure of the stylus is translated. The Presscurve is defined via four points of a Bézier curve.
-            To change this curve you can alter the red dots and move the curve around.
-        </para>
-        <note>
-            <para>
-                Use your pen inside the press curve dialog to see the changes in the press curve directly.
-                A blue area below the curve shows the applied pressure of the pen.
-            </para>
-        </note>
-
-        <para>
             <screenshot>
                 <screeninfo>Here's a screenshot of the Presscurve Dialog</screeninfo>
                 <mediaobject>
@@ -314,25 +303,21 @@
                 </mediaobject>
             </screenshot>
         </para>
+
+        <para>
+            The Presscurve defines how the pressure of the stylus is translated. The Presscurve is defined via four points of a Bézier curve.
+            To change this curve you can alter the red dots and move the curve around.
+        </para>
+        <note>
+            <para>
+                Use your pen inside the press curve dialog to see the changes in the press curve directly.
+                A blue area below the curve shows the applied pressure of the pen.
+            </para>
+        </note>
     </sect1>
 
     <sect1 id="area-selection">
         <title>Area Selection Dialog</title>
-
-        <para>
-            This dialog allows to specify the available tablet area for each selected screen space. In order to keep the aspect ratio of the tablet it
-            is necessary to reduce the tablet area depending on the screen resolution. This Dialog allows to specify them for each screen individually.
-        </para>
-        <para>
-            Use the <guilabel>Toggle Screen</guilabel> button to switch between fullscreen (all connected monitors) and each individual monitor.
-            The settings will be saved for each screen configuration and applied to the tablet whenever the screen are switched by the global shortcut action.
-        </para>
-        <note>
-            <para>
-                The tablet area only works for absolute tracking mode of the touch and pen cursor device.
-                In relative mode the full tablet is used.
-            </para>
-        </note>
 
         <para>
             <screenshot>
@@ -347,6 +332,30 @@
                 </mediaobject>
             </screenshot>
         </para>
+
+        <para>
+            This dialog allows to specify the available tablet area for each selected screen space. In order to keep the aspect ratio of the tablet it
+            is necessary to reduce the tablet area depending on the screen resolution. This Dialog allows to specify them for each screen individually.
+        </para>
+        <para>
+            Use the <guilabel>Toggle Screen</guilabel> button to switch between fullscreen (all connected monitors) and each individual monitor.
+            The settings will be saved for each screen configuration and applied to the tablet whenever the screen selection is switched by the global shortcut action.
+        </para>
+        <para>
+            If you want to keep the aspect ratio of the tablet with the current screen selection you can press the <guilabel>Set Screen Proportions</guilabel> button. The tablet area will be calculated and changed automatically.
+        </para>
+        <para>
+        In addition you can open the <guilabel>Calibrate</guilabel> dialog to calibrate your tablet with the help of four points on the screen.
+        </para>
+        <para>
+            When the dialog is closed, the last selected screen will be used. If you want to switch the screen later on, you can use the <link linkend="tablet-general">Global Shortcut</link>.
+        </para>
+        <note>
+            <para>
+                The tablet area only works for absolute tracking mode of the touch and pen cursor device.
+                In relative mode the full tablet is used.
+            </para>
+        </note>
     </sect1>
     </chapter>
 
