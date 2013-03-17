@@ -1,3 +1,12 @@
+wacomtablet (1.99.7-0ppa1) unstable; urgency=low
+
+  * KCM Wacom Tablet 2.0-beta7 release.
+  * Fixed bug which would clear all express button shortcuts.
+  * Tablet and touch area selection now takes the rotation settings into account.
+  * Added feature which allows the user to invert the scroll direction of the touch device.
+
+ -- Alexander Maret <alex@maret.de>  Sun, 17 Mar 2013 22:00:00 +0100
+
 wacomtablet (1.99.6-0ppa1) unstable; urgency=low
 
   * KCM Wacom Tablet 2.0-beta6 release.
