@@ -88,7 +88,7 @@ GeneralPageWidget::GeneralPageWidget(QWidget *parent)
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ));
 
     action = d->m_actionCollection->addAction(QLatin1String("Toggle screen map selection"));
-    action->setText( i18nc( "@action", "Toggle between fullscreen/first screen/second screen" ) );
+    action->setText( i18nc( "@action", "Toggle between all screens" ) );
     action->setIcon( KIcon( QLatin1String( "draw-path" ) ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_M ) );
 
