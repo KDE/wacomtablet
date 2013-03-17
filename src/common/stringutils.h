@@ -40,6 +40,15 @@ public:
 
 
     /**
+     * Converts a QRect to string in the format "x y width height" or "x1 y1 x2 y2".
+     *
+     * @param returnCoordinates Return "x1 y1 x2 y2" instead of "x y width height".
+     *
+     * @return The rectangle as string.
+     */
+    static const QString fromQRect(const QRect& rect, bool returnCoordinates = false);
+
+    /**
      * Converts a string to a rectangle. If the conversion fails an empty
      * rectangle is returned. The format of the string is expected to be
      * "x y width height". Multiple whitespaces are ignored.

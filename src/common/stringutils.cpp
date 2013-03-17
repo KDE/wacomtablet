@@ -37,6 +37,26 @@ bool StringUtils::asBool (const QString& value)
 }
 
 
+const QString StringUtils::fromQRect(const QRect& rect, bool returnCoordinates)
+{
+    QString area;
+
+    if (returnCoordinates) {
+        area = QString::fromLatin1("%1 %2 %3 %4").arg(rect.x())
+                                                 .arg(rect.y())
+                                                 .arg(rect.x() + rect.width())
+                                                 .arg(rect.y() + rect.height());
+    } else {
+        area = QString::fromLatin1("%1 %2 %3 %4").arg(rect.x())
+                                                 .arg(rect.y())
+                                                 .arg(rect.width())
+                                                 .arg(rect.height());
+    }
+
+    return area;
+}
+
+
 const QRect StringUtils::toQRect(const QString& value, bool allowOnlyPositiveValues)
 {
     QRect       rect;

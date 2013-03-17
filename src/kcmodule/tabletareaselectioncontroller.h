@@ -95,11 +95,6 @@ public slots:
 
 private:
 
-    const QRect convertTabletAreaToQRect(const QString& tabletArea, const QRect& tabletGeometry) const;
-
-    const QString convertQRectToTabletArea(const QRect& tabletRect, const QRect& tabletGeometry) const;
-
-
     const QRect getScreenGeometry(int screenNumber) const;
 
     const QRect& getMapping(int screenNumber) const;

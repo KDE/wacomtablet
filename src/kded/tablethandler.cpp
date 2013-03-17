@@ -24,6 +24,7 @@
 #include "tabletbackendfactory.h"
 #include "tabletinfo.h"
 #include "devicetype.h"
+#include "screenmap.h"
 #include "screenspace.h"
 #include "stringutils.h"
 
@@ -381,25 +382,6 @@ void TabletHandler::setProperty(const DeviceType& deviceType, const Property& pr
 }
 
 
-const QString TabletHandler::getScreenSpaceMapping(const ScreenSpace& screenSpace, const QString& screenMapping) const
-{
-    QString screen  = screenSpace.toString();
-    QString mapping = QLatin1String("-1 -1 -1 -1"); // defaults to full screen mapping
-
-    // extract screen space mapping from map
-    // map format is "desktop:x1 y1 x2 y2|map0:x1 y1 x2 y2|map1:x1 y1 x2 y2|..."
-    QString regexStr = QString::fromLatin1("%1:\\s*((?:-?\\d+\\s*){4})").arg(screen);
-    QRegExp regex(regexStr, Qt::CaseInsensitive);
-
-    if (regex.indexIn(screenMapping, 0) != -1) {
-        mapping = regex.cap(1).trimmed();
-    }
-
-    return mapping;
-}
-
-
-
 bool TabletHandler::hasDevice(const DeviceType& type) const
 {
     Q_D( const TabletHandler );
@@ -440,8 +422,8 @@ void TabletHandler::mapDeviceToOutput(const DeviceType& device, const ScreenSpac
     }
 
     DeviceProfile deviceProfile = tabletProfile.getDevice(device);
-    QString       screenMap     = deviceProfile.getProperty(Property::ScreenMap);
-    QString       tabletArea    = getScreenSpaceMapping(screen, screenMap);
+    ScreenMap     screenMap(deviceProfile.getProperty(Property::ScreenMap));
+    QString       tabletArea    = screenMap.getMappingAsString(screen);
 
     setProperty(device, Property::Mode, trackingMode);
     setProperty(device, Property::ScreenSpace, screen.toString());
