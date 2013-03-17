@@ -273,6 +273,7 @@ void TabletAreaSelectionView::setupUi()
     Q_D(TabletAreaSelectionView);
 
     d->ui->setupUi(this);
+    d->ui->iconLabel->setPixmap(QIcon::fromTheme(QLatin1String("help-about")).pixmap(QSize(16,16)));
 
     setupScreens(QList<QRect>(), QSize(150,150));
     setupTablet(QRect(), QSize(400,400));

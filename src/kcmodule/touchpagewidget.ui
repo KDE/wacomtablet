@@ -113,7 +113,7 @@
               <string>Map Touch Area to Screen</string>
              </property>
              <property name="icon">
-              <iconset theme="input-tablet">
+              <iconset theme="video-display">
                <normaloff/>
               </iconset>
              </property>
