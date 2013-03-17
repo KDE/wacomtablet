@@ -28,7 +28,7 @@ Components:
 
 Dependencies:
 * wacom tablet driver especially the xsetwacom tool
-* xserver-xorg-input-wacom >= 0.10.11
+* xserver-xorg-input-wacom >= 0.20
 
 * kdelibs5-dev
 * kdebase-workspace-dev
@@ -58,11 +58,11 @@ make install
 
 First the background daemon must be running. You can logout/login or restart the kded with
 $ kquitapp kded
-$ kded
+$ kded4
 
 Afterwards you get a notice when you plugin your device and can configure it via
 
-$kcmshell4 kcm_wacomtablet
+$ kcmshell4 kcm_wacomtablet
 or have a look in the system settings where the keyboard and mouse settings are
 
 ##################################################################
@@ -79,10 +79,10 @@ Step 1) Get real internal Tablet name
 xsetwacom list dev
 
 for my Wacom Bamboo:
-Wacom Bamboo eraser ERASER    
-Wacom Bamboo cursor CURSOR    
-Wacom Bamboo pad PAD       
-Wacom Bamboo     STYLUS 
+Wacom Bamboo eraser ERASER
+Wacom Bamboo cursor CURSOR
+Wacom Bamboo pad PAD
+Wacom Bamboo     STYLUS
 
 ------------------------------------------------
 Step 2) Then you need the Tablet ID
@@ -112,7 +112,7 @@ model=MTE_450        # try to google for it but not used right now
 layout=bl_6          # can be empty if no button layout is available that exists (see images dir)
 name=Wacom Bamboo    # name as found above
 padbuttons=4         # available buttons on the pad
-wheel=no             
+wheel=no
 touchring=yes
 touchstripl=no
 touchstripr=no
@@ -144,7 +144,7 @@ hwbutton2=2
 hwbutton3=3
 hwbutton4=8
 
-for kernels >= 2.6.38 we get 
+for kernels >= 2.6.38 we get
 hwbutton1=3
 hwbutton2=8
 hwbutton3=9
