@@ -44,7 +44,8 @@ namespace Wacom {
             }
 
             TabletAreaSelectionView* view;
-            QRect                    tabletGeometry;
+            QRect                    tabletGeometry;        // the original tablet geometry
+            QRect                    tabletGeometryRotated; // the rotated tablet geometry if rotation is active
             QList<QRect>             screenGeometries;
             int                      currentScreen;
             QString                  deviceName;
@@ -182,15 +183,15 @@ void TabletAreaSelectionController::setupController(const QString& mappings, con
         d->tabletRotation = rotation;
     }
 
-    QRect tabletDisplayGeometry = d->tabletGeometry;
+    d->tabletGeometryRotated = d->tabletGeometry;
 
     if (d->tabletRotation == ScreenRotation::CW || d->tabletRotation == ScreenRotation::CCW) {
-        tabletDisplayGeometry.setWidth(d->tabletGeometry.height());
-        tabletDisplayGeometry.setHeight(d->tabletGeometry.width());
+        d->tabletGeometryRotated.setWidth(d->tabletGeometry.height());
+        d->tabletGeometryRotated.setHeight(d->tabletGeometry.width());
     }
 
     d->view->setupScreens(d->screenGeometries, QSize(150,150));
-    d->view->setupTablet(tabletDisplayGeometry, QSize(400,400));
+    d->view->setupTablet(d->tabletGeometryRotated, QSize(400,400));
 
     // make sure we have valid data set
     d->view->select(d->currentScreen, getMapping(d->currentScreen));
@@ -221,7 +222,7 @@ void TabletAreaSelectionController::onSetScreenProportions()
 {
     Q_D(TabletAreaSelectionController);
 
-    QRect tabletGeometry  = d->tabletGeometry;
+    QRect tabletGeometry  = d->tabletGeometryRotated;
     QRect screenSelection = getScreenGeometry(d->currentScreen);
 
     if (screenSelection.isEmpty()) {
@@ -333,7 +334,7 @@ void TabletAreaSelectionController::setSelection(const QRect& selection)
         return;
     }
 
-    if (selection.isEmpty() || selection == d->tabletGeometry) {
+    if (selection.isEmpty() || selection == d->tabletGeometryRotated) {
         d->view->selectFullTablet();
     } else {
         d->view->selectPartOfTablet(selection);
