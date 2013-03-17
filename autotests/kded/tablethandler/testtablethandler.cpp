@@ -17,13 +17,70 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "testtablethandler.moc"
+#include "../tabletbackendmock.h"
+#include "../kdedtestutils.h"
 
-#include "kdedtestutils.h"
-#include "tabletbackendfactory.h"
+#include "src/kded/tablethandler.h"
+#include "src/kded/tabletbackendfactory.h"
+#include "src/common/tabletinformation.h"
 
+#include <QtTest>
+#include <KDE/KDebug>
+
+#include <qtest_kde.h>
 
 using namespace Wacom;
+
+/**
+ * @file testdbustabletservice.cpp
+ *
+ * @test UnitTest for ...
+ * @todo use QSignalSpy?
+ */
+class TestTabletHandler: public QObject
+{
+    Q_OBJECT
+
+
+public Q_SLOTS:
+    void onNotify (const QString& eventId, const QString& title, const QString& message);
+    void onProfileChanged (const QString& profile);
+    void onTabletAdded (const TabletInformation& info);
+    void onTabletRemoved();
+
+
+private slots:
+    void initTestCase();
+    void test();
+    void cleanupTestCase();
+
+
+private:
+    void testListProfiles();
+    void testOnScreenRotated();
+    void testOnTabletAdded();
+    void testOnTabletRemoved();
+    void testOnTogglePenMode();
+    void testOnToggleTouch();
+    void testSetProfile();
+    void testSetProperty();
+
+    QString            m_notifyEventId;
+    QString            m_notifyTitle;
+    QString            m_notifyMessage;
+
+    QString            m_profileChanged;
+
+    TabletInformation  m_tabletAddedInformation;
+    bool               m_tabletAdded;
+    bool               m_tabletRemoved;
+
+    TabletHandler*     m_tabletHandler;
+    TabletBackendMock* m_backendMock;
+};
+
+QTEST_KDEMAIN(TestTabletHandler, GUI)
+
 
 
 void TestTabletHandler::onNotify(const QString& eventId, const QString& title, const QString& message)
@@ -358,3 +415,4 @@ void TestTabletHandler::testSetProperty()
 }
 
 
+#include "testtablethandler.moc"

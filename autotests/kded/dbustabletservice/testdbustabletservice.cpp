@@ -17,13 +17,64 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "testdbustabletservice.moc"
+#include "../tablethandlermock.h"
 
-#include "dbustabletinterface.h"
-#include "tabletinformation.h"
+#include "src/kded/dbustabletservice.h"
 
+#include "src/common/dbustabletinterface.h"
+#include "src/common/tabletinformation.h"
+
+#include <QtTest>
+#include <KDE/KDebug>
+
+#include <qtest_kde.h>
 
 using namespace Wacom;
+
+/**
+ * @file testdbustabletservice.cpp
+ *
+ * @test UnitTest for ...
+ */
+class TestDBusTabletService: public QObject
+{
+    Q_OBJECT
+
+public:
+    void assertTabletInformation(const TabletInformation& expectedInformation) const;
+
+public slots:
+    void onProfileChanged(const QString& profile);
+    void onTabletAdded();
+    void onTabletRemoved();
+
+
+private slots:
+    //! Run once before all tests.
+    void initTestCase();
+
+    void testListProfiles();
+    void testOnTabletAdded();
+    void testOnTabletRemoved();
+    void testSetProfile();
+    void testSetProperty();
+
+    //! Run once after all tests.
+    void cleanupTestCase();
+
+
+private:
+
+    TabletHandlerMock  m_tabletHandlerMock;
+    DBusTabletService* m_tabletService;
+
+    QString            m_profileWasChangedTo;
+    bool               m_tabletWasAdded;
+    bool               m_tabletWasRemoved;
+};
+
+QTEST_KDEMAIN(TestDBusTabletService, GUI)
+
 
 void TestDBusTabletService::assertTabletInformation(const TabletInformation& expectedInformation) const
 {
@@ -258,3 +309,7 @@ void TestDBusTabletService::testSetProperty()
     QVERIFY(actualValue.isValid());
     QCOMPARE(expectedValue, actualValue.value());
 }
+
+
+
+#include "testdbustabletservice.moc"

@@ -17,15 +17,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "testxinputadaptor.moc"
+#include "src/kded/xinputadaptor.h"
+#include "src/kded/xinputproperty.h"
 
-#include "xinputadaptor.h"
-#include "xinputproperty.h"
+#include "../tabletdependenttest.h"
+
+#include <QtTest>
+#include <KDE/KDebug>
+
+#include <qtest_kde.h>
 
 using namespace Wacom;
 
-TestXinputAdaptor::TestXinputAdaptor(QObject* parent) : TabletDependentTest(parent) {}
+/**
+ * @file testxinputadaptor.cpp
+ *
+ * @test UnitTest for ...
+ */
+class TestXinputAdaptor: public TabletDependentTest
+{
+    Q_OBJECT
 
+protected:
+    void initTestCaseDependent();
+
+private slots:
+    void testSetProperty();
+
+};
+
+QTEST_KDEMAIN(TestXinputAdaptor, GUI)
 
 void TestXinputAdaptor::initTestCaseDependent()
 {
@@ -38,13 +59,11 @@ void TestXinputAdaptor::initTestCaseDependent()
         isValid = false;
     }
 
-
     if (!isValid) {
         QSKIP("Can not run test! The currently connected device does not have all prerequisites!", SkipAll);
         return;
     }
 }
-
 
 void TestXinputAdaptor::testSetProperty()
 {
@@ -69,3 +88,5 @@ void TestXinputAdaptor::testSetProperty()
     QCOMPARE(adaptor.getProperty(Property::CursorAccelConstantDeceleration), QLatin1String("5"));
     QCOMPARE(adaptor.getProperty(Property::CursorAccelVelocityScaling), QLatin1String("5"));
 }
+
+#include "testxinputadaptor.moc"

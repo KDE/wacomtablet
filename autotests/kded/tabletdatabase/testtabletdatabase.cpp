@@ -17,15 +17,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "testtabletdatabase.moc"
-
-#include "kdedtestutils.h"
-#include "tabletinformation.h"
+#include "../kdedtestutils.h"
+#include "src/common/tabletinformation.h"
+#include "src/kded/tabletdatabase.h"
 
 #include <QtCore/QList>
 #include <QtCore/QMap>
 
+#include <QtTest>
+#include <KDE/KDebug>
+
+#include <qtest_kde.h>
+
 using namespace Wacom;
+
+/**
+ * @file testtabletdatabase.cpp
+ *
+ * @test UnitTest for ...
+ */
+class TestTabletDatabase: public QObject
+{
+    Q_OBJECT
+
+private slots:
+    void initTestCase();
+
+    void testLookupBackend();
+    void testLookupDevice();
+};
+
+
+QTEST_KDEMAIN(TestTabletDatabase, GUI)
 
 void TestTabletDatabase::initTestCase()
 {
@@ -34,7 +57,6 @@ void TestTabletDatabase::initTestCase()
 
     TabletDatabase::instance().setDatabase(dataDirectory, companyFile);
 }
-
 
 
 void TestTabletDatabase::testLookupBackend()
@@ -71,3 +93,6 @@ void TestTabletDatabase::testLookupDevice()
     }
 }
 
+
+
+#include "testtabletdatabase.moc"

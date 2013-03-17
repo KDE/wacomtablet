@@ -19,7 +19,7 @@
 
 #include "debug.h"
 #include "tabletdependenttest.h"
-#include "x11tabletfinder.h"
+#include "src/kded/x11tabletfinder.h"
 
 using namespace Wacom;
 

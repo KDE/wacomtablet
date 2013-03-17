@@ -20,7 +20,7 @@
 #ifndef TABLETDEPENDENTTEST_H
 #define TABLETDEPENDENTTEST_H
 
-#include "tabletinformation.h"
+#include "src/common/tabletinformation.h"
 
 #include <QtCore>
 #include <QtTest>
@@ -49,7 +49,6 @@ public:
 
     //! Prints the tablet information to stdout.
     void printTabletInformation(const TabletInformation& info) const;
-
 
 protected:
 

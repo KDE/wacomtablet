@@ -17,18 +17,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
-#include "testxsetwacomadaptor.moc"
+#include "src/kded/xsetwacomadaptor.h"
+#include "src/kded/xsetwacomproperty.h"
 
-#include "xsetwacomadaptor.h"
-#include "xsetwacomproperty.h"
+#include "../tabletdependenttest.h"
+
+#include <QtTest>
+#include <KDE/KDebug>
+
+#include <qtest_kde.h>
 
 using namespace Wacom;
 
-TestXsetwacomAdaptor::TestXsetwacomAdaptor(QObject* parent): TabletDependentTest(parent) { }
+/**
+ * @file testxsetwacomadaptor.cpp
+ *
+ * @test UnitTest for ...
+ */
+class TestXsetWacomAdaptor: public TabletDependentTest
+{
+    Q_OBJECT
 
+protected:
+    void initTestCaseDependent();
 
-void TestXsetwacomAdaptor::initTestCaseDependent()
+private slots:
+    void testSetProperty();
+
+};
+
+QTEST_KDEMAIN(TestXsetWacomAdaptor, GUI)
+
+void TestXsetWacomAdaptor::initTestCaseDependent()
 {
     TabletInformation info = getTabletInformation();
 
@@ -45,8 +65,7 @@ void TestXsetwacomAdaptor::initTestCaseDependent()
     }
 }
 
-
-void TestXsetwacomAdaptor::testSetProperty()
+void TestXsetWacomAdaptor::testSetProperty()
 {
     XsetwacomAdaptor adaptor(getTabletInformation().getDeviceName(DeviceType::Stylus));
 
@@ -63,3 +82,4 @@ void TestXsetwacomAdaptor::testSetProperty()
     QCOMPARE(adaptor.getProperty(Property::Button3), QLatin1String("3"));
 }
 
+#include "testxsetwacomadaptor.moc"

@@ -17,15 +17,60 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "testtabletbackend.moc"
 
-#include "kdedtestutils.h"
-#include "tabletinfo.h"
-#include "tabletinformation.h"
-#include "deviceinformation.h"
+#include "../propertyadaptormock.h"
+#include "../kdedtestutils.h"
 
+#include "src/common/tabletinfo.h"
+#include "src/common/tabletinformation.h"
+#include "src/common/deviceinformation.h"
+
+#include "src/kded/tabletbackend.h"
+#include "src/kded/xinputproperty.h"
+#include "src/kded/xsetwacomproperty.h"
+
+
+#include <QtTest>
+#include <KDE/KDebug>
+
+#include <qtest_kde.h>
 
 using namespace Wacom;
+
+/**
+ * @file testtabletbackend.cpp
+ *
+ * @test UnitTest for ...
+ */
+class TestTabletBackend: public QObject
+{
+    Q_OBJECT
+
+private slots:
+    void initTestCase();
+    void testGetInformation();
+    void testSetDeviceProfile();
+    void testSetProfile();
+    void testSetProperty();
+    void cleanupTestCase();
+
+private:
+
+    TabletInformation                       m_tabletInformation;
+    TabletBackend*                          m_tabletBackend;
+
+    PropertyAdaptorMock<XinputProperty>*    m_eraserXinputAdaptor;
+    PropertyAdaptorMock<XsetwacomProperty>* m_eraserXsetwacomAdaptor;
+
+    PropertyAdaptorMock<XinputProperty>*    m_padXinputAdaptor;
+    PropertyAdaptorMock<XsetwacomProperty>* m_padXsetwacomAdaptor;
+
+    PropertyAdaptorMock<XinputProperty>*    m_stylusXinputAdaptor;
+    PropertyAdaptorMock<XsetwacomProperty>* m_stylusXsetwacomAdaptor;
+
+};
+
+QTEST_KDEMAIN(TestTabletBackend, GUI)
 
 void TestTabletBackend::initTestCase()
 {
@@ -199,3 +244,6 @@ void TestTabletBackend::cleanupTestCase()
 {
     delete m_tabletBackend;
 }
+
+
+#include "testtabletbackend.moc"
