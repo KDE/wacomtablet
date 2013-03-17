@@ -20,6 +20,8 @@
 #ifndef TABLETAREASELECTIONCONTROLLER_H
 #define TABLETAREASELECTIONCONTROLLER_H
 
+#include "screenrotation.h"
+
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
@@ -72,7 +74,7 @@ public:
     void setView(TabletAreaSelectionView* view);
 
 
-    void setupController( const QString& mappings, const QString& deviceName );
+    void setupController( const QString& mappings, const QString& deviceName, const ScreenRotation& rotation );
 
 
 public slots:
@@ -97,7 +99,7 @@ private:
 
     const QRect getScreenGeometry(int screenNumber) const;
 
-    const QRect& getMapping(int screenNumber) const;
+    const QRect getMapping(int screenNumber) const;
 
     void setMapping(int screenNumber, const QRect& mapping);
 

@@ -26,7 +26,6 @@
 #include "deviceprofile.h"
 #include "profilemanagement.h"
 #include "property.h"
-#include "screenrotation.h"
 #include "screenspace.h"
 #include "stringutils.h"
 #include "tabletareaselectiondialog.h"
@@ -43,17 +42,18 @@ namespace Wacom {
     class TouchPageWidgetPrivate
     {
         public:
-            TouchPageWidgetPrivate() : ui(new Ui::TouchPageWidget) {}
+            TouchPageWidgetPrivate() : ui(new Ui::TouchPageWidget), tabletRotation(ScreenRotation::NONE) {}
             ~TouchPageWidgetPrivate() {
                 delete ui;
             }
 
             Ui::TouchPageWidget* ui;
 
-            QRect   tabletAreaFull;     // The full touch area as rectangle.
-            QString tabletAreaMapping;  // The current tablet mapping of the touch device.
-            QString screenAreaMapping;  // The current screen mapping of the touch device.
-            QString touchDeviceName;    // The Xinput name of the touch device of the current tablet.
+            ScreenRotation tabletRotation;     // The currently selected tablet rotation.
+            QRect          tabletAreaFull;     // The full touch area as rectangle.
+            QString        tabletAreaMapping;  // The current tablet mapping of the touch device.
+            QString        screenAreaMapping;  // The current screen mapping of the touch device.
+            QString        touchDeviceName;    // The Xinput name of the touch device of the current tablet.
 
     }; // PRIVATE CLASS
 } // NAMESPACE
@@ -148,12 +148,21 @@ void TouchPageWidget::onProfileChanged()
 }
 
 
+void TouchPageWidget::onRotationChanged(const ScreenRotation& rotation)
+{
+    Q_D(TouchPageWidget);
+
+    d->tabletRotation = rotation;
+}
+
+
 void TouchPageWidget::onTabletMappingClicked()
 {
     Q_D(TouchPageWidget);
 
     TabletAreaSelectionDialog selectionDialog;
-    selectionDialog.setupWidget( getTabletAreaMapping(), d->touchDeviceName);
+    // TODO get current screen rotation
+    selectionDialog.setupWidget( getTabletAreaMapping(), d->touchDeviceName, d->tabletRotation);
     selectionDialog.select( getScreenAreaMapping() );
 
     if (selectionDialog.exec() == KDialog::Accepted) {

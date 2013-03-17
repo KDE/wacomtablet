@@ -39,3 +39,16 @@ const ScreenRotation ScreenRotation::CW ( QLatin1String("cw") );
 
 const ScreenRotation ScreenRotation::AUTO ( QLatin1String("auto") );
 const ScreenRotation ScreenRotation::AUTO_INVERTED ( QLatin1String("auto-inverted") );
+
+
+const ScreenRotation& ScreenRotation::invert() const
+{
+    if (*this == ScreenRotation::CW) {
+        return ScreenRotation::CCW;
+
+    } else if (*this == ScreenRotation::CCW) {
+        return ScreenRotation::CW;
+    }
+    
+    return *this;
+}

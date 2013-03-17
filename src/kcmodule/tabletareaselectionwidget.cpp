@@ -83,11 +83,11 @@ void TabletAreaSelectionWidget::select(const QString& screenSpace)
 }
 
 
-void TabletAreaSelectionWidget::setupWidget(const QString& mappings, const QString& deviceName)
+void TabletAreaSelectionWidget::setupWidget(const QString& mappings, const QString& deviceName, const ScreenRotation& rotation)
 {
     Q_D(TabletAreaSelectionWidget);
 
-    d->controller.setupController(mappings, deviceName);
+    d->controller.setupController(mappings, deviceName, rotation);
 }
 
 
@@ -105,6 +105,4 @@ void TabletAreaSelectionWidget::setupUi()
 
     // setup controller
     d->controller.setView(view);
-
-    // TODO connect signals
 }

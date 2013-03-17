@@ -65,6 +65,9 @@ public:
     static const ScreenRotation AUTO;
     static const ScreenRotation AUTO_INVERTED;
 
+
+    const ScreenRotation& invert() const;
+
 private:
 
     ScreenRotation (const QString& key) : ScreenRotationTemplateSpecialization(this, key) {}

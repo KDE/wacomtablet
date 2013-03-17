@@ -317,6 +317,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>rotatationSelectionComboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>TabletPageWidget</receiver>
+   <slot>onRotationChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>140</x>
+     <y>164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>271</x>
+     <y>143</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rotateWithScreenCheckBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>TabletPageWidget</receiver>
+   <slot>onRotationChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>140</x>
+     <y>190</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>271</x>
+     <y>143</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rotateWithScreenInvertCheckBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>TabletPageWidget</receiver>
+   <slot>onRotationChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>140</x>
+     <y>215</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>271</x>
+     <y>143</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onAutoRotateChanged(int)</slot>
@@ -324,5 +372,6 @@
   <slot>onProfileChanged()</slot>
   <slot>onTrackingModeAbsolute(bool)</slot>
   <slot>onTrackingModeRelative(bool)</slot>
+  <slot>onRotationChanged()</slot>
  </slots>
 </ui>

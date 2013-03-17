@@ -20,6 +20,8 @@
 #ifndef TABLETAREASELECTIONDIALOG_H
 #define TABLETAREASELECTIONDIALOG_H
 
+#include "screenrotation.h"
+
 #include <KDE/KDialog>
 #include <QtCore/QRect>
 #include <QtCore/QList>
@@ -58,7 +60,7 @@ public:
 
     void select(const QString& screenSpace);
 
-    void setupWidget( const QString& mappings, const QString& deviceName );
+    void setupWidget( const QString& mappings, const QString& deviceName, const ScreenRotation& rotation );
 
 private:
 

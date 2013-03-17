@@ -20,6 +20,8 @@
 #ifndef TABLETAREASELECTIONWIDGET_H
 #define TABLETAREASELECTIONWIDGET_H
 
+#include "screenrotation.h"
+
 #include <QtCore/QObject>
 #include <QtGui/QWidget>
 
@@ -45,7 +47,7 @@ public:
 
     void select(const QString& screenSpace);
 
-    void setupWidget( const QString& mappings, const QString& deviceName );
+    void setupWidget( const QString& mappings, const QString& deviceName, const ScreenRotation& rotation );
 
 
 private:

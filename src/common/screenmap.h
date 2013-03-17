@@ -21,6 +21,7 @@
 #define SCREENMAP_H
 
 #include "screenspace.h"
+#include "screenrotation.h"
 
 #include <QtCore/QString>
 #include <QtCore/QRect>
@@ -45,15 +46,21 @@ public:
 
     void fromString(const QString& mappings);
 
-    const QRect& getMapping(const ScreenSpace& screen) const;
+    const QRect getMapping(const ScreenSpace& screen, const ScreenRotation rotation = ScreenRotation::NONE) const;
 
     const QString getMappingAsString(const Wacom::ScreenSpace& screen) const;
 
-    void setMapping(const ScreenSpace& screen, const QRect& mapping);
+    void setMapping(const ScreenSpace& screen, const QRect& mapping, const ScreenRotation& rotation = ScreenRotation::NONE);
 
     const QString toString() const;
 
 private:
+
+    bool isTabletGeometryValid() const;
+
+    const QRect fromRotation(const QRect& tablet, const QRect& area, const ScreenRotation& rotation) const;
+
+    const QRect toRotation(const QRect& tablet, const QRect& area, const ScreenRotation& rotation) const;
 
     Q_DECLARE_PRIVATE(ScreenMap)
     ScreenMapPrivate *const d_ptr; // D-Pointer for private members.
