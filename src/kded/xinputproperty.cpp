@@ -32,4 +32,5 @@ const XinputProperty XinputProperty::CursorAccelProfile              ( Property:
 const XinputProperty XinputProperty::CursorAccelConstantDeceleration ( Property::CursorAccelConstantDeceleration, QLatin1String("Device Accel Constant Deceleration") );
 const XinputProperty XinputProperty::CursorAccelAdaptiveDeceleration ( Property::CursorAccelAdaptiveDeceleration, QLatin1String("Device Accel Adaptive Deceleration") );
 const XinputProperty XinputProperty::CursorAccelVelocityScaling      ( Property::CursorAccelVelocityScaling,      QLatin1String("Device Accel Velocity Scaling") );
+const XinputProperty XinputProperty::InvertScroll                    ( Property::InvertScroll,                    QLatin1String("Invert Scroll") );
 const XinputProperty XinputProperty::ScreenSpace                     ( Property::ScreenSpace,                     QLatin1String("Coordinate Transformation Matrix") );

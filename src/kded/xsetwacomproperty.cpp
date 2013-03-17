@@ -41,13 +41,13 @@ const XsetwacomProperty XsetwacomProperty::Button9          ( Property::Button9,
 const XsetwacomProperty XsetwacomProperty::Button10         ( Property::Button10,         QLatin1String("Button 10") );
 const XsetwacomProperty XsetwacomProperty::CursorProximity  ( Property::CursorProximity,  QLatin1String("CursorProximity") );
 const XsetwacomProperty XsetwacomProperty::Gesture          ( Property::Gesture,          QLatin1String("Gesture") );
-const XsetwacomProperty XsetwacomProperty::MapToOutput      ( Property::MapToOutput,      QLatin1String("MapToOutput") );
 const XsetwacomProperty XsetwacomProperty::Mode             ( Property::Mode,             QLatin1String("Mode") );
 const XsetwacomProperty XsetwacomProperty::PressureCurve    ( Property::PressureCurve,    QLatin1String("PressureCurve") );
 const XsetwacomProperty XsetwacomProperty::RawSample        ( Property::RawSample,        QLatin1String("RawSample") );
 const XsetwacomProperty XsetwacomProperty::RelWheelDown     ( Property::RelWheelDown,     QLatin1String("RelWheelDown") );
 const XsetwacomProperty XsetwacomProperty::RelWheelUp       ( Property::RelWheelUp,       QLatin1String("RelWheelUp") );
 const XsetwacomProperty XsetwacomProperty::Rotate           ( Property::Rotate,           QLatin1String("Rotate") );
+const XsetwacomProperty XsetwacomProperty::MapToOutput      ( Property::MapToOutput,      QLatin1String("MapToOutput") );   // needs to be done after rotation
 const XsetwacomProperty XsetwacomProperty::ScrollDistance   ( Property::ScrollDistance,   QLatin1String("ScrollDistance") );
 const XsetwacomProperty XsetwacomProperty::StripLeftDown    ( Property::StripLeftDown,    QLatin1String("StripLeftDown") );
 const XsetwacomProperty XsetwacomProperty::StripLeftUp      ( Property::StripLeftUp,      QLatin1String("StripLeftUp") );
@@ -63,4 +63,3 @@ const XsetwacomProperty XsetwacomProperty::AbsWheel2Down    ( Property::AbsWheel
 const XsetwacomProperty XsetwacomProperty::AbsWheel2Up      ( Property::AbsWheel2Up,      QLatin1String("AbsWheel2Up") );
 const XsetwacomProperty XsetwacomProperty::AbsWheelDown     ( Property::AbsWheelDown,     QLatin1String("AbsWheelDown") );
 const XsetwacomProperty XsetwacomProperty::AbsWheelUp       ( Property::AbsWheelUp,       QLatin1String("AbsWheelUp") );
-const XsetwacomProperty XsetwacomProperty::InvertScroll     ( Property::InvertScroll,     QLatin1String("InvertScroll") );

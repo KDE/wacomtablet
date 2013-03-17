@@ -103,6 +103,13 @@ public:
     bool getAtomProperty (const QString& property, QList<long>& values, long nelements = 1) const;
 
     /**
+     * Gets the button map of the device.
+     *
+     * @return A list of buttons numbers.
+     */
+    const QList<int> getDeviceButtonMapping() const;
+
+    /**
      * Gets the device id of this device.
      *
      * @return The device id or 0.
@@ -197,6 +204,16 @@ public:
      * @return True on success, false on error.
      */
     bool open (Display* display, XID id, const QString& name);
+
+    /**
+     * Sets a button mapping on the device. The parameter \a buttonMap has
+     * to contain as many values as returned by \a getDeviceButtonMapping().
+     *
+     * @param buttonMap The new button map for the device.
+     *
+     * @return True on success, false on error.
+     */
+    bool setDeviceButtonMapping(const QList<int>& buttonMap) const;
 
     /**
      * Sets a float property. The values have to be separated by a single whitespace.

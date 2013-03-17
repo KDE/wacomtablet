@@ -84,6 +84,24 @@ const QRect X11Wacom::getMaximumTabletArea(const QString& deviceName)
 }
 
 
+bool X11Wacom::isScrollDirectionInverted(const QString& deviceName)
+{
+    X11InputDevice device;
+
+    if (!X11Input::findDevice(deviceName, device)) {
+        return false;
+    }
+
+    QList<int> buttonMap = device.getDeviceButtonMapping();
+
+    if (buttonMap.count() == 0 || buttonMap.count() < 5) {
+        return false;
+    }
+
+    return (buttonMap.at(3) == 5 && buttonMap.at(4) == 4);
+}
+
+
 bool X11Wacom::setCoordinateTransformationMatrix(const QString& deviceName, qreal offsetX, qreal offsetY, qreal width, qreal height)
 {
     X11InputDevice device;
@@ -112,4 +130,28 @@ bool X11Wacom::setCoordinateTransformationMatrix(const QString& deviceName, qrea
 }
 
 
+bool X11Wacom::setScrollDirection(const QString& deviceName, bool inverted)
+{
+    X11InputDevice device;
+
+    if (!X11Input::findDevice(deviceName, device)) {
+        return false;
+    }
+
+    QList<int> buttonMap = device.getDeviceButtonMapping();
+
+    if (buttonMap.count() == 0 || buttonMap.count() < 5) {
+        return false;
+    }
+
+    if (inverted) {
+        buttonMap[3] = 5;
+        buttonMap[4] = 4;
+    } else {
+        buttonMap[3] = 4;
+        buttonMap[4] = 5;
+    }
+
+    return device.setDeviceButtonMapping(buttonMap);
+}
 

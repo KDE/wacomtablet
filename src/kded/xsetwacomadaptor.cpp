@@ -107,10 +107,7 @@ bool XsetwacomAdaptor::setProperty(const Property& property, const QString& valu
     }
 
     // check for special property
-    if (property == Property::InvertScroll) {
-        return setInvertScroll(value);
-
-    } else if (property == Property::Rotate) {
+    if (property == Property::Rotate) {
         return setRotation(value);
 
     } else {
@@ -206,22 +203,6 @@ const QString XsetwacomAdaptor::getParameter(const QString& device, const QStrin
     return result.remove( QLatin1Char( '\n' ) );
 }
 
-
-
-bool XsetwacomAdaptor::setInvertScroll(const QString& value)
-{
-    Q_D( const XsetwacomAdaptor );
-
-    if (StringUtils::asBool(value)) {
-        setParameter(d->device, XsetwacomProperty::Button4.key(), QLatin1String("5"));
-        setParameter(d->device, XsetwacomProperty::Button5.key(), QLatin1String("4"));
-    } else {
-        setParameter(d->device, XsetwacomProperty::Button5.key(), QLatin1String("4"));
-        setParameter(d->device, XsetwacomProperty::Button4.key(), QLatin1String("5"));
-    }
-
-    return true;
-}
 
 
 bool XsetwacomAdaptor::setRotation(const QString& value)

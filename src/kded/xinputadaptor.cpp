@@ -120,6 +120,8 @@ bool XinputAdaptor::supportsProperty(const Property& property) const
 
 const QString XinputAdaptor::getProperty(const XinputProperty& property) const
 {
+    Q_D( const XinputAdaptor );
+
     if (property == XinputProperty::CursorAccelProfile) {
         return getLongProperty (property);
 
@@ -131,6 +133,9 @@ const QString XinputAdaptor::getProperty(const XinputProperty& property) const
 
     } else if (property == XinputProperty::CursorAccelVelocityScaling) {
         return getFloatProperty (property);
+
+    } else if (property == XinputProperty::InvertScroll) {
+        return (X11Wacom::isScrollDirectionInverted(d->deviceName) ? QLatin1String("on") : QLatin1String("off"));
 
     } else {
         kError() << QString::fromLatin1("Getting Xinput property '%1' is not yet implemented!").arg(property.key());
@@ -277,6 +282,9 @@ bool XinputAdaptor::setProperty (const XinputProperty& property, const QString& 
 
     } else if (property == XinputProperty::CursorAccelVelocityScaling) {
         return d->device.setFloatProperty (property.key(), value);
+
+    } else if (property == XinputProperty::InvertScroll) {
+        return X11Wacom::setScrollDirection(d->deviceName, StringUtils::asBool(value));
 
     } else if (property == XinputProperty::ScreenSpace) {
         return mapTabletToScreen (value);

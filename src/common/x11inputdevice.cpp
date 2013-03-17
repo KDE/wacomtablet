@@ -138,6 +138,32 @@ bool X11InputDevice::getAtomProperty(const QString& property, QList< long int >&
 }
 
 
+const QList< int > X11InputDevice::getDeviceButtonMapping() const
+{
+    Q_D(const X11InputDevice);
+
+    QList<int> buttonMap;
+
+    if (!isOpen()) {
+        return buttonMap;
+    }
+
+    static const int nmap = 100; // maximum number of buttons this method will fetch
+    unsigned char    map_return[nmap];
+    int              buttonCount = 0;
+
+    if ((buttonCount = XGetDeviceButtonMapping(d->display, d->device, map_return, nmap)) <= 0) {
+        return buttonMap; // the device has no buttons
+    }
+
+    for (int i = 0 ; i < buttonCount ; ++i) {
+        buttonMap.append((int)map_return[i]);
+    }
+
+    return buttonMap;
+}
+
+
 
 long X11InputDevice::getDeviceId() const
 {
@@ -310,6 +336,30 @@ bool X11InputDevice::open(Display* display, X11InputDevice::XID id, const QStrin
     d->name    = name;
 
     return true;
+}
+
+
+
+bool X11InputDevice::setDeviceButtonMapping(const QList< int >& buttonMap) const
+{
+    Q_D(const X11InputDevice);
+
+    if (!isOpen() || buttonMap.count() == 0) {
+        return false;
+    }
+
+    const int      nmap = buttonMap.count();
+    unsigned char* map  = new unsigned char[nmap];
+
+    for (int i = 0 ; i < nmap ; ++i) {
+        map[i] = (unsigned char)buttonMap.at(i);
+    }
+
+    int result = XSetDeviceButtonMapping(d->display, d->device, map, nmap);
+
+    delete map;
+
+    return (result == MappingSuccess);
 }
 
 

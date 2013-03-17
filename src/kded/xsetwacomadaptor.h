@@ -114,11 +114,6 @@ private:
     const QString getParameter(const QString& device, const QString& param) const;
 
     /**
-     * Inverts scrolling or sets it back to normal.
-     */
-    bool setInvertScroll(const QString& value);
-
-    /**
      * Sets the tablet rotation.
      */
     bool setRotation(const QString& value);

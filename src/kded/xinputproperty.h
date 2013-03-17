@@ -42,6 +42,7 @@ public:
     static const XinputProperty CursorAccelConstantDeceleration;
     static const XinputProperty CursorAccelAdaptiveDeceleration;
     static const XinputProperty CursorAccelVelocityScaling;
+    static const XinputProperty InvertScroll;
     static const XinputProperty ScreenSpace;
 
 private:

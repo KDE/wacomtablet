@@ -86,6 +86,7 @@ void TouchPageWidget::loadFromProfile()
     setTabletAreaMapping( touchProfile.getProperty( Property::ScreenMap ) );
     setGesturesSupportEnabled( touchProfile.getPropertyAsBool( Property::Gesture ) );
     setScrollDistance( touchProfile.getProperty( Property::ScrollDistance ) );
+    setScrollInversion( touchProfile.getProperty( Property::InvertScroll) );
     setZoomDistance( touchProfile.getProperty( Property::ZoomDistance ) );
     setTapTime( touchProfile.getProperty( Property::TapTime ) );
 }
@@ -126,6 +127,7 @@ void TouchPageWidget::saveToProfile()
     touchProfile.setProperty  ( Property::ScreenMap,        getTabletAreaMapping() );
     touchProfile.setProperty  ( Property::Gesture,          getGestureSupportEnabled() );
     touchProfile.setProperty  ( Property::ScrollDistance,   getScrollDistance() );
+    touchProfile.setProperty  ( Property::InvertScroll,     getScrollInversion() );
     touchProfile.setProperty  ( Property::ZoomDistance,     getZoomDistance() );
     touchProfile.setProperty  ( Property::TapTime,          getTapTime() );
 
@@ -213,6 +215,14 @@ const QString TouchPageWidget::getScrollDistance() const
 }
 
 
+const QString TouchPageWidget::getScrollInversion() const
+{
+    Q_D (const TouchPageWidget);
+
+    return (d->ui->scrollInversionCheckBox->isChecked() ? QLatin1String("on") : QLatin1String("off"));
+}
+
+
 const QString& TouchPageWidget::getTabletAreaMapping() const
 {
     Q_D (const TouchPageWidget);
@@ -297,6 +307,16 @@ void TouchPageWidget::setScrollDistance(const QString& value)
     d->ui->scrollDistanceSpinBox->blockSignals(true);
     d->ui->scrollDistanceSpinBox->setValue(value.toInt());
     d->ui->scrollDistanceSpinBox->blockSignals(false);
+}
+
+
+void TouchPageWidget::setScrollInversion(const QString& value)
+{
+    Q_D(TouchPageWidget);
+
+    d->ui->scrollInversionCheckBox->blockSignals(true);
+    d->ui->scrollInversionCheckBox->setChecked(StringUtils::asBool(value));
+    d->ui->scrollInversionCheckBox->blockSignals(false);
 }
 
 

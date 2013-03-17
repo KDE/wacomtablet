@@ -122,6 +122,13 @@ protected:
     const QString getScrollDistance() const;
 
     /**
+     * Gets the current state of the scroll inversion checkbox as string.
+     *
+     * @return Either "on" or "off".
+     */
+    const QString getScrollInversion() const;
+
+    /**
      * Gets the current tablet area mapping in profile format.
      * Possible return values are:
      *
@@ -197,6 +204,13 @@ protected:
      * @param value A value >= 0 as string.
      */
     void setScrollDistance(const QString& value);
+
+    /**
+     * Sets the value of the scroll inversion checkbox.
+     *
+     * @param value Either "on" or "off" or empty string.
+     */
+    void setScrollInversion(const QString& value);
 
     /**
      * Sets a new tablet area mapping and updates all widgets accordingly.

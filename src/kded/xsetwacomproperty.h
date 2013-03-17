@@ -55,7 +55,6 @@ public:
     static const XsetwacomProperty Button10;
     static const XsetwacomProperty CursorProximity;
     static const XsetwacomProperty Gesture;
-    static const XsetwacomProperty InvertScroll;
     static const XsetwacomProperty MapToOutput;
     static const XsetwacomProperty Mode;
     static const XsetwacomProperty PressureCurve;

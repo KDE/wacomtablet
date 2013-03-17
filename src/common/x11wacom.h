@@ -45,6 +45,14 @@ public:
      */
     static const QRect getMaximumTabletArea(const QString& deviceName);
 
+    /**
+     * Checks if the current scroll direction is inverted.
+     *
+     * @param deviceName The device to query.
+     *
+     * @return True if it is inverted, else false.
+     */
+    static bool isScrollDirectionInverted(const QString& deviceName);
 
     /**
      * Sets the coordinate transformation property on the given device.
@@ -52,6 +60,16 @@ public:
      * @return True on success, false on error.
      */
     static bool setCoordinateTransformationMatrix(const QString& deviceName, qreal offsetX, qreal offsetY, qreal width, qreal height);
+
+    /**
+     * Sets the scroll direction on a device.
+     *
+     * @param deviceName The xinput device name of the touch device.
+     * @param inverted   If true, the scroll direction is inverted.
+     *
+     * @return True on success, false on error.
+     */
+    static bool setScrollDirection(const QString& deviceName, bool inverted = false);
 
 
 }; // CLASS
