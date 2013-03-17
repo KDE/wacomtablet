@@ -125,19 +125,26 @@ void ScreenMap::fromString(const QString& mappings)
 
 
 
-const QRect& ScreenMap::getMapping(const ScreenSpace& screen) const
+const QRect ScreenMap::getMapping(const ScreenSpace& screen, const ScreenRotation rotation) const
 {
     Q_D(const ScreenMap);
 
     // try to find selection for the current screen
     QHash<int,QRect>::const_iterator citer = d->mappings.constFind(screen.getScreenNumber());
 
+    QRect area;
+
     if (citer != d->mappings.constEnd()) {
-        return citer.value();
+        area = citer.value();
+    } else {
+        area = d->tabletGeometry;
     }
 
-    // return full selection if none is available
-    return d->tabletGeometry;
+    if (rotation != ScreenRotation::NONE && isTabletGeometryValid()) {
+        area = toRotation(d->tabletGeometry, area, rotation);
+    }
+
+    return area;
 }
 
 
@@ -148,11 +155,15 @@ const QString ScreenMap::getMappingAsString(const ScreenSpace& screen) const
 
 
 
-void ScreenMap::setMapping(const ScreenSpace& screen, const QRect& mapping)
+void ScreenMap::setMapping(const ScreenSpace& screen, const QRect& mapping, const ScreenRotation& rotation)
 {
     Q_D(ScreenMap);
 
-    d->mappings.insert(screen.getScreenNumber(), mapping);
+    if (rotation != ScreenRotation::NONE && isTabletGeometryValid()) {
+        d->mappings.insert(screen.getScreenNumber(), fromRotation(d->tabletGeometry, mapping, rotation));
+    } else {
+        d->mappings.insert(screen.getScreenNumber(), mapping);
+    }
 }
 
 
@@ -198,3 +209,68 @@ const QString ScreenMap::toString() const
     return mappings;
 }
 
+
+
+
+bool ScreenMap::isTabletGeometryValid() const
+{
+    Q_D(const ScreenMap);
+
+    return (!d->tabletGeometry.isEmpty() &&
+            !(d->tabletGeometry.x() == -1 && d->tabletGeometry.width()  == -1 &&
+              d->tabletGeometry.y() == -1 && d->tabletGeometry.height() == -1));
+}
+
+
+const QRect ScreenMap::fromRotation(const QRect& tablet, const QRect& area, const ScreenRotation& rotation) const
+{
+    QRect result;
+
+    if (rotation == ScreenRotation::CW) {
+        result.setX(area.y());
+        result.setY(tablet.height() - area.x() - area.width());
+        result.setWidth(area.height());
+        result.setHeight(area.width());
+
+    } else if (rotation == ScreenRotation::CCW) {
+        result.setX(tablet.width() - area.y() - area.height());
+        result.setY(area.x());
+        result.setWidth(area.height());
+        result.setHeight(area.width());
+
+    } else if (rotation == ScreenRotation::HALF) {
+        result.setX(tablet.width() - area.width() - area.x());
+        result.setY(tablet.height() - area.height() - area.y());
+        result.setWidth(area.width());
+        result.setHeight(area.height());
+    }
+
+    return result;
+}
+
+
+const QRect ScreenMap::toRotation(const QRect& tablet, const QRect& area, const ScreenRotation& rotation) const
+{
+    QRect result;
+
+    if (rotation == ScreenRotation::CW) {
+        result.setX(tablet.height() - area.height() - area.y());
+        result.setY(area.x());
+        result.setWidth(area.height());
+        result.setHeight(area.width());
+
+    } else if (rotation == ScreenRotation::CCW) {
+        result.setX(area.y());
+        result.setY(tablet.width() - area.width() - area.x());
+        result.setWidth(area.height());
+        result.setHeight(area.width());
+
+    } else if (rotation == ScreenRotation::HALF) {
+        result.setX(tablet.width() - area.width() - area.x());
+        result.setY(tablet.height() - area.height() - area.y());
+        result.setWidth(area.width());
+        result.setHeight(area.height());
+    }
+
+    return result;
+}

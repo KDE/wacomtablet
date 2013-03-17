@@ -20,6 +20,8 @@
 #ifndef TOUCHPAGEWIDGET_H
 #define TOUCHPAGEWIDGET_H
 
+#include "screenrotation.h"
+
 #include <QtGui/QWidget>
 #include <QtCore/QString>
 
@@ -67,6 +69,11 @@ public slots:
      * Called when any profile property value changes.
      */
     void onProfileChanged();
+
+    /**
+     * Called by our TabletPageWidget to inform us that the user changed the rotation settings.
+     */
+    void onRotationChanged(const ScreenRotation& rotation);
 
     /**
      * Called when the user presses the touch tablet mapping button.

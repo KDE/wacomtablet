@@ -115,6 +115,9 @@ void KCMWacomTabletWidget::setupUi()
     connect( &(d->tabletPage),  SIGNAL(changed()), SLOT(profileChanged()) );
     connect( &(d->touchPage),   SIGNAL(changed()), SLOT(profileChanged()) );
 
+    // connect rotation handling
+    connect( &(d->tabletPage),  SIGNAL(rotationChanged(ScreenRotation)), &(d->touchPage), SLOT(onRotationChanged(ScreenRotation)));
+
     // connect DBus signals
     connect( dbusTabletInterface, SIGNAL(tabletAdded()),   SLOT(loadTabletInformation()) );
     connect( dbusTabletInterface, SIGNAL(tabletRemoved()), SLOT(loadTabletInformation()) );

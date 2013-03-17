@@ -26,7 +26,6 @@
 #include "deviceprofile.h"
 #include "profilemanagement.h"
 #include "property.h"
-#include "screenrotation.h"
 #include "screenspace.h"
 #include "stringutils.h"
 #include "tabletareaselectiondialog.h"
@@ -44,13 +43,14 @@ namespace Wacom
     class TabletPageWidgetPrivate
     {
         public:
-            TabletPageWidgetPrivate() : ui(new Ui::TabletPageWidget) {}
+            TabletPageWidgetPrivate() : ui(new Ui::TabletPageWidget), tabletRotation(ScreenRotation::NONE) {}
             ~TabletPageWidgetPrivate() {
                 delete ui;
             }
 
             Ui::TabletPageWidget* ui;                // Our UI widget.
 
+            ScreenRotation        tabletRotation;    // The current tablet rotation with a hardware viewpoint (not the canvas!).
             QRect                 tabletAreaFull;    // The full tablet area as rectangle.
             QString               tabletAreaMapping; // The current tablet mapping of the pad.
             QString               screenAreaMapping; // The current screen mapping of the pad.
@@ -166,8 +166,13 @@ void TabletPageWidget::onTabletMappingClicked()
 {
     Q_D(TabletPageWidget);
 
+    // get current rotation settings
+    // we need to invert it as our rotation settings in this widget have a canvas viewpoint
+    const ScreenRotation* lookupRotation = ScreenRotation::find(getRotation());
+    ScreenRotation        rotation       = (lookupRotation != NULL) ? lookupRotation->invert() : ScreenRotation::NONE;
+
     TabletAreaSelectionDialog selectionDialog;
-    selectionDialog.setupWidget( getTabletAreaMapping(), d->deviceNameStylus);
+    selectionDialog.setupWidget( getTabletAreaMapping(), d->deviceNameStylus, rotation);
     selectionDialog.select( getScreenAreaMapping() );
 
     if (selectionDialog.exec() == KDialog::Accepted) {
@@ -175,6 +180,21 @@ void TabletPageWidget::onTabletMappingClicked()
         setScreenAreaMapping(selectionDialog.getScreenSpace());
         onProfileChanged();
     }
+}
+
+
+void TabletPageWidget::onRotationChanged()
+{
+    Q_D(TabletPageWidget);
+
+    // determin rotation
+    const ScreenRotation* lookupRotation = ScreenRotation::find(getRotation());
+
+    // we need to invert it as our rotation settings in this widget have a canvas viewpoint
+    // and our private member variable has a tablet viewpoint
+    d->tabletRotation = (lookupRotation != NULL) ? lookupRotation->invert() : ScreenRotation::NONE;
+
+    emit rotationChanged(d->tabletRotation);
 }
 
 
@@ -317,6 +337,8 @@ void TabletPageWidget::setRotation(const QString& value)
     d->ui->rotatationSelectionComboBox->blockSignals(true);
     d->ui->rotatationSelectionComboBox->setCurrentIndex(rotationIndex >= 0 ? rotationIndex : 0);
     d->ui->rotatationSelectionComboBox->blockSignals(false);
+
+    onRotationChanged();
 }
 
 

@@ -20,6 +20,8 @@
 #ifndef PADTABWIDGET_H
 #define PADTABWIDGET_H
 
+#include "screenrotation.h"
+
 #include <QtGui/QWidget>
 #include <QtCore/QString>
 
@@ -70,6 +72,11 @@ public slots:
     void onProfileChanged();
 
     /**
+     * Called when the user changes the rotation settings.
+     */
+    void onRotationChanged();
+
+    /**
      * Called when the user presses the pad tablet mapping button.
      */
     void onTabletMappingClicked();
@@ -92,6 +99,10 @@ signals:
      */
     void changed();
 
+    /**
+     * Emitted when the rotation changes to inform our other widgets about it.
+     */
+    void rotationChanged(const ScreenRotation& rotation);
 
 protected:
 
