@@ -26,5 +26,4 @@ MACRO(add_qttest testname testsrc)
 ENDMACRO(add_qttest)
 
 ## TESTSUITES
-add_subdirectory(common)
 add_subdirectory(kded)
