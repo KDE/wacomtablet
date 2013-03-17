@@ -140,7 +140,7 @@
 
             <para>
                 If <guilabel>Tap to execute action</guilabel> is enabled the stylus must be in contact with the tablet in order to allow the button action
-                to be executed. If this option is disabled each the button action work also when the stylus is hovering above the tablet.
+                to be executed. If this option is disabled each button action works also when the stylus is hovering above the tablet.
             </para>
         </sect2>
 
@@ -158,7 +158,7 @@
         <title>Express Buttons</title>
 
         <para>
-            The <guilabel>Express Buttons</guilabel> tab allow to set specific button actions for all hardware buttons for the tablet.
+            The <guilabel>Express Buttons</guilabel> tab allows to set specific button actions for all hardware buttons for the tablet.
             To change the used action, you need to click into the edit box and choose the action in the new dialog.
         </para>
     </sect1>
@@ -197,7 +197,7 @@
                the xrandr events when the screen is rotated.
            </para>
            <para>
-               If you have problems with the autorotation option and the tablet is always rotated into the wrong direction, enable the <guilabel>Invert Auto-Rotation</guilabel> option to inverse this.
+               If you have problems with the autorotation option and the tablet is always rotated into the wrong direction, enable the <guilabel>Invert Auto-Rotation</guilabel> option to invert this.
            </para>
        </sect2>
        <sect2 id="tablet-area-mapping">
