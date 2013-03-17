@@ -257,15 +257,6 @@ public:
     static const Property Suppress;
 
     /**
-     * The tablet area on which the screen space is mapped.
-     * Valid values are:
-     *
-     * - "full"             : Maps the screen space to the full tablet.
-     * - "x y width height" : Maps the screen space to the given area.
-     */
-    static const Property TabletArea;
-
-    /**
      * Tap to Click. Valid values are "on" or "off".
      * If  on, the stylus must be in contact with the screen for a stylus side button to work.
      * If off, stylus buttons will work once the stylus is in proximity of the tablet.

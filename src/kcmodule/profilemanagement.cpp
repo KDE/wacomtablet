@@ -25,6 +25,7 @@
 #include "devicetype.h"
 #include "tabletprofile.h"
 #include "property.h"
+#include "screenrotation.h"
 
 //KDE includes
 #include <KDE/KDebug>
@@ -71,39 +72,18 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     //get information via DBus
     QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(TabletInfo::TabletName);
     m_deviceName = deviceName;
-    QDBusReply<QString> padName    = DBusTabletInterface::instance().getDeviceName(DeviceType::Pad);
-    QDBusReply<QString> stylusName = DBusTabletInterface::instance().getDeviceName(DeviceType::Stylus);
-    QDBusReply<QString> eraserName = DBusTabletInterface::instance().getDeviceName(DeviceType::Eraser);
 
-    if( m_deviceName.isEmpty() || !padName.isValid() || !stylusName.isValid() || !eraserName.isValid() ) {
+    if( m_deviceName.isEmpty() ) {
         kDebug() << "no device information are found. Can't create a new profile";
         return;
     }
 
-    kDebug() << "create a new profile for :: device:" << m_deviceName << "pad:" << padName;
-
+    kDebug() << "Creating a new profile for :: device:" << m_deviceName;
 
     m_profileManager.readProfiles(m_deviceName);
     TabletProfile tabletProfile = m_profileManager.loadProfile(profilename);
     DeviceProfile padDevice     = tabletProfile.getDevice(DeviceType::Pad);
 
-    // use properties to set "string" values
-    //padDevice.setProperty(Property::Button1, QLatin1String("1"));
-    padDevice.setProperty(Property::Button2, QLatin1String("2"));
-    padDevice.setProperty(Property::Button3, QLatin1String("3"));
-    padDevice.setProperty(Property::Button4, QLatin1String("4"));
-    padDevice.setProperty(Property::Button5, QLatin1String("5"));
-    padDevice.setProperty(Property::Button6, QLatin1String("6"));
-    padDevice.setProperty(Property::Button7, QLatin1String("7"));
-    padDevice.setProperty(Property::Button8, QLatin1String("8"));
-    padDevice.setProperty(Property::Button9, QLatin1String("9"));
-    padDevice.setProperty(Property::Button10, QLatin1String("10"));
-    padDevice.setProperty(Property::StripLeftUp, QLatin1String("11"));
-    padDevice.setProperty(Property::StripLeftDown, QLatin1String("12"));
-    padDevice.setProperty(Property::StripRightUp, QLatin1String("13"));
-    padDevice.setProperty(Property::StripRightDown, QLatin1String("14"));
-    //padDevice.setProperty(Property::RelWheelUp, QLatin1String("15"));
-    //padDevice.setProperty(Property::RelWheelDown, QLatin1String("16"));
     padDevice.setProperty(Property::AbsWheelUp, QLatin1String("4"));
     padDevice.setProperty(Property::AbsWheelDown, QLatin1String("5"));
 
@@ -112,40 +92,26 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     DeviceProfile stylusDevice = tabletProfile.getDevice(DeviceType::Stylus);
 
-    //stylusDevice.setProperty(Property::Button1, QLatin1String("1")); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick)
+    stylusDevice.setProperty(Property::Area, QLatin1String("-1 -1 -1 -1"));
     stylusDevice.setProperty(Property::Button2, QLatin1String("2"));
     stylusDevice.setProperty(Property::Button3, QLatin1String("3"));
     stylusDevice.setProperty(Property::Mode, QLatin1String("absolute"));
     stylusDevice.setProperty(Property::PressureCurve, QLatin1String("0 0 100 100"));
+    stylusDevice.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
     stylusDevice.setProperty(Property::Threshold, QLatin1String("27"));
-    stylusDevice.setProperty(Property::Rotate, QLatin1String("none"));
-    stylusDevice.setProperty(Property::TabletArea, QLatin1String("-1 -1 -1 -1"));
-
-    QDBusReply<QString> stylusArea = DBusTabletInterface::instance().getProperty( DeviceType::Stylus, Property::Area );
-    stylusDevice.setProperty(Property::Area, stylusArea.isValid() ? stylusArea.value() : QLatin1String("0 0 0 0"));
-
-    QDBusReply<QString> stylusTpcButton = DBusTabletInterface::instance().getProperty( DeviceType::Stylus, Property::TabletPcButton );
-    stylusDevice.setProperty(Property::TabletPcButton, stylusTpcButton.isValid() ? stylusTpcButton.value() : QLatin1String("on"));
 
     tabletProfile.setDevice(stylusDevice);
 
 
     DeviceProfile eraserDevice = tabletProfile.getDevice(DeviceType::Eraser);
 
-    //eraserDevice.setProperty(Property::Button1, QLatin1String("1")); // removed beacuse the wacomdriver has an awfull bug when reset button 1 to 1 (leftclick)
+    eraserDevice.setProperty(Property::Area, QLatin1String("-1 -1 -1 -1"));
     eraserDevice.setProperty(Property::Button2, QLatin1String("2"));
     eraserDevice.setProperty(Property::Button3, QLatin1String("3"));
     eraserDevice.setProperty(Property::Mode, QLatin1String("absolute"));
     eraserDevice.setProperty(Property::PressureCurve, QLatin1String("0 0 100 100"));
+    eraserDevice.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
     eraserDevice.setProperty(Property::Threshold, QLatin1String("27"));
-
-    // TODO RawFilter, Suppress, RawSample, MapToOutput
-
-    eraserDevice.setProperty(Property::Rotate, QLatin1String("none"));
-    eraserDevice.setProperty(Property::TabletArea, QLatin1String("-1 -1 -1 -1"));
-
-    QDBusReply<QString> eraserArea = DBusTabletInterface::instance().getProperty( DeviceType::Eraser, Property::Area );
-    eraserDevice.setProperty(Property::Area, eraserArea.isValid() ? eraserArea.value() : QLatin1String("0 0 0 0"));
 
     tabletProfile.setDevice(eraserDevice);
 
@@ -153,30 +119,19 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     // also add section for the touch if we have a touch tool
     QDBusReply<QString> touchName = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
 
-    QString validName = touchName.value();
-    if( !validName.isEmpty() ) {
+    if( !touchName.value().isEmpty() ) {
 
         DeviceProfile touchDevice = tabletProfile.getDevice(DeviceType::Touch);
 
-        touchDevice.setProperty(Property::Rotate, QLatin1String("none"));
-        touchDevice.setProperty(Property::TabletArea, QLatin1String("-1 -1 -1 -1"));
+        touchDevice.setProperty(Property::Area, QLatin1String("-1 -1 -1 -1"));
+        touchDevice.setProperty(Property::Gesture, QLatin1String("on"));
+        touchDevice.setProperty(Property::InvertScroll, QLatin1String("off"));
         touchDevice.setProperty(Property::Mode, QLatin1String("absolute"));
+        touchDevice.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
+        touchDevice.setProperty(Property::ScrollDistance, QLatin1String("20"));
         touchDevice.setProperty(Property::TapTime, QLatin1String("250"));
-
-        QDBusReply<QString> touchArea = DBusTabletInterface::instance().getProperty( DeviceType::Touch, Property::Area );
-        touchDevice.setProperty(Property::Area, touchArea.isValid() ? touchArea.value() : QLatin1String("0 0 0 0"));
-
-        QDBusReply<QString> touch = DBusTabletInterface::instance().getProperty( DeviceType::Touch, Property::Touch );
-        touchDevice.setProperty(Property::Touch, touch.isValid() ? touch.value() : QLatin1String("on"));
-
-        QDBusReply<QString> gesture = DBusTabletInterface::instance().getProperty( DeviceType::Touch, Property::Gesture );
-        touchDevice.setProperty(Property::Gesture, gesture.isValid() ? gesture.value() : QLatin1String("on"));
-
-        QDBusReply<QString> zoomDistance = DBusTabletInterface::instance().getProperty( DeviceType::Touch, Property::ZoomDistance );
-        touchDevice.setProperty(Property::ZoomDistance, zoomDistance.isValid() ? zoomDistance.value() : QLatin1String("50"));
-
-        QDBusReply<QString> scrollDistance = DBusTabletInterface::instance().getProperty( DeviceType::Touch, Property::ScrollDistance );
-        touchDevice.setProperty(Property::ScrollDistance, scrollDistance.isValid() ? scrollDistance.value() : QLatin1String("50"));
+        touchDevice.setProperty(Property::Touch, QLatin1String("on"));
+        touchDevice.setProperty(Property::ZoomDistance, QLatin1String("50"));
 
         tabletProfile.setDevice(touchDevice);
     }

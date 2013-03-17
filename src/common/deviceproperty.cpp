@@ -63,7 +63,6 @@ const DeviceProperty DeviceProperty::StripLeftUp      ( Property::StripLeftUp,  
 const DeviceProperty DeviceProperty::StripRightDown   ( Property::StripRightDown,   QLatin1String("StripRightDown") );
 const DeviceProperty DeviceProperty::StripRightUp     ( Property::StripRightUp,     QLatin1String("StripRightUp") );
 const DeviceProperty DeviceProperty::Suppress         ( Property::Suppress,         QLatin1String("Suppress") );
-const DeviceProperty DeviceProperty::TabletArea       ( Property::TabletArea,       QLatin1String("TabletArea") );
 const DeviceProperty DeviceProperty::TabletPcButton   ( Property::TabletPcButton,   QLatin1String("TabletPcButton") );
 const DeviceProperty DeviceProperty::TapTime          ( Property::TapTime,          QLatin1String("TapTime") );
 const DeviceProperty DeviceProperty::Threshold        ( Property::Threshold,        QLatin1String("Threshold") );

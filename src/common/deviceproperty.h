@@ -76,7 +76,6 @@ public:
     static const DeviceProperty StripRightDown;
     static const DeviceProperty StripRightUp;
     static const DeviceProperty Suppress;
-    static const DeviceProperty TabletArea;
     static const DeviceProperty TabletPcButton;
     static const DeviceProperty TapTime;
     static const DeviceProperty Threshold;

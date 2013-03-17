@@ -71,7 +71,6 @@ const Property Property::StripLeftUp      ( QLatin1String("StripLeftUp") );
 const Property Property::StripRightDown   ( QLatin1String("StripRightDown") );
 const Property Property::StripRightUp     ( QLatin1String("StripRightUp") );
 const Property Property::Suppress         ( QLatin1String("Suppress") );
-const Property Property::TabletArea       ( QLatin1String("TabletArea") );
 const Property Property::TabletPcButton   ( QLatin1String("TabletPcButton") );
 const Property Property::TapTime          ( QLatin1String("TapTime") );
 const Property Property::Threshold        ( QLatin1String("Threshold") );
