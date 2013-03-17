@@ -31,16 +31,14 @@ namespace Wacom
     {
         public:
             ScreenSpacePrivate() {
-                type    = ScreenSpace::DESKTOP;
                 monitor = -1;
             }
 
-            static const QString         DESKTOP_STRING_OLD; // old config file
-            static const QString         DESKTOP_STRING;
-            static const QString         MONITOR_PREFIX;
+            static const QString DESKTOP_STRING_OLD; // old config file
+            static const QString DESKTOP_STRING;
+            static const QString MONITOR_PREFIX;
 
-            ScreenSpace::ScreenSpaceType type;
-            int                          monitor;
+            int monitor;
     };
 
     const QString ScreenSpacePrivate::DESKTOP_STRING_OLD = QLatin1String("full");
@@ -71,21 +69,14 @@ ScreenSpace::ScreenSpace(const QString& screenSpace)
 
 
 
-ScreenSpace::ScreenSpace(ScreenSpace::ScreenSpaceType type, int monitorNumber)
+ScreenSpace::ScreenSpace(int monitorNumber)
         : d_ptr(new ScreenSpacePrivate)
 {
     Q_D(ScreenSpace);
 
-    d->type = type;
-
-    if (type == ScreenSpace::DESKTOP) {
+    if (monitorNumber <= -1) {
         d->monitor = -1;
-
     } else {
-        if (monitorNumber < 0) {
-            monitorNumber = 0;
-        }
-
         d->monitor = monitorNumber;
     }
 }
@@ -110,15 +101,7 @@ bool ScreenSpace::operator==(const ScreenSpace& screenSpace) const
 {
     Q_D(const ScreenSpace);
 
-    if (d->monitor != screenSpace.d_ptr->monitor) {
-        return false;
-    }
-
-    if (d->type != screenSpace.d_ptr->type) {
-        return false;
-    }
-
-    return true;
+    return (d->monitor == screenSpace.d_ptr->monitor);
 }
 
 
@@ -130,7 +113,7 @@ bool ScreenSpace::operator!=(const ScreenSpace& screenSpace) const
 
 const ScreenSpace ScreenSpace::desktop()
 {
-    return ScreenSpace(ScreenSpace::DESKTOP, -1);
+    return ScreenSpace(-1);
 }
 
 
@@ -146,7 +129,7 @@ bool ScreenSpace::isDesktop() const
 {
     Q_D(const ScreenSpace);
 
-    return (d->type == ScreenSpace::DESKTOP);
+    return (d->monitor == -1);
 }
 
 
@@ -154,7 +137,7 @@ bool ScreenSpace::isMonitor() const
 {
     Q_D(const ScreenSpace);
 
-    return (d->type == ScreenSpace::MONITOR);
+    return (d->monitor >= 0);
 }
 
 
@@ -163,7 +146,7 @@ bool ScreenSpace::isMonitor(int screenNumber) const
 {
     Q_D(const ScreenSpace);
 
-    return (isMonitor() && d->monitor == screenNumber);
+    return (d->monitor == screenNumber);
 }
 
 
@@ -173,7 +156,7 @@ const ScreenSpace ScreenSpace::monitor(int screenNumber)
         screenNumber = 0;
     }
 
-    return ScreenSpace(ScreenSpace::MONITOR, screenNumber);
+    return ScreenSpace(screenNumber);
 }
 
 
@@ -181,7 +164,7 @@ const QString ScreenSpace::toString() const
 {
     Q_D(const ScreenSpace);
 
-    if (d->type == ScreenSpace::MONITOR && d->monitor >= 0) {
+    if (d->monitor >= 0) {
         return QString::fromLatin1("%1%2").arg(ScreenSpacePrivate::MONITOR_PREFIX).arg(d->monitor);
     }
 
@@ -201,7 +184,6 @@ void ScreenSpace::setScreenSpace(const QString& screenSpace)
 
         int screenNumber = monitorRegExp.cap(1).toInt();
 
-        d->type    = ScreenSpace::MONITOR;
         d->monitor = (screenNumber < 0) ? 0 : screenNumber;
 
     } else {
@@ -209,7 +191,6 @@ void ScreenSpace::setScreenSpace(const QString& screenSpace)
             kDebug() << QString::fromLatin1("Failed to parse screen space '%1'!").arg(screenSpace);
         }
 
-        d->type    = ScreenSpace::DESKTOP;
         d->monitor = -1;
     }
 }

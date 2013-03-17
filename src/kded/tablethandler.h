@@ -212,15 +212,6 @@ private:
 
 
     /**
-     * Extracts a screen space mapping from a screen space map in profile format.
-     * Returns "-1 -1 -1 -1" if no mapping is available.
-     *
-     * @return The tablet area mapping for the given screen space.
-     */
-    const QString getScreenSpaceMapping(const ScreenSpace& screenSpace, const QString& screenMapping) const;
-
-
-    /**
      * Checks if the current tablet supports the given device type.
      *
      * @param type The device type to check for.

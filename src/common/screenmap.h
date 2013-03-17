@@ -17,59 +17,46 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SCREENSPACE_H
-#define SCREENSPACE_H
+#ifndef SCREENMAP_H
+#define SCREENMAP_H
+
+#include "screenspace.h"
 
 #include <QtCore/QString>
+#include <QtCore/QRect>
 
 namespace Wacom
 {
 
-class ScreenSpacePrivate;
+class ScreenMapPrivate;
 
-class ScreenSpace
+class ScreenMap
 {
 
 public:
-    enum ScreenSpaceType
-    {
-        DESKTOP,
-        MONITOR
-    };
 
-    ScreenSpace();
-    ScreenSpace(const QString& screenSpace);
-    ScreenSpace(const ScreenSpace& screenSpace);
-    virtual ~ScreenSpace();
+    explicit ScreenMap(const QRect& tabletGeometry = QRect(-1, -1, -1, -1));
+    explicit ScreenMap(const QString& mapping);
+    explicit ScreenMap(const ScreenMap& screenMap);
 
-    ScreenSpace& operator= (const ScreenSpace& screenSpace);
+    virtual ~ScreenMap();
 
-    bool operator== (const ScreenSpace& screenSpace) const;
+    ScreenMap& operator= (const ScreenMap& screenMap);
 
-    bool operator!= (const ScreenSpace& screenSpace) const;
+    void fromString(const QString& mappings);
 
-    static const ScreenSpace desktop();
+    const QRect& getMapping(const ScreenSpace& screen) const;
 
-    int getScreenNumber() const;
+    const QString getMappingAsString(const Wacom::ScreenSpace& screen) const;
 
-    bool isDesktop() const;
-
-    bool isMonitor() const;
-
-    bool isMonitor(int screenNumber) const;
-
-    static const ScreenSpace monitor(int screenNumber);
+    void setMapping(const ScreenSpace& screen, const QRect& mapping);
 
     const QString toString() const;
 
-
 private:
-    ScreenSpace(int monitorNumber);
 
-    void setScreenSpace(const QString& screenSpace);
-
-    Q_DECLARE_PRIVATE(ScreenSpace)
-    ScreenSpacePrivate *const d_ptr; // D-Pointer for private members.
+    Q_DECLARE_PRIVATE(ScreenMap)
+    ScreenMapPrivate *const d_ptr; // D-Pointer for private members.
 
 }; // CLASS
 }  // NAMESPACE
