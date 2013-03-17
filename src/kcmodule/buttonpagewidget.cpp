@@ -99,43 +99,62 @@ void ButtonPageWidget::saveToProfile()
 
         if (buttonSelector && buttonSelector->isVisible()) {
             padProfile.setButton(i, buttonSelector->getShortcut().toString());
+        } else {
+            // Make sure only valid buttons are set.
+            // If invalid button numbers are set they might overwrite mapped buttons.
+            // For instance, if button 4 gets mapped to 9, then setting button 9 will
+            // overwrite the value from button 4 unless the device actually has a
+            // button 9 which would then in turn have another mapping to another X11
+            // button number, e.g. 13.
+            padProfile.setButton(i, QString());
         }
     }
 
-    // save strip shortcuts
+    // save strip shortcuts - reset invalid ones - same reasons as above
+    QString stripLUp, stripRUp, stripLDown, stripRDown;
+
     if (d->ui->touchStripGroupBox->isVisible()) {
         if (d->ui->leftStripWidget->isVisible()) {
-            padProfile.setProperty(Property::StripLeftUp,    d->ui->leftStripUpSelector->getShortcut().toString());
-            padProfile.setProperty(Property::StripLeftDown,  d->ui->leftStripDownSelector->getShortcut().toString());
+            stripLUp   = d->ui->leftStripUpSelector->getShortcut().toString();
+            stripLDown = d->ui->leftStripDownSelector->getShortcut().toString();
         }
 
         if (d->ui->rightStripWidget->isVisible()) {
-            padProfile.setProperty(Property::StripRightUp,   d->ui->rightStripUpSelector->getShortcut().toString());
-            padProfile.setProperty(Property::StripRightDown, d->ui->rightStripDownSelector->getShortcut().toString());
+            stripRUp   = d->ui->rightStripUpSelector->getShortcut().toString();
+            stripRDown = d->ui->rightStripDownSelector->getShortcut().toString();
         }
     }
 
-    // save wheel and ring shortcuts
+    padProfile.setProperty(Property::StripLeftUp,    stripLUp);
+    padProfile.setProperty(Property::StripLeftDown,  stripLDown);
+    padProfile.setProperty(Property::StripRightUp,   stripRUp);
+    padProfile.setProperty(Property::StripRightDown, stripRDown);
+
+    // save wheel and ring shortcuts - reset invalid values - same reasons as above
+    QString absWUp, absWDown;
+
     if (d->ui->touchRingGroupBox->isVisible() || d->ui->wheelGroupBox->isVisible()) {
         // ring and wheel shortcuts are treated the same but only one value may be written,
         // as the other one could be empty. Use whichever value we can get our hands on first.
         if (d->ui->ringUpSelector->getShortcut().isSet()) {
-            padProfile.setProperty(Property::AbsWheelUp,   d->ui->ringUpSelector->getShortcut().toString());
-            padProfile.setProperty(Property::AbsWheelUp,   d->ui->ringUpSelector->getShortcut().toString());
+            absWUp = d->ui->ringUpSelector->getShortcut().toString();
         } else {
-            padProfile.setProperty(Property::AbsWheelUp,   d->ui->wheelUpSelector->getShortcut().toString());
-            padProfile.setProperty(Property::AbsWheelUp,   d->ui->wheelUpSelector->getShortcut().toString());
+            absWUp = d->ui->wheelUpSelector->getShortcut().toString();
         }
 
         if (d->ui->ringDownSelector->getShortcut().isSet()) {
-            padProfile.setProperty(Property::AbsWheelDown, d->ui->ringDownSelector->getShortcut().toString());
-            padProfile.setProperty(Property::AbsWheelDown, d->ui->ringDownSelector->getShortcut().toString());
+            absWDown = d->ui->ringDownSelector->getShortcut().toString();
         } else {
-            padProfile.setProperty(Property::AbsWheelDown, d->ui->wheelDownSelector->getShortcut().toString());
-            padProfile.setProperty(Property::AbsWheelDown, d->ui->wheelDownSelector->getShortcut().toString());
+            absWDown = d->ui->wheelDownSelector->getShortcut().toString();
         }
     }
 
+    padProfile.setProperty(Property::AbsWheelUp,    absWUp);
+    padProfile.setProperty(Property::AbsWheel2Up,   absWUp);
+    padProfile.setProperty(Property::AbsWheelDown,  absWDown);
+    padProfile.setProperty(Property::AbsWheel2Down, absWDown);
+
+    // save device profile
     profileManagement->saveDeviceProfile(padProfile);
 }
 
