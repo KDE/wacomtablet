@@ -160,7 +160,7 @@
               <bool>false</bool>
              </property>
              <property name="toolTip">
-              <string>If enabled the tablet automatic rotation will be inverted.</string>
+              <string>If enabled the automatic tablet rotation for clockwise and counterclockwise rotations will be inverted.</string>
              </property>
              <property name="text">
               <string>Invert Auto-Rotation</string>
