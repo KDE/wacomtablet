@@ -14,7 +14,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>The tablet area defines how the screen space is mapped onto the tablet. For each screen a differend valid tablet area can be selected.</string>
+      <string>The tablet area defines how the screen space is mapped onto the tablet. For each screen a different valid tablet area can be selected.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

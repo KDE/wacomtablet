@@ -107,7 +107,7 @@
               </sizepolicy>
              </property>
              <property name="toolTip">
-              <string>Allows to specify the tabletarea for different screen selections in absolute cursor mode.</string>
+              <string>Allows to specify the tablet area for different screen selections in absolute cursor mode.</string>
              </property>
              <property name="text">
               <string>Map Touch Area to Screen</string>

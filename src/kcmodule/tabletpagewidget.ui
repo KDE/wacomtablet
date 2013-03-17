@@ -91,7 +91,7 @@
               </sizepolicy>
              </property>
              <property name="toolTip">
-              <string>Allows to specify the tabletarea for different screen selections  in absolute cursor mode.</string>
+              <string>Allows to specify the tablet area for different screen selections in absolute cursor mode.</string>
              </property>
              <property name="text">
               <string>Map Tablet Area to Screen</string>
@@ -160,7 +160,7 @@
               <bool>false</bool>
              </property>
              <property name="toolTip">
-              <string>If enabled the tablet automatic rotation will be inversed.</string>
+              <string>If enabled the tablet automatic rotation will be inverted.</string>
              </property>
              <property name="text">
               <string>Invert Auto-Rotation</string>
