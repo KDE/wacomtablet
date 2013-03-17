@@ -97,7 +97,7 @@ void ButtonPageWidget::saveToProfile()
     for (int i = 1 ; i < 11 ; ++i) {
         buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
 
-        if (buttonSelector && buttonSelector->isVisible()) {
+        if (buttonSelector && buttonSelector->isEnabled()) {
             padProfile.setButton(i, buttonSelector->getShortcut().toString());
         } else {
             // Make sure only valid buttons are set.
@@ -113,13 +113,13 @@ void ButtonPageWidget::saveToProfile()
     // save strip shortcuts - reset invalid ones - same reasons as above
     QString stripLUp, stripRUp, stripLDown, stripRDown;
 
-    if (d->ui->touchStripGroupBox->isVisible()) {
-        if (d->ui->leftStripWidget->isVisible()) {
+    if (d->ui->touchStripGroupBox->isEnabled()) {
+        if (d->ui->leftStripWidget->isEnabled()) {
             stripLUp   = d->ui->leftStripUpSelector->getShortcut().toString();
             stripLDown = d->ui->leftStripDownSelector->getShortcut().toString();
         }
 
-        if (d->ui->rightStripWidget->isVisible()) {
+        if (d->ui->rightStripWidget->isEnabled()) {
             stripRUp   = d->ui->rightStripUpSelector->getShortcut().toString();
             stripRDown = d->ui->rightStripDownSelector->getShortcut().toString();
         }
@@ -133,7 +133,7 @@ void ButtonPageWidget::saveToProfile()
     // save wheel and ring shortcuts - reset invalid values - same reasons as above
     QString absWUp, absWDown;
 
-    if (d->ui->touchRingGroupBox->isVisible() || d->ui->wheelGroupBox->isVisible()) {
+    if (d->ui->touchRingGroupBox->isEnabled() || d->ui->wheelGroupBox->isEnabled()) {
         // ring and wheel shortcuts are treated the same but only one value may be written,
         // as the other one could be empty. Use whichever value we can get our hands on first.
         if (d->ui->ringUpSelector->getShortcut().isSet()) {
@@ -207,9 +207,6 @@ void ButtonPageWidget::reloadWidget()
 {
     Q_D( ButtonPageWidget );
 
-    QDBusReply<QString> deviceModel  = DBusTabletInterface::instance().getInformation(TabletInfo::TabletModel);
-    QDBusReply<QString> deviceId     = DBusTabletInterface::instance().getInformation(TabletInfo::TabletId);
-
     int padButtons = DBusTabletInterface::instance().getInformationAsInt(TabletInfo::NumPadButtons);
 
     QLabel*                     buttonLabel;
@@ -223,11 +220,16 @@ void ButtonPageWidget::reloadWidget()
             continue;
         }
 
+        // we have to disable the widgets as well because when writing
+        // the configuration file we can not reliably determine their state
+        // based on visibility.
         if (i <= padButtons) {
             buttonLabel->setVisible(true);
+            buttonSelector->setEnabled(true);
             buttonSelector->setVisible(true);
         } else {
             buttonLabel->setVisible(false);
+            buttonSelector->setEnabled(false);
             buttonSelector->setVisible(false);
         }
     }
@@ -241,20 +243,26 @@ void ButtonPageWidget::reloadWidget()
     bool hasRightTouchStrip = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasRightTouchStrip);
 
     if (!hasLeftTouchStrip && !hasRightTouchStrip) {
+        d->ui->touchStripGroupBox->setEnabled(false);
         d->ui->touchStripGroupBox->setVisible(false);
 
     } else {
+        d->ui->touchStripGroupBox->setEnabled(true);
         d->ui->touchStripGroupBox->setVisible(true);
 
         // Hide the strip input widgets directly instead of
         // their parent widget, to keep the layout stable.
         // Hiding the parent widget will mess up the layout!
+        // Also disable the widgets so we can reliable determine
+        // which settings to save.
         if (!hasLeftTouchStrip) {
+            d->ui->leftStripWidget->setEnabled(false);
             d->ui->leftStripUpLabel->setVisible(false);
             d->ui->leftStripUpSelector->setVisible(false);
             d->ui->leftStripDownLabel->setVisible(false);
             d->ui->leftStripDownSelector->setVisible(false);
         } else {
+            d->ui->leftStripWidget->setEnabled(true);
             d->ui->leftStripUpLabel->setVisible(true);
             d->ui->leftStripUpSelector->setVisible(true);
             d->ui->leftStripDownLabel->setVisible(true);
@@ -262,11 +270,13 @@ void ButtonPageWidget::reloadWidget()
         }
 
         if (!hasRightTouchStrip) {
+            d->ui->rightStripWidget->setEnabled(false);
             d->ui->rightStripUpLabel->setVisible(false);
             d->ui->rightStripUpSelector->setVisible(false);
             d->ui->rightStripDownLabel->setVisible(false);
             d->ui->rightStripDownSelector->setVisible(false);
         } else {
+            d->ui->rightStripWidget->setEnabled(true);
             d->ui->rightStripUpLabel->setVisible(true);
             d->ui->rightStripUpSelector->setVisible(true);
             d->ui->rightStripDownLabel->setVisible(true);
@@ -275,14 +285,18 @@ void ButtonPageWidget::reloadWidget()
     }
 
     if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasTouchRing)) {
+        d->ui->touchRingGroupBox->setEnabled(false);
         d->ui->touchRingGroupBox->setVisible(false);
     } else {
+        d->ui->touchRingGroupBox->setEnabled(true);
         d->ui->touchRingGroupBox->setVisible(true);
     }
 
     if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasWheel)) {
+        d->ui->wheelGroupBox->setEnabled(false);
         d->ui->wheelGroupBox->setVisible(false);
     } else {
+        d->ui->wheelGroupBox->setEnabled(true);
         d->ui->wheelGroupBox->setVisible(true);
     }
 }
