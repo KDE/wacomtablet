@@ -266,7 +266,7 @@
                <listitem>
                    <para>
                        <guilabel>Tap Time</guilabel> :
-                       This time in milliseconds specifies when a double tab on the device is recognized as right-click
+                       This time in milliseconds specifies when a double tap on the device is recognized as right-click
                    </para>
                </listitem>
            </itemizedlist>
