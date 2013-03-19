@@ -365,6 +365,14 @@ wheel=no
 touchring=no
 touchstripl=no
 
+[003A]
+layout=unknown
+name=Wacom DTI520UB/L
+padbuttons=10
+wheel=no
+touchring=no
+touchstripl=no
+
 [003F]
 model=DTZ-21ux
 layout=unknown
@@ -515,6 +523,16 @@ name=Wacom Bamboo one
 padbuttons=o
 wheel=no
 touchring=yes
+touchstripl=no
+touchstripr=no
+
+[0081]
+model=PTH-650/K Wireless
+layout=unknown
+name=Wacom Graphire Wireless
+padbuttons=2
+wheel=no
+touchring=false
 touchstripl=no
 touchstripr=no
 
@@ -830,11 +848,11 @@ touchstripr=no
 model=DTZ-20wsx
 layout=unknown
 name=Wacom Cintiq 20WSX
-padbuttons=0
+padbuttons=14
 wheel=no
 touchring=no
-touchstripl=no
-touchstripr=no
+touchstripl=yes
+touchstripr=yes
 
 [00C6]
 model=DTZ-12wx
@@ -870,7 +888,7 @@ touchstripr=no
 model=unknown
 layout=unknown
 name=Wacom Cintiq 21UX2
-padbuttons=10
+padbuttons=18
 wheel=no
 touchring=no
 touchstripl=yes
@@ -899,7 +917,7 @@ touchstripr=no
 [00D0]
 model=CTT-460
 layout=bl_8
-name=Bamboo Touch
+name=Wacom Bamboo 2FG
 padbuttons=4
 wheel=no
 touchring=no
@@ -941,7 +959,7 @@ hwbutton4=1
 [00D3]
 model=CTH-661
 layout=bl_8
-name=Bamboo Fun
+name=Wacom Bamboo 2FG 6x8
 padbuttons=4
 wheel=no
 touchring=no
@@ -1100,6 +1118,16 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
+[00E5]
+model=unknown
+layout=unknown
+name=Wacom ISDv4 E5
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
 [00E6]
 model=unknown
 layout=unknown
@@ -1110,10 +1138,90 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
+[00ED]
+model=unknown
+layout=unknown
+name=Wacom ISDv4 ED
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00EF]
+model=unknown
+layout=unknown
+name=Wacom ISDv4 ED
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
 [00F0]
 model=unknown
 layout=unknown
 name=DTU1631
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[00F4]
+model=unknown
+layout=unknown
+name=Wacom Cintiq 24HD
+padbuttons=16
+wheel=no
+touchring=yes
+touchstripl=yes
+touchstripr=yes
+
+[00F8]
+model=unknown
+layout=unknown
+name=Wacom Cintiq 22HD touch
+padbuttons=16
+wheel=no
+touchring=yes
+touchstripl=yes
+touchstripr=yes
+
+[00FA]
+model=unknown
+layout=unknown
+name=Wacom Cintiq 22HD
+padbuttons=18
+wheel=no
+touchring=no
+touchstripl=yes
+touchstripr=yes
+
+[0100]
+model=unknown
+layout=unknown
+name=Wacom ISDv4 100
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[0101]
+model=unknown
+layout=unknown
+name=Wacom ISDv4 101
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
+[010D]
+model=unknown
+layout=unknown
+name=Wacom ISDv4 10D
 padbuttons=0
 wheel=no
 touchring=no
