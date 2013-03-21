@@ -46,7 +46,7 @@ install(FILES org.kde.Wacom.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
 
 
 ## LIBRARY FOR UNIT TESTS
-if (ENABLE_TESTING)
+if (KDE4_BUILD_TESTS)
 
     ## headers which need to be moc'ed for the static unit-testing library
     set(kded_wacomtablet_HDRS
@@ -68,4 +68,4 @@ if (ENABLE_TESTING)
       set_target_properties( kded_wacomtablet_lib PROPERTIES COMPILE_FLAGS "-fPIC" )
     endif( CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" )
 
-endif (ENABLE_TESTING)
+endif (KDE4_BUILD_TESTS)

@@ -42,16 +42,16 @@ Dependencies:
 #################################################################
 # build debian package
 
-debuild -us -uc -b
+$ debuild -us -uc -b
 
 #################################################################
 # or install with
 
-mkdir build
-cd build
-cmake ../ -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` -DCMAKE_BUILD_TYPE=release
-make
-make install
+$ mkdir build
+$ cd build
+$ cmake ../ -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` -DCMAKE_BUILD_TYPE=release
+$ make
+$ make install
 
 #################################################################
 # start with
@@ -64,6 +64,28 @@ Afterwards you get a notice when you plugin your device and can configure it via
 
 $ kcmshell4 kcm_wacomtablet
 or have a look in the system settings where the keyboard and mouse settings are
+
+
+#################################################################
+# execute unit tests
+To run the unit-test add the KDE4_BUILD_TESTS=ON variable to the cmake call
+
+$ mkdir build
+$ cd build
+$ cmake ../ -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` -DKDE4_BUILD_TESTS=ON
+$ make
+
+execute all tests via:
+
+$ ctest
+
+or a single one via
+$ cd /build/autotests/common/property
+$ ./Property.shell
+
+you can find the testresults in
+
+build/Testing/Temporary/LastTest.log
 
 ##################################################################
 # Add missing tablet devices
