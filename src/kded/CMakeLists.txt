@@ -63,9 +63,6 @@ if (KDE4_BUILD_TESTS)
     ## build static library for unit testing
     add_library( kded_wacomtablet_lib STATIC ${kded_wacomtablet_SRCS} ${kded_wacomtablet_MOCS} )
     target_link_libraries( kded_wacomtablet_lib ${kded_wacomtablet_LIBS} )
-
-    if( CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" )
-      set_target_properties( kded_wacomtablet_lib PROPERTIES COMPILE_FLAGS "-fPIC" )
-    endif( CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" )
+    set_target_properties( kded_wacomtablet_lib PROPERTIES COMPILE_FLAGS "-fPIC" )
 
 endif (KDE4_BUILD_TESTS)

@@ -31,7 +31,4 @@ add_library( wacom_common STATIC ${wacom_common_SRC})
 
 #target_link_libraries( wacom_common ${KDE4_KDECORE_LIBS} ${LIBWACOM_LIBRARIES} )
 target_link_libraries( wacom_common ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} )
-
-if( CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" )
-  set_target_properties( wacom_common PROPERTIES COMPILE_FLAGS "-fPIC" )
-endif( CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" )
+set_target_properties( wacom_common PROPERTIES COMPILE_FLAGS "-fPIC" )
