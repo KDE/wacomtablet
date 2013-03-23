@@ -212,7 +212,8 @@ bool XsetwacomAdaptor::setArea(const QString& value)
     Q_D( const XsetwacomAdaptor );
 
     // "full" and "desktop" are just for backwards compatibility
-    if ( value.contains(QLatin1String("-1 -1 -1 -1")) || value.contains(QLatin1String("desktop"))  || value.contains(QLatin1String("full")) ) {
+    if ( value.isEmpty() || value.contains(QLatin1String("-1 -1 -1 -1")) ||
+         value.contains(QLatin1String("desktop"))  || value.contains(QLatin1String("full")) ) {
         return setParameter(d->device, XsetwacomProperty::ResetArea.key(), QLatin1String(""));
     }
 
