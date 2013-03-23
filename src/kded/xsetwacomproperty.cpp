@@ -29,6 +29,7 @@ XsetwacomPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Cont
 // SOME PROPERTIES NEED TO BE SET BEFORE OTHERS!
 //
 const XsetwacomProperty XsetwacomProperty::Area             ( Property::Area,             QLatin1String("Area") );
+const XsetwacomProperty XsetwacomProperty::ResetArea        ( Property::ResetArea,        QLatin1String("ResetArea") ); // special property which takes precedence over "Area".
 const XsetwacomProperty XsetwacomProperty::Button1          ( Property::Button1,          QLatin1String("Button 1") );
 const XsetwacomProperty XsetwacomProperty::Button2          ( Property::Button2,          QLatin1String("Button 2") );
 const XsetwacomProperty XsetwacomProperty::Button3          ( Property::Button3,          QLatin1String("Button 3") );

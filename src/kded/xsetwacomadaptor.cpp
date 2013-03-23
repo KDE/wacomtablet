@@ -106,8 +106,11 @@ bool XsetwacomAdaptor::setProperty(const Property& property, const QString& valu
         return false;
     }
 
-    // check for special property
-    if (property == Property::Rotate) {
+    // check for properties which need special handling
+    if (property == Property::Area) {
+        return setArea(value);
+
+    }else if (property == Property::Rotate) {
         return setRotation(value);
 
     } else {
@@ -204,6 +207,19 @@ const QString XsetwacomAdaptor::getParameter(const QString& device, const QStrin
 }
 
 
+bool XsetwacomAdaptor::setArea(const QString& value)
+{
+    Q_D( const XsetwacomAdaptor );
+
+    // "full" and "desktop" are just for backwards compatibility
+    if ( value.contains(QLatin1String("-1 -1 -1 -1")) || value.contains(QLatin1String("desktop"))  || value.contains(QLatin1String("full")) ) {
+        return setParameter(d->device, XsetwacomProperty::ResetArea.key(), QLatin1String(""));
+    }
+
+    return setParameter(d->device, XsetwacomProperty::Area.key(), value);
+}
+
+
 
 bool XsetwacomAdaptor::setRotation(const QString& value)
 {
@@ -227,7 +243,13 @@ bool XsetwacomAdaptor::setRotation(const QString& value)
 
 bool XsetwacomAdaptor::setParameter(const QString& device, const QString& param, const QString& value) const
 {
-    QString  cmd = QString::fromLatin1( "xsetwacom set \"%1\" %2 \"%3\"" ).arg( device ).arg( param ).arg( value );
+    QString  cmd;
+
+    if (value.isEmpty()) {
+        cmd = QString::fromLatin1( "xsetwacom set \"%1\" %2" ).arg( device ).arg( param );
+    } else {
+        cmd = QString::fromLatin1( "xsetwacom set \"%1\" %2 \"%3\"" ).arg( device ).arg( param ).arg( value );
+    }
 
     QProcess setConf;
     setConf.start( cmd );

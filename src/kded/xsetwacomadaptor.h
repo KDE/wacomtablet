@@ -114,6 +114,11 @@ private:
     const QString getParameter(const QString& device, const QString& param) const;
 
     /**
+     * Sets the usable tablet area.
+     */
+    bool setArea(const QString& value);
+
+    /**
      * Sets the tablet rotation.
      */
     bool setRotation(const QString& value);

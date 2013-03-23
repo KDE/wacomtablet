@@ -61,6 +61,7 @@ public:
     static const XsetwacomProperty RawSample;
     static const XsetwacomProperty RelWheelDown;
     static const XsetwacomProperty RelWheelUp;
+    static const XsetwacomProperty ResetArea;
     static const XsetwacomProperty Rotate;
     static const XsetwacomProperty ScrollDistance;
     static const XsetwacomProperty StripLeftDown;

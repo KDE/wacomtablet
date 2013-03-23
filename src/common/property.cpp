@@ -62,6 +62,7 @@ const Property Property::PressureCurve    ( QLatin1String("PressureCurve") );
 const Property Property::RawSample        ( QLatin1String("RawSample") );
 const Property Property::RelWheelDown     ( QLatin1String("RelWheelDown") );
 const Property Property::RelWheelUp       ( QLatin1String("RelWheelUp") );
+const Property Property::ResetArea        ( QLatin1String("ResetArea") );
 const Property Property::Rotate           ( QLatin1String("Rotate") );
 const Property Property::ScreenMap        ( QLatin1String("ScreenMap") );
 const Property Property::ScreenSpace      ( QLatin1String("ScreenSpace") );

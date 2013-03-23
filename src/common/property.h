@@ -202,6 +202,12 @@ public:
     static const Property RelWheelUp;
 
     /**
+     * Resets the tablet area to the default calibration.
+     * This property does not have a value.
+     */
+    static const Property ResetArea;
+
+    /**
      * Determines if the tablet should get rotated.
      * Valid values are:
      *
