@@ -175,7 +175,6 @@ const QString ScreenMap::toString() const
     // create mapping string
     QHash<int,QRect>::const_iterator mapping = d->mappings.constBegin();
 
-    QString     separator = QLatin1String("|");
     ScreenSpace screen;
     QString     area;
     QString     mappings;
