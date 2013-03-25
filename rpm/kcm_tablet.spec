@@ -12,6 +12,9 @@ Group:          System/GUI/KDE
 Summary:        KDE Config Module for Wacom Tablets
 Url:            https://projects.kde.org/projects/extragear/base/wacomtablet
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+Requires:       kdelibs4
+Requires:       kdebase4-runtime
+Requires:       xf86-input-wacom
 BuildRequires:  libkde4-devel
 BuildRequires:  xf86-input-wacom-devel
 %define rname wacomtablet
@@ -46,6 +49,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_kde4_appsdir}/wacomtablet
 %{_kde4_appsdir}/wacomtablet/wacomtablet.notifyrc
+%{_kde4_htmldir}/en/kcontrol
+%{_kde4_htmldir}/en/kcontrol/wacomtablet
 %{_kde4_htmldir}/en/kcontrol/wacomtablet/common
 %{_kde4_htmldir}/en/kcontrol/wacomtablet/index.cache.bz2
 %{_kde4_htmldir}/en/kcontrol/wacomtablet/index.docbook
