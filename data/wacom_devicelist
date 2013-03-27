@@ -223,13 +223,22 @@ hwbutton7=11
 
 [0027]
 model=PTH-650/K
-layout=bl_4
+layout=bl-4
 name=Wacom Intuos5 touch M
 padbuttons=9
 wheel=no
 touchring=yes
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
+hwbutton5=9
+hwbutton6=10
+hwbutton7=11
+hwbutton8=12
+hwbutton9=13
 
 
 [0028]
@@ -538,13 +547,22 @@ touchstripr=no
 
 [0084]
 model=PTH-650/K Wireless
-layout=bl_4
+layout=bl-4
 name=Wacom Intuos5 touch M with Wacom Wireless Receiver
 padbuttons=9
 wheel=no
 touchring=yes
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
+hwbutton5=9
+hwbutton6=10
+hwbutton7=11
+hwbutton8=12
+hwbutton9=13
 
 [0090]
 model=TPC-090
