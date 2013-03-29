@@ -16,6 +16,7 @@ set(wacom_common_SRC
     screenmap.cpp
     screenspace.cpp
     stringutils.cpp
+    tabletarea.cpp
     tabletinfo.cpp
     tabletinformation.cpp
     tabletprofile.cpp

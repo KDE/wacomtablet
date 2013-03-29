@@ -23,6 +23,7 @@
 #include "screenmap.h"
 #include "screenrotation.h"
 #include "screenspace.h"
+#include "tabletarea.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -109,11 +110,15 @@ public slots:
 
 private:
 
+    const TabletArea convertAreaFromRotation(const TabletArea& tablet, const TabletArea& area, const ScreenRotation& rotation) const;
+
+    const TabletArea convertAreaToRotation(const TabletArea& tablet, const TabletArea& area, const ScreenRotation& rotation) const;
+
     const QRect getScreenGeometry(int screenNumber) const;
 
-    const QRect getMapping(int screenNumber) const;
+    const TabletArea getMapping(int screenNumber) const;
 
-    void setMapping(int screenNumber, const QRect& mapping);
+    void setMapping(int screenNumber, const TabletArea& mapping);
 
 
     /**
@@ -128,7 +133,7 @@ private:
      *
      * @param selection The selection to set.
      */
-    void setSelection(const QRect& selection);
+    void setSelection(const TabletArea& selection);
 
 
     Q_DECLARE_PRIVATE(TabletAreaSelectionController)

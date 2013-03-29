@@ -21,6 +21,7 @@
 #define X11WACOM_H
 
 #include "devicetype.h"
+#include "tabletarea.h"
 
 #include <QtCore/QRectF>
 #include <QtCore/QString>
@@ -43,7 +44,7 @@ public:
      *
      * @return The maximum size of the tablet area.
      */
-    static const QRect getMaximumTabletArea(const QString& deviceName);
+    static const TabletArea getMaximumTabletArea(const QString& deviceName);
 
     /**
      * Checks if the current scroll direction is inverted.

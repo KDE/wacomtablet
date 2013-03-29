@@ -22,9 +22,9 @@
 
 #include "screenspace.h"
 #include "screenrotation.h"
+#include "tabletarea.h"
 
 #include <QtCore/QString>
-#include <QtCore/QRect>
 
 namespace Wacom
 {
@@ -36,7 +36,7 @@ class ScreenMap
 
 public:
 
-    explicit ScreenMap(const QRect& tabletGeometry = QRect(-1, -1, -1, -1));
+    explicit ScreenMap(const TabletArea& tabletGeometry = TabletArea());
     explicit ScreenMap(const QString& mapping);
     explicit ScreenMap(const ScreenMap& screenMap);
 
@@ -46,21 +46,15 @@ public:
 
     void fromString(const QString& mappings);
 
-    const QRect getMapping(const ScreenSpace& screen, const ScreenRotation rotation = ScreenRotation::NONE) const;
+    const TabletArea getMapping(const ScreenSpace& screen) const;
 
-    const QString getMappingAsString(const Wacom::ScreenSpace& screen) const;
+    const QString getMappingAsString(const ScreenSpace& screen) const;
 
-    void setMapping(const ScreenSpace& screen, const QRect& mapping, const ScreenRotation& rotation = ScreenRotation::NONE);
+    void setMapping(const ScreenSpace& screen, const TabletArea& mapping);
 
     const QString toString() const;
 
 private:
-
-    bool isTabletGeometryValid() const;
-
-    const QRect fromRotation(const QRect& tablet, const QRect& area, const ScreenRotation& rotation) const;
-
-    const QRect toRotation(const QRect& tablet, const QRect& area, const ScreenRotation& rotation) const;
 
     Q_DECLARE_PRIVATE(ScreenMap)
     ScreenMapPrivate *const d_ptr; // D-Pointer for private members.

@@ -31,7 +31,6 @@
 #include "x11info.h"
 #include "x11wacom.h"
 
-#include <QtCore/QRect>
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 
@@ -49,7 +48,7 @@ namespace Wacom {
             Ui::TouchPageWidget* ui;
 
             ScreenRotation tabletRotation;     // The currently selected tablet rotation.
-            QRect          tabletGeometry;     // The full touch area as rectangle.
+            TabletArea     tabletGeometry;     // The full touch area as rectangle.
             ScreenMap      screenMap;          // The current tablet to screen mapping of the touch device.
             ScreenSpace    screenSpace;        // The current screen mapping of the touch device.
             QString        touchDeviceName;    // The Xinput name of the touch device of the current tablet.
@@ -100,7 +99,7 @@ void TouchPageWidget::reloadWidget()
 
     // update name and maximum tablet area for all devices
     d->touchDeviceName.clear();
-    d->tabletGeometry = QRect();
+    d->tabletGeometry = TabletArea();
     d->screenMap      = ScreenMap();
 
     if (touchDeviceNameReply.isValid()) {
@@ -435,7 +434,7 @@ void TouchPageWidget::assertValidTabletMapping()
         ScreenSpace screenSpace = getScreenSpace();
 
         if (screenSpace.isMonitor()) {
-            QRect selection = getScreenMap().getMapping(screenSpace);
+            TabletArea selection = getScreenMap().getMapping(screenSpace);
 
             if (selection != d->tabletGeometry) {
                 isWarningVisible = true;

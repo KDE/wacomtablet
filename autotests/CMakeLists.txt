@@ -14,6 +14,7 @@ if(KDE4_BUILD_TESTS)
     add_subdirectory( common/profilemanager )
     add_subdirectory( common/property )
     add_subdirectory( common/propertyset )
+    add_subdirectory( common/tabletarea )
     add_subdirectory( common/tabletinformation )
     add_subdirectory( common/tabletprofile )
     add_subdirectory( common/tabletprofileconfigadaptor )
@@ -25,7 +26,5 @@ if(KDE4_BUILD_TESTS)
     add_subdirectory( kded/tabletbackend )
     add_subdirectory( kded/dbustabletservice )
     add_subdirectory( kded/tablethandler )
-
-
 
 endif()

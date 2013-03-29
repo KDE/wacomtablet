@@ -20,6 +20,8 @@
 #ifndef TABLETAREASELECTIONVIEW_H
 #define TABLETAREASELECTIONVIEW_H
 
+#include "tabletarea.h"
+
 #include <QtCore/QObject>
 #include <QtCore/QRect>
 #include <QtCore/QString>
@@ -48,7 +50,7 @@ public:
     /**
      * @return The current selection as rectangle.
      */
-    const QRect getSelection() const;
+    const TabletArea getSelection() const;
 
 
     /**
@@ -61,7 +63,7 @@ public:
      *
      * @param selection The part to select, may not be empty.
      */
-    void selectPartOfTablet(const QRect& selection);
+    void selectPartOfTablet(const TabletArea& selection);
 
 
     /**
@@ -70,7 +72,7 @@ public:
      * @param screenNumber The screen number to switch to.
      * @param tabletSelection The selection to set on the tablet.
      */
-    void select(int screenNumber, const QRect& tabletSelection);
+    void select(int screenNumber, const TabletArea& tabletSelection);
 
 
     /**
@@ -97,7 +99,7 @@ public:
      * @param geometry The geometry of the tablet.
      * @param widgetTargetSize The target size of the tablet area widget.
      */
-    void setupTablet( const QRect& geometry, const QSize& widgetTargetSize );
+    void setupTablet( const TabletArea& geometry, const QSize& widgetTargetSize );
 
 
 public slots:
@@ -176,7 +178,7 @@ protected:
      *
      * @param selection The geometry of the new selection.
      */
-    void setSelection(const QRect& selection);
+    void setSelection(const TabletArea& selection);
 
 
     /**
@@ -197,7 +199,7 @@ private:
      *
      * @return True if the given selection selects the full tablet area, else false.
      */
-    bool isFullAreaSelection(const QRect& selection) const;
+    bool isFullAreaSelection(const TabletArea& selection) const;
 
     /**
      * Sets up this widget. Must only be called once by the constructor.

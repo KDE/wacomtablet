@@ -35,15 +35,15 @@ namespace Wacom
             static const QString SCREENAREA_SEPERATOR;
             static const QString SCREEN_SEPERATOR;
 
-            QRect             tabletGeometry;
-            QHash<int, QRect> mappings;
+            TabletArea             tabletGeometry;
+            QHash<int, TabletArea> mappings;
     };
 
     const QString ScreenMapPrivate::SCREENAREA_SEPERATOR = QLatin1String(":");
     const QString ScreenMapPrivate::SCREEN_SEPERATOR     = QLatin1String("|");
 }
 
-ScreenMap::ScreenMap(const QRect& tabletGeometry)
+ScreenMap::ScreenMap(const TabletArea &tabletGeometry)
         : d_ptr(new ScreenMapPrivate)
 {
     Q_D(ScreenMap);
@@ -55,9 +55,6 @@ ScreenMap::ScreenMap(const QRect& tabletGeometry)
 ScreenMap::ScreenMap(const QString& mapping)
         : d_ptr(new ScreenMapPrivate)
 {
-    Q_D(ScreenMap);
-
-    d->tabletGeometry = QRect(-1, -1, -1, -1);
     fromString(mapping);
 }
 
@@ -80,6 +77,7 @@ ScreenMap::~ScreenMap()
 ScreenMap& ScreenMap::operator=(const ScreenMap& screenMap)
 {
     *(this->d_ptr) = *(screenMap.d_ptr);
+
     return (*this);
 }
 
@@ -92,8 +90,7 @@ void ScreenMap::fromString(const QString& mappings)
     QString     separator(QLatin1String(":"));
     QStringList mapping;
     ScreenSpace screen;
-    QString     area;
-    int         screenNumber;
+    TabletArea  tabletArea;
 
     d->mappings.clear();
 
@@ -105,45 +102,28 @@ void ScreenMap::fromString(const QString& mappings)
             continue;
         }
 
-        screen        = ScreenSpace(mapping.at(0).trimmed());
-        area          = mapping.at(1).trimmed();
-        screenNumber  = screen.getScreenNumber();
+        screen     = ScreenSpace(mapping.at(0).trimmed());
+        tabletArea = TabletArea(mapping.at(1).trimmed());
 
-        QRect areaRect;
-
-        // "-1 -1 -2 -2" is "-1 -1 -1 -1" in coordinate format. We have to check
-        // for "-1 -1 -1 -1" as well to keep compatibility with old configuration files.
-        if (!area.contains(QLatin1String("-1 -1 -1 -1")) && !area.contains(QLatin1String("-1 -1 -2 -2"))) {
-            areaRect = StringUtils::toQRectByCoordinates(area);
-        }
-
-        if (areaRect.isEmpty()) {
-            areaRect = d->tabletGeometry;
-        }
-
-        d->mappings.insert(screenNumber, areaRect);
+        setMapping(screen, tabletArea);
     }
 }
 
 
 
-const QRect ScreenMap::getMapping(const ScreenSpace& screen, const ScreenRotation rotation) const
+const TabletArea ScreenMap::getMapping(const ScreenSpace& screen) const
 {
     Q_D(const ScreenMap);
 
     // try to find selection for the current screen
-    QHash<int,QRect>::const_iterator citer = d->mappings.constFind(screen.getScreenNumber());
+    QHash<int,TabletArea>::const_iterator citer = d->mappings.constFind(screen.getScreenNumber());
 
-    QRect area;
+    TabletArea area;
 
     if (citer != d->mappings.constEnd()) {
         area = citer.value();
     } else {
         area = d->tabletGeometry;
-    }
-
-    if (rotation != ScreenRotation::NONE && isTabletGeometryValid()) {
-        area = toRotation(d->tabletGeometry, area, rotation);
     }
 
     return area;
@@ -152,17 +132,17 @@ const QRect ScreenMap::getMapping(const ScreenSpace& screen, const ScreenRotatio
 
 const QString ScreenMap::getMappingAsString(const ScreenSpace& screen) const
 {
-    return StringUtils::fromQRect(getMapping(screen), true);
+    return getMapping(screen).toString();
 }
 
 
 
-void ScreenMap::setMapping(const ScreenSpace& screen, const QRect& mapping, const ScreenRotation& rotation)
+void ScreenMap::setMapping(const ScreenSpace& screen, const TabletArea &mapping)
 {
     Q_D(ScreenMap);
 
-    if (rotation != ScreenRotation::NONE && isTabletGeometryValid()) {
-        d->mappings.insert(screen.getScreenNumber(), fromRotation(d->tabletGeometry, mapping, rotation));
+    if (mapping.isEmpty()) {
+        d->mappings.insert(screen.getScreenNumber(), d->tabletGeometry);
     } else {
         d->mappings.insert(screen.getScreenNumber(), mapping);
     }
@@ -175,22 +155,13 @@ const QString ScreenMap::toString() const
     Q_D(const ScreenMap);
 
     // create mapping string
-    QHash<int,QRect>::const_iterator mapping = d->mappings.constBegin();
+    QHash<int,TabletArea>::const_iterator mapping = d->mappings.constBegin();
 
     ScreenSpace screen;
-    QString     area;
     QString     mappings;
-    QRect       mappingRect;
+    TabletArea  area;
 
     for ( ; mapping != d->mappings.constEnd() ; ++mapping) {
-
-        mappingRect = mapping.value();
-
-        if (mappingRect.isEmpty()) {
-            mappingRect = d->tabletGeometry;
-        }
-
-        area = StringUtils::fromQRect(mappingRect, true);
 
         if (mapping.key() >= 0) {
             screen = ScreenSpace::monitor(mapping.key());
@@ -198,80 +169,16 @@ const QString ScreenMap::toString() const
             screen = ScreenSpace::desktop();
         }
 
+        area = mapping.value();
+
         if (!mappings.isEmpty()) {
             mappings.append(ScreenMapPrivate::SCREEN_SEPERATOR);
         }
 
         mappings.append(QString::fromLatin1("%1%2%3").arg(screen.toString())
                                                      .arg(ScreenMapPrivate::SCREENAREA_SEPERATOR)
-                                                     .arg(area));
+                                                     .arg(area.toString()));
     }
 
     return mappings;
-}
-
-
-
-
-bool ScreenMap::isTabletGeometryValid() const
-{
-    Q_D(const ScreenMap);
-
-    return (!d->tabletGeometry.isEmpty() &&
-            !(d->tabletGeometry.x() == -1 && d->tabletGeometry.width()  == -1 &&
-              d->tabletGeometry.y() == -1 && d->tabletGeometry.height() == -1));
-}
-
-
-const QRect ScreenMap::fromRotation(const QRect& tablet, const QRect& area, const ScreenRotation& rotation) const
-{
-    QRect result;
-
-    if (rotation == ScreenRotation::CW) {
-        result.setX(area.y());
-        result.setY(tablet.height() - area.x() - area.width());
-        result.setWidth(area.height());
-        result.setHeight(area.width());
-
-    } else if (rotation == ScreenRotation::CCW) {
-        result.setX(tablet.width() - area.y() - area.height());
-        result.setY(area.x());
-        result.setWidth(area.height());
-        result.setHeight(area.width());
-
-    } else if (rotation == ScreenRotation::HALF) {
-        result.setX(tablet.width() - area.width() - area.x());
-        result.setY(tablet.height() - area.height() - area.y());
-        result.setWidth(area.width());
-        result.setHeight(area.height());
-    }
-
-    return result;
-}
-
-
-const QRect ScreenMap::toRotation(const QRect& tablet, const QRect& area, const ScreenRotation& rotation) const
-{
-    QRect result;
-
-    if (rotation == ScreenRotation::CW) {
-        result.setX(tablet.height() - area.height() - area.y());
-        result.setY(area.x());
-        result.setWidth(area.height());
-        result.setHeight(area.width());
-
-    } else if (rotation == ScreenRotation::CCW) {
-        result.setX(area.y());
-        result.setY(tablet.width() - area.width() - area.x());
-        result.setWidth(area.height());
-        result.setHeight(area.width());
-
-    } else if (rotation == ScreenRotation::HALF) {
-        result.setX(tablet.width() - area.width() - area.x());
-        result.setY(tablet.height() - area.height() - area.y());
-        result.setWidth(area.width());
-        result.setHeight(area.height());
-    }
-
-    return result;
 }

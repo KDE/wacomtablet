@@ -95,10 +95,7 @@ public:
 
     /**
      * The tablet area to which the screen space gets mapped to.
-     * Valid values are:
-     *
-     * - "-1 -1 -1 -1" : Map to maximum size.
-     * - "x1 y1 x2 y2" : Map to the given rectangle. Beware that x2, y2 are coordinates and not width/height.
+     * Valid values: A string as returned by TabletArea::toString()
      */
     static const Property Area;
 

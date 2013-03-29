@@ -31,7 +31,6 @@
 #include "x11info.h"
 #include "x11wacom.h"
 
-#include <QtCore/QRect>
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 
@@ -50,7 +49,7 @@ namespace Wacom
             Ui::TabletPageWidget* ui;                // Our UI widget.
 
             ScreenRotation        tabletRotation;    // The current tablet rotation with a hardware viewpoint (not the canvas!).
-            QRect                 tabletGeometry;    // The full tablet area as rectangle.
+            TabletArea            tabletGeometry;    // The full tablet area as rectangle.
             ScreenMap             screenMap;         // The current tablet to screen mapping of the pad.
             ScreenSpace           screenSpace;       // The current screen mapping of the pad.
 
@@ -97,7 +96,7 @@ void TabletPageWidget::reloadWidget()
     // update name and maximum tablet area for all devices
     d->deviceNameStylus.clear();
     d->deviceNameTouch.clear();
-    d->tabletGeometry = QRect();
+    d->tabletGeometry = TabletArea();
     d->screenMap      = ScreenMap();
 
     if (stylusDeviceNameReply.isValid()) {
@@ -421,7 +420,7 @@ void TabletPageWidget::assertValidTabletMapping()
         ScreenSpace screenSpace = getScreenSpace();
 
         if (screenSpace.isMonitor()) {
-            QRect selection = getScreenMap().getMapping(screenSpace);
+            TabletArea selection = getScreenMap().getMapping(screenSpace);
 
             if (selection != d->tabletGeometry) {
                 isWarningVisible = true;

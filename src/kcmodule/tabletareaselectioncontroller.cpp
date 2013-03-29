@@ -43,8 +43,8 @@ namespace Wacom {
             }
 
             TabletAreaSelectionView* view;
-            QRect                    tabletGeometry;        // the original tablet geometry
-            QRect                    tabletGeometryRotated; // the rotated tablet geometry if rotation is active
+            TabletArea               tabletGeometry;        // the original tablet geometry
+            TabletArea               tabletGeometryRotated; // the rotated tablet geometry if rotation is active
             QList<QRect>             screenGeometries;
             int                      currentScreen;
             QString                  deviceName;
@@ -175,12 +175,7 @@ void TabletAreaSelectionController::setupController(const ScreenMap& mappings, c
 
     } else if (rotation == ScreenRotation::AUTO_INVERTED) {
         d->tabletRotation = X11Info::getScreenRotation();
-
-        if (d->tabletRotation == ScreenRotation::CW) {
-            d->tabletRotation = ScreenRotation::CCW;
-        } else if (d->tabletRotation == ScreenRotation::CCW) {
-            d->tabletRotation = ScreenRotation::CW;
-        }
+        d->tabletRotation = d->tabletRotation.invert();
     } else {
         d->tabletRotation = rotation;
     }
@@ -207,7 +202,7 @@ void TabletAreaSelectionController::onCalibrateClicked()
     CalibrationDialog calibDialog(d->deviceName);
     calibDialog.exec();
 
-    setSelection(calibDialog.calibratedArea());
+    setSelection(TabletArea(calibDialog.calibratedArea()));
 }
 
 
@@ -267,7 +262,7 @@ void TabletAreaSelectionController::onSetScreenProportions()
     int newX = (int)((tabletGeometry.width() - newWidth) / 2.);
     int newY = (int)((tabletGeometry.height() - newHeight) / 2.);
 
-    setSelection(QRect(newX, newY, qRound(newWidth), qRound(newHeight)));
+    setSelection(TabletArea(QRect(newX, newY, qRound(newWidth), qRound(newHeight))));
 }
 
 
@@ -290,6 +285,59 @@ bool TabletAreaSelectionController::hasView() const
     return (d->view != NULL);
 }
 
+
+const TabletArea TabletAreaSelectionController::convertAreaFromRotation(const TabletArea &tablet, const TabletArea &area, const ScreenRotation &rotation) const
+{
+    TabletArea result = area;
+
+    if (rotation == ScreenRotation::CW) {
+        result.setX(area.y());
+        result.setY(tablet.height() - area.x() - area.width());
+        result.setWidth(area.height());
+        result.setHeight(area.width());
+
+    } else if (rotation == ScreenRotation::CCW) {
+        result.setX(tablet.width() - area.y() - area.height());
+        result.setY(area.x());
+        result.setWidth(area.height());
+        result.setHeight(area.width());
+
+    } else if (rotation == ScreenRotation::HALF) {
+        result.setX(tablet.width() - area.width() - area.x());
+        result.setY(tablet.height() - area.height() - area.y());
+        result.setWidth(area.width());
+        result.setHeight(area.height());
+    }
+
+    return result;
+}
+
+
+const TabletArea TabletAreaSelectionController::convertAreaToRotation(const TabletArea &tablet, const TabletArea &area, const ScreenRotation &rotation) const
+{
+    TabletArea result = area;
+
+    if (rotation == ScreenRotation::CW) {
+        result.setX(tablet.height() - area.height() - area.y());
+        result.setY(area.x());
+        result.setWidth(area.height());
+        result.setHeight(area.width());
+
+    } else if (rotation == ScreenRotation::CCW) {
+        result.setX(area.y());
+        result.setY(tablet.width() - area.width() - area.x());
+        result.setWidth(area.height());
+        result.setHeight(area.width());
+
+    } else if (rotation == ScreenRotation::HALF) {
+        result.setX(tablet.width() - area.width() - area.x());
+        result.setY(tablet.height() - area.height() - area.y());
+        result.setWidth(area.width());
+        result.setHeight(area.height());
+    }
+
+    return result;
+}
 
 
 const QRect TabletAreaSelectionController::getScreenGeometry(int screenNumber) const
@@ -314,31 +362,37 @@ const QRect TabletAreaSelectionController::getScreenGeometry(int screenNumber) c
 
 
 
-const QRect TabletAreaSelectionController::getMapping(int screenNumber) const
+const TabletArea TabletAreaSelectionController::getMapping(int screenNumber) const
 {
     Q_D(const TabletAreaSelectionController);
 
+    TabletArea area;
+
     if (screenNumber <= -1) {
-        return d->screenMap.getMapping(ScreenSpace::desktop(), d->tabletRotation);
+        area = d->screenMap.getMapping(ScreenSpace::desktop());
+    } else {
+        area = d->screenMap.getMapping(ScreenSpace::monitor(screenNumber));
     }
 
-    return d->screenMap.getMapping(ScreenSpace::monitor(screenNumber), d->tabletRotation);
+    return convertAreaToRotation(d->tabletGeometry, area, d->tabletRotation);
 }
 
 
-void TabletAreaSelectionController::setMapping(int screenNumber, const QRect& mapping)
+void TabletAreaSelectionController::setMapping(int screenNumber, const TabletArea &mapping)
 {
     Q_D(TabletAreaSelectionController);
 
+    TabletArea area = convertAreaFromRotation(d->tabletGeometry, mapping, d->tabletRotation);
+
     if (screenNumber <= -1) {
-        d->screenMap.setMapping(ScreenSpace::desktop(), mapping, d->tabletRotation);
+        d->screenMap.setMapping(ScreenSpace::desktop(), area);
     } else {
-        d->screenMap.setMapping(ScreenSpace::monitor(screenNumber), mapping, d->tabletRotation);
+        d->screenMap.setMapping(ScreenSpace::monitor(screenNumber), area);
     }
 }
 
 
-void TabletAreaSelectionController::setSelection(const QRect& selection)
+void TabletAreaSelectionController::setSelection(const TabletArea &selection)
 {
     Q_D(TabletAreaSelectionController);
 

@@ -27,9 +27,9 @@
 using namespace Wacom;
 
 
-const QRect X11Wacom::getMaximumTabletArea(const QString& deviceName)
+const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
 {
-    QRect maximumAreaRect;
+    TabletArea maximumAreaRect;
 
     if (deviceName.isEmpty()) {
         kError() << QString::fromLatin1("Internal Error: Missing device name parameter!");

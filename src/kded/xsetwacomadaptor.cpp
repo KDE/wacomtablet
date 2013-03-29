@@ -23,6 +23,7 @@
 #include "stringutils.h"
 #include "buttonshortcut.h"
 #include "screenrotation.h"
+#include "tabletarea.h"
 
 #include <QtCore/QProcess>
 #include <QtCore/QRegExp>
@@ -211,18 +212,13 @@ bool XsetwacomAdaptor::setArea(const QString& value)
 {
     Q_D( const XsetwacomAdaptor );
 
-    // TODO: This should be handled properly by a model class.
-    //
-    // "-1 -1 -1 -1" is full desktop mode however we have to check
-    // for "-1 -1 -2 -2" as well as this is "-1 -1 -1 -1" in coordinate format.
-    // "full" and "desktop" are just for backwards compatibility
-    if ( value.isEmpty() ||
-         value.contains(QLatin1String("-1 -1 -1 -1")) || value.contains(QLatin1String("-1 -1 -2 -2")) ||
-         value.contains(QLatin1String("desktop"))  || value.contains(QLatin1String("full")) ) {
-        return setParameter(d->device, XsetwacomProperty::ResetArea.key(), QLatin1String(""));
+    TabletArea area(value);
+
+    if ( area.isEmpty() ) {
+        return setParameter(d->device, XsetwacomProperty::ResetArea.key(), QString());
     }
 
-    return setParameter(d->device, XsetwacomProperty::Area.key(), value);
+    return setParameter(d->device, XsetwacomProperty::Area.key(), area.toString());
 }
 
 

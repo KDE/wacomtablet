@@ -54,10 +54,10 @@ TabletAreaSelectionView::~TabletAreaSelectionView()
 }
 
 
-const QRect TabletAreaSelectionView::getSelection() const
+const TabletArea TabletAreaSelectionView::getSelection() const
 {
     Q_D(const TabletAreaSelectionView);
-    return d->ui->areaWidget->getSelection();
+    return TabletArea(d->ui->areaWidget->getSelection());
 }
 
 
@@ -70,7 +70,7 @@ void TabletAreaSelectionView::selectFullTablet()
 }
 
 
-void TabletAreaSelectionView::selectPartOfTablet(const QRect& selection)
+void TabletAreaSelectionView::selectPartOfTablet(const TabletArea &selection)
 {
     Q_D(TabletAreaSelectionView);
 
@@ -79,7 +79,7 @@ void TabletAreaSelectionView::selectPartOfTablet(const QRect& selection)
 }
 
 
-void TabletAreaSelectionView::select(int screenNumber, const QRect& tabletSelection)
+void TabletAreaSelectionView::select(int screenNumber, const TabletArea &tabletSelection)
 {
     Q_D(TabletAreaSelectionView);
 
@@ -91,7 +91,7 @@ void TabletAreaSelectionView::select(int screenNumber, const QRect& tabletSelect
         d->ui->screenArea->setSelection(screenNumber);
     }
 
-    if( tabletSelection == d->ui->areaWidget->getVirtualArea() ){
+    if( isFullAreaSelection(tabletSelection) ){
         // full tablet selection
         selectFullTablet();
     } else {
@@ -153,7 +153,7 @@ void TabletAreaSelectionView::setupScreens(const QList< QRect >& screenGeometrie
 
 
 
-void TabletAreaSelectionView::setupTablet(const QRect& geometry, const QSize& widgetTargetSize)
+void TabletAreaSelectionView::setupTablet(const TabletArea &geometry, const QSize& widgetTargetSize)
 {
     Q_D(TabletAreaSelectionView);
 
@@ -217,7 +217,7 @@ void TabletAreaSelectionView::onTabletAreaSelected(bool checked)
 }
 
 
-void TabletAreaSelectionView::setSelection(const QRect& selection)
+void TabletAreaSelectionView::setSelection(const TabletArea &selection)
 {
     if (selection.isValid()) {
         if (isFullAreaSelection(selection)) {
@@ -262,20 +262,11 @@ void TabletAreaSelectionView::setTabletAreaType(TabletAreaSelectionView::TabletA
 
 
 
-bool TabletAreaSelectionView::isFullAreaSelection(const QRect& selection) const
+bool TabletAreaSelectionView::isFullAreaSelection(const TabletArea &selection) const
 {
     Q_D (const TabletAreaSelectionView);
 
-    return (
-        !selection.isValid() ||
-        selection == d->ui->areaWidget->getVirtualArea() ||
-        (
-            selection.x()      == -1 &&
-            selection.y()      == -1 &&
-            selection.width()  == -1 &&
-            selection.height() == -1
-        )
-    );
+    return ( selection.isEmpty() || selection == d->ui->areaWidget->getVirtualArea() );
 }
 
 
@@ -291,7 +282,7 @@ void TabletAreaSelectionView::setupUi()
     d->ui->warningLabel->setVisible(false);
 
     setupScreens(QList<QRect>(), QSize(150,150));
-    setupTablet(QRect(), QSize(400,400));
+    setupTablet(TabletArea(), QSize(400,400));
 }
 
 
