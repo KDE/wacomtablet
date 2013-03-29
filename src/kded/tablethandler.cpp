@@ -186,11 +186,7 @@ void TabletHandler::onScreenRotated( const ScreenRotation& screenRotation )
 
     if (doAutoInvert) {
         // the user wants inverted auto-rotation
-        if (screenRotation == ScreenRotation::CW) {
-            newRotation = ScreenRotation::CCW;
-        } else if (screenRotation == ScreenRotation::CCW) {
-            newRotation = ScreenRotation::CW;
-        }
+        newRotation = screenRotation.invert();
     }
 
     kDebug() << "Rotate tablet :: " << newRotation.key();
@@ -465,7 +461,7 @@ void TabletHandler::mapTabletToCurrentScreenSpace(TabletProfile& tabletProfile)
     QString       stylusMode    = stylusProfile.getProperty(Property::Mode);
     ScreenSpace   stylusSpace   = ScreenSpace(stylusProfile.getProperty(Property::ScreenSpace));
     QString       touchMode     = touchProfile.getProperty(Property::Mode);
-    ScreenSpace   touchSpace    = ScreenSpace(touchProfile.getProperty(Property::Touch));
+    ScreenSpace   touchSpace    = ScreenSpace(touchProfile.getProperty(Property::ScreenSpace));
 
     mapDeviceToOutput(DeviceType::Stylus, stylusSpace, stylusMode, tabletProfile);
     mapDeviceToOutput(DeviceType::Eraser, stylusSpace, stylusMode, tabletProfile);
