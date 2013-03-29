@@ -20,6 +20,8 @@
 #ifndef TABLETAREASELECTIONDIALOG_H
 #define TABLETAREASELECTIONDIALOG_H
 
+#include "screenmap.h"
+#include "screenspace.h"
 #include "screenrotation.h"
 
 #include <KDE/KDialog>
@@ -52,15 +54,15 @@ public:
      *
      * @return The current selection in profile format.
      */
-    const QString getMappings();
+    const ScreenMap& getScreenMap();
 
-    const QString getScreenSpace() const;
+    const ScreenSpace getScreenSpace() const;
 
     void select(int screenNumber);
 
-    void select(const QString& screenSpace);
+    void select(const ScreenSpace& screenSpace);
 
-    void setupWidget( const QString& mappings, const QString& deviceName, const ScreenRotation& rotation );
+    void setupWidget( const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation );
 
 private:
 

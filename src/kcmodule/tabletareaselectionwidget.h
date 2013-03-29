@@ -20,6 +20,8 @@
 #ifndef TABLETAREASELECTIONWIDGET_H
 #define TABLETAREASELECTIONWIDGET_H
 
+#include "screenmap.h"
+#include "screenspace.h"
 #include "screenrotation.h"
 
 #include <QtCore/QObject>
@@ -39,15 +41,15 @@ public:
     explicit TabletAreaSelectionWidget(QWidget* parent = 0);
     virtual ~TabletAreaSelectionWidget();
 
-    const QString getMappings();
+    const ScreenMap& getScreenMap();
 
-    const QString getScreenSpace() const;
+    const ScreenSpace getScreenSpace() const;
 
     void select(int screenNumber);
 
-    void select(const QString& screenSpace);
+    void select(const ScreenSpace& screenSpace);
 
-    void setupWidget( const QString& mappings, const QString& deviceName, const ScreenRotation& rotation );
+    void setupWidget( const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation );
 
 
 private:

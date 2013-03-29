@@ -86,11 +86,9 @@ void TabletAreaSelectionView::select(int screenNumber, const QRect& tabletSelect
     if (screenNumber < 0) {
         // select full desktop
         d->ui->screenArea->clearSelection();
-        d->ui->warningLabel->setText(QString());
     } else {
         // select monitor
         d->ui->screenArea->setSelection(screenNumber);
-        d->ui->warningLabel->setText(i18n("Screen mapping is only available in absolute mode."));
     }
 
     if( tabletSelection == d->ui->areaWidget->getVirtualArea() ){
@@ -100,6 +98,15 @@ void TabletAreaSelectionView::select(int screenNumber, const QRect& tabletSelect
         // part of tablet selection
         selectPartOfTablet(tabletSelection);
     }
+}
+
+
+void TabletAreaSelectionView::setTrackingModeWarning(bool doShow)
+{
+    Q_D(TabletAreaSelectionView);
+
+    d->ui->warningIcon->setVisible(doShow);
+    d->ui->warningLabel->setVisible(doShow);
 }
 
 
@@ -238,11 +245,15 @@ void TabletAreaSelectionView::setTabletAreaType(TabletAreaSelectionView::TabletA
         d->ui->areaWidget->clearSelection();
         d->ui->areaWidget->setEnabled(false);
 
+        emit signalFullTabletSelection();
+
     } else {
         d->ui->tabletAreaRadioButton->setChecked(true);
         d->ui->fullTabletRadioButton->setChecked(false);
 
         d->ui->areaWidget->setEnabled(true);
+
+        emit signalTabletAreaSelection();
     }
 
     d->ui->fullTabletRadioButton->blockSignals(false);
@@ -274,6 +285,10 @@ void TabletAreaSelectionView::setupUi()
 
     d->ui->setupUi(this);
     d->ui->iconLabel->setPixmap(QIcon::fromTheme(QLatin1String("help-about")).pixmap(QSize(16,16)));
+
+    d->ui->warningIcon->setPixmap(QIcon::fromTheme(QLatin1String("dialog-warning")).pixmap(QSize(16,16)));
+    d->ui->warningIcon->setVisible(true);
+    d->ui->warningLabel->setVisible(false);
 
     setupScreens(QList<QRect>(), QSize(150,150));
     setupTablet(QRect(), QSize(400,400));

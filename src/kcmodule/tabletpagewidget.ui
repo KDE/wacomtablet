@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>544</width>
-    <height>287</height>
+    <width>645</width>
+    <height>280</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -21,6 +21,12 @@
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QGroupBox" name="trackingModeGroupBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="toolTip">
            <string>Defines how the cursor movement mode will be used.</string>
           </property>
@@ -78,6 +84,12 @@
         </item>
         <item>
          <widget class="QGroupBox" name="padMappingGroupBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="title">
            <string>Tablet Mapping</string>
           </property>
@@ -102,6 +114,39 @@
               </iconset>
              </property>
             </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="trackingWarningLayout">
+             <item>
+              <widget class="QLabel" name="trackingWarningIcon">
+               <property name="minimumSize">
+                <size>
+                 <width>16</width>
+                 <height>16</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16</width>
+                 <height>16</height>
+                </size>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="trackingWarningLabel">
+               <property name="text">
+                <string>Your currently selected tablet to screen mapping can not be applied in relative tracking mode.</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <spacer name="padMappingFreeSpacer">
@@ -129,7 +174,7 @@
         <item>
          <widget class="QGroupBox" name="rotationGroupBox">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -187,7 +232,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widget" native="true"/>
+         <widget class="QWidget" name="widget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

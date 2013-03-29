@@ -54,15 +54,15 @@ TabletAreaSelectionDialog::~TabletAreaSelectionDialog()
 }
 
 
-const QString TabletAreaSelectionDialog::getMappings()
+const ScreenMap& TabletAreaSelectionDialog::getScreenMap()
 {
     Q_D(TabletAreaSelectionDialog);
 
-    return d->selectionWidget->getMappings();
+    return d->selectionWidget->getScreenMap();
 }
 
 
-const QString TabletAreaSelectionDialog::getScreenSpace() const
+const ScreenSpace TabletAreaSelectionDialog::getScreenSpace() const
 {
     Q_D(const TabletAreaSelectionDialog);
 
@@ -79,7 +79,7 @@ void TabletAreaSelectionDialog::select(int screenNumber)
 }
 
 
-void TabletAreaSelectionDialog::select(const QString& screenSpace)
+void TabletAreaSelectionDialog::select(const ScreenSpace& screenSpace)
 {
     Q_D(TabletAreaSelectionDialog);
 
@@ -87,7 +87,7 @@ void TabletAreaSelectionDialog::select(const QString& screenSpace)
 }
 
 
-void TabletAreaSelectionDialog::setupWidget(const QString& mappings, const QString& deviceName, const ScreenRotation& rotation)
+void TabletAreaSelectionDialog::setupWidget(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation)
 {
     Q_D(TabletAreaSelectionDialog);
 

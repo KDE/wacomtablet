@@ -20,6 +20,8 @@
 #ifndef TOUCHPAGEWIDGET_H
 #define TOUCHPAGEWIDGET_H
 
+#include "screenmap.h"
+#include "screenspace.h"
 #include "screenrotation.h"
 
 #include <QtGui/QWidget>
@@ -114,12 +116,31 @@ protected:
      */
     const QString getGestureSupportEnabled() const;
 
+
     /**
-     * Gets the current screen area mapping in profile format.
+     * @return The current screen mapping of the touch device.
+     */
+    const ScreenMap& getScreenMap() const;
+
+    /**
+     * Gets the current tablet area mapping in profile format as
+     * returned by ScreenMap::toString().
+     *
+     * @return The current tablet mapping in profile format.
+     */
+    const QString getScreenMapAsString() const;
+
+    /**
+     * @return The current screen space mapping.
+     */
+    const ScreenSpace& getScreenSpace() const;
+
+    /**
+     * Gets the current screen space mapping in profile format.
      *
      * @return The current screen mapping as returned by ScreenSpace::toString().
      */
-    const QString& getScreenAreaMapping() const;
+    const QString getScreenSpaceAsString() const;
 
     /**
      * Gets the minimum motion before sending a scroll gesture.
@@ -134,18 +155,6 @@ protected:
      * @return Either "on" or "off".
      */
     const QString getScrollInversion() const;
-
-    /**
-     * Gets the current tablet area mapping in profile format.
-     * Possible return values are:
-     *
-     * "-1 -1 -1 -1" : The whole tablet area was selected.
-     * "x1 y1 x2 y2" : An area was selected with the top left corner at (x1/y1) and
-     *                 the bottom right corner at (x2/y2).
-     *
-     * @return The current tablet mapping in profile format.
-     */
-    const QString& getTabletAreaMapping() const;
 
     /**
      * Gets the minimum time between taps for a right click.
@@ -196,13 +205,31 @@ protected:
      */
     void setGesturesSupportEnabled(bool value);
 
+
+    void setScreenMap(const ScreenMap& screenMap);
+
     /**
-     * Sets a new screen area mapping and updates all widgets accordingly.
+     * Sets a new tablet area mapping and updates all widgets accordingly.
+     * The given value has to be in profile format as returned by ScreenMap::toString().
+     *
+     * @param value The new tablet area mapping in profile format.
+     */
+    void setScreenMap(const QString& value);
+
+    /**
+     * Sets a new screen space mapping and updates all widgets accordingly.
+     *
+     * @param value The new screen space mapping selection.
+     */
+    void setScreenSpace(const ScreenSpace& screenSpace);
+
+    /**
+     * Sets a new screen space mapping and updates all widgets accordingly.
      * The given value has to be in profile format as returned by ScreenSpace::toString()
      *
      * @param value The new screen area mapping selection.
      */
-    void setScreenAreaMapping(const QString& value);
+    void setScreenSpace(const QString& value);
 
     /**
      * Sets the minimum motion before sending a scroll gesture and updates
@@ -218,18 +245,6 @@ protected:
      * @param value Either "on" or "off" or empty string.
      */
     void setScrollInversion(const QString& value);
-
-    /**
-     * Sets a new tablet area mapping and updates all widgets accordingly.
-     * The given value has to be in profile format. Valid values are:
-     *
-     * "-1 -1 -1 -1" : The whole tablet area gets selected.
-     * "x1 y1 x2 y2" : An area gets selected with the top left corner at (x1/y1) and
-     *                 the bottom right corner at (x2/y2).
-     *
-     * @param value The new tablet area mapping in profile format.
-     */
-    void setTabletAreaMapping(const QString& value);
 
     /**
      * Sets the minimum time between taps for a right click and updates
@@ -262,6 +277,12 @@ protected:
 
 
 private:
+
+    /**
+     * Checks if the current tablet mapping is available for the currently selected
+     * tracking mode. If it is not available, a warning is displayed to the user.
+     */
+    void assertValidTabletMapping();
 
     /**
      * Initializes this widget. Must only be called once by a constructor.

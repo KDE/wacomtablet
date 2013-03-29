@@ -23,7 +23,6 @@
 #include "tabletareaselectionview.h"
 #include "calibrationdialog.h"
 
-#include "screenspace.h"
 #include "screenmap.h"
 #include "stringutils.h"
 #include "x11info.h"
@@ -69,27 +68,27 @@ TabletAreaSelectionController::~TabletAreaSelectionController()
 }
 
 
-const QString TabletAreaSelectionController::getMappings()
+const ScreenMap& TabletAreaSelectionController::getScreenMap()
 {
     Q_D(const TabletAreaSelectionController);
 
     // make sure the current mapping is included
     setMapping(d->currentScreen, d->view->getSelection());
 
-    // return mapping string
-    return d->screenMap.toString();
+    // return mapping
+    return d->screenMap;
 }
 
 
-const QString TabletAreaSelectionController::getScreenSpace() const
+const ScreenSpace TabletAreaSelectionController::getScreenSpace() const
 {
     Q_D(const TabletAreaSelectionController);
 
     if (d->currentScreen >= 0) {
-        return ScreenSpace::monitor(d->currentScreen).toString();
+        return ScreenSpace::monitor(d->currentScreen);
     }
 
-    return ScreenSpace::desktop().toString();
+    return ScreenSpace::desktop();
 }
 
 
@@ -124,9 +123,9 @@ void TabletAreaSelectionController::select(int screenNumber)
 }
 
 
-void TabletAreaSelectionController::select(const QString& screenSpace)
+void TabletAreaSelectionController::select(const ScreenSpace& screenSpace)
 {
-    select(ScreenSpace(screenSpace).getScreenNumber());
+    select(screenSpace.getScreenNumber());
 }
 
 
@@ -138,8 +137,10 @@ void TabletAreaSelectionController::setView(TabletAreaSelectionView* view)
     // cleanup signal/slot connections if we already have a view
     if (d->view != NULL) {
         disconnect(d->view, SIGNAL(signalCalibrateClicked()),     this, SLOT(onCalibrateClicked()));
+        disconnect(d->view, SIGNAL(signalFullTabletSelection()),  this, SLOT(onFullTabletSelected()));
         disconnect(d->view, SIGNAL(signalScreenToggle()),         this, SLOT(onScreenToggle()));
         disconnect(d->view, SIGNAL(signalSetScreenProportions()), this, SLOT(onSetScreenProportions()));
+        disconnect(d->view, SIGNAL(signalTabletAreaSelection()),  this, SLOT(onTabletAreaSelected()));
     }
 
     // save view and connect signals
@@ -147,13 +148,15 @@ void TabletAreaSelectionController::setView(TabletAreaSelectionView* view)
 
     if (view != NULL) {
         connect(view, SIGNAL(signalCalibrateClicked()),     this, SLOT(onCalibrateClicked()));
+        connect(view, SIGNAL(signalFullTabletSelection()),  this, SLOT(onFullTabletSelected()));
         connect(view, SIGNAL(signalScreenToggle()),         this, SLOT(onScreenToggle()));
         connect(view, SIGNAL(signalSetScreenProportions()), this, SLOT(onSetScreenProportions()));
+        connect(view, SIGNAL(signalTabletAreaSelection()),  this, SLOT(onTabletAreaSelected()));
     }
 }
 
 
-void TabletAreaSelectionController::setupController(const QString& mappings, const QString& deviceName, const ScreenRotation& rotation)
+void TabletAreaSelectionController::setupController(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation)
 {
     Q_D(TabletAreaSelectionController);
 
@@ -164,9 +167,8 @@ void TabletAreaSelectionController::setupController(const QString& mappings, con
     d->deviceName       = deviceName;
     d->tabletGeometry   = X11Wacom::getMaximumTabletArea(deviceName);
     d->screenGeometries = X11Info::getScreenGeometries();
-    d->screenMap        = ScreenMap(d->tabletGeometry);
+    d->screenMap        = mappings;
     d->currentScreen    = -1;
-    setMappings(mappings);
 
     if (rotation == ScreenRotation::AUTO) {
         d->tabletRotation = X11Info::getScreenRotation();
@@ -208,6 +210,13 @@ void TabletAreaSelectionController::onCalibrateClicked()
     setSelection(calibDialog.calibratedArea());
 }
 
+
+void TabletAreaSelectionController::onFullTabletSelected()
+{
+    Q_D(TabletAreaSelectionController);
+
+    d->view->setTrackingModeWarning(false);
+}
 
 void TabletAreaSelectionController::onScreenToggle()
 {
@@ -259,6 +268,18 @@ void TabletAreaSelectionController::onSetScreenProportions()
     int newY = (int)((tabletGeometry.height() - newHeight) / 2.);
 
     setSelection(QRect(newX, newY, qRound(newWidth), qRound(newHeight)));
+}
+
+
+void TabletAreaSelectionController::onTabletAreaSelected()
+{
+    Q_D(TabletAreaSelectionController);
+
+    if (d->currentScreen >= 0) {
+        d->view->setTrackingModeWarning(true);
+    } else {
+        d->view->setTrackingModeWarning(false);
+    }
 }
 
 
@@ -315,15 +336,6 @@ void TabletAreaSelectionController::setMapping(int screenNumber, const QRect& ma
         d->screenMap.setMapping(ScreenSpace::monitor(screenNumber), mapping, d->tabletRotation);
     }
 }
-
-
-void TabletAreaSelectionController::setMappings(const QString& mappings)
-{
-    Q_D(TabletAreaSelectionController);
-
-    d->screenMap.fromString(mappings);
-}
-
 
 
 void TabletAreaSelectionController::setSelection(const QRect& selection)

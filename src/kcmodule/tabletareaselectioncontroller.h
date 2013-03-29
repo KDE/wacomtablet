@@ -20,7 +20,9 @@
 #ifndef TABLETAREASELECTIONCONTROLLER_H
 #define TABLETAREASELECTIONCONTROLLER_H
 
+#include "screenmap.h"
 #include "screenrotation.h"
+#include "screenspace.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -42,16 +44,16 @@ public:
 
 
     /**
-     * Get the screen space mapping as a string in profile format.
+     * Get the screen space mapping.
      *
      * @return The current screen space mapping.
      */
-    const QString getMappings();
+    const ScreenMap& getScreenMap();
 
     /**
      * @return The current screen space which was selected.
      */
-    const QString getScreenSpace() const;
+    const ScreenSpace getScreenSpace() const;
 
     /**
      * Shows the selection for the given screen number (-1 <= screenNumber < number of screens).
@@ -62,7 +64,7 @@ public:
     /**
      * Shows the selection for the given screen space.
      */
-    void select(const QString& screenSpace);
+    void select(const ScreenSpace& screenSpace);
 
 
     /**
@@ -74,7 +76,7 @@ public:
     void setView(TabletAreaSelectionView* view);
 
 
-    void setupController( const QString& mappings, const QString& deviceName, const ScreenRotation& rotation );
+    void setupController( const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation );
 
 
 public slots:
@@ -83,6 +85,11 @@ public slots:
      * Called by the view when the user wants to calibrate the tablet.
      */
     void onCalibrateClicked();
+
+    /**
+     * Called by the view when the user selected the full tablet area.
+     */
+    void onFullTabletSelected();
 
     /**
      * Called by the view when the user wants to toggle the screen.
@@ -94,6 +101,11 @@ public slots:
      */
     void onSetScreenProportions();
 
+    /**
+     * Called by the view when the user selected a tablet area.
+     */
+    void onTabletAreaSelected();
+
 
 private:
 
@@ -103,7 +115,6 @@ private:
 
     void setMapping(int screenNumber, const QRect& mapping);
 
-    void setMappings(const QString& mappings);
 
     /**
      * @return True if this controller has a view, else false.

@@ -26,7 +26,6 @@
 #include "deviceprofile.h"
 #include "profilemanagement.h"
 #include "property.h"
-#include "screenspace.h"
 #include "stringutils.h"
 #include "tabletareaselectiondialog.h"
 #include "x11info.h"
@@ -50,9 +49,9 @@ namespace Wacom {
             Ui::TouchPageWidget* ui;
 
             ScreenRotation tabletRotation;     // The currently selected tablet rotation.
-            QRect          tabletAreaFull;     // The full touch area as rectangle.
-            QString        tabletAreaMapping;  // The current tablet mapping of the touch device.
-            QString        screenAreaMapping;  // The current screen mapping of the touch device.
+            QRect          tabletGeometry;     // The full touch area as rectangle.
+            ScreenMap      screenMap;          // The current tablet to screen mapping of the touch device.
+            ScreenSpace    screenSpace;        // The current screen mapping of the touch device.
             QString        touchDeviceName;    // The Xinput name of the touch device of the current tablet.
 
     }; // PRIVATE CLASS
@@ -82,8 +81,8 @@ void TouchPageWidget::loadFromProfile()
 
     setTouchSupportEnabled( touchProfile.getPropertyAsBool( Property::Touch ) );
     setTrackingMode( touchProfile.getProperty( Property::Mode ) );
-    setScreenAreaMapping( touchProfile.getProperty( Property::ScreenSpace ) );
-    setTabletAreaMapping( touchProfile.getProperty( Property::ScreenMap ) );
+    setScreenSpace( touchProfile.getProperty( Property::ScreenSpace ) );
+    setScreenMap( touchProfile.getProperty( Property::ScreenMap ) );
     setGesturesSupportEnabled( touchProfile.getPropertyAsBool( Property::Gesture ) );
     setScrollDistance( touchProfile.getProperty( Property::ScrollDistance ) );
     setScrollInversion( touchProfile.getProperty( Property::InvertScroll) );
@@ -101,11 +100,13 @@ void TouchPageWidget::reloadWidget()
 
     // update name and maximum tablet area for all devices
     d->touchDeviceName.clear();
-    d->tabletAreaFull = QRect();
+    d->tabletGeometry = QRect();
+    d->screenMap      = ScreenMap();
 
     if (touchDeviceNameReply.isValid()) {
         d->touchDeviceName = touchDeviceNameReply.value();
-        d->tabletAreaFull = X11Wacom::getMaximumTabletArea(touchDeviceNameReply.value());
+        d->tabletGeometry  = X11Wacom::getMaximumTabletArea(touchDeviceNameReply.value());
+        d->screenMap       = ScreenMap(d->tabletGeometry);
     }
 }
 
@@ -123,8 +124,8 @@ void TouchPageWidget::saveToProfile()
 
     touchProfile.setProperty  ( Property::Touch,            getTouchSupportEnabled() );
     touchProfile.setProperty  ( Property::Mode,             getTrackingMode() );
-    touchProfile.setProperty  ( Property::ScreenSpace,      getScreenAreaMapping() );
-    touchProfile.setProperty  ( Property::ScreenMap,        getTabletAreaMapping() );
+    touchProfile.setProperty  ( Property::ScreenSpace,      getScreenSpaceAsString() );
+    touchProfile.setProperty  ( Property::ScreenMap,        getScreenMapAsString() );
     touchProfile.setProperty  ( Property::Gesture,          getGestureSupportEnabled() );
     touchProfile.setProperty  ( Property::ScrollDistance,   getScrollDistance() );
     touchProfile.setProperty  ( Property::InvertScroll,     getScrollInversion() );
@@ -161,13 +162,12 @@ void TouchPageWidget::onTabletMappingClicked()
     Q_D(TouchPageWidget);
 
     TabletAreaSelectionDialog selectionDialog;
-    // TODO get current screen rotation
-    selectionDialog.setupWidget( getTabletAreaMapping(), d->touchDeviceName, d->tabletRotation);
-    selectionDialog.select( getScreenAreaMapping() );
+    selectionDialog.setupWidget( getScreenMap(), d->touchDeviceName, d->tabletRotation);
+    selectionDialog.select( getScreenSpace() );
 
     if (selectionDialog.exec() == KDialog::Accepted) {
-        setTabletAreaMapping(selectionDialog.getMappings());
-        setScreenAreaMapping(selectionDialog.getScreenSpace());
+        setScreenMap(selectionDialog.getScreenMap());
+        setScreenSpace(selectionDialog.getScreenSpace());
         onProfileChanged();
     }
 }
@@ -208,11 +208,30 @@ const QString TouchPageWidget::getGestureSupportEnabled() const
 }
 
 
-const QString& TouchPageWidget::getScreenAreaMapping() const
+const ScreenMap& TouchPageWidget::getScreenMap() const
 {
     Q_D (const TouchPageWidget);
 
-    return d->screenAreaMapping;
+    return d->screenMap;
+}
+
+
+const QString TouchPageWidget::getScreenMapAsString() const
+{
+    return getScreenMap().toString();
+}
+
+
+const ScreenSpace& TouchPageWidget::getScreenSpace() const
+{
+    Q_D (const TouchPageWidget);
+
+    return d->screenSpace;
+}
+
+const QString TouchPageWidget::getScreenSpaceAsString() const
+{
+    return getScreenSpace().toString();
 }
 
 
@@ -229,14 +248,6 @@ const QString TouchPageWidget::getScrollInversion() const
     Q_D (const TouchPageWidget);
 
     return (d->ui->scrollInversionCheckBox->isChecked() ? QLatin1String("on") : QLatin1String("off"));
-}
-
-
-const QString& TouchPageWidget::getTabletAreaMapping() const
-{
-    Q_D (const TouchPageWidget);
-
-    return d->tabletAreaMapping;
 }
 
 
@@ -301,11 +312,34 @@ void TouchPageWidget::setGesturesSupportEnabled(bool value)
 }
 
 
-void TouchPageWidget::setScreenAreaMapping(const QString& value)
+void TouchPageWidget::setScreenMap(const ScreenMap &screenMap)
 {
     Q_D (TouchPageWidget);
 
-    d->screenAreaMapping = value;
+    d->screenMap = screenMap;
+
+    assertValidTabletMapping();
+}
+
+
+void TouchPageWidget::setScreenMap(const QString& value)
+{
+    setScreenMap(ScreenMap(value));
+}
+
+
+void TouchPageWidget::setScreenSpace(const ScreenSpace& screenSpace)
+{
+    Q_D (TouchPageWidget);
+
+    d->screenSpace = screenSpace;
+
+    assertValidTabletMapping();
+}
+
+void TouchPageWidget::setScreenSpace(const QString& value)
+{
+    setScreenSpace(ScreenSpace(value));
 }
 
 
@@ -347,19 +381,6 @@ void TouchPageWidget::setTouchSupportEnabled(bool value)
 }
 
 
-void TouchPageWidget::setTabletAreaMapping(const QString& value)
-{
-    Q_D (TouchPageWidget);
-
-    if (value.isEmpty() || value.compare(QLatin1String("full"), Qt::CaseInsensitive) == 0) {
-        d->tabletAreaMapping = QLatin1String("-1 -1 -1 -1");
-
-    } else {
-        d->tabletAreaMapping = value;
-    }
-}
-
-
 void TouchPageWidget::setTapTime(const QString& value)
 {
     Q_D (TouchPageWidget);
@@ -381,14 +402,14 @@ void TouchPageWidget::setTrackingMode(const QString& value)
         d->ui->trackAbsoluteRadioButton->setChecked(true);
         d->ui->trackRelativeRadioButton->setChecked(false);
     } else {
-        // screen mapping has to be reset and disabled, as it does not work in relative mode
-        setScreenAreaMapping(ScreenSpace::desktop().toString());
         d->ui->trackAbsoluteRadioButton->setChecked(false);
         d->ui->trackRelativeRadioButton->setChecked(true);
     }
 
     d->ui->trackAbsoluteRadioButton->blockSignals(false);
     d->ui->trackRelativeRadioButton->blockSignals(false);
+
+    assertValidTabletMapping();
 }
 
 
@@ -402,9 +423,39 @@ void TouchPageWidget::setZoomDistance(const QString& value)
 }
 
 
+void TouchPageWidget::assertValidTabletMapping()
+{
+    Q_D (TouchPageWidget);
+
+    bool isWarningVisible = false;
+
+    if (d->ui->trackRelativeRadioButton->isChecked()) {
+        // Relative mode is selected. In relative mode tablet mappings
+        // are only available when using the full desktop.
+        ScreenSpace screenSpace = getScreenSpace();
+
+        if (screenSpace.isMonitor()) {
+            QRect selection = getScreenMap().getMapping(screenSpace);
+
+            if (selection != d->tabletGeometry) {
+                isWarningVisible = true;
+            }
+        }
+    }
+
+    d->ui->trackingWarningIcon->setVisible(isWarningVisible);
+    d->ui->trackingWarningLabel->setVisible(isWarningVisible);
+}
+
+
 void TouchPageWidget::setupUi()
 {
     Q_D (TouchPageWidget);
 
     d->ui->setupUi(this);
+
+    // init screen mapping warning
+    d->ui->trackingWarningIcon->setPixmap(QIcon::fromTheme(QLatin1String("dialog-warning")).pixmap(QSize(16,16)));
+    d->ui->trackingWarningIcon->setVisible(false);
+    d->ui->trackingWarningLabel->setVisible(false);
 }

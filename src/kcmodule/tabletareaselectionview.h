@@ -74,6 +74,15 @@ public:
 
 
     /**
+     * Shows or hides a warning that the current selection is only
+     * available in absolute tracking mode.
+     *
+     * @param doShow If true the warning is displayed, else it is hidden.
+     */
+    void setTrackingModeWarning(bool doShow);
+
+
+    /**
      * Sets up the screen area widget.
      *
      * @param screenGeometries The X11 geometries of the connected screens.
@@ -126,18 +135,25 @@ signals:
      */
     void signalCalibrateClicked();
 
+    /**
+     * Signals the controller that the user selected the full tablet area.
+     */
+    void signalFullTabletSelection();
 
     /**
      * Signals the controller that the user wants to toggle the screen.
      */
     void signalScreenToggle();
 
-
     /**
      * Signals the controller that the user wants to set screen proportions.
      */
     void signalSetScreenProportions();
 
+    /**
+     * Signals the controller that the user selected a tablet area.
+     */
+    void signalTabletAreaSelection();
 
 
 protected:

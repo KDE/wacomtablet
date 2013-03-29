@@ -111,7 +111,9 @@ void ScreenMap::fromString(const QString& mappings)
 
         QRect areaRect;
 
-        if (!area.contains(QLatin1String("-1 -1 -1 -1"))) {
+        // "-1 -1 -2 -2" is "-1 -1 -1 -1" in coordinate format. We have to check
+        // for "-1 -1 -1 -1" as well to keep compatibility with old configuration files.
+        if (!area.contains(QLatin1String("-1 -1 -1 -1")) && !area.contains(QLatin1String("-1 -1 -2 -2"))) {
             areaRect = StringUtils::toQRectByCoordinates(area);
         }
 
