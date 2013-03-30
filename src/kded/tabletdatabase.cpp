@@ -106,14 +106,14 @@ bool TabletDatabase::lookupTablet(const QString& tabletId, TabletInformation& ta
     // find tablet
     KConfigGroup companyGroup;
     KConfigGroup tabletGroup;
-    QString      tabletConfigFile;
+    QString      tabletsConfigFile;
 
     foreach(const QString &companyId, companyConfig->groupList()) {
         // get company group section
         companyGroup = KConfigGroup (companyConfig, companyId.toLower());
 
         // get tablet database configuration file for this company
-        QString tabletsConfigFile = companyGroup.readEntry("listfile");
+        tabletsConfigFile = companyGroup.readEntry("listfile");
 
         if (tabletsConfigFile.isEmpty()) {
             kWarning() << QString::fromLatin1("Company group '%1' does not have a device list file!").arg(companyGroup.name());
