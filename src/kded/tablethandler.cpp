@@ -168,35 +168,13 @@ void TabletHandler::onScreenRotated( const ScreenRotation& screenRotation )
 {
     Q_D( TabletHandler );
 
-    // determine auto-rotation configuration and new rotation
-    TabletProfile   tabletProfile      = d->profileManager.loadProfile(d->currentProfile);
-    DeviceProfile   stylusProfile      = tabletProfile.getDevice(DeviceType::Stylus);
+    TabletProfile tabletProfile = d->profileManager.loadProfile(d->currentProfile);
 
-    QString               rotateProperty   = stylusProfile.getProperty( Property::Rotate);
-    const ScreenRotation* lookupRotation   = ScreenRotation::find(rotateProperty);
-    ScreenRotation        tabletRotation   = (lookupRotation != NULL) ? *lookupRotation : ScreenRotation::NONE;
+    // rotation has to be applied before screen mapping
+    autoRotateTablet(screenRotation, tabletProfile);
 
-    bool                  doAutoInvert     = (tabletRotation == ScreenRotation::AUTO_INVERTED);
-    bool                  doAutoRotation   = (doAutoInvert || tabletRotation == ScreenRotation::AUTO);
-    ScreenRotation        newRotation      = screenRotation;
-
-    if (!doAutoRotation) {
-        return; // auto-rotation is disabled
-    }
-
-    if (doAutoInvert) {
-        // the user wants inverted auto-rotation
-        newRotation = screenRotation.invert();
-    }
-
-    kDebug() << "Rotate tablet :: " << newRotation.key();
-
-    setProperty( DeviceType::Stylus, Property::Rotate, newRotation.key() );
-    setProperty( DeviceType::Eraser, Property::Rotate, newRotation.key() );
-
-    if(hasDevice(DeviceType::Touch)) {
-        setProperty( DeviceType::Touch, Property::Rotate, newRotation.key() );
-    }
+    // when the rotation changes, the screen mapping has to be applied again
+    mapTabletToCurrentScreenSpace(tabletProfile);
 }
 
 
@@ -344,14 +322,11 @@ void TabletHandler::setProfile( const QString &profile )
         // set profile
         d->currentProfile = profile;
 
-        // Set rotation if auto-rotation is enabled.
-        // This is necessary because the user could change the rotation of the tablet in the KCM
-        // and then immediately switch to auto-rotation. In this case the tablet would still be
-        // rotated in the wrong direction. Also on startup the current rotation has to be set
-        // according to the current screen rotation.
-        onScreenRotated(X11Info::getScreenRotation());
+        // Handle auto-rotation.
+        // This has to be done before screen mapping!
+        autoRotateTablet(X11Info::getScreenRotation(), tabletProfile);
 
-        // set screen space area
+        // Map tablet to screen.
         // This is necessary to ensure the correct area map is used. Somone might have changed
         // the ScreenSpace property without updating the Area property.
         mapTabletToCurrentScreenSpace(tabletProfile);
@@ -359,6 +334,7 @@ void TabletHandler::setProfile( const QString &profile )
         // set profile on tablet
         d->tabletBackend->setProfile(tabletProfile);
         d->mainConfig.setLastProfile(profile);
+
         emit profileChanged( profile );
     }
 }
@@ -375,6 +351,38 @@ void TabletHandler::setProperty(const DeviceType& deviceType, const Property& pr
     }
 
     d->tabletBackend->setProperty(deviceType, property, value);
+}
+
+
+void TabletHandler::autoRotateTablet(const ScreenRotation &screenRotation, const TabletProfile &tabletProfile)
+{
+    Q_D( TabletHandler );
+
+    // determine auto-rotation configuration
+    DeviceProfile         stylusProfile    = tabletProfile.getDevice(DeviceType::Stylus);
+
+    QString               rotateProperty   = stylusProfile.getProperty( Property::Rotate);
+    const ScreenRotation* lookupRotation   = ScreenRotation::find(rotateProperty);
+    ScreenRotation        tabletRotation   = (lookupRotation != NULL) ? *lookupRotation : ScreenRotation::NONE;
+
+    bool                  doAutoInvert     = (tabletRotation == ScreenRotation::AUTO_INVERTED);
+    bool                  doAutoRotation   = (doAutoInvert || tabletRotation == ScreenRotation::AUTO);
+
+    if (!doAutoRotation) {
+        return; // auto-rotation is disabled
+    }
+
+    // determine new rotation and set it
+    ScreenRotation newRotation = (doAutoInvert) ? screenRotation.invert() : screenRotation;
+
+    kDebug() << "Rotate tablet :: " << newRotation.key();
+
+    setProperty( DeviceType::Stylus, Property::Rotate, newRotation.key() );
+    setProperty( DeviceType::Eraser, Property::Rotate, newRotation.key() );
+
+    if(hasDevice(DeviceType::Touch)) {
+        setProperty( DeviceType::Touch, Property::Rotate, newRotation.key() );
+    }
 }
 
 

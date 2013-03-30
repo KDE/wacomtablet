@@ -210,6 +210,14 @@ Q_SIGNALS:
 
 private:
 
+    /**
+     * Auto rotates the tablet if auto-rotation is enabled. If auto-rotation
+     * is disabled, the tablet's rotation settings will be left untouched.
+     *
+     * @param screenRotation The current screen rotation.
+     * @param tabletProfile  The tablet profile to read the rotation settings from.
+     */
+    void autoRotateTablet( const ScreenRotation& screenRotation, const TabletProfile& tabletProfile );
 
     /**
      * Checks if the current tablet supports the given device type.
