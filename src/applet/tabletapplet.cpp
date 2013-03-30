@@ -24,6 +24,7 @@
 // common includes
 #include "dbustabletinterface.h"
 #include "devicetype.h"
+#include "screenrotation.h"
 
 //KDE inculdes
 #include <KDE/KIconLoader>
@@ -222,22 +223,30 @@ void TabletApplet::switchProfile( const QString &name )
 
 void TabletApplet::rotateNorm()
 {
-    DBusTabletInterface::instance().setProperty(DeviceType::Pad, Property::Rotate, QLatin1String("NONE"));
+    DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Rotate, ScreenRotation::NONE.key());
+    DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Rotate, ScreenRotation::NONE.key());
+    DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Rotate, ScreenRotation::NONE.key());
 }
 
 void TabletApplet::rotateCw()
 {
-    DBusTabletInterface::instance().setProperty(DeviceType::Pad, Property::Rotate, QLatin1String("CW"));
+    DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Rotate, ScreenRotation::CW.key());
+    DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Rotate, ScreenRotation::CW.key());
+    DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Rotate, ScreenRotation::CW.key());
 }
 
 void TabletApplet::rotateCcw()
 {
-    DBusTabletInterface::instance().setProperty(DeviceType::Pad, Property::Rotate, QLatin1String("CCW"));
+    DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Rotate, ScreenRotation::CCW.key());
+    DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Rotate, ScreenRotation::CCW.key());
+    DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Rotate, ScreenRotation::CCW.key());
 }
 
 void TabletApplet::rotateHalf()
 {
-    DBusTabletInterface::instance().setProperty(DeviceType::Pad, Property::Rotate, QLatin1String("HALF"));
+    DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Rotate, ScreenRotation::HALF.key());
+    DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Rotate, ScreenRotation::HALF.key());
+    DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Rotate, ScreenRotation::HALF.key());
 }
 
 void TabletApplet::selectAbsoluteMode( bool state )
