@@ -40,16 +40,18 @@ namespace Wacom {
             {
                 view           = NULL;
                 currentScreen  = -1;
+                isTouchDevice  = false;
             }
 
             TabletAreaSelectionView* view;
             TabletArea               tabletGeometry;        // the original tablet geometry
             TabletArea               tabletGeometryRotated; // the rotated tablet geometry if rotation is active
-            QList<QRect>             screenGeometries;
-            int                      currentScreen;
-            QString                  deviceName;
-            ScreenMap                screenMap;
-            ScreenRotation           tabletRotation;
+            QList<QRect>             screenGeometries;      // the geometries of all screens which form the desktop
+            int                      currentScreen;         // the currently selected screen
+            QString                  deviceName;            // the device this instance is handling
+            bool                     isTouchDevice;         // the device is a touchdevice
+            ScreenMap                screenMap;             // the current screen mappings
+            ScreenRotation           tabletRotation;        // the tablet rotation
     };
 }
 
@@ -156,7 +158,7 @@ void TabletAreaSelectionController::setView(TabletAreaSelectionView* view)
 }
 
 
-void TabletAreaSelectionController::setupController(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation)
+void TabletAreaSelectionController::setupController(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation, bool isTouchDevice)
 {
     Q_D(TabletAreaSelectionController);
 
@@ -165,6 +167,7 @@ void TabletAreaSelectionController::setupController(const ScreenMap& mappings, c
     }
 
     d->deviceName       = deviceName;
+    d->isTouchDevice    = isTouchDevice;
     d->tabletGeometry   = X11Wacom::getMaximumTabletArea(deviceName);
     d->screenGeometries = X11Info::getScreenGeometries();
     d->screenMap        = mappings;
@@ -208,9 +211,7 @@ void TabletAreaSelectionController::onCalibrateClicked()
 
 void TabletAreaSelectionController::onFullTabletSelected()
 {
-    Q_D(TabletAreaSelectionController);
-
-    d->view->setTrackingModeWarning(false);
+    checkConfigurationForTrackingModeProblems();
 }
 
 void TabletAreaSelectionController::onScreenToggle()
@@ -268,13 +269,7 @@ void TabletAreaSelectionController::onSetScreenProportions()
 
 void TabletAreaSelectionController::onTabletAreaSelected()
 {
-    Q_D(TabletAreaSelectionController);
-
-    if (d->currentScreen >= 0) {
-        d->view->setTrackingModeWarning(true);
-    } else {
-        d->view->setTrackingModeWarning(false);
-    }
+    checkConfigurationForTrackingModeProblems();
 }
 
 
@@ -283,6 +278,36 @@ bool TabletAreaSelectionController::hasView() const
     Q_D(const TabletAreaSelectionController);
 
     return (d->view != NULL);
+}
+
+
+void TabletAreaSelectionController::checkConfigurationForTrackingModeProblems()
+{
+    Q_D(TabletAreaSelectionController);
+
+    if (d->isTouchDevice) {
+        // a touch device can not be mapped to a single screen in relative mode
+        if (d->currentScreen >= 0) {
+            d->view->setTrackingModeWarning(true);
+
+        } else {
+            d->view->setTrackingModeWarning(false);
+        }
+
+    } else {
+        // the pen can not have an area mapping for a single monitor in relative mode
+        if (d->view->isAreaSelectionMode()) {
+
+            if (d->currentScreen >= 0) {
+                d->view->setTrackingModeWarning(true);
+            } else {
+                d->view->setTrackingModeWarning(false);
+            }
+
+        } else {
+            d->view->setTrackingModeWarning(false);
+        }
+    }
 }
 
 

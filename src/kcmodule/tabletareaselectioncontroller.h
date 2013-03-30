@@ -77,7 +77,16 @@ public:
     void setView(TabletAreaSelectionView* view);
 
 
-    void setupController( const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation );
+    /**
+     * Initializes the controller. This method has to be called before the widget
+     * can be used.
+     *
+     * @param mappings The screen mappings of the device we are handling.
+     * @param deviceName The X11 xinput device name of the device we ware handling.
+     * @param rotation The currently selected tablet rotation.
+     * @param isTouchDevice A flag if the device we are handling is a touch device.
+     */
+    void setupController( const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation, bool isTouchDevice = false );
 
 
 public slots:
@@ -109,6 +118,8 @@ public slots:
 
 
 private:
+
+    void checkConfigurationForTrackingModeProblems();
 
     const TabletArea convertAreaFromRotation(const TabletArea& tablet, const TabletArea& area, const ScreenRotation& rotation) const;
 

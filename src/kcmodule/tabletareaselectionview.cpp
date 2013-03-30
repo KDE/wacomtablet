@@ -61,6 +61,13 @@ const TabletArea TabletAreaSelectionView::getSelection() const
 }
 
 
+bool TabletAreaSelectionView::isAreaSelectionMode() const
+{
+    Q_D(const TabletAreaSelectionView);
+
+    return d->ui->tabletAreaRadioButton->isChecked();
+}
+
 void TabletAreaSelectionView::selectFullTablet()
 {
     Q_D(TabletAreaSelectionView);

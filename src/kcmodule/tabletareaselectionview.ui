@@ -194,7 +194,7 @@
           <item>
            <widget class="QLabel" name="warningLabel">
             <property name="text">
-             <string>Area mapping to a single monitor can only be applied in absolute tracking mode.</string>
+             <string>This mapping can only be applied in absolute tracking mode.</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

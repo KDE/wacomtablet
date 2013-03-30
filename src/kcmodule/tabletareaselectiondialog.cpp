@@ -87,11 +87,11 @@ void TabletAreaSelectionDialog::select(const ScreenSpace& screenSpace)
 }
 
 
-void TabletAreaSelectionDialog::setupWidget(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation)
+void TabletAreaSelectionDialog::setupWidget(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation, bool isTouchDevice)
 {
     Q_D(TabletAreaSelectionDialog);
 
-    d->selectionWidget->setupWidget(mappings, deviceName, rotation);
+    d->selectionWidget->setupWidget(mappings, deviceName, rotation, isTouchDevice);
 }
 
 

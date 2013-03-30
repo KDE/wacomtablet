@@ -155,7 +155,7 @@
              <item>
               <widget class="QLabel" name="trackingWarningLabel">
                <property name="text">
-                <string>Your currently selected tablet to screen mapping can not be applied in relative tracking mode.</string>
+                <string>Your currently selected mapping can not be applied in relative tracking mode.</string>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>
