@@ -28,8 +28,6 @@ XsetwacomPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Cont
 // ALWAYS MAKE SURE THIS LIST HAS AN ORDER WHICH CAN BE USED DIRECTLY WITH XSETWACOM!
 // SOME PROPERTIES NEED TO BE SET BEFORE OTHERS!
 //
-const XsetwacomProperty XsetwacomProperty::Area             ( Property::Area,             QLatin1String("Area") );
-const XsetwacomProperty XsetwacomProperty::ResetArea        ( Property::ResetArea,        QLatin1String("ResetArea") ); // special property which takes precedence over "Area".
 const XsetwacomProperty XsetwacomProperty::Button1          ( Property::Button1,          QLatin1String("Button 1") );
 const XsetwacomProperty XsetwacomProperty::Button2          ( Property::Button2,          QLatin1String("Button 2") );
 const XsetwacomProperty XsetwacomProperty::Button3          ( Property::Button3,          QLatin1String("Button 3") );
@@ -48,7 +46,9 @@ const XsetwacomProperty XsetwacomProperty::RawSample        ( Property::RawSampl
 const XsetwacomProperty XsetwacomProperty::RelWheelDown     ( Property::RelWheelDown,     QLatin1String("RelWheelDown") );
 const XsetwacomProperty XsetwacomProperty::RelWheelUp       ( Property::RelWheelUp,       QLatin1String("RelWheelUp") );
 const XsetwacomProperty XsetwacomProperty::Rotate           ( Property::Rotate,           QLatin1String("Rotate") );
-const XsetwacomProperty XsetwacomProperty::MapToOutput      ( Property::MapToOutput,      QLatin1String("MapToOutput") );   // needs to be done after rotation
+const XsetwacomProperty XsetwacomProperty::MapToOutput      ( Property::MapToOutput,      QLatin1String("MapToOutput") );    // needs to be applied after rotation
+const XsetwacomProperty XsetwacomProperty::Area             ( Property::Area,             QLatin1String("Area") );           // needs to be applied after rotation
+const XsetwacomProperty XsetwacomProperty::ResetArea        ( Property::ResetArea,        QLatin1String("ResetArea") );      // special property which takes precedence over "Area".
 const XsetwacomProperty XsetwacomProperty::ScrollDistance   ( Property::ScrollDistance,   QLatin1String("ScrollDistance") );
 const XsetwacomProperty XsetwacomProperty::StripLeftDown    ( Property::StripLeftDown,    QLatin1String("StripLeftDown") );
 const XsetwacomProperty XsetwacomProperty::StripLeftUp      ( Property::StripLeftUp,      QLatin1String("StripLeftUp") );

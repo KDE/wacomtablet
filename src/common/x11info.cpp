@@ -91,20 +91,18 @@ const ScreenRotation X11Info::getScreenRotation()
 
     XRRRotations(getDisplay(), getDefaultScreen(), &xrandrRotation);
 
-    // we are translating this to a monitor rotation, not the rotation
-    // of the canvas
     switch (xrandrRotation) {
         case RR_Rotate_0:
             currentRotation = ScreenRotation::NONE;
             break;
         case RR_Rotate_90:
-            currentRotation = ScreenRotation::CW;
+            currentRotation = ScreenRotation::CCW;
             break;
         case RR_Rotate_180:
             currentRotation = ScreenRotation::HALF;
             break;
         case RR_Rotate_270:
-            currentRotation = ScreenRotation::CCW;
+            currentRotation = ScreenRotation::CW;
             break;
         default:
             // defaults to NONE
