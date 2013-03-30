@@ -5,7 +5,7 @@
 # norootforbuild
 
 Name:           kcm_tablet
-Version:        1.99.7
+Version:        1.99.8
 Release:        1
 License:        GPLv2+
 Group:          System/GUI/KDE
@@ -66,6 +66,18 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS COPYING README
 
 %changelog
+* Sun Mar 30 2013 alex@maret.de
+- Version 1.99.8 (2.0 Release Candidate 1)
+  * Fixed bug where the plasma applet would not rotate the stylus controls.
+  * Fixed bug which displayed the tablet in an inverted rotation if auto-rotate was selected.
+  * Fixed bug which prevented the screen mappings from being applied correctly when the tablet was rotated.
+  * Fixed bug which would not allow to set a screen mapping on the touch device.
+  * Fixed bug where invalid area mappings would make the stylus stick in the upper left corner.
+  * Changed way how tablets are reset to their full tablet mapping to fix problems with Intuos 5 tablets.
+  * Added some more tablets to the tablet database.
+  * Updated button hardware mappings for the Intuos 5 Touch.
+  * Disabled Waltop devices in the database as they are in conflict with some Wacom devices.
+
 * Sun Mar 24 2013 alex@maret.de
 - Version 1.99.7
   * refactored and improved backend

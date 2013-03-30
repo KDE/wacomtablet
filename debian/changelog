@@ -1,3 +1,18 @@
+wacomtablet (1.99.8-0ppa1) unstable; urgency=low
+
+  * KCM Wacom Tablet 2.0-rc1 release.
+  * Fixed bug where the plasma applet would not rotate the stylus controls.
+  * Fixed bug which displayed the tablet in an inverted rotation if auto-rotate was selected.
+  * Fixed bug which prevented the screen mappings from being applied correctly when the tablet was rotated.
+  * Fixed bug which would not allow to set a screen mapping on the touch device.
+  * Fixed bug where invalid area mappings would make the stylus stick in the upper left corner.
+  * Changed way how tablets are reset to their full tablet mapping to fix problems with Intuos 5 tablets.
+  * Added some more tablets to the tablet database.
+  * Updated button hardware mappings for the Intuos 5 Touch.
+  * Disabled Waltop devices in the database as they are in conflict with some Wacom devices.
+
+ -- Alexander Maret <alex@maret.de>  Sun, 30 Mar 2013 18:00:00 +0100
+
 wacomtablet (1.99.7-0ppa1) unstable; urgency=low
 
   * KCM Wacom Tablet 2.0-beta7 release.
