@@ -172,10 +172,12 @@ void TabletAreaSelectionController::setupController(const ScreenMap& mappings, c
 
     if (rotation == ScreenRotation::AUTO) {
         d->tabletRotation = X11Info::getScreenRotation();
+        // we have a tablet (not a canvas) viewpoint here, so we need to invert the screen rotation
+        d->tabletRotation = d->tabletRotation.invert();
 
     } else if (rotation == ScreenRotation::AUTO_INVERTED) {
         d->tabletRotation = X11Info::getScreenRotation();
-        d->tabletRotation = d->tabletRotation.invert();
+
     } else {
         d->tabletRotation = rotation;
     }
