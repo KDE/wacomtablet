@@ -161,7 +161,7 @@ void TouchPageWidget::onTabletMappingClicked()
     Q_D(TouchPageWidget);
 
     TabletAreaSelectionDialog selectionDialog;
-    selectionDialog.setupWidget( getScreenMap(), d->touchDeviceName, d->tabletRotation, true);
+    selectionDialog.setupWidget( getScreenMap(), d->touchDeviceName, d->tabletRotation);
     selectionDialog.select( getScreenSpace() );
 
     if (selectionDialog.exec() == KDialog::Accepted) {
@@ -429,7 +429,7 @@ void TouchPageWidget::assertValidTabletMapping()
     bool isWarningVisible = false;
 
     if (d->ui->trackRelativeRadioButton->isChecked()) {
-        // Relative mode is selected. In relative mode a touch
+        // Relative mode is selected. In relative mode a
         // device can not be mapped to a single monitor
         ScreenSpace screenSpace = getScreenSpace();
 

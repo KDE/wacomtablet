@@ -415,16 +415,12 @@ void TabletPageWidget::assertValidTabletMapping()
     bool isWarningVisible = false;
 
     if (d->ui->trackRelativeRadioButton->isChecked()) {
-        // Relative mode is selected. In relative mode tablet mappings
-        // are only available when using the full desktop.
+        // Relative mode is selected. In relative mode a
+        // device can not be mapped to a single monitor
         ScreenSpace screenSpace = getScreenSpace();
 
         if (screenSpace.isMonitor()) {
-            TabletArea selection = getScreenMap().getMapping(screenSpace);
-
-            if (selection != d->tabletGeometry) {
-                isWarningVisible = true;
-            }
+            isWarningVisible = true;
         }
     }
 

@@ -62,7 +62,7 @@ public:
 
     void select(const ScreenSpace& screenSpace);
 
-    void setupWidget( const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation, bool isTouchDevice = false );
+    void setupWidget( const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation );
 
 private:
 

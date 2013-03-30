@@ -86,7 +86,7 @@ public:
      * @param rotation The currently selected tablet rotation.
      * @param isTouchDevice A flag if the device we are handling is a touch device.
      */
-    void setupController( const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation, bool isTouchDevice = false );
+    void setupController(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation);
 
 
 public slots:

@@ -40,7 +40,6 @@ namespace Wacom {
             {
                 view           = NULL;
                 currentScreen  = -1;
-                isTouchDevice  = false;
             }
 
             TabletAreaSelectionView* view;
@@ -49,7 +48,6 @@ namespace Wacom {
             QList<QRect>             screenGeometries;      // the geometries of all screens which form the desktop
             int                      currentScreen;         // the currently selected screen
             QString                  deviceName;            // the device this instance is handling
-            bool                     isTouchDevice;         // the device is a touchdevice
             ScreenMap                screenMap;             // the current screen mappings
             ScreenRotation           tabletRotation;        // the tablet rotation
     };
@@ -158,7 +156,7 @@ void TabletAreaSelectionController::setView(TabletAreaSelectionView* view)
 }
 
 
-void TabletAreaSelectionController::setupController(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation, bool isTouchDevice)
+void TabletAreaSelectionController::setupController(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation)
 {
     Q_D(TabletAreaSelectionController);
 
@@ -167,7 +165,6 @@ void TabletAreaSelectionController::setupController(const ScreenMap& mappings, c
     }
 
     d->deviceName       = deviceName;
-    d->isTouchDevice    = isTouchDevice;
     d->tabletGeometry   = X11Wacom::getMaximumTabletArea(deviceName);
     d->screenGeometries = X11Info::getScreenGeometries();
     d->screenMap        = mappings;
@@ -285,28 +282,12 @@ void TabletAreaSelectionController::checkConfigurationForTrackingModeProblems()
 {
     Q_D(TabletAreaSelectionController);
 
-    if (d->isTouchDevice) {
-        // a touch device can not be mapped to a single screen in relative mode
-        if (d->currentScreen >= 0) {
-            d->view->setTrackingModeWarning(true);
-
-        } else {
-            d->view->setTrackingModeWarning(false);
-        }
+    // a device can not be mapped to a single screen in relative mode
+    if (d->currentScreen >= 0) {
+        d->view->setTrackingModeWarning(true);
 
     } else {
-        // the pen can not have an area mapping for a single monitor in relative mode
-        if (d->view->isAreaSelectionMode()) {
-
-            if (d->currentScreen >= 0) {
-                d->view->setTrackingModeWarning(true);
-            } else {
-                d->view->setTrackingModeWarning(false);
-            }
-
-        } else {
-            d->view->setTrackingModeWarning(false);
-        }
+        d->view->setTrackingModeWarning(false);
     }
 }
 
