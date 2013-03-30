@@ -356,8 +356,6 @@ void TabletHandler::setProperty(const DeviceType& deviceType, const Property& pr
 
 void TabletHandler::autoRotateTablet(const ScreenRotation &screenRotation, const TabletProfile &tabletProfile)
 {
-    Q_D( TabletHandler );
-
     // determine auto-rotation configuration
     DeviceProfile         stylusProfile    = tabletProfile.getDevice(DeviceType::Stylus);
 
