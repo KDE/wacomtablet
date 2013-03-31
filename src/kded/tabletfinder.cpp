@@ -49,9 +49,7 @@ TabletFinder::TabletFinder() : QObject(NULL), d_ptr(new TabletFinderPrivate)
 TabletFinder::TabletFinder(const TabletFinder& finder) : QObject(NULL), d_ptr(new TabletFinderPrivate)
 {
     // nothing to do - this class is a singleton and must not be copied
-
-    // prevent compiler warning about unused parameter at least for debug builds.
-    assert(&finder != NULL);
+    Q_UNUSED(finder);
 }
 
 TabletFinder::~TabletFinder()
@@ -62,9 +60,7 @@ TabletFinder::~TabletFinder()
 TabletFinder& TabletFinder::operator=(const TabletFinder& finder)
 {
     // nothing to do - this class is a singleton and must not be copied
-
-    // prevent compiler warning about unused parameter at least for debug builds.
-    assert(&finder != NULL);
+    Q_UNUSED(finder);
     return *this;
 }
 

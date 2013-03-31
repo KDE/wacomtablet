@@ -38,14 +38,12 @@ TabletBackendFactory::TabletBackendFactory() {}
 
 TabletBackendFactory::TabletBackendFactory(const TabletBackendFactory& factory)
 {
-    // prevent compiler warnings, at least for debug builds
-    assert (&factory != NULL);
+    Q_UNUSED(factory);
 }
 
 TabletBackendFactory& TabletBackendFactory::operator=(const TabletBackendFactory& factory)
 {
-    // prevent compiler warnings, at least for debug builds
-    assert (&factory != NULL);
+    Q_UNUSED(factory);
     return *this;
 }
 

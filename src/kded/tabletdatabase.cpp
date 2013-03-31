@@ -46,9 +46,7 @@ TabletDatabase::TabletDatabase() : d_ptr (new TabletDatabasePrivate)
 TabletDatabase::TabletDatabase(const TabletDatabase& that) : d_ptr (new TabletDatabasePrivate)
 {
     // do nothing as this class is a singleton
-
-    // prevent compiler warnings at least for debug mode
-    assert(&that != NULL);
+    Q_UNUSED(that);
 }
 
 TabletDatabase::~TabletDatabase()
@@ -59,10 +57,7 @@ TabletDatabase::~TabletDatabase()
 TabletDatabase& TabletDatabase::operator=(const TabletDatabase& that)
 {
     // do nothing as this class is a singleton
-
-    // prevent compiler warnings at least for debug mode
-    assert(&that != NULL);
-
+    Q_UNUSED(that);
     return *this;
 }
 

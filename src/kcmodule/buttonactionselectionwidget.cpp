@@ -76,8 +76,7 @@ void ButtonActionSelectionWidget::setShortcut(const ButtonShortcut& shortcut)
 
 void ButtonActionSelectionWidget::onClearButtonClicked(bool checked)
 {
-    // prevent compiler warning about unused parameters at least in debug mode
-    assert(checked || !checked);
+    Q_UNUSED(checked);
 
     setShortcut(ButtonShortcut());
 }
@@ -94,8 +93,7 @@ void ButtonActionSelectionWidget::onModifierChanged(int state)
 {
     Q_D (const ButtonActionSelectionWidget);
 
-    // prevent compiler warning about unused parameters at least in debug mode
-    assert(state != 0 || state == 0);
+    Q_UNUSED(state);
 
     // build new shortcut sequence
     QString shortcutString;

@@ -37,6 +37,9 @@ struct PropertySetTemplateSpecializationLessFunctor
 {
     bool operator()(const D* d1, const D* d2)
     {
+        Q_UNUSED(d1);
+        Q_UNUSED(d2);
+
         // adding the same key or the same element is a severe error!
         assert((d1 != d2) && (d1->key().compare(d2->key(), Qt::CaseInsensitive)));
 
@@ -49,7 +52,7 @@ struct PropertySetTemplateSpecializationLessFunctor
 /**
  * A typesafe property enumeration template class. It manages property keys,
  * mapping ids and priority handling for different kind of property sets.
- * 
+ *
  * Different subsystems have different type of property sets and different
  * property identifier keys. Moreover properties have to be set in a specific
  * order or they might overwrite each other. Still all these property sets

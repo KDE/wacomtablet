@@ -59,13 +59,10 @@ X11EventNotifier::X11EventNotifier()
 X11EventNotifier::X11EventNotifier(const X11EventNotifier& notifier)
     : EventNotifier(NULL), d_ptr(new X11EventNotifierPrivate)
 {
+    Q_UNUSED(notifier);
     Q_D( X11EventNotifier );
     d->currentRotation = 0;
     d->isStarted       = false;
-
-    // nothing to do - this class is a singleton and must not be copied
-    // prevent compiler warning about unused parameter at least for debug builds.
-    assert(&notifier != NULL);
 }
 
 X11EventNotifier::~X11EventNotifier()
@@ -77,8 +74,7 @@ X11EventNotifier::~X11EventNotifier()
 X11EventNotifier& X11EventNotifier::operator=(const X11EventNotifier& notifier)
 {
     // nothing to do - this class is a singleton and must not be copied
-    // prevent compiler warning about unused parameter at least for debug builds.
-    assert(&notifier != NULL);
+    Q_UNUSED(notifier);
     return *this;
 }
 
