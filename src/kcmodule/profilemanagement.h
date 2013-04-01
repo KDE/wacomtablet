@@ -52,7 +52,7 @@ class ProfileManagement
           *
           * @param profilename name of the profile that will be created
           */
-        void createNewProfile(const QString & profilename = QLatin1String( "default" ));
+        void createNewProfile(const QString & profilename);
 
         /**
           * Returns the KConfigGroup with all available profiles for the current tablet device

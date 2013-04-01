@@ -32,7 +32,7 @@ class MainConfigPrivate
     public:
         KSharedConfig::Ptr config;
         KConfigGroup       general;
-}; // CLASS 
+}; // CLASS
 }  // NAMESPACE
 
 
@@ -78,7 +78,7 @@ QString MainConfig::getLastProfile()
         profile = d->general.readEntry("lastprofile");
     }
 
-    return profile.isEmpty() ? QString::fromLatin1("default") : profile;
+    return profile;
 }
 
 

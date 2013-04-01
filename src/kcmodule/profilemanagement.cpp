@@ -69,9 +69,14 @@ ProfileManagement& ProfileManagement::instance()
 
 void ProfileManagement::createNewProfile( const QString &profilename )
 {
+    if (profilename.isEmpty()) {
+        kDebug() << "Can not create a profile with no name!";
+    }
+
     //get information via DBus
     QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(TabletInfo::TabletName);
     m_deviceName = deviceName;
+    m_profileName = profilename;
 
     if( m_deviceName.isEmpty() ) {
         kDebug() << "no device information are found. Can't create a new profile";
@@ -151,7 +156,7 @@ void ProfileManagement::deleteProfile()
     m_profileManager.reload();
 
     if (m_profileManager.listProfiles().isEmpty()) {
-        createNewProfile();
+        createNewProfile(QLatin1String("Default"));
         m_profileManager.reload();
     }
 }

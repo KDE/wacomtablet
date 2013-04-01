@@ -277,6 +277,10 @@ bool KCMWacomTabletWidget::refreshProfileSelector ( const QString& profile )
     if (!profile.isEmpty()) {
         index = d->ui.profileSelector->findText( profile );
         d->ui.profileSelector->setCurrentIndex( index );
+
+    } else if (!profiles.isEmpty()) {
+        index = 0;
+        d->ui.profileSelector->setCurrentIndex( index );
     }
 
     d->ui.profileSelector->blockSignals( false );
@@ -308,8 +312,7 @@ void KCMWacomTabletWidget::showConfig()
     d->ui.delProfileButton->setEnabled( true );
 
     if( ProfileManagement::instance().availableProfiles().isEmpty() ) {
-        ProfileManagement::instance().createNewProfile();
-        ProfileManagement::instance().setProfileName( QLatin1String( "Default" ) );
+        ProfileManagement::instance().createNewProfile(QLatin1String( "Default" ));
         applyProfile();
     }
 

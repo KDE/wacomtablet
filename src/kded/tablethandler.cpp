@@ -301,12 +301,17 @@ void TabletHandler::setProfile( const QString &profile )
 {
     Q_D( TabletHandler );
 
-    if (!hasTablet()) {
-        kDebug() << QString::fromLatin1("Can not set tablet profile to '%1' as not backend is available!").arg(profile);
+    kDebug() << QString::fromLatin1("Loading tablet profile '%1'...").arg(profile);
+
+    if (profile.isEmpty()) {
+        kDebug() << "Can not set a profile without a profile name.";
         return;
     }
 
-    kDebug() << QString::fromLatin1("Loading tablet profile '%1'...").arg(profile);
+    if (!hasTablet()) {
+        kError() << QString::fromLatin1("Can not set tablet profile to '%1' as no backend is available!").arg(profile);
+        return;
+    }
 
     d->profileManager.readProfiles(d->tabletInformation.get(TabletInfo::TabletName));
 

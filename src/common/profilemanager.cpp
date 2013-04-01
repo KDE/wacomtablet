@@ -140,11 +140,11 @@ const QStringList ProfileManager::listIdentifiers() const
 const QStringList ProfileManager::listProfiles() const
 {
     Q_D( const ProfileManager );
-    
+
     if (!isLoaded()) {
         return QStringList();
     }
-    
+
     return d->tabletGroup.groupList();
 }
 
@@ -172,7 +172,7 @@ const TabletProfile ProfileManager::loadProfile(const QString& profile) const
     Q_D( const ProfileManager );
     TabletProfile tabletProfile(profile);
 
-    if (!isLoaded()) {
+    if (!isLoaded() || profile.isEmpty()) {
         return tabletProfile;
     }
 
@@ -194,7 +194,7 @@ void ProfileManager::open(const QString& filename)
     Q_D( ProfileManager );
 
     close();
-    
+
     if (!filename.isEmpty()) {
         d->fileName = filename;
         d->config   = KSharedConfig::openConfig( filename, KConfig::SimpleConfig );
@@ -216,7 +216,7 @@ void ProfileManager::reload()
 bool ProfileManager::saveProfile(TabletProfile& tabletProfile)
 {
     Q_D( ProfileManager );
-    
+
     QString profileName = tabletProfile.getName();
 
     if (!isLoaded() || profileName.isEmpty()) {
