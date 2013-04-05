@@ -124,9 +124,10 @@ void TabletApplet::onDBusConnected()
 
 void TabletApplet::onDBusDisconnected()
 {
-    showError( i18n( "D-Bus connection to the kded daemon not available.\n\n"
-                     "Please start the Wacom tablet daemon.\n"
-                     "The daemon is responsible for tablet detection and profile support." ) );
+    QString errorTitle = i18n("Error - Tablet service not available.");
+    QString errorMsg = i18n("Please start the KDE wacom tablet service.\n"
+                            "The service is required for tablet detection and profile support.");
+    showError( errorTitle, errorMsg );
 }
 
 void TabletApplet::updateWidget()
@@ -522,11 +523,11 @@ void TabletApplet::buildErrorDialog()
     layout_error->addItem( d->errorMsg );
 }
 
-void TabletApplet::showError( const QString &msg )
+void TabletApplet::showError(const QString& title, const QString& msg )
 {
     Q_D (TabletApplet);
 
-    d->deviceName->setText( i18nc( "Title of the applet when an error shows up", "Tablet Error" ) );
+    d->deviceName->setText( title );
     d->errorMsg->setText( msg );
 
     d->configWidget->hide();
@@ -554,5 +555,7 @@ void TabletApplet::onTabletAdded()
 
 void TabletApplet::onTabletRemoved()
 {
-    showError(i18n("No tablet device was found.\n\nPlease connect the device."));
+    QString errorTitle = i18n("Graphic Tablet - Device not detected.");
+    QString errorMsg = i18n("This widget is inactive because your tablet device is not connected or currently not supported.");
+    showError(errorTitle, errorMsg);
 }

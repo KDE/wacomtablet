@@ -68,7 +68,7 @@ public:
       *
       * @param msg the massage shown in the applet
       */
-    void showError(const QString & msg);
+    void showError(const QString& title, const QString & msg);
 
     /**
       * Shows the widget with the detail information again.

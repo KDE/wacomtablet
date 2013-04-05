@@ -130,8 +130,8 @@ void KCMWacomTabletWidget::loadTabletInformation()
 
     if( !isAvailable.isValid() ) {
         QString errorTitle = i18n( "KDE tablet service not found" );
-        QString errorMsg   = i18n( "Please start the Wacom tablet service and try again.\n"
-                                   "The daemon is required for tablet detection and profile support." );
+        QString errorMsg   = i18n( "Please start the KDE wacom tablet service to use this configuration dialog.\n"
+                                   "The service is required for tablet detection and profile support." );
         showError( errorTitle, errorMsg );
 
     } else if( !isAvailable ) {
