@@ -155,7 +155,7 @@ void TabletDaemon::setupActions()
     connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onToggleScreenMapping()) );
 
     action = d->actionCollection->addAction(QLatin1String("Map to fullscreen"));
-    action->setText( i18nc( "@action", "Map to all fullscreen" ) );
+    action->setText( i18nc( "@action Maps the area of the tablet to all available screen space (space depends on connected monitors)", "Map to all fullscreen" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_F ) );
     connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onMapToFullScreen()) );
 

@@ -93,7 +93,7 @@ GeneralPageWidget::GeneralPageWidget(QWidget *parent)
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_M ) );
 
     action = d->m_actionCollection->addAction(QLatin1String("Map to fullscreen"));
-    action->setText( i18nc( "@action", "Map to fullscreen" ) );
+    action->setText( i18nc( "@action Maps the area of the tablet to all available screen space (space depends on connected monitors)", "Map to fullscreen" ) );
     action->setIcon( KIcon( QLatin1String( "video-display" ) ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_F ) );
 
