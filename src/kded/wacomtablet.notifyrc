@@ -1,6 +1,7 @@
 [Global]
 IconName=input-tablet
 Comment=Wacom Tablet
+Comment[ca]=Tauleta Wacom
 Comment[cs]=Tablet Wacom
 Comment[da]=Wacom tegneplade
 Comment[de]=Wacom-Tablett
@@ -34,6 +35,7 @@ Comment[uk]=Планшет Wacom
 Comment[x-test]=xxWacom Tabletxx
 Comment[zh_TW]=Wacom 平板裝置
 Name=WacomTablet
+Name[ca]=TauletaWacom
 Name[cs]=Tablet Wacom
 Name[da]=Wacom tegneplade
 Name[de]=Wacom-Tablett
@@ -67,6 +69,7 @@ Name[zh_TW]=Wacom 平板裝置
 
 [Event/tabletAdded]
 Name=New tablet connected
+Name[ca]=Hi ha una nova tauleta connectada
 Name[cs]=Připojen nový tablet
 Name[da]=Ny tegneplade tilsluttet
 Name[de]=Neues Tablett angeschlossen
@@ -99,9 +102,10 @@ Name[uk]=З’єднано новий планшет
 Name[x-test]=xxNew tablet connectedxx
 Name[zh_TW]=新的平板裝置已連線
 Comment=New graphic tablet connected
+Comment[ca]=Hi ha una nova tauleta gràfica connectada
 Comment[cs]=Připojen nový grafický tablet
 Comment[da]=Ny grafiktegneplade tilsluttet
-Comment[de]=Neues Grafik-Tablett angeschlossen
+Comment[de]=Neues Grafiktablett angeschlossen
 Comment[el]=Νέο γραφικό πινάκιο συνδέθηκε
 Comment[en_GB]=New graphic tablet connected
 Comment[es]=Nueva tableta gráfica conectada
@@ -133,6 +137,7 @@ Action=Popup
 
 [Event/tabletRemoved]
 Name=Tablet removed
+Name[ca]=S'ha extret la tauleta
 Name[cs]=Tablet odpojen
 Name[da]=Tegneplade fjernet
 Name[de]=Tablett entfernt
@@ -164,9 +169,10 @@ Name[uk]=Вилучено планшет
 Name[x-test]=xxTablet removedxx
 Name[zh_TW]=平板裝置已移除
 Comment=Graphic tablet removed
+Comment[ca]=S'ha extret la tauleta gràfica
 Comment[cs]=Grafický tablet odpojen
 Comment[da]=Grafiktegneplade fjernet
-Comment[de]=Grafik-Tablett entfernt
+Comment[de]=Grafiktablett entfernt
 Comment[el]=Το γραφικό πινάκιο αφαιρέθηκε
 Comment[en_GB]=Graphic tablet removed
 Comment[es]=Tableta gráfica retirada
@@ -199,6 +205,7 @@ Action=Popup
 [Event/tabletError]
 Name=A tablet error
 Name[bs]=Greška tableta
+Name[ca]=Un error a la tauleta
 Name[cs]=Chyba tabletu
 Name[da]=Tegnepladefejl
 Name[de]=Tablett-Fehler
@@ -231,6 +238,7 @@ Name[uk]=Помилка планшета
 Name[x-test]=xxA tablet errorxx
 Name[zh_TW]=平板裝置錯誤
 Comment=An error occurred with the tablet
+Comment[ca]=Hi ha hagut un error amb la tauleta
 Comment[cs]=V tabletu došlo k chybě
 Comment[da]=Der opstod en fejl med tegnepladen
 Comment[de]=Mit dem Tablett ist ein Fehler aufgetreten
