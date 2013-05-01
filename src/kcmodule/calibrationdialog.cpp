@@ -53,7 +53,7 @@ CalibrationDialog::CalibrationDialog( const QString &toolname ) :
     getMaxTabletArea();
 
     QLabel *showInfo = new QLabel();
-    showInfo->setText( i18n( "Please tab into all four corners to calibrate the tablet.\nPress escape to cancel the process." ) );
+    showInfo->setText( i18n( "Please tap into all four corners to calibrate the tablet.\nPress escape to cancel the process." ) );
     showInfo->setAlignment( Qt::AlignCenter );
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget( showInfo );
