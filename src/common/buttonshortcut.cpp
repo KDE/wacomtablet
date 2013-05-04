@@ -43,17 +43,48 @@ using namespace Wacom;
  *
  */
 const char* ButtonShortcut::CONVERT_KEY_MAP_DATA[][2] = {
-    {"alt_l",   "alt"},
-    {"alt_r",   "alt"},
-    {"alt",     "alt"},  // "alt" default
-    {"ctrl_l",  "ctrl"},
-    {"ctrl_r",  "ctrl"},
-    {"ctrl",    "ctrl"}, // "ctrl" default
-    {"plus",    "+"},
-    {"minus",   "-"},
-    {"super_l", "meta"},
-    {"super_r", "meta"},
-    {"super",   "meta"}, // "super" default
+    {"alt_l",        "alt"},
+    {"alt_r",        "alt"},
+    {"alt",          "alt"},  // "alt" default
+    {"ampersand",    "&"},
+    {"apostrophe",   "'"},
+    {"asciicircum",  "^"},
+    {"asciitilde",   "~"},
+    {"asterisk",     "*"},
+    {"at",           "@"},
+    {"backslash",    "\\"},
+    {"bar",          "|"},
+    {"braceleft",    "{"},
+    {"braceright",   "}"},
+    {"bracketleft",  "["},
+    {"bracketright", "]"},
+    {"colon",        ":"},
+    {"comma",        ","},
+    {"ctrl_l",       "ctrl"},
+    {"ctrl_r",       "ctrl"},
+    {"ctrl",         "ctrl"}, // "ctrl" default
+    {"dollar",       "$"},
+    {"equal",        "="},
+    {"exclam",       "!"},
+    {"greater",      ">"},
+    {"less",         "<"},
+    {"pgdn",         "pgdown"},
+    {"numbersign",   "#"},
+    {"period",       "."},
+    {"plus",         "+"},
+    {"minus",        "-"},
+    {"parenleft",    "("},
+    {"parenright",   ")"},
+    {"percent",      "%"},
+    {"question",     "?"},
+    {"quotedbl",     "\""},
+    {"quoteleft",    "`"},
+    {"semicolon",    ";"},
+    {"slash",        "/"},
+    {"super_l",      "meta"},
+    {"super_r",      "meta"},
+    {"super",        "meta"}, // "super" default
+    {"underscore",   "_"},
     {NULL, NULL}
 };
 

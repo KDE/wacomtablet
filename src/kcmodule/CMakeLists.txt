@@ -11,6 +11,8 @@ set( kcm_tablet_SRCS
      generalpagewidget.cpp
      kcmwacomtablet.cpp
      kcmwacomtabletwidget.cpp
+     keysequenceinputbutton.cpp
+     keysequenceinputwidget.cpp
      pressurecurvewidget.cpp
      pressurecurvedialog.cpp
      profilemanagement.cpp

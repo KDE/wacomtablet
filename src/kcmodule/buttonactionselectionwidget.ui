@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>364</width>
-    <height>155</height>
+    <width>353</width>
+    <height>140</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,60 +38,6 @@
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="1">
-       <layout class="QHBoxLayout" name="mouseLayout">
-        <item>
-         <widget class="KComboBox" name="mouseComboBox"/>
-        </item>
-        <item>
-         <widget class="KPushButton" name="mouseClearButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>25</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="icon">
-           <iconset theme="edit-clear-locationbar-rtl">
-            <normaloff/>
-           </iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="mouseIconLabel">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" rowspan="2">
-       <widget class="QLabel" name="keyboardIconLabel">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignHCenter|Qt::AlignTop</set>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="1">
        <layout class="QHBoxLayout" name="modifierLayout">
         <item>
@@ -193,7 +139,7 @@
         </item>
        </layout>
       </item>
-      <item row="4" column="0">
+      <item row="5" column="0">
        <spacer name="dummySpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -209,7 +155,7 @@
         </property>
        </spacer>
       </item>
-      <item row="4" column="1">
+      <item row="5" column="1">
        <widget class="Wacom::ButtonActionDisplayWidget" name="actionNameLineEdit">
         <property name="readOnly">
          <bool>true</bool>
@@ -219,25 +165,60 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="KKeySequenceWidget" name="shortcutSelectorWidget">
+      <item row="0" column="0">
+       <widget class="QLabel" name="mouseIconLabel">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <layout class="QHBoxLayout" name="mouseLayout">
+        <item>
+         <widget class="KComboBox" name="mouseComboBox"/>
+        </item>
+        <item>
+         <widget class="KPushButton" name="mouseClearButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>25</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="icon">
+           <iconset theme="edit-clear-locationbar-rtl">
+            <normaloff/>
+           </iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="4" column="1">
+       <widget class="Wacom::KeySequenceInputWidget" name="shortcutSelectorWidget" native="true"/>
+      </item>
+      <item row="2" column="0" rowspan="3">
+       <widget class="QLabel" name="keyboardIconLabel">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="toolTip">
-         <string>Click on the button and press the key or key combination to assign a shortcut.</string>
+        <property name="text">
+         <string/>
         </property>
-        <property name="multiKeyShortcutsAllowed">
-         <bool>false</bool>
-        </property>
-        <property name="checkForConflictsAgainst">
-         <set>KKeySequenceWidget::None</set>
-        </property>
-        <property name="modifierlessAllowed">
-         <bool>true</bool>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
         </property>
        </widget>
       </item>
@@ -261,11 +242,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KKeySequenceWidget</class>
-   <extends>QWidget</extends>
-   <header>kkeysequencewidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
@@ -279,6 +255,12 @@
    <class>Wacom::ButtonActionDisplayWidget</class>
    <extends>QLineEdit</extends>
    <header>buttonactiondisplaywidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Wacom::KeySequenceInputWidget</class>
+   <extends>QWidget</extends>
+   <header>keysequenceinputwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
