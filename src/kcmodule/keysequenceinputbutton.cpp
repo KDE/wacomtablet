@@ -22,10 +22,14 @@
 #include <KDE/KLocalizedString>
 #include <kkeyserver.h>
 
+#include <QX11Info>
 #include <QtCore/QEvent>
 #include <QtCore/QString>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QKeySequence>
+
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
 
 using namespace Wacom;
 
@@ -257,6 +261,45 @@ void KeySequenceInputButton::onButtonClicked()
 }
 
 
+bool KeySequenceInputButton::convertKeyToBaseKey(int keyQt, int *keyBaseQt)
+{
+    if (keyBaseQt == NULL || keyQt == 0) {
+        return false;
+    }
+
+    // lookup X11 key code
+    int keyCodeX = 0;
+
+    if (!KKeyServer::keyQtToCodeX(keyQt, &keyCodeX)) {
+        return false;
+    }
+
+    // lookup X11 key symbol
+    KeySym           keySym;
+    uint             keySymX = 0;
+    XKeyPressedEvent event;
+
+    event.type    = KeyPress;
+    event.display = QX11Info::display();
+    event.state   = 0;
+    event.keycode = keyCodeX;
+
+    XLookupString(&event, 0, 0, &keySym, 0);
+    keySymX = (uint)keySym;
+
+    // convert X11 key symbol back to Qt key
+    int keyQtNew;
+
+    if (!KKeyServer::symXToKeyQt(keySymX, &keyQtNew)) {
+        return false;
+    }
+
+    *keyBaseQt = (uint)keyQtNew;
+
+    return true;
+}
+
+
 void KeySequenceInputButton::recordKey(uint modifierKeys, int keyQt)
 {
     Q_D(KeySequenceInputButton);
@@ -266,6 +309,12 @@ void KeySequenceInputButton::recordKey(uint modifierKeys, int keyQt)
     }
 
     d->modifierKeys = modifierKeys;
+
+    int keyQtBase;
+
+    if (convertKeyToBaseKey(keyQt, &keyQtBase)) {
+        keyQt = keyQtBase;
+    }
 
     switch (keyQt) {
         case Qt::Key_AltGr: // TODO check if xsetwacom supports this
