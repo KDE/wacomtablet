@@ -5,7 +5,7 @@
 # norootforbuild
 
 Name:           kcm_tablet
-Version:        1.99.8
+Version:        1.99.9
 Release:        1
 License:        GPLv2+
 Group:          System/GUI/KDE
@@ -66,6 +66,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS COPYING README
 
 %changelog
+* Sun May 05 2013 alex@maret.de
+- Version 1.99.9 (2.0 Release Candidate 2)
+  * Fixed bug where the default profile would not be created properly.
+  * Fixed bug which prevented special keys from being used as express button shortcuts.
+
 * Sun Mar 30 2013 alex@maret.de
 - Version 1.99.8 (2.0 Release Candidate 1)
   * Fixed bug where the plasma applet would not rotate the stylus controls.
