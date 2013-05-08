@@ -18,7 +18,7 @@ Requires:       xf86-input-wacom
 BuildRequires:  libkde4-devel
 BuildRequires:  xf86-input-wacom-devel
 %define rname wacomtablet
-Source:         %rname-%{version}.tar.gz
+Source:         %rname-%{version}.tar.bz2
 %kde4_runtime_requires
 
 %description
@@ -41,11 +41,12 @@ Author(s):
 %install
   %kde4_makeinstall -C build
   %kde_post_install
+  %find_lang wacomtablet
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f wacomtablet.lang
 %defattr(-,root,root)
 %{_kde4_appsdir}/wacomtablet
 %{_kde4_appsdir}/wacomtablet/wacomtablet.notifyrc
