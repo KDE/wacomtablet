@@ -5,7 +5,7 @@
 # norootforbuild
 
 Name:           kcm_tablet
-Version:        1.99.9
+Version:        2.0
 Release:        1
 License:        GPLv2+
 Group:          System/GUI/KDE
