@@ -1,3 +1,9 @@
+wacomtablet (2.0) unstable; urgency=low
+
+  * No changes to release candidate 2.
+
+ -- Alexander Maret <alex@maret.de>  Wed, 08 May 2013 17:00:00 +0100
+
 wacomtablet (1.99.9-0ppa1) unstable; urgency=low
 
   * KCM Wacom Tablet 2.0-rc2 release.

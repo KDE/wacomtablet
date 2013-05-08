@@ -66,6 +66,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS COPYING README
 
 %changelog
+* Wed May 08 2013 alex@maret.de
+- Version 2.0
+  * No changes to release candidate 2.
+
 * Sun May 05 2013 alex@maret.de
 - Version 1.99.9 (2.0 Release Candidate 2)
   * Fixed bug where the default profile would not be created properly.
