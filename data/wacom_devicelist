@@ -1156,6 +1156,18 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
+[00EC]
+model=unknown
+layout=unknown
+name=Wacom ISDv4 EC
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=2
+hwbutton2=1
+
 [00ED]
 model=unknown
 layout=unknown
