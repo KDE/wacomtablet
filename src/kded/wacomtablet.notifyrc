@@ -1,19 +1,75 @@
 [Global]
 IconName=input-tablet
 Comment=Wacom Tablet
+Comment[ca]=Tauleta Wacom
+Comment[cs]=Tablet Wacom
+Comment[fi]=Wacom-piirtoalusta
+Comment[nl]=Wacom-tablet
+Comment[pt]=Tablete Wacom
+Comment[sk]=Wacom Tablet
+Comment[x-test]=xxWacom Tabletxx
 Name=WacomTablet
+Name[ca]=TauletaWacom
+Name[cs]=Tablet Wacom
+Name[fi]=Wacom-piirtoalusta
+Name[nl]=WacomTablet
+Name[pt]=Tablete Wacom
+Name[sk]=WacomTablet
+Name[x-test]=xxWacomTabletxx
 
 [Event/tabletAdded]
 Name=New tablet connected
+Name[ca]=Hi ha una nova tauleta connectada
+Name[cs]=Připojen nový tablet
+Name[fi]=Uusi piirtoalusta yhdistetty
+Name[nl]=Nieuw tablet verbonden
+Name[pt]=Foi ligada uma nova tablete
+Name[sk]=Nový tablet pripojený
+Name[x-test]=xxNew tablet connectedxx
 Comment=New graphic tablet connected
+Comment[ca]=Hi ha una nova tauleta gràfica connectada
+Comment[cs]=Připojen nový grafický tablet
+Comment[fi]=Uusi piirtoalusta yhdistetty
+Comment[nl]=Nieuw grafisch tablet verbonden
+Comment[pt]=Foi ligada uma nova tablete gráfica
+Comment[sk]=Nový grafický tablet pripojený
+Comment[x-test]=xxNew graphic tablet connectedxx
 Action=Popup
 
 [Event/tabletRemoved]
 Name=Tablet removed
+Name[ca]=S'ha extret la tauleta
+Name[cs]=Tablet odpojen
+Name[fi]=Piirtoalusta irrotettu
+Name[nl]=Tablet verwijderd
+Name[pt]=Tablete removida
+Name[sk]=Tablet odtránený
+Name[x-test]=xxTablet removedxx
 Comment=Graphic tablet removed
+Comment[ca]=S'ha extret la tauleta gràfica
+Comment[cs]=Grafický tablet odpojen
+Comment[fi]=Piirtoalusta irrotettu
+Comment[nl]=Grafisch tablet verwijderd
+Comment[pt]=Tablete gráfica removida
+Comment[sk]=Grafický tablet odstránený
+Comment[x-test]=xxGraphic tablet removedxx
 Action=Popup
 
 [Event/tabletError]
 Name=A tablet error
+Name[ca]=Un error a la tauleta
+Name[cs]=Chyba tabletu
+Name[fi]=Piirtoalustavirhe
+Name[nl]=Een tabletfout
+Name[pt]=Erro da tablete
+Name[sk]=Chyba tabletu
+Name[x-test]=xxA tablet errorxx
 Comment=An error occurred with the tablet
+Comment[ca]=Hi ha hagut un error amb la tauleta
+Comment[cs]=V tabletu došlo k chybě
+Comment[fi]=Piirtoalustan kanssa tapahtui virhe
+Comment[nl]=Er deed zich een fout voor met het tablet
+Comment[pt]=Ocorreu um erro com a tablete
+Comment[sk]=Nastala chyba s tabletom
+Comment[x-test]=xxAn error occurred with the tabletxx
 Action=Popup

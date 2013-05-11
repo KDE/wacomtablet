@@ -12,7 +12,28 @@ X-KDE-System-Settings-Parent-Category=keyboard-and-mouse
 X-KDE-System-Settings-Parent-Category-V2=input-devices
 
 Name=Graphic Tablet
+Name[ca]=Tauleta gràfica
+Name[cs]=Grafický tablet
+Name[fi]=Piirtoalusta
+Name[nl]=Grafisch tablet
+Name[pt]=Tablete Gráfica
+Name[sk]=Grafický tablet
+Name[x-test]=xxGraphic Tabletxx
 
 Comment=Wacom Tablet Settings
+Comment[ca]=Arranjament de tauleta Wacom
+Comment[cs]=Nastavení tabletu Wacom
+Comment[fi]=Wacom-piirtoalustan asetukset
+Comment[nl]=Wacom tabletinstellingen
+Comment[pt]=Configuração da Tablete Wacom
+Comment[sk]=Nastavenia tabletu Wacom
+Comment[x-test]=xxWacom Tablet Settingsxx
 
 X-KDE-Keywords=Tablet,Input Devices,Wacom,Stylus
+X-KDE-Keywords[ca]=Tauleta,Dispositius d'entrada,Wacom,Llapis
+X-KDE-Keywords[cs]=Tablet,Vstupní zařízení,Wacom,Stylus
+X-KDE-Keywords[fi]=Tablet,input,piirtoalusta,piirtopöytä,syöttölaite,Wacom,Stylus
+X-KDE-Keywords[nl]=Tablet,invoerapparaten,Wacom,stylus
+X-KDE-Keywords[pt]=Tablete,Dispositivos de Entrada,Wacom,Caneta
+X-KDE-Keywords[sk]=Tablet,Vstupné zariadenia,Wacom,Stylus
+X-KDE-Keywords[x-test]=xxTablet,Input Devices,Wacom,Stylusxx

@@ -1,6 +1,20 @@
 [Desktop Entry]
 Name=Wacom Tablet Settings
+Name[ca]=Arranjament de tauleta Wacom
+Name[cs]=Nastavení tabletu Wacom
+Name[fi]=Wacom-piirtoalustan asetukset
+Name[nl]=Wacom tabletinstellingen
+Name[pt]=Configuração da Tablete Wacom
+Name[sk]=Nastavenia tabletu Wacom
+Name[x-test]=xxWacom Tablet Settingsxx
 Comment=Hotplugging and profile support for Wacom tablets
+Comment[ca]=Connexió en calent i implementació de perfils per a tauletes Wacom
+Comment[cs]=Podpora profilů a hotplug pro tablety Wacom
+Comment[fi]=Wacom-piirtoalustojen profiilien ja lennosta kytkemisen tuki
+Comment[nl]=Hotpluggen en profielondersteuning voor Wacom-tabletten
+Comment[pt]=Suporte de Detecção da Ligação e de Perfis das Tabletes Wacom
+Comment[sk]=Pripájanie za chodu a podpora profilov pre tablety Wacom
+Comment[x-test]=xxHotplugging and profile support for Wacom tabletsxx
 Icon=input-tablet
 Type=Service
 X-KDE-ServiceTypes=Plasma/Applet
