@@ -18,6 +18,7 @@ Name[nl]=Wacom-tablet
 Name[pt]=Tablete Wacom
 Name[pt_BR]=Mesa digitalizadora Wacom
 Name[sk]=Wacom Tablet
+Name[sv]=Wacom ritplatta
 Name[uk]=Планшет Wacom
 Name[x-test]=xxWacom Tabletxx
 Comment=Wacom tablet control daemon
@@ -29,6 +30,7 @@ Comment[nl]=Besturingsdaemon voor Wacom-tablet
 Comment[pt]=Servidor de controlo das tabletes Wacom
 Comment[pt_BR]=Servidor de controle da mesa digitalizadora Wacom
 Comment[sk]=Ovládací démon tabletu Wacom
+Comment[sv]=Styrdemon för Wacom ritplatta
 Comment[uk]=Фонова служба керування планшетними пристроями Wacom
 Comment[x-test]=xxWacom tablet control daemonxx
 
