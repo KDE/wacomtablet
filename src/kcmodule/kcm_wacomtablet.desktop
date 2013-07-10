@@ -32,6 +32,7 @@ Name[sl]=Grafična tablica
 Name[sv]=Grafisk ritplatta
 Name[uk]=Графічний планшет
 Name[x-test]=xxGraphic Tabletxx
+Name[zh_TW]=圖形平板裝置
 
 Comment=Wacom Tablet Settings
 Comment[ca]=Arranjament de tauleta Wacom
@@ -54,6 +55,7 @@ Comment[sl]=Nastavitve tablice Wacom
 Comment[sv]=Inställningar av Wacom ritplatta
 Comment[uk]=Параметри планшетів Wacom
 Comment[x-test]=xxWacom Tablet Settingsxx
+Comment[zh_TW]=Wacom 平板裝置設定
 
 X-KDE-Keywords=Tablet,Input Devices,Wacom,Stylus
 X-KDE-Keywords[ca]=Tauleta,Dispositius d'entrada,Wacom,Llapis
@@ -76,3 +78,4 @@ X-KDE-Keywords[sl]=Tablica,naprave za vnos,wacom,stylus
 X-KDE-Keywords[sv]=Ritplatta,Inmatning,Enheter,Wacom,Penna
 X-KDE-Keywords[uk]=Tablet,Input Devices,Wacom,Stylus,планшет,введення,малювання,стило,перо
 X-KDE-Keywords[x-test]=xxTablet,Input Devices,Wacom,Stylusxx
+X-KDE-Keywords[zh_TW]=Tablet,Input Devices,Wacom,Stylus

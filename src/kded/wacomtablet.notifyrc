@@ -21,6 +21,7 @@ Comment[sl]=Tablica Wacom
 Comment[sv]=Wacom ritplatta
 Comment[uk]=Планшет Wacom
 Comment[x-test]=xxWacom Tabletxx
+Comment[zh_TW]=Wacom 平板裝置
 Name=WacomTablet
 Name[ca]=TauletaWacom
 Name[cs]=Tablet Wacom
@@ -42,6 +43,7 @@ Name[sl]=WacomTablet
 Name[sv]=Wacom-ritplatta
 Name[uk]=Планшет Wacom
 Name[x-test]=xxWacomTabletxx
+Name[zh_TW]=Wacom 平板裝置
 
 [Event/tabletAdded]
 Name=New tablet connected
@@ -65,6 +67,7 @@ Name[sl]=Povezana je bila nova tablica
 Name[sv]=Ny ritplatta ansluten
 Name[uk]=З’єднано новий планшет
 Name[x-test]=xxNew tablet connectedxx
+Name[zh_TW]=新的平板裝置已連線
 Comment=New graphic tablet connected
 Comment[ca]=Hi ha una nova tauleta gràfica connectada
 Comment[cs]=Připojen nový grafický tablet
@@ -86,6 +89,7 @@ Comment[sl]=Povezana je bila nova tablica
 Comment[sv]=Ny grafisk ritplatta ansluten
 Comment[uk]=З’єднано новий графічний планшет
 Comment[x-test]=xxNew graphic tablet connectedxx
+Comment[zh_TW]=新的圖形平板裝置已連線
 Action=Popup
 
 [Event/tabletRemoved]
@@ -110,6 +114,7 @@ Name[sl]=Tablica je bila odstranjena
 Name[sv]=Ritplatta borttagen
 Name[uk]=Вилучено планшет
 Name[x-test]=xxTablet removedxx
+Name[zh_TW]=平板裝置已移除
 Comment=Graphic tablet removed
 Comment[ca]=S'ha extret la tauleta gràfica
 Comment[cs]=Grafický tablet odpojen
@@ -131,6 +136,7 @@ Comment[sl]=Tablica je bila odstranjena
 Comment[sv]=Grafisk ritplatta borttagen
 Comment[uk]=Вилучено графічний планшет
 Comment[x-test]=xxGraphic tablet removedxx
+Comment[zh_TW]=圖形平板裝置已移除
 Action=Popup
 
 [Event/tabletError]
@@ -155,6 +161,7 @@ Name[sl]=Napaka tablice
 Name[sv]=Fel med ritplatta
 Name[uk]=Помилка планшета
 Name[x-test]=xxA tablet errorxx
+Name[zh_TW]=平板裝置錯誤
 Comment=An error occurred with the tablet
 Comment[ca]=Hi ha hagut un error amb la tauleta
 Comment[cs]=V tabletu došlo k chybě
@@ -176,4 +183,5 @@ Comment[sl]=Prišlo je do napake tablice
 Comment[sv]=Ett fel uppstod med ritplattan
 Comment[uk]=Під час роботи з планшетом сталася помилка
 Comment[x-test]=xxAn error occurred with the tabletxx
+Comment[zh_TW]=平板裝置發生錯誤
 Action=Popup

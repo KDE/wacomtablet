@@ -30,6 +30,7 @@ Name[sl]=Tablica Wacom
 Name[sv]=Wacom ritplatta
 Name[uk]=Планшет Wacom
 Name[x-test]=xxWacom Tabletxx
+Name[zh_TW]=Wacom 平板裝置
 Comment=Wacom tablet control daemon
 Comment[ca]=Dimoni de tauleta Wacom
 Comment[cs]=Ovládací démon tabletu Wacom
@@ -51,4 +52,5 @@ Comment[sl]=Odzadnji program za nadzor tablice Wacom
 Comment[sv]=Styrdemon för Wacom ritplatta
 Comment[uk]=Фонова служба керування планшетними пристроями Wacom
 Comment[x-test]=xxWacom tablet control daemonxx
+Comment[zh_TW]=Wacom 平板裝置控制伺服程式
 
