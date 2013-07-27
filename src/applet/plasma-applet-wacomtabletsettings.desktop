@@ -36,6 +36,7 @@ Name[uk]=Параметри планшетів Wacom
 Name[x-test]=xxWacom Tablet Settingsxx
 Name[zh_TW]=Wacom 平板裝置設定
 Comment=Hotplugging and profile support for Wacom tablets
+Comment[bs]=Podrška za priključenje na živo i profile za Wacom tablete
 Comment[ca]=Connexió en calent i implementació de perfils per a tauletes Wacom
 Comment[cs]=Podpora profilů a hotplug pro tablety Wacom
 Comment[da]=Hotplugging- og profilunderstøttelse til Wacom tegneplader
