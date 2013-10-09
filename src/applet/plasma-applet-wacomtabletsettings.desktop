@@ -2,6 +2,7 @@
 Name=Wacom Tablet Settings
 Name[bs]=Postavke wacom tableta
 Name[ca]=Arranjament de tauleta Wacom
+Name[ca@valencia]=Arranjament de tauleta Wacom
 Name[cs]=Nastavení tabletu Wacom
 Name[da]=Indstillinger for Wacom tegneplade
 Name[de]=Wacom-Tablett-Einstellungen
@@ -40,6 +41,7 @@ Name[zh_TW]=Wacom 平板裝置設定
 Comment=Hotplugging and profile support for Wacom tablets
 Comment[bs]=Podrška za priključenje na živo i profile za Wacom tablete
 Comment[ca]=Connexió en calent i implementació de perfils per a tauletes Wacom
+Comment[ca@valencia]=Connexió en calent i implementació de perfils per a tauletes Wacom
 Comment[cs]=Podpora profilů a hotplug pro tablety Wacom
 Comment[da]=Hotplugging- og profilunderstøttelse til Wacom tegneplader
 Comment[de]=Unterstützung für das Anschließen im laufenden Betrieb und für Profile für Wacom-Tabletts
