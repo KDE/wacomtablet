@@ -46,7 +46,6 @@ target_link_libraries( kcm_wacomtablet
                        wacom_common
                        ${KDE4_KDECORE_LIBS}
                        ${KDE4_KDEUI_LIBS}
-                       ${KDE4_KIO_LIBS}
                        ${X11_X11_LIB}
                        ${X11_Xinput_LIB}
                        ${X11_LIBRARIES}

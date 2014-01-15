@@ -200,7 +200,7 @@ void PressureCurveWidget::paintEvent(QPaintEvent * event)
 
     //draw below curve area
     painter.setPen(QPen());
-    painter.setBrush(Qt::blue);
+    painter.setBrush(QColor(0, 102, 255));
     painter.drawPath(areaBelowCurve.subtracted(subtract));
 
     // draw presscurve
@@ -212,8 +212,8 @@ void PressureCurveWidget::paintEvent(QPaintEvent * event)
     painter.drawPath(curvePath);
 
     // draw controllpoints
-    painter.setPen(m_pointColor);
-    painter.setBrush(m_pointColor);
+    painter.setPen(QColor(226, 8, 0));
+    painter.setBrush(QColor(226, 8, 0));
     painter.drawEllipse(m_cP1, m_pointSize, m_pointSize);
     painter.drawEllipse(m_cP2, m_pointSize, m_pointSize);
 }

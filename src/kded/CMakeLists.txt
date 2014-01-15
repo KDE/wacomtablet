@@ -4,7 +4,6 @@ set(kded_wacomtablet_LIBS
    wacom_common
    ${KDE4_KDECORE_LIBS}
    ${KDE4_KDEUI_LIBS}
-   ${KDE4_SOLID_LIBS}
    ${X11_X11_LIB}
    ${X11_Xinput_LIB}
    ${X11_Xrandr_LIB}
