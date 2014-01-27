@@ -1258,6 +1258,20 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
+[0302]
+model=CTH-680S-RUPL
+layout=unknown
+name=Wacom Intuos PT S
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=3
+hwbutton2=8
+hwbutton3=9
+hwbutton4=1
+
 [0303]
 model=CTH-680S-ENES
 layout=unknown
