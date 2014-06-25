@@ -1,4 +1,19 @@
-wacomtablet (2.0-0ppa1) unstable; urgency=low
+wacomtablet (2.0.1-0ppa1) unstable; urgency=low
+
+  * More translations
+  * Add Wacom Intuos Pro S / PTH-451/S
+  * Add WacomIntuos Pen Small / CTL-480S tablet
+  * Add definition of Wacom Intuos PT S / CTH-680S-RUPL
+  * Add Wacom Intuos PT M / CTH-680S-ENES
+  * Add support for Wacom Intuos Pro M / PTH-651
+  * cmake: remove extra kio linking
+  * adjusted control point and draw below curve area colors to be less websafe looking
+  * Added Wacom Cintiq 13HD
+  * Added Samsung Series 7 Slate
+
+ -- Jörg Ehrichs <Joerg.Ehrichs@gmx.de>  Wed, 25 Jun 2014 12:00:00 +0100
+
+ wacomtablet (2.0-0ppa1) unstable; urgency=low
 
   * No changes to release candidate 2.
 
