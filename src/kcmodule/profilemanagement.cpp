@@ -101,7 +101,9 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     stylusDevice.setProperty(Property::Button3, QLatin1String("3"));
     stylusDevice.setProperty(Property::Mode, QLatin1String("absolute"));
     stylusDevice.setProperty(Property::PressureCurve, QLatin1String("0 0 100 100"));
+    stylusDevice.setProperty(Property::RawSample, QLatin1String("4"));
     stylusDevice.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
+    stylusDevice.setProperty(Property::Suppress, QLatin1String("2"));
     stylusDevice.setProperty(Property::Threshold, QLatin1String("27"));
 
     tabletProfile.setDevice(stylusDevice);
@@ -113,8 +115,10 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     eraserDevice.setProperty(Property::Button3, QLatin1String("3"));
     eraserDevice.setProperty(Property::Mode, QLatin1String("absolute"));
     eraserDevice.setProperty(Property::PressureCurve, QLatin1String("0 0 100 100"));
+    eraserDevice.setProperty(Property::RawSample, QLatin1String("4"));
     eraserDevice.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
     eraserDevice.setProperty(Property::Threshold, QLatin1String("27"));
+    eraserDevice.setProperty(Property::Suppress, QLatin1String("2"));
 
     tabletProfile.setDevice(eraserDevice);
 

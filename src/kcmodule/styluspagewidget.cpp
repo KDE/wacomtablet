@@ -70,6 +70,7 @@ StylusPageWidget::~StylusPageWidget()
 
 void StylusPageWidget::loadFromProfile()
 {
+    Q_D( const StylusPageWidget );
     ProfileManagement* profileManagement = &ProfileManagement::instance();
 
     DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( DeviceType::Stylus );
@@ -87,6 +88,13 @@ void StylusPageWidget::loadFromProfile()
 
     // Tap to Click
     setTabletPcButton ( stylusProfile.getProperty( Property::TabletPcButton ) );
+
+
+    //Raw Sample Rate
+    d->ui->horizontalSliderRawSample->setValue( stylusProfile.getProperty( Property::RawSample ).toInt() );
+
+    //Suppress Rate
+    d->ui->horizontalSliderSuppress->setValue( stylusProfile.getProperty( Property::Suppress ).toInt() );
 }
 
 
@@ -98,6 +106,7 @@ void StylusPageWidget::reloadWidget()
 
 void StylusPageWidget::saveToProfile()
 {
+    Q_D( const StylusPageWidget );
     ProfileManagement* profileManagement = &ProfileManagement::instance();
 
     DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( DeviceType::Stylus );
@@ -117,6 +126,14 @@ void StylusPageWidget::saveToProfile()
 
     // tap to click
     stylusProfile.setProperty( Property::TabletPcButton, getTabletPcButton() );
+
+    //Raw Sample Rate
+    eraserProfile.setProperty( Property::RawSample, QString::number(d->ui->horizontalSliderRawSample->value()) );
+    stylusProfile.setProperty( Property::RawSample, QString::number(d->ui->horizontalSliderRawSample->value()) );
+
+    //Suppress Rate
+    eraserProfile.setProperty( Property::Suppress, QString::number(d->ui->horizontalSliderSuppress->value()) );
+    stylusProfile.setProperty( Property::Suppress, QString::number(d->ui->horizontalSliderSuppress->value()) );
 
     profileManagement->saveDeviceProfile(stylusProfile);
     profileManagement->saveDeviceProfile(eraserProfile);
