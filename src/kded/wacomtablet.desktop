@@ -10,6 +10,7 @@ X-KDE-Kded-load-on-demand=false
 X-KDE-Kded-phase=1
 
 Name=Wacom Tablet
+Name[ar]=لوح واكُم
 Name[bs]=Wacom Tablet
 Name[ca]=Tauleta Wacom
 Name[ca@valencia]=Tauleta Wacom
@@ -50,6 +51,7 @@ Name[uk]=Планшет Wacom
 Name[x-test]=xxWacom Tabletxx
 Name[zh_TW]=Wacom 平板裝置
 Comment=Wacom tablet control daemon
+Comment[ar]=مراقب تحكم لوح واكُم
 Comment[bs]=Kontrolni demon za Wacom Tablet
 Comment[ca]=Dimoni de tauleta Wacom
 Comment[ca@valencia]=Dimoni de tauleta Wacom
