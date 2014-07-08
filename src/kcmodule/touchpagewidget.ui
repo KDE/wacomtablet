@@ -124,11 +124,6 @@
              <property name="text">
               <string>Map Touch Area to Screen</string>
              </property>
-             <property name="icon">
-              <iconset theme="video-display">
-               <normaloff/>
-              </iconset>
-             </property>
             </widget>
            </item>
            <item>
