@@ -1,3 +1,10 @@
+wacomtablet (2.0.2-0ppa1) unstable; urgency=low
+
+  * Fix compile error on older Qt versions
+  * Add Raw Sample and Suppress to ui
+
+ -- Jörg Ehrichs <Joerg.Ehrichs@gmx.de>  Thu, 10 Jul 2014 12:00:00 +0100
+
 wacomtablet (2.0.1-0ppa1) unstable; urgency=low
 
   * More translations
@@ -13,7 +20,7 @@ wacomtablet (2.0.1-0ppa1) unstable; urgency=low
 
  -- Jörg Ehrichs <Joerg.Ehrichs@gmx.de>  Wed, 25 Jun 2014 12:00:00 +0100
 
- wacomtablet (2.0-0ppa1) unstable; urgency=low
+wacomtablet (2.0-0ppa1) unstable; urgency=low
 
   * No changes to release candidate 2.
 

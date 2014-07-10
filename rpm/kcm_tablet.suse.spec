@@ -5,7 +5,7 @@
 # norootforbuild
 
 Name:           kcm_tablet
-Version:        2.0
+Version:        2.0.2
 Release:        1
 License:        GPLv2+
 Group:          System/GUI/KDE
@@ -18,7 +18,7 @@ Requires:       xf86-input-wacom
 BuildRequires:  libkde4-devel
 BuildRequires:  xf86-input-wacom-devel
 %define rname wacomtablet
-Source:         %rname-%{version}.tar.bz2
+Source:         %rname-%{version}.tar.xz
 %kde4_runtime_requires
 
 %description
@@ -67,6 +67,24 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS COPYING README
 
 %changelog
+* Thu Jul 10 2014 joerg.ehrichs@gmx.de
+- Version 2.0.2
+  * Fix compile error on older Qt versions
+  * Add Raw Sample and Suppress to ui
+
+* Wed Jun 25 2014 joerg.ehrichs@gmx.de
+- Version 2.0.1
+  * More translations
+  * Add Wacom Intuos Pro S / PTH-451/S
+  * Add WacomIntuos Pen Small / CTL-480S tablet
+  * Add definition of Wacom Intuos PT S / CTH-680S-RUPL
+  * Add Wacom Intuos PT M / CTH-680S-ENES
+  * Add support for Wacom Intuos Pro M / PTH-651
+  * cmake: remove extra kio linking
+  * adjusted control point and draw below curve area colors to be less websafe looking
+  * Added Wacom Cintiq 13HD
+  * Added Samsung Series 7 Slate
+
 * Wed May 08 2013 alex@maret.de
 - Version 2.0
   * No changes to release candidate 2.
