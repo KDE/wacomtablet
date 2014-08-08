@@ -49,6 +49,10 @@ public:
 
     virtual void setProperty(const DeviceType& deviceType, const Property & property, const QString& value) = 0;
 
+    virtual QStringList getProfileRotationList() = 0;
+
+    virtual void setProfileRotationList(const QStringList &rotationList) = 0;
+
 }; // CLASS
 }  // NAMESPACE
 #endif // HEADER PROTECTION

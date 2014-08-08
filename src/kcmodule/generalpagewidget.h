@@ -88,6 +88,12 @@ signals:
       */
     void changed();
 
+private slots:
+    void profileUp();
+    void profileDown();
+    void profileAdd();
+    void profileRemove();
+
 private:
     Q_DECLARE_PRIVATE( GeneralPageWidget )
     GeneralPageWidgetPrivate *const d_ptr; /**< d-pointer for this class */

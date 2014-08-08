@@ -20,12 +20,18 @@
 #include "tabletbackend.h"
 #include "debug.h"
 
+#include "procsystemadaptor.h"
+#include "procsystemproperty.h"
+#include "property.h"
+#include "propertyset.h"
+
 namespace Wacom
 {
     class TabletBackendPrivate
     {
         public:
             TabletBackend::DeviceMap deviceAdaptors;
+            PropertyAdaptor*         statusLEDAdaptor;
             TabletInformation        tabletInformation;
     };
 }
@@ -36,6 +42,8 @@ TabletBackend::TabletBackend(const Wacom::TabletInformation& tabletInformation) 
 {
     Q_D(TabletBackend);
     d->tabletInformation = tabletInformation;
+
+    d_ptr->statusLEDAdaptor = new ProcSystemAdaptor(d->tabletInformation.getDeviceName(DeviceType::Pad));
 }
 
 TabletBackend::~TabletBackend()
@@ -51,6 +59,8 @@ TabletBackend::~TabletBackend()
             adaptorIter = deviceIter.value().erase(adaptorIter);
         }
     }
+
+    delete d_ptr->statusLEDAdaptor;
 
     // delete private class
     delete d_ptr;
@@ -162,7 +172,13 @@ void TabletBackend::setProfile(const DeviceType& deviceType, const DeviceProfile
     }
 }
 
-
+void TabletBackend::setStatusLED(int led)
+{
+    Q_D(TabletBackend);
+    if (d->tabletInformation.statusLEDs() > 0) {
+        d_ptr->statusLEDAdaptor->setProperty(Property::StatusLEDs, QString::number(led));
+    }
+}
 
 bool TabletBackend::setProperty(const DeviceType& type, const Property& property, const QString& value)
 {

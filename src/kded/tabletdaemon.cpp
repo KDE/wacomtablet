@@ -168,6 +168,16 @@ void TabletDaemon::setupActions()
     action->setText( i18nc( "@action", "Map to screen 2" ) );
     action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_2 ) );
     connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onMapToScreen2()) );
+
+    action = d->actionCollection->addAction(QLatin1String("Next Profile"));
+    action->setText( i18nc( "@action Switch to the next profile in the rotation", "Next profile" ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_N ) );
+    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onNextProfile()) );
+
+    action = d->actionCollection->addAction(QLatin1String("Previous Profile"));
+    action->setText( i18nc( "@action Switch to the previous profile in the rotation", "Previous Profile" ) );
+    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_P ) );
+    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onPreviousProfile()) );
 }
 
 

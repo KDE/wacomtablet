@@ -89,6 +89,56 @@ public:
     bool hasIdentifier(const QString& identifier) const;
 
     /**
+     * Save the ordered list of profiles that can be used in rotation
+     *
+     * @param rotationList ordered profile name stringlist
+     */
+    void setProfileRotationList(const QStringList &rotationList);
+
+    /**
+     * Returns the list for the device profile rotation
+     *
+     * This list will define which profile will be loaded
+     * via the global next/prev profile shortcut
+     *
+     * @return stringlist with profile names in the rotation
+     */
+    QStringList profileRotationList() const;
+
+    /**
+     * Returns last known profile number (as seved in the config)
+     *
+     * Helps to do the next/prev when current profile name is not available
+     */
+    int currentProfileNumber() const;
+
+    /**
+     * Returns which number the given profile is in the rotation list
+     *
+     * @param profile name of the profile
+     */
+    int profileNumber(const QString &profile) const;
+
+    /**
+     * Just a helper to write the last known profile number into the config file for later use
+     */
+    void udpdateCurrentProfileNumber(const QString &profile);
+
+    /**
+     * Rotate to next profile in the rotation list
+     *
+     * @return name of the next profile
+     */
+    QString nextProfile();
+
+    /**
+     * Rotate to next previous in the rotation list
+     *
+     * @return name of the previous profile
+     */
+    QString previousProfile();
+
+    /**
      * Checks if a tablet profile with the given name is registered for the current
      * tablet identifier. This method requires that the profiles for a tablet identifier
      * have been loaded first.

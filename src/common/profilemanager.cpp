@@ -80,6 +80,12 @@ bool ProfileManager::deleteProfile(const QString& profile)
         configGroup.deleteGroup();
     }
 
+    QStringList profileList = d->tabletGroup.readEntry(QLatin1String("ProfileRotationList"), QStringList());
+    if(profileList.contains(profile)) {
+        profileList.removeAll(profile);
+        d->tabletGroup.writeEntry(QLatin1String("ProfileRotationList"), profileList);
+    }
+
     d->tabletGroup.sync();
     return true;
 }
@@ -97,6 +103,109 @@ bool ProfileManager::hasIdentifier(const QString& identifier) const
     return KConfigGroup(d->config, identifier).exists();
 }
 
+void ProfileManager::setProfileRotationList(const QStringList &rotationList)
+{
+    Q_D( ProfileManager );
+
+    if (!isOpen()) {
+        return;
+    }
+
+    d->tabletGroup.writeEntry(QLatin1String("ProfileRotationList"), rotationList);
+}
+
+QStringList ProfileManager::profileRotationList() const
+{
+    Q_D( const ProfileManager );
+
+    if (!isOpen()) {
+        return QStringList();
+    }
+
+    return d->tabletGroup.readEntry(QLatin1String("ProfileRotationList"), QStringList());
+}
+
+int ProfileManager::currentProfileNumber() const
+{
+    Q_D( const ProfileManager );
+
+    if (!isOpen()) {
+        return -1;
+    }
+
+    return d->tabletGroup.readEntry(QLatin1String("CurrentProfileEntry"),-1);
+}
+
+int ProfileManager::profileNumber(const QString &profile) const
+{
+    if (!isOpen()) {
+        return -1;
+    }
+
+    return profileRotationList().indexOf(profile);
+}
+
+void ProfileManager::udpdateCurrentProfileNumber(const QString &profile)
+{
+    Q_D( ProfileManager );
+
+    if (!isOpen()) {
+        return;
+    }
+
+    d->tabletGroup.writeEntry(QLatin1String("CurrentProfileEntry"),profileNumber(profile));
+    d->tabletGroup.sync();
+}
+
+QString ProfileManager::nextProfile()
+{
+    Q_D( ProfileManager );
+
+    if (!isOpen()) {
+        return QString();
+    }
+
+    QStringList profileList = profileRotationList();
+    if(profileList.isEmpty()) {
+        return QString();
+    }
+
+    int curProfileEntry = d->tabletGroup.readEntry(QLatin1String("CurrentProfileEntry"),-1);
+    curProfileEntry++;
+
+    if(profileList.size() <= curProfileEntry) {
+        curProfileEntry = 0;
+    }
+
+    d->tabletGroup.writeEntry(QLatin1String("CurrentProfileEntry"),curProfileEntry);
+    d->tabletGroup.sync();
+    return profileList.at(curProfileEntry);
+}
+
+QString ProfileManager::previousProfile()
+{
+    Q_D( ProfileManager );
+
+    if (!isOpen()) {
+        return QString();
+    }
+
+    QStringList profileList = profileRotationList();
+    if(profileList.isEmpty()) {
+        return QString();
+    }
+
+    int curProfileEntry = d->tabletGroup.readEntry(QLatin1String("CurrentProfileEntry"),-1);
+    curProfileEntry--;
+
+    if(curProfileEntry < 0) {
+        curProfileEntry = profileList.size()-1;
+    }
+
+    d->tabletGroup.writeEntry(QLatin1String("CurrentProfileEntry"),curProfileEntry);
+    d->tabletGroup.sync();
+    return profileList.at(curProfileEntry);
+}
 
 bool ProfileManager::hasProfile(const QString& profileName) const
 {
@@ -184,6 +293,7 @@ const TabletProfile ProfileManager::loadProfile(const QString& profile) const
 
     TabletProfileConfigAdaptor configAdaptor(tabletProfile);
     configAdaptor.loadConfig(configGroup);
+
 
     return tabletProfile;
 }

@@ -172,6 +172,7 @@ bool TabletDatabase::getInformation(const KConfigGroup& deviceGroup, const QStri
     tabletInfo.set (TabletInfo::TabletName,    deviceGroup.readEntry ("name"));
     tabletInfo.set (TabletInfo::ButtonLayout,  deviceGroup.readEntry ("layout"));
     tabletInfo.set (TabletInfo::NumPadButtons, deviceGroup.readEntry ("padbuttons"));
+    tabletInfo.set (TabletInfo::StatusLEDs,    deviceGroup.readEntry ("statusleds", QString::number(0)));
 
     tabletInfo.setBool (TabletInfo::HasLeftTouchStrip,  deviceGroup.readEntry ("touchstripl"));
     tabletInfo.setBool (TabletInfo::HasRightTouchStrip, deviceGroup.readEntry ("touchstripr"));

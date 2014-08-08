@@ -42,6 +42,7 @@ const TabletInfo TabletInfo::HasRightTouchStrip ( QLatin1String("HasRightTouchSt
 const TabletInfo TabletInfo::HasTouchRing       ( QLatin1String("HasTouchRing"));
 const TabletInfo TabletInfo::HasWheel           ( QLatin1String("HasWheel"));
 const TabletInfo TabletInfo::NumPadButtons      ( QLatin1String("NumPadButtons"));
+const TabletInfo TabletInfo::StatusLEDs         ( QLatin1String("StatusLEDs"));
 const TabletInfo TabletInfo::TabletId           ( QLatin1String("TabletId") );
 const TabletInfo TabletInfo::TabletModel        ( QLatin1String("TabletModel") );
 const TabletInfo TabletInfo::TabletName         ( QLatin1String("TabletName") );

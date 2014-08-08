@@ -199,3 +199,14 @@ QDBusMessage DBusTabletInterface::setProperty(const DeviceType& device, const Pr
     return call (QLatin1String("setProperty"), device.key(), property.key(), value);
 }
 
+
+
+QDBusMessage DBusTabletInterface::getProfileRotationList() {
+
+    return call ( QLatin1String("getProfileRotationList") );
+}
+
+QDBusMessage DBusTabletInterface::setProfileRotationList(const QStringList &rotationList) {
+
+    return call ( QLatin1String("setProfileRotationList"), rotationList );
+}

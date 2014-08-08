@@ -176,6 +176,12 @@ public:
      */
     bool hasDevice (const DeviceType& device) const;
 
+    /**
+     * Returns the number of available LEDs to show the current mode
+     *
+     * Only useful on Intuos devices
+     */
+    int statusLEDs() const;
 
     /**
      * @deprecated Do no longer use this!

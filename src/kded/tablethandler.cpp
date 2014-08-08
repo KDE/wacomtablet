@@ -287,6 +287,31 @@ void TabletHandler::onMapToScreen2()
     }
 }
 
+void TabletHandler::onNextProfile()
+{
+    Q_D( TabletHandler );
+
+    if(d->profileManager.profileRotationList().empty()) {
+        kDebug() << "No items in the rotation list. Nothing to rotate";
+    }
+    else {
+        QString nextProfile = d->profileManager.nextProfile();
+        setProfile(nextProfile);
+    }
+}
+
+void TabletHandler::onPreviousProfile()
+{
+    Q_D( TabletHandler );
+
+    if(d->profileManager.profileRotationList().empty()) {
+        kDebug() << "No items in the rotation list. Nothing to rotate";
+    }
+    else {
+        QString previousProfile = d->profileManager.previousProfile();
+        setProfile(previousProfile);
+    }
+}
 
 QStringList TabletHandler::listProfiles()
 {
@@ -363,6 +388,10 @@ void TabletHandler::setProfile( const QString &profile )
     d->tabletBackend->setProfile(tabletProfile);
     d->mainConfig.setLastProfile(d->tabletInformation.get(TabletInfo::TabletName), d->currentProfile);
 
+    // check profile rotation values and LEDs
+    d->profileManager.udpdateCurrentProfileNumber(profile);
+    d->tabletBackend->setStatusLED( d->profileManager.profileNumber(d->currentProfile) );
+
     emit profileChanged( d->currentProfile );
 }
 
@@ -380,6 +409,29 @@ void TabletHandler::setProperty(const DeviceType& deviceType, const Property& pr
     d->tabletBackend->setProperty(deviceType, property, value);
 }
 
+QStringList TabletHandler::getProfileRotationList()
+{
+    Q_D( TabletHandler );
+
+    if (!hasTablet()) {
+        kError() << QString::fromLatin1("Unable to get profile rotation list as no device is currently available!");
+        return QStringList();
+    }
+
+    return d->profileManager.profileRotationList();
+}
+
+void TabletHandler::setProfileRotationList(const QStringList &rotationList)
+{
+    Q_D( TabletHandler );
+
+    if (!hasTablet()) {
+        kError() << QString::fromLatin1("Unable to set profile rotation list as no device is currently available!");
+        return;
+    }
+
+    d->profileManager.setProfileRotationList(rotationList);
+}
 
 void TabletHandler::autoRotateTablet(const ScreenRotation &screenRotation, const TabletProfile &tabletProfile)
 {

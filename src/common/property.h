@@ -243,6 +243,16 @@ public:
     static const Property ScrollDistance;
 
     /**
+     * Intuos4/5 tablets have 4 LED's that are used to show a "current Mode"
+     * Cintiq 21UX2 and Cintiq 24HD have 8 of them (2x4)
+     *
+     * We use it to switch profiles and show which of the profiles is activated.
+     * In the TabletDatabase the number of LEDs must be specified.
+     * They will be used via the proc system
+     */
+    static const Property StatusLEDs;
+
+    /**
      * The action to which left/right strip up/down should be mapped.
      * See any button property for the list of valid values.
      *

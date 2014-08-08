@@ -168,6 +168,9 @@ void KCMWacomTabletWidget::delProfile()
     ProfileManagement::instance().deleteProfile();
     refreshProfileSelector();
     switchProfile( d->ui.profileSelector->currentText() );
+
+    //update profile rotation selection
+    d->generalPage.reloadWidget();
 }
 
 

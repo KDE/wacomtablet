@@ -14,6 +14,8 @@ set(kded_wacomtablet_LIBS
 set(kded_wacomtablet_SRCS
     dbustabletservice.cpp
     eventnotifier.cpp
+    procsystemadaptor.cpp
+    procsystemproperty.cpp
     tabletbackend.cpp
     tabletbackendfactory.cpp
     tabletdaemon.cpp

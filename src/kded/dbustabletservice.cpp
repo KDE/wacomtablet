@@ -199,7 +199,17 @@ void DBusTabletService::setProperty(const QString& deviceType, const QString& pr
     d->tabletHandler->setProperty(*type, *prop, value);
 }
 
+QStringList DBusTabletService::getProfileRotationList()
+{
+    Q_D ( DBusTabletService );
+    return d->tabletHandler->getProfileRotationList();
+}
 
+void DBusTabletService::setProfileRotationList(const QStringList &rotationList)
+{
+    Q_D ( DBusTabletService );
+    d->tabletHandler->setProfileRotationList(rotationList);
+}
 
 void DBusTabletService::onProfileChanged(const QString& profile)
 {

@@ -142,6 +142,22 @@ public Q_SLOTS:
       */
     Q_SCRIPTABLE void setProperty(const QString & deviceType, const QString & property, const QString & value);
 
+    /**
+      * Returns the list for the device profile rotation
+      *
+      * This list will define which profile will be loaded
+      * via the global next/prev profile shortcut
+      *
+      * @return stringlist with profile names in the rotation
+      */
+    Q_SCRIPTABLE QStringList getProfileRotationList();
+
+    /**
+      * Set the Profile rotation list for this Device
+      *
+      * @param rotationList stringlist with profilenames in the right order
+      */
+    Q_SCRIPTABLE void setProfileRotationList(const QStringList &rotationList);
 
 // d-bus signals
 Q_SIGNALS:

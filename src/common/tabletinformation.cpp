@@ -305,7 +305,10 @@ bool TabletInformation::hasDevice (const DeviceType& device) const
     return d->deviceMap.contains(device.key());
 }
 
-
+int TabletInformation::statusLEDs() const
+{
+    return getInt(TabletInfo::StatusLEDs);
+}
 
 bool TabletInformation::isAvailable() const
 {

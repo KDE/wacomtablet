@@ -69,6 +69,11 @@ public:
     void setProfile(const DeviceType& deviceType, const DeviceProfile& profile);
 
     /**
+     * @see TabletBackendInterface::setStatusLED(int led)
+     */
+    void setStatusLED(int led);
+
+    /**
      * @see TabletBackendInterface::setProperty(const DeviceType&, const Property&, const QString&)
      */
     bool setProperty(const DeviceType& type, const Property& property, const QString& value);

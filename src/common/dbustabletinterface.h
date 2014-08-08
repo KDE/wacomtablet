@@ -147,6 +147,9 @@ public:
     QDBusMessage setProperty (const DeviceType& device, const Property& property, const QString& value);
 
 
+    QDBusMessage getProfileRotationList();
+
+    QDBusMessage setProfileRotationList(const QStringList &rotationList);
 protected:
 
     /**

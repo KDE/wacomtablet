@@ -56,6 +56,15 @@
             <arg type="s" name="value" direction="in"/>
         </method>
 
+
+        <method name="getProfileRotationList">
+            <arg type="as" direction="out"/>
+        </method>
+
+        <method name="setProfileRotationList">
+            <arg type="as" direction="in"/>
+        </method>
+
         <!--
             SIGNALS
         -->

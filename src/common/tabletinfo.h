@@ -77,6 +77,7 @@ public:
     static const TabletInfo HasTouchRing;       //!< Flag if this tablet has a touch ring.
     static const TabletInfo HasWheel;           //!< Flag if this tablet has a wheel.
     static const TabletInfo NumPadButtons;      //!< Number of pad buttons.
+    static const TabletInfo StatusLEDs;         //!< Number of LED's that can display tablet modes (for Intuos)
     static const TabletInfo TabletId;           //!< The tablet identifier as a four digit hex code.
     static const TabletInfo TabletModel;        //!< The tablet model.
     static const TabletInfo TabletName;         //!< The name of the tablet.

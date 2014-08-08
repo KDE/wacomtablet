@@ -96,6 +96,9 @@ public:
     void setProperty(const DeviceType& deviceType, const Property & property, const QString& value);
 
 
+    QStringList getProfileRotationList();
+
+    void setProfileRotationList(const QStringList &rotationList);
 
 
 public Q_SLOTS:
@@ -179,6 +182,16 @@ public Q_SLOTS:
      *  @li sets ScreenSpace=map1
      */
     void onMapToScreen2();
+
+    /**
+     * @brief Switch to the next profile in the rotation list
+     */
+    void onNextProfile();
+
+    /**
+     * @brief Switch to the previous profile in the rotation list
+     */
+    void onPreviousProfile();
 
 
 Q_SIGNALS:

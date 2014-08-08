@@ -86,6 +86,12 @@ public:
      */
     virtual void setProfile(const DeviceType& deviceType, const DeviceProfile& profile) = 0;
 
+    /**
+     * Set the status LEDs for the Intuos4/5 and Cintiq tablets
+     *
+     * @param led led number that should be set 0-3 or 0-7
+     */
+    virtual void setStatusLED(int led) = 0;
 
     /**
      * Sets a property on a device.
