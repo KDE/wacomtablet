@@ -44,8 +44,15 @@ class ProfileManagement
 
         /**
          * Returns the instance of this singleton class.
+         *
+         * Asks DBus for the currently active device names
          */
         static ProfileManagement& instance();
+
+        /**
+         * @brief Returns a singleton of this class without asking DBus for devicenames
+         */
+        static ProfileManagement& instance(const QString &deviceName, const QString &touchName);
 
         /**
           * Creates a new profile for the currently detected device and saves it back to the KConfig file
@@ -124,6 +131,12 @@ class ProfileManagement
         ProfileManagement();
 
         /**
+          * Overloaded constructor.
+          * This is a singleton class, do not use this constructor, use \a instance(deviceName, touchName) instead.
+          */
+        ProfileManagement(const QString &deviceName, const QString &touchName);
+
+        /**
          * Copy constructor which does nothing.
          */
         ProfileManagement(const ProfileManagement&);
@@ -134,6 +147,7 @@ class ProfileManagement
         ProfileManagement& operator=(const ProfileManagement&);
 
         QString         m_deviceName;      /**< Cached name of the device so. So we don't have to ask via Dbus every time */
+        QString         m_touchName;       /**< Cached name of the device so. So we don't have to ask via Dbus every time */
         QString         m_profileName;     /**< Current selected profile. */
         ProfileManager  m_profileManager;  /**< Manages the profile configuration file */
 

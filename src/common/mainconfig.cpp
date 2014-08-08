@@ -64,30 +64,30 @@ void MainConfig::open(const QString& fileName)
 {
     Q_D( MainConfig );
     d->config  = KSharedConfig::openConfig( fileName );
-    d->general = KConfigGroup(d->config, "General");
+    d->general = KConfigGroup(d->config, "LastProfile");
 }
 
 
-QString MainConfig::getLastProfile()
+QString MainConfig::getLastProfile(const QString &deviceName)
 {
     Q_D( MainConfig );
     QString profile;
 
     if (!d->config.isNull()) {
         d->config->reparseConfiguration();
-        profile = d->general.readEntry("lastprofile");
+        profile = d->general.readEntry(deviceName);
     }
 
     return profile;
 }
 
 
-void MainConfig::setLastProfile(const QString& profile)
+void MainConfig::setLastProfile(const QString &deviceName, const QString& profile)
 {
     Q_D( MainConfig );
     if (!d->config.isNull()) {
         d->config->reparseConfiguration();
-        d->general.writeEntry("lastprofile", profile);
+        d->general.writeEntry(deviceName, profile);
         d->general.sync();
     }
 }

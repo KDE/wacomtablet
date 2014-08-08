@@ -34,11 +34,11 @@ public:
     explicit MainConfig(const QString& fileName);
     ~MainConfig();
 
-    QString getLastProfile();
+    QString getLastProfile(const QString &deviceName);
 
     void open (const QString& fileName);
 
-    void setLastProfile(const QString& profile);
+    void setLastProfile(const QString &deviceName, const QString& profile);
     
 private:
     Q_DECLARE_PRIVATE( MainConfig )

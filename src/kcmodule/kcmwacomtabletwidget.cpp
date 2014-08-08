@@ -312,7 +312,7 @@ void KCMWacomTabletWidget::showConfig()
     d->ui.delProfileButton->setEnabled( true );
 
     if( ProfileManagement::instance().availableProfiles().isEmpty() ) {
-        ProfileManagement::instance().createNewProfile(QLatin1String( "Default" ));
+        ProfileManagement::instance().createNewProfile(i18nc( "Name of the default profile that will be created if none exist.","Default" ));
         applyProfile();
     }
 

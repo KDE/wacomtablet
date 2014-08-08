@@ -43,6 +43,17 @@ ProfileManagement::ProfileManagement()
     : m_profileManager(QLatin1String("tabletprofilesrc"))
 {
     reload();
+
+    kDebug() << "Create instance for :: " << m_deviceName << m_touchName;
+}
+
+ProfileManagement::ProfileManagement(const QString &deviceName, const QString &touchName)
+    : m_deviceName(deviceName)
+    , m_touchName(touchName)
+    , m_profileManager(QLatin1String("tabletprofilesrc"))
+{
+
+    kDebug() << "Create instance for :: " << deviceName << touchName;
 }
 
 ProfileManagement::ProfileManagement(const ProfileManagement& )
@@ -67,6 +78,12 @@ ProfileManagement& ProfileManagement::instance()
 }
 
 
+ProfileManagement& ProfileManagement::instance(const QString &deviceName, const QString &touchName)
+{
+    static ProfileManagement instance(deviceName, touchName);
+    return instance;
+}
+
 void ProfileManagement::createNewProfile( const QString &profilename )
 {
     if (profilename.isEmpty()) {
@@ -74,8 +91,6 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     }
 
     //get information via DBus
-    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(TabletInfo::TabletName);
-    m_deviceName = deviceName;
     m_profileName = profilename;
 
     if( m_deviceName.isEmpty() ) {
@@ -124,9 +139,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
 
     // also add section for the touch if we have a touch tool
-    QDBusReply<QString> touchName = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
-
-    if( !touchName.value().isEmpty() ) {
+    if( !m_touchName.isEmpty() ) {
 
         DeviceProfile touchDevice = tabletProfile.getDevice(DeviceType::Touch);
 
@@ -203,5 +216,13 @@ void ProfileManagement::reload()
 
     if( deviceName.isValid() ) {
         m_deviceName = deviceName;
+    }
+
+    QDBusReply<QString> touchName = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
+    if( touchName.isValid() ) {
+        m_touchName = touchName;
+    }
+    else {
+        m_touchName.clear();
     }
 }

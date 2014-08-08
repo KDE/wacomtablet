@@ -10,6 +10,7 @@ set(wacom_common_SRC
     devicetype.cpp
     mainconfig.cpp
     profilemanager.cpp
+    profilemanagement.cpp
     property.cpp
     propertyadaptor.cpp
     screenrotation.cpp

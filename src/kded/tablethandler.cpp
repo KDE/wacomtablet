@@ -33,6 +33,7 @@
 #include "tabletdatabase.h"
 #include "mainconfig.h"
 #include "profilemanager.h"
+#include "profilemanagement.h"
 #include "tabletprofile.h"
 #include "x11info.h"
 
@@ -139,7 +140,7 @@ void TabletHandler::onTabletAdded( const TabletInformation& info )
                  d->tabletInformation.get(TabletInfo::TabletName) ));
 
     // set profile which was last used
-    setProfile(d->mainConfig.getLastProfile());
+    setProfile(d->mainConfig.getLastProfile(info.get(TabletInfo::TabletName)));
 
     // notify everyone else about the new tablet
     emit tabletAdded(d->tabletInformation);
@@ -303,11 +304,6 @@ void TabletHandler::setProfile( const QString &profile )
 
     kDebug() << QString::fromLatin1("Loading tablet profile '%1'...").arg(profile);
 
-    if (profile.isEmpty()) {
-        kDebug() << "Can not set a profile without a profile name.";
-        return;
-    }
-
     if (!hasTablet()) {
         kError() << QString::fromLatin1("Can not set tablet profile to '%1' as no backend is available!").arg(profile);
         return;
@@ -318,30 +314,56 @@ void TabletHandler::setProfile( const QString &profile )
     TabletProfile tabletProfile = d->profileManager.loadProfile(profile);
 
     if (tabletProfile.listDevices().isEmpty()) {
-        kError() << QString::fromLatin1("Tablet profile '%1' does not exist!").arg(profile);
-        emit notify( QLatin1String( "tabletError" ),
-                     i18n( "Graphic Tablet error" ),
-                     i18n( "Profile <b>%1</b> does not exist", profile ) );
+        //may happen also if "last selected profile" was deleted.
+        //thus we check if any profile exist and take the first one
+        // or create a new empty profile and apply this instead
+        QStringList pList = d->profileManager.listProfiles();
 
-    } else {
+        if(pList.isEmpty()) {
+            // create a new default profile
+            ProfileManagement* profileManagement = &ProfileManagement::instance(d->tabletInformation.getDeviceName(DeviceType::Pad),
+                                                                                d->tabletInformation.getDeviceName(DeviceType::Touch));
+            profileManagement->createNewProfile(i18nc( "Name of the default profile that will be created if none exists.","Default" ));
+
+            if(!profileManagement->availableProfiles().empty()) {
+                d->currentProfile = profileManagement->availableProfiles().first();
+            }
+            else {
+                kError() << "Could not create new default profile. There seems to be an error on device detection";
+            }
+        }
+        else {
+
+            kError() << QString::fromLatin1("Tablet profile '%1' does not exist!").arg(profile);
+            emit notify( QLatin1String( "tabletError" ),
+                         i18n( "Graphic Tablet error" ),
+                         i18n( "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead", profile, pList.first() ) );
+
+            // set first known profile instead
+            d->currentProfile = pList.first();
+        }
+
+        tabletProfile = d->profileManager.loadProfile(d->currentProfile);
+    }
+    else {
         // set profile
         d->currentProfile = profile;
-
-        // Handle auto-rotation.
-        // This has to be done before screen mapping!
-        autoRotateTablet(X11Info::getScreenRotation(), tabletProfile);
-
-        // Map tablet to screen.
-        // This is necessary to ensure the correct area map is used. Somone might have changed
-        // the ScreenSpace property without updating the Area property.
-        mapTabletToCurrentScreenSpace(tabletProfile);
-
-        // set profile on tablet
-        d->tabletBackend->setProfile(tabletProfile);
-        d->mainConfig.setLastProfile(profile);
-
-        emit profileChanged( profile );
     }
+
+    // Handle auto-rotation.
+    // This has to be done before screen mapping!
+    autoRotateTablet(X11Info::getScreenRotation(), tabletProfile);
+
+    // Map tablet to screen.
+    // This is necessary to ensure the correct area map is used. Somone might have changed
+    // the ScreenSpace property without updating the Area property.
+    mapTabletToCurrentScreenSpace(tabletProfile);
+
+    // set profile on tablet
+    d->tabletBackend->setProfile(tabletProfile);
+    d->mainConfig.setLastProfile(d->tabletInformation.get(TabletInfo::TabletName), d->currentProfile);
+
+    emit profileChanged( d->currentProfile );
 }
 
 
