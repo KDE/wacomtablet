@@ -53,7 +53,7 @@ namespace Wacom {
   */
 class KCMWacomTabletWidgetPrivate {
     public:
-        Ui::KCMWacomTabletWidget ui;                 //!< This user interface.
+        Ui::KCMWacomTabletWidget ui;          //!< This user interface.
 
         GeneralPageWidget generalPage;        //!< Widget that shows some basic information about the tablet.
         StylusPageWidget  stylusPage;         //!< Widget for the pen settings (stylus/eraser).
@@ -73,14 +73,13 @@ KCMWacomTabletWidget::KCMWacomTabletWidget( QWidget *parent )
 {
     setupUi();
     loadTabletInformation();
+    showHideConfig();
 }
 
 KCMWacomTabletWidget::~KCMWacomTabletWidget()
 {
     delete this->d_ptr;
 }
-
-
 
 void KCMWacomTabletWidget::setupUi()
 {
@@ -103,10 +102,14 @@ void KCMWacomTabletWidget::setupUi()
     d->ui.addProfileButton->setIcon( KIcon( QLatin1String( "document-new" ) ) );
     d->ui.delProfileButton->setIcon( KIcon( QLatin1String( "edit-delete-page" ) ) );
 
+    // connect tablet selector
+    connect( d->ui.tabletListSelector,  SIGNAL(currentIndexChanged(QString)), SLOT(onTabletSelectionChanged()) );
+
     // connect profile selector
     connect( d->ui.addProfileButton, SIGNAL(clicked(bool)), SLOT(addProfile()) );
     connect( d->ui.delProfileButton, SIGNAL(clicked(bool)), SLOT(delProfile()) );
     connect( d->ui.profileSelector,  SIGNAL(currentIndexChanged(QString)), SLOT(switchProfile(QString)) );
+
 
     // connect configuration tabs
     connect( &(d->generalPage), SIGNAL(changed()), SLOT(profileChanged()) );
@@ -119,22 +122,44 @@ void KCMWacomTabletWidget::setupUi()
     connect( &(d->tabletPage),  SIGNAL(rotationChanged(ScreenRotation)), &(d->touchPage), SLOT(onRotationChanged(ScreenRotation)));
 
     // connect DBus signals
-    connect( dbusTabletInterface, SIGNAL(tabletAdded()),   SLOT(loadTabletInformation()) );
-    connect( dbusTabletInterface, SIGNAL(tabletRemoved()), SLOT(loadTabletInformation()) );
+    connect( dbusTabletInterface, SIGNAL(tabletAdded(QString)),   SLOT(onTabletAdded(QString)) );
+    connect( dbusTabletInterface, SIGNAL(tabletRemoved(QString)), SLOT(onTabletRemoved(QString)) );
 }
 
 
 void KCMWacomTabletWidget::loadTabletInformation()
 {
-    QDBusReply<bool> isAvailable = DBusTabletInterface::instance().isAvailable();
+    Q_D( KCMWacomTabletWidget );
+    QDBusReply<QStringList> connectedTablets = DBusTabletInterface::instance().getTabletList();
 
-    if( !isAvailable.isValid() ) {
+    if(!connectedTablets.isValid()) {
+        return;
+    }
+
+    d->ui.tabletListSelector->blockSignals(true);
+    foreach(const QString &tabletId, connectedTablets.value()) {
+        QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName);
+        kDebug() << "add tablet"<< deviceName << tabletId << "with";
+        QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
+        kDebug() << inputDevices.value();
+
+        d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
+    }
+    d->ui.tabletListSelector->blockSignals(false);
+}
+
+void KCMWacomTabletWidget::showHideConfig()
+{
+    // request this to see if dbus works and tablets are connected
+    QDBusReply<QStringList> connectedTablets = DBusTabletInterface::instance().getTabletList();
+
+    if( !connectedTablets.isValid() ) {
         QString errorTitle = i18n( "KDE tablet service not found" );
         QString errorMsg   = i18n( "Please start the KDE wacom tablet service to use this configuration dialog.\n"
                                    "The service is required for tablet detection and profile support." );
         showError( errorTitle, errorMsg );
 
-    } else if( !isAvailable ) {
+    } else if( connectedTablets.value().count() == 0 ) {
         QString errorTitle = i18n( "No tablet device detected" );
         QString errorMsg   = i18n( "Please connect a tablet device to continue.\n"
                                    "If your device is already connected it is currently unsupported." );
@@ -145,6 +170,45 @@ void KCMWacomTabletWidget::loadTabletInformation()
     }
 }
 
+void KCMWacomTabletWidget::onTabletAdded(const QString &tabletId)
+{
+    Q_D( KCMWacomTabletWidget );
+
+    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName);
+    kDebug() << "add tablet"<< deviceName << tabletId << "with";
+    QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
+    kDebug() << inputDevices.value();
+
+    d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
+}
+
+void KCMWacomTabletWidget::onTabletRemoved(const QString &tabletId)
+{
+    Q_D( KCMWacomTabletWidget );
+
+    int index = d->ui.tabletListSelector->findData(tabletId);
+
+    if(index >= 0) {
+        d->ui.tabletListSelector->removeItem(index);
+    }
+}
+
+void KCMWacomTabletWidget::onTabletSelectionChanged()
+{
+    Q_D( KCMWacomTabletWidget );
+
+    showSaveChanges();
+
+    //tell all widgets to operate on a different tablet now
+    QString tabletId = d->ui.tabletListSelector->itemData(d->ui.tabletListSelector->currentIndex()).toString();
+    d->generalPage.setTabletId(tabletId);
+    d->stylusPage.setTabletId(tabletId);
+    d->buttonPage.setTabletId(tabletId);
+    d->tabletPage.setTabletId(tabletId);
+    d->touchPage.setTabletId(tabletId);
+
+    showHideConfig();
+}
 
 void KCMWacomTabletWidget::addProfile()
 {
@@ -219,7 +283,10 @@ void KCMWacomTabletWidget::reloadProfile()
 
 void KCMWacomTabletWidget::applyProfile()
 {
-    DBusTabletInterface::instance().setProfile( ProfileManagement::instance().profileName() );
+    Q_D( KCMWacomTabletWidget );
+
+    QString tabletId = d->ui.tabletListSelector->itemData(d->ui.tabletListSelector->currentIndex()).toString();
+    DBusTabletInterface::instance().setProfile( tabletId, ProfileManagement::instance().profileName() );
 }
 
 
@@ -250,6 +317,14 @@ void KCMWacomTabletWidget::hideConfig()
 {
     Q_D( KCMWacomTabletWidget );
 
+    d->ui.tabletListSelector->setVisible( false );
+    d->ui.tabletListLabel->setVisible( false );
+    d->ui.profileSelector->setVisible( false );
+    d->ui.profileLabel->setVisible( false );
+    d->ui.addProfileButton->setVisible( false );
+    d->ui.delProfileButton->setVisible( false );
+
+    d->ui.tabletListSelector->setEnabled( false );
     d->ui.profileSelector->setEnabled( false );
     d->ui.addProfileButton->setEnabled( false );
     d->ui.delProfileButton->setEnabled( false );
@@ -300,7 +375,15 @@ void KCMWacomTabletWidget::showConfig()
     hideError();
 
     // reload profile and widget data
+    QString tabletId = d->ui.tabletListSelector->itemData(d->ui.tabletListSelector->currentIndex()).toString();
+    ProfileManagement::instance().setTabletId(tabletId);
     ProfileManagement::instance().reload();
+
+    d->generalPage.setTabletId(tabletId);
+    d->stylusPage.setTabletId(tabletId);
+    d->buttonPage.setTabletId(tabletId);
+    d->tabletPage.setTabletId(tabletId);
+    d->touchPage.setTabletId(tabletId);
 
     d->generalPage.reloadWidget();
     d->stylusPage.reloadWidget();
@@ -308,11 +391,19 @@ void KCMWacomTabletWidget::showConfig()
     d->tabletPage.reloadWidget();
     d->touchPage.reloadWidget();
 
+    //show tablet Selector
+    d->ui.tabletListSelector->setEnabled( true );
+    d->ui.tabletListLabel->setVisible( true );
+    d->ui.tabletListSelector->setVisible( true );
 
     // initialize profile selector
     d->ui.profileSelector->setEnabled( true );
     d->ui.addProfileButton->setEnabled( true );
     d->ui.delProfileButton->setEnabled( true );
+    d->ui.profileLabel->setVisible( true );
+    d->ui.profileSelector->setVisible( true );
+    d->ui.addProfileButton->setVisible( true );
+    d->ui.delProfileButton->setVisible( true );
 
     if( ProfileManagement::instance().availableProfiles().isEmpty() ) {
         ProfileManagement::instance().createNewProfile(i18nc( "Name of the default profile that will be created if none exist.","Default" ));
@@ -327,7 +418,8 @@ void KCMWacomTabletWidget::showConfig()
     d->ui.deviceTabWidget->addTab( &(d->generalPage), i18nc( "Basic overview page for the tablet hardware", "General" ) );
     d->ui.deviceTabWidget->addTab( &(d->stylusPage), i18n( "Stylus" ) );
 
-    QDBusReply<bool> hasPadButtons = DBusTabletInterface::instance().hasPadButtons();
+
+    QDBusReply<bool> hasPadButtons = DBusTabletInterface::instance().hasPadButtons(tabletId);
 
     if( hasPadButtons.isValid() && hasPadButtons.value() ) {
         d->ui.deviceTabWidget->addTab( &(d->buttonPage), i18n( "Express Buttons" ) );
@@ -335,7 +427,7 @@ void KCMWacomTabletWidget::showConfig()
 
     d->ui.deviceTabWidget->addTab( &(d->tabletPage), i18n ("Tablet") );
 
-    QDBusReply<QString> touchDeviceName = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
+    QDBusReply<QString> touchDeviceName = DBusTabletInterface::instance().getDeviceName(tabletId, DeviceType::Touch);
     bool                hasTouchDevice  = (touchDeviceName.isValid() && !touchDeviceName.value().isEmpty());
 
     if (hasTouchDevice) {
@@ -345,9 +437,8 @@ void KCMWacomTabletWidget::showConfig()
     d->ui.deviceTabWidget->setEnabled( true );
     d->ui.deviceTabWidget->setVisible( true );
 
-
     // switch to the currently active profile
-    QDBusReply<QString> profile = DBusTabletInterface::instance().getProfile();
+    QDBusReply<QString> profile = DBusTabletInterface::instance().getProfile(tabletId);
     if( profile.isValid() ) {
         d->ui.profileSelector->setCurrentItem( profile );
         switchProfile( profile );

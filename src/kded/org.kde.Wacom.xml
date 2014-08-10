@@ -5,11 +5,17 @@
         <!--
             METHODS
         -->
+        <method name="getTabletList">
+            <arg type="as" direction="out"/>
+        </method>
+
         <method name="getDeviceList">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="as" direction="out"/>
         </method>
 
         <method name="getDeviceName">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="s" name="device" direction="in"/>
             <arg type="s" direction="out"/>
         </method>
@@ -20,37 +26,45 @@
         </method -->
 
         <method name="getInformation">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="s" name="info" direction="in"/>
             <arg type="s" direction="out"/>
         </method>
 
         <method name="getProfile">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="s" direction="out"/>
         </method>
 
         <method name="getProperty">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="s" name="device" direction="in"/>
             <arg type="s" name="param" direction="in"/>
             <arg type="s" direction="out"/>
         </method>
 
         <method name="hasPadButtons">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="b" direction="out"/>
         </method>
 
         <method name="isAvailable">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="b" direction="out"/>
         </method>
 
         <method name="listProfiles">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="as" direction="out"/>
         </method>
 
         <method name="setProfile">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="s" name="profile" direction="in"/>
         </method>
 
         <method name="setProperty">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="s" name="device" direction="in"/>
             <arg type="s" name="param" direction="in"/>
             <arg type="s" name="value" direction="in"/>
@@ -58,10 +72,12 @@
 
 
         <method name="getProfileRotationList">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="as" direction="out"/>
         </method>
 
         <method name="setProfileRotationList">
+            <arg type="s" name="tabletId" direction="in"/>
             <arg type="as" direction="in"/>
         </method>
 
@@ -69,13 +85,16 @@
             SIGNALS
         -->
         <signal name="profileChanged">
-          <arg type="s" name="profile" direction="out"/>
+            <arg type="s" name="tabletId" direction="out"/>
+            <arg type="s" name="profile" direction="out"/>
         </signal>
 
         <signal name="tabletAdded">
+            <arg type="s" name="tabletId" direction="out"/>
         </signal>
 
         <signal name="tabletRemoved">
+            <arg type="s" name="tabletId" direction="out"/>
         </signal>
 
     </interface>

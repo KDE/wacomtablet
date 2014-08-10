@@ -61,6 +61,8 @@ public:
       */
     ~ButtonPageWidget();
 
+    void setTabletId(const QString &tabletId);
+
     /**
       * Saves all values to the current profile
       */

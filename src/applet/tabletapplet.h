@@ -122,6 +122,8 @@ public Q_SLOTS:
       */
     void switchProfile(const QString & name);
 
+    void switchTablet(const QString &tablet);
+
     /**
       * Rotates the tablet pad back to normal
       *
@@ -187,16 +189,18 @@ public Q_SLOTS:
       *
       * Updates the @c m_applet TabletApplet with the new values.
       */
-    void onTabletAdded();
+    void onTabletAdded(const QString &tabletId);
 
     /**
       * Called via DBus from the daemon when Solid detects that the connected tablet has been removed.
       *
       * Shows an error messages in the @c m_applet TabletApplet to indicate the change.
       */
-    void onTabletRemoved();
+    void onTabletRemoved(const QString &tabletId);
 
 private:
+    void showNoTabletWidget();
+
     /**
       * Build the basic frame of the applet.
       *

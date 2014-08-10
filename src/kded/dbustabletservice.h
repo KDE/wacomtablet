@@ -51,31 +51,40 @@ public:
 
 // d-bus slots
 public Q_SLOTS:
+    /**
+      * List all conncted tablets (by tabletid)
+      *
+      * @return StringList of the connected tablets with their id
+      */
+    Q_SCRIPTABLE const QStringList getTabletList() const;
 
     /**
       * List of the internal device names (pad/stylus/eraser) as used by xsetwacom command
       *
+      * @param tabletId the ID of the Tablet to check
       * @return StringList of the connected input devices
       */
-    Q_SCRIPTABLE const QStringList getDeviceList() const;
+    Q_SCRIPTABLE const QStringList getDeviceList(const QString &tabletId) const;
 
     /**
      * Gets the name of a device (pad/stylus/...).
      *
+     * @param tabletId the ID of the Tablet to check
      * @param device A device as returned by DeviceType::key()
      *
      * @return The name of the device.
      */
-    Q_SCRIPTABLE const QString& getDeviceName(const QString& device) const;
+    Q_SCRIPTABLE QString getDeviceName(const QString &tabletId, const QString& device) const;
 
     /**
      * Gets information from the tablet.
      *
+     * @param tabletId the ID of the Tablet to check
      * @param info The type of information.
      *
      * @return The information value.
      */
-    Q_SCRIPTABLE const QString& getInformation(const QString& info) const;
+    Q_SCRIPTABLE QString getInformation(const QString &tabletId, const QString& info) const;
 
     /**
       * Returns the current active profile for this tablet.
@@ -84,34 +93,41 @@ public Q_SLOTS:
       * behaviour. But this is the name of the profile that was used last.
       * Can be used to show in the applet as information or as beginning selection in the kcmodule.
       *
+      * @param tabletId the ID of the Tablet to check
       * @return name of the last used profile
       */
-    Q_SCRIPTABLE QString getProfile() const;
+    Q_SCRIPTABLE QString getProfile(const QString &tabletId) const;
 
     /**
       * Returns the current value for a specific tablet device (stylus/eraser/pad/...).
       *
+      * @param tabletId the ID of the Tablet to check
       * @param deviceType Type of device (stylus/eraser/...) to get the value from.
       * @param property   The property we are looking for.
       *
       * @return the value as string
       */
-    Q_SCRIPTABLE QString getProperty(const QString& deviceType, const QString& property) const;
+    Q_SCRIPTABLE QString getProperty(const QString &tabletId, const QString& deviceType,
+                                     const QString& property) const;
 
     /**
       * Tells you if the detected tablet has configurable pushbuttons or not
       *
+      * @param tabletId the ID of the Tablet to check
+      *
       * @return @c true if pushbuttons are available and thus the conf dialogue can be shown
       *         @c false if nothing is available
       */
-    Q_SCRIPTABLE bool hasPadButtons() const;
+    Q_SCRIPTABLE bool hasPadButtons(const QString &tabletId) const;
 
     /**
       * Checks if a tablet is detected and available for further usage
       *
+      * @param tabletId the ID of the Tablet to check
+      *
       * @return @c true if tablet is available, @c false otherwise
       */
-    Q_SCRIPTABLE bool isAvailable() const;
+    Q_SCRIPTABLE bool isAvailable(const QString &tabletId) const;
 
     /**
       * Returns a list of all available profiles
@@ -119,9 +135,11 @@ public Q_SLOTS:
       * This way around the plasma applet does not check the local KConfig file itself
       * and can be used as a remote applet.
       *
+      * @param tabletId the ID of the Tablet to check
+      *
       * @return the list of all available profiles
       */
-    Q_SCRIPTABLE QStringList listProfiles();
+    Q_SCRIPTABLE QStringList listProfiles(const QString &tabletId);
 
     /**
       * Applies a profile to the tablet device
@@ -129,18 +147,22 @@ public Q_SLOTS:
       * The profile must exist in the tabletprofilerc file and thus created by the kcmodule.
       * Otherwise a notification error is send and shown.
       *
+      * @param tabletId the ID of the Tablet to check
+      *
       * @param profile name of the profile as specified in the tabletprofilesrc file.
       */
-    Q_SCRIPTABLE void setProfile(const QString& profile);
+    Q_SCRIPTABLE void setProfile(const QString &tabletId, const QString& profile);
 
     /**
       * Sets the configuration of @p property from @p deviceType to @p value.
       *
+      * @param tabletId the ID of the Tablet to check
       * @param deviceType The device type to set the value on.
       * @param property   The property to set.
       * @param value      The new value of the property.
       */
-    Q_SCRIPTABLE void setProperty(const QString & deviceType, const QString & property, const QString & value);
+    Q_SCRIPTABLE void setProperty(const QString &tabletId, const QString & deviceType,
+                                  const QString & property, const QString & value);
 
     /**
       * Returns the list for the device profile rotation
@@ -148,16 +170,19 @@ public Q_SLOTS:
       * This list will define which profile will be loaded
       * via the global next/prev profile shortcut
       *
+      * @param tabletId the ID of the Tablet to check
+      *
       * @return stringlist with profile names in the rotation
       */
-    Q_SCRIPTABLE QStringList getProfileRotationList();
+    Q_SCRIPTABLE QStringList getProfileRotationList(const QString &tabletId);
 
     /**
       * Set the Profile rotation list for this Device
       *
+      * @param tabletId the ID of the Tablet to check
       * @param rotationList stringlist with profilenames in the right order
       */
-    Q_SCRIPTABLE void setProfileRotationList(const QStringList &rotationList);
+    Q_SCRIPTABLE void setProfileRotationList(const QString &tabletId, const QStringList &rotationList);
 
 // d-bus signals
 Q_SIGNALS:
@@ -167,34 +192,34 @@ Q_SIGNALS:
       *
       * This signal is send via DBus to inform other about the recently added device
       */
-    Q_SCRIPTABLE void tabletAdded();
+    Q_SCRIPTABLE void tabletAdded(const QString &tabletId);
 
     /**
       * Emitted if a known tablet is removed
       *
       * This signal is send via DBus to inform other about the recently removed device
       */
-    Q_SCRIPTABLE void tabletRemoved();
+    Q_SCRIPTABLE void tabletRemoved(const QString &tabletId);
 
     /**
       * Emitted when the profile of the device is changed
       *
       * This signal is send via DBus to inform other about the change
       */
-    Q_SCRIPTABLE void profileChanged(const QString& profile);
+    Q_SCRIPTABLE void profileChanged(const QString &tabletId, const QString& profile);
 
 
 // normal Qt slots
 private slots:
 
     //! Has to be called when the current profile was changed.
-    void onProfileChanged (const QString& profile);
+    void onProfileChanged (const QString &tabletId, const QString& profile);
 
     //! Has to be called when a new tablet is added.
     void onTabletAdded (const TabletInformation& info);
 
     //! Has to be called when the current tablet is removed.
-    void onTabletRemoved ();
+    void onTabletRemoved (const QString &tabletId);
 
 
 private:

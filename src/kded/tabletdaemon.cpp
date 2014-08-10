@@ -203,9 +203,14 @@ void TabletDaemon::setupDBus()
 
     // connect tablet handler events to D-Bus
     // this is done here and not in the D-Bus tablet service to facilitate unit testing
-    connect(&(d->tabletHandler), SIGNAL (profileChanged(QString)),        &(d->dbusTabletService), SLOT (onProfileChanged(QString)));
-    connect(&(d->tabletHandler), SIGNAL (tabletAdded(TabletInformation)), &(d->dbusTabletService), SLOT (onTabletAdded(TabletInformation)));
-    connect(&(d->tabletHandler), SIGNAL (tabletRemoved()),                       &(d->dbusTabletService), SLOT (onTabletRemoved()));
+    connect(&(d->tabletHandler),     SIGNAL (profileChanged(QString, QString)),
+            &(d->dbusTabletService), SLOT   (onProfileChanged(QString, QString)));
+
+    connect(&(d->tabletHandler),     SIGNAL (tabletAdded(TabletInformation)),
+            &(d->dbusTabletService), SLOT   (onTabletAdded(TabletInformation)));
+
+    connect(&(d->tabletHandler),     SIGNAL (tabletRemoved(QString)),
+            &(d->dbusTabletService), SLOT   (onTabletRemoved(QString)));
 }
 
 

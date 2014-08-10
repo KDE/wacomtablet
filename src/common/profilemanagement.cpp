@@ -42,9 +42,6 @@ using namespace Wacom;
 ProfileManagement::ProfileManagement()
     : m_profileManager(QLatin1String("tabletprofilesrc"))
 {
-    reload();
-
-    kDebug() << "Create instance for :: " << m_deviceName << m_touchName;
 }
 
 ProfileManagement::ProfileManagement(const QString &deviceName, const QString &touchName)
@@ -52,7 +49,6 @@ ProfileManagement::ProfileManagement(const QString &deviceName, const QString &t
     , m_touchName(touchName)
     , m_profileManager(QLatin1String("tabletprofilesrc"))
 {
-
     kDebug() << "Create instance for :: " << deviceName << touchName;
 }
 
@@ -60,7 +56,6 @@ ProfileManagement::ProfileManagement(const ProfileManagement& )
     : m_profileManager(QLatin1String("tabletprofilesrc"))
 {
     // this class is a singleton - no copying allowed
-    reload();
 }
 
 
@@ -82,6 +77,11 @@ ProfileManagement& ProfileManagement::instance(const QString &deviceName, const 
 {
     static ProfileManagement instance(deviceName, touchName);
     return instance;
+}
+
+void ProfileManagement::setTabletId(const QString &tabletId)
+{
+    m_tabletId = tabletId;
 }
 
 void ProfileManagement::createNewProfile( const QString &profilename )
@@ -212,15 +212,16 @@ QString ProfileManagement::profileName() const
 
 void ProfileManagement::reload()
 {
-    QDBusReply<QString> deviceName  = DBusTabletInterface::instance().getInformation(TabletInfo::TabletName);
+    QDBusReply<QString> deviceName  = DBusTabletInterface::instance().getInformation(m_tabletId, TabletInfo::TabletName);
 
     if( deviceName.isValid() ) {
         m_deviceName = deviceName;
     }
 
-    QDBusReply<QString> touchName = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
+    QDBusReply<QString> touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch);
     if( touchName.isValid() ) {
-        m_touchName = touchName;
+        kDebug() << "touchName.isValid()::" << m_touchName << "value" << touchName.value();
+        m_touchName = touchName.value();
     }
     else {
         m_touchName.clear();

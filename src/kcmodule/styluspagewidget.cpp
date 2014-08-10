@@ -52,6 +52,7 @@ namespace Wacom {
             }
 
             Ui::StylusPageWidget* ui;
+            QString               tabletId;
     };
 } // NAMESPACE
 
@@ -67,6 +68,12 @@ StylusPageWidget::~StylusPageWidget()
     delete this->d_ptr;
 }
 
+
+void StylusPageWidget::setTabletId(const QString &tabletId)
+{
+    Q_D( StylusPageWidget );
+    d->tabletId = tabletId;
+}
 
 void StylusPageWidget::loadFromProfile()
 {
@@ -281,11 +288,14 @@ void StylusPageWidget::setTabletPcButton(const QString& value)
 
 void StylusPageWidget::changePressureCurve(const DeviceType& deviceType)
 {
+    Q_D( StylusPageWidget );
+
     PressureCurveDialog selectPC(this);
 
     QString startValue = getPressureCurve(deviceType);
     QString result (startValue);
 
+    selectPC.setTabletId(d->tabletId);
     selectPC.setDeviceType( deviceType );
     selectPC.setControllPoints( startValue );
 
@@ -295,7 +305,7 @@ void StylusPageWidget::changePressureCurve(const DeviceType& deviceType)
     } else {
         // reset the current pressurecurve to what is specified in the profile
         // rather than stick to the curve the user declined in the dialogue
-        DBusTabletInterface::instance().setProperty( deviceType, Property::PressureCurve, startValue );
+        DBusTabletInterface::instance().setProperty( d->tabletId, deviceType, Property::PressureCurve, startValue );
     }
 
     if (result != startValue) {

@@ -57,21 +57,23 @@ public:
       * returns the current value for a specific tablet setting
       * This is forwarded to the right backend specified by m_curDevice
       *
+      * @param tabletId The id of the tablet where the property should be fetched from
       * @param device name of the tablet device we set. Internal name of the pad/stylus/eraser/cursor
       * @param property the property we are looking for
       *
       * @return the value as string
       */
-    QString getProperty(const DeviceType& deviceType, const Property& property) const;
+    QString getProperty(const QString &tabletId, const DeviceType& deviceType, const Property& property) const;
 
 
 
     /**
       * @brief Reads a list of all available profiles from the profile manager.
       *
+      * @param tabletId The id of the tablet which shall be queried
       * @return the list of all available profiles
       */
-    QStringList listProfiles();
+    QStringList listProfiles(const QString &tabletId);
 
 
     /**
@@ -80,9 +82,10 @@ public:
       * The profile must be known to the profile manager, otherwise a
       * notification error is displayed.
       *
+      * @param tabletId The id of the tablet for which the profile shall be set
       * @param profile The name of the profile to apply.
       */
-    void setProfile(const QString& profile);
+    void setProfile(const QString &tabletId, const QString& profile);
 
 
     /**
@@ -93,12 +96,12 @@ public:
       * @param property The property to set.
       * @param value    New value of the parameter
       */
-    void setProperty(const DeviceType& deviceType, const Property & property, const QString& value);
+    void setProperty(const QString &tabletId, const DeviceType& deviceType, const Property & property, const QString& value);
 
 
-    QStringList getProfileRotationList();
+    QStringList getProfileRotationList(const QString &tabletId);
 
-    void setProfileRotationList(const QStringList &rotationList);
+    void setProfileRotationList(const QString &tabletId, const QStringList &rotationList);
 
 
 public Q_SLOTS:
@@ -206,7 +209,7 @@ Q_SIGNALS:
       *
       * @param profile The name of the new active profile.
       */
-    void profileChanged(const QString& profile);
+    void profileChanged(const QString &tabletId, const QString& profile);
 
 
     /**
@@ -218,7 +221,7 @@ Q_SIGNALS:
     /**
       * Emitted when the currently active tablet is removed.
       */
-    void tabletRemoved();
+    void tabletRemoved(const QString &tabletId);
 
 
 private:
@@ -227,27 +230,31 @@ private:
      * Auto rotates the tablet if auto-rotation is enabled. If auto-rotation
      * is disabled, the tablet's rotation settings will be left untouched.
      *
+     * @param tabletId The id of the Tablet that will be used
      * @param screenRotation The current screen rotation.
      * @param tabletProfile  The tablet profile to read the rotation settings from.
      */
-    void autoRotateTablet( const ScreenRotation& screenRotation, const TabletProfile& tabletProfile );
+    void autoRotateTablet(const QString &tabletId, const ScreenRotation& screenRotation,
+                          const TabletProfile& tabletProfile );
 
     /**
      * Checks if the current tablet supports the given device type.
      *
+     * @param tabletId The id of the Tablet that will be checked
      * @param type The device type to check for.
      *
      * @return True if the tablet supports the given device, else false.
      */
-    bool hasDevice( const DeviceType& type) const;
+    bool hasDevice( const QString &tabletId, const DeviceType& type) const;
 
 
     /**
      * Checks if there currently is a tablet available.
      *
+     * @param tabletId The id of the Tablet that will be checked
      * @return True if a tablet is available, else false.
      */
-    bool hasTablet() const;
+    bool hasTablet(const QString &tabletId) const;
 
 
     /**
@@ -255,36 +262,36 @@ private:
      * However the profile will not be saved, only updated with
      * the new settings.
      *
+     * @param tabletId The id of the Tablet that will be altered
      * @param device The device to map.
      * @param screepSpace The screen space to map the device to.
      * @param trackingMode The tracking mode to apply.
      * @param tabletProfile The profile to update.
      */
-    void mapDeviceToOutput(const Wacom::DeviceType& device, const ScreenSpace& screenSpace, const QString& trackingMode, TabletProfile& tabletProfile);
+    void mapDeviceToOutput(const QString &tabletId, const Wacom::DeviceType& device,
+                           const ScreenSpace& screenSpace, const QString& trackingMode,
+                           TabletProfile& tabletProfile);
 
     /**
      * Maps the stylus, eraser and touch device to the given output and
      * updates the profiles accordingly. If no mapping is configured the
      * device is mapped to the full desktop.
      *
+     * @param tabletId The id of the Tablet that will be altered
      * @param output A string returned by ScreenSpace::toString()
      */
-    void mapPenToScreenSpace(const ScreenSpace& screenSpace, const QString& trackingMode = QLatin1String("absolute"));
+    void mapPenToScreenSpace(const QString &tabletId, const ScreenSpace& screenSpace,
+                             const QString& trackingMode = QLatin1String("absolute"));
 
 
     /**
      * Maps stylus/eraser/touch to their current screen space.
      * The tablet profile will be saved after the operation is complete.
      *
+     * @param tabletId The id of the Tablet that will be altered
      * @param tabletProfile The tablet profile to use.
      */
-    void mapTabletToCurrentScreenSpace(TabletProfile& tabletProfile);
-
-
-    /**
-      * resets all device information
-      */
-    void clearTabletInformation();
+    void mapTabletToCurrentScreenSpace(const QString &tabletId, TabletProfile& tabletProfile);
 
 
     Q_DECLARE_PRIVATE(TabletHandler)

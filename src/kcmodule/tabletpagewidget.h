@@ -45,6 +45,8 @@ public:
 
     virtual ~TabletPageWidget();
 
+    void setTabletId(const QString &tabletId);
+
     /**
      * Loads settings from the current profile and updates the widget accordingly.
      */

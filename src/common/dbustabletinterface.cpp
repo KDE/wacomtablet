@@ -93,30 +93,30 @@ void DBusTabletInterface::registerMetaTypes()
 }
 
 
-
-QDBusMessage DBusTabletInterface::getDeviceList()
+QDBusMessage DBusTabletInterface::getTabletList()
 {
-    return call( QLatin1String( "getDeviceList" ) );
+    return call( QLatin1String( "getTabletList" ) );
+}
+
+QDBusMessage DBusTabletInterface::getDeviceList(const QString &tabletId)
+{
+    return call( QLatin1String( "getDeviceList" ), tabletId );
+}
+
+QDBusMessage DBusTabletInterface::getDeviceName(const QString &tabletId, const DeviceType& device)
+{
+    return call( QLatin1String( "getDeviceName" ), tabletId, device.key() );
+}
+
+QDBusMessage DBusTabletInterface::getInformation(const QString &tabletId, const TabletInfo& info)
+{
+    return call( QLatin1String( "getInformation" ), tabletId, info.key() );
 }
 
 
-
-QDBusMessage DBusTabletInterface::getDeviceName(const DeviceType& device)
+bool DBusTabletInterface::getInformationAsBool(const QString &tabletId, const TabletInfo& info)
 {
-    return call( QLatin1String( "getDeviceName" ), device.key() );
-}
-
-
-QDBusMessage DBusTabletInterface::getInformation(const TabletInfo& info)
-{
-    return call( QLatin1String( "getInformation" ), info.key() );
-}
-
-
-
-bool DBusTabletInterface::getInformationAsBool(const TabletInfo& info)
-{
-    QDBusReply<QString> value = getInformation(info);
+    QDBusReply<QString> value = getInformation(tabletId, info);
 
     if (!value.isValid()) {
         return false;
@@ -127,9 +127,9 @@ bool DBusTabletInterface::getInformationAsBool(const TabletInfo& info)
 
 
 
-int DBusTabletInterface::getInformationAsInt(const TabletInfo& info)
+int DBusTabletInterface::getInformationAsInt(const QString &tabletId, const TabletInfo& info)
 {
-    QDBusReply<QString> value = getInformation(info);
+    QDBusReply<QString> value = getInformation(tabletId, info);
 
     if (!value.isValid()) {
         return 0;
@@ -140,9 +140,9 @@ int DBusTabletInterface::getInformationAsInt(const TabletInfo& info)
 
 
 
-QString DBusTabletInterface::getInformationAsString(const TabletInfo& info)
+QString DBusTabletInterface::getInformationAsString(const QString &tabletId, const TabletInfo& info)
 {
-    QDBusReply<QString> value = getInformation(info);
+    QDBusReply<QString> value = getInformation(tabletId, info);
 
     if (!value.isValid()) {
         return QString();
@@ -152,61 +152,62 @@ QString DBusTabletInterface::getInformationAsString(const TabletInfo& info)
 }
 
 
-QDBusMessage DBusTabletInterface::getProfile()
+QDBusMessage DBusTabletInterface::getProfile(const QString &tabletId)
 {
-    return call( QLatin1String( "getProfile" ) );
+    return call( QLatin1String( "getProfile" ), tabletId );
 }
 
 
 
-QDBusMessage DBusTabletInterface::getProperty(const DeviceType& device, const Property& property)
+QDBusMessage DBusTabletInterface::getProperty(const QString &tabletId, const DeviceType& device, const Property& property)
 {
-    return call (QLatin1String("getProperty"), device.key(), property.key());
+    return call (QLatin1String("getProperty"), tabletId, device.key(), property.key());
 }
 
 
 
-QDBusMessage DBusTabletInterface::hasPadButtons()
+QDBusMessage DBusTabletInterface::hasPadButtons(const QString &tabletId)
 {
-    return call( QLatin1String( "hasPadButtons" ) );
+    return call( QLatin1String( "hasPadButtons" ), tabletId );
 }
 
 
 
-QDBusMessage DBusTabletInterface::isAvailable()
+QDBusMessage DBusTabletInterface::isAvailable(const QString &tabletId)
 {
-    return call( QLatin1String( "isAvailable" ) );
+    return call( QLatin1String( "isAvailable" ), tabletId );
 }
 
 
 
-QDBusMessage DBusTabletInterface::listProfiles()
+QDBusMessage DBusTabletInterface::listProfiles(const QString &tabletId)
 {
-    return call( QLatin1String( "listProfiles" ) );
+    return call( QLatin1String( "listProfiles" ), tabletId );
 }
 
 
 
-QDBusMessage DBusTabletInterface::setProfile(const QString& profile)
+QDBusMessage DBusTabletInterface::setProfile(const QString &tabletId, const QString& profile)
 {
-    return call( QLatin1String( "setProfile" ), profile );
+    return call( QLatin1String( "setProfile" ), tabletId, profile );
 }
 
 
 
-QDBusMessage DBusTabletInterface::setProperty(const DeviceType& device, const Property& property, const QString& value)
+QDBusMessage DBusTabletInterface::setProperty(const QString &tabletId, const DeviceType& device,
+                                              const Property& property, const QString& value)
 {
-    return call (QLatin1String("setProperty"), device.key(), property.key(), value);
+    return call (QLatin1String("setProperty"), tabletId, device.key(), property.key(), value);
 }
 
 
 
-QDBusMessage DBusTabletInterface::getProfileRotationList() {
+QDBusMessage DBusTabletInterface::getProfileRotationList(const QString &tabletId) {
 
-    return call ( QLatin1String("getProfileRotationList") );
+    return call ( QLatin1String("getProfileRotationList"), tabletId );
 }
 
-QDBusMessage DBusTabletInterface::setProfileRotationList(const QStringList &rotationList) {
+QDBusMessage DBusTabletInterface::setProfileRotationList(const QString &tabletId, const QStringList &rotationList) {
 
-    return call ( QLatin1String("setProfileRotationList"), rotationList );
+    return call ( QLatin1String("setProfileRotationList"), tabletId, rotationList );
 }

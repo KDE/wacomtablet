@@ -112,6 +112,7 @@ void TabletFinder::onX11TabletAdded(int deviceId)
     for (int i = 0 ; i < d->tabletList.size() ; ++i) {
         if (d->tabletList.at(i).hasDevice(deviceId)) {
             // we already know this tablet
+            kError() << "X11 id:" << deviceId << "already added to Tablet" << d->tabletList.at(i).getDeviceName(DeviceType::Pad);
             return;
         }
     }
@@ -120,6 +121,7 @@ void TabletFinder::onX11TabletAdded(int deviceId)
     X11TabletFinder x11TabletFinder;
 
     if (!x11TabletFinder.scanDevices()) {
+        kError() << "Could not find Wacom device with X11 id:" << deviceId;
         return;
     }
 

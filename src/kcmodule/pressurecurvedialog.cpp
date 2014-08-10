@@ -51,6 +51,11 @@ void PressureCurveDialog::setDeviceType (const DeviceType& deviceType)
     m_device = deviceType.key();
 }
 
+void PressureCurveDialog::setTabletId(const QString &tabletId)
+{
+    m_tabletId = tabletId;
+}
+
 void PressureCurveDialog::setControllPoints(const QString & points)
 {
     QStringList splitPoints = points.split(QLatin1Char( ' ' ));
@@ -78,7 +83,7 @@ QString PressureCurveDialog::getControllPoints()
 void PressureCurveDialog::updateControlPoints(const QString & points)
 {
     m_ui->pc_Values->setText(points);
-    DBusTabletInterface::instance().setProperty(*DeviceType::find(m_device), Property::PressureCurve, points);
+    DBusTabletInterface::instance().setProperty(m_tabletId, *DeviceType::find(m_device), Property::PressureCurve, points);
 }
 
 void PressureCurveDialog::accept()

@@ -74,11 +74,15 @@ signals:
 
 public slots:
     /**
-      * Initialize the widgets tablet parameter.
-      * Shows an image of the connected tablet or a generic image if no image was found.
-      * If no tablet is connected an error message will be shown.
-      */
-    void loadTabletInformation();
+     * Check if dbus servcie is running and tablets are connected
+     *
+     * Shows either error message or the configuration for a selected tablet
+     */
+    void showHideConfig();
+
+    void onTabletAdded(const QString &tabletId);
+    void onTabletRemoved(const QString &tabletId);
+    void onTabletSelectionChanged();
 
     /**
       * Slot that opens up a dialogue to create a new profile for the connected tablet.
@@ -110,6 +114,12 @@ public slots:
 
 
 private:
+    /**
+      * Load all connected tablets on startup
+      *
+      * Later on use ontanletAdded and onTabletRemoved
+      */
+    void loadTabletInformation();
 
     /**
       * Activates the current profile for all connected devices (pen/stylus/eraser)

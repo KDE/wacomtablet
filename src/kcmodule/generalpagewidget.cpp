@@ -65,6 +65,7 @@ class GeneralPageWidgetPrivate {
         std::auto_ptr<Ui::GeneralPageWidget>  m_ui;                /**< Handler to the generalwidget.ui file */
         QPointer<KActionCollection>       m_actionCollection;
         QPointer<KShortcutsEditor>        m_shortcutEditor;
+        QString                           tabletId;
 }; // CLASS
 }  // NAMESPACE
 
@@ -142,6 +143,11 @@ GeneralPageWidget::~GeneralPageWidget()
     delete this->d_ptr;
 }
 
+void GeneralPageWidget::setTabletId(const QString &tabletId)
+{
+    Q_D( GeneralPageWidget );
+    d->tabletId = tabletId;
+}
 
 void GeneralPageWidget::saveToProfile()
 {
@@ -154,7 +160,7 @@ void GeneralPageWidget::saveToProfile()
         newRotationList.append(item->text());
     }
 
-    DBusTabletInterface::instance().setProfileRotationList(newRotationList);
+    DBusTabletInterface::instance().setProfileRotationList(d->tabletId, newRotationList);
 
     d->m_shortcutEditor->save();
 }
@@ -174,21 +180,10 @@ void GeneralPageWidget::reloadWidget()
     Q_D( GeneralPageWidget );
 
     //get information via DBus
-    //QDBusReply<QString> deviceModel      = DBusTabletInterface::instance().getInformation(TabletInfo::TabletModel);
-    QDBusReply<QString> deviceName       = DBusTabletInterface::instance().getInformation(TabletInfo::TabletName);
-    //QDBusReply<QString> companyName      = DBusTabletInterface::instance().getInformation(TabletInfo::CompanyName);
-    QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList();
-
-    //show tablet or generic icon and some tablet information
-    KIcon genericTablet( QLatin1String( "input-tablet" ));
-    d->m_ui->tabletImage->setPixmap(genericTablet.pixmap(128,128));
-
-    //d->m_ui->comapnyName->setText(companyName);
-    d->m_ui->tabletName->setText(deviceName);
-    d->m_ui->deviceList->setText(inputDevices.value().join( QLatin1String( "\n" )));
+    QDBusReply<QString> deviceName       = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::TabletName);
 
     //load rotation profile list based on current tablet
-    QDBusReply<QStringList> rotationList = DBusTabletInterface::instance().getProfileRotationList();
+    QDBusReply<QStringList> rotationList = DBusTabletInterface::instance().getProfileRotationList(d->tabletId);
     d->m_ui->lwRotationList->clear();
     d->m_ui->lwRotationList->addItems(rotationList);
 }

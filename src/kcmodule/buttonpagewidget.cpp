@@ -65,6 +65,7 @@ namespace Wacom {
             }
 
             Ui::ButtonPageWidget* ui;
+            QString               tabletId;
     };
 } // NAMESPACE
 
@@ -83,6 +84,11 @@ ButtonPageWidget::~ButtonPageWidget()
     delete this->d_ptr;
 }
 
+void ButtonPageWidget::setTabletId(const QString &tabletId)
+{
+    Q_D( ButtonPageWidget );
+    d->tabletId = tabletId;
+}
 
 void ButtonPageWidget::saveToProfile()
 {
@@ -207,7 +213,7 @@ void ButtonPageWidget::reloadWidget()
 {
     Q_D( ButtonPageWidget );
 
-    int padButtons = DBusTabletInterface::instance().getInformationAsInt(TabletInfo::NumPadButtons);
+    int padButtons = DBusTabletInterface::instance().getInformationAsInt(d->tabletId, TabletInfo::NumPadButtons);
 
     QLabel*                     buttonLabel;
     ButtonActionSelectorWidget* buttonSelector;
@@ -234,13 +240,13 @@ void ButtonPageWidget::reloadWidget()
         }
     }
 
-    QString padLayout = DBusTabletInterface::instance().getInformationAsString(TabletInfo::ButtonLayout);
+    QString padLayout = DBusTabletInterface::instance().getInformationAsString(d->tabletId, TabletInfo::ButtonLayout);
     if (KStandardDirs::exists(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
         d->ui->padImage->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
     }
 
-    bool hasLeftTouchStrip  = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasLeftTouchStrip);
-    bool hasRightTouchStrip = DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasRightTouchStrip);
+    bool hasLeftTouchStrip  = DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasLeftTouchStrip);
+    bool hasRightTouchStrip = DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasRightTouchStrip);
 
     if (!hasLeftTouchStrip && !hasRightTouchStrip) {
         d->ui->touchStripGroupBox->setEnabled(false);
@@ -284,7 +290,7 @@ void ButtonPageWidget::reloadWidget()
         }
     }
 
-    if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasTouchRing)) {
+    if (!DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasTouchRing)) {
         d->ui->touchRingGroupBox->setEnabled(false);
         d->ui->touchRingGroupBox->setVisible(false);
     } else {
@@ -292,7 +298,7 @@ void ButtonPageWidget::reloadWidget()
         d->ui->touchRingGroupBox->setVisible(true);
     }
 
-    if (!DBusTabletInterface::instance().getInformationAsBool(TabletInfo::HasWheel)) {
+    if (!DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasWheel)) {
         d->ui->wheelGroupBox->setEnabled(false);
         d->ui->wheelGroupBox->setVisible(false);
     } else {

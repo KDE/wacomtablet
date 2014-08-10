@@ -41,8 +41,8 @@ K_PLUGIN_FACTORY(KCMWacomTabletFactory, registerPlugin<KCMWacomTablet>();)
 K_EXPORT_PLUGIN(KCMWacomTabletFactory("kcm_wacomtablet"))
 
 KCMWacomTablet::KCMWacomTablet(QWidget *parent, const QVariantList &)
-        : KCModule(KCMWacomTabletFactory::componentData(), parent),
-        m_changed(false)
+        : KCModule(KCMWacomTabletFactory::componentData(), parent)
+        , m_changed(false)
 {
     KGlobal::locale()->insertCatalog( QLatin1String( "wacomtablet" ));
     initUi();
@@ -63,7 +63,8 @@ KCMWacomTablet::~KCMWacomTablet()
     // Unfortunately KAction disables all global shortcuts on destruction.
     // There is no way to stop it from doing that so we have to use this
     // workaround and reload the current profile here.
-    DBusTabletInterface::instance().setProfile( ProfileManagement::instance().profileName() );
+    //BUG restore global shortcuts on exit
+    //DBusTabletInterface::instance().setProfile( d->tabletId, , ProfileManagement::instance().profileName() );
 }
 
 

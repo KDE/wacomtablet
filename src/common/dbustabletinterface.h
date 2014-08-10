@@ -65,20 +65,22 @@ public:
      */
     static void registerMetaTypes();
 
+    QDBusMessage getTabletList();
+
     /**
      * @see DBusTabletService::getDeviceList()
      */
-    QDBusMessage getDeviceList();
+    QDBusMessage getDeviceList(const QString &tabletId);
 
     /**
-     * @see DBusTabletService::getDeviceName(const DeviceType&)
+     * @see DBusTabletService::getDeviceName(const QString &tabletId, const DeviceType&)
      */
-    QDBusMessage getDeviceName (const DeviceType& device);
+    QDBusMessage getDeviceName (const QString &tabletId, const DeviceType& device);
 
     /**
      * @see DBusTabletService::getInformation(const TabletInfo&)
      */
-    QDBusMessage getInformation (const TabletInfo& info);
+    QDBusMessage getInformation (const QString &tabletId, const TabletInfo& info);
 
     /**
      * Gets a tablet information value as bool. If there is a problem
@@ -89,7 +91,7 @@ public:
      *
      * @return True if the value is true, else false.
      */
-    bool getInformationAsBool (const TabletInfo& info);
+    bool getInformationAsBool (const QString &tabletId, const TabletInfo& info);
 
     /**
      * Gets a tablet information value as integer. If there is a problem
@@ -99,7 +101,7 @@ public:
      *
      * @return The requested value as integer, else 0.
      */
-    int getInformationAsInt (const TabletInfo& info);
+    int getInformationAsInt (const QString &tabletId, const TabletInfo& info);
 
     /**
      * Gets a tablet information value as string. If there is a problem getting
@@ -109,47 +111,47 @@ public:
      *
      * @return The value of the requested information property or an empty string.
      */
-    QString getInformationAsString (const TabletInfo& info);
+    QString getInformationAsString (const QString &tabletId, const TabletInfo& info);
 
     /**
      * @see DBusTabletService::getProfile()
      */
-    QDBusMessage getProfile();
+    QDBusMessage getProfile(const QString &tabletId);
 
     /**
      * @see DBusTabletService::getProperty(const DeviceType&, const Property&)
      */
-    QDBusMessage getProperty (const DeviceType& device, const Property& property);
+    QDBusMessage getProperty (const QString &tabletId, const DeviceType& device, const Property& property);
 
     /**
      * @see DBusTabletService::hasPadButtons()
      */
-    QDBusMessage hasPadButtons();
+    QDBusMessage hasPadButtons(const QString &tabletId);
 
     /**
      * @see DBusTabletService::isAvailable()
      */
-    QDBusMessage isAvailable();
+    QDBusMessage isAvailable(const QString &tabletId);
 
     /**
      * @see DBusTabletService::listProfiles()
      */
-    QDBusMessage listProfiles();
+    QDBusMessage listProfiles(const QString &tabletId);
 
     /**
      * @see DBusTabletService::setProfile(const QString&)
      */
-    QDBusMessage setProfile (const QString& profile);
+    QDBusMessage setProfile (const QString &tabletId, const QString& profile);
 
     /**
      * @see DBusTabletService::setProperty(const DeviceType&, const Property&, const QString&)
      */
-    QDBusMessage setProperty (const DeviceType& device, const Property& property, const QString& value);
+    QDBusMessage setProperty (const QString &tabletId, const DeviceType& device, const Property& property, const QString& value);
 
 
-    QDBusMessage getProfileRotationList();
+    QDBusMessage getProfileRotationList(const QString &tabletId);
 
-    QDBusMessage setProfileRotationList(const QStringList &rotationList);
+    QDBusMessage setProfileRotationList(const QString &tabletId, const QStringList &rotationList);
 protected:
 
     /**

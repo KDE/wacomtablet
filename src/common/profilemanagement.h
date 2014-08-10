@@ -54,6 +54,8 @@ class ProfileManagement
          */
         static ProfileManagement& instance(const QString &deviceName, const QString &touchName);
 
+        void setTabletId(const QString &tabletId);
+
         /**
           * Creates a new profile for the currently detected device and saves it back to the KConfig file
           *
@@ -146,6 +148,7 @@ class ProfileManagement
          */
         ProfileManagement& operator=(const ProfileManagement&);
 
+        QString         m_tabletId;
         QString         m_deviceName;      /**< Cached name of the device so. So we don't have to ask via Dbus every time */
         QString         m_touchName;       /**< Cached name of the device so. So we don't have to ask via Dbus every time */
         QString         m_profileName;     /**< Current selected profile. */

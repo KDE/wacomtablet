@@ -59,6 +59,7 @@ namespace Wacom
             }
 
             bool                            hasTouch;
+            QMap<QString, QString>          tabletList;
             QPointer<QGraphicsWidget>       dialogWidget;      //!< The graphics widget which displays the content.
             QPointer<QGraphicsWidget>       configWidget;      //!< Widget for the config content created by buildConfigDialog()
             QPointer<QGraphicsWidget>       errorWidget;       //!< Widget for the error content created by buildErrorDialog()
@@ -68,6 +69,7 @@ namespace Wacom
             QGraphicsLinearLayout*          layoutMain;        //!< Layout of the main widget that contains the title / config and error widgets
             Plasma::Label*                  deviceName;        //!< The name of the tablet.
             Plasma::Label*                  errorMsg;          //!< The error message if no tablet/kded available.
+            Plasma::ComboBox*               tabletSelector;    //!< The Combox for the tablet selection.
             Plasma::ComboBox*               profileSelector;   //!< The Combox for the profile selection.
             Plasma::RadioButton*            modeAbsolute;      //!< The Radiobutton to select the pen absolute mode
             Plasma::RadioButton*            modeRelative;      //!< The Radiobutton to select the pen absolute mode
@@ -102,6 +104,8 @@ QGraphicsWidget *TabletApplet::dialog()
 
 void TabletApplet::onDBusConnected()
 {
+    Q_D (TabletApplet);
+
     DBusTabletInterface::resetInterface();
 
     if( !DBusTabletInterface::instance().isValid() ) {
@@ -109,16 +113,25 @@ void TabletApplet::onDBusConnected()
         return;
     }
 
-    connect( &DBusTabletInterface::instance(), SIGNAL (tabletAdded()),                  this, SLOT (onTabletAdded()) );
-    connect( &DBusTabletInterface::instance(), SIGNAL (tabletRemoved()),                this, SLOT (onTabletRemoved()) );
+    connect( &DBusTabletInterface::instance(), SIGNAL (tabletAdded(QString)),    this, SLOT (onTabletAdded(QString)) );
+    connect( &DBusTabletInterface::instance(), SIGNAL (tabletRemoved(QString)),  this, SLOT (onTabletRemoved(QString)) );
     connect( &DBusTabletInterface::instance(), SIGNAL (profileChanged(QString)), this, SLOT (setProfile(QString)) );
 
-    QDBusReply<bool> isAvailable = DBusTabletInterface::instance().isAvailable();
+    // get list of connected tablets
+    QDBusReply<QStringList> connectedTablets = DBusTabletInterface::instance().getTabletList();
 
-    if( isAvailable ) {
-        onTabletAdded();
-    } else {
-        onTabletRemoved();
+    d->tabletList.clear();
+    foreach(const QString &tabletId, connectedTablets.value()) {
+        QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName);
+        d->tabletList.insert(deviceName.value(), tabletId);
+        d->tabletSelector->addItem(deviceName.value());
+    }
+
+    if(connectedTablets.value().count() == 0) {
+        showNoTabletWidget();
+    }
+    else {
+        showApplet();
     }
 }
 
@@ -130,19 +143,27 @@ void TabletApplet::onDBusDisconnected()
     showError( errorTitle, errorMsg );
 }
 
+void TabletApplet::showNoTabletWidget()
+{
+    QString errorTitle = i18n("Graphic Tablet - Device not detected.");
+    QString errorMsg = i18n("This widget is inactive because your tablet device is not connected or currently not supported.");
+    showError(errorTitle, errorMsg);
+}
+
 void TabletApplet::updateWidget()
 {
     Q_D (TabletApplet);
 
     QDBusReply<QString> dbusReply;
 
-    dbusReply = DBusTabletInterface::instance().getInformation(TabletInfo::TabletName);
+    QString tabletId = d->tabletList.value(d->tabletSelector->text());
+    dbusReply = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName);
 
     if (dbusReply.isValid()) {
         d->deviceName->setText(dbusReply.value());
     }
 
-    dbusReply = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
+    dbusReply = DBusTabletInterface::instance().getDeviceName(tabletId, DeviceType::Touch);
     d->hasTouch = (dbusReply.isValid() && !dbusReply.value().isEmpty());
 
     updateProfile();
@@ -153,7 +174,8 @@ void TabletApplet::updateProfile()
     Q_D (TabletApplet);
 
     //get list of all profiles
-    QDBusReply<QStringList> profileList = DBusTabletInterface::instance().listProfiles();
+    QString tabletId = d->tabletList.value(d->tabletSelector->text());
+    QDBusReply<QStringList> profileList = DBusTabletInterface::instance().listProfiles(tabletId);
 
     //fill comboBox
     d->profileSelector->blockSignals( true );
@@ -162,13 +184,13 @@ void TabletApplet::updateProfile()
     nativeBox->addItems( profileList );
 
     //set current profile
-    QDBusReply<QString> profileName = DBusTabletInterface::instance().getProfile();
+    QDBusReply<QString> profileName = DBusTabletInterface::instance().getProfile(tabletId);
 
     int index = nativeBox->findText( profileName );
     nativeBox->setCurrentIndex( index );
     d->profileSelector->blockSignals( false );
 
-    QDBusReply<QString> stylusMode = DBusTabletInterface::instance().getProperty(DeviceType::Stylus, Property::Mode);
+    QDBusReply<QString> stylusMode = DBusTabletInterface::instance().getProperty(tabletId, DeviceType::Stylus, Property::Mode);
 
     if( stylusMode.isValid() ) {
         if( QString( stylusMode ).contains( QLatin1String( "absolute" )) || QString( stylusMode ).contains( QLatin1String( "Absolute" )) ) {
@@ -189,7 +211,7 @@ void TabletApplet::updateProfile()
         d->touchOn->setEnabled(true);
         d->touchOff->setEnabled(true);
 
-        QDBusReply<QString> touchMode = DBusTabletInterface::instance().getProperty(DeviceType::Touch, Property::Touch);
+        QDBusReply<QString> touchMode = DBusTabletInterface::instance().getProperty(tabletId, DeviceType::Touch, Property::Touch);
 
         if( touchMode.isValid() ) {
             if( QString( touchMode ).contains( QLatin1String( "on" ) ) ) {
@@ -219,35 +241,56 @@ void TabletApplet::setProfile( const QString &name )
 
 void TabletApplet::switchProfile( const QString &name )
 {
-    DBusTabletInterface::instance().setProfile(name);
+    Q_D (TabletApplet);
+
+    QString tabletId = d->tabletList.value(d->tabletSelector->text());
+    DBusTabletInterface::instance().setProfile(tabletId, name);
+}
+
+void TabletApplet::switchTablet(const QString &tablet)
+{
+    Q_UNUSED(tablet);
+    updateWidget();
 }
 
 void TabletApplet::rotateNorm()
 {
-    DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Rotate, ScreenRotation::NONE.key());
-    DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Rotate, ScreenRotation::NONE.key());
-    DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Rotate, ScreenRotation::NONE.key());
+    Q_D (TabletApplet);
+
+    QString tabletId = d->tabletList.value(d->tabletSelector->text());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Stylus, Property::Rotate, ScreenRotation::NONE.key());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Eraser, Property::Rotate, ScreenRotation::NONE.key());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Touch, Property::Rotate, ScreenRotation::NONE.key());
 }
 
 void TabletApplet::rotateCw()
 {
-    DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Rotate, ScreenRotation::CW.key());
-    DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Rotate, ScreenRotation::CW.key());
-    DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Rotate, ScreenRotation::CW.key());
+    Q_D (TabletApplet);
+
+    QString tabletId = d->tabletList.value(d->tabletSelector->text());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Stylus, Property::Rotate, ScreenRotation::CW.key());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Eraser, Property::Rotate, ScreenRotation::CW.key());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Touch, Property::Rotate, ScreenRotation::CW.key());
 }
 
 void TabletApplet::rotateCcw()
 {
-    DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Rotate, ScreenRotation::CCW.key());
-    DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Rotate, ScreenRotation::CCW.key());
-    DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Rotate, ScreenRotation::CCW.key());
+    Q_D (TabletApplet);
+
+    QString tabletId = d->tabletList.value(d->tabletSelector->text());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Stylus, Property::Rotate, ScreenRotation::CCW.key());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Eraser, Property::Rotate, ScreenRotation::CCW.key());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Touch, Property::Rotate, ScreenRotation::CCW.key());
 }
 
 void TabletApplet::rotateHalf()
 {
-    DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Rotate, ScreenRotation::HALF.key());
-    DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Rotate, ScreenRotation::HALF.key());
-    DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Rotate, ScreenRotation::HALF.key());
+    Q_D (TabletApplet);
+
+    QString tabletId = d->tabletList.value(d->tabletSelector->text());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Stylus, Property::Rotate, ScreenRotation::HALF.key());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Eraser, Property::Rotate, ScreenRotation::HALF.key());
+    DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Touch, Property::Rotate, ScreenRotation::HALF.key());
 }
 
 void TabletApplet::selectAbsoluteMode( bool state )
@@ -256,8 +299,9 @@ void TabletApplet::selectAbsoluteMode( bool state )
 
     if( state ) {
         d->modeRelative->setChecked( false );
-        DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Mode, QLatin1String( "absolute" ));
-        DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Mode, QLatin1String( "absolute" ));
+        QString tabletId = d->tabletList.value(d->tabletSelector->text());
+        DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Stylus, Property::Mode, QLatin1String( "absolute" ));
+        DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Eraser, Property::Mode, QLatin1String( "absolute" ));
     }
 }
 
@@ -267,8 +311,9 @@ void TabletApplet::selectRelativeMode( bool state )
 
     if( state ) {
         d->modeAbsolute->setChecked( false );
-        DBusTabletInterface::instance().setProperty(DeviceType::Stylus, Property::Mode, QLatin1String( "relative" ));
-        DBusTabletInterface::instance().setProperty(DeviceType::Eraser, Property::Mode, QLatin1String( "relative" ));
+        QString tabletId = d->tabletList.value(d->tabletSelector->text());
+        DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Stylus, Property::Mode, QLatin1String( "relative" ));
+        DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Eraser, Property::Mode, QLatin1String( "relative" ));
     }
 }
 
@@ -279,7 +324,8 @@ void TabletApplet::setTouchModeOn( bool state )
     if( state ) {
         d->touchOn->setChecked( true );
         d->touchOff->setChecked( false );
-        DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Touch, QLatin1String( "on" ));
+        QString tabletId = d->tabletList.value(d->tabletSelector->text());
+        DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Touch, Property::Touch, QLatin1String( "on" ));
     }
 }
 
@@ -290,7 +336,8 @@ void TabletApplet::setTouchModeOff( bool state )
     if( state ) {
         d->touchOn->setChecked( false );
         d->touchOff->setChecked( true );
-        DBusTabletInterface::instance().setProperty(DeviceType::Touch, Property::Touch, QLatin1String( "off" ));
+        QString tabletId = d->tabletList.value(d->tabletSelector->text());
+        DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Touch, Property::Touch, QLatin1String( "off" ));
     }
 }
 
@@ -301,8 +348,8 @@ void TabletApplet::buildDialog()
     //main widget
     d->dialogWidget = new QGraphicsWidget (d->tabletSettings);
     d->dialogWidget->setFocusPolicy( Qt::ClickFocus );
-    d->dialogWidget->setMinimumSize( 350, 200 );
-    d->dialogWidget->setPreferredSize( 350, 200 );
+    d->dialogWidget->setMinimumSize( 400, 250 );
+    d->dialogWidget->setPreferredSize( 400, 250 );
 
     d->layoutMain = new QGraphicsLinearLayout (Qt::Vertical, d->dialogWidget);
     d->layoutMain->setSpacing( 5 );
@@ -356,6 +403,32 @@ void TabletApplet::buildConfigDialog()
     layout_tabletWidget->setSpacing( 0 );
 
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // create tablet box
+    QGraphicsLinearLayout *layout_tablet = new QGraphicsLinearLayout;
+    layout_tablet->setSpacing( 0 );
+    layout_tablet->setOrientation( Qt::Horizontal );
+
+    Plasma::Label *label_tablet = new Plasma::Label( d->configWidget );
+    label_tablet->setMaximumHeight( KIconLoader::SizeMedium );
+    label_tablet->nativeWidget()->setWordWrap( false );
+    label_tablet->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
+    label_tablet->setText( i18n( "Select Tablet:" ) );
+
+    d->tabletSelector = new Plasma::ComboBox( d->configWidget );
+    d->tabletSelector->setStyleSheet(QLatin1String("QComboBox { color: black; background-color: white }"));
+    connect( d->tabletSelector, SIGNAL(textChanged(QString)), this, SLOT(switchTablet(QString)) );
+
+    QSizePolicy sizePolicyt( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
+    sizePolicyt.setHorizontalStretch( 0 );
+    sizePolicyt.setVerticalStretch( 0 );
+    sizePolicyt.setHeightForWidth( d->tabletSelector->sizePolicy().hasHeightForWidth() );
+    d->tabletSelector->setSizePolicy( sizePolicyt );
+
+    layout_tablet->addItem( label_tablet );
+    layout_tablet->addItem( d->tabletSelector );
+    layout_tabletWidget->addItem( layout_tablet );
+
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // create profile box
     QGraphicsLinearLayout *layout_profile = new QGraphicsLinearLayout;
     layout_profile->setSpacing( 0 );
@@ -368,6 +441,7 @@ void TabletApplet::buildConfigDialog()
     label_profile->setText( i18n( "Select Profile:" ) );
 
     d->profileSelector = new Plasma::ComboBox( d->configWidget );
+    d->profileSelector->setStyleSheet(QLatin1String("QComboBox { color: black; background-color: white }"));
     connect( d->profileSelector, SIGNAL(textChanged(QString)), this, SLOT(switchProfile(QString)) );
 
     QSizePolicy sizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
@@ -548,14 +622,37 @@ void TabletApplet::showApplet()
     updateWidget();
 }
 
-void TabletApplet::onTabletAdded()
+void TabletApplet::onTabletAdded(const QString &tabletId)
 {
+    Q_D (TabletApplet);
+
+    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName);
+    d->tabletList.insert(deviceName.value(), tabletId);
+    d->tabletSelector->addItem(deviceName.value());
+
     showApplet();
 }
 
-void TabletApplet::onTabletRemoved()
+void TabletApplet::onTabletRemoved(const QString &tabletId)
 {
-    QString errorTitle = i18n("Graphic Tablet - Device not detected.");
-    QString errorMsg = i18n("This widget is inactive because your tablet device is not connected or currently not supported.");
-    showError(errorTitle, errorMsg);
+    Q_D (TabletApplet);
+
+    QString tabletName;
+    QMapIterator<QString, QString> i(d->tabletList);
+    while (i.hasNext()) {
+        i.next();
+        if(i.value() == tabletId) {
+            tabletName = i.key();
+            break;
+        }
+    }
+
+    KComboBox *nativeBox = d->tabletSelector->nativeWidget();
+    d->tabletList.remove(tabletName);
+    int index = nativeBox->findText( tabletName );
+    nativeBox->removeItem(index);
+
+    if(nativeBox->count() == 0) {
+        showNoTabletWidget();
+    }
 }

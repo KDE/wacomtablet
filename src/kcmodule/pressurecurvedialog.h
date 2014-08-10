@@ -62,6 +62,8 @@ public:
       */
     void setControllPoints(const QString & points);
 
+    void setTabletId(const QString &tabletId);
+
     /**
       * Sets the currently used WacomInterface instance to allow on the fly changing of the presscurve
       * Gives a better feeling when changing the beziercurve and directly see how this affects
@@ -101,6 +103,7 @@ private:
     Ui::PressureCurveDialog *m_ui;              /**< Handler to the presscurvedialog.ui file */
     QString                  m_device;
     PressureCurveWidget     *m_pressCurve;      /**< Widget that shows the presscurve and lets him change it */
+    QString                  m_tabletId;
 };
 }
 #endif // PRESSURECURVEDIALOG_H

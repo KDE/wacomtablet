@@ -121,12 +121,14 @@ using namespace Wacom;
 
 TabletInformation::TabletInformation() : d_ptr(new TabletInformationPrivate)
 {
+    d_ptr->unknown.clear();
 }
 
 
 TabletInformation::TabletInformation(long int tabletSerial) : d_ptr(new TabletInformationPrivate)
 {
     set(TabletInfo::TabletSerial, QString::number(tabletSerial));
+    d_ptr->unknown.clear();
 }
 
 

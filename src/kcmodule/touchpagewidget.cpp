@@ -52,6 +52,7 @@ namespace Wacom {
             ScreenMap      screenMap;          // The current tablet to screen mapping of the touch device.
             ScreenSpace    screenSpace;        // The current screen mapping of the touch device.
             QString        touchDeviceName;    // The Xinput name of the touch device of the current tablet.
+            QString        tabletId;
 
     }; // PRIVATE CLASS
 } // NAMESPACE
@@ -69,6 +70,13 @@ TouchPageWidget::~TouchPageWidget()
     delete this->d_ptr;
 }
 
+void TouchPageWidget::setTabletId(const QString &tabletId)
+{
+    Q_D( TouchPageWidget );
+
+    d->tabletId = tabletId;
+
+}
 
 void TouchPageWidget::loadFromProfile()
 {
@@ -95,7 +103,7 @@ void TouchPageWidget::reloadWidget()
     Q_D( TouchPageWidget );
 
     // get all tablet device names we need
-    QDBusReply<QString> touchDeviceNameReply  = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
+    QDBusReply<QString> touchDeviceNameReply  = DBusTabletInterface::instance().getDeviceName(d->tabletId, DeviceType::Touch);
 
     // update name and maximum tablet area for all devices
     d->touchDeviceName.clear();

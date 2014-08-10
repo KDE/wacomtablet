@@ -55,6 +55,7 @@ namespace Wacom
 
             QString               deviceNameStylus;  // The Xinput name of the stylus device of the current tablet.
             QString               deviceNameTouch;   // The Xinput name of the touch device of the current tablet.
+            QString               tabletId;
 
     };
 }
@@ -72,6 +73,11 @@ TabletPageWidget::~TabletPageWidget()
     delete this->d_ptr;
 }
 
+void TabletPageWidget::setTabletId(const QString &tabletId)
+{
+    Q_D( TabletPageWidget );
+    d->tabletId = tabletId;
+}
 
 void TabletPageWidget::loadFromProfile()
 {
@@ -88,7 +94,7 @@ void TabletPageWidget::loadFromProfile()
 void TabletPageWidget::reloadWidget()
 {
     Q_D( TabletPageWidget );
-
+/*
     // get all tablet device names we need
     QDBusReply<QString> stylusDeviceNameReply = DBusTabletInterface::instance().getDeviceName(DeviceType::Stylus);
     QDBusReply<QString> touchDeviceNameReply  = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
@@ -108,6 +114,7 @@ void TabletPageWidget::reloadWidget()
     if (touchDeviceNameReply.isValid()) {
         d->deviceNameTouch = touchDeviceNameReply.value();
     }
+    */
 }
 
 

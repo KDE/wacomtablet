@@ -55,6 +55,8 @@ public:
       */
     ~StylusPageWidget();
 
+    void setTabletId(const QString &tabletId);
+
     /**
       * Called whenever the profile is switched or the widget needs to be reinitialized.
       *

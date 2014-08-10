@@ -38,9 +38,9 @@ namespace Wacom
     {
         public:
             WacomAdaptor*           wacomAdaptor;
-            TabletInformation       tabletInformation;
             TabletHandlerInterface* tabletHandler;
-            QString                 currentProfile;
+            QHash<QString, TabletInformation>        tabletInformationList; //!< Information of all currently connected tablets.
+            QHash<QString, QString>                  currentProfileList;    //!< Currently active profile for each tablet.
     }; // CLASS
 } // NAMESPACE
 
@@ -50,7 +50,6 @@ DBusTabletService::DBusTabletService(TabletHandlerInterface& tabletHandler)
     Q_D ( DBusTabletService );
 
     d->tabletHandler = &tabletHandler;
-    d->tabletInformation.setAvailable(false);
 
     DBusTabletInterface::registerMetaTypes();
 
@@ -70,16 +69,22 @@ DBusTabletService::~DBusTabletService()
 }
 
 
-
-const QStringList DBusTabletService::getDeviceList() const
+const QStringList DBusTabletService::getTabletList() const
 {
     Q_D ( const DBusTabletService );
-    return d->tabletInformation.getDeviceList();
+    return d->tabletInformationList.keys();
+}
+
+
+const QStringList DBusTabletService::getDeviceList(const QString &tabletId) const
+{
+    Q_D ( const DBusTabletService );
+    return d->tabletInformationList.value(tabletId).getDeviceList();
 }
 
 
 
-const QString& DBusTabletService::getDeviceName(const QString& device) const
+QString DBusTabletService::getDeviceName(const QString &tabletId, const QString& device) const
 {
     Q_D ( const DBusTabletService );
 
@@ -92,12 +97,12 @@ const QString& DBusTabletService::getDeviceName(const QString& device) const
         return unknown;
     }
 
-    return d->tabletInformation.getDeviceName(*type);
+    return d->tabletInformationList.value(tabletId).getDeviceName(*type);
 }
 
 
 
-const QString& DBusTabletService::getInformation(const QString& info) const
+QString DBusTabletService::getInformation(const QString &tabletId,const QString& info) const
 {
     Q_D ( const DBusTabletService );
 
@@ -110,20 +115,20 @@ const QString& DBusTabletService::getInformation(const QString& info) const
         return unknown;
     }
 
-    return d->tabletInformation.get(*devinfo);
+    return d->tabletInformationList.value(tabletId).get(*devinfo);
 }
 
 
 
-QString DBusTabletService::getProfile() const
+QString DBusTabletService::getProfile(const QString &tabletId) const
 {
     Q_D ( const DBusTabletService );
-    return d->currentProfile;
+    return d->currentProfileList.value(tabletId);
 }
 
 
 
-QString DBusTabletService::getProperty(const QString& deviceType, const QString& property) const
+QString DBusTabletService::getProperty(const QString &tabletId, const QString& deviceType, const QString& property) const
 {
     Q_D ( const DBusTabletService );
 
@@ -141,44 +146,44 @@ QString DBusTabletService::getProperty(const QString& deviceType, const QString&
         return QString();
     }
 
-    return d->tabletHandler->getProperty(*type, *prop);
+    return d->tabletHandler->getProperty(tabletId, *type, *prop);
 }
 
 
 
-bool DBusTabletService::hasPadButtons() const
+bool DBusTabletService::hasPadButtons(const QString &tabletId) const
 {
     Q_D ( const DBusTabletService );
-    return d->tabletInformation.hasButtons();
+    return d->tabletInformationList.value(tabletId).hasButtons();
 }
 
 
 
-bool DBusTabletService::isAvailable() const
+bool DBusTabletService::isAvailable(const QString &tabletId) const
 {
     Q_D ( const DBusTabletService );
-    return d->tabletInformation.isAvailable();
+    return d->tabletInformationList.contains(tabletId);
 }
 
 
 
-QStringList DBusTabletService::listProfiles()
+QStringList DBusTabletService::listProfiles(const QString &tabletId)
 {
     Q_D ( const DBusTabletService );
-    return d->tabletHandler->listProfiles();
+    return d->tabletHandler->listProfiles(tabletId);
 }
 
 
 
-void DBusTabletService::setProfile(const QString& profile)
+void DBusTabletService::setProfile(const QString &tabletId, const QString& profile)
 {
     Q_D ( DBusTabletService );
-    d->tabletHandler->setProfile(profile);
+    d->tabletHandler->setProfile(tabletId, profile);
 }
 
 
 
-void DBusTabletService::setProperty(const QString& deviceType, const QString& property, const QString& value)
+void DBusTabletService::setProperty(const QString &tabletId, const QString& deviceType, const QString& property, const QString& value)
 {
     Q_D ( DBusTabletService );
 
@@ -196,28 +201,28 @@ void DBusTabletService::setProperty(const QString& deviceType, const QString& pr
         return;
     }
 
-    d->tabletHandler->setProperty(*type, *prop, value);
+    d->tabletHandler->setProperty(tabletId, *type, *prop, value);
 }
 
-QStringList DBusTabletService::getProfileRotationList()
+QStringList DBusTabletService::getProfileRotationList(const QString &tabletId)
 {
     Q_D ( DBusTabletService );
-    return d->tabletHandler->getProfileRotationList();
+    return d->tabletHandler->getProfileRotationList(tabletId);
 }
 
-void DBusTabletService::setProfileRotationList(const QStringList &rotationList)
+void DBusTabletService::setProfileRotationList(const QString &tabletId, const QStringList &rotationList)
 {
     Q_D ( DBusTabletService );
-    d->tabletHandler->setProfileRotationList(rotationList);
+    d->tabletHandler->setProfileRotationList(tabletId, rotationList);
 }
 
-void DBusTabletService::onProfileChanged(const QString& profile)
+void DBusTabletService::onProfileChanged(const QString &tabletId, const QString& profile)
 {
     Q_D ( DBusTabletService );
 
-    d->currentProfile = profile;
+    d->currentProfileList.insert(tabletId, profile);
 
-    emit profileChanged(profile);
+    emit profileChanged(tabletId, profile);
 }
 
 
@@ -226,22 +231,19 @@ void DBusTabletService::onTabletAdded(const TabletInformation& info)
 {
     Q_D ( DBusTabletService );
 
-    d->tabletInformation = info;
-    d->tabletInformation.setAvailable(true);
+    d->tabletInformationList.insert(info.get(TabletInfo::TabletId), info);
 
-    emit tabletAdded();
+    emit tabletAdded(info.get(TabletInfo::TabletId));
 }
 
 
 
-void DBusTabletService::onTabletRemoved()
+void DBusTabletService::onTabletRemoved(const QString &tabletId)
 {
     Q_D ( DBusTabletService );
-    TabletInformation empty;
 
-    d->currentProfile.clear();
-    d->tabletInformation = empty;
-    d->tabletInformation.setAvailable(false);
+    d->currentProfileList.remove(tabletId);
+    d->tabletInformationList.remove(tabletId);
 
-    emit tabletRemoved();
+    emit tabletRemoved(tabletId);
 }

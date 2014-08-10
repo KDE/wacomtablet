@@ -44,6 +44,8 @@ public:
     explicit TouchPageWidget(QWidget* parent = 0);
     virtual ~TouchPageWidget();
 
+    void setTabletId(const QString &tabletId);
+
     /**
      * Loads settings from the current profile and updates the widget accordingly.
      */
