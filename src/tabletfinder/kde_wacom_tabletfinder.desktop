@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Wacom Tablet finder
+Name[x-test]=xxWacom Tablet finderxx
+Exec=kde_wacom_tabletfinder
+Icon=input-tablet
+Type=Application
+Terminal=false
+GenericName=Helper tool to detect Wacom Tablets
+GenericName[x-test]=xxHelper tool to detect Wacom Tabletsxx
+Categories=Qt;KDE;Settings

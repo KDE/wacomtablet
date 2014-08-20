@@ -30,6 +30,7 @@ namespace Wacom {
   */
 class TabletDatabasePrivate {
 public:
+    QString locaDbFile;    //!< the filename (without path) of the local tablet database file
     QString companyFile;   //!< the filename (without path) of the company configuration file
     QString dataDirectory; //!< optional path to the data directory, used for unit tests
 };
@@ -40,6 +41,7 @@ using namespace Wacom;
 TabletDatabase::TabletDatabase() : d_ptr (new TabletDatabasePrivate)
 {
     Q_D (TabletDatabase);
+    d->locaDbFile = QLatin1String ("tabletdblocalrc");
     d->companyFile = QLatin1String ("companylist");
 }
 
@@ -102,6 +104,21 @@ bool TabletDatabase::lookupTablet(const QString& tabletId, TabletInformation& ta
     KConfigGroup companyGroup;
     KConfigGroup tabletGroup;
     QString      tabletsConfigFile;
+
+    // first check the localdb
+    // here we support only Wacom tablet at the moment
+    Q_D (const TabletDatabase);
+    if (lookupTabletGroup(d->locaDbFile, tabletId, tabletGroup) ) {
+        // found tablet
+        getInformation(tabletGroup, tabletId, QLatin1String("056a"), QLatin1String("Wacom Co., Ltd"), tabletInfo);
+        getButtonMap(tabletGroup, tabletInfo);
+        return true;
+    }
+    else {
+        kWarning() << QString::fromLatin1("tablet %1 not in local db").arg(tabletId);
+    }
+
+
 
     foreach(const QString &companyId, companyConfig->groupList()) {
         // get company group section
@@ -184,7 +201,7 @@ bool TabletDatabase::getInformation(const KConfigGroup& deviceGroup, const QStri
 
 
 
-bool TabletDatabase::lookupTabletGroup(QString& tabletsConfigFile, const QString& tabletId, KConfigGroup& tabletGroup) const
+bool TabletDatabase::lookupTabletGroup(const QString& tabletsConfigFile, const QString& tabletId, KConfigGroup& tabletGroup) const
 {
     // open the device list file
     KSharedConfig::Ptr tabletConfig;
@@ -215,6 +232,10 @@ bool TabletDatabase::openConfig(const QString& configFileName, KSharedConfig::Pt
         configFilePath = KStandardDirs::locate("data", QString::fromLatin1 ("wacomtablet/data/%1").arg(configFileName));
     } else {
         configFilePath = QString::fromLatin1("%1/%2").arg(d->dataDirectory).arg(configFileName);
+    }
+    // try to locate filename in the local config directory
+    if (configFilePath.isEmpty()) {
+        configFilePath = KStandardDirs::locate("config", configFileName);
     }
 
     if (configFilePath.isEmpty()) {

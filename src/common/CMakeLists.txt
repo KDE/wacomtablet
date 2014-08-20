@@ -18,6 +18,7 @@ set(wacom_common_SRC
     screenspace.cpp
     stringutils.cpp
     tabletarea.cpp
+    tabletdatabase.cpp
     tabletinfo.cpp
     tabletinformation.cpp
     tabletprofile.cpp

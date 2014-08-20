@@ -19,7 +19,7 @@
 
 #include "../kdedtestutils.h"
 #include "src/common/tabletinformation.h"
-#include "src/kded/tabletdatabase.h"
+#include "src/common/tabletdatabase.h"
 
 #include <QtCore/QList>
 #include <QtCore/QMap>

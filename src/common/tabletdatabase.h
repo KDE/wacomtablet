@@ -128,7 +128,7 @@ private:
      *
      * @return True if the tablet was found, else false.
      */
-    bool lookupTabletGroup (QString& tabletsConfigFile, const QString& tabletId, KConfigGroup& tabletGroup) const;
+    bool lookupTabletGroup (const QString& tabletsConfigFile, const QString& tabletId, KConfigGroup& tabletGroup) const;
 
     /**
      * Opens a database configuration file.
