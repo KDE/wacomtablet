@@ -88,6 +88,9 @@ void TabletBackendMock::setProfile(const DeviceType& deviceType, const DevicePro
     m_deviceProfileType = deviceType.key();
 }
 
+void TabletBackendMock::setStatusLED(int led) {
+    // doing nothing right now
+}
 
 
 bool TabletBackendMock::setProperty(const DeviceType& type, const Property& property, const QString& value)

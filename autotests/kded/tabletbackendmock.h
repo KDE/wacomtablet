@@ -48,6 +48,8 @@ public:
 
     void setProfile(const DeviceType& deviceType, const DeviceProfile& profile);
 
+    void setStatusLED(int led);
+
     bool setProperty(const DeviceType& type, const Property& property, const QString& value);
 
 

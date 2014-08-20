@@ -54,7 +54,7 @@ void TabletHandlerMock::emitTabletRemoved()
 
 
 
-QString TabletHandlerMock::getProperty(const DeviceType& deviceType, const Property& property) const
+QString TabletHandlerMock::getProperty(const QString& tabletId, const DeviceType& deviceType, const Property& property) const
 {
     QString prop = property.key();
 
@@ -71,14 +71,14 @@ QString TabletHandlerMock::getProperty(const DeviceType& deviceType, const Prope
 
 
 
-QStringList TabletHandlerMock::listProfiles()
+QStringList TabletHandlerMock::listProfiles(const QString& tabletId)
 {
     return m_profiles;
 }
 
 
 
-void TabletHandlerMock::setProfile(const QString& profile)
+void TabletHandlerMock::setProfile(const QString& tabletId, const QString& profile)
 {
     m_profile = profile;
     emitProfileChanged(profile);
@@ -86,10 +86,20 @@ void TabletHandlerMock::setProfile(const QString& profile)
 
 
 
-void TabletHandlerMock::setProperty(const DeviceType& deviceType, const Property& property, const QString& value)
+void TabletHandlerMock::setProperty(const QString& tabletId, const DeviceType& deviceType, const Property& property, const QString& value)
 {
     m_deviceType      = deviceType.key();
     m_property        = property.key();
     m_propertyValue   = value;
 }
 
+
+QStringList TabletHandlerMock::getProfileRotationList(const QString& tabletId)
+{
+    return m_rotationList;
+}
+
+void TabletHandlerMock::setProfileRotationList(const QString& tabletId, const QStringList &rotationList)
+{
+    m_rotationList = rotationList;
+}

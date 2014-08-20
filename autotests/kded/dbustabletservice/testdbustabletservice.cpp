@@ -83,7 +83,7 @@ void TestDBusTabletService::assertTabletInformation(const TabletInformation& exp
 
     // make sure the device list is equal
     QStringList             expectedDeviceList = expectedInformation.getDeviceList();
-    QDBusReply<QStringList> actualDeviceList   = DBusTabletInterface::instance().getDeviceList();
+    QDBusReply<QStringList> actualDeviceList   = DBusTabletInterface::instance().getDeviceList(QLatin1String("fakeId"));
     QVERIFY(actualDeviceList.isValid());
 
     for (int i = 0 ; i < expectedDeviceList.size() ; ++i) {
@@ -92,25 +92,25 @@ void TestDBusTabletService::assertTabletInformation(const TabletInformation& exp
 
     // make sure the devices are equal
     foreach(const DeviceType& type, DeviceType::list()) {
-        actualString = DBusTabletInterface::instance().getDeviceName(type);
+        actualString = DBusTabletInterface::instance().getDeviceName(QLatin1String("fakeId"), type);
         QVERIFY(actualString.isValid());
         QCOMPARE(expectedInformation.getDeviceName(type), actualString.value());
     }
 
     // compare tablet information
     foreach(const TabletInfo& info, TabletInfo::list()) {
-        actualString = DBusTabletInterface::instance().getInformation(info);
+        actualString = DBusTabletInterface::instance().getInformation(QLatin1String("fakeId"), info);
         QVERIFY(actualString.isValid());
         QCOMPARE(expectedInformation.get(info), actualString.value());
     }
 
     // check pad buttons
-    actualBool = DBusTabletInterface::instance().hasPadButtons();
+    actualBool = DBusTabletInterface::instance().hasPadButtons(QLatin1String("fakeId"));
     QVERIFY(actualBool.isValid());
     QVERIFY(expectedInformation.hasButtons() == actualBool.value());
 
     // check availability
-    actualBool = DBusTabletInterface::instance().isAvailable();
+    actualBool = DBusTabletInterface::instance().isAvailable(QLatin1String("fakeId"));
     QVERIFY(actualBool.isValid());
     QVERIFY(expectedInformation.isAvailable() == actualBool.value());
 }
@@ -186,14 +186,14 @@ void TestDBusTabletService::testListProfiles()
 {
     m_tabletHandlerMock.m_profiles.clear();
 
-    QDBusReply<QStringList> profileList = DBusTabletInterface::instance().listProfiles();
+    QDBusReply<QStringList> profileList = DBusTabletInterface::instance().listProfiles(QLatin1String("fakeId"));
     QVERIFY(profileList.isValid());
     QVERIFY(profileList.value().isEmpty());
 
     m_tabletHandlerMock.m_profiles.append(QLatin1String("Test Profile 1"));
     m_tabletHandlerMock.m_profiles.append(QLatin1String("Test Profile 2"));
 
-    profileList = DBusTabletInterface::instance().listProfiles();
+    profileList = DBusTabletInterface::instance().listProfiles(QLatin1String("fakeId"));
 
     QVERIFY(profileList.isValid());
     QCOMPARE(profileList.value().at(0), QLatin1String("Test Profile 1"));
@@ -220,7 +220,7 @@ void TestDBusTabletService::testOnTabletAdded()
     expectedInformation.setAvailable(true);
     assertTabletInformation(expectedInformation);
 
-    QDBusReply<bool> isAvail = DBusTabletInterface::instance().isAvailable();
+    QDBusReply<bool> isAvail = DBusTabletInterface::instance().isAvailable(QLatin1String("fakeId"));
     QVERIFY(isAvail.isValid());
     QVERIFY(isAvail.value());
 }
@@ -247,19 +247,19 @@ void TestDBusTabletService::testSetProfile()
 
     // set new profile and make sure a signal was emitted by D-Bus
     expectedProfile = QLatin1String("Test Profile");
-    DBusTabletInterface::instance().setProfile(expectedProfile);
+    DBusTabletInterface::instance().setProfile(QLatin1String("fakeId"), expectedProfile);
     QCOMPARE(expectedProfile, m_tabletHandlerMock.m_profile);
     QCOMPARE(expectedProfile, m_profileWasChangedTo);
 
     // the new profile should also be returned by getProfile
-    actualProfile = DBusTabletInterface::instance().getProfile();
+    actualProfile = DBusTabletInterface::instance().getProfile(QLatin1String("fakeId"));
     QVERIFY(actualProfile.isValid());
     QCOMPARE(expectedProfile, actualProfile.value());
 
     // when the tablet is removed, the profile should be reset
     // however the tablet handler should be unchanged and no signal should be emitted by D-Bus
     m_tabletHandlerMock.emitTabletRemoved();
-    actualProfile = DBusTabletInterface::instance().getProfile();
+    actualProfile = DBusTabletInterface::instance().getProfile(QLatin1String("fakeId"));
     QVERIFY(actualProfile.isValid());
     QVERIFY(actualProfile.value().isEmpty());
     QCOMPARE(expectedProfile, m_tabletHandlerMock.m_profile);
@@ -267,23 +267,23 @@ void TestDBusTabletService::testSetProfile()
 
     // set another profile
     expectedProfile = QLatin1String("New Profile");
-    DBusTabletInterface::instance().setProfile(expectedProfile);
+    DBusTabletInterface::instance().setProfile(QLatin1String("fakeId"), expectedProfile);
     QCOMPARE(expectedProfile, m_tabletHandlerMock.m_profile);
     QCOMPARE(expectedProfile, m_profileWasChangedTo);
 
     // the new profile should also be returned by getProfile
-    actualProfile = DBusTabletInterface::instance().getProfile();
+    actualProfile = DBusTabletInterface::instance().getProfile(QLatin1String("fakeId"));
     QVERIFY(actualProfile.isValid());
     QCOMPARE(expectedProfile, actualProfile.value());
 
     // clear the profile manually
     expectedProfile.clear();
-    DBusTabletInterface::instance().setProfile(expectedProfile);
+    DBusTabletInterface::instance().setProfile(QLatin1String("fakeId"), expectedProfile);
     QCOMPARE(expectedProfile, m_tabletHandlerMock.m_profile);
     QCOMPARE(expectedProfile, m_profileWasChangedTo);
 
     // the new profile should also be returned by getProfile
-    actualProfile = DBusTabletInterface::instance().getProfile();
+    actualProfile = DBusTabletInterface::instance().getProfile(QLatin1String("fakeId"));
     QVERIFY(actualProfile.isValid());
     QCOMPARE(expectedProfile, actualProfile.value());
 }
@@ -297,14 +297,14 @@ void TestDBusTabletService::testSetProperty()
     QString    expectedValue    = QLatin1String("My Value");
 
     // set the property
-    DBusTabletInterface::instance().setProperty(expectedDevice, expectedProperty, expectedValue);
+    DBusTabletInterface::instance().setProperty(QLatin1String("fakeId"), expectedDevice, expectedProperty, expectedValue);
 
     QCOMPARE(expectedDevice.key(), m_tabletHandlerMock.m_deviceType);
     QCOMPARE(expectedProperty.key(), m_tabletHandlerMock.m_property);
     QCOMPARE(expectedValue, m_tabletHandlerMock.m_propertyValue);
 
     // try to get the property
-    QDBusReply<QString> actualValue = DBusTabletInterface::instance().getProperty(expectedDevice, expectedProperty);
+    QDBusReply<QString> actualValue = DBusTabletInterface::instance().getProperty(QLatin1String("fakeId"), expectedDevice, expectedProperty);
 
     QVERIFY(actualValue.isValid());
     QCOMPARE(expectedValue, actualValue.value());
