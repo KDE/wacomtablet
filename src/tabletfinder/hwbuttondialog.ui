@@ -23,7 +23,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>Mouse the mouse cursor inside the dialog but &lt;b&gt;do not&lt;/b&gt; click into it with'the mouse.</string>
+      <string>Move the mouse cursor inside the dialog but &lt;b&gt;do not&lt;/b&gt; click into it with the mouse.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
