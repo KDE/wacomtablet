@@ -5,7 +5,7 @@
 # norootforbuild
 
 Name:           kcm_tablet
-Version:        2.0.2
+Version:        2.1.0-0.1alpha
 Release:        1
 License:        GPLv2+
 Group:          System/GUI/KDE
@@ -67,6 +67,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS COPYING README
 
 %changelog
+* Thu Aug 21 2014 joerg,ehrichs@gmx.de
+- Version 2.1.0-0.1.beta1
+  * Implement support for multible tablets at once
+  * Add simple dialog app to ease tablet detection and databse adding
+  * Add global shortcut for profile rotation
+  * Add status LED support for profile rotation (Intous/Chintiq)
+  * Fix profile not found error on tablet connect
+
 * Thu Jul 10 2014 joerg.ehrichs@gmx.de
 - Version 2.0.2
   * Fix compile error on older Qt versions
