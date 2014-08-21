@@ -220,7 +220,6 @@ void ProfileManagement::reload()
 
     QDBusReply<QString> touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch);
     if( touchName.isValid() ) {
-        kDebug() << "touchName.isValid()::" << m_touchName << "value" << touchName.value();
         m_touchName = touchName.value();
     }
     else {

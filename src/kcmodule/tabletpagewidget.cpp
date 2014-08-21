@@ -94,10 +94,10 @@ void TabletPageWidget::loadFromProfile()
 void TabletPageWidget::reloadWidget()
 {
     Q_D( TabletPageWidget );
-/*
+
     // get all tablet device names we need
-    QDBusReply<QString> stylusDeviceNameReply = DBusTabletInterface::instance().getDeviceName(DeviceType::Stylus);
-    QDBusReply<QString> touchDeviceNameReply  = DBusTabletInterface::instance().getDeviceName(DeviceType::Touch);
+    QDBusReply<QString> stylusDeviceNameReply = DBusTabletInterface::instance().getDeviceName(d->tabletId, DeviceType::Stylus);
+    QDBusReply<QString> touchDeviceNameReply  = DBusTabletInterface::instance().getDeviceName(d->tabletId, DeviceType::Touch);
 
     // update name and maximum tablet area for all devices
     d->deviceNameStylus.clear();
@@ -114,7 +114,6 @@ void TabletPageWidget::reloadWidget()
     if (touchDeviceNameReply.isValid()) {
         d->deviceNameTouch = touchDeviceNameReply.value();
     }
-    */
 }
 
 
