@@ -102,6 +102,22 @@ const QString DeviceProfile::getButton(int number) const
             return getProperty(Property::Button9);
         case 10:
             return getProperty(Property::Button10);
+	case 11:
+            return getProperty(Property::Button11);
+        case 12:
+            return getProperty(Property::Button12);
+        case 13:
+            return getProperty(Property::Button13);
+        case 14:
+            return getProperty(Property::Button14);
+        case 15:
+            return getProperty(Property::Button15);
+        case 16:
+            return getProperty(Property::Button16);
+        case 17:
+            return getProperty(Property::Button17);
+        case 18:
+            return getProperty(Property::Button18);
         default:
             kError() << QString::fromLatin1("Unsupported button number '%1'!").arg(number);
     }
@@ -172,6 +188,30 @@ bool DeviceProfile::setButton(int number, const QString& shortcut)
             break;
         case 10:
             setProperty(Property::Button10, shortcut);
+            break;
+	case 11:
+            setProperty(Property::Button11, shortcut);
+            break;
+        case 12:
+            setProperty(Property::Button12, shortcut);
+            break;
+        case 13:
+            setProperty(Property::Button13, shortcut);
+            break;
+        case 14:
+            setProperty(Property::Button14, shortcut);
+            break;
+        case 15:
+            setProperty(Property::Button15, shortcut);
+            break;
+        case 16:
+            setProperty(Property::Button16, shortcut);
+            break;
+        case 17:
+            setProperty(Property::Button17, shortcut);
+            break;
+        case 18:
+            setProperty(Property::Button18, shortcut);
             break;
         default:
             kError() << QString::fromLatin1("Unsupported button number '%1'!").arg(number);

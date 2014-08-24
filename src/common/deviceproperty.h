@@ -54,6 +54,14 @@ public:
     static const DeviceProperty Button8;
     static const DeviceProperty Button9;
     static const DeviceProperty Button10;
+    static const DeviceProperty Button11;
+    static const DeviceProperty Button12;
+    static const DeviceProperty Button13;
+    static const DeviceProperty Button14;
+    static const DeviceProperty Button15;
+    static const DeviceProperty Button16;
+    static const DeviceProperty Button17;
+    static const DeviceProperty Button18;
     static const DeviceProperty CursorAccelProfile;
     static const DeviceProperty CursorAccelConstantDeceleration;
     static const DeviceProperty CursorAccelAdaptiveDeceleration;

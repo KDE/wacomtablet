@@ -100,7 +100,7 @@ void ButtonPageWidget::saveToProfile()
     // save button shortcuts
     ButtonActionSelectorWidget* buttonSelector;
 
-    for (int i = 1 ; i < 11 ; ++i) {
+    for (int i = 1 ; i < 19 ; ++i) {
         buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
 
         if (buttonSelector && buttonSelector->isEnabled()) {
@@ -176,7 +176,7 @@ void ButtonPageWidget::loadFromProfile()
     // set button shortcuts
     ButtonActionSelectorWidget* buttonSelector;
 
-    for (int i = 1;i < 11 ;i++) {
+    for (int i = 1;i < 19 ;i++) {
         buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
         propertyValue  = padProfile.getButton(i);
 
@@ -218,7 +218,7 @@ void ButtonPageWidget::reloadWidget()
     QLabel*                     buttonLabel;
     ButtonActionSelectorWidget* buttonSelector;
 
-    for (int i = 1;i < 11;i++) {
+    for (int i = 1;i < 19;i++) {
         buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
         buttonLabel    = this->findChild<QLabel *>(QString::fromLatin1("button%1Label").arg(i));
 
@@ -330,6 +330,14 @@ void ButtonPageWidget::setupUi()
     connect ( d->ui->button8ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
     connect ( d->ui->button9ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
     connect ( d->ui->button10ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button11ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button12ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button13ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button14ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button15ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button16ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button17ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button18ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
 
     connect ( d->ui->leftStripUpSelector,    SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
     connect ( d->ui->leftStripDownSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );

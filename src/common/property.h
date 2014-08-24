@@ -121,6 +121,14 @@ public:
     static const Property Button8;
     static const Property Button9;
     static const Property Button10;
+    static const Property Button11;
+    static const Property Button12;
+    static const Property Button13;
+    static const Property Button14;
+    static const Property Button15;
+    static const Property Button16;
+    static const Property Button17;
+    static const Property Button18;
 
     /**
      * Mouse cursor settings, not yet used.

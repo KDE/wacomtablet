@@ -53,6 +53,14 @@ public:
     static const XsetwacomProperty Button8;
     static const XsetwacomProperty Button9;
     static const XsetwacomProperty Button10;
+    static const XsetwacomProperty Button11;
+    static const XsetwacomProperty Button12;
+    static const XsetwacomProperty Button13;
+    static const XsetwacomProperty Button14;
+    static const XsetwacomProperty Button15;
+    static const XsetwacomProperty Button16;
+    static const XsetwacomProperty Button17;
+    static const XsetwacomProperty Button18;
     static const XsetwacomProperty CursorProximity;
     static const XsetwacomProperty Gesture;
     static const XsetwacomProperty MapToOutput;
