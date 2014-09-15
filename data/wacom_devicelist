@@ -1330,7 +1330,7 @@ hwbutton4=1
 
 [0304]
 model=DTK-1300
-layout=unknown
+layout=bl_9
 name=Wacom Cintiq 13HD
 padbuttons=9
 wheel=no
