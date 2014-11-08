@@ -1395,18 +1395,18 @@ hwbutton8=8
 hwbutton9=9
 
 [030E]
-model=CTL-480S
+model=CTH-480
 layout=unknown
-name=Wacom Intuos Pen Small
+name=Wacom INTUOS Pen Small
 padbuttons=4
 wheel=no
 touchring=no
 touchstripl=no
 touchstripr=no
 hwbutton1=3
-hwbutton2=8
+hwbutton2=1
 hwbutton3=9
-hwbutton4=1
+hwbutton4=8
 
 [0314]
 model=PTH-451/S
