@@ -112,6 +112,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     DeviceProfile stylusDevice = tabletProfile.getDevice(DeviceType::Stylus);
 
+    stylusDevice.setProperty(Property::Button1, QLatin1String("1"));
     stylusDevice.setProperty(Property::Button2, QLatin1String("2"));
     stylusDevice.setProperty(Property::Button3, QLatin1String("3"));
     stylusDevice.setProperty(Property::Mode, QLatin1String("absolute"));
@@ -126,6 +127,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     DeviceProfile eraserDevice = tabletProfile.getDevice(DeviceType::Eraser);
 
+    eraserDevice.setProperty(Property::Button1, QLatin1String("1"));
     eraserDevice.setProperty(Property::Button2, QLatin1String("2"));
     eraserDevice.setProperty(Property::Button3, QLatin1String("3"));
     eraserDevice.setProperty(Property::Mode, QLatin1String("absolute"));

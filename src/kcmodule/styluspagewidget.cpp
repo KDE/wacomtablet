@@ -90,6 +90,7 @@ void StylusPageWidget::loadFromProfile()
     setPressureCurve ( DeviceType::Stylus, stylusProfile.getProperty( Property::PressureCurve ) );
 
     // Button Actions
+    setButtonShortcut ( Property::Button1, stylusProfile.getProperty( Property::Button1 ) );
     setButtonShortcut ( Property::Button2, stylusProfile.getProperty( Property::Button2 ) );
     setButtonShortcut ( Property::Button3, stylusProfile.getProperty( Property::Button3 ) );
 
@@ -126,8 +127,10 @@ void StylusPageWidget::saveToProfile()
     stylusProfile.setProperty( Property::PressureCurve, getPressureCurve(DeviceType::Stylus) );
 
     // button 2 and 3 config
+    eraserProfile.setProperty( Property::Button1, getButtonShortcut(Property::Button1) );
     eraserProfile.setProperty( Property::Button2, getButtonShortcut(Property::Button2) );
     eraserProfile.setProperty( Property::Button3, getButtonShortcut(Property::Button3) );
+    stylusProfile.setProperty( Property::Button1, getButtonShortcut(Property::Button1) );
     stylusProfile.setProperty( Property::Button2, getButtonShortcut(Property::Button2) );
     stylusProfile.setProperty( Property::Button3, getButtonShortcut(Property::Button3) );
 
@@ -171,7 +174,9 @@ const QString StylusPageWidget::getButtonShortcut(const Property& button) const
 
     ButtonShortcut shortcut;
 
-    if (button == Property::Button2) {
+    if (button == Property::Button1) {
+        shortcut = d->ui->button1ActionSelector->getShortcut();
+    } else if (button == Property::Button2) {
         shortcut = d->ui->button2ActionSelector->getShortcut();
     } else if (button == Property::Button3) {
         shortcut = d->ui->button3ActionSelector->getShortcut();
@@ -230,7 +235,10 @@ void StylusPageWidget::setButtonShortcut(const Property& button, const QString& 
 {
     Q_D( StylusPageWidget );
 
-    if (button == Property::Button2) {
+    if (button == Property::Button1) {
+        d->ui->button1ActionSelector->setShortcut(ButtonShortcut(shortcut));
+
+    } else if (button == Property::Button2) {
         d->ui->button2ActionSelector->setShortcut(ButtonShortcut(shortcut));
 
     } else if (button == Property::Button3) {
@@ -323,6 +331,7 @@ void StylusPageWidget::setupUi()
 
     d->ui->penLabel->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/pen.png"))));
 
+    connect ( d->ui->button1ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
     connect ( d->ui->button2ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
     connect ( d->ui->button3ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
 }
