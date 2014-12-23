@@ -25,7 +25,7 @@
 #include <QtCore/QString>
 #include <QtCore/QList>
 
-#include <QtGui/QX11Info>
+#include <QX11Info>
 
 #include <xorg/wacom-properties.h>
 

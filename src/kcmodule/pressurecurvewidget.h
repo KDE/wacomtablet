@@ -21,8 +21,8 @@
 #define PRESSURECURVEWIDGET_H
 
 //Qt includes
-#include <QtGui/QWidget>
-#include <QtGui/QColor>
+#include <QWidget>
+#include <QColor>
 #include <QtCore/QSize>
 #include <QtCore/QPoint>
 

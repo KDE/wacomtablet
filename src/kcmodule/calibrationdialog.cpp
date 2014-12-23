@@ -20,14 +20,14 @@
 #include "calibrationdialog.h"
 
 //KDE includes
-#include <KDE/KLocalizedString>
+#include <KLocalizedString>
 
 //Qt includes
-#include <QtGui/QLabel>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QPainter>
-#include <QtGui/QX11Info>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QX11Info>
 
 // X11 includes
 #include <X11/Xlib.h>

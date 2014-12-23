@@ -21,11 +21,11 @@
 #define KCMWACOMTABLET_H
 
 // KDE includes
-#include <KDE/KCModule>
+#include <KCModule>
 
 //Qt includes
-#include <QtCore/QMap>
-#include <QtCore/QPointer>
+#include <QMap>
+#include <QPointer>
 
 class QVBoxLayout;
 

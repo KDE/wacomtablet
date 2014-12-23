@@ -22,7 +22,7 @@
 
 #include "propertyadaptor.h"
 
-#include <KDE/KConfigGroup>
+#include <KConfigGroup>
 
 namespace Wacom {
 

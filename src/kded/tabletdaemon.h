@@ -20,8 +20,8 @@
 #ifndef TABLETDAEMON_H
 #define TABLETDAEMON_H
 
-#include <KDE/KDEDModule>
-#include <QtCore/QVariantList>
+#include <KDEDModule>
+#include <QVariantList>
 
 /**
   * The wacom namespace holds all classes regarding the tablet daemon / kcmodule and applet.
@@ -45,7 +45,7 @@ class TabletDaemonPrivate;
   * @li @c /Tablet - this object. Allows to check if a tablet is available and applies the profile
   * @li @c /Device - tablet information. Basic information about the detected tablet
   */
-class KDE_EXPORT TabletDaemon : public KDEDModule
+class TabletDaemon : public KDEDModule
 {
     Q_OBJECT
 

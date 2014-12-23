@@ -22,7 +22,7 @@
 
 #include "tabletinformation.h"
 
-#include <KDE/KSharedConfig>
+#include <KSharedConfig>
 
 #include <QtCore/QString>
 #include <QtCore/QMap>

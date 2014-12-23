@@ -24,10 +24,7 @@
 #include "x11input.h"
 #include "x11inputdevice.h"
 
-#include <KDE/KApplication>
-#include <KDE/KDebug>
-
-#include <QtGui/QX11Info>
+#include <QX11Info>
 
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -96,12 +93,12 @@ void X11EventNotifier::start()
     if (d->isStarted) {
         return;
     }
-
+/* TODO FIXME
     if( KApplication::kApplication() != NULL ) {
         registerForNewDeviceEvent(QX11Info::display());
         KApplication::kApplication()->installX11EventFilter(this);
         d->isStarted = true;
-    }
+    }*/
 }
 
 
@@ -109,11 +106,11 @@ void X11EventNotifier::start()
 void X11EventNotifier::stop()
 {
     Q_D (X11EventNotifier);
-
+/* TODO FIXME
     if( KApplication::kApplication() != NULL ) {
         KApplication::kApplication()->removeX11EventFilter(this);
         d->isStarted = false;
-    }
+    }*/
 }
 
 
@@ -129,7 +126,8 @@ bool X11EventNotifier::x11Event(XEvent* event)
         handleX11ScreenEvent(event);
     }
 
-    return QWidget::x11Event(event);
+    // return QWidget::x11Event(event);
+    return false;
 }
 
 
@@ -147,16 +145,16 @@ void X11EventNotifier::handleX11InputEvent(XEvent* event)
         for (int i = 0; i < hev->num_info; i++)
         {
             if (info[i].flags & XISlaveRemoved) {
-                kDebug() << QString::fromLatin1("X11 device with id '%1' removed.").arg(info[i].deviceid);
+                qDebug() << QString::fromLatin1("X11 device with id '%1' removed.").arg(info[i].deviceid);
                 emit tabletRemoved(info[i].deviceid);
 
             } else if (info[i].flags & XISlaveAdded) {
-                kDebug() << QString::fromLatin1("X11 device with id '%1' added.").arg(info[i].deviceid);
+                qDebug() << QString::fromLatin1("X11 device with id '%1' added.").arg(info[i].deviceid);
 
                 X11InputDevice device (QX11Info::display(), info[i].deviceid, QLatin1String("Unknown X11 Device"));
 
                 if (device.isOpen() && device.isTabletDevice()) {
-                    kDebug() << QString::fromLatin1("Wacom tablet device with X11 id '%1' added.").arg(info[i].deviceid);
+                    qDebug() << QString::fromLatin1("Wacom tablet device with X11 id '%1' added.").arg(info[i].deviceid);
                     emit tabletAdded(info[i].deviceid);
                 }
             }
@@ -168,7 +166,7 @@ void X11EventNotifier::handleX11InputEvent(XEvent* event)
         }
     }
     else {
-        kDebug() << "Error couldn't retrieve XGetEventData";
+        qDebug() << "Error couldn't retrieve XGetEventData";
     }
 }
 
@@ -207,11 +205,11 @@ void X11EventNotifier::handleX11ScreenEvent(XEvent* event)
                         newRotation = ScreenRotation::CW;
                         break;
                     default:
-                        kError() << QString::fromLatin1("FIXME: Unsupported screen rotation '%1'.").arg(d->currentRotation);
+                        qCritical() << QString::fromLatin1("FIXME: Unsupported screen rotation '%1'.").arg(d->currentRotation);
                         return;
             }
 
-            kDebug() << QString::fromLatin1("XRandr screen rotation detected: '%1'.").arg(newRotation.key());
+            qDebug() << QString::fromLatin1("XRandr screen rotation detected: '%1'.").arg(newRotation.key());
             emit screenRotated(newRotation);
         }
     }

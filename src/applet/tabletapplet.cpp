@@ -42,9 +42,9 @@
 
 //Qt includes
 #include <QtCore/QStringList>
-#include <QtGui/QGraphicsLinearLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QRadioButton>
+#include <QGraphicsLinearLayout>
+#include <QLabel>
+#include <QRadioButton>
 
 
 namespace Wacom

@@ -19,8 +19,8 @@
 
 #include "x11info.h"
 
-#include <QtGui/QApplication>
-#include <QtGui/QDesktopWidget>
+#include <QApplication>
+#include <QDesktopWidget>
 
 #include <X11/X.h>
 #include <X11/Xlib.h>

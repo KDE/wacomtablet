@@ -100,7 +100,7 @@ bool X11TabletFinder::visit (X11InputDevice& x11device)
     const DeviceType* deviceType = getDeviceType (getToolType (x11device));
 
     if (deviceName.isEmpty() || deviceType == NULL) {
-        kError() << QString::fromLatin1("Unsupported device '%1' detected!").arg(deviceName);
+        qCritical() << QString::fromLatin1("Unsupported device '%1' detected!").arg(deviceName);
         return false;
     }
 
@@ -125,7 +125,7 @@ void X11TabletFinder::addDeviceInformation (DeviceInformation& deviceInformation
     long serial = deviceInformation.getTabletSerial();
 
     if (serial < 1) {
-        kWarning() << QString::fromLatin1 ("Device '%1' has an invalid serial number '%2'!").arg (deviceInformation.getName()).arg (serial);
+        qWarning() << QString::fromLatin1 ("Device '%1' has an invalid serial number '%2'!").arg (deviceInformation.getName()).arg (serial);
     }
 
     X11TabletFinderPrivate::TabletMap::iterator mapIter = d->tabletMap.find (serial);
@@ -166,7 +166,7 @@ const QString X11TabletFinder::getDeviceNode(X11InputDevice& device) const
     QList<QString> values;
 
     if (!device.getStringProperty(X11Input::PROPERTY_DEVICE_NODE, values, 1000) || values.size() == 0) {
-        kWarning() << QString::fromLatin1("Could not get device node from device '%1'!").arg(device.getName());
+        qWarning() << QString::fromLatin1("Could not get device node from device '%1'!").arg(device.getName());
         return QString();
     }
 
@@ -207,7 +207,7 @@ bool X11TabletFinder::getProductId(X11InputDevice& device, long int& vendorId, l
     }
 
     if (values.size() != 2) {
-        kError() << QString::fromLatin1("Unexpected number of values when fetching XInput property '%1'!").arg(X11Input::PROPERTY_DEVICE_PRODUCT_ID);
+        qCritical() << QString::fromLatin1("Unexpected number of values when fetching XInput property '%1'!").arg(X11Input::PROPERTY_DEVICE_PRODUCT_ID);
         return false;
     }
 

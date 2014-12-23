@@ -25,7 +25,7 @@
 #include "screenrotation.h"
 
 #include <QtCore/QObject>
-#include <QtGui/QWidget>
+#include <QWidget>
 
 namespace Wacom
 {

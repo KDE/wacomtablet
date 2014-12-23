@@ -34,15 +34,12 @@
 #include <memory>
 
 // KDE includes
-#include <KDE/KPluginFactory>
-#include <KDE/KNotification>
-#include <KDE/KLocale>
-#include <KDE/KLocalizedString>
-#include <KDE/KIconLoader>
-#include <KDE/KComponentData>
-#include <KDE/KActionCollection>
-#include <KDE/KAction>
-#include <KDE/KDebug>
+#include <KPluginFactory>
+#include <KNotification>
+#include <KLocalizedString>
+#include <KActionCollection>
+#include <KGlobalAccel>
+#include <QAction>
 
 using namespace Wacom;
 
@@ -60,8 +57,7 @@ public:
 
     TabletHandler                     tabletHandler;    /**< tablet handler */
     DBusTabletService                 dbusTabletService;
-    std::auto_ptr<KComponentData>     applicationData;  /**< Basic application data */
-    std::auto_ptr<KActionCollection>  actionCollection; /**< Collection of all global actions */
+    std::shared_ptr<KActionCollection>  actionCollection; /**< Collection of all global actions */
 
 }; // CLASS
 }  // NAMESPACE
@@ -102,13 +98,11 @@ TabletDaemon::~TabletDaemon()
 void TabletDaemon::onNotify(const QString& eventId, const QString& title, const QString& message)
 {
     Q_D( TabletDaemon );
-    static KIconLoader iconLoader( *(d->applicationData) );
 
     KNotification notification(eventId);
     notification.setTitle(title);
     notification.setText(message);
-    notification.setComponentData( *(d->applicationData) );
-    notification.setPixmap( iconLoader.loadIcon( QLatin1String( "input-tablet" ), KIconLoader::Panel ) );
+    notification.setIconName( QLatin1String( "input-tablet" ) );
     notification.sendEvent();
 }
 
@@ -121,7 +115,7 @@ void TabletDaemon::onProfileChanged(const QString& profile)
     // When closing the KCM module the KAction destructor disables all global shortcuts.
     // Make sure the global shortcuts are restored when a profile changes. This is not
     // optimal but at least it will enable the shortcuts again.
-    kDebug() << QLatin1String("Restoring global keyboard shortcuts...");
+    qDebug() << QLatin1String("Restoring global keyboard shortcuts...");
     setupActions();
 }
 
@@ -135,48 +129,48 @@ void TabletDaemon::setupActions()
 
     // This method is called multiple times - make sure the action collection is only created once.
     if (d->actionCollection.get() == NULL) {
-        d->actionCollection = std::auto_ptr<KActionCollection>(new KActionCollection(this, *(d->applicationData)));
+        d->actionCollection = std::shared_ptr<KActionCollection>(new KActionCollection(this, QLatin1Literal("wacomtablet")));
         d->actionCollection->setConfigGlobal(true);
     }
 
-    KAction *action = d->actionCollection->addAction(QLatin1String("Toggle touch tool"));
+    QAction *action = d->actionCollection->addAction(QLatin1String("Toggle touch tool"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_T ) );
+    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_T ) );
     connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onToggleTouch()) );
 
     action = d->actionCollection->addAction(QLatin1String("Toggle stylus mode"));
     action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ) );
+    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_S ) );
     connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onTogglePenMode()) );
 
     action = d->actionCollection->addAction(QLatin1String("Toggle screen map selection"));
     action->setText( i18nc( "@action", "Toggle between all screens" ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_M ) );
+    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_M ) );
     connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onToggleScreenMapping()) );
 
     action = d->actionCollection->addAction(QLatin1String("Map to fullscreen"));
     action->setText( i18nc( "@action Maps the area of the tablet to all available screen space (space depends on connected monitors)", "Map to all fullscreen" ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_F ) );
+    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_F ) );
     connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onMapToFullScreen()) );
 
     action = d->actionCollection->addAction(QLatin1String("Map to screen 1"));
     action->setText( i18nc( "@action", "Map to screen 1" ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_1 ) );
+    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_1 ) );
     connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onMapToScreen1()) );
 
     action = d->actionCollection->addAction(QLatin1String("Map to screen 2"));
     action->setText( i18nc( "@action", "Map to screen 2" ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_2 ) );
+    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_2 ) );
     connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onMapToScreen2()) );
 
     action = d->actionCollection->addAction(QLatin1String("Next Profile"));
     action->setText( i18nc( "@action Switch to the next profile in the rotation", "Next profile" ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_N ) );
+    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_N ) );
     connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onNextProfile()) );
 
     action = d->actionCollection->addAction(QLatin1String("Previous Profile"));
     action->setText( i18nc( "@action Switch to the previous profile in the rotation", "Previous Profile" ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_P ) );
+    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_P ) );
     connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onPreviousProfile()) );
 }
 
@@ -186,13 +180,9 @@ void TabletDaemon::setupApplication()
 {
     Q_D( TabletDaemon );
 
-    KGlobal::locale()->insertCatalog( QLatin1String( "wacomtablet" ) );
-
-    static AboutData about( "wacomtablet",
-                            ki18n( "Graphic Tablet Configuration daemon" ),
-                            kded_version, ki18n( "A Wacom tablet control daemon" ) );
-
-    d->applicationData = std::auto_ptr<KComponentData>(new KComponentData(about));
+    static AboutData about( QLatin1Literal("wacomtablet"),
+                            i18n( "Graphic Tablet Configuration daemon" ),
+                            QLatin1String(kded_version), i18n( "A Wacom tablet control daemon" ) );
 }
 
 
@@ -229,3 +219,4 @@ void TabletDaemon::setupEventNotifier()
     X11EventNotifier::instance().start();
 }
 
+#include "tabletdaemon.moc"

@@ -181,7 +181,7 @@ void TabletPageWidget::onTabletMappingClicked()
     selectionDialog.setupWidget( getScreenMap(), d->deviceNameStylus, rotation);
     selectionDialog.select( getScreenSpace() );
 
-    if (selectionDialog.exec() == KDialog::Accepted) {
+    if (selectionDialog.exec() == QDialog::Accepted) {
         setScreenMap(selectionDialog.getScreenMap());
         setScreenSpace(selectionDialog.getScreenSpace());
         onProfileChanged();

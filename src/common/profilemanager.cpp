@@ -22,7 +22,8 @@
 #include "tabletprofile.h"
 #include "tabletprofileconfigadaptor.h"
 
-#include <KDE/KSharedConfig>
+#include <KSharedConfig>
+#include <QtGlobal>
 
 
 using namespace Wacom;
@@ -63,7 +64,7 @@ void ProfileManager::close()
     d->tabletId.clear();
     d->tabletGroup = KConfigGroup();
     d->fileName.clear();
-    d->config.clear();
+    d->config.reset();
 }
 
 bool ProfileManager::deleteProfile(const QString& profile)
@@ -229,7 +230,7 @@ bool ProfileManager::isLoaded() const
 bool ProfileManager::isOpen() const
 {
     Q_D( const ProfileManager );
-    return (!d->fileName.isEmpty() && !d->config.isNull());
+    return (!d->fileName.isEmpty() && d->config);
 }
 
 
@@ -330,7 +331,7 @@ bool ProfileManager::saveProfile(TabletProfile& tabletProfile)
     QString profileName = tabletProfile.getName();
 
     if (!isLoaded() || profileName.isEmpty()) {
-        kError() << QString::fromLatin1("Can not save profile '%1' as it either does not have a name or no configuration file was opened!").arg(profileName);
+        qCritical() << QString::fromLatin1("Can not save profile '%1' as it either does not have a name or no configuration file was opened!").arg(profileName);
         return false;
     }
 

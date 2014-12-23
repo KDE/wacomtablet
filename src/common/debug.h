@@ -36,7 +36,7 @@
  * Some of them depend on the definitions of this file.
  */
 #include <assert.h>
-#include <KDE/KDebug>
+#include <QDebug>
 
 #endif // HEADER PROTECTION
 

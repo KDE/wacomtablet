@@ -21,6 +21,7 @@
 #define HWBUTTONDIALOG_H
 
 #include <QDialog>
+typedef union  _XEvent XEvent;
 
 namespace Ui {
     class HWButtonDialog;

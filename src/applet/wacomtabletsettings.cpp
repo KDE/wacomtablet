@@ -32,7 +32,7 @@
 #include <QtDBus/QDBusConnection>
 #include <QtDBus/QDBusServiceWatcher>
 #include <QtDBus/QDBusReply>
-#include <QtGui/QGraphicsSceneContextMenuEvent>
+#include <QGraphicsSceneContextMenuEvent>
 
 
 namespace Wacom

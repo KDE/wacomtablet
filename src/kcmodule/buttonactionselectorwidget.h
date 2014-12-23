@@ -20,7 +20,7 @@
 #ifndef BUTTONACTIONSELECTORWIDGET_H
 #define BUTTONACTIONSELECTORWIDGET_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 #include "buttonshortcut.h"
 

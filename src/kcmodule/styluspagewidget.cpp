@@ -32,11 +32,9 @@
 #include "dbustabletinterface.h"
 #include "buttonshortcut.h"
 
-//KDE includes
-#include <KDE/KStandardDirs>
-
 //Qt includes
-#include <QtGui/QPixmap>
+#include <QStandardPaths>
+#include <QPixmap>
 
 using namespace Wacom;
 
@@ -181,7 +179,7 @@ const QString StylusPageWidget::getButtonShortcut(const Property& button) const
     } else if (button == Property::Button3) {
         shortcut = d->ui->button3ActionSelector->getShortcut();
     } else {
-        kError() << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
+        qCritical() << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
     }
 
     return shortcut.toString();
@@ -199,7 +197,7 @@ const QString StylusPageWidget::getPressureCurve(const DeviceType& type) const
         return d->ui->eraserPressureButton->property( "curve" ).toString();
 
     } else {
-        kError() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+        qCritical() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
     }
 
     return QString();
@@ -217,7 +215,7 @@ const QString StylusPageWidget::getPressureFeel(const DeviceType& type) const
         return QString::number(d->ui->eraserSlider->value());
 
     } else {
-        kError() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+        qCritical() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
     }
 
     return QString();
@@ -245,7 +243,7 @@ void StylusPageWidget::setButtonShortcut(const Property& button, const QString& 
         d->ui->button3ActionSelector->setShortcut(ButtonShortcut(shortcut));
 
     } else {
-        kError() << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
+        qCritical() << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
     }
 }
 
@@ -261,7 +259,7 @@ void StylusPageWidget::setPressureCurve(const DeviceType& type, const QString& v
         d->ui->eraserPressureButton->setProperty( "curve", value );
 
     } else {
-        kError() << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
+        qCritical() << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
     }
 }
 
@@ -277,7 +275,7 @@ void StylusPageWidget::setPressureFeel(const DeviceType& type, const QString& va
         d->ui->eraserSlider->setValue(value.toInt());
 
     } else {
-        kError() << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
+        qCritical() << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
     }
 }
 
@@ -307,7 +305,7 @@ void StylusPageWidget::changePressureCurve(const DeviceType& deviceType)
     selectPC.setDeviceType( deviceType );
     selectPC.setControllPoints( startValue );
 
-    if( selectPC.exec() == KDialog::Accepted ) {
+    if( selectPC.exec() == QDialog::Accepted ) {
         result = selectPC.getControllPoints();
 
     } else {
@@ -329,7 +327,7 @@ void StylusPageWidget::setupUi()
 
     d->ui->setupUi( this );
 
-    d->ui->penLabel->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/pen.png"))));
+    d->ui->penLabel->setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("wacomtablet/images/pen.png"))));
 
     connect ( d->ui->button1ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
     connect ( d->ui->button2ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );

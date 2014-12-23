@@ -21,8 +21,8 @@
 #define KEYSEQUENCEINPUTBUTTON_H
 
 #include <QtGlobal>
-#include <QtCore/QScopedPointer>
-#include <QtGui/QPushButton>
+#include <QScopedPointer>
+#include <QPushButton>
 
 // forward declarations
 class QKeySequence;

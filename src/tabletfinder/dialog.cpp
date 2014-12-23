@@ -23,7 +23,8 @@
 #include "hwbuttondialog.h"
 #include "tabletdatabase.h"
 
-#include <KDE/KSharedConfig>
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 #include <QProcess>
 #include <QMap>

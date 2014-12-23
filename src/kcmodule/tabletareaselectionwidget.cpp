@@ -23,7 +23,7 @@
 #include "tabletareaselectioncontroller.h"
 #include "tabletareaselectionview.h"
 
-#include <QtGui/QHBoxLayout>
+#include <QHBoxLayout>
 
 
 using namespace Wacom;

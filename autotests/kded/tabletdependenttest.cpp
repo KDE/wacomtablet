@@ -60,7 +60,7 @@ void TabletDependentTest::findTablet()
 
 void TabletDependentTest::printTabletInformation(const TabletInformation& info) const
 {
-    kError() << QString::fromLatin1(
+    qCritical() << QString::fromLatin1(
         "\n\n Tablet Information:"
         "\n  + Stylus Name   : %1"
         "\n  + Eraser Name   : %2"
@@ -95,7 +95,7 @@ void TabletDependentTest::printTabletInformation(const TabletInformation& info) 
             continue;
         }
 
-        kError() << QString::fromLatin1(
+        qCritical() << QString::fromLatin1(
             "\n\n Device '%1'"
             "\n  + Device Id   : %2"
             "\n  + Product Id  : %3"

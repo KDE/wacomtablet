@@ -25,8 +25,8 @@
 #include <QtCore/QRegExp>
 #include <QKeySequence>
 
-#include <KDE/KLocalizedString>
-#include <KDE/KGlobalAccel>
+#include <KLocalizedString>
+#include <KGlobalAccel>
 
 
 using namespace Wacom;
@@ -311,7 +311,7 @@ const QString ButtonShortcut::toDisplayString() const
             break;
 
         default:
-            kDebug() << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
+            qDebug() << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
     }
 
     return displayString;
@@ -354,7 +354,7 @@ const QString ButtonShortcut::toString() const
             break;
 
         default:
-            kDebug() << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
+            qDebug() << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
     }
 
     return shortcutString.toLower();

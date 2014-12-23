@@ -20,7 +20,7 @@
 #ifndef KCMWACOMTABLETWIDGET_H
 #define KCMWACOMTABLETWIDGET_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 namespace Wacom
 {

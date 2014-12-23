@@ -20,8 +20,8 @@
 #include "mainconfig.h"
 #include "debug.h"
 
-#include <KDE/KSharedConfig>
-#include <KDE/KConfigGroup>
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 using namespace Wacom;
 
@@ -52,7 +52,7 @@ MainConfig::MainConfig(const QString& fileName) : d_ptr( new MainConfigPrivate )
 MainConfig::~MainConfig()
 {
     Q_D( MainConfig );
-    if (!d->config.isNull()) {
+    if (d->config) {
         d->config->sync();
     }
 
@@ -73,7 +73,7 @@ QString MainConfig::getLastProfile(const QString &deviceName)
     Q_D( MainConfig );
     QString profile;
 
-    if (!d->config.isNull()) {
+    if (d->config) {
         d->config->reparseConfiguration();
         profile = d->general.readEntry(deviceName);
     }
@@ -85,7 +85,7 @@ QString MainConfig::getLastProfile(const QString &deviceName)
 void MainConfig::setLastProfile(const QString &deviceName, const QString& profile)
 {
     Q_D( MainConfig );
-    if (!d->config.isNull()) {
+    if (d->config) {
         d->config->reparseConfiguration();
         d->general.writeEntry(deviceName, profile);
         d->general.sync();

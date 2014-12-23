@@ -19,17 +19,13 @@
 
 #include "keysequenceinputbutton.h"
 
-#include <KDE/KLocalizedString>
-#include <kkeyserver.h>
+#include <KLocalizedString>
+#include <KKeyServer>
 
-#include <QX11Info>
-#include <QtCore/QEvent>
-#include <QtCore/QString>
-#include <QtGui/QKeyEvent>
-#include <QtGui/QKeySequence>
-
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
+#include <QEvent>
+#include <QString>
+#include <QKeyEvent>
+#include <QKeySequence>
 
 using namespace Wacom;
 
@@ -268,26 +264,12 @@ bool KeySequenceInputButton::convertKeyToBaseKey(int keyQt, int *keyBaseQt)
     }
 
     // lookup X11 key code
-    int keyCodeX = 0;
+    int keySymX = 0;
 
-    if (!KKeyServer::keyQtToCodeX(keyQt, &keyCodeX)) {
+    if (!KKeyServer::keyQtToSymX(keyQt, &keySymX)) {
         return false;
     }
 
-    // lookup X11 key symbol
-    KeySym           keySym;
-    uint             keySymX = 0;
-    XKeyPressedEvent event;
-
-    event.type    = KeyPress;
-    event.display = QX11Info::display();
-    event.state   = 0;
-    event.keycode = keyCodeX;
-
-    XLookupString(&event, 0, 0, &keySym, 0);
-    keySymX = (uint)keySym;
-
-    // convert X11 key symbol back to Qt key
     int keyQtNew;
 
     if (!KKeyServer::symXToKeyQt(keySymX, &keyQtNew)) {

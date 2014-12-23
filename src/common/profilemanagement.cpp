@@ -27,15 +27,12 @@
 #include "property.h"
 #include "screenrotation.h"
 
-//KDE includes
-#include <KDE/KDebug>
-
 //Qt includes
-#include <QtCore/QRegExp>
-#include <QtDBus/QDBusInterface>
-#include <QtDBus/QDBusReply>
+#include <QRegExp>
+#include <QDBusInterface>
+#include <QDBusReply>
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 using namespace Wacom;
 
@@ -49,7 +46,7 @@ ProfileManagement::ProfileManagement(const QString &deviceName, const QString &t
     , m_touchName(touchName)
     , m_profileManager(QLatin1String("tabletprofilesrc"))
 {
-    kDebug() << "Create instance for :: " << deviceName << touchName;
+    qDebug() << "Create instance for :: " << deviceName << touchName;
 }
 
 ProfileManagement::ProfileManagement(const ProfileManagement& )
@@ -87,18 +84,18 @@ void ProfileManagement::setTabletId(const QString &tabletId)
 void ProfileManagement::createNewProfile( const QString &profilename )
 {
     if (profilename.isEmpty()) {
-        kDebug() << "Can not create a profile with no name!";
+        qDebug() << "Can not create a profile with no name!";
     }
 
     //get information via DBus
     m_profileName = profilename;
 
     if( m_deviceName.isEmpty() ) {
-        kDebug() << "no device information are found. Can't create a new profile";
+        qDebug() << "no device information are found. Can't create a new profile";
         return;
     }
 
-    kDebug() << "Creating a new profile for :: device:" << m_deviceName;
+    qDebug() << "Creating a new profile for :: device:" << m_deviceName;
 
     m_profileManager.readProfiles(m_deviceName);
     TabletProfile tabletProfile = m_profileManager.loadProfile(profilename);
@@ -222,6 +219,7 @@ void ProfileManagement::reload()
 
     QDBusReply<QString> touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch);
     if( touchName.isValid() ) {
+        qDebug() << "touchName.isValid()::" << m_touchName << "value" << touchName.value();
         m_touchName = touchName.value();
     }
     else {

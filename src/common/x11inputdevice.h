@@ -23,7 +23,7 @@
 #include <QtCore/QString>
 #include <QtCore/QList>
 
-#include <QtGui/QX11Info>
+#include <QX11Info>
 
 // X11 forward declarations
 struct _XDeviceInfo;

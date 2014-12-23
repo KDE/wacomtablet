@@ -20,7 +20,7 @@
 #ifndef PROFILEMANAGER_H
 #define PROFILEMANAGER_H
 
-#include <KDE/KConfigGroup>
+#include <KConfigGroup>
 
 #include <QtCore/QString>
 

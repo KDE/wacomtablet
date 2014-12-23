@@ -22,10 +22,10 @@
 #include "keysequenceinputbutton.h"
 
 #include <QApplication>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QKeySequence>
-#include <QtGui/QPushButton>
-#include <QtGui/QToolButton>
+#include <QHBoxLayout>
+#include <QKeySequence>
+#include <QPushButton>
+#include <QToolButton>
 
 
 using namespace Wacom;

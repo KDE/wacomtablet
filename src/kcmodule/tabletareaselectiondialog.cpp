@@ -27,7 +27,10 @@
 
 #include <QtCore/QRegExp>
 
-#include <KDE/KLocalizedString>
+#include <KLocalizedString>
+#include <QVBoxLayout>
+#include <QDialogButtonBox>
+#include <QIcon>
 
 using namespace Wacom;
 
@@ -42,7 +45,7 @@ namespace Wacom
 
 
 TabletAreaSelectionDialog::TabletAreaSelectionDialog()
-        : KDialog(NULL), d_ptr(new TabletAreaSelectionDialogPrivate)
+        : QDialog(nullptr), d_ptr(new TabletAreaSelectionDialogPrivate)
 {
     setupUi();
 }
@@ -102,10 +105,15 @@ void TabletAreaSelectionDialog::setupUi()
 
     d->selectionWidget = new TabletAreaSelectionWidget(this);
 
-    setMainWidget(d->selectionWidget);
-    setButtons( KDialog::Ok | KDialog::Cancel );
-    setCaption( i18nc( "Dialog title from a dialog which lets the user select an area of the tablet where the screen space will be mapped to.", "Select a Tablet Area" ) );
-    setWindowIcon( KIcon( QLatin1String("input-tablet") ) );
+    QVBoxLayout* layout = new QVBoxLayout;
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    layout->addWidget( d->selectionWidget );
+    layout->addWidget( buttonBox );
+
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    setWindowTitle( i18nc( "Dialog title from a dialog which lets the user select an area of the tablet where the screen space will be mapped to.", "Select a Tablet Area" ) );
+    setWindowIcon( QIcon::fromTheme( QLatin1String("input-tablet") ) );
 
     //connect( this, SIGNAL(okClicked()), this, SLOT(onOkClicked()) );
 }

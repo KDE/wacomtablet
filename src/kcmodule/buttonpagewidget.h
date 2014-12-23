@@ -21,7 +21,7 @@
 #define BUTTONPAGEWIDGET_H
 
 //Qt includes
-#include <QtGui/QWidget>
+#include <QWidget>
 
 namespace Ui
 {

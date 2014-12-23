@@ -188,7 +188,7 @@ void ScreenSpace::setScreenSpace(const QString& screenSpace)
 
     } else {
         if (desktopRegExp.indexIn(screenSpace, 0) == -1) {
-            kDebug() << QString::fromLatin1("Failed to parse screen space '%1'!").arg(screenSpace);
+            qDebug() << QString::fromLatin1("Failed to parse screen space '%1'!").arg(screenSpace);
         }
 
         d->monitor = -1;

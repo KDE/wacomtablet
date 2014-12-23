@@ -33,7 +33,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KComboBox" name="tabletListSelector">
+      <widget class="QComboBox" name="tabletListSelector">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -57,7 +57,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KComboBox" name="profileSelector">
+      <widget class="QComboBox" name="profileSelector">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -77,7 +77,7 @@
        <property name="toolButtonStyle">
         <enum>Qt::ToolButtonIconOnly</enum>
        </property>
-       <property name="icons">
+       <property name="animationPath">
         <string>document-new</string>
        </property>
       </widget>
@@ -87,7 +87,7 @@
        <property name="toolTip">
         <string>Deletes the current profile</string>
        </property>
-       <property name="icons">
+       <property name="animationPath">
         <string>edit-delete-page</string>
        </property>
       </widget>
@@ -100,7 +100,7 @@
 
 
    <item>
-    <widget class="KTabWidget" name="deviceTabWidget">
+    <widget class="QTabWidget" name="deviceTabWidget">
      <property name="documentMode">
       <bool>true</bool>
      </property>
@@ -113,17 +113,6 @@
    <class>KAnimatedButton</class>
    <extends>QToolButton</extends>
    <header>kanimatedbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

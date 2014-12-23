@@ -25,12 +25,12 @@
 #include <QtCore/QRect>
 #include <QtCore/QString>
 
-#include <QtGui/QBrush>
-#include <QtGui/QCursor>
-#include <QtGui/QFontMetrics>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QPainter>
-#include <QtGui/QPen>
+#include <QBrush>
+#include <QCursor>
+#include <QFontMetrics>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QPen>
 
 using namespace Wacom;
 

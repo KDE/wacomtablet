@@ -23,12 +23,9 @@
 #include "pressurecurvewidget.h"
 #include "dbustabletinterface.h"
 
-//KDE includes
-#include <KDE/KDebug>
-
 //Qt includes
-#include <QtDBus/QDBusInterface>
-#include <QtDBus/QDBusReply>
+#include <QDBusInterface>
+#include <QDBusReply>
 
 using namespace Wacom;
 
@@ -88,9 +85,9 @@ void PressureCurveDialog::updateControlPoints(const QString & points)
 
 void PressureCurveDialog::accept()
 {
-    done(KDialog::Accepted);
+    done(QDialog::Accepted);
 }
 void PressureCurveDialog::reject()
 {
-    done(KDialog::Rejected);
+    done(QDialog::Rejected);
 }

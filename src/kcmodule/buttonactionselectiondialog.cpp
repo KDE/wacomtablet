@@ -24,7 +24,11 @@
 #include "buttonshortcut.h"
 #include "buttonactionselectionwidget.h"
 
-#include <KDE/KLocalizedString>
+#include <QIcon>
+#include <QVBoxLayout>
+#include <QDialogButtonBox>
+#include <QAbstractButton>
+#include <KLocalizedString>
 
 using namespace Wacom;
 
@@ -37,18 +41,27 @@ namespace Wacom {
 }
 
 ButtonActionSelectionDialog::ButtonActionSelectionDialog(QWidget* parent)
-    : KDialog(parent), d_ptr(new ButtonActionSelectionDialogPrivate)
+    : QDialog(parent), d_ptr(new ButtonActionSelectionDialogPrivate)
 {
     Q_D (ButtonActionSelectionDialog);
 
     d->selectionWidget = new ButtonActionSelectionWidget(this);
 
-    setMainWidget(d->selectionWidget);
-    setButtons( KDialog::Ok | KDialog::Cancel );
-    setCaption( i18nc( "The action that will be assigned to a tablet button.", "Select Button Action" ) );
-    setWindowIcon( KIcon( QLatin1String("input-tablet") ) );
+    QVBoxLayout* layout = new QVBoxLayout;
+    setLayout(layout);
 
-    connect( this, SIGNAL(okClicked()), this, SLOT(onOkClicked()) );
+    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    layout->addWidget(d->selectionWidget);
+    layout->addWidget(buttonBox);
+
+    setWindowTitle( i18nc( "The action that will be assigned to a tablet button.", "Select Button Action" ) );
+    setWindowIcon( QIcon::fromTheme( QLatin1String("input-tablet") ) );
+
+    connect( buttonBox, &QDialogButtonBox::clicked, [this, buttonBox](QAbstractButton* button){
+        if (QDialogButtonBox::Ok == buttonBox->standardButton(button)) {
+            this->onOkClicked();
+        }
+    } );
 }
 
 

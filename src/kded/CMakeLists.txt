@@ -2,8 +2,11 @@
 ## libraries
 set(kded_wacomtablet_LIBS
    wacom_common
-   ${KDE4_KDECORE_LIBS}
-   ${KDE4_KDEUI_LIBS}
+   KF5::CoreAddons
+   KF5::Notifications
+   KF5::XmlGui
+   KF5::DBusAddons
+   KF5::ConfigCore
    ${X11_X11_LIB}
    ${X11_Xinput_LIB}
    ${X11_Xrandr_LIB}
@@ -30,10 +33,11 @@ set(kded_wacomtablet_SRCS
 )
 
 ## dbus interfaces
-qt4_add_dbus_adaptor(kded_wacomtablet_SRCS org.kde.Wacom.xml dbustabletservice.h Wacom::DBusTabletService)
+qt5_add_dbus_adaptor(kded_wacomtablet_SRCS org.kde.Wacom.xml dbustabletservice.h Wacom::DBusTabletService)
 
 ## build KDE daemon module
-kde4_add_plugin(kded_wacomtablet ${kded_wacomtablet_SRCS})
+add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
+add_library(kded_wacomtablet MODULE ${kded_wacomtablet_SRCS})
 target_link_libraries( kded_wacomtablet ${kded_wacomtablet_LIBS} )
 
 ## files to install
@@ -57,11 +61,8 @@ if (KDE4_BUILD_TESTS)
         x11eventnotifier.h
     )
 
-    ## create cpp mocs
-    qt4_wrap_cpp (kded_wacomtablet_MOCS ${kded_wacomtablet_HDRS})
-
     ## build static library for unit testing
-    add_library( kded_wacomtablet_lib STATIC ${kded_wacomtablet_SRCS} ${kded_wacomtablet_MOCS} )
+    add_library( kded_wacomtablet_lib STATIC ${kded_wacomtablet_SRCS} )
     target_link_libraries( kded_wacomtablet_lib ${kded_wacomtablet_LIBS} )
     set_target_properties( kded_wacomtablet_lib PROPERTIES COMPILE_FLAGS "-fPIC" )
 

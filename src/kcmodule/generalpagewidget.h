@@ -20,7 +20,7 @@
 #ifndef GENERALPAGEWIDGET_H
 #define GENERALPAGEWIDGET_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 namespace Ui
 {

@@ -22,7 +22,7 @@
 
 #include <QtGlobal>
 #include <QtCore/QScopedPointer>
-#include <QtGui/QWidget>
+#include <QWidget>
 
 // forward declarations
 class QKeySequence;

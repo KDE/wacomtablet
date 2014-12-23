@@ -23,7 +23,7 @@
 #include "configadaptor.h"
 #include "deviceprofile.h"
 
-#include <KDE/KConfigGroup>
+#include <KConfigGroup>
 
 namespace Wacom {
 

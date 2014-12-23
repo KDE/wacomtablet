@@ -21,6 +21,7 @@
 #define X11EVENTNOTIFIER_H
 
 #include "eventnotifier.h"
+#include <X11/Xlib.h>
 
 namespace Wacom
 {

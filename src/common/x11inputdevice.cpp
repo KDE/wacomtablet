@@ -197,7 +197,7 @@ bool X11InputDevice::getFloatProperty(const QString& property, QList< float >& v
     Atom expectedType = XInternAtom (d->display, "FLOAT", False);
 
     if (expectedType == None) {
-        kError() << QLatin1String("Float values are unsupported by this XInput implementation!");
+        qCritical() << QLatin1String("Float values are unsupported by this XInput implementation!");
         return false;
     }
 
@@ -256,7 +256,7 @@ bool X11InputDevice::hasProperty(const QString& property) const
 
     if (!isOpen()) {
         // some devices like the virtual core keyboard/pointer can not be opened
-        kDebug() << QString::fromLatin1("Can not check property '%1' on a device which is not open!").arg(property);
+        qDebug() << QString::fromLatin1("Can not check property '%1' on a device which is not open!").arg(property);
         return false;
     }
 
@@ -319,7 +319,7 @@ bool X11InputDevice::open(Display* display, X11InputDevice::XID id, const QStrin
     }
 
     if (display == NULL || id == 0) {
-        kError() << QString::fromLatin1("Unable to open device '%1' as invalid parameters were provided!").arg(name);
+        qCritical() << QString::fromLatin1("Unable to open device '%1' as invalid parameters were provided!").arg(name);
         return false;
     }
 
@@ -327,7 +327,7 @@ bool X11InputDevice::open(Display* display, X11InputDevice::XID id, const QStrin
 
     if (device == NULL) {
         // some virtual devices can not be opened
-        kDebug() << QString::fromLatin1("XOpenDevice failed on device id '%1'!").arg(id);
+        qDebug() << QString::fromLatin1("XOpenDevice failed on device id '%1'!").arg(id);
         return false;
     }
 
@@ -383,7 +383,7 @@ bool X11InputDevice::setFloatProperty(const QString& property, const QString& va
         fvalue = svalue.toFloat(&ok);
 
         if (!ok) {
-            kError() << QString::fromLatin1("Could not convert value '%1' to float!").arg(svalue);
+            qCritical() << QString::fromLatin1("Could not convert value '%1' to float!").arg(svalue);
             return false;
         }
 
@@ -406,7 +406,7 @@ bool X11InputDevice::setFloatProperty(const QString& property, const QList< floa
     Atom expectedType = XInternAtom (d->display, "FLOAT", False);
 
     if (expectedType == None) {
-        kError() << QLatin1String("Float values are unsupported by this XInput implementation!");
+        qCritical() << QLatin1String("Float values are unsupported by this XInput implementation!");
         return false;
     }
 
@@ -435,7 +435,7 @@ bool X11InputDevice::setLongProperty(const QString& property, const QString& val
         lvalue = svalue.toLong(&ok, 10);
 
         if (!ok) {
-            kError() << QString::fromLatin1("Could not convert value '%1' to long!").arg(svalue);
+            qCritical() << QString::fromLatin1("Could not convert value '%1' to long!").arg(svalue);
             return false;
         }
 
@@ -484,12 +484,12 @@ bool X11InputDevice::getPropertyData (const QString& property, X11InputDevice::A
 
     // check parameters
     if (!isOpen()) {
-        kError() << QString::fromLatin1 ("Can not get XInput property '%1' as no device was opened!").arg(property);
+        qCritical() << QString::fromLatin1 ("Can not get XInput property '%1' as no device was opened!").arg(property);
         return false;
     }
 
     if (nelements < 1) {
-        kError() << QString::fromLatin1 ("Can not get XInput property '%1' as less than one element was requested!").arg(property);
+        qCritical() << QString::fromLatin1 ("Can not get XInput property '%1' as less than one element was requested!").arg(property);
         return false;
     }
 
@@ -497,7 +497,7 @@ bool X11InputDevice::getPropertyData (const QString& property, X11InputDevice::A
     Atom propertyAtom = None;
 
     if (!lookupProperty(property, &propertyAtom)) {
-        kError() << QString::fromLatin1("Can not get unsupported XInput property '%1'!").arg(property);
+        qCritical() << QString::fromLatin1("Can not get unsupported XInput property '%1'!").arg(property);
         return false;
     }
 
@@ -507,12 +507,12 @@ bool X11InputDevice::getPropertyData (const QString& property, X11InputDevice::A
     unsigned long  bytes_after  = 0;
 
     if (XGetDeviceProperty (d->display, d->device, propertyAtom, 0, nelements, False, AnyPropertyType, &actualType, &actualFormat, nitems, &bytes_after, data) != Success) {
-        kError() << QString::fromLatin1("Could not get XInput property '%1'!").arg(property);
+        qCritical() << QString::fromLatin1("Could not get XInput property '%1'!").arg(property);
         return false;
     }
 
     if (actualFormat != expectedFormat || actualType != expectedType) {
-        kError() << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
+        qCritical() << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
         XFree(data);
         return false;
     }
@@ -533,7 +533,7 @@ bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Ato
     *atom = XInternAtom (d->display, property.toLatin1().constData(), True);
 
     if (*atom == None) {
-        kDebug() << QString::fromLatin1("The X server does not support XInput property '%1'!").arg(property);
+        qDebug() << QString::fromLatin1("The X server does not support XInput property '%1'!").arg(property);
         return false;
     }
 
@@ -551,12 +551,12 @@ bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom e
 
     // check parameters
     if (!isOpen()) {
-        kError() << QString::fromLatin1 ("Can not set XInput property '%1' as no device was opened!").arg(property);
+        qCritical() << QString::fromLatin1 ("Can not set XInput property '%1' as no device was opened!").arg(property);
         return false;
     }
 
     if (values.size() == 0) {
-        kError() << QString::fromLatin1 ("Can not set XInput property '%1' as no values were provided!").arg(property);
+        qCritical() << QString::fromLatin1 ("Can not set XInput property '%1' as no values were provided!").arg(property);
         return false;
     }
 
@@ -564,7 +564,7 @@ bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom e
     Atom propertyAtom = None;
 
     if (!lookupProperty(property, &propertyAtom)) {
-        kError() << QString::fromLatin1("Can not set unsupported XInput property '%1'!").arg(property);
+        qCritical() << QString::fromLatin1("Can not set unsupported XInput property '%1'!").arg(property);
         return false;
     }
 
@@ -575,14 +575,14 @@ bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom e
     unsigned char *actualData  = NULL;
 
     if (XGetDeviceProperty (d->display, d->device, propertyAtom, 0, values.size(), False, AnyPropertyType, &actualType, &actualFormat, &nitems, &bytes_after, (unsigned char **)&actualData) != Success) {
-        kError() << QString::fromLatin1("Could not get XInput property '%1' for type and format validation!").arg(property);
+        qCritical() << QString::fromLatin1("Could not get XInput property '%1' for type and format validation!").arg(property);
         return false;
     }
 
     XFree(actualData);
 
     if (actualFormat != expectedFormat || actualType != expectedType) {
-        kError() << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
+        qCritical() << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
         return false;
     }
 

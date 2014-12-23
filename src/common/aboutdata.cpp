@@ -20,22 +20,21 @@
 #include "aboutdata.h"
 #include "debug.h"
 
-#include <KDE/KLocalizedString>
+#include <KLocalizedString>
 
 using namespace Wacom;
 
-AboutData::AboutData(const QByteArray& appName, const KLocalizedString& programName, const QByteArray& version,
-                     const KLocalizedString& shortDescription, const KLocalizedString& otherText)
-    : KAboutData(appName,
-                 "wacomtablet",
-                 programName,
+AboutData::AboutData(const QString& componentName, const QString& displayName, const QString& version,
+                     const QString& shortDescription, const QString& otherText)
+    : KAboutData(componentName,
+                 displayName,
                  version,
                  shortDescription,
-                 KAboutData::License_GPL,
-                 ki18n("(c), 2009,2010 Jörg Ehrichs"),
+                 KAboutLicense::GPL,
+                 i18n("(c), 2009,2010 Jörg Ehrichs"),
                  otherText,
-                 "http://www.etricceline.de")
+                 QLatin1String("http://www.etricceline.de"))
 {
-    addAuthor( ki18n( "Jörg Ehrichs" ), ki18n( "Maintainer" ) , "joerg.ehrichs@gmx.de" );
-    addAuthor( ki18n( "Alexander Maret-Huskinson" ), ki18n( "Developer" ) , "alex@maret.de" );
+    addAuthor( i18n( "Jörg Ehrichs" ), i18n( "Maintainer" ) , QLatin1Literal("joerg.ehrichs@gmx.de") );
+    addAuthor( i18n( "Alexander Maret-Huskinson" ), i18n( "Developer" ) , QLatin1Literal("alex@maret.de") );
 }

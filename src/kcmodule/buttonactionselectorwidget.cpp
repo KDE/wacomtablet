@@ -25,7 +25,7 @@
 #include "buttonactionselectiondialog.h"
 #include "buttonshortcut.h"
 
-#include <QtGui/QIcon>
+#include <QIcon>
 
 using namespace Wacom;
 

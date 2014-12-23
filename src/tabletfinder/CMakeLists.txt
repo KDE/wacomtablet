@@ -5,12 +5,12 @@ set( tabletfinder_SRCS
      hwbuttondialog.cpp
 )
 
-kde4_add_ui_files( tabletfinder_SRCS
+ki18n_wrap_ui( tabletfinder_SRCS
                    dialog.ui
                    hwbuttondialog.ui
 )
 
-kde4_add_executable(kde_wacom_tabletfinder ${tabletfinder_SRCS})
+add_executable(kde_wacom_tabletfinder ${tabletfinder_SRCS})
 
 target_link_libraries( kde_wacom_tabletfinder
                        wacom_common

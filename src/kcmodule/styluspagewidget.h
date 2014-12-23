@@ -20,7 +20,7 @@
 #ifndef STYLUSPAGEWIDGET_H
 #define STYLUSPAGEWIDGET_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 namespace Wacom
 {

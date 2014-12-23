@@ -24,7 +24,7 @@ set( kcm_tablet_SRCS
      touchpagewidget.cpp
 )
 
-kde4_add_ui_files( kcm_tablet_SRCS
+ki18n_wrap_ui( kcm_tablet_SRCS
                    buttonactionselectionwidget.ui
                    buttonactionselectorwidget.ui
                    buttonpagewidget.ui
@@ -39,12 +39,18 @@ kde4_add_ui_files( kcm_tablet_SRCS
                    touchpagewidget.ui
 )
 
-kde4_add_plugin(kcm_wacomtablet ${kcm_tablet_SRCS})
+add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
+add_library(kcm_wacomtablet MODULE ${kcm_tablet_SRCS})
 
 target_link_libraries( kcm_wacomtablet
                        wacom_common
-                       ${KDE4_KDECORE_LIBS}
-                       ${KDE4_KDEUI_LIBS}
+                       Qt5::Core
+                       Qt5::Widgets
+                       Qt5::X11Extras
+                       KF5::CoreAddons
+                       KF5::XmlGui
+                       KF5::WidgetsAddons
+                       KF5::WindowSystem
                        ${X11_X11_LIB}
                        ${X11_Xinput_LIB}
                        ${X11_LIBRARIES}

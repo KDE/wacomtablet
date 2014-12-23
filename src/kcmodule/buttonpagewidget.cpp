@@ -32,24 +32,23 @@
 #include "buttonshortcut.h"
 
 // stdlib
-#include<memory>
+#include <memory>
 
 //KDE includes
-#include <KDE/KComboBox>
-#include <KDE/KStandardDirs>
-#include <KDE/KGlobalAccel>
-#include <kglobalshortcutinfo.h>
-#include <KDE/KDebug>
+#include <KGlobalAccel>
+#include <KGlobalShortcutInfo>
 
 //Qt includes
-#include <QtGui/QPixmap>
-#include <QtGui/QDialog>
-#include <QtGui/QLabel>
-#include <QtGui/QKeySequence>
-#include <QtCore/QPointer>
-#include <QtDBus/QDBusInterface>
-#include <QtDBus/QDBusReply>
+#include <QStandardPaths>
+#include <QPixmap>
+#include <QDialog>
+#include <QLabel>
+#include <QKeySequence>
+#include <QPointer>
+#include <QDBusInterface>
+#include <QDBusReply>
 #include <QList>
+#include <QFile>
 
 using namespace Wacom;
 
@@ -241,8 +240,8 @@ void ButtonPageWidget::reloadWidget()
     }
 
     QString padLayout = DBusTabletInterface::instance().getInformationAsString(d->tabletId, TabletInfo::ButtonLayout);
-    if (KStandardDirs::exists(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
-        d->ui->padImage->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
+    if (QFile::exists(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
+        d->ui->padImage->setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
     }
 
     bool hasLeftTouchStrip  = DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasLeftTouchStrip);

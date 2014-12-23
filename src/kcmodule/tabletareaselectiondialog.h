@@ -24,9 +24,9 @@
 #include "screenspace.h"
 #include "screenrotation.h"
 
-#include <KDE/KDialog>
-#include <QtCore/QRect>
-#include <QtCore/QList>
+#include <QDialog>
+#include <QRect>
+#include <QList>
 
 namespace Wacom
 {
@@ -37,7 +37,7 @@ class TabletAreaSelectionDialogPrivate;
  * A dialog which displays the current screen area selection and lets
  * the user map this selection to a tablet area.
  */
-class TabletAreaSelectionDialog : public KDialog
+class TabletAreaSelectionDialog : public QDialog
 {
     Q_OBJECT
 

@@ -32,7 +32,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
     TabletArea maximumAreaRect;
 
     if (deviceName.isEmpty()) {
-        kError() << QString::fromLatin1("Internal Error: Missing device name parameter!");
+        qCritical() << QString::fromLatin1("Internal Error: Missing device name parameter!");
         return maximumAreaRect;
     }
 
@@ -40,7 +40,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
     X11InputDevice x11Device;
 
     if (!X11Input::findDevice(deviceName, x11Device)) {
-        kDebug() << QString::fromLatin1("Failed to lookup X11 input device '%1'!").arg(deviceName);
+        qDebug() << QString::fromLatin1("Failed to lookup X11 input device '%1'!").arg(deviceName);
         return maximumAreaRect;
     }
 
@@ -49,7 +49,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
     QList<long>          previousArea;
 
     if (!x11Device.getLongProperty(areaProperty, previousArea, 4)) {
-        kError() << QString::fromLatin1("Failed to get tablet area property from X11 input device '%1'!").arg(deviceName);
+        qCritical() << QString::fromLatin1("Failed to get tablet area property from X11 input device '%1'!").arg(deviceName);
         return maximumAreaRect;
     }
 
@@ -61,7 +61,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
     resetArea.append(-1);
 
     if (!x11Device.setLongProperty(areaProperty, resetArea)) {
-        kError() << QString::fromLatin1("Failed to reset tablet area property on X11 input device '%1'!").arg(deviceName);
+        qCritical() << QString::fromLatin1("Failed to reset tablet area property on X11 input device '%1'!").arg(deviceName);
         return maximumAreaRect;
     }
 
@@ -77,7 +77,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
 
     // reset the area back to the previous value
     if (!x11Device.setLongProperty(areaProperty, previousArea)) {
-        kError() << QString::fromLatin1("Failed to set tablet area property on X11 input device '%1'!").arg(deviceName);
+        qCritical() << QString::fromLatin1("Failed to set tablet area property on X11 input device '%1'!").arg(deviceName);
     }
 
     return maximumAreaRect;
