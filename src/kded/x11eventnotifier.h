@@ -21,14 +21,15 @@
 #define X11EVENTNOTIFIER_H
 
 #include "eventnotifier.h"
-#include <X11/Xlib.h>
+#include <QAbstractNativeEventFilter>
+#include <xcb/xcb.h>
 
 namespace Wacom
 {
 
 class X11EventNotifierPrivate;
 
-class X11EventNotifier : public EventNotifier
+class X11EventNotifier : public EventNotifier, public QAbstractNativeEventFilter
 {
     Q_OBJECT
 
@@ -56,7 +57,7 @@ protected:
     /**
       * Called by Qt when a new X11 event is detected.
       */
-    bool x11Event(XEvent* event);
+    virtual bool nativeEventFilter(const QByteArray& eventType, void* message, long int* result) Q_DECL_OVERRIDE;
 
 
 private:
@@ -69,19 +70,19 @@ private:
      * This method should not be called directly, but only by our X11 event
      * handler method.
      */
-    void handleX11InputEvent(XEvent* event);
+    void handleX11InputEvent(xcb_ge_generic_event_t* event);
 
     /**
      * Handles X11 screen events which signal rotation of the screen.
      * This method should not be called directly, but only by our X11 event
      * handler method.
      */
-    void handleX11ScreenEvent(XEvent* event);
+    void handleX11ScreenEvent(xcb_generic_event_t* event);
 
     /**
       * Register the eventhandler with the X11 system
       */
-    int registerForNewDeviceEvent(Display* display);
+    int registerForNewDeviceEvent(xcb_connection_t* display);
 
 
     Q_DECLARE_PRIVATE( X11EventNotifier )

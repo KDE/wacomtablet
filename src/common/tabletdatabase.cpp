@@ -230,7 +230,7 @@ bool TabletDatabase::openConfig(const QString& configFileName, KSharedConfig::Pt
     QString configFilePath;
 
     if (d->dataDirectory.isEmpty()) {
-        configFilePath = QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1 ("wacomtablet/data/%1").arg(configFileName));
+        configFilePath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1 ("wacomtablet/data/%1").arg(configFileName));
     } else {
         configFilePath = QString::fromLatin1("%1/%2").arg(d->dataDirectory).arg(configFileName);
     }
@@ -244,7 +244,7 @@ bool TabletDatabase::openConfig(const QString& configFileName, KSharedConfig::Pt
         return false;
     }
 
-    configFile = KSharedConfig::openConfig (configFilePath, KConfig::SimpleConfig, QStandardPaths::DataLocation);
+    configFile = KSharedConfig::openConfig (configFilePath, KConfig::SimpleConfig, QStandardPaths::GenericDataLocation);
 
     if (configFile->groupList().isEmpty()) {
         qWarning() << QString::fromLatin1("Tablet database configuration file '%1' is empty or not readable!").arg(configFilePath);

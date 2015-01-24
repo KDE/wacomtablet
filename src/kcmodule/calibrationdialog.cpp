@@ -29,11 +29,12 @@
 #include <QPainter>
 #include <QX11Info>
 
+#include <xcb/xcb.h>
+#include <xcb/xinput.h>
 // X11 includes
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
 #include <X11/extensions/XInput.h>
-#include <X11/extensions/XInput2.h>
+
+#include <xorg/wacom-properties.h>
 
 using namespace Wacom;
 
@@ -154,60 +155,69 @@ void CalibrationDialog::calculateNewArea()
 void CalibrationDialog::getMaxTabletArea()
 {
     int ndevices;
-    XDevice *dev = NULL;
+    XID deviceId = 0;
     Display *dpy = QX11Info::display();
 
     XDeviceInfo *info = XListInputDevices( dpy, &ndevices );
     for( int i = 0; i < ndevices; i++ ) {
         if( info[i].name == m_toolName.toLatin1() ) {
-            dev = XOpenDevice( dpy, info[i].id );
-            break;
+            xcb_input_open_device_cookie_t open_device_cookie = xcb_input_open_device(QX11Info::connection(), info[i].id);
+            xcb_input_open_device_reply_t* open_device_reply = xcb_input_open_device_reply(QX11Info::connection(), open_device_cookie, NULL);
+            deviceId = info[i].id;
+            bool success = open_device_reply != NULL;
+            free(open_device_reply);
+            if (success) {
+                break;
+            } else {
+                return;
+            }
         }
     }
 
-    Atom prop, type;
-    int format;
-    unsigned char *data = NULL;
-    unsigned char *dataOld = NULL;
-    unsigned long nitems, bytes_after;
-    long *ldata;
+    Atom prop;
 
-    prop = XInternAtom( dpy, "Wacom Tablet Area", True );
+    xcb_intern_atom_cookie_t atom_cookie = xcb_intern_atom(QX11Info::connection(), true, strlen(WACOM_PROP_TABLET_AREA), WACOM_PROP_TABLET_AREA);
+    xcb_intern_atom_reply_t* atom_reply = xcb_intern_atom_reply(QX11Info::connection(), atom_cookie, NULL);
+    if (!atom_reply) {
+        return;
+    }
 
-    XGetDeviceProperty( dpy, dev, prop, 0, 1000, False, AnyPropertyType,
-                        &type, &format, &nitems, &bytes_after, &dataOld );
+    prop = atom_reply->atom;
+    free(atom_reply);
 
-    XGetDeviceProperty( dpy, dev, prop, 0, 1000, False, AnyPropertyType,
-                        &type, &format, &nitems, &bytes_after, &data );
+    xcb_input_get_device_property_cookie_t cookie = xcb_input_get_device_property(QX11Info::connection(), prop, XCB_ATOM_ANY, 0, 1000, deviceId, false);
+    xcb_input_get_device_property_reply_t* reply = xcb_input_get_device_property_reply(QX11Info::connection(), cookie, NULL);
+    if (!reply || reply->type != XCB_ATOM_INTEGER || reply->num_items < 4) {
+        return;
+    }
 
-    ldata = ( long * )data;
+    uint32_t dataOld[4];
+    uint32_t* items = static_cast<uint32_t*>(xcb_input_get_device_property_items(reply));
+    for (int i = 0; i < 4; i ++) {
+        dataOld[i] = items[i];
+    }
 
-    // first reset to default values
-    ldata[0] = -1;
-    ldata[1] = -1;
-    ldata[2] = -1;
-    ldata[3] = -1;
+    free(reply);
 
-    XChangeDeviceProperty( dpy, dev, prop, type, format,
-                           PropModeReplace, data, nitems );
+    uint32_t ldata[4] = {(uint32_t) -1, (uint32_t) -1, (uint32_t) -1, (uint32_t) -1};
+    xcb_input_change_device_property(QX11Info::connection(), prop, XCB_ATOM_INTEGER, deviceId, 32, XCB_PROP_MODE_REPLACE, 4, ldata);
 
-    // Now get the defaults
-    XGetDeviceProperty( dpy, dev, prop, 0, 1000, False, AnyPropertyType,
-                        &type, &format, &nitems, &bytes_after, &data );
+    cookie = xcb_input_get_device_property(QX11Info::connection(), prop, XCB_ATOM_ANY, 0, 1000, deviceId, false);
+    reply = xcb_input_get_device_property_reply(QX11Info::connection(), cookie, NULL);
 
-    ldata = ( long * )data;
-    m_originaltabletArea.setX( ldata[0] );
-    m_originaltabletArea.setX( ldata[1] );
-    m_originaltabletArea.setWidth( ldata[2] );
-    m_originaltabletArea.setHeight( ldata[3] );
+    if (!reply || reply->type != XCB_ATOM_INTEGER || reply->num_items < 4) {
+        return;
+    }
 
-    // and apply the old values again
-    XChangeDeviceProperty( dpy, dev, prop, type, format,
-                           PropModeReplace, dataOld, nitems );
+    items = static_cast<uint32_t*>(xcb_input_get_device_property_items(reply));
+    m_originaltabletArea.setX( items[0] );
+    m_originaltabletArea.setX( items[1] );
+    m_originaltabletArea.setWidth( items[2] );
+    m_originaltabletArea.setHeight( items[3] );
 
-    XFlush( dpy );
+    free(reply);
 
-    free( data );
+    xcb_input_change_device_property(QX11Info::connection(), prop, XCB_ATOM_INTEGER, deviceId, 32, XCB_PROP_MODE_REPLACE, 4, dataOld);
     XFreeDeviceList( info );
-    XCloseDevice( QX11Info::display(), dev );
+    xcb_input_close_device(QX11Info::connection(), deviceId);
 }

@@ -21,7 +21,6 @@
 #define HWBUTTONDIALOG_H
 
 #include <QDialog>
-typedef union  _XEvent XEvent;
 
 namespace Ui {
     class HWButtonDialog;
@@ -52,7 +51,7 @@ public:
     QList<unsigned int> buttonMap() const;
 
 protected:
-    bool x11Event ( XEvent * event );
+    virtual bool nativeEvent(const QByteArray &eventType, void *message, long int *result) Q_DECL_OVERRIDE;
 
 private:
     void hwKey(unsigned int button);

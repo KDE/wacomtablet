@@ -176,7 +176,7 @@ void GeneralPageWidget::reloadWidget()
     Q_D( GeneralPageWidget );
 
     //get information via DBus
-    QDBusReply<QString> deviceName       = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::TabletName);
+    QDBusReply<QString> deviceName       = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::TabletName.key());
 
     //load rotation profile list based on current tablet
     QDBusReply<QStringList> rotationList = DBusTabletInterface::instance().getProfileRotationList(d->tabletId);

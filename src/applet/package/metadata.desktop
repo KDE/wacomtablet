@@ -1,0 +1,24 @@
+[Desktop Entry]
+Name=Wacom Tablet Settings
+Comment=Hotplugging and profile support for Wacom tablets
+Icon=input-tablet
+Type=Service
+Keywords=Wacom
+
+Type=Service
+X-KDE-ParentApp=
+X-KDE-PluginInfo-Author=Weng Xuetian
+X-KDE-PluginInfo-Category=System Information
+X-KDE-PluginInfo-Email=wengxt@gmail.com
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-Name=org.kde.wacomtablet
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Website=https://projects.kde.org/projects/extragear/base/wacomtablet
+X-KDE-ServiceTypes=Plasma/Applet
+X-Plasma-API=declarativeappletscript
+X-Plasma-ConfigPlugins=kcm_wacomtablet
+X-Plasma-DefaultSize=32,32
+X-Plasma-MainScript=ui/main.qml
+X-Plasma-NotificationArea=true
+X-Plasma-RemoteLocation=
+X-Plasma-DBusActivationService=org.kde.Wacom

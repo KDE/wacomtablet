@@ -146,11 +146,11 @@ int ProfileManager::profileNumber(const QString &profile) const
     return profileRotationList().indexOf(profile);
 }
 
-void ProfileManager::udpdateCurrentProfileNumber(const QString &profile)
+void ProfileManager::updateCurrentProfileNumber(const QString &profile)
 {
     Q_D( ProfileManager );
 
-    if (!isOpen()) {
+    if (!isOpen() || !d->tabletGroup.isValid()) {
         return;
     }
 

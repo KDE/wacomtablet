@@ -31,9 +31,8 @@
 
 #include <QApplication>
 #include <QDesktopWidget>
-#include <QtCore/QProcess>
-#include <QtCore/QRegExp>
-#include <X11/Xlib.h>
+#include <QProcess>
+#include <QRegExp>
 
 using namespace Wacom;
 

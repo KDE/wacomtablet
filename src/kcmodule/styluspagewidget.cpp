@@ -311,7 +311,7 @@ void StylusPageWidget::changePressureCurve(const DeviceType& deviceType)
     } else {
         // reset the current pressurecurve to what is specified in the profile
         // rather than stick to the curve the user declined in the dialogue
-        DBusTabletInterface::instance().setProperty( d->tabletId, deviceType, Property::PressureCurve, startValue );
+        DBusTabletInterface::instance().setProperty( d->tabletId, deviceType.key(), Property::PressureCurve.key(), startValue );
     }
 
     if (result != startValue) {
@@ -327,7 +327,7 @@ void StylusPageWidget::setupUi()
 
     d->ui->setupUi( this );
 
-    d->ui->penLabel->setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("wacomtablet/images/pen.png"))));
+    d->ui->penLabel->setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("wacomtablet/images/pen.png"))));
 
     connect ( d->ui->button1ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
     connect ( d->ui->button2ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );

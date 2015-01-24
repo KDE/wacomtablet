@@ -211,13 +211,15 @@ QString ProfileManagement::profileName() const
 
 void ProfileManagement::reload()
 {
-    QDBusReply<QString> deviceName  = DBusTabletInterface::instance().getInformation(m_tabletId, TabletInfo::TabletName);
+    auto deviceName  = DBusTabletInterface::instance().getInformation(m_tabletId, TabletInfo::TabletName.key());
+    deviceName.waitForFinished();
 
     if( deviceName.isValid() ) {
         m_deviceName = deviceName;
     }
 
-    QDBusReply<QString> touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch);
+    auto touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch.key());
+    deviceName.waitForFinished();
     if( touchName.isValid() ) {
         qDebug() << "touchName.isValid()::" << m_touchName << "value" << touchName.value();
         m_touchName = touchName.value();

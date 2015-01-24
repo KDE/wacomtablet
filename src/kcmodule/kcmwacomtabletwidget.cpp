@@ -136,7 +136,7 @@ void KCMWacomTabletWidget::loadTabletInformation()
 
     d->ui.tabletListSelector->blockSignals(true);
     foreach(const QString &tabletId, connectedTablets.value()) {
-        QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName);
+        QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
         qDebug() << "add tablet"<< deviceName << tabletId << "with";
         QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
         qDebug() << inputDevices.value();
@@ -172,7 +172,7 @@ void KCMWacomTabletWidget::onTabletAdded(const QString &tabletId)
 {
     Q_D( KCMWacomTabletWidget );
 
-    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName);
+    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
     qDebug() << "add tablet"<< deviceName << tabletId << "with";
     QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
     qDebug() << inputDevices.value();
@@ -428,7 +428,7 @@ void KCMWacomTabletWidget::showConfig()
 
     d->ui.deviceTabWidget->addTab( &(d->tabletPage), i18n ("Tablet") );
 
-    QDBusReply<QString> touchDeviceName = DBusTabletInterface::instance().getDeviceName(tabletId, DeviceType::Touch);
+    QDBusReply<QString> touchDeviceName = DBusTabletInterface::instance().getDeviceName(tabletId, DeviceType::Touch.key());
     bool                hasTouchDevice  = (touchDeviceName.isValid() && !touchDeviceName.value().isEmpty());
 
     if (hasTouchDevice) {

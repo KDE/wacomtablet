@@ -445,7 +445,7 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
     d->mainConfig.setLastProfile(tabletInformation.get(TabletInfo::TabletName), currentProfile);
 
     // check profile rotation values and LEDs
-    profileManager->udpdateCurrentProfileNumber(currentProfile);
+    profileManager->updateCurrentProfileNumber(currentProfile);
     d->tabletBackendList.value(tabletId)->setStatusLED( profileManager->profileNumber( currentProfile ));
 
     emit profileChanged( tabletId, currentProfile );

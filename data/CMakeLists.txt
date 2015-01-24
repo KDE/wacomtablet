@@ -7,4 +7,5 @@ install( FILES companylist
                toshiba_devicelist
                wacom_devicelist
                waltop_devicelist
-               DESTINATION  ${DATA_INSTALL_DIR}/wacomtablet/data )
+               toshiba_devicelist
+               DESTINATION  ${KDE_INSTALL_DATADIR}/wacomtablet/data )

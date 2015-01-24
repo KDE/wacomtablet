@@ -29,11 +29,7 @@
 
 #include <xorg/wacom-properties.h>
 
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
 #include <X11/extensions/XInput.h>
-//#include <X11/extensions/XInput2.h>
-#include <X11/Xutil.h>
 
 using namespace Wacom;
 
@@ -54,11 +50,12 @@ bool X11Input::findDevice(const QString& deviceName, X11InputDevice& device)
     int      ndevices = 0;
     Display *display  = QX11Info::display();
 
-    X11InputDevice::XDeviceInfo *info = XListInputDevices (display, &ndevices);
+    // Don't port this to xcb, not supported yet.
+    XDeviceInfo *info = XListInputDevices (display, &ndevices);
 
     for( int i = 0; i < ndevices; ++i ) {
         if (deviceName.compare (QLatin1String (info[i].name), Qt::CaseInsensitive) == 0) {
-            found = device.open (display, info[i]);
+            found = device.open (info[i].id, QLatin1String(info[i].name));
             break;
         }
     }
@@ -76,11 +73,11 @@ void X11Input::scanDevices(X11InputVisitor& visitor)
     int      ndevices = 0;
     Display *dpy      = QX11Info::display();
 
-    X11InputDevice::XDeviceInfo *info = XListInputDevices (dpy, &ndevices);
+    XDeviceInfo *info = XListInputDevices (dpy, &ndevices);
 
     for( int i = 0; i < ndevices; ++i ) {
 
-        X11InputDevice device (dpy, info[i]);
+        X11InputDevice device (info[i].id, QLatin1String(info[i].name));
 
         if (visitor.visit (device)) {
             break;

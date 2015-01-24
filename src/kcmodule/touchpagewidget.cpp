@@ -103,7 +103,7 @@ void TouchPageWidget::reloadWidget()
     Q_D( TouchPageWidget );
 
     // get all tablet device names we need
-    QDBusReply<QString> touchDeviceNameReply  = DBusTabletInterface::instance().getDeviceName(d->tabletId, DeviceType::Touch);
+    QDBusReply<QString> touchDeviceNameReply  = DBusTabletInterface::instance().getDeviceName(d->tabletId, DeviceType::Touch.key());
 
     // update name and maximum tablet area for all devices
     d->touchDeviceName.clear();

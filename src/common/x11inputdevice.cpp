@@ -22,18 +22,9 @@
 
 #include <QtCore/QStringList>
 
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
-#include <X11/extensions/XInput.h>
-//#include <X11/extensions/XInput2.h>
-#include <X11/Xutil.h>
+#include <xcb/xinput.h>
 
 using namespace Wacom;
-
-/**
- * Helper struct which allows us to forward declare XDevice.
- */
-struct X11InputDevice::XDevice : public ::XDevice {};
 
 /**
  * Class for private members.
@@ -42,9 +33,8 @@ namespace Wacom {
     class X11InputDevicePrivate
     {
         public:
-            X11InputDevice::XDevice* device;
-            Display*                 display;
             QString                  name;
+            uint8_t deviceid;
     };
 }
 
@@ -52,28 +42,15 @@ namespace Wacom {
 X11InputDevice::X11InputDevice() : d_ptr(new X11InputDevicePrivate)
 {
     Q_D(X11InputDevice);
-    d->device  = NULL;
-    d->display = NULL;
+    d->deviceid = 0;
 }
 
-
-X11InputDevice::X11InputDevice(Display* dpy, const X11InputDevice::XDeviceInfo& deviceInfo) : d_ptr(new X11InputDevicePrivate)
+X11InputDevice::X11InputDevice(X11InputDevice::XID id, const QString& name) : d_ptr(new X11InputDevicePrivate)
 {
     Q_D(X11InputDevice);
-    d->device  = NULL;
-    d->display = NULL;
+    d->deviceid = 0;
 
-    open(dpy, deviceInfo);
-}
-
-
-X11InputDevice::X11InputDevice(Display* dpy, X11InputDevice::XID id, const QString& name) : d_ptr(new X11InputDevicePrivate)
-{
-    Q_D(X11InputDevice);
-    d->device  = NULL;
-    d->display = NULL;
-
-    open(dpy, id, name);
+    open(id, name);
 }
 
 
@@ -81,8 +58,7 @@ X11InputDevice::X11InputDevice(Display* dpy, X11InputDevice::XID id, const QStri
 X11InputDevice::X11InputDevice(const X11InputDevice& device) : d_ptr(new X11InputDevicePrivate)
 {
     Q_D(X11InputDevice);
-    d->device  = NULL;
-    d->display = NULL;
+    d->deviceid = 0;
 
     operator=(device);
 }
@@ -102,8 +78,8 @@ X11InputDevice& X11InputDevice::operator= (const X11InputDevice& that)
     close();
 
     // connect new device
-    if (that.d_ptr->display && that.d_ptr->device) {
-        open(that.d_ptr->display, that.d_ptr->device->device_id, that.d_ptr->name);
+    if (that.d_ptr->deviceid) {
+        open(that.d_ptr->deviceid, that.d_ptr->name);
     }
 
     return *this;
@@ -115,16 +91,14 @@ bool X11InputDevice::close()
 {
     Q_D(X11InputDevice);
 
-    if (d->device == NULL) {
-        assert(d->display == NULL);
+    if (d->deviceid == 0) {
         assert(d->name.isEmpty());
         return false;
     }
 
-    XCloseDevice(d->display, d->device);
+    xcb_input_close_device(QX11Info::connection(), d->deviceid);
 
-    d->display = NULL;
-    d->device  = NULL;
+    d->deviceid  = 0;
     d->name.clear();
 
     return true;
@@ -134,7 +108,7 @@ bool X11InputDevice::close()
 
 bool X11InputDevice::getAtomProperty(const QString& property, QList< long int >& values, long int nelements) const
 {
-    return getProperty<long>(property, XA_ATOM, nelements, values);
+    return getProperty<long>(property, XCB_ATOM_ATOM, nelements, values);
 }
 
 
@@ -148,17 +122,23 @@ const QList< int > X11InputDevice::getDeviceButtonMapping() const
         return buttonMap;
     }
 
-    static const int nmap = 100; // maximum number of buttons this method will fetch
-    unsigned char    map_return[nmap];
     int              buttonCount = 0;
 
-    if ((buttonCount = XGetDeviceButtonMapping(d->display, d->device, map_return, nmap)) <= 0) {
+    xcb_input_get_device_button_mapping_cookie_t cookie = xcb_input_get_device_button_mapping(QX11Info::connection(), d->deviceid);
+    xcb_input_get_device_button_mapping_reply_t* reply = xcb_input_get_device_button_mapping_reply(QX11Info::connection(), cookie, NULL);
+
+    if (!reply) {
         return buttonMap; // the device has no buttons
     }
+
+    uint8_t* map_return = xcb_input_get_device_button_mapping_map(reply);
+    buttonCount = xcb_input_get_device_button_mapping_map_length(reply);
 
     for (int i = 0 ; i < buttonCount ; ++i) {
         buttonMap.append((int)map_return[i]);
     }
+
+    free(reply);
 
     return buttonMap;
 }
@@ -173,15 +153,7 @@ long X11InputDevice::getDeviceId() const
         return 0;
     }
 
-    return d->device->device_id;
-}
-
-
-
-Display* X11InputDevice::getDisplay() const
-{
-    Q_D(const X11InputDevice);
-    return d->display;
+    return d->deviceid;
 }
 
 
@@ -194,9 +166,17 @@ bool X11InputDevice::getFloatProperty(const QString& property, QList< float >& v
         return false;
     }
 
-    Atom expectedType = XInternAtom (d->display, "FLOAT", False);
+    xcb_intern_atom_cookie_t cookie = xcb_intern_atom(QX11Info::connection(), false, strlen("FLOAT"), "FLOAT");
+    xcb_intern_atom_reply_t* reply = xcb_intern_atom_reply(QX11Info::connection(), cookie, NULL);
 
-    if (expectedType == None) {
+    xcb_atom_t expectedType = XCB_ATOM_NONE;
+
+    if (reply) {
+        expectedType = reply->atom;
+        free(reply);
+    }
+
+    if (expectedType == XCB_ATOM_NONE) {
         qCritical() << QLatin1String("Float values are unsupported by this XInput implementation!");
         return false;
     }
@@ -208,7 +188,7 @@ bool X11InputDevice::getFloatProperty(const QString& property, QList< float >& v
 
 bool X11InputDevice::getLongProperty(const QString& property, QList< long int >& values, long int nelements) const
 {
-    return getProperty<long>(property, XA_INTEGER, nelements, values);
+    return getProperty<long>(property, XCB_ATOM_INTEGER, nelements, values);
 }
 
 
@@ -224,15 +204,16 @@ const QString& X11InputDevice::getName() const
 bool X11InputDevice::getStringProperty(const QString& property, QList< QString >& values, long int nelements) const
 {
     // get property data & values
-    unsigned char* data           = NULL;
     unsigned long  nitems         = 0;
     int            expectedFormat = 8;
 
-    if (!getPropertyData(property, XA_STRING, expectedFormat, nelements, &data, &nitems)) {
+    xcb_input_get_device_property_reply_t* reply = getPropertyData(property, XCB_ATOM_STRING, expectedFormat, nelements);
+    if (!reply) {
         return false;
     }
 
-    unsigned char* strData = data;
+    unsigned char* strData = static_cast<unsigned char*>(xcb_input_get_device_property_items(reply));
+    nitems = reply->num_items;
 
     for (unsigned long i = 0 ; i < nitems ; ++i) {
         // add first string value up to '\0'
@@ -244,7 +225,7 @@ bool X11InputDevice::getStringProperty(const QString& property, QList< QString >
         strData += value.length();
     }
 
-    XFree(data);
+    free(reply);
     return true;
 }
 
@@ -266,17 +247,21 @@ bool X11InputDevice::hasProperty(const QString& property) const
     }
 
     bool  found  = false;
-    int   natoms = 0;
-    Atom* atoms = XListDeviceProperties (d->display, d->device, &natoms);
 
-    for (int i = 0 ; i < natoms ; ++i) {
-        if (atoms[i] == atom) {
-            found = true;
-            break;
+    xcb_input_list_device_properties_cookie_t cookie = xcb_input_list_device_properties(QX11Info::connection(), d->deviceid);
+    xcb_input_list_device_properties_reply_t* reply = xcb_input_list_device_properties_reply(QX11Info::connection(), cookie, NULL);
+
+    if (reply) {
+        xcb_atom_t* atoms = xcb_input_list_device_properties_atoms(reply);
+
+        for (int i = 0 ; i < reply->num_atoms; ++i) {
+            if (atoms[i] == atom) {
+                found = true;
+                break;
+            }
         }
+        free(reply);
     }
-
-    XFree(atoms);
 
     return found;
 }
@@ -286,7 +271,7 @@ bool X11InputDevice::hasProperty(const QString& property) const
 bool X11InputDevice::isOpen() const
 {
     Q_D(const X11InputDevice);
-    return (d->device != NULL && d->display != NULL);
+    return (d->deviceid != 0);
 }
 
 
@@ -297,20 +282,7 @@ bool X11InputDevice::isTabletDevice()
 }
 
 
-
-
-bool X11InputDevice::open(Display* display, const X11InputDevice::XDeviceInfo& deviceInfo)
-{
-    if (!open (display, deviceInfo.id, QLatin1String (deviceInfo.name))) {
-        return false;
-    }
-
-    return true;
-}
-
-
-
-bool X11InputDevice::open(Display* display, X11InputDevice::XID id, const QString& name)
+bool X11InputDevice::open(X11InputDevice::XID id, const QString& name)
 {
     Q_D(X11InputDevice);
 
@@ -318,21 +290,22 @@ bool X11InputDevice::open(Display* display, X11InputDevice::XID id, const QStrin
         close();
     }
 
-    if (display == NULL || id == 0) {
+    if (id == 0) {
         qCritical() << QString::fromLatin1("Unable to open device '%1' as invalid parameters were provided!").arg(name);
         return false;
     }
 
-    XDevice* device = (XDevice*) XOpenDevice(display, id);
+    xcb_input_open_device_cookie_t cookie = xcb_input_open_device(QX11Info::connection(), id);
+    xcb_input_open_device_reply_t* reply = xcb_input_open_device_reply(QX11Info::connection(), cookie, NULL);
 
-    if (device == NULL) {
+    if (reply == NULL) {
         // some virtual devices can not be opened
         qDebug() << QString::fromLatin1("XOpenDevice failed on device id '%1'!").arg(id);
         return false;
     }
+    free(reply);
 
-    d->device  = device;
-    d->display = display;
+    d->deviceid  = id;
     d->name    = name;
 
     return true;
@@ -355,11 +328,19 @@ bool X11InputDevice::setDeviceButtonMapping(const QList< int >& buttonMap) const
         map[i] = (unsigned char)buttonMap.at(i);
     }
 
-    int result = XSetDeviceButtonMapping(d->display, d->device, map, nmap);
+    xcb_input_set_device_button_mapping_cookie_t cookie = xcb_input_set_device_button_mapping(QX11Info::connection(), d->deviceid, nmap, map);
+    xcb_input_set_device_button_mapping_reply_t* reply = xcb_input_set_device_button_mapping_reply(QX11Info::connection(), cookie, NULL);
+
+    uint8_t result = 1;
+
+    if (reply) {
+        result = reply->status;
+        free(reply);
+    }
 
     delete map;
 
-    return (result == MappingSuccess);
+    return (result == 0);
 }
 
 
@@ -403,9 +384,16 @@ bool X11InputDevice::setFloatProperty(const QString& property, const QList< floa
         return false;
     }
 
-    Atom expectedType = XInternAtom (d->display, "FLOAT", False);
+    xcb_intern_atom_cookie_t cookie = xcb_intern_atom(QX11Info::connection(), false, strlen("FLOAT"), "FLOAT");
+    xcb_intern_atom_reply_t* reply = xcb_intern_atom_reply(QX11Info::connection(), cookie, NULL);
 
-    if (expectedType == None) {
+    xcb_atom_t expectedType = XCB_ATOM_NONE;
+
+    if (reply) {
+        expectedType = reply->atom;
+    }
+
+    if (expectedType == XCB_ATOM_NONE) {
         qCritical() << QLatin1String("Float values are unsupported by this XInput implementation!");
         return false;
     }
@@ -449,7 +437,7 @@ bool X11InputDevice::setLongProperty(const QString& property, const QString& val
 
 bool X11InputDevice::setLongProperty(const QString& property, const QList< long int >& values) const
 {
-    return setProperty<long>(property, XA_INTEGER, values);
+    return setProperty<long>(property, XCB_ATOM_INTEGER, values);
 }
 
 
@@ -463,61 +451,69 @@ bool X11InputDevice::getProperty(const QString& property, X11InputDevice::Atom e
     unsigned long  nitems         = 0;
     int            expectedFormat = 32;
 
-    if (!getPropertyData(property, expectedType, expectedFormat, nelements, (unsigned char**)&data, &nitems)) {
+    xcb_input_get_device_property_reply_t* reply = getPropertyData(property, expectedType, expectedFormat, nelements);
+    if (!reply) {
         return false;
     }
+    data = static_cast<long*>(xcb_input_get_device_property_items(reply));
+    nitems = reply->num_items;
 
     for (unsigned long i = 0 ; i < nitems ; ++i) {
         values.append(*((T*)(data + i)));
     }
 
-    XFree(data);
+    free(reply);
 
     return true;
 }
 
 
 
-bool X11InputDevice::getPropertyData (const QString& property, X11InputDevice::Atom expectedType, int expectedFormat, long int nelements, unsigned char** data, long unsigned int* nitems) const
+xcb_input_get_device_property_reply_t* X11InputDevice::getPropertyData (const QString& property, X11InputDevice::Atom expectedType, int expectedFormat, long int nelements) const
 {
     Q_D(const X11InputDevice);
 
     // check parameters
     if (!isOpen()) {
         qCritical() << QString::fromLatin1 ("Can not get XInput property '%1' as no device was opened!").arg(property);
-        return false;
+        return NULL;
     }
 
     if (nelements < 1) {
         qCritical() << QString::fromLatin1 ("Can not get XInput property '%1' as less than one element was requested!").arg(property);
-        return false;
+        return NULL;
     }
 
     // lookup property atom
-    Atom propertyAtom = None;
+    Atom propertyAtom = XCB_ATOM_NONE;
 
     if (!lookupProperty(property, &propertyAtom)) {
         qCritical() << QString::fromLatin1("Can not get unsupported XInput property '%1'!").arg(property);
-        return false;
+        return NULL;
     }
 
     // get device property and validate it
-    Atom           actualType   = None;
+    Atom           actualType   = XCB_ATOM_NONE;
     int            actualFormat = 0;
-    unsigned long  bytes_after  = 0;
 
-    if (XGetDeviceProperty (d->display, d->device, propertyAtom, 0, nelements, False, AnyPropertyType, &actualType, &actualFormat, nitems, &bytes_after, data) != Success) {
+    xcb_input_get_device_property_cookie_t cookie = xcb_input_get_device_property(QX11Info::connection(), propertyAtom, XCB_ATOM_ANY, 0, nelements, d->deviceid, false);
+    xcb_input_get_device_property_reply_t* reply = xcb_input_get_device_property_reply(QX11Info::connection(), cookie, NULL);
+
+    if (reply) {
+        actualType = reply->type;
+        actualFormat = reply->format;
+    } else {
         qCritical() << QString::fromLatin1("Could not get XInput property '%1'!").arg(property);
-        return false;
+        return NULL;
     }
 
     if (actualFormat != expectedFormat || actualType != expectedType) {
         qCritical() << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
-        XFree(data);
-        return false;
+        free(reply);
+        return NULL;
     }
 
-    return true;
+    return reply;
 }
 
 
@@ -530,9 +526,16 @@ bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Ato
         return false;
     }
 
-    *atom = XInternAtom (d->display, property.toLatin1().constData(), True);
+    xcb_intern_atom_cookie_t cookie = xcb_intern_atom(QX11Info::connection(), false, property.toLatin1().length(), property.toLatin1().constData());
+    xcb_intern_atom_reply_t* reply = xcb_intern_atom_reply(QX11Info::connection(), cookie, NULL);
 
-    if (*atom == None) {
+    if (reply) {
+        *atom = reply->atom;
+    } else {
+        *atom = XCB_ATOM_NONE;
+    }
+
+    if (*atom == XCB_ATOM_NONE) {
         qDebug() << QString::fromLatin1("The X server does not support XInput property '%1'!").arg(property);
         return false;
     }
@@ -561,7 +564,7 @@ bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom e
     }
 
     // lookup property atom
-    Atom propertyAtom = None;
+    Atom propertyAtom = XCB_ATOM_NONE;
 
     if (!lookupProperty(property, &propertyAtom)) {
         qCritical() << QString::fromLatin1("Can not set unsupported XInput property '%1'!").arg(property);
@@ -571,15 +574,18 @@ bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom e
     // get property and validate format and type
     Atom           actualType;
     int            actualFormat;
-    unsigned long  nitems, bytes_after;
-    unsigned char *actualData  = NULL;
 
-    if (XGetDeviceProperty (d->display, d->device, propertyAtom, 0, values.size(), False, AnyPropertyType, &actualType, &actualFormat, &nitems, &bytes_after, (unsigned char **)&actualData) != Success) {
+    xcb_input_get_device_property_cookie_t cookie = xcb_input_get_device_property(QX11Info::connection(), propertyAtom, XCB_ATOM_ANY, 0, values.size(), d->deviceid, false);
+
+    xcb_input_get_device_property_reply_t* reply = xcb_input_get_device_property_reply(QX11Info::connection(), cookie, NULL);
+
+    if (reply) {
+        actualType = reply->type;
+        actualFormat = reply->format;
+    } else {
         qCritical() << QString::fromLatin1("Could not get XInput property '%1' for type and format validation!").arg(property);
         return false;
     }
-
-    XFree(actualData);
 
     if (actualFormat != expectedFormat || actualType != expectedType) {
         qCritical() << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
@@ -593,14 +599,13 @@ bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom e
         *((T*)(data + i)) = values.at(i);
     }
 
-    // replace the current data of the property
-    XChangeDeviceProperty (d->display, d->device, propertyAtom, expectedType, 32, PropModeReplace, (unsigned char*)data, values.size());
+    xcb_input_change_device_property(QX11Info::connection(), propertyAtom, expectedType, d->deviceid, 32, XCB_PROP_MODE_REPLACE, values.size(), data);
 
     // cleanup
     delete[] data;
 
     // flush the output buffer to make sure all properties are updated
-    XFlush (d->display);
+    xcb_flush(QX11Info::connection());
 
     return true;
 }

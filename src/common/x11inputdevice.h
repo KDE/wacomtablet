@@ -25,8 +25,7 @@
 
 #include <QX11Info>
 
-// X11 forward declarations
-struct _XDeviceInfo;
+struct xcb_input_get_device_property_reply_t;
 
 namespace Wacom
 {
@@ -45,14 +44,6 @@ public:
      */
     typedef long unsigned int Atom;
     typedef long unsigned int XID;
-    typedef struct _XDeviceInfo XDeviceInfo;
-
-    /*
-     * We can not forward declare X11's' anonymous XDevice struct.
-     * To keep the header clean from includes we only need for private
-     * methods, we just define our own version of this struct.
-     */
-    struct XDevice;
 
     /**
      * Default Constructor
@@ -62,12 +53,7 @@ public:
     /**
      * Constructor which opens a device directly.
      */
-    X11InputDevice (Display* dpy, const XDeviceInfo& deviceInfo);
-
-    /**
-     * Constructor which opens a device directly.
-     */
-    X11InputDevice (Display* dpy, XID id, const QString& name);
+    X11InputDevice (XID id, const QString& name);
 
     /**
      * Copy Constructor
@@ -115,11 +101,6 @@ public:
      * @return The device id or 0.
      */
     long int getDeviceId() const;
-
-    /**
-     * Returns the display of this device or NULL.
-     */
-    Display* getDisplay() const;
 
     /**
      * Gets a float property.
@@ -185,25 +166,14 @@ public:
     bool isTabletDevice();
 
     /**
-     * Opens a X11 device.
-     *
-     * @param display    The X11 display to use.
-     * @param deviceInfo The X11 device info structure.
-     *
-     * @return True if the device was successfully opened, else false.
-     */
-    bool open (Display* display, const XDeviceInfo& deviceInfo);
-
-    /**
      * Opens the given device id.
      *
-     * @param display The X11 display.
      * @param id      The X11 device id of the device to open.
      * @param name    The name of the device.
      *
      * @return True on success, false on error.
      */
-    bool open (Display* display, XID id, const QString& name);
+    bool open (XID id, const QString& name);
 
     /**
      * Sets a button mapping on the device. The parameter \a buttonMap has
@@ -278,12 +248,10 @@ private:
      * @param property       The property go get.
      * @param expectedType   The expected Xinput property type.
      * @param expectedFormat The expected Xinput property format.
-     * @param data           A pointer to a data pointer which will be set to the retrieved data.
-     * @param nitems         A pointer to a counter which will contain the number of items which were retrieved.
      *
-     * @return True on success, false on error.
+     * @return xcb reply
      */
-    bool getPropertyData (const QString& property, Atom expectedType, int expectedFormat, long nelements, unsigned char** data, unsigned long* nitems) const;
+    xcb_input_get_device_property_reply_t* getPropertyData (const QString& property, Wacom::X11InputDevice::Atom expectedType, int expectedFormat, long int nelements) const;
 
     /**
      * Looks up a X11 property atom.

@@ -22,8 +22,6 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
-#include <X11/X.h>
-#include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 
 using namespace Wacom;
@@ -31,7 +29,7 @@ using namespace Wacom;
 
 int X11Info::getDefaultScreen()
 {
-    return DefaultScreen(QX11Info::display());
+    return QX11Info::appScreen();
 }
 
 
@@ -83,7 +81,6 @@ const QList< QRect > X11Info::getScreenGeometries()
     return screens;
 }
 
-
 const ScreenRotation X11Info::getScreenRotation()
 {
     Rotation       xrandrRotation;
@@ -111,4 +108,3 @@ const ScreenRotation X11Info::getScreenRotation()
 
     return currentRotation;
 }
-

@@ -23,12 +23,9 @@
 #include "deviceinformation.h"
 #include "x11input.h"
 
-#include <QtCore/QMap>
+#include <xcb/xcb.h>
 
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
-#include <X11/extensions/XInput.h>
-#include <X11/Xutil.h>
+#include <QtCore/QMap>
 
 using namespace Wacom;
 
@@ -260,13 +257,13 @@ const QString X11TabletFinder::getToolType (X11InputDevice& device) const
     QString toolTypeName;
 
     if (toolTypeAtoms.size() == 1) {
-        char *type_name = XGetAtomName (device.getDisplay(), (Atom)toolTypeAtoms.at(0));
-
-        if (type_name != NULL) {
-            toolTypeName = QLatin1String(type_name);
+        xcb_get_atom_name_cookie_t cookie = xcb_get_atom_name(QX11Info::connection(), toolTypeAtoms.at(0));
+        xcb_get_atom_name_reply_t* reply = xcb_get_atom_name_reply(QX11Info::connection(), cookie, NULL);
+        if (reply) {
+            toolTypeName = QString::fromLatin1(QByteArray(xcb_get_atom_name_name(reply), xcb_get_atom_name_name_length(reply)));
+            free(reply);
         }
 
-        XFree( type_name );
     }
 
     return toolTypeName;

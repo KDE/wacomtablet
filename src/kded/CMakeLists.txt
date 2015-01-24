@@ -7,10 +7,9 @@ set(kded_wacomtablet_LIBS
    KF5::XmlGui
    KF5::DBusAddons
    KF5::ConfigCore
-   ${X11_X11_LIB}
+   XCB::XINPUT
+   XCB::RANDR
    ${X11_Xinput_LIB}
-   ${X11_Xrandr_LIB}
-   ${X11_LIBRARIES}
 )
 
 ## sources
@@ -41,12 +40,12 @@ add_library(kded_wacomtablet MODULE ${kded_wacomtablet_SRCS})
 target_link_libraries( kded_wacomtablet ${kded_wacomtablet_LIBS} )
 
 ## files to install
-install(TARGETS kded_wacomtablet DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS kded_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR})
 
-install(FILES wacomtablet.desktop DESTINATION ${SERVICES_INSTALL_DIR}/kded)
-install(FILES wacomtablet.notifyrc DESTINATION "${DATA_INSTALL_DIR}/wacomtablet")
+install(FILES wacomtablet.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/kded)
+install(FILES wacomtablet.notifyrc DESTINATION "${KDE_INSTALL_DATADIR}/wacomtablet")
 
-install(FILES org.kde.Wacom.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
+install(FILES org.kde.Wacom.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR})
 
 
 ## LIBRARY FOR UNIT TESTS

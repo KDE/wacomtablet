@@ -109,6 +109,7 @@ void TabletAreaSelectionDialog::setupUi()
     QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     layout->addWidget( d->selectionWidget );
     layout->addWidget( buttonBox );
+    setLayout(layout);
 
     connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);

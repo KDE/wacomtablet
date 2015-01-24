@@ -80,7 +80,7 @@ QString PressureCurveDialog::getControllPoints()
 void PressureCurveDialog::updateControlPoints(const QString & points)
 {
     m_ui->pc_Values->setText(points);
-    DBusTabletInterface::instance().setProperty(m_tabletId, *DeviceType::find(m_device), Property::PressureCurve, points);
+    DBusTabletInterface::instance().setProperty(m_tabletId, DeviceType::find(m_device)->key(), Property::PressureCurve.key(), points);
 }
 
 void PressureCurveDialog::accept()

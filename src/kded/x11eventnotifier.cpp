@@ -24,21 +24,19 @@
 #include "x11input.h"
 #include "x11inputdevice.h"
 
+#include <QCoreApplication>
 #include <QX11Info>
 
-#include <X11/X.h>
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
-#include <X11/extensions/XInput.h>
-#include <X11/extensions/XInput2.h>
-#include <X11/extensions/Xrandr.h>
+#include <xcb/xcb.h>
+#include <xcb/xinput.h>
+#include <xcb/randr.h>
 
 namespace Wacom
 {
     class X11EventNotifierPrivate
     {
         public:
-            Rotation currentRotation;
+            xcb_randr_rotation_t currentRotation;
             bool     isStarted;
     };
 }
@@ -46,19 +44,19 @@ namespace Wacom
 using namespace Wacom;
 
 X11EventNotifier::X11EventNotifier()
-    : EventNotifier(NULL), d_ptr(new X11EventNotifierPrivate)
+    : EventNotifier(NULL), QAbstractNativeEventFilter(), d_ptr(new X11EventNotifierPrivate)
 {
     Q_D( X11EventNotifier );
-    d->currentRotation = 0;
+    d->currentRotation = XCB_RANDR_ROTATION_ROTATE_0;
     d->isStarted       = false;
 }
 
 X11EventNotifier::X11EventNotifier(const X11EventNotifier& notifier)
-    : EventNotifier(NULL), d_ptr(new X11EventNotifierPrivate)
+    : EventNotifier(NULL), QAbstractNativeEventFilter(), d_ptr(new X11EventNotifierPrivate)
 {
     Q_UNUSED(notifier);
     Q_D( X11EventNotifier );
-    d->currentRotation = 0;
+    d->currentRotation = XCB_RANDR_ROTATION_ROTATE_0;
     d->isStarted       = false;
 }
 
@@ -93,12 +91,12 @@ void X11EventNotifier::start()
     if (d->isStarted) {
         return;
     }
-/* TODO FIXME
-    if( KApplication::kApplication() != NULL ) {
-        registerForNewDeviceEvent(QX11Info::display());
-        KApplication::kApplication()->installX11EventFilter(this);
+
+    if( QCoreApplication::instance() != nullptr ) {
+        registerForNewDeviceEvent(QX11Info::connection());
+        QCoreApplication::instance()->installNativeEventFilter(this);
         d->isStarted = true;
-    }*/
+    }
 }
 
 
@@ -106,21 +104,22 @@ void X11EventNotifier::start()
 void X11EventNotifier::stop()
 {
     Q_D (X11EventNotifier);
-/* TODO FIXME
-    if( KApplication::kApplication() != NULL ) {
-        KApplication::kApplication()->removeX11EventFilter(this);
+
+    if( QCoreApplication::instance() != nullptr ) {
+        QCoreApplication::instance()->removeNativeEventFilter(this);
         d->isStarted = false;
-    }*/
+    }
 }
 
 
 
-bool X11EventNotifier::x11Event(XEvent* event)
+bool X11EventNotifier::nativeEventFilter(const QByteArray &eventType, void *message, long int *result)
 {
-    XGenericEventCookie *cookie = &event->xcookie;
+    xcb_generic_event_t *event = static_cast<xcb_generic_event_t *>(message);
+    xcb_ge_generic_event_t *cookie = reinterpret_cast<xcb_ge_generic_event_t *>(message);
 
-    if (cookie->type == GenericEvent && cookie->evtype == XI_HierarchyChanged) {
-        handleX11InputEvent(event);
+    if (event->response_type == XCB_GE_GENERIC && cookie->event_type == XCB_INPUT_HIERARCHY) {
+        handleX11InputEvent(cookie);
 
     } else {
         handleX11ScreenEvent(event);
@@ -132,76 +131,60 @@ bool X11EventNotifier::x11Event(XEvent* event)
 
 
 
-void X11EventNotifier::handleX11InputEvent(XEvent* event)
+void X11EventNotifier::handleX11InputEvent(xcb_ge_generic_event_t* event)
 {
-    XGenericEventCookie *cookie       = &event->xcookie;
-    bool                 ownEventData = XGetEventData(QX11Info::display(), cookie);
+    xcb_input_hierarchy_event_t *hev  = (xcb_input_hierarchy_event_t *) event;
 
-    if(cookie->data)
-    {
-        XIHierarchyEvent *hev  = (XIHierarchyEvent *)cookie->data;
-        XIHierarchyInfo  *info = (XIHierarchyInfo *)hev->info;
+    xcb_input_hierarchy_info_iterator_t iter;
+    iter.data = reinterpret_cast<xcb_input_hierarchy_info_t*>(hev + 1);
+    iter.rem = hev->num_infos;
+    iter.index = reinterpret_cast<char*>(iter.data) - reinterpret_cast<char*>(hev);
 
-        for (int i = 0; i < hev->num_info; i++)
-        {
-            if (info[i].flags & XISlaveRemoved) {
-                qDebug() << QString::fromLatin1("X11 device with id '%1' removed.").arg(info[i].deviceid);
-                emit tabletRemoved(info[i].deviceid);
+    for (; iter.rem; xcb_input_hierarchy_info_next(&iter)) {
+        if (iter.data->flags & XCB_INPUT_HIERARCHY_MASK_SLAVE_REMOVED) {
+            qDebug() << QString::fromLatin1("X11 device with id '%1' removed.").arg(iter.data->deviceid);
+            emit tabletRemoved(iter.data->deviceid);
 
-            } else if (info[i].flags & XISlaveAdded) {
-                qDebug() << QString::fromLatin1("X11 device with id '%1' added.").arg(info[i].deviceid);
+        } else if (iter.data->flags & XCB_INPUT_HIERARCHY_MASK_SLAVE_ADDED) {
+            qDebug() << QString::fromLatin1("X11 device with id '%1' added.").arg(iter.data->deviceid);
 
-                X11InputDevice device (QX11Info::display(), info[i].deviceid, QLatin1String("Unknown X11 Device"));
+            X11InputDevice device (iter.data->deviceid, QLatin1String("Unknown X11 Device"));
 
-                if (device.isOpen() && device.isTabletDevice()) {
-                    qDebug() << QString::fromLatin1("Wacom tablet device with X11 id '%1' added.").arg(info[i].deviceid);
-                    emit tabletAdded(info[i].deviceid);
-                }
+            if (device.isOpen() && device.isTabletDevice()) {
+                qDebug() << QString::fromLatin1("Wacom tablet device with X11 id '%1' added.").arg(iter.data->deviceid);
+                emit tabletAdded(iter.data->deviceid);
             }
         }
-
-        // only free event data if I own the resource if a different resource called XGetEventData the data will not be set free again here
-        if(ownEventData) {
-            XFreeEventData(QX11Info::display(), cookie);
-        }
-    }
-    else {
-        qDebug() << "Error couldn't retrieve XGetEventData";
     }
 }
 
 
 
-void X11EventNotifier::handleX11ScreenEvent(XEvent* event)
+void X11EventNotifier::handleX11ScreenEvent(xcb_generic_event_t* event)
 {
     Q_D( X11EventNotifier );
 
-    int m_eventBase;
-    int m_errorBase;
+    const xcb_query_extension_reply_t* reply = xcb_get_extension_data(QX11Info::connection(), &xcb_randr_id);
 
-    XRRQueryExtension(QX11Info::display(), &m_eventBase, &m_errorBase);
-
-    if (event->type == m_eventBase + RRScreenChangeNotify) {
-
-        XRRUpdateConfiguration(event);
-        Rotation old_r = d->currentRotation;
-
-        XRRRotations(QX11Info::display(), DefaultScreen(QX11Info::display()), &(d->currentRotation));
+    if (event->response_type == reply->first_event + XCB_RANDR_SCREEN_CHANGE_NOTIFY) {
+        xcb_randr_screen_change_notify_event_t* ev = reinterpret_cast<xcb_randr_screen_change_notify_event_t*>(event);
+        auto old_r = d->currentRotation;
+        d->currentRotation = static_cast<xcb_randr_rotation_t>(ev->rotation);
 
         if (old_r != d->currentRotation) {
             ScreenRotation newRotation = ScreenRotation::NONE;
 
             switch (d->currentRotation) {
-                    case RR_Rotate_0:
+                    case XCB_RANDR_ROTATION_ROTATE_0:
                         newRotation = ScreenRotation::NONE;
                         break;
-                    case RR_Rotate_90:
+                    case XCB_RANDR_ROTATION_ROTATE_90:
                         newRotation = ScreenRotation::CCW;
                         break;
-                    case RR_Rotate_180:
+                    case XCB_RANDR_ROTATION_ROTATE_180:
                         newRotation = ScreenRotation::HALF;
                         break;
-                    case RR_Rotate_270:
+                    case XCB_RANDR_ROTATION_ROTATE_270:
                         newRotation = ScreenRotation::CW;
                         break;
                     default:
@@ -217,23 +200,24 @@ void X11EventNotifier::handleX11ScreenEvent(XEvent* event)
 
 
 
-int X11EventNotifier::registerForNewDeviceEvent(Display* display)
+int X11EventNotifier::registerForNewDeviceEvent(xcb_connection_t* conn)
 {
-    XIEventMask evmask;
-    unsigned char mask[2] = { 0, 0 };
+    char buf[sizeof(xcb_input_event_mask_t) + sizeof(uint32_t)];
 
-    XISetMask(mask, XI_HierarchyChanged);
-    evmask.deviceid = XIAllDevices;
-    evmask.mask_len = sizeof(mask);
-    evmask.mask = mask;
+    xcb_input_event_mask_t* evmask = reinterpret_cast<xcb_input_event_mask_t*>(buf);
+    evmask->deviceid = 0;
+    evmask->mask_len = 1;
 
-    XISelectEvents(display, DefaultRootWindow(display), &evmask, 1);
+    uint32_t* mask_buf = xcb_input_event_mask_mask( evmask );
+    mask_buf[0] = XCB_INPUT_XI_EVENT_MASK_HIERARCHY;
+
+    xcb_input_xi_select_events(conn, QX11Info::appRootWindow(), 1, evmask);
 
     //register RandR events
-    int rrmask = RRScreenChangeNotifyMask;
+    int rrmask = XCB_RANDR_NOTIFY_MASK_SCREEN_CHANGE;
 
-    XRRSelectInput(display, DefaultRootWindow(display), 0);
-    XRRSelectInput(display, DefaultRootWindow(display), rrmask);
+    xcb_randr_select_input(conn, QX11Info::appRootWindow(), 0);
+    xcb_randr_select_input(conn, QX11Info::appRootWindow(), rrmask);
 
     return 0;
 }

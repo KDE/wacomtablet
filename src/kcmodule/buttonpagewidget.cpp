@@ -30,6 +30,7 @@
 #include "deviceprofile.h"
 #include "dbustabletinterface.h"
 #include "buttonshortcut.h"
+#include "stringutils.h"
 
 // stdlib
 #include <memory>
@@ -212,7 +213,7 @@ void ButtonPageWidget::reloadWidget()
 {
     Q_D( ButtonPageWidget );
 
-    int padButtons = DBusTabletInterface::instance().getInformationAsInt(d->tabletId, TabletInfo::NumPadButtons);
+    int padButtons = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::NumPadButtons.key()).value().toInt();
 
     QLabel*                     buttonLabel;
     ButtonActionSelectorWidget* buttonSelector;
@@ -239,13 +240,13 @@ void ButtonPageWidget::reloadWidget()
         }
     }
 
-    QString padLayout = DBusTabletInterface::instance().getInformationAsString(d->tabletId, TabletInfo::ButtonLayout);
-    if (QFile::exists(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
-        d->ui->padImage->setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
+    QString padLayout = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::ButtonLayout.key());
+    if (QFile::exists(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
+        d->ui->padImage->setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
     }
 
-    bool hasLeftTouchStrip  = DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasLeftTouchStrip);
-    bool hasRightTouchStrip = DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasRightTouchStrip);
+    bool hasLeftTouchStrip  = StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasLeftTouchStrip.key()));
+    bool hasRightTouchStrip = StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasRightTouchStrip.key()));
 
     if (!hasLeftTouchStrip && !hasRightTouchStrip) {
         d->ui->touchStripGroupBox->setEnabled(false);
@@ -289,7 +290,7 @@ void ButtonPageWidget::reloadWidget()
         }
     }
 
-    if (!DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasTouchRing)) {
+    if (!StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasTouchRing.key()))) {
         d->ui->touchRingGroupBox->setEnabled(false);
         d->ui->touchRingGroupBox->setVisible(false);
     } else {
@@ -297,7 +298,7 @@ void ButtonPageWidget::reloadWidget()
         d->ui->touchRingGroupBox->setVisible(true);
     }
 
-    if (!DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasWheel)) {
+    if (!StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasWheel.key()))) {
         d->ui->wheelGroupBox->setEnabled(false);
         d->ui->wheelGroupBox->setVisible(false);
     } else {
