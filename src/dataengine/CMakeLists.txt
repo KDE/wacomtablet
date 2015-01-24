@@ -1,8 +1,9 @@
-add_definitions(-DTRANSLATION_DOMAIN="plasma_applet_wacomtablet")
+add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
 
 set(dataengine_SRCS
     wacomtabletengine.cpp
     wacomtabletservice.cpp
+    multidbuspendingcallwatcher.cpp
 )
 
 add_library(plasma_engine_wacomtablet MODULE ${dataengine_SRCS})

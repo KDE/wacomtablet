@@ -24,16 +24,8 @@ import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 2.0 as PlasmaComponents
 
-MouseArea {
+PlasmaComponents.ToolButton {
     property string rotation;
-    property alias icon: icon.source;
-    width: units.iconSizes.small
-    height: width
-
-    PlasmaCore.IconItem {
-        id: icon
-        anchors.fill: parent
-    }
 
     onClicked : {
         if (tabletComboBox.currentIndex < 0) {

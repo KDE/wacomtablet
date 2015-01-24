@@ -18,7 +18,7 @@
 #include "wacomtabletengine.h"
 #include "wacomtabletservice.h"
 #include "dbustabletinterface.h"
-#include <QDBusServiceWatcher>
+#include "multidbuspendingcallwatcher.h"
 
 using namespace Wacom;
 
@@ -81,38 +81,51 @@ void WacomTabletEngine::onTabletAdded(const QString& tabletId)
     if (m_tablets.contains(tabletId)) {
         return;
     }
-    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
-    QDBusReply<QStringList> profileListReply = DBusTabletInterface::instance().listProfiles(tabletId);
-    const auto profileList = profileListReply.value();
-    const QString sourceName = QString(QLatin1Literal("Tablet%1")).arg(tabletId);
-    auto& tabletData = m_tablets[tabletId];
-    tabletData.name = deviceName.value();
-    tabletData.profiles = profileList;
 
-    QDBusReply<QString> profileName = DBusTabletInterface::instance().getProfile(tabletId);
-    int item = profileList.indexOf(profileName.value());
-    tabletData.currentProfile = item;
+    QList<QDBusPendingCall> callList;
 
-    QDBusReply<QString> stylusMode = DBusTabletInterface::instance().getProperty(tabletId, DeviceType::Stylus.key(), Property::Mode.key());
-    QDBusPendingReply< QString > dbusReply = DBusTabletInterface::instance().getDeviceName(tabletId, DeviceType::Touch.key());
-    tabletData.hasTouch = (dbusReply.isValid() && !dbusReply.value().isEmpty());
+    callList << DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key())
+             << DBusTabletInterface::instance().listProfiles(tabletId)
+             << DBusTabletInterface::instance().getProfile(tabletId)
+             << DBusTabletInterface::instance().getProperty(tabletId, DeviceType::Stylus.key(), Property::Mode.key())
+             << DBusTabletInterface::instance().getDeviceName(tabletId, DeviceType::Touch.key())
+             << DBusTabletInterface::instance().getProperty(tabletId, DeviceType::Touch.key(), Property::Touch.key());
 
-    if (tabletData.hasTouch) {
-        QDBusReply<QString> touchMode = DBusTabletInterface::instance().getProperty(tabletId, DeviceType::Touch.key(), Property::Touch.key());
-        tabletData.touch = QString( touchMode ).contains( QLatin1String( "on" ));
-    } else {
-        tabletData.touch = false;
-    }
+    MultiDBusPendingCallWatcher *watcher = new MultiDBusPendingCallWatcher(callList, this);
+    connect(watcher, &MultiDBusPendingCallWatcher::finished, [this, watcher, tabletId](const QList<QDBusPendingCallWatcher*>& watchers) {
+        watcher->deleteLater();
+        Q_FOREACH(auto watcher, watchers) {
+            if (watcher->isError()) {
+                return;
+            }
+        }
 
-    tabletData.stylusMode = ( QString( stylusMode ).contains( QLatin1String( "absolute" )) || QString( stylusMode ).contains( QLatin1String( "Absolute" )) );
-    setData(sourceName, QLatin1Literal("currentProfile"), tabletData.currentProfile);
-    setData(sourceName, QLatin1Literal("hasTouch"), tabletData.hasTouch);
-    setData(sourceName, QLatin1Literal("touch"), tabletData.touch);
-    setData(sourceName, QLatin1Literal("profiles"), tabletData.profiles);
-    setData(sourceName, QLatin1Literal("stylusMode"), tabletData.stylusMode);
-    setData(sourceName, QLatin1Literal("name"), tabletData.name);
-    setData(sourceName, QLatin1Literal("id"), tabletId);
+        QDBusPendingReply<QString> deviceName = *watchers[0];
+        QDBusPendingReply<QStringList> profileListReply = *watchers[1];
+        QDBusPendingReply<QString> profileName = *watchers[2];
+        QDBusPendingReply<QString> stylusMode = *watchers[3];
+        QDBusPendingReply<QString> hasTouch = *watchers[4];
+        QDBusPendingReply<QString> touchMode = *watchers[5];
 
+        const QString sourceName = QString(QLatin1Literal("Tablet%1")).arg(tabletId);
+        auto& tabletData = m_tablets[tabletId];
+        tabletData.name = deviceName.value();
+        const auto profileList = profileListReply.value();
+        tabletData.profiles = profileList;
+        int item = profileList.indexOf(profileName.value());
+        tabletData.currentProfile = item;
+        tabletData.hasTouch = (hasTouch.isValid() && !hasTouch.value().isEmpty());
+        tabletData.touch = tabletData.hasTouch ? QString( touchMode ).contains( QLatin1String( "on" )) : false;
+        tabletData.stylusMode = ( QString( stylusMode ).contains( QLatin1String( "absolute" )) || QString( stylusMode ).contains( QLatin1String( "Absolute" )) );
+
+        setData(sourceName, QLatin1Literal("currentProfile"), tabletData.currentProfile);
+        setData(sourceName, QLatin1Literal("hasTouch"), tabletData.hasTouch);
+        setData(sourceName, QLatin1Literal("touch"), tabletData.touch);
+        setData(sourceName, QLatin1Literal("profiles"), tabletData.profiles);
+        setData(sourceName, QLatin1Literal("stylusMode"), tabletData.stylusMode);
+        setData(sourceName, QLatin1Literal("name"), tabletData.name);
+        setData(sourceName, QLatin1Literal("id"), tabletId);
+    });
 }
 
 void WacomTabletEngine::onTabletRemoved(const QString& tabletId)
