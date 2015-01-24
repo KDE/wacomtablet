@@ -28,6 +28,17 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 Item {
     id: root
 
+    function action_wacomtabletkcm() {
+        var service = dataSource.serviceForSource("wacomtablet");
+        var operation = service.operationDescription("RunKCM");
+        service.startOperationCall(operation);
+    }
+
+    Component.onCompleted: {
+        plasmoid.removeAction("configure");
+        plasmoid.setAction("wacomtabletkcm", i18n("&Configure Graphics Tablet..."), "input-tablet");
+    }
+
     property bool active: dataSource.data["wacomtablet"]["serviceAvailable"] && dataModel.count != 0
 
     Plasmoid.toolTipMainText: i18n("Wacom Tablet")

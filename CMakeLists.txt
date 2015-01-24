@@ -12,7 +12,7 @@ include(ECMOptionalAddSubdirectory)
 include(ECMInstallIcons)
 
 find_package(ECM REQUIRED NOCOMPONENTS)
-find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets DBus X11Extras)
+find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets DBus X11Extras Qml)
 find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools)
 find_package(XCB REQUIRED COMPONENTS XINPUT RANDR)
 find_package(X11 REQUIRED)

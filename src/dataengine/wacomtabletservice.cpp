@@ -18,6 +18,7 @@
 #include "wacomtabletservice.h"
 #include "dbustabletinterface.h"
 #include "screenrotation.h"
+#include <QProcess>
 #include <Plasma/ServiceJob>
 
 using namespace Wacom;
@@ -34,8 +35,13 @@ public:
             return;
         }
 
-        const auto param = parameters();
         const auto op = operationName();
+        if (op == QLatin1Literal("RunKCM")) {
+            QProcess::startDetached(QLatin1Literal("kcmshell5"), QStringList() << QLatin1Literal("wacomtablet"));
+            return;
+        }
+
+        const auto param = parameters();
 
         if (!param.contains(QLatin1Literal("tabletId"))) {
             return;

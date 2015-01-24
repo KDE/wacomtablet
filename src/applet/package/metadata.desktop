@@ -16,7 +16,6 @@ X-KDE-PluginInfo-Version=1.0
 X-KDE-PluginInfo-Website=https://projects.kde.org/projects/extragear/base/wacomtablet
 X-KDE-ServiceTypes=Plasma/Applet
 X-Plasma-API=declarativeappletscript
-X-Plasma-ConfigPlugins=kcm_wacomtablet
 X-Plasma-DefaultSize=32,32
 X-Plasma-MainScript=ui/main.qml
 X-Plasma-NotificationArea=true
