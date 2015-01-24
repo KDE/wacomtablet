@@ -29,6 +29,7 @@ set(kded_wacomtablet_SRCS
     xinputproperty.cpp
     xsetwacomadaptor.cpp
     xsetwacomproperty.cpp
+    ../common/globalactions.cpp
 )
 
 ## dbus interfaces

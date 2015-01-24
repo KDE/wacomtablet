@@ -150,7 +150,7 @@ void ProfileManager::updateCurrentProfileNumber(const QString &profile)
 {
     Q_D( ProfileManager );
 
-    if (!isOpen() || !d->tabletGroup.isValid()) {
+    if (!isOpen()) {
         return;
     }
 

@@ -22,6 +22,7 @@ set( kcm_tablet_SRCS
      tabletareaselectionwidget.cpp
      tabletpagewidget.cpp
      touchpagewidget.cpp
+     ../common/globalactions.cpp
 )
 
 ki18n_wrap_ui( kcm_tablet_SRCS

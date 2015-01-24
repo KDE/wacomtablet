@@ -59,7 +59,11 @@ ButtonActionSelectionDialog::ButtonActionSelectionDialog(QWidget* parent)
 
     connect( buttonBox, &QDialogButtonBox::clicked, [this, buttonBox](QAbstractButton* button){
         if (QDialogButtonBox::Ok == buttonBox->standardButton(button)) {
-            this->onOkClicked();
+            onOkClicked();
+            accept();
+        } else {
+            // Cancel
+            reject();
         }
     } );
 }

@@ -90,6 +90,11 @@ bool TabletFinder::scan()
             // lookup device information and button map
             lookupInformation(*iter);
 
+            // empty device name will crash the system, ignore them for now
+            if (iter->get(TabletInfo::TabletName).isEmpty()) {
+                continue;
+            }
+
             qDebug() << QString::fromLatin1("Tablet '%1' (%2) found.").arg(iter->get(TabletInfo::TabletName)).arg(iter->get(TabletInfo::TabletId));
 
             // emit tablet added signal
@@ -131,6 +136,11 @@ void TabletFinder::onX11TabletAdded(int deviceId)
             // tablet found - lookup additional information
             TabletInformation tabletInfo = info;
             lookupInformation(tabletInfo);
+
+            // empty device name will crash the system, ignore them for now
+            if (tabletInfo.get(TabletInfo::TabletName).isEmpty()) {
+                continue;
+            }
 
             qDebug() << QString::fromLatin1("Tablet '%1' (%2) added.").arg(tabletInfo.get(TabletInfo::TabletName)).arg(tabletInfo.get(TabletInfo::TabletId));
 

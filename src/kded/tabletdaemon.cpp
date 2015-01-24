@@ -25,6 +25,7 @@
 #include "tablethandler.h"
 #include "wacomadaptor.h"
 #include "x11eventnotifier.h"
+#include "globalactions.h"
 #include "../version.h"
 
 // common includes
@@ -57,7 +58,7 @@ public:
 
     TabletHandler                     tabletHandler;    /**< tablet handler */
     DBusTabletService                 dbusTabletService;
-    std::shared_ptr<KActionCollection>  actionCollection; /**< Collection of all global actions */
+    std::shared_ptr<GlobalActions>  actionCollection; /**< Collection of all global actions */
 
 }; // CLASS
 }  // NAMESPACE
@@ -129,49 +130,18 @@ void TabletDaemon::setupActions()
 
     // This method is called multiple times - make sure the action collection is only created once.
     if (d->actionCollection.get() == NULL) {
-        d->actionCollection = std::shared_ptr<KActionCollection>(new KActionCollection(this, QLatin1Literal("wacomtablet")));
+        d->actionCollection = std::shared_ptr<GlobalActions>(new GlobalActions(false, this));
         d->actionCollection->setConfigGlobal(true);
     }
 
-    QAction *action = d->actionCollection->addAction(QLatin1String("Toggle touch tool"));
-    action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_T ) );
-    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onToggleTouch()) );
-
-    action = d->actionCollection->addAction(QLatin1String("Toggle stylus mode"));
-    action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_S ) );
-    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onTogglePenMode()) );
-
-    action = d->actionCollection->addAction(QLatin1String("Toggle screen map selection"));
-    action->setText( i18nc( "@action", "Toggle between all screens" ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_M ) );
-    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onToggleScreenMapping()) );
-
-    action = d->actionCollection->addAction(QLatin1String("Map to fullscreen"));
-    action->setText( i18nc( "@action Maps the area of the tablet to all available screen space (space depends on connected monitors)", "Map to all fullscreen" ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_F ) );
-    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onMapToFullScreen()) );
-
-    action = d->actionCollection->addAction(QLatin1String("Map to screen 1"));
-    action->setText( i18nc( "@action", "Map to screen 1" ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_1 ) );
-    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onMapToScreen1()) );
-
-    action = d->actionCollection->addAction(QLatin1String("Map to screen 2"));
-    action->setText( i18nc( "@action", "Map to screen 2" ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_2 ) );
-    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onMapToScreen2()) );
-
-    action = d->actionCollection->addAction(QLatin1String("Next Profile"));
-    action->setText( i18nc( "@action Switch to the next profile in the rotation", "Next profile" ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_N ) );
-    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onNextProfile()) );
-
-    action = d->actionCollection->addAction(QLatin1String("Previous Profile"));
-    action->setText( i18nc( "@action Switch to the previous profile in the rotation", "Previous Profile" ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_P ) );
-    connect( action, SIGNAL(triggered()), &(d->tabletHandler), SLOT(onPreviousProfile()) );
+    connect( d->actionCollection.get(), SIGNAL(toggleTouchTriggered()), &(d->tabletHandler), SLOT(onToggleTouch()) );
+    connect( d->actionCollection.get(), SIGNAL(toggleStylusTriggered()), &(d->tabletHandler), SLOT(onTogglePenMode()) );
+    connect( d->actionCollection.get(), SIGNAL(toggleScreenMapTriggered()), &(d->tabletHandler), SLOT(onToggleScreenMapping()) );
+    connect( d->actionCollection.get(), SIGNAL(mapToFullScreenTriggered()), &(d->tabletHandler), SLOT(onMapToFullScreen()) );
+    connect( d->actionCollection.get(), SIGNAL(mapToScreen1Triggered()), &(d->tabletHandler), SLOT(onMapToScreen1()) );
+    connect( d->actionCollection.get(), SIGNAL(mapToScreen2Triggered()), &(d->tabletHandler), SLOT(onMapToScreen2()) );
+    connect( d->actionCollection.get(), SIGNAL(nextProfileTriggered()), &(d->tabletHandler), SLOT(onNextProfile()) );
+    connect( d->actionCollection.get(), SIGNAL(previousProfileTriggered()), &(d->tabletHandler), SLOT(onPreviousProfile()) );
 }
 
 

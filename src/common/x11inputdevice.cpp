@@ -391,6 +391,7 @@ bool X11InputDevice::setFloatProperty(const QString& property, const QList< floa
 
     if (reply) {
         expectedType = reply->atom;
+        free(reply);
     }
 
     if (expectedType == XCB_ATOM_NONE) {
@@ -531,6 +532,7 @@ bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Ato
 
     if (reply) {
         *atom = reply->atom;
+        free(reply);
     } else {
         *atom = XCB_ATOM_NONE;
     }
@@ -582,6 +584,7 @@ bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom e
     if (reply) {
         actualType = reply->type;
         actualFormat = reply->format;
+        free(reply);
     } else {
         qCritical() << QString::fromLatin1("Could not get XInput property '%1' for type and format validation!").arg(property);
         return false;
@@ -593,7 +596,7 @@ bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom e
     }
 
     // create new data array - for XInput1 the data always to be of type long
-    long *data = new long[values.size()];
+    uint32_t *data = new uint32_t[values.size()];
 
     for (int i = 0 ; i < values.size() ; ++i) {
         *((T*)(data + i)) = values.at(i);

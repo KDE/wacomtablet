@@ -25,13 +25,13 @@
 // common
 #include "tabletinfo.h"
 #include "dbustabletinterface.h"
+#include "globalactions.h"
 
 // stdlib
 #include <memory>
 
 //KDE includes
 #include <KShortcutsEditor>
-#include <KActionCollection>
 #include <KGlobalAccel>
 
 //Qt includes
@@ -59,7 +59,7 @@ class GeneralPageWidgetPrivate {
         }
 
         std::shared_ptr<Ui::GeneralPageWidget>  m_ui;                /**< Handler to the generalwidget.ui file */
-        QPointer<KActionCollection>       m_actionCollection;
+        QPointer<GlobalActions>       m_actionCollection;
         QPointer<KShortcutsEditor>        m_shortcutEditor;
         QString                           tabletId;
 }; // CLASS
@@ -75,48 +75,7 @@ GeneralPageWidget::GeneralPageWidget(QWidget *parent)
     d->m_ui->setupUi(this);
 
     //if someone adds another action also add it to kded/tabletdeamon.cpp
-    d->m_actionCollection = new KActionCollection(this, QLatin1Literal("wacomtablet") );
-    d->m_actionCollection->setConfigGlobal(true);
-
-    QAction *action = d->m_actionCollection->addAction(QLatin1String("Toggle touch tool"));
-    action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
-    action->setIcon( QIcon::fromTheme( QLatin1String( "input-tablet" ) ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_T ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Toggle stylus mode"));
-    action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
-    action->setIcon( QIcon::fromTheme( QLatin1String( "draw-path" ) ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_S ));
-
-    action = d->m_actionCollection->addAction(QLatin1String("Toggle screen map selection"));
-    action->setText( i18nc( "@action", "Toggle between all screens" ) );
-    action->setIcon( QIcon::fromTheme( QLatin1String( "draw-path" ) ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_M ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Map to fullscreen"));
-    action->setText( i18nc( "@action Maps the area of the tablet to all available screen space (space depends on connected monitors)", "Map to fullscreen" ) );
-    action->setIcon( QIcon::fromTheme( QLatin1String( "video-display" ) ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_F ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Map to screen 1"));
-    action->setText( i18nc( "@action", "Map to screen 1" ) );
-    action->setIcon( QIcon::fromTheme( QLatin1String( "video-display" ) ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_1 ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Map to screen 2"));
-    action->setText( i18nc( "@action", "Map to screen 2" ) );
-    action->setIcon( QIcon::fromTheme( QLatin1String( "video-display" ) ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_2 ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Next Profile"));
-    action->setText( i18nc( "@action Switch to the next profile in the rotation", "Next profile" ) );
-    action->setIcon( QIcon::fromTheme( QLatin1String( "go-next-use" ) ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_N ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Previous Profile"));
-    action->setText( i18nc( "@action Switch to the previous profile in the rotation", "Previous Profile" ) );
-    action->setIcon( QIcon::fromTheme( QLatin1String( "go-previous-use" ) ) );
-    KGlobalAccel::self()->setShortcut(action, QList<QKeySequence>() << QKeySequence( Qt::CTRL + Qt::META + Qt::Key_P ) );
+    d->m_actionCollection = new GlobalActions(true, this);
 
     d->m_shortcutEditor = new KShortcutsEditor(this, KShortcutsEditor::GlobalAction);
     d->m_shortcutEditor->addCollection(d->m_actionCollection, i18n("Wacom Tablet Settings"));
