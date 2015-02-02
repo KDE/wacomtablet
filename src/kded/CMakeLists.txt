@@ -44,7 +44,7 @@ target_link_libraries( kded_wacomtablet ${kded_wacomtablet_LIBS} )
 install(TARGETS kded_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR})
 
 install(FILES wacomtablet.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/kded)
-install(FILES wacomtablet.notifyrc DESTINATION "${KDE_INSTALL_DATADIR}/wacomtablet")
+install(FILES wacomtablet.notifyrc DESTINATION "${KNOTIFYRC_INSTALL_DIR}")
 
 install(FILES org.kde.Wacom.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR})
 

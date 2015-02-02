@@ -100,11 +100,12 @@ void TabletDaemon::onNotify(const QString& eventId, const QString& title, const 
 {
     Q_D( TabletDaemon );
 
-    KNotification notification(eventId);
-    notification.setTitle(title);
-    notification.setText(message);
-    notification.setIconName( QLatin1String( "input-tablet" ) );
-    notification.sendEvent();
+    KNotification* notification = new KNotification(eventId);
+    notification->setComponentName( QStringLiteral("wacomtablet") );
+    notification->setTitle(title);
+    notification->setText(message);
+    notification->setIconName( QLatin1String( "input-tablet" ) );
+    notification->sendEvent();
 }
 
 
