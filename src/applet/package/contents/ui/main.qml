@@ -57,7 +57,7 @@ Item {
     PlasmaCore.DataModel {
         id: dataModel
         dataSource: dataSource
-        sourceFilter: "Tablet[0-9]+"
+        sourceFilter: "Tablet.*"
     }
 
     Plasmoid.fullRepresentation: FullRepresentation { }
