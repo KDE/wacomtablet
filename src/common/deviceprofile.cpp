@@ -22,8 +22,6 @@
 #include "property.h"
 #include "deviceproperty.h"
 
-#include <KDE/KDebug>
-
 #include <QtCore/QHash>
 
 using namespace Wacom;
