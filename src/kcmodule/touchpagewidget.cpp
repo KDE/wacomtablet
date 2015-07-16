@@ -112,8 +112,10 @@ void TouchPageWidget::reloadWidget()
 
     if (touchDeviceNameReply.isValid()) {
         d->touchDeviceName = touchDeviceNameReply.value();
-        d->tabletGeometry  = X11Wacom::getMaximumTabletArea(touchDeviceNameReply.value());
-        d->screenMap       = ScreenMap(d->tabletGeometry);
+        if (!d->touchDeviceName.isEmpty()) { // touch device available
+            d->tabletGeometry  = X11Wacom::getMaximumTabletArea(touchDeviceNameReply.value());
+            d->screenMap       = ScreenMap(d->tabletGeometry);
+        }
     }
 }
 
