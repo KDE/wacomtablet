@@ -64,7 +64,6 @@ TabletPageWidget::TabletPageWidget(QWidget* parent)
         : QWidget(parent), d_ptr(new TabletPageWidgetPrivate)
 {
     setupUi();
-    reloadWidget();
 }
 
 
