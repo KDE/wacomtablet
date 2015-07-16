@@ -64,7 +64,8 @@ ScreenSpace::ScreenSpace(const ScreenSpace& screenSpace)
 ScreenSpace::ScreenSpace(const QString& screenSpace)
         : d_ptr(new ScreenSpacePrivate)
 {
-    setScreenSpace(screenSpace);
+    if (!screenSpace.isEmpty())
+        setScreenSpace(screenSpace);
 }
 
 
