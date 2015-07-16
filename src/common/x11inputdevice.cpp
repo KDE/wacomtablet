@@ -448,7 +448,7 @@ template<typename T>
 bool X11InputDevice::getProperty(const QString& property, X11InputDevice::Atom expectedType, long int nelements, QList< T >& values) const
 {
     // get property data & values
-    long*          data           = NULL;
+    uint32_t*      data           = NULL;
     unsigned long  nitems         = 0;
     int            expectedFormat = 32;
 
@@ -456,7 +456,7 @@ bool X11InputDevice::getProperty(const QString& property, X11InputDevice::Atom e
     if (!reply) {
         return false;
     }
-    data = static_cast<long*>(xcb_input_get_device_property_items(reply));
+    data = static_cast<uint32_t*>(xcb_input_get_device_property_items(reply));
     nitems = reply->num_items;
 
     for (unsigned long i = 0 ; i < nitems ; ++i) {
