@@ -1,14 +1,4 @@
-
-
-kde4_add_unit_test(Common.ButtonShortcut
-  testbuttonshortcut.cpp
-)
-
-target_link_libraries(Common.ButtonShortcut
-
-# include static libs
-        wacom_common
-
-# include general qt/kde libs
-        ${QT_QTTEST_LIBRARY}
-)
+add_executable(Test.Common.ButtonShortcut testbuttonshortcut.cpp)
+ecm_mark_as_test(Test.Common.ButtonShortcut)
+add_test(NAME Test.Common.ButtonShortcut COMMAND Test.Common.ButtonShortcut)
+target_link_libraries(Test.Common.ButtonShortcut ${WACOM_COMMON_TEST_LIBS})

@@ -1,14 +1,4 @@
-
-
-kde4_add_unit_test(Common.DeviceProperty
-  testdeviceproperty.cpp
-)
-
-target_link_libraries(Common.DeviceProperty
-
-# include static libs
-        wacom_common
-
-# include general qt/kde libs
-        ${QT_QTTEST_LIBRARY}
-)
+add_executable(Test.Common.DeviceProperty testdeviceproperty.cpp)
+add_test(NAME Test.Common.DeviceProperty COMMAND Test.Common.DeviceProperty)
+ecm_mark_as_test(Test.Common.DeviceProperty)
+target_link_libraries(Test.Common.DeviceProperty ${WACOM_COMMON_TEST_LIBS})

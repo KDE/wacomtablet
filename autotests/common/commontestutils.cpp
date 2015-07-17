@@ -22,8 +22,8 @@
 #include <QString>
 
 #include "commontestutils.h"
-#include "src/common/deviceproperty.h"
-#include "src/common/devicetype.h"
+#include "common/deviceproperty.h"
+#include "common/devicetype.h"
 
 using namespace Wacom;
 

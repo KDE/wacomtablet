@@ -17,15 +17,6 @@ find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui W
 find_package(XCB REQUIRED COMPONENTS XINPUT RANDR)
 find_package(X11 REQUIRED)
 
-#--------------------------------------------------------------------------
-# CTest setup
-#--------------------------------------------------------------------------
-enable_testing()
-include(CTest)
-include(CTestConfig.cmake)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake ${CMAKE_CURRENT_BINARY_DIR}/CTestCustom.cmake COPYONLY)
-
-
 # local cmake modules
 set(CMAKE_MODULE_PATH
     ${CMAKE_MODULE_PATH}
@@ -43,3 +34,9 @@ add_subdirectory( src )
 add_subdirectory( data )
 add_subdirectory( images )
 add_subdirectory( doc )
+
+### Tests
+if(BUILD_TESTING)
+  find_package(Qt5Test ${QT_MIN_VERSION} CONFIG REQUIRED)
+  add_subdirectory( autotests )
+endif()

@@ -20,10 +20,10 @@
 #ifndef COMMONTESTUTILS_H
 #define COMMONTESTUTILS_H
 
-#include "src/common/deviceinformation.h"
-#include "src/common/deviceprofile.h"
-#include "src/common/devicetype.h"
-#include "src/common/tabletinformation.h"
+#include "common/deviceinformation.h"
+#include "common/deviceprofile.h"
+#include "common/devicetype.h"
+#include "common/tabletinformation.h"
 
 #include <QtCore/QString>
 

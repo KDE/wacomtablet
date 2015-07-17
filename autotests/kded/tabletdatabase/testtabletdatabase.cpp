@@ -18,16 +18,13 @@
  */
 
 #include "../kdedtestutils.h"
-#include "src/common/tabletinformation.h"
-#include "src/common/tabletdatabase.h"
+#include "common/tabletinformation.h"
+#include "common/tabletdatabase.h"
 
 #include <QtCore/QList>
 #include <QtCore/QMap>
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -48,7 +45,7 @@ private slots:
 };
 
 
-QTEST_KDEMAIN(TestTabletDatabase, GUI)
+QTEST_MAIN(TestTabletDatabase)
 
 void TestTabletDatabase::initTestCase()
 {

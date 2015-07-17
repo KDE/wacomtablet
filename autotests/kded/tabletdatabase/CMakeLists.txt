@@ -1,20 +1,7 @@
-
-
-kde4_add_unit_test(KDED.TabletDatabase
-  testtabletdatabase.cpp
-  ../kdedtestutils.cpp
-)
-
-target_link_libraries(KDED.TabletDatabase
-
-# include static libs
-        wacom_common
-        kded_wacomtablet_lib
-        ${kded_wacomtablet_LIBS}
-
-# include general qt/kde libs
-        ${QT_QTTEST_LIBRARY}
-)
+add_executable(Test.KDED.TabletDatabase testtabletdatabase.cpp ../kdedtestutils.cpp)
+add_test(NAME Test.KDED.TabletDatabase COMMAND Test.KDED.TabletDatabase)
+ecm_mark_as_test(Test.KDED.TabletDatabase)
+target_link_libraries(Test.KDED.TabletDatabase ${WACOM_KDED_TEST_LIBS})
 
 configure_file(testtabletdatabase.companylist ${CMAKE_CURRENT_BINARY_DIR}/testtabletdatabase.companylist COPYONLY)
 configure_file(testtabletdatabase.default_devicelist ${CMAKE_CURRENT_BINARY_DIR}/testtabletdatabase.default_devicelist COPYONLY)

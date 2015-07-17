@@ -17,12 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/common/enum.h"
+#include "common/enum.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -47,7 +44,7 @@ private slots:
     void testSize();
 };
 
-QTEST_KDEMAIN_CORE(TestEnum)
+QTEST_MAIN(TestEnum)
 
 /*
  * Forward Declarations, Typedefs & Helper classes.

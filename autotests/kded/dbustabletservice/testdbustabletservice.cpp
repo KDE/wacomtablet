@@ -19,15 +19,12 @@
 
 #include "../tablethandlermock.h"
 
-#include "src/kded/dbustabletservice.h"
+#include "kded/dbustabletservice.h"
 
-#include "src/common/dbustabletinterface.h"
-#include "src/common/tabletinformation.h"
+#include "common/dbustabletinterface.h"
+#include "common/tabletinformation.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -73,7 +70,7 @@ private:
     bool               m_tabletWasRemoved;
 };
 
-QTEST_KDEMAIN(TestDBusTabletService, GUI)
+QTEST_MAIN(TestDBusTabletService)
 
 
 void TestDBusTabletService::assertTabletInformation(const TabletInformation& expectedInformation) const
@@ -92,14 +89,14 @@ void TestDBusTabletService::assertTabletInformation(const TabletInformation& exp
 
     // make sure the devices are equal
     foreach(const DeviceType& type, DeviceType::list()) {
-        actualString = DBusTabletInterface::instance().getDeviceName(QLatin1String("fakeId"), type);
+        actualString = DBusTabletInterface::instance().getDeviceName(QLatin1String("fakeId"), type.key());
         QVERIFY(actualString.isValid());
         QCOMPARE(expectedInformation.getDeviceName(type), actualString.value());
     }
 
     // compare tablet information
     foreach(const TabletInfo& info, TabletInfo::list()) {
-        actualString = DBusTabletInterface::instance().getInformation(QLatin1String("fakeId"), info);
+        actualString = DBusTabletInterface::instance().getInformation(QLatin1String("fakeId"), info.key());
         QVERIFY(actualString.isValid());
         QCOMPARE(expectedInformation.get(info), actualString.value());
     }
@@ -297,14 +294,14 @@ void TestDBusTabletService::testSetProperty()
     QString    expectedValue    = QLatin1String("My Value");
 
     // set the property
-    DBusTabletInterface::instance().setProperty(QLatin1String("fakeId"), expectedDevice, expectedProperty, expectedValue);
+    DBusTabletInterface::instance().setProperty(QLatin1String("fakeId"), expectedDevice.key(), expectedProperty.key(), expectedValue);
 
     QCOMPARE(expectedDevice.key(), m_tabletHandlerMock.m_deviceType);
     QCOMPARE(expectedProperty.key(), m_tabletHandlerMock.m_property);
     QCOMPARE(expectedValue, m_tabletHandlerMock.m_propertyValue);
 
     // try to get the property
-    QDBusReply<QString> actualValue = DBusTabletInterface::instance().getProperty(QLatin1String("fakeId"), expectedDevice, expectedProperty);
+    QDBusReply<QString> actualValue = DBusTabletInterface::instance().getProperty(QLatin1String("fakeId"), expectedDevice.key(), expectedProperty.key());
 
     QVERIFY(actualValue.isValid());
     QCOMPARE(expectedValue, actualValue.value());

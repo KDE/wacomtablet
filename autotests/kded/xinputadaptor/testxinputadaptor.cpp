@@ -17,15 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/kded/xinputadaptor.h"
-#include "src/kded/xinputproperty.h"
+#include "kded/xinputadaptor.h"
+#include "kded/xinputproperty.h"
 
 #include "../tabletdependenttest.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -46,7 +43,7 @@ private slots:
 
 };
 
-QTEST_KDEMAIN(TestXinputAdaptor, GUI)
+QTEST_MAIN(TestXinputAdaptor)
 
 void TestXinputAdaptor::initTestCaseDependent()
 {

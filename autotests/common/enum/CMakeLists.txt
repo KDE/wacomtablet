@@ -1,14 +1,5 @@
+add_executable(Test.Common.Enum testenum.cpp)
+add_test(NAME Test.Common.Enum COMMAND Test.Common.Enum)
+ecm_mark_as_test(Test.Common.Enum)
+target_link_libraries(Test.Common.Enum ${WACOM_COMMON_TEST_LIBS})
 
-
-kde4_add_unit_test(Common.Enum
-  testenum.cpp
-)
-
-target_link_libraries(Common.Enum
-
-# include static libs
-        wacom_common
-
-# include general qt/kde libs
-        ${QT_QTTEST_LIBRARY}
-)

@@ -17,22 +17,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "autotests/common/commontestutils.h"
-#include "src/common/deviceprofile.h"
-#include "src/common/tabletprofile.h"
-#include "src/common/tabletprofileconfigadaptor.h"
+#include "../commontestutils.h"
+#include "common/deviceprofile.h"
+#include "common/tabletprofile.h"
+#include "common/tabletprofileconfigadaptor.h"
 
 #include <QDir>
 #include <QString>
 #include <QTemporaryFile>
 
-#include <KDE/KSharedConfig>
-#include <KDE/KConfigGroup>
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -49,7 +46,7 @@ private slots:
     void testConfig();
 };
 
-QTEST_KDEMAIN_CORE(TestTabletProfileConfigAdaptor)
+QTEST_MAIN(TestTabletProfileConfigAdaptor)
 
 void TestTabletProfileConfigAdaptor::testConfig()
 {

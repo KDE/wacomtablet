@@ -50,7 +50,7 @@ install(FILES org.kde.Wacom.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR})
 
 
 ## LIBRARY FOR UNIT TESTS
-if (KDE4_BUILD_TESTS)
+if (BUILD_TESTING)
 
     ## headers which need to be moc'ed for the static unit-testing library
     set(kded_wacomtablet_HDRS
@@ -66,4 +66,4 @@ if (KDE4_BUILD_TESTS)
     target_link_libraries( kded_wacomtablet_lib ${kded_wacomtablet_LIBS} )
     set_target_properties( kded_wacomtablet_lib PROPERTIES COMPILE_FLAGS "-fPIC" )
 
-endif (KDE4_BUILD_TESTS)
+endif (BUILD_TESTING)

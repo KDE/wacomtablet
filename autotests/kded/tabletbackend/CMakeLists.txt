@@ -1,17 +1,4 @@
-
-
-kde4_add_unit_test(KDED.TabletBackend
-  testtabletbackend.cpp
-  ../kdedtestutils.cpp
-)
-
-target_link_libraries(KDED.TabletBackend
-
-# include static libs
-        wacom_common
-        kded_wacomtablet_lib
-        ${kded_wacomtablet_LIBS}
-
-# include general qt/kde libs
-        ${QT_QTTEST_LIBRARY}
-)
+add_executable(Test.KDED.TabletBackend testtabletbackend.cpp ../kdedtestutils.cpp)
+add_test(NAME Test.KDED.TabletBackend COMMAND Test.KDED.TabletBackend)
+ecm_mark_as_test(Test.KDED.TabletBackend)
+target_link_libraries(Test.KDED.TabletBackend ${WACOM_KDED_TEST_LIBS})

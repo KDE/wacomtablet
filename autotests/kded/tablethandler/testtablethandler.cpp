@@ -20,14 +20,11 @@
 #include "../tabletbackendmock.h"
 #include "../kdedtestutils.h"
 
-#include "src/kded/tablethandler.h"
-#include "src/kded/tabletbackendfactory.h"
-#include "src/common/tabletinformation.h"
+#include "kded/tablethandler.h"
+#include "kded/tabletbackendfactory.h"
+#include "common/tabletinformation.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -79,7 +76,7 @@ private:
     TabletBackendMock* m_backendMock;
 };
 
-QTEST_KDEMAIN(TestTabletHandler, GUI)
+QTEST_MAIN(TestTabletHandler)
 
 
 
