@@ -163,9 +163,9 @@ void TestTabletHandler::test()
 
 void TestTabletHandler::testListProfiles()
 {
-    QStringList profiles = m_tabletHandler->listProfiles(QLatin1String("fakeId"));
+    QStringList profiles = m_tabletHandler->listProfiles(QLatin1String("4321"));
 
-    QCOMPARE(2, profiles.size());
+    QCOMPARE(profiles.size(), 2);
     QVERIFY(profiles.contains(QLatin1String("default")));
     QVERIFY(profiles.contains(QLatin1String("test")));
 
@@ -176,25 +176,25 @@ void TestTabletHandler::testListProfiles()
 void TestTabletHandler::testOnScreenRotated()
 {
     // reset screen rotation
-    m_tabletHandler->setProperty(QLatin1String("fakeId"), DeviceType::Stylus, Property::Rotate, ScreenRotation::NONE.key());
-    m_tabletHandler->setProperty(QLatin1String("fakeId"), DeviceType::Eraser, Property::Rotate, ScreenRotation::NONE.key());
-    m_tabletHandler->setProperty(QLatin1String("fakeId"), DeviceType::Touch, Property::Rotate, ScreenRotation::NONE.key());
+    m_tabletHandler->setProperty(QLatin1String("4321"), DeviceType::Stylus, Property::Rotate, ScreenRotation::NONE.key());
+    m_tabletHandler->setProperty(QLatin1String("4321"), DeviceType::Eraser, Property::Rotate, ScreenRotation::NONE.key());
+    m_tabletHandler->setProperty(QLatin1String("4321"), DeviceType::Touch, Property::Rotate, ScreenRotation::NONE.key());
 
     // we need the test profile set as it has the required property
     QCOMPARE(m_profileChanged, QLatin1String("test"));
 
     // compare start parameters
-    QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(QLatin1String("fakeId"), DeviceType::Eraser, Property::Rotate));
-    QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(QLatin1String("fakeId"), DeviceType::Stylus, Property::Rotate));
-    QCOMPARE(ScreenRotation::NONE.key(), m_tabletHandler->getProperty(QLatin1String("fakeId"), DeviceType::Touch, Property::Rotate));
+    QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Eraser, Property::Rotate), ScreenRotation::NONE.key());
+    QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Stylus, Property::Rotate), ScreenRotation::NONE.key());
+    QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Touch, Property::Rotate), ScreenRotation::NONE.key());
 
     // rotate screen
     m_tabletHandler->onScreenRotated(ScreenRotation::HALF);
 
     // validate result
-    QCOMPARE(ScreenRotation::HALF.key(), m_tabletHandler->getProperty(QLatin1String("fakeId"), DeviceType::Eraser, Property::Rotate));
-    QCOMPARE(ScreenRotation::HALF.key(), m_tabletHandler->getProperty(QLatin1String("fakeId"), DeviceType::Stylus, Property::Rotate));
-    QCOMPARE(ScreenRotation::HALF.key(), m_tabletHandler->getProperty(QLatin1String("fakeId"), DeviceType::Touch, Property::Rotate));
+    QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Eraser, Property::Rotate), ScreenRotation::HALF.key());
+    QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Stylus, Property::Rotate), ScreenRotation::HALF.key());
+    QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Touch, Property::Rotate) , ScreenRotation::HALF.key());
 
     QWARN("testOnScreenRotated(): PASSED!");
 }
@@ -256,11 +256,29 @@ void TestTabletHandler::testOnTabletAdded()
     QVERIFY(!m_notifyMessage.isEmpty());
     QVERIFY(!m_notifyTitle.isEmpty());
     QVERIFY(!m_profileChanged.isEmpty());
-    QCOMPARE(QLatin1String("test"), m_profileChanged);
-    QCOMPARE(QLatin1String("test"), m_backendMock->m_tabletProfile.getName());
+    QCOMPARE(m_profileChanged, QLatin1String("test"));
+    QCOMPARE(m_backendMock->m_tabletProfile.getName(), QLatin1String("test"));
 
-    // TODO try to add the tablet again
+    m_tabletAdded = false;
+    m_notifyEventId.clear();
+    m_notifyMessage.clear();
+    m_notifyTitle.clear();
+    m_profileChanged.clear();
+
+    // add the tablet again
+    m_tabletHandler->onTabletAdded(m_backendMock->getInformation());
+
+    QVERIFY(!m_tabletRemoved);
+    QVERIFY(!m_tabletAdded);
+    QVERIFY(m_notifyEventId.isEmpty());
+    QVERIFY(m_notifyMessage.isEmpty());
+    QVERIFY(m_notifyTitle.isEmpty());
+    QVERIFY(m_profileChanged.isEmpty());
+
     QWARN("testOnTabletAdded(): PASSED!");
+
+    // prepare for the next test
+    m_tabletAdded = true;
 }
 
 
@@ -289,6 +307,7 @@ void TestTabletHandler::testOnTabletRemoved()
     // remove the currently managed tablet
     // this should emit a signal and notify the user
     info.set(TabletInfo::TabletSerial, QLatin1String("123"));
+    info.set(TabletInfo::TabletId, QLatin1String("4321"));
     m_tabletHandler->onTabletRemoved(info);
 
     QVERIFY(m_tabletRemoved);
@@ -343,18 +362,18 @@ void TestTabletHandler::testOnTogglePenMode()
 
 void TestTabletHandler::testOnToggleTouch()
 {
-    m_tabletHandler->setProperty(QLatin1String("fakeId"), DeviceType::Touch, Property::Touch, QLatin1String("off"));
+    m_tabletHandler->setProperty(QLatin1String("4321"), DeviceType::Touch, Property::Touch, QLatin1String("off"));
 
-    QCOMPARE(QLatin1String("off"), m_backendMock->getProperty(DeviceType::Touch, Property::Touch));
-    QCOMPARE(QLatin1String("off"), m_tabletHandler->getProperty(QLatin1String("fakeId"), DeviceType::Touch, Property::Touch));
-
-    m_tabletHandler->onToggleTouch();
-
-    QCOMPARE(QLatin1String("on"), m_backendMock->getProperty(DeviceType::Touch, Property::Touch));
+    QCOMPARE(m_backendMock->getProperty(DeviceType::Touch, Property::Touch), QLatin1String("off"));
+    QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Touch, Property::Touch), QLatin1String("off"));
 
     m_tabletHandler->onToggleTouch();
 
-    QCOMPARE(QLatin1String("off"), m_backendMock->getProperty(DeviceType::Touch, Property::Touch));
+    QCOMPARE(m_backendMock->getProperty(DeviceType::Touch, Property::Touch), QLatin1String("on"));
+
+    m_tabletHandler->onToggleTouch();
+
+    QCOMPARE(m_backendMock->getProperty(DeviceType::Touch, Property::Touch), QLatin1String("off"));
 
     QWARN("testOnToggleTouch(): PASSED!");
 }
@@ -369,9 +388,10 @@ void TestTabletHandler::testSetProfile()
     m_notifyTitle.clear();
 
     // set invalid profile first
-    m_tabletHandler->setProfile(QLatin1String("fakeId"), QLatin1String("InvalidProfile"));
+    m_tabletHandler->setProfile(QLatin1String("4321"), QLatin1String("InvalidProfile"));
 
-    QVERIFY(m_profileChanged.isEmpty());
+    QVERIFY(!m_profileChanged.isEmpty());
+    QCOMPARE(m_profileChanged, m_tabletHandler->listProfiles(QLatin1String("4321")).first());
     QVERIFY(!m_notifyEventId.isEmpty());
     QVERIFY(!m_notifyMessage.isEmpty());
     QVERIFY(!m_notifyTitle.isEmpty());
@@ -381,19 +401,19 @@ void TestTabletHandler::testSetProfile()
     m_notifyMessage.clear();
     m_notifyTitle.clear();
 
-    m_tabletHandler->setProfile(QLatin1String("fakeId"), QLatin1String("default"));
+    m_tabletHandler->setProfile(QLatin1String("4321"), QLatin1String("default"));
 
     QVERIFY(m_notifyEventId.isEmpty());
     QVERIFY(m_notifyMessage.isEmpty());
     QVERIFY(m_notifyTitle.isEmpty());
-    QCOMPARE(QLatin1String("default"), m_profileChanged);
-    QCOMPARE(QLatin1String("default"), m_backendMock->m_tabletProfile.getName());
+    QCOMPARE(m_profileChanged, QLatin1String("default"));
+    QCOMPARE(m_backendMock->m_tabletProfile.getName(), QLatin1String("default"));
 
 
     // set the profile back to "test" so we can run this tests
     // multiple times in a row. Otherwise the test will fail as
     // cmake copies our test data only once.
-    m_tabletHandler->setProfile(QLatin1String("fakeId"), QLatin1String("test"));
+    m_tabletHandler->setProfile(QLatin1String("4321"), QLatin1String("test"));
 
     QWARN("testSetProfile(): PASSED!");
 }
@@ -404,9 +424,9 @@ void TestTabletHandler::testSetProperty()
 {
     QVERIFY(m_tabletAdded);
 
-    m_tabletHandler->setProperty(QLatin1String("fakeId"), DeviceType::Stylus, Property::Button1, Property::Button1.key());
-    QCOMPARE(Property::Button1.key(), m_backendMock->getProperty(DeviceType::Stylus, Property::Button1));
-    QCOMPARE(Property::Button1.key(), m_tabletHandler->getProperty(QLatin1String("fakeId"), DeviceType::Stylus, Property::Button1));
+    m_tabletHandler->setProperty(QLatin1String("4321"), DeviceType::Stylus, Property::Button1, Property::Button1.key());
+    QCOMPARE(m_backendMock->getProperty(DeviceType::Stylus, Property::Button1), Property::Button1.key());
+    QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Stylus, Property::Button1), Property::Button1.key());
 
     QWARN("testSetProperty(): PASSED!");
 }
