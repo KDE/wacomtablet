@@ -460,7 +460,10 @@ bool X11InputDevice::getProperty(const QString& property, X11InputDevice::Atom e
     nitems = reply->num_items;
 
     for (unsigned long i = 0 ; i < nitems ; ++i) {
-        values.append(*((T*)(data + i)));
+        T replyData = 0;
+        memcpy(&replyData, data + i, sizeof(uint32_t));
+
+        values.append(replyData);
     }
 
     free(reply);
@@ -578,7 +581,6 @@ bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom e
     int            actualFormat;
 
     xcb_input_get_device_property_cookie_t cookie = xcb_input_get_device_property(QX11Info::connection(), propertyAtom, XCB_ATOM_ANY, 0, values.size(), d->deviceid, false);
-
     xcb_input_get_device_property_reply_t* reply = xcb_input_get_device_property_reply(QX11Info::connection(), cookie, NULL);
 
     if (reply) {
@@ -599,7 +601,8 @@ bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom e
     uint32_t *data = new uint32_t[values.size()];
 
     for (int i = 0 ; i < values.size() ; ++i) {
-        *((T*)(data + i)) = values.at(i);
+        const T& value = values.at(i);
+        memcpy(data + i, &value, sizeof(uint32_t));
     }
 
     xcb_input_change_device_property(QX11Info::connection(), propertyAtom, expectedType, d->deviceid, 32, XCB_PROP_MODE_REPLACE, values.size(), data);
