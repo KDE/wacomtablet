@@ -1,11 +1,11 @@
 
 
-kde4_add_unit_test(KDED.XsetWacomAdaptor
+kde4_add_unit_test(KDED.XinputWacomAdaptor
   testxinputadaptor.cpp
   ../tabletdependenttest.cpp
 )
 
-target_link_libraries(KDED.XsetWacomAdaptor
+target_link_libraries(KDED.XinputWacomAdaptor
 
 # include static libs
         wacom_common
