@@ -17,13 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "x11input.h"
-
 #include "debug.h"
-#include "x11inputdevice.h"
 
 #include <QtCore/QString>
 #include <QtCore/QList>
+
+#include "x11input.h"
+#include "x11inputdevice.h"
 
 #include <QX11Info>
 

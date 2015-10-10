@@ -17,12 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "x11inputdevice.h"
 #include "debug.h"
 
 #include <QtCore/QStringList>
 
 #include <xcb/xinput.h>
+#include "x11inputdevice.h"
 
 using namespace Wacom;
 

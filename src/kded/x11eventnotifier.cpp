@@ -19,13 +19,14 @@
 
 #include "debug.h" // always needs to be first include
 
+#include <QCoreApplication>
+#include <QX11Info>
+
+
 #include "x11eventnotifier.h"
 
 #include "x11input.h"
 #include "x11inputdevice.h"
-
-#include <QCoreApplication>
-#include <QX11Info>
 
 #include <xcb/xcb.h>
 #include <xcb/xinput.h>
