@@ -25,7 +25,9 @@
 
 #include <QX11Info>
 
+#ifdef USE_XCB_XINPUT
 struct xcb_input_get_device_property_reply_t;
+#endif
 
 namespace Wacom
 {
@@ -251,7 +253,20 @@ private:
      *
      * @return xcb reply
      */
-    xcb_input_get_device_property_reply_t* getPropertyData (const QString& property, Wacom::X11InputDevice::Atom expectedType, int expectedFormat, long int nelements) const;
+#ifdef USE_XCB_XINPUT
+    xcb_input_get_device_property_reply_t*
+    getPropertyData (const QString& property,
+                     Wacom::X11InputDevice::Atom expectedType,
+                     int expectedFormat,
+                     long int nelements) const;
+#else
+    bool getPropertyData (const QString& property,
+                          Atom expectedType,
+                          int expectedFormat,
+                          long int nelements,
+                          unsigned char** data,
+                          long unsigned int& nitems) const;
+#endif
 
     /**
      * Looks up a X11 property atom.
@@ -261,7 +276,7 @@ private:
      *
      * @return True if the property could be resolved, else false.
      */
-    bool lookupProperty (const QString& property, Atom* atom) const;
+    bool lookupProperty (const QString& property, Atom& atom) const;
 
     /**
      * A template method which sets a property on this device. The property has to exist already!
