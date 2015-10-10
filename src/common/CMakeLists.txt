@@ -1,3 +1,18 @@
+
+
+
+set(wacom_common_LIBS
+  Qt5::Core
+  Qt5::Gui
+  Qt5::Widgets
+  Qt5::X11Extras
+  KF5::I18n
+  KF5::GlobalAccel
+  KF5::ConfigCore
+  KF5::CoreAddons
+  ${USING_X_LIBRARIES}
+)
+
 set(wacom_common_SRC
     aboutdata.cpp
     buttonshortcut.cpp
@@ -33,6 +48,5 @@ qt5_add_dbus_interfaces(wacom_common_SRC
 
 add_library( wacom_common STATIC ${wacom_common_SRC})
 
-#target_link_libraries( wacom_common ${KDE4_KDECORE_LIBS} ${LIBWACOM_LIBRARIES} )
-target_link_libraries( wacom_common Qt5::Core Qt5::Gui Qt5::Widgets Qt5::X11Extras KF5::I18n KF5::GlobalAccel KF5::ConfigCore KF5::CoreAddons XCB::XINPUT ${X11_Xrandr_LIB} )
+target_link_libraries( wacom_common ${wacom_common_LIBS} )
 set_target_properties( wacom_common PROPERTIES COMPILE_FLAGS "-fPIC" )

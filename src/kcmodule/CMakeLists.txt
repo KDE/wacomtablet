@@ -52,6 +52,7 @@ target_link_libraries( kcm_wacomtablet
                        KF5::XmlGui
                        KF5::WidgetsAddons
                        KF5::WindowSystem
+                       ${X11_LIBRARIES}
                        ${X11_Xinput_LIB}
 )
 

@@ -7,9 +7,7 @@ set(kded_wacomtablet_LIBS
    KF5::XmlGui
    KF5::DBusAddons
    KF5::ConfigCore
-   XCB::XINPUT
-   XCB::RANDR
-   ${X11_Xinput_LIB}
+   ${USING_X_LIBRARIES}
 )
 
 ## sources
