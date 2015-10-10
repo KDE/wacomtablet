@@ -25,7 +25,7 @@
 
 #include <QX11Info>
 
-#ifdef USE_XCB_XINPUT
+#if defined(HAVE_XCB_XINPUT)
 struct xcb_input_get_device_property_reply_t;
 #endif
 
@@ -253,7 +253,7 @@ private:
      *
      * @return xcb reply
      */
-#ifdef USE_XCB_XINPUT
+#if defined(HAVE_XCB_XINPUT)
     xcb_input_get_device_property_reply_t*
     getPropertyData (const QString& property,
                      Wacom::X11InputDevice::Atom expectedType,

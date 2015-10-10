@@ -116,6 +116,8 @@ void X11EventNotifier::stop()
 
 bool X11EventNotifier::nativeEventFilter(const QByteArray &eventType, void *message, long int *result)
 {
+    Q_UNUSED(eventType);
+    Q_UNUSED(result);
     xcb_generic_event_t *event = static_cast<xcb_generic_event_t *>(message);
     xcb_ge_generic_event_t *cookie = reinterpret_cast<xcb_ge_generic_event_t *>(message);
 

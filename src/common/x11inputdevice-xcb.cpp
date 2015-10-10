@@ -242,7 +242,7 @@ bool X11InputDevice::hasProperty(const QString& property) const
     }
 
     Atom atom;
-    if (!lookupProperty(property, &atom)) {
+    if (!lookupProperty(property, atom)) {
         return false;
     }
 
@@ -491,7 +491,7 @@ xcb_input_get_device_property_reply_t* X11InputDevice::getPropertyData (const QS
     // lookup property atom
     Atom propertyAtom = XCB_ATOM_NONE;
 
-    if (!lookupProperty(property, &propertyAtom)) {
+    if (!lookupProperty(property, propertyAtom)) {
         qCritical() << QString::fromLatin1("Can not get unsupported XInput property '%1'!").arg(property);
         return NULL;
     }
@@ -522,11 +522,11 @@ xcb_input_get_device_property_reply_t* X11InputDevice::getPropertyData (const QS
 
 
 
-bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Atom* atom) const
+bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Atom &atom) const
 {
     Q_D(const X11InputDevice);
 
-    if (!isOpen() || property.isEmpty() || atom == NULL) {
+    if (!isOpen() || property.isEmpty() || atom == XCB_ATOM_NONE) {
         return false;
     }
 
@@ -534,13 +534,13 @@ bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Ato
     xcb_intern_atom_reply_t* reply = xcb_intern_atom_reply(QX11Info::connection(), cookie, NULL);
 
     if (reply) {
-        *atom = reply->atom;
+        atom = reply->atom;
         free(reply);
     } else {
-        *atom = XCB_ATOM_NONE;
+        atom = XCB_ATOM_NONE;
     }
 
-    if (*atom == XCB_ATOM_NONE) {
+    if (atom == XCB_ATOM_NONE) {
         qDebug() << QString::fromLatin1("The X server does not support XInput property '%1'!").arg(property);
         return false;
     }
@@ -571,7 +571,7 @@ bool X11InputDevice::setProperty(const QString& property, X11InputDevice::Atom e
     // lookup property atom
     Atom propertyAtom = XCB_ATOM_NONE;
 
-    if (!lookupProperty(property, &propertyAtom)) {
+    if (!lookupProperty(property, propertyAtom)) {
         qCritical() << QString::fromLatin1("Can not set unsupported XInput property '%1'!").arg(property);
         return false;
     }
