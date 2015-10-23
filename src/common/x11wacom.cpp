@@ -40,7 +40,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
     X11InputDevice x11Device;
 
     if (!X11Input::findDevice(deviceName, x11Device)) {
-        qDebug() << QString::fromLatin1("Failed to lookup X11 input device '%1'!").arg(deviceName);
+        dbgWacom << QString::fromLatin1("Failed to lookup X11 input device '%1'!").arg(deviceName);
         return maximumAreaRect;
     }
 

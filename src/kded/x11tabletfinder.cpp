@@ -24,7 +24,14 @@
 #include "deviceinformation.h"
 #include "x11input.h"
 
-#include <xcb/xcb.h>
+#if defined(HAVE_XCB_XINPUT)
+# include <xcb/xcb.h>
+#else
+# include <X11/Xlib.h>
+# include <X11/Xatom.h>
+# include <X11/extensions/XInput.h>
+# include <X11/Xutil.h>
+#endif
 
 #include <QtCore/QMap>
 
@@ -98,7 +105,7 @@ bool X11TabletFinder::visit (X11InputDevice& x11device)
     const DeviceType* deviceType = getDeviceType (getToolType (x11device));
 
     if (deviceName.isEmpty() || deviceType == NULL) {
-        qCritical() << QString::fromLatin1("Unsupported device '%1' detected!").arg(deviceName);
+        errWacom << QString::fromLatin1("Unsupported device '%1' detected!").arg(deviceName);
         return false;
     }
 
@@ -205,7 +212,7 @@ bool X11TabletFinder::getProductId(X11InputDevice& device, long int& vendorId, l
     }
 
     if (values.size() != 2) {
-        qCritical() << QString::fromLatin1("Unexpected number of values when fetching XInput property '%1'!").arg(X11Input::PROPERTY_DEVICE_PRODUCT_ID);
+        errWacom << QString::fromLatin1("Unexpected number of values when fetching XInput property '%1'!").arg(X11Input::PROPERTY_DEVICE_PRODUCT_ID);
         return false;
     }
 
@@ -258,6 +265,8 @@ const QString X11TabletFinder::getToolType (X11InputDevice& device) const
     QString toolTypeName;
 
     if (toolTypeAtoms.size() == 1) {
+
+#if defined(HAVE_XCB_XINPUT)
         xcb_get_atom_name_cookie_t cookie = xcb_get_atom_name(QX11Info::connection(), toolTypeAtoms.at(0));
         xcb_get_atom_name_reply_t* reply = xcb_get_atom_name_reply(QX11Info::connection(), cookie, NULL);
         if (reply) {
@@ -265,6 +274,16 @@ const QString X11TabletFinder::getToolType (X11InputDevice& device) const
             free(reply);
         }
 
+#else  // HAVE_XCB_XINPUT
+        char *type_name = XGetAtomName (device.getDisplay(), (Atom)toolTypeAtoms.at(0));
+        if (type_name != NULL) {
+            toolTypeName = QLatin1String(type_name);
+            XFree( type_name );
+        } else {
+            dbgWacom << "Could not get tool type of device" << device.getName();
+        }
+
+#endif // HAVE_XCB_XINPUT
     }
 
     return toolTypeName;

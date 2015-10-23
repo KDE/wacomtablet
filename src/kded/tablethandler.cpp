@@ -109,12 +109,12 @@ void TabletHandler::onTabletAdded( const TabletInformation& info )
     // if we already have a device ... skip this step
     QString tabletId = info.get(TabletInfo::TabletId);
     if(d->tabletBackendList.contains(tabletId)) {
-        qDebug() << QString::fromLatin1("Ignoring tablet '%1' as another one with same name is already connected.")
+        dbgWacom << QString::fromLatin1("Ignoring tablet '%1' as another one with same name is already connected.")
                     .arg(info.get(TabletInfo::TabletId));
         return;
     }
 
-    qDebug() << "Taking control of new tablet" << info.get(TabletInfo::TabletName)
+    dbgWacom << "Taking control of new tablet" << info.get(TabletInfo::TabletName)
              << "(" << info.get(TabletInfo::TabletId) << ") ["
              << (info.hasDevice(DeviceType::Stylus) ? "stylus" : "")
              << (info.hasDevice(DeviceType::Eraser) ? "eraser" : "")
@@ -331,7 +331,7 @@ void TabletHandler::onNextProfile()
 
     foreach(const QString &tabletId, d->tabletInformationList.keys()) {
         if(d->profileManagerList.value(tabletId)->profileRotationList().empty()) {
-            qDebug() << "No items in the rotation list. Nothing to rotate";
+            dbgWacom << "No items in the rotation list. Nothing to rotate";
         }
         else {
             QString nextProfile = d->profileManagerList.value(tabletId)->nextProfile();
@@ -346,7 +346,7 @@ void TabletHandler::onPreviousProfile()
 
     foreach(const QString &tabletId, d->tabletInformationList.keys()) {
         if(d->profileManagerList.value(tabletId)->profileRotationList().empty()) {
-            qDebug() << "No items in the rotation list. Nothing to rotate";
+            dbgWacom << "No items in the rotation list. Nothing to rotate";
         }
         else {
             QString previousProfile = d->profileManagerList.value(tabletId)->previousProfile();
@@ -376,7 +376,7 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
 {
     Q_D( TabletHandler );
 
-    qDebug() << QString::fromLatin1("Loading tablet profile '%1'...").arg(profile);
+    dbgWacom << QString::fromLatin1("Loading tablet profile '%1'...").arg(profile);
 
     if (!hasTablet(tabletId)) {
         qCritical() << QString::fromLatin1("Can not set tablet profile to '%1' as no backend is available!").arg(profile);
@@ -510,7 +510,7 @@ void TabletHandler::autoRotateTablet(const QString &tabletId, const ScreenRotati
     // determine new rotation and set it
     ScreenRotation newRotation = (doAutoInvert) ? screenRotation.invert() : screenRotation;
 
-    qDebug() << "Rotate tablet :: " << newRotation.key();
+    dbgWacom << "Rotate tablet :: " << newRotation.key();
 
     setProperty( tabletId, DeviceType::Stylus, Property::Rotate, newRotation.key() );
     setProperty( tabletId, DeviceType::Eraser, Property::Rotate, newRotation.key() );

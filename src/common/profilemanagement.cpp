@@ -19,6 +19,8 @@
 
 #include "profilemanagement.h"
 
+#include "debug.h"
+
 // common
 #include "dbustabletinterface.h"
 #include "tabletinfo.h"
@@ -46,7 +48,7 @@ ProfileManagement::ProfileManagement(const QString &deviceName, const QString &t
     , m_touchName(touchName)
     , m_profileManager(QLatin1String("tabletprofilesrc"))
 {
-    qDebug() << "Create instance for :: " << deviceName << touchName;
+    dbgWacom << "Create instance for :: " << deviceName << touchName;
 }
 
 ProfileManagement::ProfileManagement(const ProfileManagement& )
@@ -84,18 +86,18 @@ void ProfileManagement::setTabletId(const QString &tabletId)
 void ProfileManagement::createNewProfile( const QString &profilename )
 {
     if (profilename.isEmpty()) {
-        qDebug() << "Can not create a profile with no name!";
+        dbgWacom << "Can not create a profile with no name!";
     }
 
     //get information via DBus
     m_profileName = profilename;
 
     if( m_deviceName.isEmpty() ) {
-        qDebug() << "no device information are found. Can't create a new profile";
+        dbgWacom << "no device information are found. Can't create a new profile";
         return;
     }
 
-    qDebug() << "Creating a new profile for :: device:" << m_deviceName;
+    dbgWacom << "Creating a new profile for :: device:" << m_deviceName;
 
     m_profileManager.readProfiles(m_deviceName);
     TabletProfile tabletProfile = m_profileManager.loadProfile(profilename);
@@ -221,7 +223,7 @@ void ProfileManagement::reload()
     auto touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch.key());
     deviceName.waitForFinished();
     if( touchName.isValid() ) {
-        qDebug() << "touchName.isValid()::" << m_touchName << "value" << touchName.value();
+        dbgWacom << "touchName.isValid()::" << m_touchName << "value" << touchName.value();
         m_touchName = touchName.value();
     }
     else {

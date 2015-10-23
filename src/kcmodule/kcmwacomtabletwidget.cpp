@@ -21,6 +21,7 @@
 #include "ui_kcmwacomtabletwidget.h"
 #include "ui_saveprofile.h"
 #include "ui_errorwidget.h"
+#include "debug.h"
 
 #include "profilemanagement.h"
 #include "generalpagewidget.h"
@@ -86,7 +87,7 @@ void KCMWacomTabletWidget::setupUi()
     DBusTabletInterface* dbusTabletInterface = &DBusTabletInterface::instance();
 
     if( !dbusTabletInterface->isValid() ) {
-        qDebug() << "DBus interface not available";
+        dbgWacom << "DBus interface not available";
     }
 
     d->profileChanged    = false;
@@ -137,9 +138,9 @@ void KCMWacomTabletWidget::loadTabletInformation()
     d->ui.tabletListSelector->blockSignals(true);
     foreach(const QString &tabletId, connectedTablets.value()) {
         QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
-        qDebug() << "add tablet"<< deviceName << tabletId << "with";
+        dbgWacom << "add tablet"<< deviceName << tabletId << "with";
         QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
-        qDebug() << inputDevices.value();
+        dbgWacom << inputDevices.value();
 
         d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
     }
@@ -173,9 +174,9 @@ void KCMWacomTabletWidget::onTabletAdded(const QString &tabletId)
     Q_D( KCMWacomTabletWidget );
 
     QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
-    qDebug() << "add tablet"<< deviceName << tabletId << "with";
+    dbgWacom << "add tablet"<< deviceName << tabletId << "with";
     QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
-    qDebug() << inputDevices.value();
+    dbgWacom << inputDevices.value();
 
     d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
 }

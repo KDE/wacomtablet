@@ -22,6 +22,7 @@ set(wacom_common_SRC
     deviceprofileconfigadaptor.cpp
     deviceproperty.cpp
     devicetype.cpp
+    debug.cpp
     mainconfig.cpp
     profilemanager.cpp
     profilemanagement.cpp

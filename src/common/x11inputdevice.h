@@ -104,6 +104,14 @@ public:
      */
     long int getDeviceId() const;
 
+#if !defined(HAVE_XCB_XINPUT)
+    /**
+     * @return the display of this device, or NULL if one cannot be found.
+     */
+    Display* getDisplay() const;
+#endif
+
+
     /**
      * Gets a float property.
      *

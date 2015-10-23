@@ -311,7 +311,7 @@ const QString ButtonShortcut::toDisplayString() const
             break;
 
         default:
-            qDebug() << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
+            dbgWacom << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
     }
 
     return displayString;
@@ -354,7 +354,7 @@ const QString ButtonShortcut::toString() const
             break;
 
         default:
-            qDebug() << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
+            dbgWacom << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
     }
 
     return shortcutString.toLower();
