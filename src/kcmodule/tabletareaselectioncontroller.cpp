@@ -156,7 +156,9 @@ void TabletAreaSelectionController::setView(TabletAreaSelectionView* view)
 }
 
 
-void TabletAreaSelectionController::setupController(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation)
+void TabletAreaSelectionController::setupController(const ScreenMap& mappings,
+                                                    const QString& deviceName,
+                                                    const ScreenRotation& rotation)
 {
     Q_D(TabletAreaSelectionController);
 

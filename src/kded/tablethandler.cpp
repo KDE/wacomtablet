@@ -402,8 +402,9 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
 
         if(pList.isEmpty()) {
             // create a new default profile
-            ProfileManagement* profileManagement = &ProfileManagement::instance(tabletInformation.getDeviceName(DeviceType::Pad),
-                                                                                tabletInformation.getDeviceName(DeviceType::Touch));
+            ProfileManagement* profileManagement =
+                &ProfileManagement::instance(tabletInformation.getDeviceName(DeviceType::Pad),
+                                             tabletInformation.getDeviceName(DeviceType::Touch));
             profileManagement->createNewProfile(i18nc( "Name of the default profile that will be created if none exists.","Default" ));
 
             if(!profileManagement->availableProfiles().empty()) {
@@ -490,7 +491,8 @@ void TabletHandler::setProfileRotationList(const QString &tabletId, const QStrin
     d->profileManagerList.value(tabletId)->setProfileRotationList(rotationList);
 }
 
-void TabletHandler::autoRotateTablet(const QString &tabletId, const ScreenRotation &screenRotation,
+void TabletHandler::autoRotateTablet(const QString &tabletId,
+                                     const ScreenRotation &screenRotation,
                                      const TabletProfile &tabletProfile)
 {
     // determine auto-rotation configuration
@@ -498,7 +500,8 @@ void TabletHandler::autoRotateTablet(const QString &tabletId, const ScreenRotati
 
     QString               rotateProperty   = stylusProfile.getProperty( Property::Rotate);
     const ScreenRotation* lookupRotation   = ScreenRotation::find(rotateProperty);
-    ScreenRotation        tabletRotation   = (lookupRotation != NULL) ? *lookupRotation : ScreenRotation::NONE;
+    ScreenRotation        tabletRotation   = (lookupRotation != NULL) ?
+                                                *lookupRotation : ScreenRotation::NONE;
 
     bool                  doAutoInvert     = (tabletRotation == ScreenRotation::AUTO_INVERTED);
     bool                  doAutoRotation   = (doAutoInvert || tabletRotation == ScreenRotation::AUTO);
@@ -540,8 +543,10 @@ bool TabletHandler::hasTablet(const QString &tabletId) const
 }
 
 
-void TabletHandler::mapDeviceToOutput(const QString &tabletId, const DeviceType& device,
-                                      const ScreenSpace& screenSpace, const QString& trackingMode,
+void TabletHandler::mapDeviceToOutput(const QString &tabletId,
+                                      const DeviceType& device,
+                                      const ScreenSpace& screenSpace,
+                                      const QString& trackingMode,
                                       TabletProfile& tabletProfile)
 {
     if (!hasTablet(tabletId) || !hasDevice(tabletId, device)) {
@@ -552,14 +557,13 @@ void TabletHandler::mapDeviceToOutput(const QString &tabletId, const DeviceType&
     int         screenCount = X11Info::getNumberOfScreens();
 
     if (screen.isMonitor()) {
-        if (screen.isMonitor(0) && screenCount == 1) {
-            // we got only one screen
-            // map to desktop as this allows relative mode as well
-            screen = ScreenSpace::desktop();
 
-        } else if (screen.getScreenNumber() >= screenCount) {
-            // requested screen got disconnected
-            // use desktop instead
+        /**
+         * If we we have only one screen, or if the screen number is invalid,
+         * map to whole desktop.
+         */
+        if ((screen.isMonitor(0) && screenCount == 1)
+            || (screen.getScreenNumber() >= screenCount)) {
             screen = ScreenSpace::desktop();
         }
     }
@@ -581,7 +585,8 @@ void TabletHandler::mapDeviceToOutput(const QString &tabletId, const DeviceType&
 
 
 
-void TabletHandler::mapPenToScreenSpace(const QString &tabletId, const ScreenSpace& screenSpace,
+void TabletHandler::mapPenToScreenSpace(const QString &tabletId,
+                                        const ScreenSpace& screenSpace,
                                         const QString& trackingMode)
 {
     Q_D( TabletHandler );
@@ -600,7 +605,8 @@ void TabletHandler::mapPenToScreenSpace(const QString &tabletId, const ScreenSpa
 }
 
 
-void TabletHandler::mapTabletToCurrentScreenSpace(const QString &tabletId, TabletProfile& tabletProfile)
+void TabletHandler::mapTabletToCurrentScreenSpace(const QString &tabletId,
+                                                  TabletProfile& tabletProfile)
 {
     Q_D( TabletHandler );
 

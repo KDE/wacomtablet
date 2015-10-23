@@ -80,7 +80,7 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
     TabletFinder::instance().scan();
 
     // connect profile changed handler after searching for tablets as this is only used for the global shortcut workaround.
-    connect(&(d->tabletHandler), SIGNAL (profileChanged(QString)), this, SLOT (onProfileChanged(QString)));
+    connect(&(d->tabletHandler), &TabletHandler::profileChanged, this, &TabletDaemon::onProfileChanged);
 
     // Connecting this after the device has been set up ensures that no notification is send on startup.
     connect( &(d->tabletHandler), SIGNAL(notify(QString,QString,QString)), this, SLOT(onNotify(QString,QString,QString)) );
@@ -110,8 +110,9 @@ void TabletDaemon::onNotify(const QString& eventId, const QString& title, const 
 
 
 
-void TabletDaemon::onProfileChanged(const QString& profile)
+void TabletDaemon::onProfileChanged(const QString &tabletId, const QString& profile)
 {
+    Q_UNUSED(tabletId);
     Q_UNUSED(profile);
 
     // When closing the KCM module the KAction destructor disables all global shortcuts.

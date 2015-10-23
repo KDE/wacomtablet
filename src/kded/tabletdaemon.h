@@ -80,7 +80,7 @@ public Q_SLOTS:
      *
      * @param profile The name of the new profile.
      */
-    void onProfileChanged(const QString& profile);
+    void onProfileChanged(const QString &tabletId, const QString& profile);
 
 private:
     /**

@@ -152,6 +152,7 @@ void TabletAreaSelectionView::setupScreens(const QList< QRect >& screenGeometrie
         d->ui->screenArea->setDrawAreaCaptions(true);
         d->ui->screenArea->setDrawSelectionCaption(false);
         d->ui->screenArea->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
+        errWacom << "Internal error, no valid screens";
     }
 
     // defaults to full selection
@@ -179,6 +180,7 @@ void TabletAreaSelectionView::setupTablet(const TabletArea &geometry, const QSiz
         d->ui->areaWidget->setDrawAreaCaptions(true);
         d->ui->areaWidget->setDrawSelectionCaption(false);
         d->ui->areaWidget->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
+        errWacom << "Internal error, no valid screens";
     }
 
     // defaults to full selection
