@@ -63,7 +63,7 @@ const QList<Property> PropertyAdaptor::getProperties() const
         return d->adaptee->getProperties();
     }
 
-    qCritical() << QString::fromLatin1("Someone is trying to get a list of properties, but no one implemented PropertyAdaptor::getProperties()!");
+    errWacom << QString::fromLatin1("Someone is trying to get a list of properties, but no one implemented PropertyAdaptor::getProperties()!");
     return QList<Property>();
 }
 
@@ -75,7 +75,7 @@ const QString PropertyAdaptor::getProperty ( const Property& property ) const
         return d->adaptee->getProperty(property);
     }
 
-    qCritical() << QString::fromLatin1("Someone is trying to get property '%1', but no one implemented PropertyAdaptor::getProperty()!").arg(property.key());
+    errWacom << QString::fromLatin1("Someone is trying to get property '%1', but no one implemented PropertyAdaptor::getProperty()!").arg(property.key());
     return QString();
 }
 
@@ -94,7 +94,7 @@ bool PropertyAdaptor::setProperty ( const Property& property, const QString& val
         return d->adaptee->setProperty(property, value);
     }
 
-    qCritical() << QString::fromLatin1("Someone is trying to set property '%1' to '%2', but no one implemented PropertyAdaptor::setProperty()!").arg(property.key()).arg(value);
+    errWacom << QString::fromLatin1("Someone is trying to set property '%1' to '%2', but no one implemented PropertyAdaptor::setProperty()!").arg(property.key()).arg(value);
     return false;
 }
 

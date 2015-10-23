@@ -39,6 +39,7 @@ class AreaSelectionWidget : public QWidget
     Q_OBJECT
 
 public:
+    bool paintBelow{false};
 
     explicit AreaSelectionWidget(QWidget* parent = 0);
 

@@ -193,7 +193,9 @@ void TabletAreaSelectionController::setupController(const ScreenMap& mappings,
         d->tabletGeometryRotated.setHeight(d->tabletGeometry.width());
     }
 
-    d->view->setupScreens(d->screenGeometries, QSize(150,150));
+
+    dbgWacom << "Calling setupScreens and setupTablet from setupController.  ScreenGeometries: " << d->screenGeometries;
+    d->view->setupScreens(d->screenGeometries, QSize(200,200));
     d->view->setupTablet(d->tabletGeometryRotated, QSize(400,400));
 
     // make sure we have valid data set

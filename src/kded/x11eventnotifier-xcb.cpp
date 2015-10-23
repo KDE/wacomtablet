@@ -191,7 +191,7 @@ void X11EventNotifier::handleX11ScreenEvent(xcb_generic_event_t* event)
                         newRotation = ScreenRotation::CW;
                         break;
                     default:
-                        qCritical() << QString::fromLatin1("FIXME: Unsupported screen rotation '%1'.").arg(d->currentRotation);
+                        errWacom << QString::fromLatin1("FIXME: Unsupported screen rotation '%1'.").arg(d->currentRotation);
                         return;
             }
 

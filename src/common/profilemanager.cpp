@@ -331,7 +331,7 @@ bool ProfileManager::saveProfile(TabletProfile& tabletProfile)
     QString profileName = tabletProfile.getName();
 
     if (!isLoaded() || profileName.isEmpty()) {
-        qCritical() << QString::fromLatin1("Can not save profile '%1' as it either does not have a name or no configuration file was opened!").arg(profileName);
+        errWacom << QString::fromLatin1("Can not save profile '%1' as it either does not have a name or no configuration file was opened!").arg(profileName);
         return false;
     }
 

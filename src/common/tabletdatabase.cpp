@@ -85,7 +85,7 @@ QString TabletDatabase::lookupBackend(const QString& companyId) const
     KConfigGroup companyGroup = KConfigGroup (companyConfig, companyId.toLower());
 
     if (companyGroup.keyList().isEmpty()) {
-        qCritical() << QString::fromLatin1 ("Company with id '%1' could not be found in the tablet information database!").arg(companyId);
+        errWacom << QString::fromLatin1 ("Company with id '%1' could not be found in the tablet information database!").arg(companyId);
         return QString();
     }
 

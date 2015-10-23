@@ -25,6 +25,7 @@
 #include <X11/extensions/XInput.h>
 #include <X11/X.h>
 #include <X11/Xatom.h>
+#include <cstdint>
 
 using namespace Wacom;
 
@@ -181,6 +182,12 @@ bool X11InputDevice::getLongProperty(const QString& property, QList< long int >&
     return getProperty<long>(property, XA_INTEGER, nelements, values);
 }
 
+
+
+bool X11InputDevice::getInt32Property(const QString& property, QList< uint32_t >& values, long int nelements) const
+{
+    return getProperty<uint32_t>(property, XA_INTEGER, nelements, values);
+}
 
 
 const QString& X11InputDevice::getName() const
@@ -414,13 +421,18 @@ bool X11InputDevice::setLongProperty(const QString& property, const QList< long 
 }
 
 
+bool X11InputDevice::setInt32Property(const QString& property, const QList< uint32_t >& values) const
+{
+    return setProperty<uint32_t>(property, XA_INTEGER, values);
+}
+
 
 
 template<typename T>
 bool X11InputDevice::getProperty(const QString& property, Atom expectedType, long int nelements, QList< T >& values) const
 {
     // get property data & values
-    uint32_t*      data           = NULL;
+    long*          data           = NULL;
     unsigned long  nitems         = 0;
     int            expectedFormat = 32;
 
@@ -507,13 +519,18 @@ bool X11InputDevice::setProperty(const QString& property, Atom expectedType, con
   /* This part is simply a double-check copied from getProperty_impl... */
     Q_D(const X11InputDevice);
 
-    // get property data & values
-    uint32_t*      data           = NULL;
+    // for XInput1 the data is 32 bits for each property
     int            expectedFormat = 32;
 
     // check parameters
     if (!isOpen()) {
         errWacom << QString::fromLatin1 ("Can not get XInput property '%1' as no device was opened!").arg(property);
+        return false;
+    }
+    
+    
+    if (values.size() == 0) {
+        errWacom << QString::fromLatin1 ("Can not set XInput property '%1' as no values were provided!").arg(property);
         return false;
     }
 
@@ -544,8 +561,8 @@ bool X11InputDevice::setProperty(const QString& property, Atom expectedType, con
         return false;
     }
 
-    // create new data array - for XInput1 the data is always of type uint32_t
-    data = new uint32_t[values.size()];
+    // create new data array - long instead of uint32_t seems to be correct for xlib
+    long *data = new long[values.size()];
 
     for (int i = 0 ; i < values.size() ; ++i) {
         const T& value = values.at(i);

@@ -24,6 +24,7 @@
 #include <QtCore/QList>
 
 #include <QX11Info>
+#include <cstdint>
 
 #if defined(HAVE_XCB_XINPUT)
 struct xcb_input_get_device_property_reply_t;
@@ -133,6 +134,8 @@ public:
      * @return True if the property could be retrieved, else false.
      */
     bool getLongProperty (const QString& property, QList<long>& values, long nelements = 1) const;
+    
+    bool getInt32Property (const QString& property, QList<uint32_t>& values, long nelements = 1) const;
 
     /**
      * Returns the name of this XInput device. Beware that this name can not be used
@@ -235,6 +238,7 @@ public:
      */
     bool setLongProperty (const QString& property, const QList<long>& values) const;
 
+    bool setInt32Property(const QString& property, const QList< uint32_t >& values) const;
 
 private:
 

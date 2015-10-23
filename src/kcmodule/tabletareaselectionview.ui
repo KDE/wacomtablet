@@ -63,7 +63,17 @@
           <item>
            <layout class="QHBoxLayout" name="screenCenterLayout">
             <item>
-             <widget class="Wacom::AreaSelectionWidget" name="screenArea" native="true"/>
+             <widget class="Wacom::AreaSelectionWidget" name="screenArea" native="true">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>

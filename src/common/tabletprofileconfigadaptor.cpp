@@ -63,7 +63,7 @@ bool TabletProfileConfigAdaptor::loadConfig (const KConfigGroup& config)
         const DeviceType* deviceType = DeviceType::find(dev);
 
         if (deviceType == NULL) {
-            qCritical() << QString::fromLatin1("Invalid device identifier '%1' found in configuration file!").arg(dev);
+            errWacom << QString::fromLatin1("Invalid device identifier '%1' found in configuration file!").arg(dev);
             continue;
         }
 

@@ -128,6 +128,7 @@ void TabletAreaSelectionView::setupScreens(const QList< QRect >& screenGeometrie
     d->ui->screenArea->setEnabled(false);
     d->ui->screenArea->setWidgetTargetSize(widgetTargetSize);
     d->ui->screenArea->setFont(QFont(QLatin1String("sans"), 8));
+    d->ui->screenArea->paintBelow = true;
 
     if (screenGeometries.count() > 0) {
 
@@ -152,7 +153,8 @@ void TabletAreaSelectionView::setupScreens(const QList< QRect >& screenGeometrie
         d->ui->screenArea->setDrawAreaCaptions(true);
         d->ui->screenArea->setDrawSelectionCaption(false);
         d->ui->screenArea->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
-        errWacom << "Internal error, no valid screens";
+        // We call this intentionally with no screens from setupUI()
+        dbgWacom << "Call to TabletAreaSelectionView::setupScreens made with no valid screens.";
     }
 
     // defaults to full selection
@@ -180,7 +182,7 @@ void TabletAreaSelectionView::setupTablet(const TabletArea &geometry, const QSiz
         d->ui->areaWidget->setDrawAreaCaptions(true);
         d->ui->areaWidget->setDrawSelectionCaption(false);
         d->ui->areaWidget->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
-        errWacom << "Internal error, no valid screens";
+        errWacom << "Internal error, invalid tablet geometry -" << geometry.toString();
     }
 
     // defaults to full selection
@@ -290,7 +292,8 @@ void TabletAreaSelectionView::setupUi()
     d->ui->warningIcon->setVisible(true);
     d->ui->warningLabel->setVisible(false);
 
-    setupScreens(QList<QRect>(), QSize(150,150));
+    // Is this next call, like, fake?
+    setupScreens(QList<QRect>(), QSize(200,200));
     setupTablet(TabletArea(), QSize(400,400));
 }
 

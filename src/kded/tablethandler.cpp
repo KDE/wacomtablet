@@ -94,7 +94,7 @@ QString TabletHandler::getProperty(const QString &tabletId, const DeviceType& de
     Q_D( const TabletHandler );
 
     if( !d->tabletBackendList.contains(tabletId) || d->tabletBackendList.value(tabletId) == NULL) {
-        qCritical() << QString::fromLatin1("Unable to get property '%1' from device '%2' as no device is currently available!").arg(property.key()).arg(deviceType.key());
+        errWacom << QString::fromLatin1("Unable to get property '%1' from device '%2' as no device is currently available!").arg(property.key()).arg(deviceType.key());
         return QString();
     }
 
@@ -127,7 +127,7 @@ void TabletHandler::onTabletAdded( const TabletInformation& info )
     TabletBackendInterface *tbi = TabletBackendFactory::createBackend(info);
 
     if (tbi == NULL) {
-        qCritical() << "Could not create tablet backend interface. Ignoring Tablet";
+        errWacom << "Could not create tablet backend interface. Ignoring Tablet";
         return; // no valid backend found
     }
 
@@ -361,7 +361,7 @@ QStringList TabletHandler::listProfiles( const QString &tabletId )
 
     ProfileManager *pm = d->profileManagerList.value(tabletId);
     if(!pm) {
-        qCritical() << "Could not retrieve ProfileManager for tablet" << tabletId;
+        errWacom << "Could not retrieve ProfileManager for tablet" << tabletId;
         return QStringList();
     }
 
@@ -379,14 +379,14 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
     dbgWacom << QString::fromLatin1("Loading tablet profile '%1'...").arg(profile);
 
     if (!hasTablet(tabletId)) {
-        qCritical() << QString::fromLatin1("Can not set tablet profile to '%1' as no backend is available!").arg(profile);
+        errWacom << QString::fromLatin1("Can not set tablet profile to '%1' as no backend is available!").arg(profile);
         return;
     }
 
     ProfileManager *profileManager = d->profileManagerList.value(tabletId);
 
     if(!profileManager) {
-        qCritical() << "Could not retrieve ProfileManager for tablet" << tabletId;
+        errWacom << "Could not retrieve ProfileManager for tablet" << tabletId;
         return;
     }
 
@@ -411,11 +411,11 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
                 d->currentProfileList.insert(tabletId, profileManagement->availableProfiles().first());
             }
             else {
-                qCritical() << "Could not create new default profile. There seems to be an error on device detection";
+                errWacom << "Could not create new default profile. There seems to be an error on device detection";
             }
         }
         else {
-            qCritical() << QString::fromLatin1("Tablet profile '%1' does not exist!").arg(profile);
+            errWacom << QString::fromLatin1("Tablet profile '%1' does not exist!").arg(profile);
             emit notify( QLatin1String( "tabletError" ),
                          i18n( "Graphic Tablet error" ),
                          i18n( "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead", profile, pList.first() ) );
@@ -460,7 +460,7 @@ void TabletHandler::setProperty(const QString &tabletId, const DeviceType& devic
     Q_D( TabletHandler );
 
     if (!hasTablet(tabletId)) {
-        qCritical() << QString::fromLatin1("Unable to set property '%1' on device '%2' to '%3' as no device is currently available!").arg(property.key()).arg(deviceType.key()).arg(value);
+        errWacom << QString::fromLatin1("Unable to set property '%1' on device '%2' to '%3' as no device is currently available!").arg(property.key()).arg(deviceType.key()).arg(value);
         return;
     }
 
@@ -472,7 +472,7 @@ QStringList TabletHandler::getProfileRotationList(const QString &tabletId)
     Q_D( TabletHandler );
 
     if (!hasTablet(tabletId)) {
-        qCritical() << QString::fromLatin1("Unable to get profile rotation list as no device is currently available!");
+        errWacom << QString::fromLatin1("Unable to get profile rotation list as no device is currently available!");
         return QStringList();
     }
 
@@ -484,7 +484,7 @@ void TabletHandler::setProfileRotationList(const QString &tabletId, const QStrin
     Q_D( TabletHandler );
 
     if (!hasTablet(tabletId)) {
-        qCritical() << QString::fromLatin1("Unable to set profile rotation list as no device is currently available!");
+        errWacom << QString::fromLatin1("Unable to set profile rotation list as no device is currently available!");
         return;
     }
 

@@ -117,7 +117,7 @@ const QString DeviceProfile::getButton(int number) const
         case 18:
             return getProperty(Property::Button18);
         default:
-            qCritical() << QString::fromLatin1("Unsupported button number '%1'!").arg(number);
+            errWacom << QString::fromLatin1("Unsupported button number '%1'!").arg(number);
     }
 
     return QString();
@@ -212,7 +212,7 @@ bool DeviceProfile::setButton(int number, const QString& shortcut)
             setProperty(Property::Button18, shortcut);
             break;
         default:
-            qCritical() << QString::fromLatin1("Unsupported button number '%1'!").arg(number);
+            errWacom << QString::fromLatin1("Unsupported button number '%1'!").arg(number);
             return false;
     }
 

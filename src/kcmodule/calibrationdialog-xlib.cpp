@@ -18,6 +18,7 @@
  */
 
 #include "calibrationdialog.h"
+#include "debug.h"
 
 //KDE includes
 #include <KLocalizedString>
@@ -186,7 +187,7 @@ void CalibrationDialog::getMaxTabletArea()
 
     if (type != 32 )  /* NOT COOL */
     {
-  qCritical() << "kcm_wacom: Calibration window saw unexpected format" << format;
+  errWacom << "kcm_wacom: Calibration window saw unexpected format" << format;
   return;
     }
 
