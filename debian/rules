@@ -4,8 +4,10 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+include /usr/share/pkg-kde-tools/qt-kde-team/3/debian-qt-kde.mk
+
 %:
 	dh $@ --with kde
 
 override_dh_shlibdeps:
-	dh_shlibdeps -Xplasma_applet_wacomtabletsettings.so -- -dRecommends debian/kde-config-tablet/usr/lib/kde4/plasma_applet_wacomtabletsettings.so -dDepends
+	dh_shlibdeps -Xplasma_engine_wacomtablet.so -- -dRecommends debian/kde-config-tablet/usr/lib/x86_64-linux-gnu/plugins/plasma/dataengine/plasma_engine_wacomtablet.so -dDepends
