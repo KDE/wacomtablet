@@ -2,7 +2,7 @@
 Name=Wacom Tablet Settings
 Name[ar]=إعدادات لوح واكُم
 Name[bs]=Postavke wacom tableta
-Name[ca]=Arranjament de tauleta Wacom
+Name[ca]=Arranjament per a les tauletes Wacom
 Name[ca@valencia]=Arranjament de tauleta Wacom
 Name[cs]=Nastavení tabletu Wacom
 Name[da]=Indstillinger for Wacom tegneplade
@@ -80,6 +80,14 @@ Comment[zh_TW]=Wacom 手寫板的熱插拔與設定檔支援
 Icon=input-tablet
 Type=Service
 Keywords=Wacom
+Keywords[ca]=Wacom
+Keywords[en_GB]=Wacom
+Keywords[nl]=Wacom
+Keywords[pt]=Wacom
+Keywords[pt_BR]=Wacom
+Keywords[sv]=Wacom
+Keywords[uk]=Wacom
+Keywords[x-test]=xxWacomxx
 
 Type=Service
 X-KDE-ParentApp=
