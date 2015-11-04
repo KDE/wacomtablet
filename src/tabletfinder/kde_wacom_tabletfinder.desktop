@@ -2,6 +2,7 @@
 Name=Wacom Tablet finder
 Name[bs]=Wacom Tablet detektor
 Name[ca]=Detecció per a tauletes Wacom
+Name[ca@valencia]=Detecció per a tauletes Wacom
 Name[da]=Wacom tegneplade-finder
 Name[de]=Wacom-Tabletterkennung
 Name[el]=Πινάκιο Wacom
@@ -30,6 +31,7 @@ Terminal=false
 GenericName=Helper tool to detect Wacom Tablets
 GenericName[bs]=Pomoćni alat za prepoznavanje Wacom Tableta
 GenericName[ca]=Eina d'ajuda per a detectar tauletes Wacom
+GenericName[ca@valencia]=Eina d'ajuda per a detectar tauletes Wacom
 GenericName[da]=Hjælpeværktøj til at detektere Wacom-tegneplader
 GenericName[de]=Hilfsprogramm zur Erkennung von Wacom-Tabletts
 GenericName[el]=Βοηθητικό εργαλείο για εντοπισμό πινακίων Wacom
