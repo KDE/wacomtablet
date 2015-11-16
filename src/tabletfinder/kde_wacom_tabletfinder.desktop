@@ -29,6 +29,7 @@ Icon=input-tablet
 Type=Application
 Terminal=false
 GenericName=Helper tool to detect Wacom Tablets
+GenericName[ast]=Ferramienta auxiliar pa deteutar tabletes Wacom
 GenericName[bs]=Pomoćni alat za prepoznavanje Wacom Tableta
 GenericName[ca]=Eina d'ajuda per a detectar tauletes Wacom
 GenericName[ca@valencia]=Eina d'ajuda per a detectar tauletes Wacom
