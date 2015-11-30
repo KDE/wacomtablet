@@ -1403,6 +1403,44 @@ hwbutton7=13
 hwbutton8=8
 hwbutton9=9
 
+[0307]
+model=DTH-A1300
+layout=bl_9
+name=Wacom Cintiq Hybrid 13HD
+padbuttons=9
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=2
+hwbutton2=3
+hwbutton3=1
+hwbutton4=11
+hwbutton5=12
+hwbutton6=10
+hwbutton7=13
+hwbutton8=8
+hwbutton9=9
+
+[0309]
+model=DTH-A1300
+layout=unknown
+name=Wacom Cintiq Hybrid 13HD
+padbuttons=9
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=2
+hwbutton2=3
+hwbutton3=1
+hwbutton4=11
+hwbutton5=12
+hwbutton6=10
+hwbutton7=13
+hwbutton8=8
+hwbutton9=9
+
 [030E]
 model=CTH-480
 layout=unknown
