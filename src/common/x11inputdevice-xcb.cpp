@@ -526,7 +526,7 @@ bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Ato
 {
     Q_D(const X11InputDevice);
 
-    if (!isOpen() || property.isEmpty() || atom == XCB_ATOM_NONE) {
+    if (!isOpen() || property.isEmpty()) {
         return false;
     }
 
