@@ -20,7 +20,7 @@
 #include "x11info.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QScreen>
 
 #include <X11/extensions/Xrandr.h>
 
@@ -54,8 +54,8 @@ const QRect X11Info::getDisplayGeometry()
 
 int X11Info::getNumberOfScreens()
 {
-    if (QApplication::desktop()->isVirtualDesktop()) {
-        return QApplication::desktop()->numScreens();
+    if (QGuiApplication::primaryScreen()->virtualSiblings().size() > 1) {
+        return QGuiApplication::screens().size();
     }
 
     return 1;
@@ -64,21 +64,22 @@ int X11Info::getNumberOfScreens()
 
 const QList< QRect > X11Info::getScreenGeometries()
 {
-    QList< QRect > screens;
+    QList< QRect > screenGeometries;
 
-    if( QApplication::desktop()->isVirtualDesktop() ) {
+    auto primaryScreen = QGuiApplication::primaryScreen();
+    if(primaryScreen->virtualSiblings().size() > 1) {
+        auto screens = QGuiApplication::screens();
 
-        int num = QApplication::desktop()->numScreens();
-
-        for( int i = 0; i < num; i++ ) {
-            screens.append(QApplication::desktop()->screenGeometry(i));
+        Q_FOREACH (QScreen *screen, screens) {
+            QRect geometry = screen->geometry();
+        screenGeometries.append(QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio()));
         }
-
     } else {
-        screens.append(QApplication::desktop()->screenGeometry(-1));
+        QRect geometry = primaryScreen->geometry();
+        screenGeometries.append(QRect(geometry.topLeft(), geometry.size() * primaryScreen->devicePixelRatio()));
     }
 
-    return screens;
+    return screenGeometries;
 }
 
 const ScreenRotation X11Info::getScreenRotation()
