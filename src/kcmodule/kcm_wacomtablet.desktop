@@ -12,7 +12,7 @@ X-KDE-System-Settings-Parent-Category=keyboard-and-mouse
 X-KDE-System-Settings-Parent-Category-V2=input-devices
 
 Name=Graphic Tablet
-Name[ar]=لوح رسم
+Name[ar]=لوحيّ رسم
 Name[bs]=Grafički tablet
 Name[ca]=Tauleta gràfica
 Name[ca@valencia]=Tauleta gràfica
@@ -54,7 +54,7 @@ Name[x-test]=xxGraphic Tabletxx
 Name[zh_TW]=圖形平板裝置
 
 Comment=Wacom Tablet Settings
-Comment[ar]=إعدادات لوح واكُم
+Comment[ar]=إعدادات لوحيّّ واكُم
 Comment[bs]=Postavke Wacom tableta
 Comment[ca]=Arranjament per a les tauletes Wacom
 Comment[ca@valencia]=Arranjament per a les tauletes Wacom
@@ -96,7 +96,7 @@ Comment[x-test]=xxWacom Tablet Settingsxx
 Comment[zh_TW]=Wacom 平板裝置設定
 
 X-KDE-Keywords=Tablet,Input Devices,Wacom,Stylus
-X-KDE-Keywords[ar]=Tablet,Input Devices,Wacom,Stylus,لوح,رسم,لوح رسم,تابلت,جرافيك,جرافيكس,نحت,تلوين,لمس,قلم,إدخال,جهاز إدخال
+X-KDE-Keywords[ar]=Tablet,Input Devices,Wacom,Stylus,لوحي,أجهزة دخل,أجهزة إدخال,اجهزة ادخال,واكُم,واكم,واكوم,قلم تأشير,قلم تاشير
 X-KDE-Keywords[bs]=Tablet,Ulazni uređaji,Wacom,Stylus
 X-KDE-Keywords[ca]=Tauleta,Dispositius d'entrada,Wacom,Llapis
 X-KDE-Keywords[ca@valencia]=Tauleta,Dispositius d'entrada,Wacom,Llapis
