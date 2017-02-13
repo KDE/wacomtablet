@@ -1509,3 +1509,17 @@ hwbutton6=10
 hwbutton7=11
 hwbutton8=12
 hwbutton9=13
+
+[033C]
+model=CTH-490
+layout=bl_5
+name=Intuos Art/Photo/Comic Small
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=3
+hwbutton2=1
+hwbutton3=9
+hwbutton4=8
