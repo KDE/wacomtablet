@@ -1523,3 +1523,17 @@ hwbutton1=3
 hwbutton2=1
 hwbutton3=9
 hwbutton4=8
+
+[033E]
+model=CTH-690
+layout=bl_5
+name=Intuos Art Medium
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=3
+hwbutton2=1
+hwbutton3=9
+hwbutton4=8
