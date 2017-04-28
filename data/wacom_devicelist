@@ -1337,6 +1337,17 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
+[0300]
+model=CTL-471
+layout=unknown
+name=Wacom One S
+padbuttons=0
+statusleds=0
+touchring=false
+touchstripl=false
+touchstripr=false
+wheel=false
+
 [0302]
 model=CTH-480
 layout=bl_6
