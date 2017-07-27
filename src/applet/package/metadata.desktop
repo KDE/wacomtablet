@@ -40,6 +40,7 @@ Name[tr]=Wacom Tablet Ayarları
 Name[ug]=Wacom سەزگۈر تاختا تەڭشەكلىرى
 Name[uk]=Параметри планшетів Wacom
 Name[x-test]=xxWacom Tablet Settingsxx
+Name[zh_CN]=Wacom 绘图板设置
 Name[zh_TW]=Wacom 平板裝置設定
 Comment=Hotplugging and profile support for Wacom tablets
 Comment[ar]=الوصل السّريع ودعم تشكيلات لوحيّات واكُم
@@ -105,6 +106,7 @@ Keywords[sv]=Wacom
 Keywords[tr]=Wacom
 Keywords[uk]=Wacom
 Keywords[x-test]=xxWacomxx
+Keywords[zh_CN]=Wacom
 
 Type=Service
 X-KDE-ParentApp=
