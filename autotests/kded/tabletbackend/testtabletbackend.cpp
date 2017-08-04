@@ -21,19 +21,15 @@
 #include "../propertyadaptormock.h"
 #include "../kdedtestutils.h"
 
-#include "src/common/tabletinfo.h"
-#include "src/common/tabletinformation.h"
-#include "src/common/deviceinformation.h"
+#include "common/tabletinfo.h"
+#include "common/tabletinformation.h"
+#include "common/deviceinformation.h"
 
-#include "src/kded/tabletbackend.h"
-#include "src/kded/xinputproperty.h"
-#include "src/kded/xsetwacomproperty.h"
-
+#include "kded/tabletbackend.h"
+#include "kded/xinputproperty.h"
+#include "kded/xsetwacomproperty.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -70,7 +66,7 @@ private:
 
 };
 
-QTEST_KDEMAIN(TestTabletBackend, GUI)
+QTEST_MAIN(TestTabletBackend)
 
 void TestTabletBackend::initTestCase()
 {

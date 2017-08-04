@@ -25,7 +25,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QRect>
 #include <QtCore/QString>
-#include <QtGui/QWidget>
+#include <QWidget>
 
 namespace Wacom
 {

@@ -1,15 +1,4 @@
-
-
-kde4_add_unit_test(Common.TabletProfileConfigAdaptor
-  testtabletprofileconfigadaptor.cpp
-  ../commontestutils.cpp
-)
-
-target_link_libraries(Common.TabletProfileConfigAdaptor
-
-# include static libs
-        wacom_common
-
-# include general qt/kde libs
-        ${QT_QTTEST_LIBRARY}
-)
+add_executable(Test.Common.TabletProfileConfigAdaptor testtabletprofileconfigadaptor.cpp ../commontestutils.cpp)
+add_test(NAME Test.Common.TabletProfileConfigAdaptor COMMAND Test.Common.TabletProfileConfigAdaptor)
+ecm_mark_as_test(Test.Common.TabletProfileConfigAdaptor)
+target_link_libraries(Test.Common.TabletProfileConfigAdaptor ${WACOM_COMMON_TEST_LIBS})

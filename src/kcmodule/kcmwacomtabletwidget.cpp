@@ -21,6 +21,7 @@
 #include "ui_kcmwacomtabletwidget.h"
 #include "ui_saveprofile.h"
 #include "ui_errorwidget.h"
+#include "debug.h"
 
 #include "profilemanagement.h"
 #include "generalpagewidget.h"
@@ -33,17 +34,15 @@
 #include "dbustabletinterface.h"
 #include "devicetype.h"
 
-//KDE includes
-#include <KDE/KInputDialog>
-#include <KDE/KStandardDirs>
-#include <KDE/KDebug>
-
 //Qt includes
-#include <QtDBus/QDBusReply>
-#include <QtCore/QPointer>
-#include <QtCore/QStringList>
-#include <QtGui/QPixmap>
-#include <QtGui/QLineEdit>
+#include <QDBusReply>
+#include <QPointer>
+#include <QStringList>
+#include <QPixmap>
+#include <QLineEdit>
+#include <QDebug>
+#include <QInputDialog>
+#include <QDialogButtonBox>
 
 using namespace Wacom;
 
@@ -88,19 +87,19 @@ void KCMWacomTabletWidget::setupUi()
     DBusTabletInterface* dbusTabletInterface = &DBusTabletInterface::instance();
 
     if( !dbusTabletInterface->isValid() ) {
-        kDebug() << "DBus interface not available";
+        dbgWacom << "DBus interface not available";
     }
 
     d->profileChanged    = false;
 
     // setup error widget
     d->deviceErrorUi.setupUi(&(d->deviceErrorWidget));
-    d->deviceErrorUi.errorImage->setPixmap( KIconLoader::global()->loadIcon( QLatin1String( "dialog-warning" ), KIconLoader::NoGroup, 48 ) );
+    d->deviceErrorUi.errorImage->setPixmap( QIcon::fromTheme( QLatin1String( "dialog-warning" ) ).pixmap(48) );
 
     // setup normal ui
     d->ui.setupUi( this );
-    d->ui.addProfileButton->setIcon( KIcon( QLatin1String( "document-new" ) ) );
-    d->ui.delProfileButton->setIcon( KIcon( QLatin1String( "edit-delete-page" ) ) );
+    d->ui.addProfileButton->setIcon( QIcon::fromTheme( QLatin1String( "document-new" ) ) );
+    d->ui.delProfileButton->setIcon( QIcon::fromTheme( QLatin1String( "edit-delete-page" ) ) );
 
     // connect tablet selector
     connect( d->ui.tabletListSelector,  SIGNAL(currentIndexChanged(QString)), SLOT(onTabletSelectionChanged()) );
@@ -138,10 +137,10 @@ void KCMWacomTabletWidget::loadTabletInformation()
 
     d->ui.tabletListSelector->blockSignals(true);
     foreach(const QString &tabletId, connectedTablets.value()) {
-        QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName);
-        kDebug() << "add tablet"<< deviceName << tabletId << "with";
+        QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
+        dbgWacom << "add tablet"<< deviceName << tabletId << "with";
         QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
-        kDebug() << inputDevices.value();
+        dbgWacom << inputDevices.value();
 
         d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
     }
@@ -174,10 +173,10 @@ void KCMWacomTabletWidget::onTabletAdded(const QString &tabletId)
 {
     Q_D( KCMWacomTabletWidget );
 
-    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName);
-    kDebug() << "add tablet"<< deviceName << tabletId << "with";
+    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
+    dbgWacom << "add tablet"<< deviceName << tabletId << "with";
     QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
-    kDebug() << inputDevices.value();
+    dbgWacom << inputDevices.value();
 
     d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
 }
@@ -213,8 +212,11 @@ void KCMWacomTabletWidget::onTabletSelectionChanged()
 void KCMWacomTabletWidget::addProfile()
 {
     bool ok;
-    QString text = KInputDialog::getText( i18n( "Add new profile" ),
-                                          i18n( "Profile name:" ), QString(), &ok, this );
+    QString text = QInputDialog::getText( this,
+                                          i18n( "Add new profile" ),
+                                          i18n( "Profile name:" ),
+                                          QLineEdit::Normal,
+                                          QString(), &ok);
     if( !ok || text.isEmpty() ) {
         return;
     }
@@ -427,7 +429,7 @@ void KCMWacomTabletWidget::showConfig()
 
     d->ui.deviceTabWidget->addTab( &(d->tabletPage), i18n ("Tablet") );
 
-    QDBusReply<QString> touchDeviceName = DBusTabletInterface::instance().getDeviceName(tabletId, DeviceType::Touch);
+    QDBusReply<QString> touchDeviceName = DBusTabletInterface::instance().getDeviceName(tabletId, DeviceType::Touch.key());
     bool                hasTouchDevice  = (touchDeviceName.isValid() && !touchDeviceName.value().isEmpty());
 
     if (hasTouchDevice) {
@@ -440,7 +442,7 @@ void KCMWacomTabletWidget::showConfig()
     // switch to the currently active profile
     QDBusReply<QString> profile = DBusTabletInterface::instance().getProfile(tabletId);
     if( profile.isValid() ) {
-        d->ui.profileSelector->setCurrentItem( profile );
+        d->ui.profileSelector->setCurrentText( profile );
         switchProfile( profile );
     }
 }
@@ -451,18 +453,27 @@ void KCMWacomTabletWidget::showSaveChanges()
     Q_D( KCMWacomTabletWidget );
 
     if( d->profileChanged ) {
-        QPointer<KDialog> saveDialog = new KDialog();
+        QPointer<QDialog> saveDialog = new QDialog();
         QWidget*          widget     = new QWidget( this );
 
         Ui::SaveProfile askToSave;
         askToSave.setupUi( widget );
 
-        saveDialog->setMainWidget( widget );
-        saveDialog->setButtons( KDialog::Apply | KDialog::Cancel );
+        QVBoxLayout* layout = new QVBoxLayout;
+        QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Apply | QDialogButtonBox::Cancel);
+        layout->addWidget( widget );
+        layout->addWidget( buttonBox);
 
-        connect( saveDialog, SIGNAL(applyClicked()), saveDialog, SLOT(accept()) );
+        connect( buttonBox, &QDialogButtonBox::clicked, [saveDialog, buttonBox](QAbstractButton* button) {
+            auto standardButton = buttonBox->standardButton(button);
+            if (standardButton == QDialogButtonBox::Apply) {
+                saveDialog->accept();
+            } else { // Cancel
+                saveDialog->reject();
+            }
+        });
 
-        if( saveDialog->exec() == KDialog::Accepted ) {
+        if( saveDialog->exec() == QDialog::Accepted ) {
             saveProfile();
         }
 

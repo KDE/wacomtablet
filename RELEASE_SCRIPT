@@ -3,7 +3,7 @@ To release a new version of Wacomtablet you need the following steps:
 
  * bump version in
    src/version.h
-   src/applet/plasma-applet-wacomtabletsettings
+   src/applet/package/metadata.desktop
    
  * tag the git repo
 

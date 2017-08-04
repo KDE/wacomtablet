@@ -24,7 +24,7 @@
 #include "screenspace.h"
 #include "screenrotation.h"
 
-#include <QtGui/QWidget>
+#include <QWidget>
 #include <QtCore/QString>
 
 namespace Wacom

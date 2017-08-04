@@ -20,7 +20,7 @@
 #ifndef TABLETDEPENDENTTEST_H
 #define TABLETDEPENDENTTEST_H
 
-#include "src/common/tabletinformation.h"
+#include "common/tabletinformation.h"
 
 #include <QtCore>
 #include <QtTest>

@@ -17,15 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/kded/xsetwacomadaptor.h"
-#include "src/kded/xsetwacomproperty.h"
+#include "kded/xsetwacomadaptor.h"
+#include "kded/xsetwacomproperty.h"
 
 #include "../tabletdependenttest.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -46,7 +43,7 @@ private slots:
 
 };
 
-QTEST_KDEMAIN(TestXsetWacomAdaptor, GUI)
+QTEST_MAIN(TestXsetWacomAdaptor)
 
 void TestXsetWacomAdaptor::initTestCaseDependent()
 {

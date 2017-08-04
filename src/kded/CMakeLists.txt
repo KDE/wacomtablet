@@ -2,12 +2,12 @@
 ## libraries
 set(kded_wacomtablet_LIBS
    wacom_common
-   ${KDE4_KDECORE_LIBS}
-   ${KDE4_KDEUI_LIBS}
-   ${X11_X11_LIB}
-   ${X11_Xinput_LIB}
-   ${X11_Xrandr_LIB}
-   ${X11_LIBRARIES}
+   KF5::CoreAddons
+   KF5::Notifications
+   KF5::XmlGui
+   KF5::DBusAddons
+   KF5::ConfigCore
+   ${USING_X_LIBRARIES}
 )
 
 ## sources
@@ -27,26 +27,28 @@ set(kded_wacomtablet_SRCS
     xinputproperty.cpp
     xsetwacomadaptor.cpp
     xsetwacomproperty.cpp
+    ../common/globalactions.cpp
 )
 
 ## dbus interfaces
-qt4_add_dbus_adaptor(kded_wacomtablet_SRCS org.kde.Wacom.xml dbustabletservice.h Wacom::DBusTabletService)
+qt5_add_dbus_adaptor(kded_wacomtablet_SRCS org.kde.Wacom.xml dbustabletservice.h Wacom::DBusTabletService)
 
 ## build KDE daemon module
-kde4_add_plugin(kded_wacomtablet ${kded_wacomtablet_SRCS})
+add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
+add_library(kded_wacomtablet MODULE ${kded_wacomtablet_SRCS})
 target_link_libraries( kded_wacomtablet ${kded_wacomtablet_LIBS} )
 
 ## files to install
-install(TARGETS kded_wacomtablet DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS kded_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR})
 
-install(FILES wacomtablet.desktop DESTINATION ${SERVICES_INSTALL_DIR}/kded)
-install(FILES wacomtablet.notifyrc DESTINATION "${DATA_INSTALL_DIR}/wacomtablet")
+install(FILES wacomtablet.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/kded)
+install(FILES wacomtablet.notifyrc DESTINATION "${KNOTIFYRC_INSTALL_DIR}")
 
-install(FILES org.kde.Wacom.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
+install(FILES org.kde.Wacom.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR})
 
 
 ## LIBRARY FOR UNIT TESTS
-if (KDE4_BUILD_TESTS)
+if (BUILD_TESTING)
 
     ## headers which need to be moc'ed for the static unit-testing library
     set(kded_wacomtablet_HDRS
@@ -57,12 +59,9 @@ if (KDE4_BUILD_TESTS)
         x11eventnotifier.h
     )
 
-    ## create cpp mocs
-    qt4_wrap_cpp (kded_wacomtablet_MOCS ${kded_wacomtablet_HDRS})
-
     ## build static library for unit testing
-    add_library( kded_wacomtablet_lib STATIC ${kded_wacomtablet_SRCS} ${kded_wacomtablet_MOCS} )
+    add_library( kded_wacomtablet_lib STATIC ${kded_wacomtablet_SRCS} )
     target_link_libraries( kded_wacomtablet_lib ${kded_wacomtablet_LIBS} )
     set_target_properties( kded_wacomtablet_lib PROPERTIES COMPILE_FLAGS "-fPIC" )
 
-endif (KDE4_BUILD_TESTS)
+endif (BUILD_TESTING)

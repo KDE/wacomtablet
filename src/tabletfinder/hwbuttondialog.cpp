@@ -19,8 +19,8 @@
 
 #include "hwbuttondialog.h"
 #include "ui_hwbuttondialog.h"
-
-#include <X11/Xlib.h>
+#include <QX11Info>
+#include <xcb/xcb.h>
 
 using namespace Wacom;
 
@@ -41,11 +41,18 @@ HWButtonDialog::~HWButtonDialog()
     delete ui;
 }
 
-
-bool HWButtonDialog::x11Event ( XEvent * event )
+bool HWButtonDialog::nativeEvent(const QByteArray& eventType, void* message, long int* result)
 {
-    if(event->type == ButtonPress && m_nextButton <= m_maxButtons) {
-        hwKey(event->xbutton.button);
+    Q_UNUSED(eventType);
+    Q_UNUSED(result);
+    if (!QX11Info::isPlatformX11()) {
+        return false;
+    }
+
+    xcb_generic_event_t* event = static_cast<xcb_generic_event_t *>(message);
+    if ((event->response_type & ~0x80) != XCB_BUTTON_PRESS && m_nextButton <= m_maxButtons) {
+        xcb_button_press_event_t* buttonEvent = static_cast<xcb_button_press_event_t *>(message);
+        hwKey(buttonEvent->detail);
         return true;
     }
 

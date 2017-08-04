@@ -21,7 +21,7 @@
 #include "debug.h"
 #include "deviceproperty.h"
 
-
+#include <QtGlobal>
 #include <QString>
 #include <QStringList>
 
@@ -55,7 +55,7 @@ bool DeviceProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
         deviceProperty = DeviceProperty::find(lookupKey);
 
         if (deviceProperty == NULL) {
-            kWarning() << QString::fromLatin1("Unable to read unsupported configuration property '%1' from config file!").arg(key);
+            qWarning() << QString::fromLatin1("Unable to read unsupported configuration property '%1' from config file!").arg(key);
             continue;
         }
 
@@ -77,7 +77,7 @@ bool DeviceProfileConfigAdaptor::saveConfig(KConfigGroup& config) const
         deviceProperty = DeviceProperty::map(property);
 
         if (deviceProperty == NULL) {
-            kWarning() << QString::fromLatin1("Unable to save unsupported system property '%1' to config file!").arg(property.key());
+            qWarning() << QString::fromLatin1("Unable to save unsupported system property '%1' to config file!").arg(property.key());
             continue;
         }
 

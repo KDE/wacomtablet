@@ -1,17 +1,4 @@
-
-
-kde4_add_unit_test(KDED.XsetWacomAdaptor
-  testxsetwacomadaptor.cpp
-  ../tabletdependenttest.cpp
-)
-
-target_link_libraries(KDED.XsetWacomAdaptor
-
-# include static libs
-        wacom_common
-        kded_wacomtablet_lib
-        ${kded_wacomtablet_LIBS}
-
-# include general qt/kde libs
-        ${QT_QTTEST_LIBRARY}
-)
+add_executable(Test.KDED.XsetWacomAdaptor testxsetwacomadaptor.cpp ../tabletdependenttest.cpp)
+add_test(NAME Test.KDED.XsetWacomAdaptor COMMAND Test.KDED.XsetWacomAdaptor)
+ecm_mark_as_test(Test.KDED.XsetWacomAdaptor)
+target_link_libraries(Test.KDED.XsetWacomAdaptor ${WACOM_KDED_TEST_LIBS})

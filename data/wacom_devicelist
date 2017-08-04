@@ -90,7 +90,7 @@ touchstripr=no
 
 [0015]
 model=CTE_440
-layout=unknown
+layout=bl_10
 name=Wacom Graphire4 4x5
 padbuttons=2
 wheel=yes
@@ -102,7 +102,7 @@ hwbutton2=2
 
 [0016]
 model=CTE_640
-layout=unknown
+layout=bl_10
 name=Wacom Graphire4 6x8
 padbuttons=2
 wheel=yes
@@ -156,43 +156,71 @@ hwbutton4=8
 
 [0020]
 model=GD_0405-U
-layout=unknown
+layout=bl_1
 name=Wacom Intuos 4x5
-padbuttons=0
+padbuttons=4
 wheel=no
 touchring=no
-touchstripl=no
+touchstripl=yes
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
 
 [0021]
 model=GD_0608-U
-layout=unknown
+layout=bl_2
 name=Wacom Intuos 6x8
-padbuttons=0
+padbuttons=8
 wheel=no
 touchring=no
-touchstripl=no
-touchstripr=no
+touchstripl=yes
+touchstripr=yes
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
+hwbutton5=9
+hwbutton6=10
+hwbutton7=11
+hwbutton8=12
 
 [0022]
 model=GD_0912-U
-layout=unknown
+layout=bl_2
 name=Wacom Intuos 9x12
-padbuttons=0
+padbuttons=8
 wheel=no
 touchring=no
-touchstripl=no
-touchstripr=no
+touchstripl=yes
+touchstripr=yes
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
+hwbutton5=9
+hwbutton6=10
+hwbutton7=11
+hwbutton8=12
 
 [0023]
 model=GD_1212-U
-layout=unknown
+layout=bl_2
 name=Wacom Intuos 12x12
-padbuttons=0
+padbuttons=8
 wheel=no
 touchring=no
-touchstripl=no
-touchstripr=no
+touchstripl=yes
+touchstripr=yes
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
+hwbutton5=9
+hwbutton6=10
+hwbutton7=11
+hwbutton8=12
 
 [0024]
 model=GD_1218-U
@@ -284,6 +312,15 @@ wheel=no
 touchring=yes
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
+hwbutton5=9
+hwbutton6=10
+hwbutton7=11
+hwbutton8=12
+hwbutton9=13
 
 [0030]
 model=MODEL_PL400
@@ -1225,9 +1262,25 @@ wheel=no
 touchring=yes
 touchstripl=yes
 touchstripr=yes
+hwbutton1=2
+hwbutton2=3
+hwbutton3=8
+hwbutton4=9
+hwbutton5=1
+hwbutton6=10
+hwbutton7=11
+hwbutton8=12
+hwbutton9=13
+hwbutton10=15
+hwbutton11=16
+hwbutton12=17
+hwbutton13=18
+hwbutton14=14
+hwbutton15=19
+hwbutton16=20
 
 [00FA]
-model=unknown
+model=dtk-2200
 layout=unknown
 name=Wacom Cintiq 22HD
 padbuttons=18
@@ -1235,6 +1288,24 @@ wheel=no
 touchring=no
 touchstripl=yes
 touchstripr=yes
+hwbutton1=2
+hwbutton2=3
+hwbutton3=8
+hwbutton4=9
+hwbutton5=1
+hwbutton6=10
+hwbutton7=11
+hwbutton8=12
+hwbutton9=13
+hwbutton10=15
+hwbutton11=16
+hwbutton12=17
+hwbutton13=18
+hwbutton14=14
+hwbutton15=19
+hwbutton16=20
+hwbutton17=21
+hwbutton18=22
 
 [0100]
 model=unknown
@@ -1266,19 +1337,30 @@ touchring=no
 touchstripl=no
 touchstripr=no
 
-[0302]
-model=CTH-680S-RUPL
+[0300]
+model=CTL-471
 layout=unknown
-name=Wacom Intuos PT S
+name=Wacom One S
+padbuttons=0
+statusleds=0
+touchring=false
+touchstripl=false
+touchstripr=false
+wheel=false
+
+[0302]
+model=CTH-480
+layout=bl_6
+name=Wacom Intuos PT S Finger touch
 padbuttons=4
 wheel=no
 touchring=no
 touchstripl=no
 touchstripr=no
 hwbutton1=3
-hwbutton2=8
+hwbutton2=1
 hwbutton3=9
-hwbutton4=1
+hwbutton4=8
 
 [0303]
 model=CTH-680S-ENES
@@ -1296,7 +1378,7 @@ hwbutton4=1
 
 [0304]
 model=DTK-1300
-layout=unknown
+layout=bl_9
 name=Wacom Cintiq 13HD
 padbuttons=9
 wheel=no
@@ -1332,19 +1414,57 @@ hwbutton7=13
 hwbutton8=8
 hwbutton9=9
 
-[030E]
-model=CTL-480S
+[0307]
+model=DTH-A1300
+layout=bl_9
+name=Wacom Cintiq Hybrid 13HD
+padbuttons=9
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=2
+hwbutton2=3
+hwbutton3=1
+hwbutton4=11
+hwbutton5=12
+hwbutton6=10
+hwbutton7=13
+hwbutton8=8
+hwbutton9=9
+
+[0309]
+model=DTH-A1300
 layout=unknown
-name=Wacom Intuos Pen Small
+name=Wacom Cintiq Hybrid 13HD
+padbuttons=9
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=2
+hwbutton2=3
+hwbutton3=1
+hwbutton4=11
+hwbutton5=12
+hwbutton6=10
+hwbutton7=13
+hwbutton8=8
+hwbutton9=9
+
+[030E]
+model=CTH-480
+layout=unknown
+name=Wacom INTUOS Pen Small
 padbuttons=4
 wheel=no
 touchring=no
 touchstripl=no
 touchstripr=no
 hwbutton1=3
-hwbutton2=8
+hwbutton2=1
 hwbutton3=9
-hwbutton4=1
+hwbutton4=8
 
 [0314]
 model=PTH-451/S
@@ -1381,3 +1501,50 @@ hwbutton6=10
 hwbutton7=11
 hwbutton8=12
 hwbutton9=13
+
+[0317]
+model=PTH-851
+layout=bl_4
+name=Wacom Intuos Pro L
+padbuttons=9
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
+hwbutton5=9
+hwbutton6=10
+hwbutton7=11
+hwbutton8=12
+hwbutton9=13
+
+[033C]
+model=CTH-490
+layout=bl_5
+name=Intuos Art/Photo/Comic Small
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=3
+hwbutton2=1
+hwbutton3=9
+hwbutton4=8
+
+[033E]
+model=CTH-690
+layout=bl_5
+name=Intuos Art Medium
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=3
+hwbutton2=1
+hwbutton3=9
+hwbutton4=8

@@ -100,7 +100,7 @@ const QString TabletBackend::getProperty(const DeviceType& type, const Property&
     Q_D(const TabletBackend);
 
     if (!d->deviceAdaptors.contains(type)) {
-        kError() << QString::fromLatin1("Could not get property '%1' from unsupported device type '%2'!").arg(property.key()).arg(type.key());
+        errWacom << QString::fromLatin1("Could not get property '%1' from unsupported device type '%2'!").arg(property.key()).arg(type.key());
         return QString();
     }
 
@@ -125,14 +125,14 @@ void TabletBackend::setProfile(const TabletProfile& profile)
     foreach(const DeviceType& deviceType, DeviceType::list()) {
         if (d->tabletInformation.hasDevice(deviceType)) {
             if (profile.hasDevice(deviceType)) {
-                kDebug() << QString::fromLatin1("Setting profile '%1' on tablet '%2', device '%3'").arg(profile.getName()).arg(d->tabletInformation.get(TabletInfo::TabletName)).arg(deviceType.key());
+                dbgWacom << QString::fromLatin1("Setting profile '%1' on tablet '%2', device '%3'").arg(profile.getName()).arg(d->tabletInformation.get(TabletInfo::TabletName)).arg(deviceType.key());
                 DeviceProfile deviceProfile = profile.getDevice(deviceType);
                 setProfile(deviceType, deviceProfile);
             } else {
-                kDebug() << QString::fromLatin1("Skipping '%1' settings as the current profile does not contain any settings for this device...").arg(deviceType.key());
+                dbgWacom << QString::fromLatin1("Skipping '%1' settings as the current profile does not contain any settings for this device...").arg(deviceType.key());
             }
         } else {
-            kDebug() << QString::fromLatin1("Skipping '%1' settings as the device does not support it...").arg(deviceType.key());
+            dbgWacom << QString::fromLatin1("Skipping '%1' settings as the device does not support it...").arg(deviceType.key());
         }
     }
 }
@@ -144,7 +144,7 @@ void TabletBackend::setProfile(const DeviceType& deviceType, const DeviceProfile
     Q_D(TabletBackend);
 
     if (!d->deviceAdaptors.contains(deviceType)) {
-        kError() << QString::fromLatin1("Could not set profile on unsupported device type '%1'!").arg(deviceType.key());
+        errWacom << QString::fromLatin1("Could not set profile on unsupported device type '%1'!").arg(deviceType.key());
         return;
     }
 
@@ -185,7 +185,7 @@ bool TabletBackend::setProperty(const DeviceType& type, const Property& property
     Q_D(TabletBackend);
 
     if (!d->deviceAdaptors.contains(type)) {
-        kError() << QString::fromLatin1("Could not set property '%1' to '%2' on unsupported device type '%3'!").arg(property.key()).arg(value).arg(type.key());
+        errWacom << QString::fromLatin1("Could not set property '%1' to '%2' on unsupported device type '%3'!").arg(property.key()).arg(value).arg(type.key());
         return false;
     }
 

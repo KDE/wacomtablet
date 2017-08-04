@@ -36,7 +36,14 @@
  * Some of them depend on the definitions of this file.
  */
 #include <assert.h>
-#include <KDE/KDebug>
+#include <QDebug>
+
+
+const QString __methodName(const char *prettyFunction);
+#define dbgWacom qDebug() << "kde_wacom:"
+#define errWacom qCritical() << "kde_wacom:" << __methodName(__PRETTY_FUNCTION__)
+
+
 
 #endif // HEADER PROTECTION
 

@@ -1,8 +1,9 @@
 [Desktop Entry]
 Name=Wacom Tablet finder
+Name[ar]=باحث لوحيّات واكُم
 Name[bs]=Wacom Tablet detektor
-Name[ca]=Detecció de tauletes Wacom
-Name[ca@valencia]=Detecció de tauletes Wacom
+Name[ca]=Detecció per a tauletes Wacom
+Name[ca@valencia]=Detecció per a tauletes Wacom
 Name[cs]=Hledač tabletů Wacom
 Name[da]=Wacom tegneplade-finder
 Name[de]=Wacom-Tabletterkennung
@@ -30,6 +31,8 @@ Icon=input-tablet
 Type=Application
 Terminal=false
 GenericName=Helper tool to detect Wacom Tablets
+GenericName[ar]=أداة مساعدة لاكتشاف لوحيّات واكُم
+GenericName[ast]=Ferramienta auxiliar pa deteutar tabletes Wacom
 GenericName[bs]=Pomoćni alat za prepoznavanje Wacom Tableta
 GenericName[ca]=Eina d'ajuda per a detectar tauletes Wacom
 GenericName[ca@valencia]=Eina d'ajuda per a detectar tauletes Wacom

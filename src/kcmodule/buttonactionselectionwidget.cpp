@@ -157,6 +157,13 @@ void ButtonActionSelectionWidget::setupUi()
         d->ui->mouseComboBox->addItem(shortcut.toDisplayString(), i);
     }
 
+    // add icons to clear buttons (the icon direction must be the layout direction inverted)
+    QLatin1String clearIconStr("edit-clear-locationbar-rtl");
+    if (!qApp->isLeftToRight())
+        clearIconStr = QLatin1String("edit-clear-locationbar-ltr");
+    d->ui->mouseClearButton->setIcon(QIcon::fromTheme(clearIconStr));
+    d->ui->modifierClearButton->setIcon(QIcon::fromTheme(clearIconStr));
+
     connect( d->ui->mouseComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onMouseSelectionChanged(int)) );
     connect (d->ui->mouseClearButton, SIGNAL(clicked(bool)), this, SLOT(onClearButtonClicked(bool)) );
 

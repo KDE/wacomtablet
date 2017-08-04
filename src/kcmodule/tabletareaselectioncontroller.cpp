@@ -156,7 +156,9 @@ void TabletAreaSelectionController::setView(TabletAreaSelectionView* view)
 }
 
 
-void TabletAreaSelectionController::setupController(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation)
+void TabletAreaSelectionController::setupController(const ScreenMap& mappings,
+                                                    const QString& deviceName,
+                                                    const ScreenRotation& rotation)
 {
     Q_D(TabletAreaSelectionController);
 
@@ -171,11 +173,13 @@ void TabletAreaSelectionController::setupController(const ScreenMap& mappings, c
     d->currentScreen    = -1;
 
     if (rotation == ScreenRotation::AUTO) {
+        // TODO
         d->tabletRotation = X11Info::getScreenRotation();
         // we have a tablet (not a canvas) viewpoint here, so we need to invert the screen rotation
         d->tabletRotation = d->tabletRotation.invert();
 
     } else if (rotation == ScreenRotation::AUTO_INVERTED) {
+        // TODO
         d->tabletRotation = X11Info::getScreenRotation();
 
     } else {
@@ -189,7 +193,9 @@ void TabletAreaSelectionController::setupController(const ScreenMap& mappings, c
         d->tabletGeometryRotated.setHeight(d->tabletGeometry.width());
     }
 
-    d->view->setupScreens(d->screenGeometries, QSize(150,150));
+
+    dbgWacom << "Calling setupScreens and setupTablet from setupController.  ScreenGeometries: " << d->screenGeometries;
+    d->view->setupScreens(d->screenGeometries, QSize(200,200));
     d->view->setupTablet(d->tabletGeometryRotated, QSize(400,400));
 
     // make sure we have valid data set

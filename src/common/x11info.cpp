@@ -19,11 +19,9 @@
 
 #include "x11info.h"
 
-#include <QtGui/QApplication>
-#include <QtGui/QDesktopWidget>
+#include <QApplication>
+#include <QScreen>
 
-#include <X11/X.h>
-#include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 
 using namespace Wacom;
@@ -31,7 +29,7 @@ using namespace Wacom;
 
 int X11Info::getDefaultScreen()
 {
-    return DefaultScreen(QX11Info::display());
+    return QX11Info::appScreen();
 }
 
 
@@ -56,8 +54,8 @@ const QRect X11Info::getDisplayGeometry()
 
 int X11Info::getNumberOfScreens()
 {
-    if (QApplication::desktop()->isVirtualDesktop()) {
-        return QApplication::desktop()->numScreens();
+    if (QGuiApplication::primaryScreen()->virtualSiblings().size() > 1) {
+        return QGuiApplication::screens().size();
     }
 
     return 1;
@@ -66,23 +64,23 @@ int X11Info::getNumberOfScreens()
 
 const QList< QRect > X11Info::getScreenGeometries()
 {
-    QList< QRect > screens;
+    QList< QRect > screenGeometries;
 
-    if( QApplication::desktop()->isVirtualDesktop() ) {
+    auto primaryScreen = QGuiApplication::primaryScreen();
+    if(primaryScreen->virtualSiblings().size() > 1) {
+        auto screens = QGuiApplication::screens();
 
-        int num = QApplication::desktop()->numScreens();
-
-        for( int i = 0; i < num; i++ ) {
-            screens.append(QApplication::desktop()->screenGeometry(i));
+        Q_FOREACH (QScreen *screen, screens) {
+            QRect geometry = screen->geometry();
+        screenGeometries.append(QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio()));
         }
-
     } else {
-        screens.append(QApplication::desktop()->screenGeometry(-1));
+        QRect geometry = primaryScreen->geometry();
+        screenGeometries.append(QRect(geometry.topLeft(), geometry.size() * primaryScreen->devicePixelRatio()));
     }
 
-    return screens;
+    return screenGeometries;
 }
-
 
 const ScreenRotation X11Info::getScreenRotation()
 {
@@ -111,4 +109,3 @@ const ScreenRotation X11Info::getScreenRotation()
 
     return currentRotation;
 }
-

@@ -20,11 +20,12 @@
 #ifndef X11TABLETFINDER_H
 #define X11TABLETFINDER_H
 
+#include <QtCore/QString>
+#include <QtCore/QList>
+
 #include "x11inputvisitor.h"
 #include "tabletinformation.h"
 
-#include <QtCore/QString>
-#include <QtCore/QList>
 
 namespace Wacom
 {

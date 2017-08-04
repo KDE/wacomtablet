@@ -60,7 +60,7 @@ const QString ProcSystemAdaptor::getProperty(const Property& property) const
 {
     Q_D(const ProcSystemAdaptor);
 
-    kError() << QString::fromLatin1("Can not get unsupported property '%1' from device '%2' using proc system!").arg(property.key()).arg(d->deviceName);
+    errWacom << QString::fromLatin1("Can not get unsupported property '%1' from device '%2' using proc system!").arg(property.key()).arg(d->deviceName);
 
     return QString();
 }
@@ -70,7 +70,7 @@ bool ProcSystemAdaptor::setProperty(const Property& property, const QString& val
 {
     Q_D(const ProcSystemAdaptor);
 
-    kDebug() << QString::fromLatin1("Setting property '%1' to '%2'.").arg(property.key()).arg(value);
+    dbgWacom << QString::fromLatin1("Setting property '%1' to '%2'.").arg(property.key()).arg(value);
 
     // https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-driver-wacom
     /* /sys/bus/usb/devices/<busnum>-<devnum>:<cfg>.<intf>/wacom_led/status_led0_select

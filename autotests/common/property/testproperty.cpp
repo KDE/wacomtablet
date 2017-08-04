@@ -17,12 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/common/property.h"
+#include "common/property.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -39,7 +36,7 @@ private slots:
     void test();
 };
 
-QTEST_KDEMAIN_CORE(TestProperty)
+QTEST_MAIN(TestProperty)
 
 void TestProperty::test()
 {

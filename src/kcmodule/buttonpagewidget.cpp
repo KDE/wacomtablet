@@ -30,26 +30,26 @@
 #include "deviceprofile.h"
 #include "dbustabletinterface.h"
 #include "buttonshortcut.h"
+#include "stringutils.h"
 
 // stdlib
-#include<memory>
+#include <memory>
 
 //KDE includes
-#include <KDE/KComboBox>
-#include <KDE/KStandardDirs>
-#include <KDE/KGlobalAccel>
-#include <kglobalshortcutinfo.h>
-#include <KDE/KDebug>
+#include <KGlobalAccel>
+#include <KGlobalShortcutInfo>
 
 //Qt includes
-#include <QtGui/QPixmap>
-#include <QtGui/QDialog>
-#include <QtGui/QLabel>
-#include <QtGui/QKeySequence>
-#include <QtCore/QPointer>
-#include <QtDBus/QDBusInterface>
-#include <QtDBus/QDBusReply>
+#include <QStandardPaths>
+#include <QPixmap>
+#include <QDialog>
+#include <QLabel>
+#include <QKeySequence>
+#include <QPointer>
+#include <QDBusInterface>
+#include <QDBusReply>
 #include <QList>
+#include <QFile>
 
 using namespace Wacom;
 
@@ -100,7 +100,7 @@ void ButtonPageWidget::saveToProfile()
     // save button shortcuts
     ButtonActionSelectorWidget* buttonSelector;
 
-    for (int i = 1 ; i < 11 ; ++i) {
+    for (int i = 1 ; i < 19 ; ++i) {
         buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
 
         if (buttonSelector && buttonSelector->isEnabled()) {
@@ -176,7 +176,7 @@ void ButtonPageWidget::loadFromProfile()
     // set button shortcuts
     ButtonActionSelectorWidget* buttonSelector;
 
-    for (int i = 1;i < 11 ;i++) {
+    for (int i = 1;i < 19 ;i++) {
         buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
         propertyValue  = padProfile.getButton(i);
 
@@ -213,12 +213,12 @@ void ButtonPageWidget::reloadWidget()
 {
     Q_D( ButtonPageWidget );
 
-    int padButtons = DBusTabletInterface::instance().getInformationAsInt(d->tabletId, TabletInfo::NumPadButtons);
+    int padButtons = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::NumPadButtons.key()).value().toInt();
 
     QLabel*                     buttonLabel;
     ButtonActionSelectorWidget* buttonSelector;
 
-    for (int i = 1;i < 11;i++) {
+    for (int i = 1;i < 19;i++) {
         buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
         buttonLabel    = this->findChild<QLabel *>(QString::fromLatin1("button%1Label").arg(i));
 
@@ -240,13 +240,13 @@ void ButtonPageWidget::reloadWidget()
         }
     }
 
-    QString padLayout = DBusTabletInterface::instance().getInformationAsString(d->tabletId, TabletInfo::ButtonLayout);
-    if (KStandardDirs::exists(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
-        d->ui->padImage->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
+    QString padLayout = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::ButtonLayout.key());
+    if (QFile::exists(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
+        d->ui->padImage->setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
     }
 
-    bool hasLeftTouchStrip  = DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasLeftTouchStrip);
-    bool hasRightTouchStrip = DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasRightTouchStrip);
+    bool hasLeftTouchStrip  = StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasLeftTouchStrip.key()));
+    bool hasRightTouchStrip = StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasRightTouchStrip.key()));
 
     if (!hasLeftTouchStrip && !hasRightTouchStrip) {
         d->ui->touchStripGroupBox->setEnabled(false);
@@ -290,7 +290,7 @@ void ButtonPageWidget::reloadWidget()
         }
     }
 
-    if (!DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasTouchRing)) {
+    if (!StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasTouchRing.key()))) {
         d->ui->touchRingGroupBox->setEnabled(false);
         d->ui->touchRingGroupBox->setVisible(false);
     } else {
@@ -298,7 +298,7 @@ void ButtonPageWidget::reloadWidget()
         d->ui->touchRingGroupBox->setVisible(true);
     }
 
-    if (!DBusTabletInterface::instance().getInformationAsBool(d->tabletId, TabletInfo::HasWheel)) {
+    if (!StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasWheel.key()))) {
         d->ui->wheelGroupBox->setEnabled(false);
         d->ui->wheelGroupBox->setVisible(false);
     } else {
@@ -330,6 +330,14 @@ void ButtonPageWidget::setupUi()
     connect ( d->ui->button8ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
     connect ( d->ui->button9ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
     connect ( d->ui->button10ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button11ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button12ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button13ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button14ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button15ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button16ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button17ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( d->ui->button18ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
 
     connect ( d->ui->leftStripUpSelector,    SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
     connect ( d->ui->leftStripDownSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );

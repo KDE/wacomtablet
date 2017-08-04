@@ -20,14 +20,14 @@
 #ifndef BUTTONACTIONDISPLAYWIDGET_H
 #define BUTTONACTIONDISPLAYWIDGET_H
 
-#include <KDE/KLineEdit>
+#include <QLineEdit>
 
 class QFocusEvent;
 class QMouseEvent;
 
 namespace Wacom {
 
-class ButtonActionDisplayWidget : public KLineEdit {
+class ButtonActionDisplayWidget : public QLineEdit {
 
     Q_OBJECT
 

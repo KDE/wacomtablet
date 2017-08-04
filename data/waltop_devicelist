@@ -53,6 +53,8 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
 
 [0031]
 model=unknown
@@ -61,6 +63,8 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
 
 [0032]
 model=unknown
@@ -69,6 +73,10 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
 
 [0033]
 model=unknown
@@ -77,14 +85,10 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
-
-[0033]
-model=unknown
-name=unknwon Waltop device 0x33
-padbuttons=0
-touchring=no
-touchstripl=no
-touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
 
 [0034]
 model=unknown
@@ -93,6 +97,10 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
 
 [0035]
 model=unknown
@@ -101,6 +109,8 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
 
 [0036]
 model=unknown
@@ -109,6 +119,8 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
 
 [0037]
 model=unknown
@@ -117,6 +129,8 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
 
 [0038]
 model=unknown
@@ -125,6 +139,10 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
 
 [0039]
 model=unknown
@@ -133,6 +151,10 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
 
 [0051]
 model=unknown
@@ -221,6 +243,10 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
 
 [0503]
 model=unknown
@@ -229,3 +255,7 @@ padbuttons=0
 touchring=no
 touchstripl=no
 touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8

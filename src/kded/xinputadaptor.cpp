@@ -31,9 +31,8 @@
 
 #include <QApplication>
 #include <QDesktopWidget>
-#include <QtCore/QProcess>
-#include <QtCore/QRegExp>
-#include <X11/Xlib.h>
+#include <QProcess>
+#include <QRegExp>
 
 using namespace Wacom;
 
@@ -76,12 +75,12 @@ const QString XinputAdaptor::getProperty(const Property& property) const
     const XinputProperty* xinputproperty = XinputProperty::map(property);
 
     if (xinputproperty == NULL) {
-        kError() << QString::fromLatin1("Can not get unsupported property '%1' from device '%2' using xinput!").arg(property.key()).arg(d->deviceName);
+        errWacom << QString::fromLatin1("Can not get unsupported property '%1' from device '%2' using xinput!").arg(property.key()).arg(d->deviceName);
         return QString();
     }
 
     if (!d->device.isOpen()) {
-        kError() << QString::fromLatin1("Can not get property '%1' from device '%2' because the device is not available!").arg(property.key()).arg(d->deviceName);
+        errWacom << QString::fromLatin1("Can not get property '%1' from device '%2' because the device is not available!").arg(property.key()).arg(d->deviceName);
         return QString();
     }
 
@@ -93,17 +92,17 @@ bool XinputAdaptor::setProperty(const Property& property, const QString& value)
 {
     Q_D(const XinputAdaptor);
 
-    kDebug() << QString::fromLatin1("Setting property '%1' to '%2'.").arg(property.key()).arg(value);
+    dbgWacom << QString::fromLatin1("Setting property '%1' to '%2'.").arg(property.key()).arg(value);
 
     const XinputProperty* xinputproperty = XinputProperty::map(property);
 
     if (xinputproperty == NULL) {
-        kError() << QString::fromLatin1("Can not set unsupported property '%1' to '%2' on device '%3' using xinput!").arg(property.key()).arg(value).arg(d->deviceName);
+        errWacom << QString::fromLatin1("Can not set unsupported property '%1' to '%2' on device '%3' using xinput!").arg(property.key()).arg(value).arg(d->deviceName);
         return false;
     }
 
     if (!d->device.isOpen()) {
-        kError() << QString::fromLatin1("Can not set property '%1' to '%2' on device '%3' because the device is not available!").arg(property.key()).arg(value).arg(d->deviceName);
+        errWacom << QString::fromLatin1("Can not set property '%1' to '%2' on device '%3' because the device is not available!").arg(property.key()).arg(value).arg(d->deviceName);
         return false;
     }
 
@@ -138,7 +137,7 @@ const QString XinputAdaptor::getProperty(const XinputProperty& property) const
         return (X11Wacom::isScrollDirectionInverted(d->deviceName) ? QLatin1String("on") : QLatin1String("off"));
 
     } else {
-        kError() << QString::fromLatin1("Getting Xinput property '%1' is not yet implemented!").arg(property.key());
+        errWacom << QString::fromLatin1("Getting Xinput property '%1' is not yet implemented!").arg(property.key());
     }
 
     return QString();
@@ -153,7 +152,7 @@ const QString XinputAdaptor::getFloatProperty(const XinputProperty& property, lo
     QList<float> values;
 
     if (!d->device.getFloatProperty(property.key(), values, nelements)) {
-        kError() << QString::fromLatin1("Failed to get Xinput property '%1' from device '%2'!").arg(property.key()).arg(d->deviceName);
+        errWacom << QString::fromLatin1("Failed to get Xinput property '%1' from device '%2'!").arg(property.key()).arg(d->deviceName);
         return QString();
     }
 
@@ -169,7 +168,7 @@ const QString XinputAdaptor::getLongProperty(const XinputProperty& property, lon
     QList<long> values;
 
     if (!d->device.getLongProperty(property.key(), values, nelements)) {
-        kError() << QString::fromLatin1("Failed to get Xinput property '%1' from device '%2'!").arg(property.key()).arg(d->deviceName);
+        errWacom << QString::fromLatin1("Failed to get Xinput property '%1' from device '%2'!").arg(property.key()).arg(d->deviceName);
         return QString();
     }
 
@@ -222,7 +221,7 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
 
         if (screenAreaGeometry.isEmpty()) {
             // the input is invalid - use full screen
-            kError() << "mapTabletToScreen :: can't parse ScreenSpace entry '" << screenArea << "' => device:" << d->deviceName;
+            errWacom << "mapTabletToScreen :: can't parse ScreenSpace entry '" << screenArea << "' => device:" << d->deviceName;
             screenAreaGeometry = fullScreenGeometry;
         }
     }
@@ -239,10 +238,10 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     qreal offsetX = ( qreal )screenX / ( qreal )fullScreenGeometry.width();
     qreal offsetY = ( qreal )screenY / ( qreal )fullScreenGeometry.height();
 
-    kDebug() << "Apply Coordinate Transformation Matrix";
-    kDebug() << w << "0" << offsetX;
-    kDebug() << "0" << h << offsetY;
-    kDebug() << "0" << "0" << "1";
+    dbgWacom << "Apply Coordinate Transformation Matrix";
+    dbgWacom << w << "0" << offsetX;
+    dbgWacom << "0" << h << offsetY;
+    dbgWacom << "0" << "0" << "1";
 
     return X11Wacom::setCoordinateTransformationMatrix(d->deviceName, offsetX, offsetY, w, h);
 }
@@ -290,7 +289,7 @@ bool XinputAdaptor::setProperty (const XinputProperty& property, const QString& 
         return mapTabletToScreen (value);
 
     } else {
-        kError() << QString::fromLatin1("Setting Xinput property '%1' is not yet implemented!").arg(property.key());
+        errWacom << QString::fromLatin1("Setting Xinput property '%1' is not yet implemented!").arg(property.key());
     }
 
     return false;

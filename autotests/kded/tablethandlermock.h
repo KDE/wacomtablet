@@ -39,13 +39,13 @@ public:
 
 
     //! Emmits a profileChanged signal with the given parameter.
-    void emitProfileChanged(const QString& profile);
+    void emitProfileChanged(const QString &tabletId, const QString& profile);
 
     //! Emmits a tabletAdded signal with the given parameter.
     void emitTabletAdded(const TabletInformation& info);
 
     //! Emmits a tabletRemoved signal.
-    void emitTabletRemoved();
+    void emitTabletRemoved(const QString &tabletId);
 
 
     //! Gets the current mock property value no matter which property or device is requested.
@@ -69,11 +69,11 @@ public:
 
 Q_SIGNALS:
 
-    void profileChanged(const QString& profile);
+    void profileChanged(const QString &tabletId, const QString& profile);
 
     void tabletAdded(const TabletInformation& info);
 
-    void tabletRemoved();
+    void tabletRemoved(const QString &tabletId);
 
 
 public:

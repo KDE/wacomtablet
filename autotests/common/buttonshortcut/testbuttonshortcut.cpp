@@ -20,9 +20,6 @@
 #include "common/buttonshortcut.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -53,7 +50,7 @@ private:
     void assertUnset (const ButtonShortcut& shortcut) const;
 };
 
-QTEST_KDEMAIN_CORE(TestButtonShortcut)
+QTEST_MAIN(TestButtonShortcut)
 
 void TestButtonShortcut::assertButton(const ButtonShortcut& shortcut, int buttonNumber) const
 {

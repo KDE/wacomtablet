@@ -20,10 +20,10 @@
 #include "pressurecurvewidget.h"
 
 //Qt includes
-#include <QtGui/QPainter>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QResizeEvent>
-#include <QtGui/QTabletEvent>
+#include <QPainter>
+#include <QMouseEvent>
+#include <QResizeEvent>
+#include <QTabletEvent>
 
 using namespace Wacom;
 
@@ -50,12 +50,12 @@ void PressureCurveWidget::setControlPoints(qreal p1, qreal p2, qreal p3, qreal p
 
 void PressureCurveWidget::mousePressEvent(QMouseEvent * event)
 {
-    setNearestPoint(event->posF());
+    setNearestPoint(event->localPos());
 }
 
 void PressureCurveWidget::mouseMoveEvent(QMouseEvent * event)
 {
-    moveControlPoint(event->posF());
+    moveControlPoint(event->localPos());
     update();
 }
 

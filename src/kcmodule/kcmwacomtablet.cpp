@@ -26,25 +26,24 @@
 #include "dbustabletinterface.h"
 
 // KDE includes
-#include <KDE/KCModuleLoader>
-#include <KDE/KPluginFactory>
-#include <KDE/KPluginLoader>
-#include <KDE/KAboutData>
-#include <KDE/KLocalizedString>
+#include <KCModule>
+#include <KPluginFactory>
+#include <KPluginLoader>
+#include <KAboutData>
+#include <KLocalizedString>
 
 //Qt includes
-#include <QtGui/QVBoxLayout>
+#include <QVBoxLayout>
 
 using namespace Wacom;
 
 K_PLUGIN_FACTORY(KCMWacomTabletFactory, registerPlugin<KCMWacomTablet>();)
 K_EXPORT_PLUGIN(KCMWacomTabletFactory("kcm_wacomtablet"))
 
-KCMWacomTablet::KCMWacomTablet(QWidget *parent, const QVariantList &)
-        : KCModule(KCMWacomTabletFactory::componentData(), parent)
+KCMWacomTablet::KCMWacomTablet(QWidget *parent, const QVariantList & args)
+        : KCModule(parent, args)
         , m_changed(false)
 {
-    KGlobal::locale()->insertCatalog( QLatin1String( "wacomtablet" ));
     initUi();
 }
 
@@ -71,9 +70,9 @@ KCMWacomTablet::~KCMWacomTablet()
 void KCMWacomTablet::initUi()
 {
     // about data will be deleted by KCModule
-    AboutData* about = new AboutData("kcm_wacomtablet", ki18n("Graphic Tablet Configuration"),
-                            kcm_version, ki18n("A configurator for graphic tablets"),
-                            ki18n("In this module you can configure your Wacom tablet profiles"));
+    AboutData* about = new AboutData(QLatin1Literal("kcm_wacomtablet"), i18n("Graphic Tablet Configuration"),
+                            QLatin1String(kcm_version), i18n("A configurator for graphic tablets"),
+                            i18n("In this module you can configure your Wacom tablet profiles"));
 
     // setup kcm module
     setAboutData(about);
@@ -106,3 +105,5 @@ void KCMWacomTablet::save()
 
     emit changed(false);
 }
+
+#include "kcmwacomtablet.moc"

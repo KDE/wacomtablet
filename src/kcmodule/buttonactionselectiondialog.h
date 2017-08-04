@@ -20,7 +20,7 @@
 #ifndef BUTTONACTIONSELECTIONDIALOG_H
 #define BUTTONACTIONSELECTIONDIALOG_H
 
-#include <KDE/KDialog>
+#include <QDialog>
 
 namespace Wacom {
 
@@ -30,7 +30,7 @@ class ButtonActionSelectionDialogPrivate;
 /**
  * A dialog which displays the button action selection widget.
  */
-class ButtonActionSelectionDialog : public KDialog
+class ButtonActionSelectionDialog : public QDialog
 {
     Q_OBJECT
 

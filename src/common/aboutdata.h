@@ -20,7 +20,7 @@
 #ifndef ABOUTDATA_H
 #define ABOUTDATA_H
 
-#include <KDE/KAboutData>
+#include <KAboutData>
 
 namespace Wacom
 {
@@ -37,8 +37,8 @@ public:
      *
      * @see KAboutData
      */
-    AboutData(const QByteArray& appName, const KLocalizedString& programName, const QByteArray& version,
-              const KLocalizedString& shortDescription = KLocalizedString(), const KLocalizedString& otherText = KLocalizedString());
+    AboutData(const QString& componentName, const QString& displayName, const QString& version,
+              const QString& shortDescription, const QString& otherText = QString());
 }; // CLASS
 }  // NAMESPACE
 #endif // HEADER PROTECTION

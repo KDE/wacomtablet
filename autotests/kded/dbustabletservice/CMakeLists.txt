@@ -1,17 +1,6 @@
+include_directories (${CMAKE_BINARY_DIR}/src/common)
 
-
-kde4_add_unit_test(KDED.DBusTabletService
-  testdbustabletservice.cpp
-  ../tablethandlermock.cpp
-)
-
-target_link_libraries(KDED.DBusTabletService
-
-# include static libs
-        wacom_common
-        kded_wacomtablet_lib
-        ${kded_wacomtablet_LIBS}
-
-# include general qt/kde libs
-        ${QT_QTTEST_LIBRARY}
-)
+add_executable(Test.KDED.DBusTabletService testdbustabletservice.cpp ../tablethandlermock.cpp)
+add_test(NAME Test.KDED.DBusTabletService COMMAND Test.KDED.DBusTabletService)
+ecm_mark_as_test(Test.KDED.DBusTabletService)
+target_link_libraries(Test.KDED.DBusTabletService ${WACOM_KDED_TEST_LIBS})

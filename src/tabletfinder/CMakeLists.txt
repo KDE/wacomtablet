@@ -5,12 +5,12 @@ set( tabletfinder_SRCS
      hwbuttondialog.cpp
 )
 
-kde4_add_ui_files( tabletfinder_SRCS
+ki18n_wrap_ui( tabletfinder_SRCS
                    dialog.ui
                    hwbuttondialog.ui
 )
 
-kde4_add_executable(kde_wacom_tabletfinder ${tabletfinder_SRCS})
+add_executable(kde_wacom_tabletfinder ${tabletfinder_SRCS})
 
 target_link_libraries( kde_wacom_tabletfinder
                        wacom_common
@@ -21,5 +21,5 @@ target_link_libraries( kde_wacom_tabletfinder
                        ${X11_LIBRARIES}
 )
 
-install(TARGETS kde_wacom_tabletfinder DESTINATION ${BIN_INSTALL_DIR} )
-install( FILES kde_wacom_tabletfinder.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
+install(TARGETS kde_wacom_tabletfinder DESTINATION ${KDE_INSTALL_BINDIR} )
+install( FILES kde_wacom_tabletfinder.desktop  DESTINATION  ${KDE_INSTALL_APPDIR} )

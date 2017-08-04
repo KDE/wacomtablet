@@ -25,7 +25,7 @@
 #include <QtCore/QList>
 #include <QtCore/QRectF>
 
-#include <QtGui/QX11Info>
+#include <QX11Info>
 
 namespace Wacom
 {

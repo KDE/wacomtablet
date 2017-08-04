@@ -1,15 +1,4 @@
-
-
-kde4_add_unit_test(Common.TabletInformation
-  testtabletinformation.cpp
-  ../commontestutils.cpp
-)
-
-target_link_libraries(Common.TabletInformation
-
-# include static libs
-        wacom_common
-
-# include general qt/kde libs
-        ${QT_QTTEST_LIBRARY}
-)
+add_executable(Test.Common.TabletInformation testtabletinformation.cpp ../commontestutils.cpp)
+add_test(NAME Test.Common.TabletInformation COMMAND Test.Common.TabletInformation)
+ecm_mark_as_test(Test.Common.TabletInformation)
+target_link_libraries(Test.Common.TabletInformation ${WACOM_COMMON_TEST_LIBS})

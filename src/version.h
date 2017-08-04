@@ -21,10 +21,10 @@
 #define WACOMTABLETVERSION_H
 
 // Version of the kcontrol module
-static const char kcm_version[] = "2.0.2";
+static const char kcm_version[] = "3.0.0~beta1";
 
 //version of the kde demon
-static const char kded_version[] = "2.0.2";
+static const char kded_version[] = "3.0.0~beta1";
 
 //version of the plasma applet
 //version info is in applet/plasma-applet-wacomtable.desktop

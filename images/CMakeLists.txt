@@ -7,5 +7,6 @@ install( FILES
                bl_6.png
                bl_7.png
                bl_8.png
+               bl_9.png
                pen.png
-               DESTINATION  ${DATA_INSTALL_DIR}/wacomtablet/images )
+               DESTINATION  ${KDE_INSTALL_DATADIR}/wacomtablet/images )

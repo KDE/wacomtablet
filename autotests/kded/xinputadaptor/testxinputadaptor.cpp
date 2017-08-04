@@ -17,15 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "src/kded/xinputadaptor.h"
-#include "src/kded/xinputproperty.h"
+#include "kded/xinputadaptor.h"
+#include "kded/xinputproperty.h"
 
 #include "../tabletdependenttest.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -46,7 +43,7 @@ private slots:
 
 };
 
-QTEST_KDEMAIN(TestXinputAdaptor, GUI)
+QTEST_MAIN(TestXinputAdaptor)
 
 void TestXinputAdaptor::initTestCaseDependent()
 {
@@ -79,14 +76,14 @@ void TestXinputAdaptor::testSetProperty()
     QVERIFY(!adaptor.getProperty(Property::CursorAccelVelocityScaling).isEmpty());
 
     adaptor.setProperty(Property::CursorAccelProfile, QLatin1String("2"));
-    adaptor.setProperty(Property::CursorAccelAdaptiveDeceleration, QLatin1String("5.0"));
-    adaptor.setProperty(Property::CursorAccelConstantDeceleration, QLatin1String("5.0"));
-    adaptor.setProperty(Property::CursorAccelVelocityScaling, QLatin1String("5.0"));
+    adaptor.setProperty(Property::CursorAccelAdaptiveDeceleration, QLatin1String("5.1"));
+    adaptor.setProperty(Property::CursorAccelConstantDeceleration, QLatin1String("5.2"));
+    adaptor.setProperty(Property::CursorAccelVelocityScaling, QLatin1String("5.3"));
 
     QCOMPARE(adaptor.getProperty(Property::CursorAccelProfile), QLatin1String("2"));
-    QCOMPARE(adaptor.getProperty(Property::CursorAccelAdaptiveDeceleration), QLatin1String("5"));
-    QCOMPARE(adaptor.getProperty(Property::CursorAccelConstantDeceleration), QLatin1String("5"));
-    QCOMPARE(adaptor.getProperty(Property::CursorAccelVelocityScaling), QLatin1String("5"));
+    QCOMPARE(adaptor.getProperty(Property::CursorAccelAdaptiveDeceleration), QLatin1String("5.1"));
+    QCOMPARE(adaptor.getProperty(Property::CursorAccelConstantDeceleration), QLatin1String("5.2"));
+    QCOMPARE(adaptor.getProperty(Property::CursorAccelVelocityScaling), QLatin1String("5.3"));
 }
 
 #include "testxinputadaptor.moc"

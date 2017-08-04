@@ -25,12 +25,12 @@
 #include <QtCore/QRect>
 #include <QtCore/QString>
 
-#include <QtGui/QBrush>
-#include <QtGui/QCursor>
-#include <QtGui/QFontMetrics>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QPainter>
-#include <QtGui/QPen>
+#include <QBrush>
+#include <QCursor>
+#include <QFontMetrics>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QPen>
 
 using namespace Wacom;
 
@@ -53,7 +53,7 @@ namespace Wacom
 
                 fontCaptions                 = QFont(QLatin1String("sans"), 10);
 
-                // TODO make colors setable by the user
+                // TODO: set colors based on UI theme
                 colorDisplayAreaBrush        = QColor(Qt::lightGray);
                 colorDisplayAreaPen          = QColor(Qt::black);
                 colorDisplayAreaText         = QColor(Qt::black);
@@ -599,15 +599,24 @@ void AreaSelectionWidget::paintSelectedAreaCaption(QPainter& painter)
                             .arg(selectedArea.x())
                             .arg(selectedArea.y());
 
-    qreal textX = d->rectDisplayArea.x() + (float)d->rectDisplayArea.width() / 2 - (float)fontMetrics.width(text) / 2;
-    qreal textY = d->rectDisplayArea.y() + (float)d->rectDisplayArea.height() / 2 + (float)fontMetrics.height() / 2;
+    qreal textX = d->rectDisplayArea.x() + (qreal)d->rectDisplayArea.width() / 2 - (qreal)fontMetrics.width(text) / 2;
+    qreal textY;
 
-    // If we draw area captions, then the caption already occupies
-    // the vertical center. In this case we have to move our text a
-    // bit further down.
-    if (d->drawAreaCaption) {
-        textY = textY + fontMetrics.height();
+    if (paintBelow) {
+        // Draw text below the display area
+        textY = d->rectDisplayArea.y() + d->rectDisplayArea.height() + ((qreal)fontMetrics.height());
+    } else {
+        // Draw in the middle of the display area
+        textY = d->rectDisplayArea.y() + d->rectDisplayArea.height() / 2 + (qreal)fontMetrics.height() / 2;
+
+        // If we are also showing area captions, then the vertical center will
+        // already be occupied. We move our text a bit further down then.
+        if (d->drawAreaCaption) {
+            textY = textY + fontMetrics.height();
+        }
     }
+
+
 
     painter.drawText(qRound(textX), qRound(textY), text);
 }

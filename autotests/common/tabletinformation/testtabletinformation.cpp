@@ -17,16 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "autotests/common/commontestutils.h"
-#include "src/common/deviceinformation.h"
-#include "src/common/devicetype.h"
-#include "src/common/tabletinfo.h"
-#include "src/common/tabletinformation.h"
+#include "../commontestutils.h"
+#include "common/deviceinformation.h"
+#include "common/devicetype.h"
+#include "common/tabletinfo.h"
+#include "common/tabletinformation.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -46,7 +43,7 @@ private slots:
     void testSetter();
 };
 
-QTEST_KDEMAIN_CORE(TestTabletInformation)
+QTEST_MAIN(TestTabletInformation)
 
 void TestTabletInformation::testCompare()
 {

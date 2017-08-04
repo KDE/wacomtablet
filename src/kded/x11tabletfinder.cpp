@@ -17,18 +17,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "x11tabletfinder.h"
 
 #include "debug.h"
+
+#include "x11tabletfinder.h"
 #include "deviceinformation.h"
 #include "x11input.h"
 
-#include <QtCore/QMap>
+#if defined(HAVE_XCB_XINPUT)
+# include <xcb/xcb.h>
+#else
+# include <X11/Xlib.h>
+# include <X11/Xatom.h>
+# include <X11/extensions/XInput.h>
+# include <X11/Xutil.h>
+#endif
 
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
-#include <X11/extensions/XInput.h>
-#include <X11/Xutil.h>
+#include <QtCore/QMap>
 
 using namespace Wacom;
 
@@ -100,7 +105,7 @@ bool X11TabletFinder::visit (X11InputDevice& x11device)
     const DeviceType* deviceType = getDeviceType (getToolType (x11device));
 
     if (deviceName.isEmpty() || deviceType == NULL) {
-        kError() << QString::fromLatin1("Unsupported device '%1' detected!").arg(deviceName);
+        errWacom << QString::fromLatin1("Unsupported device '%1' detected!").arg(deviceName);
         return false;
     }
 
@@ -125,7 +130,7 @@ void X11TabletFinder::addDeviceInformation (DeviceInformation& deviceInformation
     long serial = deviceInformation.getTabletSerial();
 
     if (serial < 1) {
-        kWarning() << QString::fromLatin1 ("Device '%1' has an invalid serial number '%2'!").arg (deviceInformation.getName()).arg (serial);
+        qWarning() << QString::fromLatin1 ("Device '%1' has an invalid serial number '%2'!").arg (deviceInformation.getName()).arg (serial);
     }
 
     X11TabletFinderPrivate::TabletMap::iterator mapIter = d->tabletMap.find (serial);
@@ -166,7 +171,7 @@ const QString X11TabletFinder::getDeviceNode(X11InputDevice& device) const
     QList<QString> values;
 
     if (!device.getStringProperty(X11Input::PROPERTY_DEVICE_NODE, values, 1000) || values.size() == 0) {
-        kWarning() << QString::fromLatin1("Could not get device node from device '%1'!").arg(device.getName());
+        qWarning() << QString::fromLatin1("Could not get device node from device '%1'!").arg(device.getName());
         return QString();
     }
 
@@ -207,7 +212,7 @@ bool X11TabletFinder::getProductId(X11InputDevice& device, long int& vendorId, l
     }
 
     if (values.size() != 2) {
-        kError() << QString::fromLatin1("Unexpected number of values when fetching XInput property '%1'!").arg(X11Input::PROPERTY_DEVICE_PRODUCT_ID);
+        errWacom << QString::fromLatin1("Unexpected number of values when fetching XInput property '%1'!").arg(X11Input::PROPERTY_DEVICE_PRODUCT_ID);
         return false;
     }
 
@@ -260,13 +265,25 @@ const QString X11TabletFinder::getToolType (X11InputDevice& device) const
     QString toolTypeName;
 
     if (toolTypeAtoms.size() == 1) {
-        char *type_name = XGetAtomName (device.getDisplay(), (Atom)toolTypeAtoms.at(0));
 
-        if (type_name != NULL) {
-            toolTypeName = QLatin1String(type_name);
+#if defined(HAVE_XCB_XINPUT)
+        xcb_get_atom_name_cookie_t cookie = xcb_get_atom_name(QX11Info::connection(), toolTypeAtoms.at(0));
+        xcb_get_atom_name_reply_t* reply = xcb_get_atom_name_reply(QX11Info::connection(), cookie, NULL);
+        if (reply) {
+            toolTypeName = QString::fromLatin1(QByteArray(xcb_get_atom_name_name(reply), xcb_get_atom_name_name_length(reply)));
+            free(reply);
         }
 
-        XFree( type_name );
+#else  // HAVE_XCB_XINPUT
+        char *type_name = XGetAtomName (device.getDisplay(), (Atom)toolTypeAtoms.at(0));
+        if (type_name != NULL) {
+            toolTypeName = QLatin1String(type_name);
+            XFree( type_name );
+        } else {
+            dbgWacom << "Could not get tool type of device" << device.getName();
+        }
+
+#endif // HAVE_XCB_XINPUT
     }
 
     return toolTypeName;

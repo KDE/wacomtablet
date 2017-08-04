@@ -1,21 +1,43 @@
-cmake_minimum_required(VERSION 2.8.9)
+
+cmake_minimum_required(VERSION 3.0)
 
 project(wacomtablet)
 
-#--------------------------------------------------------------------------
-# CTest setup
-#--------------------------------------------------------------------------
-ENABLE_TESTING()
-include(CTest)
-include(CTestConfig.cmake)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake ${CMAKE_CURRENT_BINARY_DIR}/CTestCustom.cmake COPYONLY)
+set(QT_MIN_VERSION "5.3.0")
+find_package(ECM 1.6.0 REQUIRED CONFIG)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(FeatureSummary)
+include(ECMOptionalAddSubdirectory)
+include(ECMInstallIcons)
+
+find_package(ECM REQUIRED NOCOMPONENTS)
+find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets DBus X11Extras Qml)
+find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools)
+find_package(XCB REQUIRED COMPONENTS RANDR OPTIONAL_COMPONENTS XINPUT)
+find_package(X11 REQUIRED COMPONENTS XLIB RANDR)
 
 
+# xcb-xinput is an experimental API and is not built by default in the xcb
+# repository. Downstream distributions without xcb-xinput, such as Kubuntu, can
+# build using the Xlib version of the library instead.
+#
+# Because Qt5 uses xcb exclusively for native event handling, kded is unable
+# to monitor hotplugging events, since these are signaled as xinput events.
+#
+# Users can enable xcb-xinput by building xcb with the configuration flag --enable-xinput.
+if(XCB_XINPUT_FOUND)
+    message(STATUS "Using XCB_XINPUT.  Please note this is an unstable API.")
+    set(USING_X_LIBRARIES XCB::XINPUT XCB::RANDR ${X11_Xrandr_LIB} ${X11_Xinput_LIB})
+    add_definitions(-DHAVE_XCB_XINPUT)
+else()
+    message(STATUS "Falling back to X11_XINPUT.  (Daemon will be unable to monitor hotplugging.)")
+    set(USING_X_LIBRARIES XCB::RANDR ${X11_LIBRARIES} ${X11_Xinput_LIB} ${X11_Xrandr_LIB})
+endif()
 
-# search packages used by KDE
-find_package(KDE4 REQUIRED)
-include (KDE4Defaults)
-include (MacroLibrary)
+
 
 # local cmake modules
 set(CMAKE_MODULE_PATH
@@ -23,24 +45,23 @@ set(CMAKE_MODULE_PATH
     ${CMAKE_SOURCE_DIR}/cmake/modules
 )
 
-#find_package(LibWacom REQUIRED)
 find_package(XorgWacom REQUIRED)
 
-macro_log_feature(XORGWACOM_FOUND "Xorg-Wacom" "Xorg input wacom driver" "http://linuxwacom.sourceforge.net" TRUE "" "The driver/header files are missing")
-
-add_definitions( ${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DQT_STRICT_ITERATORS )
+add_definitions( -DQT_STRICT_ITERATORS )
 add_definitions( -DQT_NO_CAST_FROM_ASCII )
 add_definitions( -DQT_NO_CAST_TO_ASCII )
-add_definitions( -DDISABLE_NEPOMUK_LEGACY )
 add_definitions( -DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS )
-
-#include_directories (${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES} ${LIBWACOM_INCLUDE_DIRS})
-include_directories( ${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES} )
 
 add_subdirectory( src )
 add_subdirectory( data )
 add_subdirectory( images )
 add_subdirectory( doc )
-add_subdirectory( autotests )
 
-macro_display_feature_log()
+### Tests
+if(BUILD_TESTING)
+  find_package(Qt5Test ${QT_MIN_VERSION} CONFIG REQUIRED)
+  add_subdirectory( autotests )
+endif()
+
+
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

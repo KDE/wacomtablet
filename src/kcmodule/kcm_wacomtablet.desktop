@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=kcmshell4 kcm_wacomtablet
+Exec=kcmshell5 kcm_wacomtablet
 Icon=input-tablet
 Type=Service
 X-KDE-ServiceTypes=KCModule
@@ -12,7 +12,7 @@ X-KDE-System-Settings-Parent-Category=keyboard-and-mouse
 X-KDE-System-Settings-Parent-Category-V2=input-devices
 
 Name=Graphic Tablet
-Name[ar]=لوح رسم
+Name[ar]=لوحيّ رسم
 Name[ast]=Tableta gráfica
 Name[bs]=Grafički tablet
 Name[ca]=Tauleta gràfica
@@ -55,10 +55,11 @@ Name[x-test]=xxGraphic Tabletxx
 Name[zh_TW]=圖形平板裝置
 
 Comment=Wacom Tablet Settings
-Comment[ar]=إعدادات لوح واكُم
+Comment[ar]=إعدادات لوحيّّ واكُم
+Comment[ast]=Axustes de tableta Wacom
 Comment[bs]=Postavke Wacom tableta
-Comment[ca]=Arranjament de tauleta Wacom
-Comment[ca@valencia]=Arranjament de tauleta Wacom
+Comment[ca]=Arranjament per a les tauletes Wacom
+Comment[ca@valencia]=Arranjament per a les tauletes Wacom
 Comment[cs]=Nastavení tabletu Wacom
 Comment[da]=Indstillinger for Wacom tegneplade
 Comment[de]=Wacom-Tablett-Einstellungen
@@ -94,10 +95,12 @@ Comment[tr]=Wacom Tablet Ayarları
 Comment[ug]=Wacom سەزگۈر تاختا تەڭشەكلىرى
 Comment[uk]=Параметри планшетів Wacom
 Comment[x-test]=xxWacom Tablet Settingsxx
+Comment[zh_CN]=Wacom 绘图板设置
 Comment[zh_TW]=Wacom 平板裝置設定
 
 X-KDE-Keywords=Tablet,Input Devices,Wacom,Stylus
-X-KDE-Keywords[ar]=Tablet,Input Devices,Wacom,Stylus,لوح,رسم,لوح رسم,تابلت,جرافيك,جرافيكس,نحت,تلوين,لمس,قلم,إدخال,جهاز إدخال
+X-KDE-Keywords[ar]=Tablet,Input Devices,Wacom,Stylus,لوحي,أجهزة دخل,أجهزة إدخال,اجهزة ادخال,واكُم,واكم,واكوم,قلم تأشير,قلم تاشير
+X-KDE-Keywords[ast]=Tableta,Preseos d'entrada,Wacom,Stylus,Llápiz
 X-KDE-Keywords[bs]=Tablet,Ulazni uređaji,Wacom,Stylus
 X-KDE-Keywords[ca]=Tauleta,Dispositius d'entrada,Wacom,Llapis
 X-KDE-Keywords[ca@valencia]=Tauleta,Dispositius d'entrada,Wacom,Llapis

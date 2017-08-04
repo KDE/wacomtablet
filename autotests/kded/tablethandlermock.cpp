@@ -33,9 +33,9 @@ TabletHandlerMock::TabletHandlerMock() : TabletHandlerInterface(NULL)
 TabletHandlerMock::~TabletHandlerMock() {}
 
 
-void TabletHandlerMock::emitProfileChanged(const QString& profile)
+void TabletHandlerMock::emitProfileChanged(const QString &tabletId, const QString& profile)
 {
-    emit profileChanged(profile);
+    emit profileChanged(tabletId, profile);
 }
 
 
@@ -47,9 +47,9 @@ void TabletHandlerMock::emitTabletAdded(const TabletInformation& info)
 
 
 
-void TabletHandlerMock::emitTabletRemoved()
+void TabletHandlerMock::emitTabletRemoved(const QString &tabletId)
 {
-    emit tabletRemoved();
+    emit tabletRemoved(tabletId);
 }
 
 
@@ -81,7 +81,7 @@ QStringList TabletHandlerMock::listProfiles(const QString& tabletId)
 void TabletHandlerMock::setProfile(const QString& tabletId, const QString& profile)
 {
     m_profile = profile;
-    emitProfileChanged(profile);
+    emitProfileChanged(tabletId, profile);
 }
 
 

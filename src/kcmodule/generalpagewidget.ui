@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>715</width>
-    <height>578</height>
+    <width>787</width>
+    <height>807</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,25 +16,31 @@
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <widget class="QGroupBox" name="profileRotationBox">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>100</height>
+      </size>
+     </property>
      <property name="title">
       <string>ProfileRotation</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QListWidget" name="lwRotationList">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>100</height>
+          <height>16777215</height>
          </size>
         </property>
         <property name="editTriggers">
@@ -52,58 +58,64 @@
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
-         <widget class="QPushButton" name="pbUp">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-          <property name="text">
-           <string>Up</string>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
           </property>
-         </widget>
+         </spacer>
         </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="pbAddToRotationList">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Add</string>
-          </property>
-         </widget>
+        <item>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="1" column="0">
+           <widget class="QPushButton" name="pbDown">
+            <property name="text">
+             <string>Down</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="pbRemoveFromRotationList">
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="pbAddToRotationList">
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QPushButton" name="pbUp">
+            <property name="text">
+             <string>Up</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="pbDown">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-          <property name="text">
-           <string>Down</string>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QPushButton" name="pbRemoveFromRotationList">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Remove</string>
-          </property>
-         </widget>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -113,7 +125,7 @@
    <item>
     <widget class="QGroupBox" name="shortcutGroupBox">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -130,36 +142,23 @@
      <layout class="QVBoxLayout" name="verticalLayout"/>
     </widget>
    </item>
-   <item>
-    <spacer name="verticalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>14</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
   </layout>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>pbUp</sender>
+   <sender>pbAddToRotationList</sender>
    <signal>clicked()</signal>
    <receiver>GeneralPageWidget</receiver>
-   <slot>profileUp()</slot>
+   <slot>profileAdd()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>557</x>
-     <y>270</y>
+     <x>655</x>
+     <y>256</y>
     </hint>
     <hint type="destinationlabel">
-     <x>749</x>
-     <y>269</y>
+     <x>748</x>
+     <y>251</y>
     </hint>
    </hints>
   </connection>
@@ -196,18 +195,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>pbAddToRotationList</sender>
+   <sender>pbUp</sender>
    <signal>clicked()</signal>
    <receiver>GeneralPageWidget</receiver>
-   <slot>profileAdd()</slot>
+   <slot>profileUp()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>655</x>
-     <y>256</y>
+     <x>557</x>
+     <y>270</y>
     </hint>
     <hint type="destinationlabel">
-     <x>748</x>
-     <y>251</y>
+     <x>749</x>
+     <y>269</y>
     </hint>
    </hints>
   </connection>

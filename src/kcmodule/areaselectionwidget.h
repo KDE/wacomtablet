@@ -23,8 +23,8 @@
 #include <QtCore/QRectF>
 #include <QtCore/QSize>
 #include <QtCore/QStringList>
-#include <QtGui/QFont>
-#include <QtGui/QWidget>
+#include <QFont>
+#include <QWidget>
 
 class QBrush;
 class QPainter;
@@ -39,6 +39,7 @@ class AreaSelectionWidget : public QWidget
     Q_OBJECT
 
 public:
+    bool paintBelow{false};
 
     explicit AreaSelectionWidget(QWidget* parent = 0);
 

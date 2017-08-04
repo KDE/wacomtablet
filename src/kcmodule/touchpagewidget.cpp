@@ -103,7 +103,7 @@ void TouchPageWidget::reloadWidget()
     Q_D( TouchPageWidget );
 
     // get all tablet device names we need
-    QDBusReply<QString> touchDeviceNameReply  = DBusTabletInterface::instance().getDeviceName(d->tabletId, DeviceType::Touch);
+    QDBusReply<QString> touchDeviceNameReply  = DBusTabletInterface::instance().getDeviceName(d->tabletId, DeviceType::Touch.key());
 
     // update name and maximum tablet area for all devices
     d->touchDeviceName.clear();
@@ -112,8 +112,10 @@ void TouchPageWidget::reloadWidget()
 
     if (touchDeviceNameReply.isValid()) {
         d->touchDeviceName = touchDeviceNameReply.value();
-        d->tabletGeometry  = X11Wacom::getMaximumTabletArea(touchDeviceNameReply.value());
-        d->screenMap       = ScreenMap(d->tabletGeometry);
+        if (!d->touchDeviceName.isEmpty()) { // touch device available
+            d->tabletGeometry  = X11Wacom::getMaximumTabletArea(touchDeviceNameReply.value());
+            d->screenMap       = ScreenMap(d->tabletGeometry);
+        }
     }
 }
 
@@ -172,7 +174,7 @@ void TouchPageWidget::onTabletMappingClicked()
     selectionDialog.setupWidget( getScreenMap(), d->touchDeviceName, d->tabletRotation);
     selectionDialog.select( getScreenSpace() );
 
-    if (selectionDialog.exec() == KDialog::Accepted) {
+    if (selectionDialog.exec() == QDialog::Accepted) {
         setScreenMap(selectionDialog.getScreenMap());
         setScreenSpace(selectionDialog.getScreenSpace());
         onProfileChanged();

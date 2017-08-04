@@ -20,7 +20,7 @@
 #ifndef PROFILEMANAGER_H
 #define PROFILEMANAGER_H
 
-#include <KDE/KConfigGroup>
+#include <KConfigGroup>
 
 #include <QtCore/QString>
 
@@ -122,7 +122,7 @@ public:
     /**
      * Just a helper to write the last known profile number into the config file for later use
      */
-    void udpdateCurrentProfileNumber(const QString &profile);
+    void updateCurrentProfileNumber(const QString &profile);
 
     /**
      * Rotate to next profile in the rotation list

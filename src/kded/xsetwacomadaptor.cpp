@@ -76,7 +76,7 @@ const QString XsetwacomAdaptor::getProperty(const Property& property) const
     const XsetwacomProperty* xsetproperty = XsetwacomProperty::map(property);
 
     if (xsetproperty == NULL) {
-        kError() << QString::fromLatin1("Can not get unsupported property '%1' using xsetwacom!").arg(property.key());
+        errWacom << QString::fromLatin1("Can not get unsupported property '%1' using xsetwacom!").arg(property.key());
         return QString();
     }
 
@@ -88,7 +88,7 @@ const QString XsetwacomAdaptor::getProperty(const Property& property) const
     // convert value to a unified format
     convertFromXsetwacomValue (*xsetproperty, xsetwacomValue);
 
-    kDebug() << QString::fromLatin1("Reading property '%1' from device '%2' -> '%3'.").arg(property.key()).arg(d->device).arg(xsetwacomValue);
+    dbgWacom << QString::fromLatin1("Reading property '%1' from device '%2' -> '%3'.").arg(property.key()).arg(d->device).arg(xsetwacomValue);
 
     return xsetwacomValue;
 }
@@ -98,12 +98,12 @@ bool XsetwacomAdaptor::setProperty(const Property& property, const QString& valu
 {
     Q_D( const XsetwacomAdaptor );
 
-    kDebug() << QString::fromLatin1("Setting property '%1' to '%2' on device '%3'.").arg(property.key()).arg(value).arg(d->device);
+    dbgWacom << QString::fromLatin1("Setting property '%1' to '%2' on device '%3'.").arg(property.key()).arg(value).arg(d->device);
 
     const XsetwacomProperty* xsetproperty = XsetwacomProperty::map(property);
 
     if (xsetproperty == NULL) {
-        kError() << QString::fromLatin1("Can not set unsupported property '%1' to '%2' on device '%3' using xsetwacom!").arg(property.key()).arg(value).arg(d->device);
+        errWacom << QString::fromLatin1("Can not set unsupported property '%1' to '%2' on device '%3' using xsetwacom!").arg(property.key()).arg(value).arg(d->device);
         return false;
     }
 
@@ -155,7 +155,7 @@ const QString XsetwacomAdaptor::convertParameter(const XsetwacomProperty& param)
             kernelButtonNumber = hwButtonNumber;
         }
 
-        //kDebug() << QString::fromLatin1("Mapping tablet button %1 to X11 buton %2.").arg(hwButtonNumber).arg(kernelButtonNumber);
+        //dbgWacom << QString::fromLatin1("Mapping tablet button %1 to X11 buton %2.").arg(hwButtonNumber).arg(kernelButtonNumber);
 
         modifiedParam = QString(QLatin1String("Button %1")).arg(kernelButtonNumber);
     }
@@ -263,7 +263,7 @@ bool XsetwacomAdaptor::setParameter(const QString& device, const QString& param,
     QByteArray errorOutput = setConf.readAll();
 
     if( !errorOutput.isEmpty() ) {
-        kDebug() << cmd << " : " << errorOutput;
+        dbgWacom << cmd << " : " << errorOutput;
         return false;
     }
 

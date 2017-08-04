@@ -20,7 +20,7 @@
 #ifndef TABLETPROFILE_H
 #define TABLETPROFILE_H
 
-#include <KDE/KConfigGroup>
+#include <KConfigGroup>
 #include <QtCore/QString>
 
 #include "deviceprofile.h"

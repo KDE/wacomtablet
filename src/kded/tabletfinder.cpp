@@ -90,7 +90,12 @@ bool TabletFinder::scan()
             // lookup device information and button map
             lookupInformation(*iter);
 
-            kDebug() << QString::fromLatin1("Tablet '%1' (%2) found.").arg(iter->get(TabletInfo::TabletName)).arg(iter->get(TabletInfo::TabletId));
+            // empty device name will crash the system, ignore them for now
+            if (iter->get(TabletInfo::TabletName).isEmpty()) {
+                continue;
+            }
+
+            qDebug() << QString::fromLatin1("Tablet '%1' (%2) found.").arg(iter->get(TabletInfo::TabletName)).arg(iter->get(TabletInfo::TabletId));
 
             // emit tablet added signal
             emit tabletAdded(*iter);
@@ -112,7 +117,7 @@ void TabletFinder::onX11TabletAdded(int deviceId)
     for (int i = 0 ; i < d->tabletList.size() ; ++i) {
         if (d->tabletList.at(i).hasDevice(deviceId)) {
             // we already know this tablet
-            kError() << "X11 id:" << deviceId << "already added to Tablet" << d->tabletList.at(i).getDeviceName(DeviceType::Pad);
+            errWacom << "X11 id:" << deviceId << "already added to Tablet" << d->tabletList.at(i).getDeviceName(DeviceType::Pad);
             return;
         }
     }
@@ -121,7 +126,7 @@ void TabletFinder::onX11TabletAdded(int deviceId)
     X11TabletFinder x11TabletFinder;
 
     if (!x11TabletFinder.scanDevices()) {
-        kError() << "Could not find Wacom device with X11 id:" << deviceId;
+        errWacom << "Could not find Wacom device with X11 id:" << deviceId;
         return;
     }
 
@@ -132,7 +137,12 @@ void TabletFinder::onX11TabletAdded(int deviceId)
             TabletInformation tabletInfo = info;
             lookupInformation(tabletInfo);
 
-            kDebug() << QString::fromLatin1("Tablet '%1' (%2) added.").arg(tabletInfo.get(TabletInfo::TabletName)).arg(tabletInfo.get(TabletInfo::TabletId));
+            // empty device name will crash the system, ignore them for now
+            if (tabletInfo.get(TabletInfo::TabletName).isEmpty()) {
+                continue;
+            }
+
+            qDebug() << QString::fromLatin1("Tablet '%1' (%2) added.").arg(tabletInfo.get(TabletInfo::TabletName)).arg(tabletInfo.get(TabletInfo::TabletId));
 
             // add tablet to the list of known tablets and emit added signal
             d->tabletList.append(tabletInfo);
@@ -155,7 +165,7 @@ void TabletFinder::onX11TabletRemoved(int deviceId)
         if (iter->hasDevice(deviceId)) {
             TabletInformation info = *iter;
             d->tabletList.erase(iter);
-            kDebug() << QString::fromLatin1("Removed tablet '%1' (%2).").arg(info.get(TabletInfo::TabletName)).arg(info.get(TabletInfo::TabletId));
+            qDebug() << QString::fromLatin1("Removed tablet '%1' (%2).").arg(info.get(TabletInfo::TabletName)).arg(info.get(TabletInfo::TabletId));
             emit tabletRemoved(info);
             return;
         }
@@ -168,7 +178,7 @@ bool TabletFinder::lookupInformation(TabletInformation& info)
 {
     // lookup information from our tablet database
     if (!TabletDatabase::instance().lookupTablet(info.get (TabletInfo::TabletId), info)) {
-        kDebug() << QString::fromLatin1("Could not find tablet with id '%1' in database.").arg(info.get (TabletInfo::TabletId));
+        qDebug() << QString::fromLatin1("Could not find tablet with id '%1' in database.").arg(info.get (TabletInfo::TabletId));
         return false;
     }
 

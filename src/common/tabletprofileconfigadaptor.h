@@ -23,8 +23,6 @@
 #include "configadaptor.h"
 #include "tabletprofile.h"
 
-#include <KDE/KConfigGroup>
-
 namespace Wacom {
 
 class TabletProfileConfigAdaptorPrivate;

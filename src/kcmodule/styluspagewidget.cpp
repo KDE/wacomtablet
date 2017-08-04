@@ -32,11 +32,9 @@
 #include "dbustabletinterface.h"
 #include "buttonshortcut.h"
 
-//KDE includes
-#include <KDE/KStandardDirs>
-
 //Qt includes
-#include <QtGui/QPixmap>
+#include <QStandardPaths>
+#include <QPixmap>
 
 using namespace Wacom;
 
@@ -90,6 +88,7 @@ void StylusPageWidget::loadFromProfile()
     setPressureCurve ( DeviceType::Stylus, stylusProfile.getProperty( Property::PressureCurve ) );
 
     // Button Actions
+    setButtonShortcut ( Property::Button1, stylusProfile.getProperty( Property::Button1 ) );
     setButtonShortcut ( Property::Button2, stylusProfile.getProperty( Property::Button2 ) );
     setButtonShortcut ( Property::Button3, stylusProfile.getProperty( Property::Button3 ) );
 
@@ -126,8 +125,10 @@ void StylusPageWidget::saveToProfile()
     stylusProfile.setProperty( Property::PressureCurve, getPressureCurve(DeviceType::Stylus) );
 
     // button 2 and 3 config
+    eraserProfile.setProperty( Property::Button1, getButtonShortcut(Property::Button1) );
     eraserProfile.setProperty( Property::Button2, getButtonShortcut(Property::Button2) );
     eraserProfile.setProperty( Property::Button3, getButtonShortcut(Property::Button3) );
+    stylusProfile.setProperty( Property::Button1, getButtonShortcut(Property::Button1) );
     stylusProfile.setProperty( Property::Button2, getButtonShortcut(Property::Button2) );
     stylusProfile.setProperty( Property::Button3, getButtonShortcut(Property::Button3) );
 
@@ -171,12 +172,14 @@ const QString StylusPageWidget::getButtonShortcut(const Property& button) const
 
     ButtonShortcut shortcut;
 
-    if (button == Property::Button2) {
+    if (button == Property::Button1) {
+        shortcut = d->ui->button1ActionSelector->getShortcut();
+    } else if (button == Property::Button2) {
         shortcut = d->ui->button2ActionSelector->getShortcut();
     } else if (button == Property::Button3) {
         shortcut = d->ui->button3ActionSelector->getShortcut();
     } else {
-        kError() << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
+        errWacom << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
     }
 
     return shortcut.toString();
@@ -194,7 +197,7 @@ const QString StylusPageWidget::getPressureCurve(const DeviceType& type) const
         return d->ui->eraserPressureButton->property( "curve" ).toString();
 
     } else {
-        kError() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+        errWacom << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
     }
 
     return QString();
@@ -212,7 +215,7 @@ const QString StylusPageWidget::getPressureFeel(const DeviceType& type) const
         return QString::number(d->ui->eraserSlider->value());
 
     } else {
-        kError() << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+        errWacom << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
     }
 
     return QString();
@@ -230,14 +233,17 @@ void StylusPageWidget::setButtonShortcut(const Property& button, const QString& 
 {
     Q_D( StylusPageWidget );
 
-    if (button == Property::Button2) {
+    if (button == Property::Button1) {
+        d->ui->button1ActionSelector->setShortcut(ButtonShortcut(shortcut));
+
+    } else if (button == Property::Button2) {
         d->ui->button2ActionSelector->setShortcut(ButtonShortcut(shortcut));
 
     } else if (button == Property::Button3) {
         d->ui->button3ActionSelector->setShortcut(ButtonShortcut(shortcut));
 
     } else {
-        kError() << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
+        errWacom << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
     }
 }
 
@@ -253,7 +259,7 @@ void StylusPageWidget::setPressureCurve(const DeviceType& type, const QString& v
         d->ui->eraserPressureButton->setProperty( "curve", value );
 
     } else {
-        kError() << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
+        errWacom << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
     }
 }
 
@@ -269,7 +275,7 @@ void StylusPageWidget::setPressureFeel(const DeviceType& type, const QString& va
         d->ui->eraserSlider->setValue(value.toInt());
 
     } else {
-        kError() << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
+        errWacom << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
     }
 }
 
@@ -299,13 +305,13 @@ void StylusPageWidget::changePressureCurve(const DeviceType& deviceType)
     selectPC.setDeviceType( deviceType );
     selectPC.setControllPoints( startValue );
 
-    if( selectPC.exec() == KDialog::Accepted ) {
+    if( selectPC.exec() == QDialog::Accepted ) {
         result = selectPC.getControllPoints();
 
     } else {
         // reset the current pressurecurve to what is specified in the profile
         // rather than stick to the curve the user declined in the dialogue
-        DBusTabletInterface::instance().setProperty( d->tabletId, deviceType, Property::PressureCurve, startValue );
+        DBusTabletInterface::instance().setProperty( d->tabletId, deviceType.key(), Property::PressureCurve.key(), startValue );
     }
 
     if (result != startValue) {
@@ -321,8 +327,9 @@ void StylusPageWidget::setupUi()
 
     d->ui->setupUi( this );
 
-    d->ui->penLabel->setPixmap(QPixmap(KStandardDirs::locate("data", QString::fromLatin1("wacomtablet/images/pen.png"))));
+    d->ui->penLabel->setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("wacomtablet/images/pen.png"))));
 
+    connect ( d->ui->button1ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
     connect ( d->ui->button2ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
     connect ( d->ui->button3ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
 }

@@ -17,13 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "autotests/common/commontestutils.h"
-#include "src/common/deviceprofile.h"
+#include "../commontestutils.h"
+#include "common/deviceprofile.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -42,7 +39,7 @@ private slots:
     void testCopy();
 };
 
-QTEST_KDEMAIN_CORE(TestDeviceProfile)
+QTEST_MAIN(TestDeviceProfile)
 
 void TestDeviceProfile::testConstructor()
 {

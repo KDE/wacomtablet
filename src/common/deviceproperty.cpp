@@ -41,6 +41,14 @@ const DeviceProperty DeviceProperty::Button7          ( Property::Button7,      
 const DeviceProperty DeviceProperty::Button8          ( Property::Button8,          QLatin1String("Button8") );
 const DeviceProperty DeviceProperty::Button9          ( Property::Button9,          QLatin1String("Button9") );
 const DeviceProperty DeviceProperty::Button10         ( Property::Button10,         QLatin1String("Button10") );
+const DeviceProperty DeviceProperty::Button11          ( Property::Button11,          QLatin1String("Button11") );
+const DeviceProperty DeviceProperty::Button12          ( Property::Button12,          QLatin1String("Button12") );
+const DeviceProperty DeviceProperty::Button13          ( Property::Button13,          QLatin1String("Button13") );
+const DeviceProperty DeviceProperty::Button14          ( Property::Button14,          QLatin1String("Button14") );
+const DeviceProperty DeviceProperty::Button15          ( Property::Button15,          QLatin1String("Button15") );
+const DeviceProperty DeviceProperty::Button16          ( Property::Button16,          QLatin1String("Button16") );
+const DeviceProperty DeviceProperty::Button17          ( Property::Button17,          QLatin1String("Button17") );
+const DeviceProperty DeviceProperty::Button18          ( Property::Button18,          QLatin1String("Button18") );
 const DeviceProperty DeviceProperty::CursorAccelProfile               ( Property::CursorAccelProfile,              QLatin1String("CursorAccelProfile") );
 const DeviceProperty DeviceProperty::CursorAccelConstantDeceleration  ( Property::CursorAccelConstantDeceleration, QLatin1String("CursorAccelConstantDeceleration") );
 const DeviceProperty DeviceProperty::CursorAccelAdaptiveDeceleration  ( Property::CursorAccelAdaptiveDeceleration, QLatin1String("CursorAccelAdaptiveDeceleration") );

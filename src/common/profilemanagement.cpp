@@ -19,6 +19,8 @@
 
 #include "profilemanagement.h"
 
+#include "debug.h"
+
 // common
 #include "dbustabletinterface.h"
 #include "tabletinfo.h"
@@ -27,15 +29,12 @@
 #include "property.h"
 #include "screenrotation.h"
 
-//KDE includes
-#include <KDE/KDebug>
-
 //Qt includes
-#include <QtCore/QRegExp>
-#include <QtDBus/QDBusInterface>
-#include <QtDBus/QDBusReply>
+#include <QRegExp>
+#include <QDBusInterface>
+#include <QDBusReply>
 
-#include <QtCore/QDebug>
+#include <QDebug>
 
 using namespace Wacom;
 
@@ -49,7 +48,7 @@ ProfileManagement::ProfileManagement(const QString &deviceName, const QString &t
     , m_touchName(touchName)
     , m_profileManager(QLatin1String("tabletprofilesrc"))
 {
-    kDebug() << "Create instance for :: " << deviceName << touchName;
+    dbgWacom << "Create instance for :: " << deviceName << touchName;
 }
 
 ProfileManagement::ProfileManagement(const ProfileManagement& )
@@ -87,18 +86,18 @@ void ProfileManagement::setTabletId(const QString &tabletId)
 void ProfileManagement::createNewProfile( const QString &profilename )
 {
     if (profilename.isEmpty()) {
-        kDebug() << "Can not create a profile with no name!";
+        dbgWacom << "Can not create a profile with no name!";
     }
 
     //get information via DBus
     m_profileName = profilename;
 
     if( m_deviceName.isEmpty() ) {
-        kDebug() << "no device information are found. Can't create a new profile";
+        dbgWacom << "no device information are found. Can't create a new profile";
         return;
     }
 
-    kDebug() << "Creating a new profile for :: device:" << m_deviceName;
+    dbgWacom << "Creating a new profile for :: device:" << m_deviceName;
 
     m_profileManager.readProfiles(m_deviceName);
     TabletProfile tabletProfile = m_profileManager.loadProfile(profilename);
@@ -112,6 +111,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     DeviceProfile stylusDevice = tabletProfile.getDevice(DeviceType::Stylus);
 
+    stylusDevice.setProperty(Property::Button1, QLatin1String("1"));
     stylusDevice.setProperty(Property::Button2, QLatin1String("2"));
     stylusDevice.setProperty(Property::Button3, QLatin1String("3"));
     stylusDevice.setProperty(Property::Mode, QLatin1String("absolute"));
@@ -126,6 +126,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     DeviceProfile eraserDevice = tabletProfile.getDevice(DeviceType::Eraser);
 
+    eraserDevice.setProperty(Property::Button1, QLatin1String("1"));
     eraserDevice.setProperty(Property::Button2, QLatin1String("2"));
     eraserDevice.setProperty(Property::Button3, QLatin1String("3"));
     eraserDevice.setProperty(Property::Mode, QLatin1String("absolute"));
@@ -212,15 +213,17 @@ QString ProfileManagement::profileName() const
 
 void ProfileManagement::reload()
 {
-    QDBusReply<QString> deviceName  = DBusTabletInterface::instance().getInformation(m_tabletId, TabletInfo::TabletName);
+    auto deviceName  = DBusTabletInterface::instance().getInformation(m_tabletId, TabletInfo::TabletName.key());
+    deviceName.waitForFinished();
 
     if( deviceName.isValid() ) {
         m_deviceName = deviceName;
     }
 
-    QDBusReply<QString> touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch);
+    auto touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch.key());
+    deviceName.waitForFinished();
     if( touchName.isValid() ) {
-        kDebug() << "touchName.isValid()::" << m_touchName << "value" << touchName.value();
+        dbgWacom << "touchName.isValid()::" << m_touchName << "value" << touchName.value();
         m_touchName = touchName.value();
     }
     else {

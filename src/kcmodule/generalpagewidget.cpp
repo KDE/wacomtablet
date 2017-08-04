@@ -25,27 +25,23 @@
 // common
 #include "tabletinfo.h"
 #include "dbustabletinterface.h"
+#include "globalactions.h"
 
 // stdlib
 #include <memory>
 
 //KDE includes
-#include <KDE/KStandardDirs>
-#include <KDE/KIcon>
-#include <KDE/KComponentData>
-#include <KDE/KShortcutsEditor>
-#include <KDE/KActionCollection>
-#include <KDE/KAction>
-#include <KDE/KDebug>
+#include <KShortcutsEditor>
+#include <KGlobalAccel>
 
 //Qt includes
-#include <QtCore/QPointer>
-#include <QtCore/QStringList>
-#include <QtDBus/QDBusInterface>
-#include <QtDBus/QDBusReply>
-#include <QtGui/QListWidget>
-#include <QtGui/QListWidgetItem>
-#include <QtGui/QInputDialog>
+#include <QPointer>
+#include <QStringList>
+#include <QDBusInterface>
+#include <QDBusReply>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QInputDialog>
 
 #include <QDebug>
 
@@ -62,8 +58,8 @@ class GeneralPageWidgetPrivate {
             delete m_shortcutEditor;
         }
 
-        std::auto_ptr<Ui::GeneralPageWidget>  m_ui;                /**< Handler to the generalwidget.ui file */
-        QPointer<KActionCollection>       m_actionCollection;
+        std::shared_ptr<Ui::GeneralPageWidget>  m_ui;                /**< Handler to the generalwidget.ui file */
+        QPointer<GlobalActions>       m_actionCollection;
         QPointer<KShortcutsEditor>        m_shortcutEditor;
         QString                           tabletId;
 }; // CLASS
@@ -75,52 +71,11 @@ GeneralPageWidget::GeneralPageWidget(QWidget *parent)
 {
     Q_D( GeneralPageWidget );
 
-    d->m_ui = std::auto_ptr<Ui::GeneralPageWidget>(new Ui::GeneralPageWidget);
+    d->m_ui = std::shared_ptr<Ui::GeneralPageWidget>(new Ui::GeneralPageWidget);
     d->m_ui->setupUi(this);
 
     //if someone adds another action also add it to kded/tabletdeamon.cpp
-    d->m_actionCollection = new KActionCollection(this, KComponentData("wacomtablet"));
-    d->m_actionCollection->setConfigGlobal(true);
-
-    KAction *action = d->m_actionCollection->addAction(QLatin1String("Toggle touch tool"));
-    action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
-    action->setIcon( KIcon( QLatin1String( "input-tablet" ) ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_T ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Toggle stylus mode"));
-    action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
-    action->setIcon( KIcon( QLatin1String( "draw-path" ) ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_S ));
-
-    action = d->m_actionCollection->addAction(QLatin1String("Toggle screen map selection"));
-    action->setText( i18nc( "@action", "Toggle between all screens" ) );
-    action->setIcon( KIcon( QLatin1String( "draw-path" ) ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_M ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Map to fullscreen"));
-    action->setText( i18nc( "@action Maps the area of the tablet to all available screen space (space depends on connected monitors)", "Map to fullscreen" ) );
-    action->setIcon( KIcon( QLatin1String( "video-display" ) ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_F ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Map to screen 1"));
-    action->setText( i18nc( "@action", "Map to screen 1" ) );
-    action->setIcon( KIcon( QLatin1String( "video-display" ) ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_1 ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Map to screen 2"));
-    action->setText( i18nc( "@action", "Map to screen 2" ) );
-    action->setIcon( KIcon( QLatin1String( "video-display" ) ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_2 ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Next Profile"));
-    action->setText( i18nc( "@action Switch to the next profile in the rotation", "Next profile" ) );
-    action->setIcon( KIcon( QLatin1String( "go-next-use" ) ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_N ) );
-
-    action = d->m_actionCollection->addAction(QLatin1String("Previous Profile"));
-    action->setText( i18nc( "@action Switch to the previous profile in the rotation", "Previous Profile" ) );
-    action->setIcon( KIcon( QLatin1String( "go-previous-use" ) ) );
-    action->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_P ) );
+    d->m_actionCollection = new GlobalActions(true, this);
 
     d->m_shortcutEditor = new KShortcutsEditor(this, KShortcutsEditor::GlobalAction);
     d->m_shortcutEditor->addCollection(d->m_actionCollection, i18n("Wacom Tablet Settings"));
@@ -128,10 +83,10 @@ GeneralPageWidget::GeneralPageWidget(QWidget *parent)
     d->m_ui->shortcutGroupBox->layout()->addWidget(d->m_shortcutEditor);
 
     //setup icons in the profilerotation list box
-    d->m_ui->pbAddToRotationList->setIcon(KIcon( QLatin1String( "list-add" ) ));
-    d->m_ui->pbRemoveFromRotationList->setIcon(KIcon( QLatin1String( "list-remove" ) ));
-    d->m_ui->pbUp->setIcon(KIcon( QLatin1String( "arrow-up" ) ));
-    d->m_ui->pbDown->setIcon(KIcon( QLatin1String( "arrow-down" ) ));
+    d->m_ui->pbAddToRotationList->setIcon(QIcon::fromTheme( QLatin1String( "list-add" ) ));
+    d->m_ui->pbRemoveFromRotationList->setIcon(QIcon::fromTheme( QLatin1String( "list-remove" ) ));
+    d->m_ui->pbUp->setIcon(QIcon::fromTheme( QLatin1String( "arrow-up" ) ));
+    d->m_ui->pbDown->setIcon(QIcon::fromTheme( QLatin1String( "arrow-down" ) ));
 
 
     connect(d->m_shortcutEditor, SIGNAL(keyChange()), this, SLOT(profileChanged()));
@@ -180,7 +135,7 @@ void GeneralPageWidget::reloadWidget()
     Q_D( GeneralPageWidget );
 
     //get information via DBus
-    QDBusReply<QString> deviceName       = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::TabletName);
+    QDBusReply<QString> deviceName       = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::TabletName.key());
 
     //load rotation profile list based on current tablet
     QDBusReply<QStringList> rotationList = DBusTabletInterface::instance().getProfileRotationList(d->tabletId);

@@ -1,7 +1,8 @@
 [Global]
 IconName=input-tablet
 Comment=Wacom Tablet
-Comment[ar]=لوح واكُم
+Comment[ar]=لوحيّّ واكُم
+Comment[ast]=Tableta Wacom
 Comment[bs]=Wacom Tablet
 Comment[ca]=Tauleta Wacom
 Comment[ca@valencia]=Tauleta Wacom
@@ -43,7 +44,7 @@ Comment[uk]=Планшет Wacom
 Comment[x-test]=xxWacom Tabletxx
 Comment[zh_TW]=Wacom 平板裝置
 Name=WacomTablet
-Name[ar]=لوح واكُم
+Name[ar]=لوحيّ واكُم
 Name[bs]=WacomTablet
 Name[ca]=TauletaWacom
 Name[ca@valencia]=TauletaWacom
@@ -85,7 +86,7 @@ Name[zh_TW]=Wacom 平板裝置
 
 [Event/tabletAdded]
 Name=New tablet connected
-Name[ar]=تم توصيل لوح جديد
+Name[ar]=وُصل لوحيّ جديد
 Name[bs]=Novi tablet povezan
 Name[ca]=Hi ha una nova tauleta connectada
 Name[ca@valencia]=Hi ha una nova tauleta connectada
@@ -125,7 +126,8 @@ Name[uk]=З’єднано новий планшет
 Name[x-test]=xxNew tablet connectedxx
 Name[zh_TW]=新的平板裝置已連線
 Comment=New graphic tablet connected
-Comment[ar]=تو توصيل لوح رسم جديد
+Comment[ar]=لوحيّ جديد قد وُصل
+Comment[ast]=Coneutóse una tableta gráfica nueva
 Comment[bs]=Novi grafički tablet povezan
 Comment[ca]=Hi ha una nova tauleta gràfica connectada
 Comment[ca@valencia]=Hi ha una nova tauleta gràfica connectada
@@ -168,7 +170,7 @@ Action=Popup
 
 [Event/tabletRemoved]
 Name=Tablet removed
-Name[ar]=أُزيل اللوح
+Name[ar]=أُزيل لوحيّ
 Name[bs]=Tablet uklonjen
 Name[ca]=S'ha extret la tauleta
 Name[ca@valencia]=S'ha extret la tauleta
@@ -208,7 +210,7 @@ Name[uk]=Вилучено планшет
 Name[x-test]=xxTablet removedxx
 Name[zh_TW]=平板裝置已移除
 Comment=Graphic tablet removed
-Comment[ar]=أزيل لوح الرسم
+Comment[ar]=أُزيل لوحيّ رسم
 Comment[bs]=Grafički tablet uklonjen
 Comment[ca]=S'ha extret la tauleta gràfica
 Comment[ca@valencia]=S'ha extret la tauleta gràfica
@@ -251,7 +253,8 @@ Action=Popup
 
 [Event/tabletError]
 Name=A tablet error
-Name[ar]=خطأ في اللوح
+Name[ar]=عطل في اللوحيّ
+Name[ast]=Un fallu de tableta
 Name[bs]=Greška tableta
 Name[ca]=Un error a la tauleta
 Name[ca@valencia]=Un error a la tauleta
@@ -291,7 +294,8 @@ Name[uk]=Помилка планшета
 Name[x-test]=xxA tablet errorxx
 Name[zh_TW]=平板裝置錯誤
 Comment=An error occurred with the tablet
-Comment[ar]=حدث خطأ في اللوح
+Comment[ar]=حدث عطل مع اللوحيّ
+Comment[ast]=Asoedió un fallu cola tableta
 Comment[bs]=Desila se greška s tabletom
 Comment[ca]=Hi ha hagut un error amb la tauleta
 Comment[ca@valencia]=Hi ha hagut un error amb la tauleta

@@ -20,9 +20,6 @@
 #include "common/tabletarea.h"
 
 #include <QtTest>
-#include <KDE/KDebug>
-
-#include <qtest_kde.h>
 
 using namespace Wacom;
 
@@ -50,7 +47,7 @@ private:
 
 };
 
-QTEST_KDEMAIN_CORE(TestTabletArea)
+QTEST_MAIN(TestTabletArea)
 
 void TestTabletArea::testAssignment()
 {
