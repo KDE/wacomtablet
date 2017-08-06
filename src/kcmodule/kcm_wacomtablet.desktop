@@ -52,6 +52,7 @@ Name[tr]=Grafik Tablet
 Name[ug]=گرافىكىلىق سەزگۈر تاختا
 Name[uk]=Графічний планшет
 Name[x-test]=xxGraphic Tabletxx
+Name[zh_CN]=绘图板
 Name[zh_TW]=圖形平板裝置
 
 Comment=Wacom Tablet Settings
@@ -133,4 +134,5 @@ X-KDE-Keywords[sv]=Ritplatta,Inmatning,Enheter,Wacom,Penna
 X-KDE-Keywords[tr]=Tablet,Girdi Aygıtları,Wacom,Stylus
 X-KDE-Keywords[uk]=Tablet,Input Devices,Wacom,Stylus,планшет,введення,малювання,стило,перо
 X-KDE-Keywords[x-test]=xxTabletxx,xxInput Devicesxx,xxWacomxx,xxStylusxx
+X-KDE-Keywords[zh_CN]=Tablet,Input Devices,Wacom,Stylus,绘图板,输入设备,绘图笔,手写笔
 X-KDE-Keywords[zh_TW]=Tablet,Input Devices,Wacom,Stylus

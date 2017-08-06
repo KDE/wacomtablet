@@ -51,6 +51,7 @@ Name[tr]=Wacom Tablet
 Name[ug]=Wacom سەزگۈر تاختا
 Name[uk]=Планшет Wacom
 Name[x-test]=xxWacom Tabletxx
+Name[zh_CN]=Wacom 绘图板
 Name[zh_TW]=Wacom 平板裝置
 Comment=Wacom tablet control daemon
 Comment[ar]=عفريت التّحكّم بلوحيّات واكُم
@@ -92,5 +93,6 @@ Comment[th]=ดีมอนควบคุมแท็บเล็ตของ W
 Comment[tr]=Wacom tablet yapılandırma hizmeti
 Comment[uk]=Фонова служба керування планшетними пристроями Wacom
 Comment[x-test]=xxWacom tablet control daemonxx
+Comment[zh_CN]=Wacom 绘图板控制守护进程
 Comment[zh_TW]=Wacom 平板裝置控制伺服程式
 
