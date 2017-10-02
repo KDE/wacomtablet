@@ -6,7 +6,7 @@ wacomtablet (2.1.0-0.1.beta1) unstable; urgency=low
   * Add status LED support for profile rotation (Intous/Chintiq)
   * Fix profile not found error on tablet connect
 
--- Jörg Ehrichs <Joerg.Ehrichs@gmx.de>  Thu, 21 Aug 2014 19:00:00 +0100
+ -- Jörg Ehrichs <Joerg.Ehrichs@gmx.de>  Thu, 21 Aug 2014 19:00:00 +0100
 
 wacomtablet (2.0.2-0ppa1) unstable; urgency=low
 
