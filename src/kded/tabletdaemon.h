@@ -23,6 +23,8 @@
 #include <KDEDModule>
 #include <QVariantList>
 
+class QScreen;
+
 /**
   * The wacom namespace holds all classes regarding the tablet daemon / kcmodule and applet.
   */
@@ -106,6 +108,23 @@ private:
      * This method should only be called by a constructor.
      */
     void setupEventNotifier();
+
+    /**
+     * Helper function that sets up signals
+     * monitoring screen rotations and geometry changes
+     * for every existing and future screens.
+     */
+    void monitorAllScreensGeometry();
+
+private Q_SLOTS:
+    /**
+     * Sets up signals for rotation and geometry changes
+     * for a specific screen
+     * @param screen Screen to monitor
+     */
+    void monitorScreenGeometry(QScreen *screen);
+
+private:
 
 
     Q_DECLARE_PRIVATE(TabletDaemon)

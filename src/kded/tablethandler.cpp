@@ -178,19 +178,68 @@ void TabletHandler::onTabletRemoved( const TabletInformation& info )
 
 
 
-void TabletHandler::onScreenRotated( const ScreenRotation& screenRotation )
+void TabletHandler::onScreenRotated( const Qt::ScreenOrientation &newScreenRotation )
 {
     Q_D( TabletHandler );
+
+    dbgWacom << "Screen rotation changed: " << newScreenRotation;
 
     //for each connected tablet, do the rotation
     foreach(const QString &tabletId, d->tabletInformationList.keys()) {
         QString curProfile = d->currentProfileList.value(tabletId);
         TabletProfile tabletProfile = d->profileManagerList.value(tabletId)->loadProfile(curProfile);
+        ScreenRotation screenRotation = ScreenRotation::NONE;
+
+        switch (newScreenRotation)
+        {
+        case Qt::PrimaryOrientation:
+        case Qt::LandscapeOrientation:
+            screenRotation = ScreenRotation::NONE;
+            break;
+        case Qt::PortraitOrientation:
+            screenRotation = ScreenRotation::CW;
+            break;
+        case Qt::InvertedLandscapeOrientation:
+            screenRotation = ScreenRotation::HALF;
+            break;
+        case Qt::InvertedPortraitOrientation:
+            screenRotation = ScreenRotation::CCW;
+            break;
+        }
 
         // rotation has to be applied before screen mapping
         autoRotateTablet(tabletId, screenRotation, tabletProfile);
 
         // when the rotation changes, the screen mapping has to be applied again
+        mapTabletToCurrentScreenSpace(tabletId, tabletProfile);
+    }
+}
+
+void TabletHandler::onScreenAddedRemoved(QScreen *screen)
+{
+    Q_D( TabletHandler );
+
+    Q_UNUSED(screen)
+    dbgWacom << "Number of screens has changed";
+
+    foreach(const QString &tabletId, d->tabletInformationList.keys()) {
+        QString curProfile = d->currentProfileList.value(tabletId);
+        TabletProfile tabletProfile = d->profileManagerList.value(tabletId)->loadProfile(curProfile);
+
+        mapTabletToCurrentScreenSpace(tabletId, tabletProfile);
+    }
+}
+
+void TabletHandler::onScreenGeometryChanged()
+{
+    Q_D( TabletHandler );
+
+    dbgWacom << "Screen geometry has changed";
+
+    foreach(const QString &tabletId, d->tabletInformationList.keys()) {
+        QString curProfile = d->currentProfileList.value(tabletId);
+        TabletProfile tabletProfile = d->profileManagerList.value(tabletId)->loadProfile(curProfile);
+
         mapTabletToCurrentScreenSpace(tabletId, tabletProfile);
     }
 }

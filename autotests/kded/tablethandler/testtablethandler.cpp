@@ -91,6 +91,8 @@ void TestTabletHandler::onNotify(const QString& eventId, const QString& title, c
 
 void TestTabletHandler::onProfileChanged(const QString& tabletID, const QString& profile)
 {
+    Q_UNUSED(tabletID)
+
     m_profileChanged = profile;
 }
 
@@ -107,6 +109,8 @@ void TestTabletHandler::onTabletAdded(const TabletInformation& info)
 
 void TestTabletHandler::onTabletRemoved(const QString &tabletID)
 {
+    Q_UNUSED(tabletID)
+
     m_tabletAdded   = false;
     m_tabletRemoved = true;
 }
@@ -189,7 +193,7 @@ void TestTabletHandler::testOnScreenRotated()
     QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Touch, Property::Rotate), ScreenRotation::NONE.key());
 
     // rotate screen
-    m_tabletHandler->onScreenRotated(ScreenRotation::HALF);
+    m_tabletHandler->onScreenRotated(Qt::InvertedLandscapeOrientation);
 
     // validate result
     QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Eraser, Property::Rotate), ScreenRotation::HALF.key());

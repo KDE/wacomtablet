@@ -188,6 +188,8 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     // | 0  h  offsetY |
     // | 0  0     1    |
 
+    dbgWacom << "Mapping to area: " << screenArea;
+
     if (screenArea.isEmpty()) {
         return false; // nothing to do
     }
@@ -199,6 +201,7 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
 
     if (screenSpace.isDesktop()) {
         // full screen area selected
+        dbgWacom << "Full screen area selected: " << fullScreenGeometry;
         screenAreaGeometry = fullScreenGeometry;
 
     } else if (screenSpace.isMonitor()) {
@@ -208,15 +211,18 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
 
         if (screenNum >= screenList.count()) {
             // the selected monitor is no longer connected - use full screen
+            dbgWacom << "Selected monitor no longer connected - using full screen: " << fullScreenGeometry;
             screenAreaGeometry = fullScreenGeometry;
 
         } else {
             // use the given monitor geometry
+            dbgWacom << "Use monitor geometry for screen " << screenNum << ": " << screenList.at(screenNum);
             screenAreaGeometry = screenList.at(screenNum);
         }
 
     } else {
         // geometry selected
+        dbgWacom << "Geometry selected: " << StringUtils::toQRect(screenArea, true);
         screenAreaGeometry = StringUtils::toQRect(screenArea, true);
 
         if (screenAreaGeometry.isEmpty()) {
@@ -232,11 +238,11 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     int screenW = screenAreaGeometry.width();
     int screenH = screenAreaGeometry.height();
 
-    qreal w = ( qreal )screenW / ( qreal )fullScreenGeometry.width();
-    qreal h = ( qreal )screenH / ( qreal )fullScreenGeometry.height();
+    qreal w = static_cast<qreal>(screenW) / fullScreenGeometry.width();
+    qreal h = static_cast<qreal>(screenH) / fullScreenGeometry.height();
 
-    qreal offsetX = ( qreal )screenX / ( qreal )fullScreenGeometry.width();
-    qreal offsetY = ( qreal )screenY / ( qreal )fullScreenGeometry.height();
+    qreal offsetX = static_cast<qreal>(screenX) / fullScreenGeometry.width();
+    qreal offsetY = static_cast<qreal>(screenY) / fullScreenGeometry.height();
 
     dbgWacom << "Apply Coordinate Transformation Matrix";
     dbgWacom << w << "0" << offsetX;

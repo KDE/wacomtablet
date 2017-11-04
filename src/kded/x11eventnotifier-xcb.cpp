@@ -30,14 +30,12 @@
 
 #include <xcb/xcb.h>
 #include <xcb/xinput.h>
-#include <xcb/randr.h>
 
 namespace Wacom
 {
     class X11EventNotifierPrivate
     {
         public:
-            xcb_randr_rotation_t currentRotation;
             bool     isStarted;
     };
 }
@@ -48,7 +46,6 @@ X11EventNotifier::X11EventNotifier()
     : EventNotifier(NULL), QAbstractNativeEventFilter(), d_ptr(new X11EventNotifierPrivate)
 {
     Q_D( X11EventNotifier );
-    d->currentRotation = XCB_RANDR_ROTATION_ROTATE_0;
     d->isStarted       = false;
 }
 
@@ -57,7 +54,6 @@ X11EventNotifier::X11EventNotifier(const X11EventNotifier& notifier)
 {
     Q_UNUSED(notifier);
     Q_D( X11EventNotifier );
-    d->currentRotation = XCB_RANDR_ROTATION_ROTATE_0;
     d->isStarted       = false;
 }
 
@@ -123,9 +119,6 @@ bool X11EventNotifier::nativeEventFilter(const QByteArray &eventType, void *mess
 
     if (event->response_type == XCB_GE_GENERIC && cookie->event_type == XCB_INPUT_HIERARCHY) {
         handleX11InputEvent(cookie);
-
-    } else {
-        handleX11ScreenEvent(event);
     }
 
     // return QWidget::x11Event(event);
@@ -145,58 +138,18 @@ void X11EventNotifier::handleX11InputEvent(xcb_ge_generic_event_t* event)
 
     for (; iter.rem; xcb_input_hierarchy_info_next(&iter)) {
         if (iter.data->flags & XCB_INPUT_HIERARCHY_MASK_SLAVE_REMOVED) {
-            qDebug() << QString::fromLatin1("X11 device with id '%1' removed.").arg(iter.data->deviceid);
+            dbgWacom << QString::fromLatin1("X11 device with id '%1' removed.").arg(iter.data->deviceid);
             emit tabletRemoved(iter.data->deviceid);
 
         } else if (iter.data->flags & XCB_INPUT_HIERARCHY_MASK_SLAVE_ADDED) {
-            qDebug() << QString::fromLatin1("X11 device with id '%1' added.").arg(iter.data->deviceid);
+            dbgWacom << QString::fromLatin1("X11 device with id '%1' added.").arg(iter.data->deviceid);
 
             X11InputDevice device (iter.data->deviceid, QLatin1String("Unknown X11 Device"));
 
             if (device.isOpen() && device.isTabletDevice()) {
-                qDebug() << QString::fromLatin1("Wacom tablet device with X11 id '%1' added.").arg(iter.data->deviceid);
+                dbgWacom << QString::fromLatin1("Wacom tablet device with X11 id '%1' added.").arg(iter.data->deviceid);
                 emit tabletAdded(iter.data->deviceid);
             }
-        }
-    }
-}
-
-
-
-void X11EventNotifier::handleX11ScreenEvent(xcb_generic_event_t* event)
-{
-    Q_D( X11EventNotifier );
-
-    const xcb_query_extension_reply_t* reply = xcb_get_extension_data(QX11Info::connection(), &xcb_randr_id);
-
-    if (event->response_type == reply->first_event + XCB_RANDR_SCREEN_CHANGE_NOTIFY) {
-        xcb_randr_screen_change_notify_event_t* ev = reinterpret_cast<xcb_randr_screen_change_notify_event_t*>(event);
-        auto old_r = d->currentRotation;
-        d->currentRotation = static_cast<xcb_randr_rotation_t>(ev->rotation);
-
-        if (old_r != d->currentRotation) {
-            ScreenRotation newRotation = ScreenRotation::NONE;
-
-            switch (d->currentRotation) {
-                    case XCB_RANDR_ROTATION_ROTATE_0:
-                        newRotation = ScreenRotation::NONE;
-                        break;
-                    case XCB_RANDR_ROTATION_ROTATE_90:
-                        newRotation = ScreenRotation::CCW;
-                        break;
-                    case XCB_RANDR_ROTATION_ROTATE_180:
-                        newRotation = ScreenRotation::HALF;
-                        break;
-                    case XCB_RANDR_ROTATION_ROTATE_270:
-                        newRotation = ScreenRotation::CW;
-                        break;
-                    default:
-                        errWacom << QString::fromLatin1("FIXME: Unsupported screen rotation '%1'.").arg(d->currentRotation);
-                        return;
-            }
-
-            qDebug() << QString::fromLatin1("XRandr screen rotation detected: '%1'.").arg(newRotation.key());
-            emit screenRotated(newRotation);
         }
     }
 }

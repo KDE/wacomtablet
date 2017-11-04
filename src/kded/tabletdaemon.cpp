@@ -38,9 +38,8 @@
 #include <KPluginFactory>
 #include <KNotification>
 #include <KLocalizedString>
-#include <KActionCollection>
-#include <KGlobalAccel>
-#include <QAction>
+#include <QGuiApplication>
+#include <QScreen>
 
 using namespace Wacom;
 
@@ -150,8 +149,6 @@ void TabletDaemon::setupActions()
 
 void TabletDaemon::setupApplication()
 {
-    Q_D( TabletDaemon );
-
     static AboutData about( QLatin1Literal("wacomtablet"),
                             i18n( "Graphic Tablet Configuration daemon" ),
                             QLatin1String(kded_version), i18n( "A Wacom tablet control daemon" ) );
@@ -181,14 +178,53 @@ void TabletDaemon::setupEventNotifier()
 {
     Q_D( TabletDaemon );
 
-    connect( &X11EventNotifier::instance(), SIGNAL(screenRotated(ScreenRotation)),           &(d->tabletHandler),       SLOT(onScreenRotated(ScreenRotation)));
-    connect( &X11EventNotifier::instance(), SIGNAL(tabletAdded(int)),                        &TabletFinder::instance(), SLOT(onX11TabletAdded(int)));
-    connect( &X11EventNotifier::instance(), SIGNAL(tabletRemoved(int)),                      &TabletFinder::instance(), SLOT(onX11TabletRemoved(int)));
+    // Set up monitoring for individual screen geometry changes
+    monitorAllScreensGeometry();
 
-    connect( &TabletFinder::instance(),     SIGNAL(tabletAdded(TabletInformation)),    &(d->tabletHandler),       SLOT(onTabletAdded(TabletInformation)));
-    connect( &TabletFinder::instance(),     SIGNAL(tabletRemoved(TabletInformation)),  &(d->tabletHandler),       SLOT(onTabletRemoved(TabletInformation)));
+    // Set up monitoring for screens being added, removed or reordered
+    connect(qApp, &QGuiApplication::primaryScreenChanged, &(d->tabletHandler), &TabletHandler::onScreenAddedRemoved);
+    connect(qApp, &QGuiApplication::screenAdded, &(d->tabletHandler), &TabletHandler::onScreenAddedRemoved);
+    connect(qApp, &QGuiApplication::screenRemoved, &(d->tabletHandler), &TabletHandler::onScreenAddedRemoved);
+
+    // Set up tablet connected/disconnected signals
+    connect( &X11EventNotifier::instance(), &X11EventNotifier::tabletAdded,   &TabletFinder::instance(), &TabletFinder::onX11TabletAdded);
+    connect( &X11EventNotifier::instance(), &X11EventNotifier::tabletRemoved, &TabletFinder::instance(), &TabletFinder::onX11TabletRemoved);
+
+    connect( &TabletFinder::instance(),     &TabletFinder::tabletAdded,       &(d->tabletHandler),       &TabletHandler::onTabletAdded);
+    connect( &TabletFinder::instance(),     &TabletFinder::tabletRemoved,     &(d->tabletHandler),       &TabletHandler::onTabletRemoved);
 
     X11EventNotifier::instance().start();
+}
+
+void TabletDaemon::monitorAllScreensGeometry()
+{
+    // FIXME: Should be duplicating old, buggy behaviour:
+    // rotation changes monitored for all screens, which causes
+    // unwanted rotation in a multi-screen setup
+
+    // Add existing screens
+    for (const auto &screen : QGuiApplication::screens())
+    {
+        monitorScreenGeometry(screen);
+    }
+
+    // Monitor future screens
+    connect(qApp, &QGuiApplication::screenAdded, this, &TabletDaemon::monitorScreenGeometry);
+}
+
+void TabletDaemon::monitorScreenGeometry(QScreen *screen)
+{
+    Q_D( TabletDaemon );
+
+    auto tabletHandler = &(d->tabletHandler);
+
+    connect(screen, &QScreen::orientationChanged, tabletHandler, &TabletHandler::onScreenRotated);
+    screen->setOrientationUpdateMask(Qt::LandscapeOrientation |
+                                     Qt::PortraitOrientation |
+                                     Qt::InvertedLandscapeOrientation |
+                                     Qt::InvertedPortraitOrientation);
+
+    connect(screen, &QScreen::geometryChanged, &(d->tabletHandler), &TabletHandler::onScreenGeometryChanged);
 }
 
 #include "tabletdaemon.moc"

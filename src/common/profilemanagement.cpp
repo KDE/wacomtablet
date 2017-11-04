@@ -34,8 +34,6 @@
 #include <QDBusInterface>
 #include <QDBusReply>
 
-#include <QDebug>
-
 using namespace Wacom;
 
 ProfileManagement::ProfileManagement()

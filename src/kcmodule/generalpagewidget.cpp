@@ -43,8 +43,6 @@
 #include <QListWidgetItem>
 #include <QInputDialog>
 
-#include <QDebug>
-
 using namespace Wacom;
 
 namespace Wacom {

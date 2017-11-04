@@ -29,6 +29,8 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
+class QScreen;
+
 namespace Wacom
 {
 class ScreenSpace;
@@ -133,7 +135,18 @@ public Q_SLOTS:
      *
      * @param screenRotation The screen rotation.
      */
-    void onScreenRotated(const ScreenRotation& screenRotation);
+    void onScreenRotated(const Qt::ScreenOrientation &newScreenRotation);
+
+    /**
+     * @brief Handles screens being connected and disconnected
+     * @param screen Screen being connected or disconnected
+     */
+    void onScreenAddedRemoved(QScreen *screen);
+
+    /**
+     * @brief Handles changes in existing screen's geometry
+     */
+    void onScreenGeometryChanged();
 
     /**
       * Toggles the stylus/eraser to absolute/relative mode
