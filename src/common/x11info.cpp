@@ -22,22 +22,7 @@
 #include <QApplication>
 #include <QScreen>
 
-#include <X11/extensions/Xrandr.h>
-
 using namespace Wacom;
-
-
-int X11Info::getDefaultScreen()
-{
-    return QX11Info::appScreen();
-}
-
-
-Display* X11Info::getDisplay()
-{
-    return QX11Info::display();
-}
-
 
 const QRect X11Info::getDisplayGeometry()
 {
@@ -72,7 +57,7 @@ const QList< QRect > X11Info::getScreenGeometries()
 
         Q_FOREACH (QScreen *screen, screens) {
             QRect geometry = screen->geometry();
-        screenGeometries.append(QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio()));
+            screenGeometries.append(QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio()));
         }
     } else {
         QRect geometry = primaryScreen->geometry();
@@ -84,28 +69,18 @@ const QList< QRect > X11Info::getScreenGeometries()
 
 const ScreenRotation X11Info::getScreenRotation()
 {
-    Rotation       xrandrRotation;
-    ScreenRotation currentRotation = ScreenRotation::NONE;
-
-    XRRRotations(getDisplay(), getDefaultScreen(), &xrandrRotation);
-
-    switch (xrandrRotation) {
-        case RR_Rotate_0:
-            currentRotation = ScreenRotation::NONE;
-            break;
-        case RR_Rotate_90:
-            currentRotation = ScreenRotation::CCW;
-            break;
-        case RR_Rotate_180:
-            currentRotation = ScreenRotation::HALF;
-            break;
-        case RR_Rotate_270:
-            currentRotation = ScreenRotation::CW;
-            break;
-        default:
-            // defaults to NONE
-            break;
+    switch (QGuiApplication::primaryScreen()->orientation()) {
+    case Qt::PrimaryOrientation:
+    case Qt::LandscapeOrientation:
+        return ScreenRotation::NONE;
+    case Qt::PortraitOrientation:
+        return ScreenRotation::CW;
+    case Qt::InvertedLandscapeOrientation:
+        return ScreenRotation::HALF;
+    case Qt::InvertedPortraitOrientation:
+        return ScreenRotation::CCW;
     }
 
-    return currentRotation;
+    // this should never happen, but we probably should log an error here
+    return ScreenRotation::NONE;
 }

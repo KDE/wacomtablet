@@ -3,7 +3,7 @@ Type=Service
 Icon=input-tablet
 
 X-KDE-ServiceTypes=KDEDModule
-X-KDE-Library=wacomtablet
+X-KDE-Library=kded_wacomtablet
 X-KDE-DBus-ModuleName=wacomtablet
 X-KDE-Kded-autoload=true
 X-KDE-Kded-load-on-demand=false

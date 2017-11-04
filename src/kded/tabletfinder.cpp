@@ -78,6 +78,10 @@ bool TabletFinder::scan()
 {
     Q_D(TabletFinder);
 
+    if (!QX11Info::isPlatformX11()) {
+        return false;
+    }
+
     X11TabletFinder       x11tabletFinder;
     QMap<QString,QString> buttonMap;
 

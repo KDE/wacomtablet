@@ -25,8 +25,6 @@
 #include <QtCore/QList>
 #include <QtCore/QRectF>
 
-#include <QX11Info>
-
 namespace Wacom
 {
 
@@ -38,16 +36,6 @@ namespace Wacom
 class X11Info
 {
 public:
-
-    /**
-     * @return The default screen for the application.
-     */
-    static int getDefaultScreen();
-
-    /**
-     * @return The default display for the application.
-     */
-    static Display* getDisplay();
 
     /**
      * @return All screens united as one rectangle.

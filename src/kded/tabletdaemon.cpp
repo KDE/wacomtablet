@@ -40,6 +40,7 @@
 #include <KLocalizedString>
 #include <QGuiApplication>
 #include <QScreen>
+#include <QX11Info>
 
 using namespace Wacom;
 
@@ -193,8 +194,9 @@ void TabletDaemon::setupEventNotifier()
     connect( &TabletFinder::instance(),     &TabletFinder::tabletAdded,       &(d->tabletHandler),       &TabletHandler::onTabletAdded);
     connect( &TabletFinder::instance(),     &TabletFinder::tabletRemoved,     &(d->tabletHandler),       &TabletHandler::onTabletRemoved);
 
-    X11EventNotifier::instance().start();
-}
+    if (QX11Info::isPlatformX11()) {
+        X11EventNotifier::instance().start();
+    }
 
 void TabletDaemon::monitorAllScreensGeometry()
 {
