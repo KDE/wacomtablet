@@ -197,6 +197,7 @@ void TabletDaemon::setupEventNotifier()
     if (QX11Info::isPlatformX11()) {
         X11EventNotifier::instance().start();
     }
+}
 
 void TabletDaemon::monitorAllScreensGeometry()
 {

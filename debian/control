@@ -13,7 +13,7 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, xserver-xorg-input-wacom
 Recommends: ${shlibs:Recommends}
 Description: implements a KDE configuration GUI for the Wacom drivers
- KDE 4 KCModule
+ KDE Wacom tablet KCModule
  .
  This module implements a GUI for the Wacom Linux Drivers and extends it
  with profile support to handle different button / pen layouts per profile.
