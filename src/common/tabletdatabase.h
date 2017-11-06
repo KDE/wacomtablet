@@ -87,12 +87,12 @@ private:
     /**
      * Copy constructor which does nothing as this class is a singleton.
      */
-    explicit TabletDatabase(const TabletDatabase& that);
+    explicit TabletDatabase(const TabletDatabase& that) = delete;
 
     /**
      * Copy operator which does nothing as this class is a singleton.
      */
-    TabletDatabase& operator= (const TabletDatabase& that);
+    TabletDatabase& operator= (const TabletDatabase& that) = delete;
 
     /**
      * Reads the button map from the given device group and sets it on the tablet information object.

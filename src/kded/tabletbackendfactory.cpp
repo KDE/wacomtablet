@@ -29,24 +29,12 @@
 
 using namespace Wacom;
 
-TabletBackendInterface* TabletBackendFactory::m_tabletBackendMock = NULL;
+TabletBackendInterface* TabletBackendFactory::m_tabletBackendMock = nullptr;
 bool TabletBackendFactory::m_isUnitTest = false;
 
 
 
 TabletBackendFactory::TabletBackendFactory() {}
-
-TabletBackendFactory::TabletBackendFactory(const TabletBackendFactory& factory)
-{
-    Q_UNUSED(factory);
-}
-
-TabletBackendFactory& TabletBackendFactory::operator=(const TabletBackendFactory& factory)
-{
-    Q_UNUSED(factory);
-    return *this;
-}
-
 
 TabletBackendInterface* TabletBackendFactory::createBackend(const TabletInformation& info)
 {
@@ -57,7 +45,7 @@ TabletBackendInterface* TabletBackendFactory::createBackend(const TabletInformat
         // reset tablet backend mock as it will get deleted by the caller
         // therefore we can not return it more than once
         TabletBackendInterface* mock = m_tabletBackendMock;
-        m_tabletBackendMock = NULL;
+        m_tabletBackendMock = nullptr;
         return mock;
     }
 

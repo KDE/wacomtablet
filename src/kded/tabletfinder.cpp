@@ -42,26 +42,15 @@ namespace Wacom
 } // NAMESPACE
 
 
-TabletFinder::TabletFinder() : QObject(NULL), d_ptr(new TabletFinderPrivate)
+TabletFinder::TabletFinder()
+    : QObject(nullptr)
+    , d_ptr(new TabletFinderPrivate)
 {
-}
-
-TabletFinder::TabletFinder(const TabletFinder& finder) : QObject(NULL), d_ptr(new TabletFinderPrivate)
-{
-    // nothing to do - this class is a singleton and must not be copied
-    Q_UNUSED(finder);
 }
 
 TabletFinder::~TabletFinder()
 {
     delete d_ptr;
-}
-
-TabletFinder& TabletFinder::operator=(const TabletFinder& finder)
-{
-    // nothing to do - this class is a singleton and must not be copied
-    Q_UNUSED(finder);
-    return *this;
 }
 
 

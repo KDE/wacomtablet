@@ -46,22 +46,9 @@ TabletDatabase::TabletDatabase() : d_ptr (new TabletDatabasePrivate)
     d->companyFile = QLatin1String ("companylist");
 }
 
-TabletDatabase::TabletDatabase(const TabletDatabase& that) : d_ptr (new TabletDatabasePrivate)
-{
-    // do nothing as this class is a singleton
-    Q_UNUSED(that);
-}
-
 TabletDatabase::~TabletDatabase()
 {
     delete this->d_ptr;
-}
-
-TabletDatabase& TabletDatabase::operator=(const TabletDatabase& that)
-{
-    // do nothing as this class is a singleton
-    Q_UNUSED(that);
-    return *this;
 }
 
 

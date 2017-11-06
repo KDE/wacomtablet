@@ -62,8 +62,8 @@ protected:
 
 private:
     X11EventNotifier();
-    explicit X11EventNotifier(const X11EventNotifier& notifier);
-    X11EventNotifier& operator= (const X11EventNotifier& notifier);
+    explicit X11EventNotifier(const X11EventNotifier& notifier) = delete;
+    X11EventNotifier& operator= (const X11EventNotifier& notifier) = delete;
 
     /**
      * Handles X11 input events which signal adding or removal of a device.

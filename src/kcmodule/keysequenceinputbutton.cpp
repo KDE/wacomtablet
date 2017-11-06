@@ -54,26 +54,9 @@ KeySequenceInputButton::KeySequenceInputButton(QWidget *parent)
 }
 
 
-KeySequenceInputButton::KeySequenceInputButton(const KeySequenceInputButton& other)
-    : QPushButton(NULL), d_ptr(new KeySequenceInputButtonPrivate)
-{
-    // copying not allowed
-    Q_UNUSED(other);
-}
-
-
 KeySequenceInputButton::~KeySequenceInputButton()
 {
     // destructor must exist in cpp file, even if not used!
-}
-
-
-KeySequenceInputButton& KeySequenceInputButton::operator= (const KeySequenceInputButton& other)
-{
-    // copying not allowed
-    Q_UNUSED(other);
-
-    return *this;
 }
 
 
@@ -259,7 +242,7 @@ void KeySequenceInputButton::onButtonClicked()
 
 bool KeySequenceInputButton::convertKeyToBaseKey(int keyQt, int *keyBaseQt)
 {
-    if (keyBaseQt == NULL || keyQt == 0) {
+    if (keyBaseQt == nullptr || keyQt == 0) {
         return false;
     }
 

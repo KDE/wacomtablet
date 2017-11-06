@@ -51,7 +51,10 @@ namespace Wacom
 
 
 KeySequenceInputWidgetPrivate::KeySequenceInputWidgetPrivate(KeySequenceInputWidget *q)
-    :  q(q), layout(NULL), keyButton(NULL), clearButton(NULL)
+    : q(q)
+    , layout(nullptr)
+    , keyButton(nullptr)
+    , clearButton(nullptr)
 {
     setupUi();
 }
@@ -94,26 +97,9 @@ KeySequenceInputWidget::KeySequenceInputWidget(QWidget *parent)
 }
 
 
-KeySequenceInputWidget::KeySequenceInputWidget(const KeySequenceInputWidget& other)
-    : QWidget(NULL), d_ptr(new KeySequenceInputWidgetPrivate(this))
-{
-    // copying not allowed
-    Q_UNUSED(other);
-}
-
-
 KeySequenceInputWidget::~KeySequenceInputWidget()
 {
     // destructor must exist in cpp file, even if not used!
-}
-
-
-KeySequenceInputWidget& KeySequenceInputWidget::operator= (const KeySequenceInputWidget& other)
-{
-    // copying not allowed
-    Q_UNUSED(other);
-
-    return *this;
 }
 
 

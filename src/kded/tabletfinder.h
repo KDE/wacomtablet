@@ -95,12 +95,12 @@ private:
     /**
      * Copy constructor which does nothing as this class is a singleton.
      */
-    explicit TabletFinder(const TabletFinder& finder);
+    explicit TabletFinder(const TabletFinder& finder) = delete;
 
     /**
      * Copy operator which does nothing as this class is a singleton.
      */
-    TabletFinder& operator= (const TabletFinder& finder);
+    TabletFinder& operator= (const TabletFinder& finder) = delete;
 
 
     Q_DECLARE_PRIVATE(TabletFinder)

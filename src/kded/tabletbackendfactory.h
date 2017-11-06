@@ -86,10 +86,10 @@ private:
     TabletBackendFactory();
 
     //! Copy constructor which does nothing.
-    TabletBackendFactory(const TabletBackendFactory& factory);
+    TabletBackendFactory(const TabletBackendFactory& factory) = delete;
 
     //! Copy operator which does nothing.
-    TabletBackendFactory& operator= (const TabletBackendFactory& factory);
+    TabletBackendFactory& operator= (const TabletBackendFactory& factory) = delete;
 
 
     //! The mock object returned by this factory if it is set.

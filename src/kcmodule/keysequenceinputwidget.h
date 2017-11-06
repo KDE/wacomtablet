@@ -52,7 +52,7 @@ class KeySequenceInputWidget : public QWidget
 public:
 
     //! Default Constructor
-    KeySequenceInputWidget( QWidget *parent = 0 );
+    KeySequenceInputWidget( QWidget *parent = nullptr );
 
     //! Destructor
     virtual ~KeySequenceInputWidget();
@@ -85,10 +85,10 @@ private Q_SLOTS:
 
 private:
     //! Copy Constructor
-    KeySequenceInputWidget(const KeySequenceInputWidget& other);
+    KeySequenceInputWidget(const KeySequenceInputWidget& other) = delete;
 
     //! Copy Operator
-    KeySequenceInputWidget& operator= (const KeySequenceInputWidget& other);
+    KeySequenceInputWidget& operator= (const KeySequenceInputWidget& other) = delete;
 
 
     Q_DECLARE_PRIVATE(KeySequenceInputWidget)

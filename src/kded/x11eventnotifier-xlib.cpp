@@ -42,41 +42,24 @@ namespace Wacom
     class X11EventNotifierPrivate
     {
         public:
-            bool     isStarted;
+            bool     isStarted = false;
     };
 }
 
 using namespace Wacom;
 
 X11EventNotifier::X11EventNotifier()
-    : EventNotifier(NULL), QAbstractNativeEventFilter(), d_ptr(new X11EventNotifierPrivate)
+    : EventNotifier(nullptr)
+    , QAbstractNativeEventFilter()
+    , d_ptr(new X11EventNotifierPrivate)
 {
-    Q_D( X11EventNotifier );
-    d->isStarted       = false;
-}
 
-X11EventNotifier::X11EventNotifier(const X11EventNotifier& notifier)
-    : EventNotifier(NULL), QAbstractNativeEventFilter(), d_ptr(new X11EventNotifierPrivate)
-{
-    Q_UNUSED(notifier);
-    Q_D( X11EventNotifier );
-    d->isStarted       = false;
 }
 
 X11EventNotifier::~X11EventNotifier()
 {
     delete d_ptr;
 }
-
-
-X11EventNotifier& X11EventNotifier::operator=(const X11EventNotifier& notifier)
-{
-    // nothing to do - this class is a singleton and must not be copied
-    Q_UNUSED(notifier);
-    return *this;
-}
-
-
 
 X11EventNotifier& X11EventNotifier::instance()
 {

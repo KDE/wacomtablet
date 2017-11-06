@@ -103,10 +103,10 @@ private Q_SLOTS:
 private:
 
     //! Hidden Copy Constructor
-    KeySequenceInputButton(const KeySequenceInputButton& other);
+    KeySequenceInputButton(const KeySequenceInputButton& other) = delete;
 
     //! Hidden Copy Operator
-    KeySequenceInputButton& operator= (const KeySequenceInputButton& other);
+    KeySequenceInputButton& operator= (const KeySequenceInputButton& other) = delete;
 
     bool convertKeyToBaseKey(int keyQt, int *keyBaseQt);
 
