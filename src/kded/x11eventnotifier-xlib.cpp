@@ -147,6 +147,7 @@ void X11EventNotifier::handleX11InputEvent(xcb_ge_generic_event_t* event)
 
 int X11EventNotifier::registerForNewDeviceEvent(xcb_connection_t* conn)
 {
+    Q_UNUSED(conn)
     // This is already done by xcb plugin with more flags, doing this ourselves
     // will break Qt's xrandr functionality because connection is shared with Qt.
     // TODO: uncomment this again when we use our private connection.

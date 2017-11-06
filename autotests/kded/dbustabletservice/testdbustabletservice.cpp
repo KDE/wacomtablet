@@ -116,6 +116,7 @@ void TestDBusTabletService::assertTabletInformation(const TabletInformation& exp
 
 void TestDBusTabletService::onProfileChanged(const QString &TabletId, const QString& profile)
 {
+    Q_UNUSED(TabletId)
     m_profileWasChangedTo = profile;
 }
 
@@ -123,6 +124,7 @@ void TestDBusTabletService::onProfileChanged(const QString &TabletId, const QStr
 
 void TestDBusTabletService::onTabletAdded(const QString &TabletId)
 {
+    Q_UNUSED(TabletId)
     m_tabletWasAdded = true;
 }
 
@@ -130,6 +132,7 @@ void TestDBusTabletService::onTabletAdded(const QString &TabletId)
 
 void TestDBusTabletService::onTabletRemoved(const QString &TabletId)
 {
+    Q_UNUSED(TabletId)
     m_tabletWasRemoved = true;
 }
 
@@ -137,7 +140,7 @@ void TestDBusTabletService::onTabletRemoved(const QString &TabletId)
 
 void TestDBusTabletService::initTestCase()
 {
-    m_tabletService       = NULL;
+    m_tabletService       = nullptr;
     m_profileWasChangedTo.clear();
     m_tabletWasAdded      = false;
     m_tabletWasRemoved    = false;
@@ -173,7 +176,7 @@ void TestDBusTabletService::cleanupTestCase()
 {
     if (m_tabletService) {
         delete m_tabletService;
-        m_tabletService = NULL;
+        m_tabletService = nullptr;
     }
 }
 

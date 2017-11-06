@@ -23,7 +23,7 @@ using namespace Wacom;
 
 TabletBackendMock::TabletBackendMock()
 {
-    m_propertyAdaptor = NULL;
+    m_propertyAdaptor = nullptr;
 }
 
 
@@ -90,6 +90,7 @@ void TabletBackendMock::setProfile(const DeviceType& deviceType, const DevicePro
 
 void TabletBackendMock::setStatusLED(int led) {
     // doing nothing right now
+    Q_UNUSED(led)
 }
 
 

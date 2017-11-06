@@ -196,7 +196,6 @@ void PressureCurveWidget::paintEvent(QPaintEvent * event)
     QRectF clearRect(m_presssure * width(), 0, width(), height());
     QPainterPath subtract;
     subtract.addRect(clearRect);
-    areaBelowCurve.subtracted(subtract);
 
     //draw below curve area
     painter.setPen(QPen());

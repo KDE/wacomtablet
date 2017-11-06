@@ -22,7 +22,7 @@
 
 using namespace Wacom;
 
-TabletHandlerMock::TabletHandlerMock() : TabletHandlerInterface(NULL)
+TabletHandlerMock::TabletHandlerMock() : TabletHandlerInterface(nullptr)
 {
     m_profile = QLatin1String("default");
 
@@ -56,6 +56,7 @@ void TabletHandlerMock::emitTabletRemoved(const QString &tabletId)
 
 QString TabletHandlerMock::getProperty(const QString& tabletId, const DeviceType& deviceType, const Property& property) const
 {
+    Q_UNUSED(tabletId)
     QString prop = property.key();
 
     if (m_deviceType != deviceType.key()) {
@@ -73,6 +74,7 @@ QString TabletHandlerMock::getProperty(const QString& tabletId, const DeviceType
 
 QStringList TabletHandlerMock::listProfiles(const QString& tabletId)
 {
+    Q_UNUSED(tabletId)
     return m_profiles;
 }
 
@@ -88,6 +90,7 @@ void TabletHandlerMock::setProfile(const QString& tabletId, const QString& profi
 
 void TabletHandlerMock::setProperty(const QString& tabletId, const DeviceType& deviceType, const Property& property, const QString& value)
 {
+    Q_UNUSED(tabletId)
     m_deviceType      = deviceType.key();
     m_property        = property.key();
     m_propertyValue   = value;
@@ -96,10 +99,12 @@ void TabletHandlerMock::setProperty(const QString& tabletId, const DeviceType& d
 
 QStringList TabletHandlerMock::getProfileRotationList(const QString& tabletId)
 {
+    Q_UNUSED(tabletId)
     return m_rotationList;
 }
 
 void TabletHandlerMock::setProfileRotationList(const QString& tabletId, const QStringList &rotationList)
 {
+    Q_UNUSED(tabletId)
     m_rotationList = rotationList;
 }
