@@ -20,8 +20,8 @@
 #ifndef XINPUTADAPTOR_H
 #define XINPUTADAPTOR_H
 
-#include <QtCore/QString>
-#include <QtCore/QList>
+#include <QString>
+#include <QList>
 
 #include "propertyadaptor.h"
 

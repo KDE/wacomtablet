@@ -33,7 +33,7 @@
 # include <X11/Xutil.h>
 #endif
 
-#include <QtCore/QMap>
+#include <QMap>
 
 using namespace Wacom;
 

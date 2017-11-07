@@ -25,9 +25,9 @@
 #include "tabletinformation.h"
 #include "screenrotation.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
 class QScreen;
 

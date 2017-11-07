@@ -23,9 +23,9 @@
 #include "property.h"
 #include "devicetype.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
 namespace Wacom
 {

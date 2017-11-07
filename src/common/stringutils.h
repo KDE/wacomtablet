@@ -20,7 +20,7 @@
 #ifndef STRINGUTILS_H
 #define STRINGUTILS_H
 
-#include <QtCore/QString>
+#include <QString>
 
 class QRect;
 

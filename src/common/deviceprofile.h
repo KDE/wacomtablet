@@ -20,7 +20,7 @@
 #ifndef DEVICEPROFILE_H
 #define DEVICEPROFILE_H
 
-#include <QtCore/QString>
+#include <QString>
 #include <QList>
 
 #include "devicetype.h"

@@ -19,8 +19,8 @@
 
 #include "debug.h"
 
-#include <QtCore/QString>
-#include <QtCore/QList>
+#include <QString>
+#include <QList>
 
 #include "x11input.h"
 #include "x11inputdevice.h"

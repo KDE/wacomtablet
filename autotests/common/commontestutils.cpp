@@ -18,7 +18,6 @@
  */
 
 #include <QtTest>
-#include <QtCore>
 #include <QString>
 
 #include "commontestutils.h"

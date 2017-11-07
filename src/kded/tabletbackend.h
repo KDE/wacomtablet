@@ -22,8 +22,8 @@
 
 #include "tabletbackendinterface.h"
 
-#include <QtCore/QMap>
-#include <QtCore/QList>
+#include <QMap>
+#include <QList>
 
 namespace Wacom
 {

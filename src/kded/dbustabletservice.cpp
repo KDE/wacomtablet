@@ -26,9 +26,9 @@
 #include "tabletinfo.h"
 #include "wacomadaptor.h"
 
-#include <QtDBus/QDBusArgument>
-#include <QtDBus/QDBusConnection>
-#include <QtDBus/QDBusMetaType>
+#include <QDBusArgument>
+#include <QDBusConnection>
+#include <QDBusMetaType>
 
 using namespace Wacom;
 

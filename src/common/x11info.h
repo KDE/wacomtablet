@@ -22,8 +22,8 @@
 
 #include "screenrotation.h"
 
-#include <QtCore/QList>
-#include <QtCore/QRectF>
+#include <QList>
+#include <QRectF>
 
 namespace Wacom
 {

@@ -22,7 +22,7 @@
 
 #include "devicetype.h"
 
-#include <QtCore/QString>
+#include <QString>
 
 namespace Wacom {
 

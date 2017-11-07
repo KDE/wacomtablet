@@ -25,7 +25,7 @@
 #include "xinputadaptor.h"
 #include "xsetwacomadaptor.h"
 
-#include <QtCore/QMap>
+#include <QMap>
 
 using namespace Wacom;
 

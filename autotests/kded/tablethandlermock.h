@@ -23,9 +23,9 @@
 #include "tablethandlerinterface.h"
 #include "tabletinformation.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
 namespace Wacom
 {

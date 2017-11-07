@@ -21,7 +21,7 @@
 #define TABLETPROFILE_H
 
 #include <KConfigGroup>
-#include <QtCore/QString>
+#include <QString>
 
 #include "deviceprofile.h"
 

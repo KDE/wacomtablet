@@ -23,9 +23,9 @@
 #include "tabletdatabase.h"
 #include "x11tabletfinder.h"
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QString>
+#include <QList>
+#include <QMap>
+#include <QString>
 
 using namespace Wacom;
 

@@ -19,7 +19,7 @@
 
 #include "tabletarea.h"
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
 using namespace Wacom;
 

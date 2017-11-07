@@ -21,9 +21,9 @@
 
 #include "areaselectionwidget.h"
 
-#include <QtCore/QList>
-#include <QtCore/QRect>
-#include <QtCore/QString>
+#include <QList>
+#include <QRect>
+#include <QString>
 
 #include <QBrush>
 #include <QCursor>

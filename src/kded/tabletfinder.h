@@ -22,7 +22,7 @@
 
 #include "tabletinformation.h"
 
-#include <QtCore/QObject>
+#include <QObject>
 
 namespace Wacom
 {

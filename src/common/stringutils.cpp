@@ -20,9 +20,9 @@
 #include "stringutils.h"
 #include "debug.h"
 
-#include <QtCore/QRect>
-#include <QtCore/QRegExp>
-#include <QtCore/QStringList>
+#include <QRect>
+#include <QRegExp>
+#include <QStringList>
 
 using namespace Wacom;
 

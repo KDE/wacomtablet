@@ -22,9 +22,9 @@
 
 #include "tabletarea.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QRect>
-#include <QtCore/QString>
+#include <QObject>
+#include <QRect>
+#include <QString>
 #include <QWidget>
 
 namespace Wacom

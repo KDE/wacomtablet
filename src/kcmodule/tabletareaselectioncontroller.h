@@ -25,8 +25,8 @@
 #include "screenspace.h"
 #include "tabletarea.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
+#include <QObject>
+#include <QString>
 
 namespace Wacom
 {

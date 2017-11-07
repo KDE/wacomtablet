@@ -20,9 +20,9 @@
 #ifndef BUTTONSHORTCUT_H
 #define BUTTONSHORTCUT_H
 
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QMap>
+#include <QString>
+#include <QStringList>
+#include <QMap>
 
 namespace Wacom {
 

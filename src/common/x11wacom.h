@@ -23,8 +23,8 @@
 #include "devicetype.h"
 #include "tabletarea.h"
 
-#include <QtCore/QRectF>
-#include <QtCore/QString>
+#include <QRectF>
+#include <QString>
 
 namespace Wacom
 {

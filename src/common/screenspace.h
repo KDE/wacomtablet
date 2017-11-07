@@ -20,7 +20,7 @@
 #ifndef SCREENSPACE_H
 #define SCREENSPACE_H
 
-#include <QtCore/QString>
+#include <QString>
 
 namespace Wacom
 {

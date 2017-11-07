@@ -25,8 +25,8 @@
 #include "screenrotation.h"
 #include "tabletarea.h"
 
-#include <QtCore/QProcess>
-#include <QtCore/QRegExp>
+#include <QProcess>
+#include <QRegExp>
 
 using namespace Wacom;
 

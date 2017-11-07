@@ -21,8 +21,8 @@
 #include "common/tabletinformation.h"
 #include "common/tabletdatabase.h"
 
-#include <QtCore/QList>
-#include <QtCore/QMap>
+#include <QList>
+#include <QMap>
 
 #include <QtTest>
 

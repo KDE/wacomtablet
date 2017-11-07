@@ -21,7 +21,7 @@
 
 #include "screenspace.h"
 
-#include <QtCore/QRegExp>
+#include <QRegExp>
 
 using namespace Wacom;
 

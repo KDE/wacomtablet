@@ -22,7 +22,7 @@
 
 #include "buttonshortcut.h"
 
-#include <QtCore/QRegExp>
+#include <QRegExp>
 #include <QKeySequence>
 
 #include <KLocalizedString>

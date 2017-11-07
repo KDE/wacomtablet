@@ -24,8 +24,8 @@
 
 #include <KSharedConfig>
 
-#include <QtCore/QString>
-#include <QtCore/QMap>
+#include <QString>
+#include <QMap>
 
 // forward declarations
 class KConfigGroup;

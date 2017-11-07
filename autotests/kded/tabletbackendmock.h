@@ -25,8 +25,8 @@
 #include "deviceproperty.h"
 #include "propertyadaptormock.h"
 
-#include <QtCore/QMap>
-#include <QtCore/QString>
+#include <QMap>
+#include <QString>
 
 namespace Wacom
 {

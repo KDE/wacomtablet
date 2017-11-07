@@ -25,7 +25,7 @@
 #include "stringutils.h"
 #include "x11info.h"
 
-#include <QtCore/QRegExp>
+#include <QRegExp>
 
 #include <KLocalizedString>
 #include <QVBoxLayout>

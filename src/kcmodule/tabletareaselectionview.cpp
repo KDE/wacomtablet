@@ -22,7 +22,7 @@
 #include "tabletareaselectionview.h"
 #include "ui_tabletareaselectionview.h"
 
-#include <QtCore/QList>
+#include <QList>
 
 using namespace Wacom;
 

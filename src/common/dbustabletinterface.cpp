@@ -20,10 +20,10 @@
 #include "dbustabletinterface.h"
 #include "stringutils.h"
 
-#include <QtCore/QString>
-#include <QtCore/QMetaType>
-#include <QtCore/QMutex>
-#include <QtDBus/QtDBus>
+#include <QString>
+#include <QMetaType>
+#include <QMutex>
+#include <QtDBus>
 
 using namespace Wacom;
 

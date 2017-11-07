@@ -25,7 +25,7 @@
 #include "common/devicetype.h"
 #include "common/tabletinformation.h"
 
-#include <QtCore/QString>
+#include <QString>
 
 namespace Wacom {
 

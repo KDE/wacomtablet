@@ -24,7 +24,7 @@
 #include "screenrotation.h"
 #include "tabletarea.h"
 
-#include <QtCore/QString>
+#include <QString>
 
 namespace Wacom
 {

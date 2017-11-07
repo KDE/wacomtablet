@@ -20,8 +20,8 @@
 #ifndef XSETWACOMADAPTOR_H
 #define XSETWACOMADAPTOR_H
 
-#include <QtCore/QMap>
-#include <QtCore/QString>
+#include <QMap>
+#include <QString>
 
 #include "propertyadaptor.h"
 

@@ -20,8 +20,8 @@
 #ifndef TABLETAREA_H
 #define TABLETAREA_H
 
-#include <QtCore/QRect>
-#include <QtCore/QString>
+#include <QRect>
+#include <QString>
 
 namespace Wacom
 {

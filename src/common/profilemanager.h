@@ -22,7 +22,7 @@
 
 #include <KConfigGroup>
 
-#include <QtCore/QString>
+#include <QString>
 
 #include "tabletprofile.h"
 

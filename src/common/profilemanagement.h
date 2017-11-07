@@ -24,8 +24,8 @@
 #include "deviceprofile.h"
 
 //Qt includes
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QString>
+#include <QStringList>
 
 class KConfigGroup;
 class QDBusInterface;

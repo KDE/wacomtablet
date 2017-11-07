@@ -22,7 +22,7 @@
 
 #include "propertyadaptor.h"
 
-#include <QtCore/QMap>
+#include <QMap>
 
 namespace Wacom
 {

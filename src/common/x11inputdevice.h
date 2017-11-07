@@ -20,8 +20,8 @@
 #ifndef X11INPUTDEVICE_H
 #define X11INPUTDEVICE_H
 
-#include <QtCore/QString>
-#include <QtCore/QList>
+#include <QString>
+#include <QList>
 
 #include <QX11Info>
 #include <cstdint>

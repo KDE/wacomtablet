@@ -20,7 +20,7 @@
 #ifndef MAINCONFIG_H
 #define MAINCONFIG_H
 
-#include <QtCore/QString>
+#include <QString>
 
 namespace Wacom
 {

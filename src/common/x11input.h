@@ -23,7 +23,7 @@
 #include "x11inputdevice.h"
 #include "x11inputvisitor.h"
 
-#include <QtCore/QString>
+#include <QString>
 
 namespace Wacom
 {

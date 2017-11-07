@@ -31,8 +31,8 @@
 #include "x11info.h"
 #include "x11wacom.h"
 
-#include <QtCore/QRegExp>
-#include <QtCore/QStringList>
+#include <QRegExp>
+#include <QStringList>
 
 using namespace Wacom;
 

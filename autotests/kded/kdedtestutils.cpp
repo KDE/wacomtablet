@@ -20,7 +20,6 @@
 #include "kdedtestutils.h"
 
 #include <QtTest>
-#include <QtCore>
 
 using namespace Wacom;
 

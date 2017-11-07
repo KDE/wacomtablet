@@ -23,8 +23,8 @@
 //Qt includes
 #include <QWidget>
 #include <QColor>
-#include <QtCore/QSize>
-#include <QtCore/QPoint>
+#include <QSize>
+#include <QPoint>
 
 class QMouseEvent;
 class QPaintEvent;

@@ -24,7 +24,7 @@
 
 #include "buttonshortcut.h"
 
-#include <QtCore/QString>
+#include <QString>
 
 using namespace Wacom;
 

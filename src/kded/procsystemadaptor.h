@@ -20,8 +20,8 @@
 #ifndef PROCSYSTEMADAPTOR_H
 #define PROCSYSTEMADAPTOR_H
 
-#include <QtCore/QString>
-#include <QtCore/QList>
+#include <QString>
+#include <QList>
 
 #include "propertyadaptor.h"
 

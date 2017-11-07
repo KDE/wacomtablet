@@ -22,7 +22,7 @@
 #include "property.h"
 #include "deviceproperty.h"
 
-#include <QtCore/QHash>
+#include <QHash>
 
 using namespace Wacom;
 

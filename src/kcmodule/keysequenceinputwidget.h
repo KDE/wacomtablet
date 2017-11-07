@@ -21,7 +21,7 @@
 #define KEYSEQUENCEINPUTWIDGET_H
 
 #include <QtGlobal>
-#include <QtCore/QScopedPointer>
+#include <QScopedPointer>
 #include <QWidget>
 
 // forward declarations

@@ -20,9 +20,9 @@
 #ifndef AREASELECTIONWIDGET_H
 #define AREASELECTIONWIDGET_H
 
-#include <QtCore/QRectF>
-#include <QtCore/QSize>
-#include <QtCore/QStringList>
+#include <QRectF>
+#include <QSize>
+#include <QStringList>
 #include <QFont>
 #include <QWidget>
 

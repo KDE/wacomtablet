@@ -21,7 +21,7 @@
 #include "debug.h"
 #include "deviceprofile.h"
 
-#include <QtCore/QHash>
+#include <QHash>
 
 using namespace Wacom;
 
