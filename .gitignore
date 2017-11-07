@@ -3,3 +3,4 @@
 *.kate-swp
 .directory
 build
+CMakeLists.txt.user
