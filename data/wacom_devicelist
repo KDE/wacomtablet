@@ -1548,3 +1548,23 @@ hwbutton1=3
 hwbutton2=1
 hwbutton3=9
 hwbutton4=8
+
+[0357]
+model=PTH-660
+layout=bl_4
+name=Wacom Intuos Pro 2 M
+padbuttons=9
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
+hwbutton5=9
+hwbutton6=10
+hwbutton7=11
+hwbutton8=12
+hwbutton9=13
+
