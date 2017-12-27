@@ -58,3 +58,4 @@ target_link_libraries( kcm_wacomtablet
 
 install(TARGETS kcm_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR} )
 install( FILES kcm_wacomtablet.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR} )
+install(FILES org.kde.wacomtablet.metainfo.xml DESTINATION "${KDE_INSTALL_METAINFODIR}")
