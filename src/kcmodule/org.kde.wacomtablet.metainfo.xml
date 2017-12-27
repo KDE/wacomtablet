@@ -10,7 +10,7 @@
 	</description>
 	<url type="homepage">https://www.linux-apps.com/p/1127862/</url>
 	<url type="bugtracker">https://bugs.kde.org/buglist.cgi?component=general&amp;product=wacomtablet&amp;resolution=---</url>
-	<metadata_license>CC0-1.0</metadata_license>
+	<metadata_license>FSFAP</metadata_license>
 	<project_license>GPL-2.0+</project_license>
 	<screenshots>
 		<screenshot type="default">
