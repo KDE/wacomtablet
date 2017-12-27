@@ -1,4 +1,4 @@
-KDE 4 KCModule
+KDE KCModule
 
 This module implements a GUI for the Wacom Linux Drivers and extends it
 with profile support to handle different button / pen layouts per profile.
@@ -12,7 +12,7 @@ All tablets can be set up as long as they are found with the wacom kernel module
 
 Check with
 $ xsetwacom list devices
-if your device is correctly recognized first. If it dosn't show up here I can't configure it.
+if your device is correctly recognized first. If it dosn't show up there, we can't configure it.
 
 Components:
 * kded:
@@ -20,83 +20,95 @@ Components:
 	detects xrandr rotation and rotates the tablet with it
 	apply global shortcuts for the touch on/off stylus feature
 
-* kcontrol module:
+* systemsettings module:
 	unified gui to set-up the buttons and other aspects of the tablet
 
 * plasma-applet:
 	optional applet for easy switching between different profiles
 
+Manual installation
+===================
+
 Dependencies:
 * wacom tablet driver especially the xsetwacom tool
 * xserver-xorg-input-wacom >= 0.20
+* Hotplug functionality requies xinput extension for xcb
 
-* kdelibs5-dev
-* kdebase-workspace-dev
-* xorg-dev
-* xserver-xorg-dev
-* libxi-dev
-* libxinerama-dev
-* x11proto-xinerama-dev
+Build dependencies on Debian/Ubuntu:
+* libkf5coreaddons-dev
+* libkf5i18n-dev
+* libkf5dbusaddons-dev
+* libkf5globalaccel-dev
+* libkf5config-dev
+* libkf5xmlgui-dev
+* libkf5notifications-dev
+* plasma-framework-dev
+* kdoctools-dev
 * libxrandr-dev
+* libxi-dev
 
-#################################################################
-# build debian package
-
-$ debuild -us -uc -b
-
-#################################################################
-# or install with
+Building from source
+--------------------
 
 $ mkdir build
 $ cd build
-$ cmake ../ -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` -DCMAKE_BUILD_TYPE=release
+$ cmake ../ -DCMAKE_BUILD_TYPE=release
 $ make
 $ make install
 
-#################################################################
-# start with
+Building debian package
+-----------------------
 
-First the background daemon must be running. You can logout/login or restart the kded with
-$ kquitapp kded
-$ kded4
+$ debuild -us -uc -b
 
-Afterwards you get a notice when you plugin your device and can configure it via
+Staring the module
+==================
 
-$ kcmshell4 kcm_wacomtablet
-or have a look in the system settings where the keyboard and mouse settings are
+Background daemon should be started automatically each time you log in.
 
+If you do not want to restart your session, you can just restart the kded with:
 
-#################################################################
-# execute unit tests
-To run the unit-test add the KDE4_BUILD_TESTS=ON variable to the cmake call
+$ kquitapp kded5
+$ kded5 &
+
+Afterwards you get a notice when you plug in your device and can configure it via
+
+$ kcmshell5 wacomtablet
+
+or have a look in the system settings where the input settings are.
+
+Running unit tests
+==================
+
+First, configure the build to include tests by enabling BUILD_TESTING:
 
 $ mkdir build
 $ cd build
-$ cmake ../ -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` -DKDE4_BUILD_TESTS=ON
+$ cmake ../ -DBUILD_TESTING=ON
 $ make
 
-execute all tests via:
+Then, run the tests with:
 
 $ ctest
 
 or a single one via
-$ cd /build/autotests/common/property
-$ ./Property.shell
 
-you can find the testresults in
+$ cd autotests/common/property
+$ ./Test.Common.Property
 
-build/Testing/Temporary/LastTest.log
+you can find the test results in Testing/Temporary/LastTest.log
 
-##################################################################
-# Add missing tablet devices
+Add missing tablet devices
+==========================
 
-If your device is not recognized by this program but you can set it up via the xsetwacom driver.
-You can add the missing lines yourself.
+If your device is not recognized by this program, but you can set it up via the xsetwacom driver, run kde_wacom_tabletfinder.
 
-All you need is the tabletID.
+Manually adding missing tablet devices
+--------------------------------------
 
-------------------------------------------------
-Step 1) Get real internal Tablet name
+This method shouldn't really be used anymore unless you've encountered problems with kde_wacom_tabletfinder
+
+### Step 1) Get real internal Tablet name ###
 
 xsetwacom list dev
 
@@ -106,22 +118,18 @@ Wacom Bamboo cursor CURSOR
 Wacom Bamboo pad PAD
 Wacom Bamboo     STYLUS
 
-------------------------------------------------
-Step 2) Then you need the Tablet ID
+### Step 2) Then you need the Tablet ID ###
 
 xsetwacom get "Wacom Bamboo" tabletid
 
 for my Wacom Bamboo:
 101
 
-------------------------------------------------
-Step 3) Transform it into Hexadecimal
+### Step 3) Transform it into Hexadecimal ###
 
 For my Wacom Bamboo: 0065
 
-------------------------------------------------
-Step 4) Add a new section into the right datafile
-look at /usr/share/kde4/apps/wacomtablet/data/
+### Step 4) Add a new section into either ~/.config/tabletdblocalrc or the right datafile in /usr/share/wacomtablet/data/ ###
 
 for the Wacom Bamboo the right file is: wacom_devicelist
 
@@ -143,8 +151,7 @@ hwbutton2=2          # see below for more information
 hwbutton3=3
 hwbutton4=8
 
---------------------------------------------------------------------
-hwbuttonX explanantion:
+### hwbuttonX explanantion ###
 
 Kernels >= 2.6.38 renamed the buttons for some reason.
 
@@ -171,9 +178,3 @@ hwbutton1=3
 hwbutton2=8
 hwbutton3=9
 hwbutton4=1
-
-
-
-
-
-
