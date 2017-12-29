@@ -1,23 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <component type="addon">
-	<id>org.kde.wacomtablet</id>
-	<extends>org.kde.systemsettings</extends>
-	<extends>org.kde.kded</extends>
-	<name>KDE Wacom tablet module</name>
-	<summary>Configuration GUI for graphical tablets</summary>
-	<description>
-		<p>Wacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.</p>
-	</description>
-	<url type="homepage">https://www.linux-apps.com/p/1127862/</url>
-	<url type="bugtracker">https://bugs.kde.org/buglist.cgi?component=general&amp;product=wacomtablet&amp;resolution=---</url>
-	<metadata_license>FSFAP</metadata_license>
-	<project_license>GPL-2.0+</project_license>
-	<screenshots>
-		<screenshot type="default">
-			<image type="source" width="1028" height="757">
+  <id>org.kde.wacomtablet</id>
+  <extends>org.kde.systemsettings</extends>
+  <extends>org.kde.kded</extends>
+  <name>KDE Wacom tablet module</name>
+  <name xml:lang="ca">Mòdul del KDE per a tauletes Wacom</name>
+  <name xml:lang="en-GB">KDE Wacom tablet module</name>
+  <name xml:lang="nl">KDE Wacom tabletmodule</name>
+  <name xml:lang="pt">Módulo de tablete Wacom do KDE</name>
+  <name xml:lang="uk">Модуль планшета Wacom для KDE</name>
+  <name xml:lang="x-test">xxKDE Wacom tablet modulexx</name>
+  <summary>Configuration GUI for graphical tablets</summary>
+  <summary xml:lang="ca">IGU de configuració per a tauletes gràfiques</summary>
+  <summary xml:lang="en-GB">Configuration GUI for graphical tablets</summary>
+  <summary xml:lang="nl">Configuratie GUI voor grafisch tablets</summary>
+  <summary xml:lang="pt">Interface de configuração para tabletes gráficas</summary>
+  <summary xml:lang="uk">Графічний інтерфейс для налаштовування графічних планшетів</summary>
+  <summary xml:lang="x-test">xxConfiguration GUI for graphical tabletsxx</summary>
+  <description>
+    <p>Wacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.</p>
+    <p xml:lang="ca">Mòdul per a tauletes Wacom que proporciona la secció tauletes de l'Arranjament del sistema i un dimoni en segon pla que configura les tauletes connectades.</p>
+    <p xml:lang="en-GB">Wacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.</p>
+    <p xml:lang="nl">Wacom tablet module biedt tabletsectie voor Systeeminstelling en een achtergrond-daemon die verbonden tablets configureert.</p>
+    <p xml:lang="pt">O módulo da tablete Wacom oferece a secção de tablete para a Configuração do Sistema e um serviço em segundo plano que configura as tabletes ligadas.</p>
+    <p xml:lang="uk">Модуль планшетів Wacom забезпечує роботу розділу планшетів у Системних параметрах і фонової служби, яка налаштовує роботу із з'єднаними планшетами.</p>
+    <p xml:lang="x-test">xxWacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.xx</p>
+  </description>
+  <url type="homepage">https://www.linux-apps.com/p/1127862/</url>
+  <url type="bugtracker">https://bugs.kde.org/buglist.cgi?component=general&amp;product=wacomtablet&amp;resolution=---</url>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <screenshots>
+    <screenshot type="default">
+      <image type="source" width="1028" height="757">
 				https://cdn.kde.org/screenshots/wacomtablet/wacomtablet.png
 			</image>
-		</screenshot>
-	</screenshots>
-	<project_group>KDE</project_group>
+    </screenshot>
+  </screenshots>
+  <project_group>KDE</project_group>
 </component>
