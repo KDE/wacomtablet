@@ -31,7 +31,7 @@ if(XCB_XINPUT_FOUND)
     set(USING_X_LIBRARIES XCB::XINPUT XCB::RANDR ${X11_Xrandr_LIB} ${X11_Xinput_LIB})
     add_definitions(-DHAVE_XCB_XINPUT)
 else()
-    message(STATUS "Falling back to X11_XINPUT.  (Daemon will be unable to monitor hotplugging.)")
+    message(STATUS "Falling back to X11_XINPUT.")
     set(USING_X_LIBRARIES XCB::RANDR ${X11_LIBRARIES} ${X11_Xinput_LIB} ${X11_Xrandr_LIB})
 endif()
 
