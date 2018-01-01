@@ -1,24 +1,22 @@
-
 cmake_minimum_required(VERSION 3.0)
 
 project(wacomtablet)
 
 set(QT_MIN_VERSION "5.3.0")
 find_package(ECM 1.6.0 REQUIRED CONFIG)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_SOURCE_DIR}/cmake/modules)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
-include(KDECompilerSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
 include(FeatureSummary)
 include(ECMOptionalAddSubdirectory)
 include(ECMInstallIcons)
 
-find_package(ECM REQUIRED NOCOMPONENTS)
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets DBus X11Extras Qml)
 find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools)
 find_package(XCB REQUIRED COMPONENTS RANDR OPTIONAL_COMPONENTS XINPUT)
 find_package(X11 REQUIRED COMPONENTS XLIB RANDR)
-
+find_package(XorgWacom REQUIRED)
 
 # xcb-xinput is an experimental API and is not built by default in the xcb
 # repository. Downstream distributions without xcb-xinput, such as Kubuntu, can
@@ -36,16 +34,6 @@ else()
     message(STATUS "Falling back to X11_XINPUT.  (Daemon will be unable to monitor hotplugging.)")
     set(USING_X_LIBRARIES XCB::RANDR ${X11_LIBRARIES} ${X11_Xinput_LIB} ${X11_Xrandr_LIB})
 endif()
-
-
-
-# local cmake modules
-set(CMAKE_MODULE_PATH
-    ${CMAKE_MODULE_PATH}
-    ${CMAKE_SOURCE_DIR}/cmake/modules
-)
-
-find_package(XorgWacom REQUIRED)
 
 add_definitions( -DQT_STRICT_ITERATORS )
 add_definitions( -DQT_NO_CAST_FROM_ASCII )
