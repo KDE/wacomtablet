@@ -9,6 +9,7 @@
   <name xml:lang="en-GB">KDE Wacom tablet module</name>
   <name xml:lang="nl">KDE Wacom tabletmodule</name>
   <name xml:lang="pt">Módulo de tablete Wacom do KDE</name>
+  <name xml:lang="sk">KDE modul Wacom tabletu</name>
   <name xml:lang="uk">Модуль планшета Wacom для KDE</name>
   <name xml:lang="x-test">xxKDE Wacom tablet modulexx</name>
   <summary>Configuration GUI for graphical tablets</summary>
@@ -17,6 +18,7 @@
   <summary xml:lang="en-GB">Configuration GUI for graphical tablets</summary>
   <summary xml:lang="nl">Configuratie GUI voor grafisch tablets</summary>
   <summary xml:lang="pt">Interface de configuração para tabletes gráficas</summary>
+  <summary xml:lang="sk">Konfiguračné GUI pre grafické tablety</summary>
   <summary xml:lang="uk">Графічний інтерфейс для налаштовування графічних планшетів</summary>
   <summary xml:lang="x-test">xxConfiguration GUI for graphical tabletsxx</summary>
   <description>
@@ -26,6 +28,7 @@
     <p xml:lang="en-GB">Wacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.</p>
     <p xml:lang="nl">Wacom tablet module biedt tabletsectie voor Systeeminstelling en een achtergrond-daemon die verbonden tablets configureert.</p>
     <p xml:lang="pt">O módulo da tablete Wacom oferece a secção de tablete para a Configuração do Sistema e um serviço em segundo plano que configura as tabletes ligadas.</p>
+    <p xml:lang="sk">Modul Wacom tablet poskytuje sekciu tabletu pre systémové nastavenia a démon pozadia, ktorý nastavuje pripojené tablety.</p>
     <p xml:lang="uk">Модуль планшетів Wacom забезпечує роботу розділу планшетів у Системних параметрах і фонової служби, яка налаштовує роботу із з'єднаними планшетами.</p>
     <p xml:lang="x-test">xxWacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.xx</p>
   </description>
