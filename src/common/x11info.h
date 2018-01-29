@@ -42,12 +42,6 @@ public:
      */
     static const QRect getDisplayGeometry();
 
-
-    /**
-     * @return The number of screens the current display has.
-     */
-    static int getNumberOfScreens();
-
     /**
      * Returns a list of all X11 screen geometries.
      *
@@ -62,8 +56,7 @@ public:
      *
      * @return The current rotation as seen by the monitor.
      */
-    static const ScreenRotation getScreenRotation();
-
+    static const ScreenRotation getScreenRotation(int screenIndex = -1);
 
 private:
 

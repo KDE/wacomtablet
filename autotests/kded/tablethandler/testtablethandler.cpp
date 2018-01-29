@@ -179,6 +179,7 @@ void TestTabletHandler::testListProfiles()
 
 void TestTabletHandler::testOnScreenRotated()
 {
+    m_tabletHandler->onMapToScreen1();
     // reset screen rotation
     m_tabletHandler->setProperty(QLatin1String("4321"), DeviceType::Stylus, Property::Rotate, ScreenRotation::NONE.key());
     m_tabletHandler->setProperty(QLatin1String("4321"), DeviceType::Eraser, Property::Rotate, ScreenRotation::NONE.key());
@@ -193,7 +194,7 @@ void TestTabletHandler::testOnScreenRotated()
     QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Touch, Property::Rotate), ScreenRotation::NONE.key());
 
     // rotate screen
-    m_tabletHandler->onScreenRotated(Qt::InvertedLandscapeOrientation);
+    m_tabletHandler->onScreenRotated(0, Qt::InvertedLandscapeOrientation);
 
     // validate result
     QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Eraser, Property::Rotate), ScreenRotation::HALF.key());

@@ -36,40 +36,26 @@ const QRect X11Info::getDisplayGeometry()
     return unitedScreen;
 }
 
-
-int X11Info::getNumberOfScreens()
-{
-    if (QGuiApplication::primaryScreen()->virtualSiblings().size() > 1) {
-        return QGuiApplication::screens().size();
-    }
-
-    return 1;
-}
-
-
 const QList< QRect > X11Info::getScreenGeometries()
 {
     QList< QRect > screenGeometries;
+    const auto screens = QGuiApplication::screens();
 
-    auto primaryScreen = QGuiApplication::primaryScreen();
-    if(primaryScreen->virtualSiblings().size() > 1) {
-        auto screens = QGuiApplication::screens();
-
-        Q_FOREACH (QScreen *screen, screens) {
-            QRect geometry = screen->geometry();
-            screenGeometries.append(QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio()));
-        }
-    } else {
-        QRect geometry = primaryScreen->geometry();
-        screenGeometries.append(QRect(geometry.topLeft(), geometry.size() * primaryScreen->devicePixelRatio()));
+    Q_FOREACH (QScreen *screen, screens) {
+        QRect geometry = screen->geometry();
+        screenGeometries.append(QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio()));
     }
 
     return screenGeometries;
 }
 
-const ScreenRotation X11Info::getScreenRotation()
+const ScreenRotation X11Info::getScreenRotation(int screenIndex)
 {
-    switch (QGuiApplication::primaryScreen()->orientation()) {
+    const auto screen = screenIndex >= 0 && screenIndex < QGuiApplication::screens().size()
+            ? QGuiApplication::screens().at(screenIndex)
+            : QGuiApplication::primaryScreen();
+
+    switch (screen->orientation()) {
     case Qt::PrimaryOrientation:
     case Qt::LandscapeOrientation:
         return ScreenRotation::NONE;

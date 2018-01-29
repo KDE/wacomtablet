@@ -14,8 +14,8 @@ include(ECMInstallIcons)
 
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets DBus X11Extras Qml)
 find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools)
-find_package(XCB REQUIRED COMPONENTS RANDR OPTIONAL_COMPONENTS XINPUT)
-find_package(X11 REQUIRED COMPONENTS XLIB RANDR)
+find_package(XCB OPTIONAL_COMPONENTS XINPUT)
+find_package(X11 REQUIRED COMPONENTS XLIB)
 find_package(XorgWacom REQUIRED)
 
 # xcb-xinput is an experimental API and is not built by default in the xcb
@@ -28,11 +28,11 @@ find_package(XorgWacom REQUIRED)
 # Users can enable xcb-xinput by building xcb with the configuration flag --enable-xinput.
 if(XCB_XINPUT_FOUND)
     message(STATUS "Using XCB_XINPUT.  Please note this is an unstable API.")
-    set(USING_X_LIBRARIES XCB::XINPUT XCB::RANDR ${X11_Xrandr_LIB} ${X11_Xinput_LIB})
+    set(USING_X_LIBRARIES XCB::XINPUT ${X11_Xinput_LIB})
     add_definitions(-DHAVE_XCB_XINPUT)
 else()
     message(STATUS "Falling back to X11_XINPUT.")
-    set(USING_X_LIBRARIES XCB::RANDR ${X11_LIBRARIES} ${X11_Xinput_LIB} ${X11_Xrandr_LIB})
+    set(USING_X_LIBRARIES ${X11_LIBRARIES} ${X11_Xinput_LIB})
 endif()
 
 add_definitions( -DQT_STRICT_ITERATORS )

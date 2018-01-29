@@ -219,9 +219,17 @@ void TabletDaemon::monitorScreenGeometry(QScreen *screen)
 {
     Q_D( TabletDaemon );
 
-    auto tabletHandler = &(d->tabletHandler);
+    const auto &tabletHandler = &(d->tabletHandler);
 
-    connect(screen, &QScreen::orientationChanged, tabletHandler, &TabletHandler::onScreenRotated);
+    connect(screen, &QScreen::orientationChanged,
+            [=](const Qt::ScreenOrientation &newScreenRotation){
+        // FIXME: This is somewhat of a hack, ideally we probably should rely on
+        // output names (screen->name()) instead of screen indices,
+        // since indices can change when screens configuration is changed
+        int outputIndex = QGuiApplication::screens().indexOf(screen);
+        tabletHandler->onScreenRotated(outputIndex, newScreenRotation);
+    });
+
     screen->setOrientationUpdateMask(Qt::LandscapeOrientation |
                                      Qt::PortraitOrientation |
                                      Qt::InvertedLandscapeOrientation |

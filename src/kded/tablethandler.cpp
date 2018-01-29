@@ -37,6 +37,7 @@
 #include "tabletprofile.h"
 #include "x11info.h"
 
+#include <QGuiApplication>
 #include <QList>
 #include <QRect>
 #include <QRegExp>
@@ -178,11 +179,11 @@ void TabletHandler::onTabletRemoved( const TabletInformation& info )
 
 
 
-void TabletHandler::onScreenRotated( const Qt::ScreenOrientation &newScreenRotation )
+void TabletHandler::onScreenRotated(int screenIndex, const Qt::ScreenOrientation &newScreenRotation)
 {
     Q_D( TabletHandler );
 
-    dbgWacom << "Screen rotation changed: " << newScreenRotation;
+    dbgWacom << "Screen " << screenIndex << "rotation has changed to" << newScreenRotation;
 
     //for each connected tablet, do the rotation
     foreach(const QString &tabletId, d->tabletInformationList.keys()) {
@@ -208,7 +209,7 @@ void TabletHandler::onScreenRotated( const Qt::ScreenOrientation &newScreenRotat
         }
 
         // rotation has to be applied before screen mapping
-        autoRotateTablet(tabletId, screenRotation, tabletProfile);
+        autoRotateTablet(tabletId, tabletProfile, screenIndex, screenRotation);
 
         // when the rotation changes, the screen mapping has to be applied again
         mapTabletToCurrentScreenSpace(tabletId, tabletProfile);
@@ -367,7 +368,7 @@ void TabletHandler::onMapToScreen2()
 {
     Q_D( TabletHandler );
 
-    if (X11Info::getNumberOfScreens() >= 2) {
+    if (QGuiApplication::screens().count() > 1) {
         foreach(const QString &tabletId, d->tabletInformationList.keys()) {
             mapPenToScreenSpace(tabletId, ScreenSpace::monitor(1).toString());
         }
@@ -482,7 +483,7 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
 
     // Handle auto-rotation.
     // This has to be done before screen mapping!
-    autoRotateTablet(tabletId, X11Info::getScreenRotation(), tabletProfile);
+    autoRotateTablet(tabletId, tabletProfile);
 
     // Map tablet to screen.
     // This is necessary to ensure the correct area map is used. Somone might have changed
@@ -541,22 +542,37 @@ void TabletHandler::setProfileRotationList(const QString &tabletId, const QStrin
 }
 
 void TabletHandler::autoRotateTablet(const QString &tabletId,
-                                     const ScreenRotation &screenRotation,
-                                     const TabletProfile &tabletProfile)
+                                     const TabletProfile &tabletProfile,
+                                     int screenIndex,
+                                     ScreenRotation screenRotation)
 {
     // determine auto-rotation configuration
     DeviceProfile         stylusProfile    = tabletProfile.getDevice(DeviceType::Stylus);
 
-    QString               rotateProperty   = stylusProfile.getProperty( Property::Rotate);
+    QString               rotateProperty   = stylusProfile.getProperty(Property::Rotate);
     const ScreenRotation* lookupRotation   = ScreenRotation::find(rotateProperty);
-    ScreenRotation        tabletRotation   = (lookupRotation != NULL) ?
+    ScreenRotation        tabletRotation   = (lookupRotation != nullptr) ?
                                                 *lookupRotation : ScreenRotation::NONE;
 
     bool                  doAutoInvert     = (tabletRotation == ScreenRotation::AUTO_INVERTED);
     bool                  doAutoRotation   = (doAutoInvert || tabletRotation == ScreenRotation::AUTO);
 
     if (!doAutoRotation) {
-        return; // auto-rotation is disabled
+        dbgWacom << "Auto-rotation is disabled in profile settings";
+        return;
+    }
+
+    ScreenSpace stylusSpace = ScreenSpace(stylusProfile.getProperty(Property::ScreenSpace));
+    if (!stylusSpace.isMonitor()) {
+        dbgWacom << "We're not mapped to a specific display, can't determine auto-rotation";
+        return;
+    }
+
+    if (screenIndex == -1) {
+        screenRotation = X11Info::getScreenRotation(stylusSpace.getScreenNumber());
+    } else if (screenIndex != stylusSpace.getScreenNumber()) {
+        dbgWacom << "Tablet is mapped to a different screen";
+        return;
     }
 
     // determine new rotation and set it
@@ -603,7 +619,7 @@ void TabletHandler::mapDeviceToOutput(const QString &tabletId,
     }
 
     ScreenSpace screen(screenSpace);
-    int         screenCount = X11Info::getNumberOfScreens();
+    int         screenCount = QGuiApplication::screens().count();
 
     if (screen.isMonitor()) {
 

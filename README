@@ -44,7 +44,6 @@ Build dependencies on Debian/Ubuntu:
 * libkf5notifications-dev
 * plasma-framework-dev
 * kdoctools-dev
-* libxrandr-dev
 * libxi-dev
 
 Building from source

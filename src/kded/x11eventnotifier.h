@@ -73,13 +73,6 @@ private:
     void handleX11InputEvent(xcb_ge_generic_event_t* event);
 
     /**
-     * Handles X11 screen events which signal rotation of the screen.
-     * This method should not be called directly, but only by our X11 event
-     * handler method.
-     */
-    void handleX11ScreenEvent(xcb_generic_event_t* event);
-
-    /**
       * Register the eventhandler with the X11 system
       */
     int registerForNewDeviceEvent(xcb_connection_t* display);

@@ -151,17 +151,5 @@ int X11EventNotifier::registerForNewDeviceEvent(xcb_connection_t* conn)
     mask_buf[0] = XCB_INPUT_XI_EVENT_MASK_HIERARCHY;
 
     xcb_input_xi_select_events(conn, QX11Info::appRootWindow(), 1, evmask);
-
-    // This is already done by xcb plugin with more flags, doing this ourselves
-    // will break Qt's xrandr functionality because connection is shared with Qt.
-    // TODO: uncomment this again when we use our private connection.
-#if 0
-    //register RandR events
-    int rrmask = XCB_RANDR_NOTIFY_MASK_SCREEN_CHANGE;
-
-    xcb_randr_select_input(conn, QX11Info::appRootWindow(), 0);
-    xcb_randr_select_input(conn, QX11Info::appRootWindow(), rrmask);
-#endif
-
     return 0;
 }
