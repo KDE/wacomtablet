@@ -563,14 +563,14 @@ void TabletHandler::autoRotateTablet(const QString &tabletId,
     }
 
     ScreenSpace stylusSpace = ScreenSpace(stylusProfile.getProperty(Property::ScreenSpace));
-    if (!stylusSpace.isMonitor()) {
+    if (!stylusSpace.isMonitor() && QGuiApplication::screens().count() > 1) {
         dbgWacom << "We're not mapped to a specific display, can't determine auto-rotation";
         return;
     }
 
     if (screenIndex == -1) {
         screenRotation = X11Info::getScreenRotation(stylusSpace.getScreenNumber());
-    } else if (screenIndex != stylusSpace.getScreenNumber()) {
+    } else if (screenIndex != stylusSpace.getScreenNumber() && QGuiApplication::screens().count() > 1) {
         dbgWacom << "Tablet is mapped to a different screen";
         return;
     }
