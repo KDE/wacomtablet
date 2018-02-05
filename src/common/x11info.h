@@ -23,6 +23,7 @@
 #include "screenrotation.h"
 
 #include <QList>
+#include <QMap>
 #include <QRectF>
 
 namespace Wacom
@@ -47,7 +48,7 @@ public:
      *
      * @return List of X11 screen geometries.
      */
-    static const QList< QRect > getScreenGeometries();
+    static const QMap<QString, QRect> getScreenGeometries();
 
     /**
      * Gets the current rotation of the screen. This is based on the monitor
@@ -56,7 +57,10 @@ public:
      *
      * @return The current rotation as seen by the monitor.
      */
-    static const ScreenRotation getScreenRotation(int screenIndex = -1);
+    static const ScreenRotation getScreenRotation(QString output = QString());
+
+    static const QString getPrimaryScreenName();
+    static const QString getNextScreenName(QString output);
 
 private:
 

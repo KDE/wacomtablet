@@ -57,12 +57,6 @@ public:
     const ScreenSpace getScreenSpace() const;
 
     /**
-     * Shows the selection for the given screen number (-1 <= screenNumber < number of screens).
-     * -1 shows the selection for the full desktop.
-     */
-    void select(int screenNumber);
-
-    /**
      * Shows the selection for the given screen space.
      */
     void select(const ScreenSpace& screenSpace);
@@ -125,11 +119,11 @@ private:
 
     const TabletArea convertAreaToRotation(const TabletArea& tablet, const TabletArea& area, const ScreenRotation& rotation) const;
 
-    const QRect getScreenGeometry(int screenNumber) const;
+    const QRect getScreenGeometry(QString output) const;
 
-    const TabletArea getMapping(int screenNumber) const;
+    const TabletArea getMapping(ScreenSpace screenSpace) const;
 
-    void setMapping(int screenNumber, const TabletArea& mapping);
+    void setMapping(ScreenSpace screenSpace, const TabletArea& mapping);
 
 
     /**

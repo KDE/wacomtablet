@@ -31,12 +31,6 @@ class ScreenSpace
 {
 
 public:
-    enum ScreenSpaceType
-    {
-        DESKTOP,
-        MONITOR
-    };
-
     ScreenSpace();
     ScreenSpace(const QString& screenSpace);
     ScreenSpace(const ScreenSpace& screenSpace);
@@ -50,22 +44,23 @@ public:
 
     static const ScreenSpace desktop();
 
-    int getScreenNumber() const;
-
     bool isDesktop() const;
 
     bool isMonitor() const;
 
-    bool isMonitor(int screenNumber) const;
-
-    static const ScreenSpace monitor(int screenNumber);
+    static const ScreenSpace monitor(QString output);
 
     const QString toString() const;
 
+    /**
+     * This function allows to cycle through all existing screen spaces in a loop,
+     * which means every individual connected screen and "desktop" (whole screen)
+     *
+     * @return Next ScreenSpace after this
+     */
+    ScreenSpace next() const;
 
 private:
-    ScreenSpace(int monitorNumber);
-
     void setScreenSpace(const QString& screenSpace);
 
     Q_DECLARE_PRIVATE(ScreenSpace)

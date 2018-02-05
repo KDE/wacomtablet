@@ -73,12 +73,11 @@ const ScreenSpace TabletAreaSelectionDialog::getScreenSpace() const
 }
 
 
-
-void TabletAreaSelectionDialog::select(int screenNumber)
+void TabletAreaSelectionDialog::select(QString output)
 {
     Q_D(TabletAreaSelectionDialog);
 
-    d->selectionWidget->select(screenNumber);
+    d->selectionWidget->select(output);
 }
 
 

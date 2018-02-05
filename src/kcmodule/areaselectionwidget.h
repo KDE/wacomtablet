@@ -91,7 +91,7 @@ public:
      * @param areas   The areas to display to the user.
      * @param caption Optional captions to draw in the center of each area.
      */
-    void setAreas(const QList< QRect >& areas, const QStringList& areaCaptions);
+    void setAreas(const QMap<QString, QRect> &areas, const QStringList& areaCaptions);
 
 
     /**
@@ -144,7 +144,7 @@ public:
      *
      * @param areaIndex The list index of the sub-area to select.
      */
-    void setSelection(int areaIndex);
+    void setSelection(QString output);
 
 
     /**
@@ -226,7 +226,7 @@ private:
      * @param scaleFactor The scale factor which is applied to the areas.
      * @param totalDisplayAreaMargin The total display area margin.
      */
-    const QList< QRectF > calculateDisplayAreas(const QList< QRect > areas, qreal scaleFactor, qreal totalDisplayAreaMargin) const;
+    const QList< QRectF > calculateDisplayAreas(const QMap<QString, QRect> areas, qreal scaleFactor, qreal totalDisplayAreaMargin) const;
 
 
     /**
@@ -284,7 +284,7 @@ private:
      *
      * @return The size of the virtual area as rectangle.
      */
-    const QRect calculateVirtualArea(const QList< QRect > areas) const;
+    const QRect calculateVirtualArea(const QMap<QString, QRect> &areas) const;
 
 
     /**

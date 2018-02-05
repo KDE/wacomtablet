@@ -58,7 +58,7 @@ public:
 
     const ScreenSpace getScreenSpace() const;
 
-    void select(int screenNumber);
+    void select(QString output);
 
     void select(const ScreenSpace& screenSpace);
 

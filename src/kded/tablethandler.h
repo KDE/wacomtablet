@@ -133,10 +133,10 @@ public Q_SLOTS:
      * This slot has to be connected to the X event notifier and executed
      * when the screen is rotated.
      *
-     * @param screenIndex Index of the screen that has been rotated.
+     * @param output Name of the screen that has been rotated.
      * @param screenRotation The screen rotation.
      */
-    void onScreenRotated(int screenIndex, const Qt::ScreenOrientation &newScreenRotation);
+    void onScreenRotated(QString output, const Qt::ScreenOrientation &newScreenRotation);
 
     /**
      * @brief Handles screens being connected and disconnected
@@ -246,11 +246,11 @@ private:
      *
      * @param tabletId The id of the Tablet that will be used
      * @param tabletProfile  The tablet profile to read the rotation settings from.
-     * @param screenIndex Index of the screen that has been rotated. -1 means scan all devices.
+     * @param output Name of the screen that has been rotated. Empty string means scan all devices.
      * @param screenRotation Rotation of the screen specified by screenIndex.
      */
     void autoRotateTablet(const QString &tabletId, const TabletProfile& tabletProfile,
-                          int screenIndex = -1,
+                          QString output = QString(),
                           ScreenRotation screenRotations = ScreenRotation::NONE);
 
     /**

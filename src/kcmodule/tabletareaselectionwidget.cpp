@@ -67,13 +67,6 @@ const ScreenSpace TabletAreaSelectionWidget::getScreenSpace() const
 }
 
 
-void TabletAreaSelectionWidget::select(int screenNumber)
-{
-    Q_D(TabletAreaSelectionWidget);
-
-    d->controller.select(screenNumber);
-}
-
 
 void TabletAreaSelectionWidget::select(const ScreenSpace& screenSpace)
 {

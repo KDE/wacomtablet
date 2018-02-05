@@ -35,21 +35,14 @@ namespace Wacom {
     class TabletAreaSelectionControllerPrivate
     {
         public:
-            TabletAreaSelectionControllerPrivate()
-                : tabletRotation(ScreenRotation::NONE)
-            {
-                view           = NULL;
-                currentScreen  = -1;
-            }
-
-            TabletAreaSelectionView* view;
+            TabletAreaSelectionView *view = nullptr;
             TabletArea               tabletGeometry;        // the original tablet geometry
             TabletArea               tabletGeometryRotated; // the rotated tablet geometry if rotation is active
-            QList<QRect>             screenGeometries;      // the geometries of all screens which form the desktop
-            int                      currentScreen;         // the currently selected screen
+            QMap<QString, QRect>     screenGeometries;      // the geometries of all screens which form the desktop
+            ScreenSpace              currentScreen;
             QString                  deviceName;            // the device this instance is handling
             ScreenMap                screenMap;             // the current screen mappings
-            ScreenRotation           tabletRotation;        // the tablet rotation
+            ScreenRotation           tabletRotation = ScreenRotation::NONE;        // the tablet rotation
     };
 }
 
@@ -84,16 +77,11 @@ const ScreenSpace TabletAreaSelectionController::getScreenSpace() const
 {
     Q_D(const TabletAreaSelectionController);
 
-    if (d->currentScreen >= 0) {
-        return ScreenSpace::monitor(d->currentScreen);
-    }
-
-    return ScreenSpace::desktop();
+    return d->currentScreen;
 }
 
 
-
-void TabletAreaSelectionController::select(int screenNumber)
+void TabletAreaSelectionController::select(const ScreenSpace& screenSpace)
 {
     Q_D(TabletAreaSelectionController);
 
@@ -101,31 +89,10 @@ void TabletAreaSelectionController::select(int screenNumber)
         return;
     }
 
-    int countScreens = d->screenGeometries.count();
-
-    // if we have only one screen then use desktop instead
-    // because desktop mode also supports relative mode
-    if (screenNumber == 0 && countScreens == 1) {
-        screenNumber = -1;
-    }
-
-    // also use desktop if the screen number points to an invalid screen
-    if (-1 > screenNumber || screenNumber >= countScreens) {
-        screenNumber = -1;
-    }
-
-    // save current data
     setMapping(d->currentScreen, d->view->getSelection());
 
-    // update screen number and set selection
-    d->currentScreen = screenNumber;
-    d->view->select(screenNumber, getMapping(screenNumber));
-}
-
-
-void TabletAreaSelectionController::select(const ScreenSpace& screenSpace)
-{
-    select(screenSpace.getScreenNumber());
+    d->currentScreen = screenSpace;
+    d->view->select(screenSpace.toString(), screenSpace.isDesktop(), getMapping(d->currentScreen));
 }
 
 
@@ -170,7 +137,6 @@ void TabletAreaSelectionController::setupController(const ScreenMap& mappings,
     d->tabletGeometry   = X11Wacom::getMaximumTabletArea(deviceName);
     d->screenGeometries = X11Info::getScreenGeometries();
     d->screenMap        = mappings;
-    d->currentScreen    = -1;
 
     if (rotation == ScreenRotation::AUTO) {
         // TODO
@@ -199,7 +165,7 @@ void TabletAreaSelectionController::setupController(const ScreenMap& mappings,
     d->view->setupTablet(d->tabletGeometryRotated, QSize(400,400));
 
     // make sure we have valid data set
-    d->view->select(d->currentScreen, getMapping(d->currentScreen));
+    d->view->select(d->currentScreen.toString(), d->currentScreen.isDesktop(), getMapping(d->currentScreen));
 }
 
 
@@ -223,9 +189,8 @@ void TabletAreaSelectionController::onScreenToggle()
 {
     Q_D(TabletAreaSelectionController);
 
-    select(d->currentScreen + 1);
+    select(d->currentScreen.next());
 }
-
 
 
 void TabletAreaSelectionController::onSetScreenProportions()
@@ -233,7 +198,7 @@ void TabletAreaSelectionController::onSetScreenProportions()
     Q_D(TabletAreaSelectionController);
 
     QRect tabletGeometry  = d->tabletGeometryRotated;
-    QRect screenSelection = getScreenGeometry(d->currentScreen);
+    QRect screenSelection = getScreenGeometry(d->currentScreen.toString());
 
     if (screenSelection.isEmpty()) {
         return;
@@ -282,7 +247,7 @@ bool TabletAreaSelectionController::hasView() const
 {
     Q_D(const TabletAreaSelectionController);
 
-    return (d->view != NULL);
+    return (d->view != nullptr);
 }
 
 
@@ -291,9 +256,8 @@ void TabletAreaSelectionController::checkConfigurationForTrackingModeProblems()
     Q_D(TabletAreaSelectionController);
 
     // a device can not be mapped to a single screen in relative mode
-    if (d->currentScreen >= 0) {
+    if (d->currentScreen.isMonitor()) {
         d->view->setTrackingModeWarning(true);
-
     } else {
         d->view->setTrackingModeWarning(false);
     }
@@ -354,55 +318,29 @@ const TabletArea TabletAreaSelectionController::convertAreaToRotation(const Tabl
 }
 
 
-const QRect TabletAreaSelectionController::getScreenGeometry(int screenNumber) const
+const QRect TabletAreaSelectionController::getScreenGeometry(QString output) const
 {
     Q_D(const TabletAreaSelectionController);
 
-    QRect result(0,0,0,0);
-
-    if (0 <= screenNumber && screenNumber < d->screenGeometries.count()) {
-        // screen geometry
-        result = d->screenGeometries.at(screenNumber);
-
-    } else {
-        // full screen or invalid => full screen
-        foreach (QRect screen, d->screenGeometries) {
-            result = result.united(screen);
-        }
-    }
-
-    return result;
+    return d->screenGeometries.value(output, X11Info::getDisplayGeometry());
 }
 
 
 
-const TabletArea TabletAreaSelectionController::getMapping(int screenNumber) const
+const TabletArea TabletAreaSelectionController::getMapping(ScreenSpace screenSpace) const
 {
     Q_D(const TabletAreaSelectionController);
 
-    TabletArea area;
-
-    if (screenNumber <= -1) {
-        area = d->screenMap.getMapping(ScreenSpace::desktop());
-    } else {
-        area = d->screenMap.getMapping(ScreenSpace::monitor(screenNumber));
-    }
-
-    return convertAreaToRotation(d->tabletGeometry, area, d->tabletRotation);
+    return convertAreaToRotation(d->tabletGeometry, d->screenMap.getMapping(screenSpace), d->tabletRotation);
 }
 
 
-void TabletAreaSelectionController::setMapping(int screenNumber, const TabletArea &mapping)
+void TabletAreaSelectionController::setMapping(ScreenSpace screenSpace, const TabletArea &mapping)
 {
     Q_D(TabletAreaSelectionController);
 
     TabletArea area = convertAreaFromRotation(d->tabletGeometry, mapping, d->tabletRotation);
-
-    if (screenNumber <= -1) {
-        d->screenMap.setMapping(ScreenSpace::desktop(), area);
-    } else {
-        d->screenMap.setMapping(ScreenSpace::monitor(screenNumber), area);
-    }
+    d->screenMap.setMapping(screenSpace, area);
 }
 
 

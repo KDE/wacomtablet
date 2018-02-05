@@ -73,10 +73,10 @@ public:
     /**
      * Switches to the given screen and selects the given tablet region.
      *
-     * @param screenNumber The screen number to switch to.
+     * @param output The name of the screen to switch to.
      * @param tabletSelection The selection to set on the tablet.
      */
-    void select(int screenNumber, const TabletArea& tabletSelection);
+    void select(QString output, bool isDesktop, const TabletArea &tabletSelection);
 
 
     /**
@@ -94,7 +94,7 @@ public:
      * @param screenGeometries The X11 geometries of the connected screens.
      * @param widgetTargetSize The target size of the screen area widget.
      */
-    void setupScreens( const QList< QRect >& screenGeometries, const QSize& widgetTargetSize );
+    void setupScreens(const QMap<QString, QRect> &screenGeometries, const QSize &widgetTargetSize);
 
 
     /**

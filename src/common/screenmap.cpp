@@ -36,7 +36,7 @@ namespace Wacom
             static const QString SCREEN_SEPERATOR;
 
             TabletArea             tabletGeometry;
-            QHash<int, TabletArea> mappings;
+            QHash<QString, TabletArea> mappings;
     };
 
     const QString ScreenMapPrivate::SCREENAREA_SEPERATOR = QLatin1String(":");
@@ -116,7 +116,7 @@ const TabletArea ScreenMap::getMapping(const ScreenSpace& screen) const
     Q_D(const ScreenMap);
 
     // try to find selection for the current screen
-    QHash<int,TabletArea>::const_iterator citer = d->mappings.constFind(screen.getScreenNumber());
+    auto citer = d->mappings.constFind(screen.toString());
 
     TabletArea area;
 
@@ -142,9 +142,9 @@ void ScreenMap::setMapping(const ScreenSpace& screen, const TabletArea &mapping)
     Q_D(ScreenMap);
 
     if (mapping.isEmpty()) {
-        d->mappings.insert(screen.getScreenNumber(), d->tabletGeometry);
+        d->mappings.insert(screen.toString(), d->tabletGeometry);
     } else {
-        d->mappings.insert(screen.getScreenNumber(), mapping);
+        d->mappings.insert(screen.toString(), mapping);
     }
 }
 
@@ -155,27 +155,19 @@ const QString ScreenMap::toString() const
     Q_D(const ScreenMap);
 
     // create mapping string
-    QHash<int,TabletArea>::const_iterator mapping = d->mappings.constBegin();
+    auto mapping = d->mappings.constBegin();
 
-    ScreenSpace screen;
     QString     mappings;
     TabletArea  area;
 
     for ( ; mapping != d->mappings.constEnd() ; ++mapping) {
-
-        if (mapping.key() >= 0) {
-            screen = ScreenSpace::monitor(mapping.key());
-        } else {
-            screen = ScreenSpace::desktop();
-        }
-
         area = mapping.value();
 
         if (!mappings.isEmpty()) {
             mappings.append(ScreenMapPrivate::SCREEN_SEPERATOR);
         }
 
-        mappings.append(QString::fromLatin1("%1%2%3").arg(screen.toString())
+        mappings.append(QString::fromLatin1("%1%2%3").arg(mapping.key())
                                                      .arg(ScreenMapPrivate::SCREENAREA_SEPERATOR)
                                                      .arg(area.toString()));
     }

@@ -26,47 +26,63 @@ using namespace Wacom;
 
 const QRect X11Info::getDisplayGeometry()
 {
-    QList< QRect > screens = getScreenGeometries();
+    auto screens = getScreenGeometries();
     QRect unitedScreen(0, 0, 0, 0);
 
-    for (int i = 0 ; i < screens.size() ; ++i) {
-        unitedScreen = unitedScreen.united(screens.at(i));
+    for (const auto &screen : screens) {
+        unitedScreen = unitedScreen.united(screen);
     }
 
     return unitedScreen;
 }
 
-const QList< QRect > X11Info::getScreenGeometries()
+const QMap<QString, QRect> X11Info::getScreenGeometries()
 {
-    QList< QRect > screenGeometries;
+    QMap<QString, QRect> screenGeometries;
     const auto screens = QGuiApplication::screens();
 
     Q_FOREACH (QScreen *screen, screens) {
         QRect geometry = screen->geometry();
-        screenGeometries.append(QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio()));
+        screenGeometries[screen->name()] = QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio());
     }
 
     return screenGeometries;
 }
 
-const ScreenRotation X11Info::getScreenRotation(int screenIndex)
+const ScreenRotation X11Info::getScreenRotation(QString output)
 {
-    const auto screen = screenIndex >= 0 && screenIndex < QGuiApplication::screens().size()
-            ? QGuiApplication::screens().at(screenIndex)
-            : QGuiApplication::primaryScreen();
-
-    switch (screen->orientation()) {
-    case Qt::PrimaryOrientation:
-    case Qt::LandscapeOrientation:
-        return ScreenRotation::NONE;
-    case Qt::PortraitOrientation:
-        return ScreenRotation::CW;
-    case Qt::InvertedLandscapeOrientation:
-        return ScreenRotation::HALF;
-    case Qt::InvertedPortraitOrientation:
-        return ScreenRotation::CCW;
+    for (const auto &screen : QGuiApplication::screens()) {
+        if (screen->name() == output) {
+            switch (screen->orientation()) {
+            case Qt::PrimaryOrientation:
+            case Qt::LandscapeOrientation:
+                return ScreenRotation::NONE;
+            case Qt::PortraitOrientation:
+                return ScreenRotation::CW;
+            case Qt::InvertedLandscapeOrientation:
+                return ScreenRotation::HALF;
+            case Qt::InvertedPortraitOrientation:
+                return ScreenRotation::CCW;
+            }
+        }
     }
 
-    // this should never happen, but we probably should log an error here
     return ScreenRotation::NONE;
+}
+
+const QString X11Info::getPrimaryScreenName()
+{
+    return QGuiApplication::primaryScreen()->name();
+}
+
+const QString X11Info::getNextScreenName(QString output)
+{
+    const auto screenNames = getScreenGeometries().keys();
+    const auto index = screenNames.indexOf(output);
+
+    if (index >= screenNames.size() - 1) {
+        return screenNames.at(0);
+    } else {
+        return screenNames.at(index + 1);
+    }
 }

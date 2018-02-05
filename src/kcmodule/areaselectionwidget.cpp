@@ -94,7 +94,7 @@ namespace Wacom
 
             qreal                scaleFactor;             //!< The scale factor which scales the virtual area's size to the widget's display area size.
 
-            QList<QRect>         areaRectsList;           //!< The list of area rectangles which form the virtual area in real size.
+            QMap<QString, QRect> areaRectsList;           //!< The list of area rectangles which form the virtual area in real size.
             QStringList          areaCaptionsList;        //!< The list of captions for each area.
 
             QRect                rectVirtualArea;         //!< The rectangle which holds the virtual area in real size.
@@ -161,17 +161,17 @@ const QRect& AreaSelectionWidget::getVirtualArea() const
 
 void AreaSelectionWidget::setArea(const QRect& area, const QString& caption)
 {
-    QList< QRect > areaList;
+    QMap<QString, QRect> areaList;
     QStringList    captionList;
 
-    areaList.append(area);
+    areaList[caption] = area;
     captionList.append(caption);
 
     setAreas(areaList, captionList);
 }
 
 
-void AreaSelectionWidget::setAreas(const QList< QRect >& areas, const QStringList& areaCaptions)
+void AreaSelectionWidget::setAreas(const QMap<QString, QRect> &areas, const QStringList &areaCaptions)
 {
     Q_D (AreaSelectionWidget);
 
@@ -245,15 +245,17 @@ void AreaSelectionWidget::setSelection(const QRect& selection)
 }
 
 
-void AreaSelectionWidget::setSelection(int areaIndex)
+void AreaSelectionWidget::setSelection(QString output)
 {
     Q_D(const AreaSelectionWidget);
 
-    if (areaIndex < 0 || areaIndex > d->areaRectsList.size()) {
+    const auto areaRect = d->areaRectsList.find(output);
+
+    if (areaRect == d->areaRectsList.constEnd()) {
         return;
     }
 
-    setSelection(d->areaRectsList.at(areaIndex));
+    setSelection(*areaRect);
 }
 
 
@@ -389,12 +391,12 @@ const QRectF AreaSelectionWidget::calculateDisplayArea(const QRect& virtualArea,
 }
 
 
-const QList< QRectF > AreaSelectionWidget::calculateDisplayAreas(const QList< QRect > areas, qreal scaleFactor, qreal totalDisplayAreaMargin) const
+const QList< QRectF > AreaSelectionWidget::calculateDisplayAreas(const QMap<QString, QRect> areas, qreal scaleFactor, qreal totalDisplayAreaMargin) const
 {
     QList<QRectF> displayAreas;
     QRectF        displayArea;
 
-    foreach (QRect area, areas) {
+    foreach (QRect area, areas.values()) {
         displayArea = calculateScaledArea(area, scaleFactor, totalDisplayAreaMargin);
         displayAreas.append(displayArea);
     }
@@ -469,17 +471,12 @@ const QRect AreaSelectionWidget::calculateUnscaledArea(const QRectF& area, qreal
 }
 
 
-const QRect AreaSelectionWidget::calculateVirtualArea(const QList< QRect > areas) const
+const QRect AreaSelectionWidget::calculateVirtualArea(const QMap<QString, QRect> &areas) const
 {
     QRect virtualArea;
 
-    if (areas.length() == 1) {
-        virtualArea = areas.at(0);
-
-    } else if (areas.length() > 1) {
-        for (int i = 0 ; i < areas.length() ; ++i) {
-            virtualArea = virtualArea.united(areas.at(i));
-        }
+    for (const auto &area : areas) {
+        virtualArea = virtualArea.united(area);
     }
 
     return virtualArea;

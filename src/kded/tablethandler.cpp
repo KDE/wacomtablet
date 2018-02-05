@@ -179,11 +179,11 @@ void TabletHandler::onTabletRemoved( const TabletInformation& info )
 
 
 
-void TabletHandler::onScreenRotated(int screenIndex, const Qt::ScreenOrientation &newScreenRotation)
+void TabletHandler::onScreenRotated(QString output, const Qt::ScreenOrientation &newScreenRotation)
 {
     Q_D( TabletHandler );
 
-    dbgWacom << "Screen " << screenIndex << "rotation has changed to" << newScreenRotation;
+    dbgWacom << "Screen" << output << "rotation has changed to" << newScreenRotation;
 
     //for each connected tablet, do the rotation
     foreach(const QString &tabletId, d->tabletInformationList.keys()) {
@@ -209,7 +209,7 @@ void TabletHandler::onScreenRotated(int screenIndex, const Qt::ScreenOrientation
         }
 
         // rotation has to be applied before screen mapping
-        autoRotateTablet(tabletId, tabletProfile, screenIndex, screenRotation);
+        autoRotateTablet(tabletId, tabletProfile, output, screenRotation);
 
         // when the rotation changes, the screen mapping has to be applied again
         mapTabletToCurrentScreenSpace(tabletId, tabletProfile);
@@ -329,15 +329,7 @@ void TabletHandler::onToggleScreenMapping()
         DeviceProfile stylusProfile  = tabletProfile.getDevice(DeviceType::Stylus);
         ScreenSpace   screenSpace    = ScreenSpace(stylusProfile.getProperty(Property::ScreenSpace));
 
-        if (screenSpace.isMonitor()) {
-            // get next monitor - mapTabletToOutput() will handle disconnected monitors
-            int screenNumber = screenSpace.getScreenNumber() + 1;
-            screenSpace = ScreenSpace::monitor(screenNumber);
-        } else {
-            screenSpace = ScreenSpace::monitor(0);
-        }
-
-        mapPenToScreenSpace(tabletId, screenSpace.toString());
+        mapPenToScreenSpace(tabletId, screenSpace.next());
     }
 }
 
@@ -358,7 +350,7 @@ void TabletHandler::onMapToScreen1()
     Q_D( TabletHandler );
 
     foreach(const QString &tabletId, d->tabletInformationList.keys()) {
-        mapPenToScreenSpace(tabletId, ScreenSpace::monitor(0).toString());
+        mapPenToScreenSpace(tabletId, ScreenSpace::monitor(X11Info::getPrimaryScreenName()));
     }
 }
 
@@ -370,7 +362,7 @@ void TabletHandler::onMapToScreen2()
 
     if (QGuiApplication::screens().count() > 1) {
         foreach(const QString &tabletId, d->tabletInformationList.keys()) {
-            mapPenToScreenSpace(tabletId, ScreenSpace::monitor(1).toString());
+            mapPenToScreenSpace(tabletId, ScreenSpace::monitor(X11Info::getPrimaryScreenName()).next());
         }
     }
 }
@@ -543,7 +535,7 @@ void TabletHandler::setProfileRotationList(const QString &tabletId, const QStrin
 
 void TabletHandler::autoRotateTablet(const QString &tabletId,
                                      const TabletProfile &tabletProfile,
-                                     int screenIndex,
+                                     QString output,
                                      ScreenRotation screenRotation)
 {
     // determine auto-rotation configuration
@@ -568,9 +560,9 @@ void TabletHandler::autoRotateTablet(const QString &tabletId,
         return;
     }
 
-    if (screenIndex == -1) {
-        screenRotation = X11Info::getScreenRotation(stylusSpace.getScreenNumber());
-    } else if (screenIndex != stylusSpace.getScreenNumber() && QGuiApplication::screens().count() > 1) {
+    if (output.isEmpty()) {
+        screenRotation = X11Info::getScreenRotation(stylusSpace.toString());
+    } else if (output != stylusSpace.toString() && QGuiApplication::screens().count() > 1) {
         dbgWacom << "Tablet is mapped to a different screen";
         return;
     }
@@ -619,18 +611,15 @@ void TabletHandler::mapDeviceToOutput(const QString &tabletId,
     }
 
     ScreenSpace screen(screenSpace);
-    int         screenCount = QGuiApplication::screens().count();
 
-    if (screen.isMonitor()) {
-
+    if (screen.isMonitor() &&
+            (!X11Info::getScreenGeometries().contains(screen.toString())
+             || QGuiApplication::screens().count() == 1)) {
         /**
          * If we we have only one screen, or if the screen number is invalid,
          * map to whole desktop.
          */
-        if ((screen.isMonitor(0) && screenCount == 1)
-            || (screen.getScreenNumber() >= screenCount)) {
-            screen = ScreenSpace::desktop();
-        }
+        screen = ScreenSpace::desktop();
     }
 
     DeviceProfile deviceProfile = tabletProfile.getDevice(device);

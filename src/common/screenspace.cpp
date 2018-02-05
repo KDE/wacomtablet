@@ -20,66 +20,43 @@
 #include "debug.h" // always needs to be first include
 
 #include "screenspace.h"
-
-#include <QRegExp>
+#include "x11info.h"
 
 using namespace Wacom;
 
 namespace Wacom
 {
-    class ScreenSpacePrivate
-    {
-        public:
-            ScreenSpacePrivate() {
-                monitor = -1;
-            }
+class ScreenSpacePrivate
+{
+public:
+    static const QString DESKTOP_STRING;
 
-            static const QString DESKTOP_STRING_OLD; // old config file
-            static const QString DESKTOP_STRING;
-            static const QString MONITOR_PREFIX;
+    QString output = DESKTOP_STRING;
+};
 
-            int monitor;
-    };
-
-    const QString ScreenSpacePrivate::DESKTOP_STRING_OLD = QLatin1String("full");
-    const QString ScreenSpacePrivate::DESKTOP_STRING     = QLatin1String("desktop");
-    const QString ScreenSpacePrivate::MONITOR_PREFIX     = QLatin1String("map");
+const QString ScreenSpacePrivate::DESKTOP_STRING     = QLatin1String("desktop");
 }
 
 
 ScreenSpace::ScreenSpace()
-        : d_ptr(new ScreenSpacePrivate)
+    : d_ptr(new ScreenSpacePrivate)
 {
     // nothing to do except for private class initialization
 }
 
 
 ScreenSpace::ScreenSpace(const ScreenSpace& screenSpace)
-        : d_ptr(new ScreenSpacePrivate)
+    : d_ptr(new ScreenSpacePrivate)
 {
     operator=(screenSpace);
 }
 
 
 ScreenSpace::ScreenSpace(const QString& screenSpace)
-        : d_ptr(new ScreenSpacePrivate)
+    : d_ptr(new ScreenSpacePrivate)
 {
     if (!screenSpace.isEmpty())
         setScreenSpace(screenSpace);
-}
-
-
-
-ScreenSpace::ScreenSpace(int monitorNumber)
-        : d_ptr(new ScreenSpacePrivate)
-{
-    Q_D(ScreenSpace);
-
-    if (monitorNumber <= -1) {
-        d->monitor = -1;
-    } else {
-        d->monitor = monitorNumber;
-    }
 }
 
 
@@ -102,7 +79,7 @@ bool ScreenSpace::operator==(const ScreenSpace& screenSpace) const
 {
     Q_D(const ScreenSpace);
 
-    return (d->monitor == screenSpace.d_ptr->monitor);
+    return d->output == screenSpace.d_ptr->output;
 }
 
 
@@ -114,15 +91,7 @@ bool ScreenSpace::operator!=(const ScreenSpace& screenSpace) const
 
 const ScreenSpace ScreenSpace::desktop()
 {
-    return ScreenSpace(-1);
-}
-
-
-int ScreenSpace::getScreenNumber() const
-{
-    Q_D(const ScreenSpace);
-
-    return d->monitor;
+    return ScreenSpace(ScreenSpacePrivate::DESKTOP_STRING);
 }
 
 
@@ -130,34 +99,20 @@ bool ScreenSpace::isDesktop() const
 {
     Q_D(const ScreenSpace);
 
-    return (d->monitor == -1);
+    return (d->output == ScreenSpacePrivate::DESKTOP_STRING);
 }
 
 
 bool ScreenSpace::isMonitor() const
 {
-    Q_D(const ScreenSpace);
-
-    return (d->monitor >= 0);
+    return !isDesktop();
 }
 
 
 
-bool ScreenSpace::isMonitor(int screenNumber) const
+const ScreenSpace ScreenSpace::monitor(QString output)
 {
-    Q_D(const ScreenSpace);
-
-    return (d->monitor == screenNumber);
-}
-
-
-const ScreenSpace ScreenSpace::monitor(int screenNumber)
-{
-    if (screenNumber < 0) {
-        screenNumber = 0;
-    }
-
-    return ScreenSpace(screenNumber);
+    return ScreenSpace(output);
 }
 
 
@@ -165,11 +120,25 @@ const QString ScreenSpace::toString() const
 {
     Q_D(const ScreenSpace);
 
-    if (d->monitor >= 0) {
-        return QString::fromLatin1("%1%2").arg(ScreenSpacePrivate::MONITOR_PREFIX).arg(d->monitor);
+    return d->output;
+}
+
+ScreenSpace ScreenSpace::next() const
+{
+    ScreenSpace nextScreen = ScreenSpace::desktop();
+
+    if (isDesktop()) {
+        nextScreen = ScreenSpace::monitor(X11Info::getPrimaryScreenName());
+    } else {
+        auto nextScreenName = X11Info::getNextScreenName(toString());
+        if (nextScreenName == X11Info::getPrimaryScreenName()) {
+            nextScreen = ScreenSpace::desktop();
+        } else {
+            nextScreen = ScreenSpace::monitor(nextScreenName);
+        }
     }
 
-    return ScreenSpacePrivate::DESKTOP_STRING;
+    return nextScreen;
 }
 
 
@@ -177,21 +146,5 @@ void ScreenSpace::setScreenSpace(const QString& screenSpace)
 {
     Q_D(ScreenSpace);
 
-    QRegExp monitorRegExp(QLatin1String("map(\\d+)"), Qt::CaseInsensitive);
-    QRegExp desktopRegExp(QString::fromLatin1("(?:%1|%2)").arg(ScreenSpacePrivate::DESKTOP_STRING)
-                                                          .arg(ScreenSpacePrivate::DESKTOP_STRING_OLD), Qt::CaseInsensitive);
-
-    if (monitorRegExp.indexIn(screenSpace, 0) != -1) {
-
-        int screenNumber = monitorRegExp.cap(1).toInt();
-
-        d->monitor = (screenNumber < 0) ? 0 : screenNumber;
-
-    } else {
-        if (desktopRegExp.indexIn(screenSpace, 0) == -1) {
-            dbgWacom << QString::fromLatin1("Failed to parse screen space '%1'!").arg(screenSpace);
-        }
-
-        d->monitor = -1;
-    }
+    d->output = screenSpace;
 }

@@ -201,10 +201,6 @@ void TabletDaemon::setupEventNotifier()
 
 void TabletDaemon::monitorAllScreensGeometry()
 {
-    // FIXME: Should be duplicating old, buggy behaviour:
-    // rotation changes monitored for all screens, which causes
-    // unwanted rotation in a multi-screen setup
-
     // Add existing screens
     for (const auto &screen : QGuiApplication::screens())
     {
@@ -223,11 +219,7 @@ void TabletDaemon::monitorScreenGeometry(QScreen *screen)
 
     connect(screen, &QScreen::orientationChanged,
             [=](const Qt::ScreenOrientation &newScreenRotation){
-        // FIXME: This is somewhat of a hack, ideally we probably should rely on
-        // output names (screen->name()) instead of screen indices,
-        // since indices can change when screens configuration is changed
-        int outputIndex = QGuiApplication::screens().indexOf(screen);
-        tabletHandler->onScreenRotated(outputIndex, newScreenRotation);
+        tabletHandler->onScreenRotated(screen->name(), newScreenRotation);
     });
 
     screen->setOrientationUpdateMask(Qt::LandscapeOrientation |

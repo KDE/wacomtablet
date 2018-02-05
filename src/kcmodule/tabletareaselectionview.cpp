@@ -86,19 +86,19 @@ void TabletAreaSelectionView::selectPartOfTablet(const TabletArea &selection)
 }
 
 
-void TabletAreaSelectionView::select(int screenNumber, const TabletArea &tabletSelection)
+void TabletAreaSelectionView::select(QString output, bool isDesktop, const TabletArea &tabletSelection)
 {
     Q_D(TabletAreaSelectionView);
 
-    if (screenNumber < 0) {
+    if (isDesktop) {
         // select full desktop
         d->ui->screenArea->clearSelection();
     } else {
         // select monitor
-        d->ui->screenArea->setSelection(screenNumber);
+        d->ui->screenArea->setSelection(output);
     }
 
-    if( isFullAreaSelection(tabletSelection) ){
+    if(isFullAreaSelection(tabletSelection)) {
         // full tablet selection
         selectFullTablet();
     } else {
@@ -117,7 +117,7 @@ void TabletAreaSelectionView::setTrackingModeWarning(bool doShow)
 }
 
 
-void TabletAreaSelectionView::setupScreens(const QList< QRect >& screenGeometries, const QSize& widgetTargetSize)
+void TabletAreaSelectionView::setupScreens(const QMap<QString, QRect> &screenGeometries, const QSize &widgetTargetSize)
 {
     Q_D(TabletAreaSelectionView);
 
@@ -134,14 +134,7 @@ void TabletAreaSelectionView::setupScreens(const QList< QRect >& screenGeometrie
 
         d->ui->screenArea->setDrawAreaCaptions(true);
         d->ui->screenArea->setDrawSelectionCaption(true);
-
-        QStringList captions;
-
-        for (int i = 0 ; i < screenGeometries.count() ; ++i) {
-            captions.append(QString::number(i+1));
-        }
-
-        d->ui->screenArea->setAreas(screenGeometries, captions);
+        d->ui->screenArea->setAreas(screenGeometries, screenGeometries.keys());
 
         // allow screen toggling if we have more than one screen
         if (screenGeometries.count() > 1) {
@@ -293,7 +286,7 @@ void TabletAreaSelectionView::setupUi()
     d->ui->warningLabel->setVisible(false);
 
     // Is this next call, like, fake?
-    setupScreens(QList<QRect>(), QSize(200,200));
+    setupScreens(QMap<QString, QRect>(), QSize(200,200));
     setupTablet(TabletArea(), QSize(400,400));
 }
 

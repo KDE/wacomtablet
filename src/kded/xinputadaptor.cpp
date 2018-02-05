@@ -206,18 +206,15 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
 
     } else if (screenSpace.isMonitor()) {
         // monitor selected
-        int            screenNum  = screenSpace.getScreenNumber();
-        QList< QRect > screenList = X11Info::getScreenGeometries();
+        auto output = screenSpace.toString();
+        QMap<QString, QRect> screenList = X11Info::getScreenGeometries();
 
-        if (screenNum >= screenList.count()) {
-            // the selected monitor is no longer connected - use full screen
+        if (!screenList.contains(output)) {
             dbgWacom << "Selected monitor no longer connected - using full screen: " << fullScreenGeometry;
             screenAreaGeometry = fullScreenGeometry;
-
         } else {
-            // use the given monitor geometry
-            dbgWacom << "Use monitor geometry for screen " << screenNum << ": " << screenList.at(screenNum);
-            screenAreaGeometry = screenList.at(screenNum);
+            dbgWacom << "Use monitor geometry for screen " << output << ": " << screenList.value(output);
+            screenAreaGeometry = screenList.value(output);
         }
 
     } else {

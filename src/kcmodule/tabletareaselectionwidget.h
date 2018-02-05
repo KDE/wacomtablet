@@ -45,8 +45,6 @@ public:
 
     const ScreenSpace getScreenSpace() const;
 
-    void select(int screenNumber);
-
     void select(const ScreenSpace& screenSpace);
 
     void setupWidget( const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation );
