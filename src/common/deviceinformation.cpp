@@ -29,10 +29,10 @@ namespace Wacom
             QString    deviceName;
             QString    deviceNode;
             DeviceType deviceType;
-            long       deviceId;
-            long       productId;
-            long       tabletSerial;
-            long       vendorId;
+            long       deviceId = 0;
+            long       productId = 0;
+            long       tabletSerial = 0;
+            long       vendorId = 0;
     };
 }
 
@@ -43,11 +43,7 @@ DeviceInformation::DeviceInformation (const DeviceType& deviceType, const QStrin
 {
     Q_D (DeviceInformation);
 
-    d->deviceId     = 0;
     d->deviceName   = deviceName;
-    d->productId    = 0;
-    d->tabletSerial = 0;
-    d->vendorId     = 0;
 }
 
 
