@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 project(wacomtablet)
 
-set(QT_MIN_VERSION "5.3.0")
+set(QT_MIN_VERSION "5.7.0")
 find_package(ECM 1.6.0 REQUIRED CONFIG)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_SOURCE_DIR}/cmake/modules)
 include(KDEInstallDirs)
