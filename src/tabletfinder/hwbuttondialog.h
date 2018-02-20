@@ -45,19 +45,19 @@ class HWButtonDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit HWButtonDialog(int maxButtons, QWidget *parent = 0);
+    explicit HWButtonDialog(int maxButtons, QWidget *parent = nullptr);
     ~HWButtonDialog();
 
     QList<unsigned int> buttonMap() const;
 
 protected:
-    virtual bool nativeEvent(const QByteArray &eventType, void *message, long int *result) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *event) final;
 
 private:
     void hwKey(unsigned int button);
     void nextButton();
 
-    Ui::HWButtonDialog *ui;
+    Ui::HWButtonDialog *ui = nullptr;
     int m_maxButtons;
     int m_nextButton;
     QList<unsigned int> m_buttonMap;

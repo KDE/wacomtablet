@@ -19,8 +19,26 @@
 
 #include "hwbuttondialog.h"
 #include "ui_hwbuttondialog.h"
-#include <QX11Info>
-#include <xcb/xcb.h>
+
+#include <QMouseEvent>
+#include <QPushButton>
+
+static unsigned int QtButton2X11Button(Qt::MouseButton qtbutton) {
+    // We could probably just use log2 here, but I don't know if this can backfire
+    // Qt seems to offer no function for getting index of a set flag
+    unsigned int button = qtbutton;
+    unsigned int buttonNumber = 0;
+    while (button > 0) {
+        buttonNumber++;
+        button >>= 1;
+    }
+
+    if (buttonNumber < 4) {
+        return buttonNumber;
+    } else { // X11 buttons 4-7 are reserved for scroll wheel
+        return buttonNumber + 4;
+    }
+}
 
 using namespace Wacom;
 
@@ -32,31 +50,13 @@ HWButtonDialog::HWButtonDialog(int maxButtons, QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->buttonBox->setEnabled(false);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     nextButton();
 }
 
 HWButtonDialog::~HWButtonDialog()
 {
     delete ui;
-}
-
-bool HWButtonDialog::nativeEvent(const QByteArray& eventType, void* message, long int* result)
-{
-    Q_UNUSED(eventType);
-    Q_UNUSED(result);
-    if (!QX11Info::isPlatformX11()) {
-        return false;
-    }
-
-    xcb_generic_event_t* event = static_cast<xcb_generic_event_t *>(message);
-    if ((event->response_type & ~0x80) != XCB_BUTTON_PRESS && m_nextButton <= m_maxButtons) {
-        xcb_button_press_event_t* buttonEvent = static_cast<xcb_button_press_event_t *>(message);
-        hwKey(buttonEvent->detail);
-        return true;
-    }
-
-    return false;
 }
 
 void HWButtonDialog::nextButton()
@@ -74,9 +74,17 @@ void HWButtonDialog::nextButton()
     }
 }
 
+void HWButtonDialog::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::MouseButton::NoButton) {
+        return;
+    }
+
+    hwKey(QtButton2X11Button(event->button()));
+}
+
 void HWButtonDialog::hwKey(unsigned int button)
 {
-
     if(m_nextButton <= m_maxButtons) {
         QString text = i18n("Hardware button %1 detected.", button);
         ui->textEdit->insertHtml(text);
@@ -91,12 +99,13 @@ void HWButtonDialog::hwKey(unsigned int button)
 
     if(m_nextButton > m_maxButtons) {
         ui->textEdit->insertHtml(i18n("All buttons detected. Please close dialog"));
+        ui->textEdit->insertHtml(QLatin1String("<br>"));
 
         QTextCursor cursor = ui->textEdit->textCursor();
         cursor.movePosition(QTextCursor::End, QTextCursor::MoveAnchor);
         ui->textEdit->setTextCursor(cursor);
 
-        ui->buttonBox->setEnabled(true);
+        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
     }
     else {
         nextButton();

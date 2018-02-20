@@ -159,7 +159,7 @@
         </font>
        </property>
        <property name="title">
-        <string>GroupBox</string>
+        <string>Button mapping</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
@@ -167,7 +167,7 @@
           <item>
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Number of available Express Keys:</string>
+             <string>Number of available buttons (including pen tip):</string>
             </property>
            </widget>
           </item>
