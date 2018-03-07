@@ -44,6 +44,7 @@
 #include <QInputDialog>
 #include <QDialogButtonBox>
 #include <QX11Info>
+#include <QMessageBox>
 
 using namespace Wacom;
 
@@ -96,6 +97,8 @@ void KCMWacomTabletWidget::setupUi()
     // setup error widget
     d->deviceErrorUi.setupUi(&(d->deviceErrorWidget));
     d->deviceErrorUi.errorImage->setPixmap( QIcon::fromTheme( QLatin1String( "dialog-warning" ) ).pixmap(48) );
+    connect(d->deviceErrorUi.buttonRunTabletFinder, &QCommandLinkButton::clicked, this, &KCMWacomTabletWidget::showTabletFinder);
+    d->deviceErrorUi.buttonRunTabletFinder->setVisible(false);
 
     // setup normal ui
     d->ui.setupUi( this );
@@ -165,9 +168,8 @@ void KCMWacomTabletWidget::showHideConfig()
     } else if( connectedTablets.value().count() == 0 ) {
         QString errorTitle = i18n( "No tablet device detected" );
         QString errorMsg   = i18n( "Please connect a tablet device to continue.\n"
-                                   "If your device is already connected it is currently unsupported." );
-        showError( errorTitle, errorMsg );
-
+                                   "If your device is already connected, it is currently not in the device database." );
+        showError(errorTitle, errorMsg, true);
     } else {
         showConfig();
     }
@@ -305,7 +307,7 @@ void KCMWacomTabletWidget::profileChanged()
 }
 
 
-void KCMWacomTabletWidget::showError( const QString& errorTitle, const QString &errorMsg )
+void KCMWacomTabletWidget::showError(const QString& errorTitle, const QString &errorMsg, bool showTabletFinderButton)
 {
     Q_D( KCMWacomTabletWidget );
 
@@ -316,6 +318,7 @@ void KCMWacomTabletWidget::showError( const QString& errorTitle, const QString &
     d->deviceErrorUi.errorText->setText (errorMsg);
     d->ui.verticalLayout->addWidget (&(d->deviceErrorWidget));
     d->deviceErrorWidget.setVisible(true);
+    d->deviceErrorUi.buttonRunTabletFinder->setVisible(showTabletFinderButton);
 }
 
 
@@ -482,5 +485,15 @@ void KCMWacomTabletWidget::showSaveChanges()
         }
 
         delete saveDialog;
+    }
+}
+
+void KCMWacomTabletWidget::showTabletFinder()
+{
+    bool success = QProcess::startDetached(QStringLiteral("kde_wacom_tabletfinder"));
+
+    if (!success) {
+        QString err = i18n("Failed to launch Wacom tablet finder tool. Check your installation.");
+        QMessageBox::warning(QApplication::activeWindow(), QApplication::applicationName(), err);
     }
 }

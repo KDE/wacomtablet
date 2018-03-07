@@ -168,13 +168,15 @@ private:
       *
       * @param errMsg the message that describes the error in more detail
       */
-    void showError(const QString& errorTitle, const QString & errorMsg);
+    void showError(const QString& errorTitle, const QString & errorMsg, bool showTabletFinderButton = false);
 
     /**
      * Shows a dialog which allows the user to save his changes if the currently
      * active configuration was changed.
      */
     void showSaveChanges();
+
+    void showTabletFinder();
 
     Q_DECLARE_PRIVATE( KCMWacomTabletWidget )
     KCMWacomTabletWidgetPrivate *const d_ptr; /**< d-pointer for this class */

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>330</width>
-    <height>78</height>
+    <width>869</width>
+    <height>163</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -98,6 +98,16 @@ font-size: 120%;</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCommandLinkButton" name="buttonRunTabletFinder">
+       <property name="text">
+        <string>Manually register a tablet device</string>
+       </property>
+       <property name="description">
+        <string>This will open another window, prompting you to describe your tablet device. After you're done, please restart your desktop session.</string>
        </property>
       </widget>
      </item>
