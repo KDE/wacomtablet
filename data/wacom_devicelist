@@ -1348,6 +1348,16 @@ touchstripl=false
 touchstripr=false
 wheel=false
 
+[0301]
+model=CTL-671
+layout=unknown
+name=Wacom Bamboo One M
+padbuttons=0
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+
 [0302]
 model=CTH-480
 layout=bl_6
