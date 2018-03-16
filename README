@@ -29,10 +29,8 @@ Components:
 Manual installation
 ===================
 
-Dependencies:
-* wacom tablet driver especially the xsetwacom tool
-* xserver-xorg-input-wacom >= 0.20
-* Hotplug functionality requies xinput extension for xcb
+Run-time dependencies:
+* X11 wacom tablet driver (xserver-xorg-input-wacom), including the xsetwacom tool, version 0.20 or higher
 
 Build dependencies on Debian/Ubuntu:
 * g++
