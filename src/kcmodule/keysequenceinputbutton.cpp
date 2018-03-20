@@ -240,31 +240,6 @@ void KeySequenceInputButton::onButtonClicked()
 }
 
 
-bool KeySequenceInputButton::convertKeyToBaseKey(int keyQt, int *keyBaseQt)
-{
-    if (keyBaseQt == nullptr || keyQt == 0) {
-        return false;
-    }
-
-    // lookup X11 key code
-    int keySymX = 0;
-
-    if (!KKeyServer::keyQtToSymX(keyQt, &keySymX)) {
-        return false;
-    }
-
-    int keyQtNew;
-
-    if (!KKeyServer::symXToKeyQt(keySymX, &keyQtNew)) {
-        return false;
-    }
-
-    *keyBaseQt = (uint)keyQtNew;
-
-    return true;
-}
-
-
 void KeySequenceInputButton::recordKey(uint modifierKeys, int keyQt)
 {
     Q_D(KeySequenceInputButton);
@@ -275,11 +250,7 @@ void KeySequenceInputButton::recordKey(uint modifierKeys, int keyQt)
 
     d->modifierKeys = modifierKeys;
 
-    int keyQtBase;
-
-    if (convertKeyToBaseKey(keyQt, &keyQtBase)) {
-        keyQt = keyQtBase;
-    }
+    keyQt &= ~Qt::KeyboardModifierMask;
 
     switch (keyQt) {
         case Qt::Key_AltGr: // TODO check if xsetwacom supports this

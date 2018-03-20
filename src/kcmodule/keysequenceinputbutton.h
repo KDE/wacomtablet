@@ -108,8 +108,6 @@ private:
     //! Hidden Copy Operator
     KeySequenceInputButton& operator= (const KeySequenceInputButton& other) = delete;
 
-    bool convertKeyToBaseKey(int keyQt, int *keyBaseQt);
-
     void recordKey(uint modifierKeys, int keyQt);
 
     void setupUi();
