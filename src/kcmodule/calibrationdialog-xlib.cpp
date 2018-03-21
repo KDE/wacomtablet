@@ -107,22 +107,22 @@ void CalibrationDialog::mousePressEvent( QMouseEvent *event )
 
         switch( m_drawCross ) {
         case 1:
-            m_topLeft = event->globalPos();
+            m_topLeft = event->windowPos();
             m_shiftLeft = frameGap;
             m_shiftTop = size().height() - frameGap - boxwidth;
             break;
         case 2:
-            m_bottomLeft = event->globalPos();
+            m_bottomLeft = event->windowPos();
             m_shiftLeft = size().width() - frameGap - boxwidth;
             m_shiftTop = size().height() - frameGap - boxwidth;
             break;
         case 3:
-            m_bottomRight = event->globalPos();
+            m_bottomRight = event->windowPos();
             m_shiftLeft = size().width() - frameGap - boxwidth;
             m_shiftTop = frameGap;
             break;
         case 4:
-            m_topRight = event->globalPos();
+            m_topRight = event->windowPos();
             calculateNewArea();
             close();
             break;
