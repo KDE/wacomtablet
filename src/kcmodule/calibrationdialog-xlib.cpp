@@ -29,16 +29,8 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QX11Info>
-#include <QDebug>
 
-// X11 includes
-#include <X11/X.h>
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
-#include <X11/extensions/XInput.h>
-#include <X11/extensions/XInput2.h>
-
-#include <xorg/wacom-properties.h>
+#include <x11wacom.h>
 
 using namespace Wacom;
 
@@ -55,7 +47,7 @@ CalibrationDialog::CalibrationDialog( const QString &toolname ) :
     m_shiftLeft = frameGap;
     m_shiftTop = frameGap;
 
-    getMaxTabletArea();
+    m_originaltabletArea = X11Wacom::getMaximumTabletArea(m_toolName);
 
     QLabel *showInfo = new QLabel();
     showInfo->setText( i18n( "Please tap into all four corners to calibrate the tablet.\nPress escape to cancel the process." ) );
@@ -154,71 +146,4 @@ void CalibrationDialog::calculateNewArea()
     m_newtabletArea.setY( newY );
     m_newtabletArea.setWidth( newWidth );
     m_newtabletArea.setHeight( newHeight );
-}
-
-void CalibrationDialog::getMaxTabletArea()
-{
-    int ndevices;
-    XDevice *dev = NULL;
-    Display *dpy = QX11Info::display();
-
-    XDeviceInfo *info = XListInputDevices( dpy, &ndevices );
-    for( int i = 0; i < ndevices; i++ ) {
-        if( info[i].name == m_toolName.toLatin1() ) {
-            dev = XOpenDevice( dpy, info[i].id );
-            break;
-        }
-    }
-
-    Atom prop, type;
-    int format;
-    unsigned char *data = NULL;
-    unsigned char *dataOld = NULL;
-    unsigned long nitems, bytes_after;
-    uint32_t *ldata;
-
-    prop = XInternAtom( dpy, "Wacom Tablet Area", True );
-
-    XGetDeviceProperty( dpy, dev, prop, 0, 1000, False, AnyPropertyType,
-                        &type, &format, &nitems, &bytes_after, &dataOld );
-
-    XGetDeviceProperty( dpy, dev, prop, 0, 1000, False, AnyPropertyType,
-                        &type, &format, &nitems, &bytes_after, &data );
-
-    if (type != 32 )  /* NOT COOL */
-    {
-  errWacom << "kcm_wacom: Calibration window saw unexpected format" << format;
-  return;
-    }
-
-    ldata = ( uint32_t * )data;
-
-    // first reset to default values
-    ldata[0] = -1;
-    ldata[1] = -1;
-    ldata[2] = -1;
-    ldata[3] = -1;
-
-    XChangeDeviceProperty( dpy, dev, prop, type, format,
-                           PropModeReplace, data, nitems );
-
-    // Now get the defaults
-    XGetDeviceProperty( dpy, dev, prop, 0, 1000, False, AnyPropertyType,
-                        &type, &format, &nitems, &bytes_after, &data );
-
-    ldata = ( uint32_t * )data;
-    m_originaltabletArea.setX( ldata[0] );
-    m_originaltabletArea.setX( ldata[1] );
-    m_originaltabletArea.setWidth( ldata[2] );
-    m_originaltabletArea.setHeight( ldata[3] );
-
-    // and apply the old values again
-    XChangeDeviceProperty( dpy, dev, prop, type, format,
-                           PropModeReplace, dataOld, nitems );
-
-    XFlush( dpy );
-
-    free( data );
-    XFreeDeviceList( info );
-    XCloseDevice( QX11Info::display(), dev );
 }

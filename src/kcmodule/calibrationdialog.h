@@ -70,11 +70,6 @@ private:
     */
     void calculateNewArea();
 
-    /**
-     * @brief Get tablet width/height from xinput
-    */
-    void getMaxTabletArea();
-
     int m_drawCross;             /**< Which cross should be drawn? 0=topleft, 1=bottomleft, and so on */
     int m_shiftLeft;             /**< Where to start the cross from the left */
     int m_shiftTop;              /**< Where to start the cross from the top */

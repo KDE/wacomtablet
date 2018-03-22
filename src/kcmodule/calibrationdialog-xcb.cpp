@@ -19,6 +19,8 @@
 
 #include "calibrationdialog.h"
 
+#include "debug.h"
+
 //KDE includes
 #include <KLocalizedString>
 
@@ -29,12 +31,7 @@
 #include <QPainter>
 #include <QX11Info>
 
-#include <xcb/xcb.h>
-#include <xcb/xinput.h>
-// X11 includes
-#include <X11/extensions/XInput.h>
-
-#include <xorg/wacom-properties.h>
+#include <x11wacom.h>
 
 using namespace Wacom;
 
@@ -51,7 +48,7 @@ CalibrationDialog::CalibrationDialog( const QString &toolname ) :
     m_shiftLeft = frameGap;
     m_shiftTop = frameGap;
 
-    getMaxTabletArea();
+    m_originaltabletArea = X11Wacom::getMaximumTabletArea(m_toolName);
 
     QLabel *showInfo = new QLabel();
     showInfo->setText( i18n( "Please tap into all four corners to calibrate the tablet.\nPress escape to cancel the process." ) );
@@ -150,74 +147,4 @@ void CalibrationDialog::calculateNewArea()
     m_newtabletArea.setY( newY );
     m_newtabletArea.setWidth( newWidth );
     m_newtabletArea.setHeight( newHeight );
-}
-
-void CalibrationDialog::getMaxTabletArea()
-{
-    int ndevices;
-    XID deviceId = 0;
-    Display *dpy = QX11Info::display();
-
-    XDeviceInfo *info = XListInputDevices( dpy, &ndevices );
-    for( int i = 0; i < ndevices; i++ ) {
-        if( info[i].name == m_toolName.toLatin1() ) {
-            xcb_input_open_device_cookie_t open_device_cookie = xcb_input_open_device(QX11Info::connection(), info[i].id);
-            xcb_input_open_device_reply_t* open_device_reply = xcb_input_open_device_reply(QX11Info::connection(), open_device_cookie, NULL);
-            deviceId = info[i].id;
-            bool success = open_device_reply != NULL;
-            free(open_device_reply);
-            if (success) {
-                break;
-            } else {
-                return;
-            }
-        }
-    }
-
-    Atom prop;
-
-    xcb_intern_atom_cookie_t atom_cookie = xcb_intern_atom(QX11Info::connection(), true, strlen(WACOM_PROP_TABLET_AREA), WACOM_PROP_TABLET_AREA);
-    xcb_intern_atom_reply_t* atom_reply = xcb_intern_atom_reply(QX11Info::connection(), atom_cookie, NULL);
-    if (!atom_reply) {
-        return;
-    }
-
-    prop = atom_reply->atom;
-    free(atom_reply);
-
-    xcb_input_get_device_property_cookie_t cookie = xcb_input_get_device_property(QX11Info::connection(), prop, XCB_ATOM_ANY, 0, 1000, deviceId, false);
-    xcb_input_get_device_property_reply_t* reply = xcb_input_get_device_property_reply(QX11Info::connection(), cookie, NULL);
-    if (!reply || reply->type != XCB_ATOM_INTEGER || reply->num_items < 4) {
-        return;
-    }
-
-    uint32_t dataOld[4];
-    uint32_t* items = static_cast<uint32_t*>(xcb_input_get_device_property_items(reply));
-    for (int i = 0; i < 4; i ++) {
-        dataOld[i] = items[i];
-    }
-
-    free(reply);
-
-    uint32_t ldata[4] = {(uint32_t) -1, (uint32_t) -1, (uint32_t) -1, (uint32_t) -1};
-    xcb_input_change_device_property(QX11Info::connection(), prop, XCB_ATOM_INTEGER, deviceId, 32, XCB_PROP_MODE_REPLACE, 4, ldata);
-
-    cookie = xcb_input_get_device_property(QX11Info::connection(), prop, XCB_ATOM_ANY, 0, 1000, deviceId, false);
-    reply = xcb_input_get_device_property_reply(QX11Info::connection(), cookie, NULL);
-
-    if (!reply || reply->type != XCB_ATOM_INTEGER || reply->num_items < 4) {
-        return;
-    }
-
-    items = static_cast<uint32_t*>(xcb_input_get_device_property_items(reply));
-    m_originaltabletArea.setX( items[0] );
-    m_originaltabletArea.setX( items[1] );
-    m_originaltabletArea.setWidth( items[2] );
-    m_originaltabletArea.setHeight( items[3] );
-
-    free(reply);
-
-    xcb_input_change_device_property(QX11Info::connection(), prop, XCB_ATOM_INTEGER, deviceId, 32, XCB_PROP_MODE_REPLACE, 4, dataOld);
-    XFreeDeviceList( info );
-    xcb_input_close_device(QX11Info::connection(), deviceId);
 }

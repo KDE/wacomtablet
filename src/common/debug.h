@@ -28,6 +28,7 @@
 // define this to disable assertions
 //#define NDEBUG 1
 
+// TODO: port to QLoggingCategory
 
 /*
  * DEBUG INCLUDES
