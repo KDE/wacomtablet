@@ -44,8 +44,9 @@
 
 using namespace Wacom;
 
-K_PLUGIN_FACTORY( WacomTabletFactory, registerPlugin<TabletDaemon>(); )
-K_EXPORT_PLUGIN( WacomTabletFactory( "wacomtabletdaemon" ) )
+K_PLUGIN_FACTORY_WITH_JSON(WacomTabletFactory,
+                           "wacomtablet.json",
+                           registerPlugin<TabletDaemon>();)
 
 namespace Wacom {
 /**
