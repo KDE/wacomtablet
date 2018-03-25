@@ -1558,3 +1558,23 @@ hwbutton1=3
 hwbutton2=1
 hwbutton3=9
 hwbutton4=8
+
+[0358]
+model=PTH-860
+layout=bl_4
+name=Wacom Intuos Pro L
+padbuttons=9
+statusleds=0
+wheel=no
+touchring=yes
+touchstripl=no
+touchstripr=no
+hwbutton1=13
+hwbutton2=1
+hwbutton3=2
+hwbutton4=3
+hwbutton5=8
+hwbutton6=9
+hwbutton7=10
+hwbutton8=11
+hwbutton9=12
