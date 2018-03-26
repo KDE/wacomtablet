@@ -66,6 +66,7 @@
     <screenshot type="default">
       <caption>Settings window.</caption>
       <caption xml:lang="ca">Finestra de paràmetres.</caption>
+      <caption xml:lang="ca-valencia">Finestra de paràmetres.</caption>
       <caption xml:lang="de">Konfigurationsfenster.</caption>
       <caption xml:lang="es">Ventana de preferencias.</caption>
       <caption xml:lang="nl">Instellingenvenster.</caption>
