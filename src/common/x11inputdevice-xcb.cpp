@@ -112,20 +112,20 @@ bool X11InputDevice::getAtomProperty(const QString& property, QList< long int >&
 }
 
 
-const QList< int > X11InputDevice::getDeviceButtonMapping() const
+const QVector<uint8_t> X11InputDevice::getDeviceButtonMapping() const
 {
     Q_D(const X11InputDevice);
 
-    QList<int> buttonMap;
+    QVector<uint8_t> buttonMap;
 
     if (!isOpen()) {
         return buttonMap;
     }
 
-    int              buttonCount = 0;
+    int buttonCount = 0;
 
     xcb_input_get_device_button_mapping_cookie_t cookie = xcb_input_get_device_button_mapping(QX11Info::connection(), d->deviceid);
-    xcb_input_get_device_button_mapping_reply_t* reply = xcb_input_get_device_button_mapping_reply(QX11Info::connection(), cookie, NULL);
+    xcb_input_get_device_button_mapping_reply_t* reply = xcb_input_get_device_button_mapping_reply(QX11Info::connection(), cookie, nullptr);
 
     if (!reply) {
         return buttonMap; // the device has no buttons
@@ -135,7 +135,7 @@ const QList< int > X11InputDevice::getDeviceButtonMapping() const
     buttonCount = xcb_input_get_device_button_mapping_map_length(reply);
 
     for (int i = 0 ; i < buttonCount ; ++i) {
-        buttonMap.append((int)map_return[i]);
+        buttonMap.append(map_return[i]);
     }
 
     free(reply);
@@ -313,7 +313,7 @@ bool X11InputDevice::open(X11InputDevice::XID id, const QString& name)
 
 
 
-bool X11InputDevice::setDeviceButtonMapping(const QList< int >& buttonMap) const
+bool X11InputDevice::setDeviceButtonMapping(const QVector<uint8_t> &buttonMap) const
 {
     Q_D(const X11InputDevice);
 
@@ -321,15 +321,9 @@ bool X11InputDevice::setDeviceButtonMapping(const QList< int >& buttonMap) const
         return false;
     }
 
-    const int      nmap = buttonMap.count();
-    unsigned char* map  = new unsigned char[nmap];
-
-    for (int i = 0 ; i < nmap ; ++i) {
-        map[i] = (unsigned char)buttonMap.at(i);
-    }
-
-    xcb_input_set_device_button_mapping_cookie_t cookie = xcb_input_set_device_button_mapping(QX11Info::connection(), d->deviceid, nmap, map);
-    xcb_input_set_device_button_mapping_reply_t* reply = xcb_input_set_device_button_mapping_reply(QX11Info::connection(), cookie, NULL);
+    xcb_input_set_device_button_mapping_cookie_t cookie =
+            xcb_input_set_device_button_mapping(QX11Info::connection(), d->deviceid, static_cast<uint8_t>(buttonMap.size()), buttonMap.data());
+    xcb_input_set_device_button_mapping_reply_t* reply = xcb_input_set_device_button_mapping_reply(QX11Info::connection(), cookie, nullptr);
 
     uint8_t result = 1;
 
@@ -337,8 +331,6 @@ bool X11InputDevice::setDeviceButtonMapping(const QList< int >& buttonMap) const
         result = reply->status;
         free(reply);
     }
-
-    delete map;
 
     return (result == 0);
 }

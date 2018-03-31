@@ -94,7 +94,7 @@ bool X11Wacom::isScrollDirectionInverted(const QString& deviceName)
         return false;
     }
 
-    QList<int> buttonMap = device.getDeviceButtonMapping();
+    const auto buttonMap = device.getDeviceButtonMapping();
 
     if (buttonMap.count() == 0 || buttonMap.count() < 5) {
         return false;
@@ -140,7 +140,7 @@ bool X11Wacom::setScrollDirection(const QString& deviceName, bool inverted)
         return false;
     }
 
-    QList<int> buttonMap = device.getDeviceButtonMapping();
+    auto buttonMap = device.getDeviceButtonMapping();
 
     if (buttonMap.count() == 0 || buttonMap.count() < 5) {
         return false;

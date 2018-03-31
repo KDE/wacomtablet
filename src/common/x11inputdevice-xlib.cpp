@@ -112,11 +112,11 @@ bool X11InputDevice::getAtomProperty(const QString& property, QList< long int >&
 }
 
 
-const QList< int > X11InputDevice::getDeviceButtonMapping() const
+const QVector<uint8_t> X11InputDevice::getDeviceButtonMapping() const
 {
     Q_D(const X11InputDevice);
 
-    QList<int> buttonMap;
+    QVector<uint8_t> buttonMap;
 
     if (!isOpen()) {
         return buttonMap;
@@ -128,7 +128,7 @@ const QList< int > X11InputDevice::getDeviceButtonMapping() const
     int buttonCount = XGetDeviceButtonMapping(d->display, d->device, map_return, 128);
 
     for (int i = 0 ; i < buttonCount ; ++i) {
-        buttonMap.append((int)map_return[i]);
+        buttonMap.append(map_return[i]);
     }
 
     return buttonMap;
@@ -305,7 +305,7 @@ bool X11InputDevice::open(XID id, const QString& name)
 
 
 
-bool X11InputDevice::setDeviceButtonMapping(const QList< int >& buttonMap) const
+bool X11InputDevice::setDeviceButtonMapping(const QVector<uint8_t> &buttonMap) const
 {
     Q_D(const X11InputDevice);
 
@@ -313,16 +313,7 @@ bool X11InputDevice::setDeviceButtonMapping(const QList< int >& buttonMap) const
         return false;
     }
 
-    const int       nmap = buttonMap.count();
-    unsigned char * map  = new unsigned char[nmap];
-
-    for (int i = 0 ; i < nmap ; ++i) {
-        map[i] = (unsigned char)buttonMap.at(i);
-    }
-
-    int result = XSetDeviceButtonMapping(d->display, d->device, map, nmap);
-
-    delete map;
+    int result = XSetDeviceButtonMapping(d->display, d->device, QVector<uint8_t>(buttonMap).data(), buttonMap.count());
 
     dbgWacom << "setDeviceButtonMapping returned result" << result;
 

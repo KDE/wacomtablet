@@ -96,7 +96,7 @@ public:
      *
      * @return A list of buttons numbers.
      */
-    const QList<int> getDeviceButtonMapping() const;
+    const QVector<uint8_t> getDeviceButtonMapping() const;
 
     /**
      * Gets the device id of this device.
@@ -196,7 +196,7 @@ public:
      *
      * @return True on success, false on error.
      */
-    bool setDeviceButtonMapping(const QList<int>& buttonMap) const;
+    bool setDeviceButtonMapping(const QVector<uint8_t> &buttonMap) const;
 
     /**
      * Sets a float property. The values have to be separated by a single whitespace.
