@@ -165,7 +165,7 @@ void Dialog::refreshTabletList()
         if (TabletDatabase::instance().lookupTablet(hexNumber.toUpper(), ti)) {
             t.buttonNumber = ti.getInt(TabletInfo::NumPadButtons);
             int leds = ti.getInt(TabletInfo::StatusLEDs);
-            t.hasStatusLEDsLeft = leds > 3;
+            t.hasStatusLEDsLeft = leds > 4;
             t.hasStatusLEDsRight = leds > 0;
             t.hasTouchRing = ti.getBool(TabletInfo::HasTouchRing);
             t.hasTouchStripLeft = ti.getBool(TabletInfo::HasLeftTouchStrip);
@@ -412,10 +412,10 @@ void Dialog::saveTabletInfo(const Tablet &t)
     tabletGroup.writeEntry( "name", t.name );
 
     int leds = 0;
-    if(t.hasStatusLEDsLeft && t.hasStatusLEDsLeft) {
+    if(t.hasStatusLEDsLeft && t.hasStatusLEDsRight) {
         leds = 8;
     }
-    else if(t.hasStatusLEDsLeft || t.hasStatusLEDsLeft) {
+    else if(t.hasStatusLEDsLeft || t.hasStatusLEDsRight) {
         leds = 4;
     }
 
