@@ -147,4 +147,8 @@ void CalibrationDialog::calculateNewArea()
     m_newtabletArea.setY( newY );
     m_newtabletArea.setWidth( newWidth );
     m_newtabletArea.setHeight( newHeight );
+
+    dbgWacom << "Calibration debug:" << frameGeometry() << size() << m_originaltabletArea << m_topLeft << m_bottomLeft << m_topRight << m_bottomRight;
+    dbgWacom << "Calibration debug:" << frameoffset << tabletScreenRatioWidth << tabletScreenRatioHeight << clickedX << clickedY << clickedWidth << clickedHeight;
+    dbgWacom << "Calibration debug:" << m_newtabletArea;
 }
