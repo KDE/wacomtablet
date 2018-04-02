@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(wacomtablet)
+cmake_policy(SET CMP0048 NEW)
+project(wacomtablet VERSION "3.0.0")
 
 set(QT_MIN_VERSION "5.7.0")
 find_package(ECM 1.6.0 REQUIRED CONFIG)
@@ -11,6 +12,12 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(FeatureSummary)
 include(ECMOptionalAddSubdirectory)
 include(ECMInstallIcons)
+include(ECMSetupVersion)
+
+ecm_setup_version(${PROJECT_VERSION}
+    VARIABLE_PREFIX WACOMTABLET
+    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/src/wacomtablet-version.h"
+)
 
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets DBus X11Extras Qml)
 find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools)

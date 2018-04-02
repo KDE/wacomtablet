@@ -1,11 +1,3 @@
- 
-To release a new version of Wacomtablet you need the following steps:
-
- * bump version in
-   src/version.h
-   src/applet/package/metadata.desktop
-   
- * tag the git repo
-
- * Get the release script from: git@git.kde.org:releaseme.git
- * start it with ruby ./wacomtablet.rb
+* Bump main package version in: CMakeLists.txt
+* Bump applet version in: src/applet/package/metadata.desktop
+* Follow https://community.kde.org/ReleasingSoftware

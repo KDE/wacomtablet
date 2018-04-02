@@ -26,7 +26,7 @@
 #include "wacomadaptor.h"
 #include "x11eventnotifier.h"
 #include "globalactions.h"
-#include "../version.h"
+#include "../wacomtablet-version.h"
 
 // common includes
 #include "aboutdata.h"
@@ -151,9 +151,9 @@ void TabletDaemon::setupActions()
 
 void TabletDaemon::setupApplication()
 {
-    static AboutData about( QLatin1Literal("wacomtablet"),
-                            i18n( "Graphic Tablet Configuration daemon" ),
-                            QLatin1String(kded_version), i18n( "A Wacom tablet control daemon" ) );
+    static AboutData about(QLatin1Literal("wacomtablet"),
+                           i18n( "Graphic Tablet Configuration daemon"),
+                           QLatin1String(WACOMTABLET_VERSION_STRING), i18n( "A Wacom tablet control daemon" ));
 }
 
 

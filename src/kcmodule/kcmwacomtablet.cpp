@@ -19,7 +19,7 @@
 
 #include "kcmwacomtablet.h"
 #include "kcmwacomtabletwidget.h"
-#include "../version.h"
+#include "../wacomtablet-version.h"
 
 #include "aboutdata.h"
 #include "profilemanagement.h"
@@ -70,9 +70,9 @@ KCMWacomTablet::~KCMWacomTablet()
 void KCMWacomTablet::initUi()
 {
     // about data will be deleted by KCModule
-    AboutData* about = new AboutData(QLatin1Literal("kcm_wacomtablet"), i18n("Graphic Tablet Configuration"),
-                            QLatin1String(kcm_version), i18n("A configurator for graphic tablets"),
-                            i18n("In this module you can configure your Wacom tablet profiles"));
+    AboutData *about = new AboutData(QLatin1Literal("kcm_wacomtablet"), i18n("Graphic Tablet Configuration"),
+                                     QLatin1String(WACOMTABLET_VERSION_STRING), i18n("A configurator for graphic tablets"),
+                                     i18n("In this module you can configure your Wacom tablet profiles"));
 
     // setup kcm module
     setAboutData(about);
