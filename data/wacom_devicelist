@@ -1578,3 +1578,14 @@ hwbutton6=9
 hwbutton7=10
 hwbutton8=11
 hwbutton9=12
+
+[50DB]
+layout=unknown
+model=unknown
+name=Wacom HID (Lenovo Yoga 520)
+padbuttons=0
+statusleds=0
+touchring=false
+touchstripl=false
+touchstripr=false
+wheel=false
