@@ -34,7 +34,7 @@ DeviceProfileConfigAdaptor::~DeviceProfileConfigAdaptor() {}
 
 bool DeviceProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
 {
-    const DeviceProperty* deviceProperty = NULL;
+    const DeviceProperty *deviceProperty = nullptr;
 
     QStringList keys = config.keyList();
 
@@ -54,8 +54,8 @@ bool DeviceProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
 
         deviceProperty = DeviceProperty::find(lookupKey);
 
-        if (deviceProperty == NULL) {
-            qWarning() << QString::fromLatin1("Unable to read unsupported configuration property '%1' from config file!").arg(key);
+        if (deviceProperty == nullptr) {
+            dbgWacom << QString::fromLatin1("Unable to read unsupported configuration property '%1' from config file!").arg(key);
             continue;
         }
 
@@ -68,7 +68,7 @@ bool DeviceProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
 
 bool DeviceProfileConfigAdaptor::saveConfig(KConfigGroup& config) const
 {
-    const DeviceProperty* deviceProperty = NULL;
+    const DeviceProperty *deviceProperty = nullptr;
     QList<Property> properties = getProperties();
     QString value;
 
@@ -76,8 +76,8 @@ bool DeviceProfileConfigAdaptor::saveConfig(KConfigGroup& config) const
         
         deviceProperty = DeviceProperty::map(property);
 
-        if (deviceProperty == NULL) {
-            qWarning() << QString::fromLatin1("Unable to save unsupported system property '%1' to config file!").arg(property.key());
+        if (deviceProperty == nullptr) {
+            dbgWacom << QString::fromLatin1("Unable to save unsupported system property '%1' to config file!").arg(property.key());
             continue;
         }
 

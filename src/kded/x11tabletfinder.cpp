@@ -130,7 +130,7 @@ void X11TabletFinder::addDeviceInformation (DeviceInformation& deviceInformation
     long serial = deviceInformation.getTabletSerial();
 
     if (serial < 1) {
-        qWarning() << QString::fromLatin1 ("Device '%1' has an invalid serial number '%2'!").arg (deviceInformation.getName()).arg (serial);
+        dbgWacom << QString::fromLatin1("Device '%1' has an invalid serial number '%2'!").arg(deviceInformation.getName()).arg(serial);
     }
 
     X11TabletFinderPrivate::TabletMap::iterator mapIter = d->tabletMap.find (serial);
@@ -171,7 +171,7 @@ const QString X11TabletFinder::getDeviceNode(X11InputDevice& device) const
     QList<QString> values;
 
     if (!device.getStringProperty(X11Input::PROPERTY_DEVICE_NODE, values, 1000) || values.size() == 0) {
-        qWarning() << QString::fromLatin1("Could not get device node from device '%1'!").arg(device.getName());
+        dbgWacom << QString::fromLatin1("Could not get device node from device '%1'!").arg(device.getName());
         return QString();
     }
 

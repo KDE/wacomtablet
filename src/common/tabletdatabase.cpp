@@ -103,7 +103,7 @@ bool TabletDatabase::lookupTablet(const QString& tabletId, TabletInformation& ta
         return true;
     }
     else {
-        qWarning() << QString::fromLatin1("tablet %1 not in local db").arg(tabletId);
+        dbgWacom << QString::fromLatin1("tablet %1 not in local db").arg(tabletId);
     }
 
 
@@ -116,7 +116,7 @@ bool TabletDatabase::lookupTablet(const QString& tabletId, TabletInformation& ta
         tabletsConfigFile = companyGroup.readEntry("listfile");
 
         if (tabletsConfigFile.isEmpty()) {
-            qWarning() << QString::fromLatin1("Company group '%1' does not have a device list file!").arg(companyGroup.name());
+            dbgWacom << QString::fromLatin1("Company group '%1' does not have a device list file!").arg(companyGroup.name());
             continue;
         }
 
@@ -227,14 +227,14 @@ bool TabletDatabase::openConfig(const QString& configFileName, KSharedConfig::Pt
     }
 
     if (configFilePath.isEmpty()) {
-        qWarning() << QString::fromLatin1("Tablet database configuration file '%1' does not exist or is not accessible!").arg(configFileName);
+        dbgWacom << QString::fromLatin1("Tablet database configuration file '%1' does not exist or is not accessible!").arg(configFileName);
         return false;
     }
 
     configFile = KSharedConfig::openConfig (configFilePath, KConfig::SimpleConfig, QStandardPaths::GenericDataLocation);
 
     if (configFile->groupList().isEmpty()) {
-        qWarning() << QString::fromLatin1("Tablet database configuration file '%1' is empty or not readable!").arg(configFilePath);
+        dbgWacom << QString::fromLatin1("Tablet database configuration file '%1' is empty or not readable!").arg(configFilePath);
         return false;
     }
 
