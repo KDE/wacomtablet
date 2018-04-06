@@ -1579,6 +1579,17 @@ hwbutton7=10
 hwbutton8=11
 hwbutton9=12
 
+[504C]
+layout=unknown
+model=unknown
+name=Wacom (Lenovo Yoga 460)
+padbuttons=0
+statusleds=0
+touchring=false
+touchstripl=false
+touchstripr=false
+wheel=false
+
 [50DB]
 layout=unknown
 model=unknown
