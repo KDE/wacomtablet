@@ -24,6 +24,7 @@ find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui W
 find_package(XCB OPTIONAL_COMPONENTS XINPUT)
 find_package(X11 REQUIRED COMPONENTS XLIB)
 find_package(XorgWacom REQUIRED)
+find_package(LibWacom REQUIRED)
 
 # xcb-xinput is an experimental API and is not built by default in the xcb
 # repository. Downstream distributions without xcb-xinput, such as Kubuntu, can

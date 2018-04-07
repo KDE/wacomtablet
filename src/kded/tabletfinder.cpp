@@ -22,6 +22,7 @@
 #include "debug.h"
 #include "tabletdatabase.h"
 #include "x11tabletfinder.h"
+#include "libwacomwrapper.h"
 
 #include <QList>
 #include <QMap>
@@ -169,13 +170,20 @@ void TabletFinder::onX11TabletRemoved(int deviceId)
 
 bool TabletFinder::lookupInformation(TabletInformation& info)
 {
-    // lookup information from our tablet database
-    if (!TabletDatabase::instance().lookupTablet(info.get (TabletInfo::TabletId), info)) {
-        dbgWacom << QString::fromLatin1("Could not find tablet with id '%1' in database.").arg(info.get (TabletInfo::TabletId));
-        return false;
+    // lookup information from our local & system-wide tablet databases
+    if (TabletDatabase::instance().lookupTablet(info.get (TabletInfo::TabletId), info)) {
+        dbgWacom << "Found in database: " << info.get(TabletInfo::TabletId);
+        return true;
     }
 
-    // TODO use libwacom to get more tablet information
+    // lookup information in libWacom tablet database
+    auto tabletId = info.get(TabletInfo::TabletId).toInt(nullptr, 16);
+    auto vendorId = info.get(TabletInfo::CompanyId).toInt(nullptr, 16);
+    if (libWacomWrapper::instance().lookupTabletInfo(tabletId, vendorId, info)) {
+        dbgWacom << "Found in libwacom: " << info.get(TabletInfo::TabletId);
+        return true;
+    }
 
-    return true;
+    dbgWacom << QString::fromLatin1("Could not find tablet with id '%1' in database.").arg(info.get (TabletInfo::TabletId));
+    return false;
 }

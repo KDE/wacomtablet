@@ -1,6 +1,3 @@
-
-
-
 set(wacom_common_LIBS
   Qt5::Core
   Qt5::Gui
@@ -11,6 +8,7 @@ set(wacom_common_LIBS
   KF5::ConfigCore
   KF5::CoreAddons
   ${USING_X_LIBRARIES}
+  ${LIBWACOM_LIBRARIES}
 )
 
 set(wacom_common_SRC
@@ -23,6 +21,7 @@ set(wacom_common_SRC
     deviceproperty.cpp
     devicetype.cpp
     debug.cpp
+    libwacomwrapper.cpp
     mainconfig.cpp
     profilemanager.cpp
     profilemanagement.cpp
@@ -49,5 +48,6 @@ qt5_add_dbus_interfaces(wacom_common_SRC
 
 add_library( wacom_common STATIC ${wacom_common_SRC})
 
+target_include_directories(wacom_common PUBLIC ${LIBWACOM_INCLUDE_DIRS})
 target_link_libraries( wacom_common ${wacom_common_LIBS} )
 set_target_properties( wacom_common PROPERTIES COMPILE_FLAGS "-fPIC" )

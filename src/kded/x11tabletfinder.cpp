@@ -33,6 +33,7 @@
 # include <X11/Xutil.h>
 #endif
 
+#include <QString>
 #include <QMap>
 
 using namespace Wacom;
@@ -104,7 +105,7 @@ bool X11TabletFinder::visit (X11InputDevice& x11device)
     QString           deviceName = x11device.getName();
     const DeviceType* deviceType = getDeviceType (getToolType (x11device));
 
-    if (deviceName.isEmpty() || deviceType == NULL) {
+    if (deviceName.isEmpty() || deviceType == nullptr) {
         errWacom << QString::fromLatin1("Unsupported device '%1' detected!").arg(deviceName);
         return false;
     }
@@ -136,7 +137,10 @@ void X11TabletFinder::addDeviceInformation (DeviceInformation& deviceInformation
     X11TabletFinderPrivate::TabletMap::iterator mapIter = d->tabletMap.find (serial);
 
     if (mapIter == d->tabletMap.end()) {
-        mapIter = d->tabletMap.insert(serial, TabletInformation (serial));
+        auto newTabletInformation = TabletInformation(serial);
+        // LibWacom needs CompanyId so set it too
+        newTabletInformation.set(TabletInfo::CompanyId, QString::fromLatin1("%1").arg(deviceInformation.getVendorId(), 4, 16, QLatin1Char('0')).toUpper());
+        mapIter = d->tabletMap.insert(serial, newTabletInformation);
     }
 
     mapIter.value().setDevice(deviceInformation);

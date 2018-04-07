@@ -8,6 +8,7 @@ set(kded_wacomtablet_LIBS
    KF5::DBusAddons
    KF5::ConfigCore
    ${USING_X_LIBRARIES}
+   ${LIBWACOM_LIBRARIES}
 )
 
 ## sources
