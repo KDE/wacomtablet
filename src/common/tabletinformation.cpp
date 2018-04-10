@@ -166,8 +166,7 @@ bool TabletInformation::operator!= (const TabletInformation& other) const
 bool TabletInformation::operator== (const TabletInformation& other) const
 {
     Q_D (const TabletInformation);
-    assert(other.d_ptr != NULL);
-    return d->operator== (*(other.d_ptr));
+    return other.d_ptr != nullptr && d->operator== (*(other.d_ptr));
 }
 
 

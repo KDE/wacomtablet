@@ -40,8 +40,9 @@ struct PropertySetTemplateSpecializationLessFunctor
         Q_UNUSED(d1);
         Q_UNUSED(d2);
 
-        // adding the same key or the same element is a severe error!
-        assert((d1 != d2) && (d1->key().compare(d2->key(), Qt::CaseInsensitive)));
+        if ((d1 == d2) || !(d1->key().compare(d2->key(), Qt::CaseInsensitive))) {
+            errWacom << "Adding the same key or the same element is a severe error";
+        }
 
         // property sets should keep the order they were defined
         return false;

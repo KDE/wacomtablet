@@ -123,12 +123,14 @@ QStringList TabletProfile::listDevices() const
 
     // keys are all lower case, but we want to list the names as-is
     QList<QString> keys = d->devices.keys();
-    foreach(const QString& key, keys) {
-        const DeviceType* deviceType = DeviceType::find(key);
-        assert(deviceType != NULL);
+    for (const auto &key : qAsConst(keys)) {
+        const DeviceType *deviceType = DeviceType::find(key);
+        if (!deviceType) {
+            errWacom << "DeviceType for" << key << "is null";
+            continue;
+        }
         result.append(getDevice(*deviceType).getName());
     }
-
     return result;
 }
 

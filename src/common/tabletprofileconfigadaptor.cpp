@@ -37,7 +37,7 @@ class TabletProfileConfigAdaptorPrivate
 
 
 TabletProfileConfigAdaptor::TabletProfileConfigAdaptor(TabletProfile& profile)
-    : ConfigAdaptor(NULL), d_ptr(new TabletProfileConfigAdaptorPrivate)
+    : ConfigAdaptor(nullptr), d_ptr(new TabletProfileConfigAdaptorPrivate)
 {
     Q_D( TabletProfileConfigAdaptor );
     d->profile = &profile;
@@ -49,10 +49,13 @@ TabletProfileConfigAdaptor::~TabletProfileConfigAdaptor()
 }
 
 
-bool TabletProfileConfigAdaptor::loadConfig (const KConfigGroup& config)
+bool TabletProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
 {
-    Q_D( TabletProfileConfigAdaptor );
-    assert(d->profile != NULL);
+    Q_D(TabletProfileConfigAdaptor);
+    if (d->profile == nullptr) {
+        errWacom << "Profile is null";
+        return false;
+    }
 
     d->profile->setName(config.name());
     d->profile->clearDevices();
@@ -62,7 +65,7 @@ bool TabletProfileConfigAdaptor::loadConfig (const KConfigGroup& config)
     foreach(const QString& dev, devices) {
         const DeviceType* deviceType = DeviceType::find(dev);
 
-        if (deviceType == NULL) {
+        if (deviceType == nullptr) {
             errWacom << QString::fromLatin1("Invalid device identifier '%1' found in configuration file!").arg(dev);
             continue;
         }
@@ -83,7 +86,10 @@ bool TabletProfileConfigAdaptor::loadConfig (const KConfigGroup& config)
 bool TabletProfileConfigAdaptor::saveConfig (KConfigGroup& config) const
 {
     Q_D( const TabletProfileConfigAdaptor );
-    assert(d->profile != NULL);
+    if (d->profile == nullptr) {
+        errWacom << "Profile is null";
+        return false;
+    }
 
     // delete all groups before writing out the new device groups
     QStringList groups = config.groupList();
@@ -96,8 +102,11 @@ bool TabletProfileConfigAdaptor::saveConfig (KConfigGroup& config) const
     QStringList devices = d->profile->listDevices();
 
     foreach(const QString& dev, devices) {
-        const DeviceType* deviceType = DeviceType::find(dev);
-        assert(deviceType != NULL);
+        const DeviceType *deviceType = DeviceType::find(dev);
+        if (deviceType == nullptr) {
+            errWacom << QString::fromLatin1("Invalid device identifier '%1' found in configuration file!").arg(dev);
+            continue;
+        }
 
         KConfigGroup               devconfig  = KConfigGroup(&config, dev);
         DeviceProfile              devprofile = d->profile->getDevice(*deviceType);

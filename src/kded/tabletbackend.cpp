@@ -72,17 +72,7 @@ void TabletBackend::addAdaptor(const DeviceType& deviceType, PropertyAdaptor* ad
 {
     Q_D(TabletBackend);
 
-    DeviceMap::iterator it = d->deviceAdaptors.find(deviceType);
-
-    if (it == d->deviceAdaptors.end()) {
-        // device does not exist yet
-        d->deviceAdaptors.insert(deviceType, AdaptorList());
-
-        it = d->deviceAdaptors.find(deviceType);
-        assert(it != d->deviceAdaptors.end());
-    }
-
-    it.value().append(adaptor);
+    d->deviceAdaptors[deviceType].append(adaptor);
 }
 
 
@@ -99,13 +89,11 @@ const QString TabletBackend::getProperty(const DeviceType& type, const Property&
 {
     Q_D(const TabletBackend);
 
-    if (!d->deviceAdaptors.contains(type)) {
+    DeviceMap::const_iterator adaptors = d->deviceAdaptors.constFind(type);
+    if (adaptors == d->deviceAdaptors.constEnd()) {
         errWacom << QString::fromLatin1("Could not get property '%1' from unsupported device type '%2'!").arg(property.key()).arg(type.key());
         return QString();
     }
-
-    DeviceMap::const_iterator adaptors = d->deviceAdaptors.constFind(type);
-    assert(adaptors != d->deviceAdaptors.constEnd());
 
     foreach(const PropertyAdaptor* adaptor, adaptors.value()) {
         if (adaptor->supportsProperty(property)) {
@@ -143,13 +131,11 @@ void TabletBackend::setProfile(const DeviceType& deviceType, const DeviceProfile
 {
     Q_D(TabletBackend);
 
-    if (!d->deviceAdaptors.contains(deviceType)) {
+    DeviceMap::iterator adaptors = d->deviceAdaptors.find(deviceType);
+    if (adaptors == d->deviceAdaptors.end()) {
         errWacom << QString::fromLatin1("Could not set profile on unsupported device type '%1'!").arg(deviceType.key());
         return;
     }
-
-    DeviceMap::iterator adaptors = d->deviceAdaptors.find(deviceType);
-    assert(adaptors != d->deviceAdaptors.end());
 
     QString value;
 
@@ -184,15 +170,13 @@ bool TabletBackend::setProperty(const DeviceType& type, const Property& property
 {
     Q_D(TabletBackend);
 
-    if (!d->deviceAdaptors.contains(type)) {
+    DeviceMap::iterator adaptors = d->deviceAdaptors.find(type);
+    if (adaptors == d->deviceAdaptors.end()) {
         errWacom << QString::fromLatin1("Could not set property '%1' to '%2' on unsupported device type '%3'!").arg(property.key()).arg(value).arg(type.key());
         return false;
     }
 
-    bool                returnValue = false;
-    DeviceMap::iterator adaptors    = d->deviceAdaptors.find(type);
-    assert(adaptors != d->deviceAdaptors.end());
-
+    bool returnValue = false;
     foreach (PropertyAdaptor* adaptor, adaptors.value()) {
         if (adaptor->supportsProperty(property)) {
             if (adaptor->setProperty(property, value)) {
