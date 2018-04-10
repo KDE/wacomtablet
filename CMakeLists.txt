@@ -43,6 +43,11 @@ else()
     set(USING_X_LIBRARIES ${X11_LIBRARIES} ${X11_Xinput_LIB})
 endif()
 
+if(${LIBWACOM_VERSION} VERSION_LESS "0.29")
+    message(STATUS "Button detection with libwacom requires version at least 0.29. Detected version is: " ${LIBWACOM_VERSION})
+    add_definitions(-DLIBWACOM_EVDEV_MISSING)
+endif()
+
 add_definitions( -DQT_STRICT_ITERATORS )
 add_definitions( -DQT_NO_CAST_FROM_ASCII )
 add_definitions( -DQT_NO_CAST_TO_ASCII )

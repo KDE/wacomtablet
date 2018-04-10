@@ -29,6 +29,16 @@ extern "C" {
 
 namespace Wacom {
 
+static int skipWheelButtons(int button) {
+    // skip buttons 4-7, which correspond to vertical/horizontal wheel up/down events
+    if (button > 3) {
+        return button + 4;
+    } else {
+        return button;
+    }
+}
+static int convertEvdevToXsetwacomButton(int evdevCode);
+
 libWacomWrapper::libWacomWrapper()
 {
     db = libwacom_database_new();
@@ -74,17 +84,94 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
     tabletInfo.set(TabletInfo::StatusLEDs,    QString::number(0));
 
     tabletInfo.set(TabletInfo::TabletName,    QString::fromLatin1(libwacom_get_name(device.get())));
-    tabletInfo.set(TabletInfo::NumPadButtons, QString::number(libwacom_get_num_buttons(device.get())));
 
-    int numStrips = libwacom_get_num_strips(device.get());
-    bool hasLeftStrip = numStrips > 0;
-    bool hasRightStrip = numStrips > 1;
-    bool hasRing = libwacom_has_ring(device.get()) != 0;
+    const int padButtonNumber = libwacom_get_num_buttons(device.get());
+    tabletInfo.set(TabletInfo::NumPadButtons, QString::number(padButtonNumber));
+
+    // Convert button evdev codes to buttonMap
+    if (libwacom_get_num_buttons(device.get()) > 0) {
+        QMap<QString, QString> buttonMapping;
+        for (char i = 1; i < padButtonNumber + 1; i++) {
+#ifdef LIBWACOM_EVDEV_MISSING
+            dbgWacom << "Your libwacom version is too old. We will try and guess button mapping, "
+                     << "but it's going to be broken for quirky tablets. Use kde_wacomtablet_finder instead.";
+            const int buttonIndex = skipWheelButtons(i);
+            buttonMapping[QString::number(i)] = QString::number(buttonIndex);
+#else
+            const char buttonChar = 'A' + (i - 1); // libwacom marks buttons as 'A', 'B', 'C'...
+            const int buttonEvdevCode = libwacom_get_button_evdev_code(device.get(), buttonChar);
+            const int buttonIndex = convertEvdevToXsetwacomButton(buttonEvdevCode);
+            buttonMapping[QString::number(i)] = QString::number(buttonIndex);
+
+            if (buttonIndex < 1) {
+                errWacom << "Unrecognized evdev code. "
+                         << "Device:" << tabletId << "Vendor:" << vendorId
+                         << "Button:" << buttonChar << "EvdevCode:" << buttonEvdevCode;
+                return false;
+            }
+#endif
+        }
+        tabletInfo.setButtonMap(buttonMapping);
+    }
+
+    const int numStrips = libwacom_get_num_strips(device.get());
+    const bool hasLeftStrip = numStrips > 0;
+    const bool hasRightStrip = numStrips > 1;
+    const bool hasRing = libwacom_has_ring(device.get()) != 0;
 
     tabletInfo.set(TabletInfo::HasLeftTouchStrip,  hasLeftStrip);
     tabletInfo.set(TabletInfo::HasRightTouchStrip, hasRightStrip);
     tabletInfo.set(TabletInfo::HasTouchRing,       hasRing);
     return true;
+}
+
+static int convertMouseEvdevToXsetwacomButton(int evdevCode) {
+    // some quirky consumer tablets, e.g. Bamboo/Graphire, use mouse button events
+    // instead of just numbered express keys. Translate them back to numbers
+    static const int BTN_LEFT = 0x110;
+    static const int BTN_RIGHT = 0x111;
+    static const int BTN_MIDDLE = 0x112;
+    static const int BTN_FORWARD = 0x115;
+    static const int BTN_BACK = 0x116;
+
+    switch (evdevCode) {
+    case BTN_LEFT:
+        return 1;
+    case BTN_RIGHT:
+        return 3;
+    case BTN_MIDDLE:
+        return 2;
+    case BTN_FORWARD:
+        return 9;
+    case BTN_BACK:
+        return 8;
+
+    default:
+        return 0;
+    }
+}
+
+static int convertEvdevToXsetwacomButton(int evdevCode) {
+    // based on set_button_codes_from_heuristics from libwacom/libwacom-database.c
+    static const int BTN_MISC = 0x100;
+    static const int BTN_MOUSE = 0x110;
+    static const int BTN_BASE = 0x126;
+    static const int BTN_GAMEPAD = 0x130;
+
+    int translatedCode = 0;
+    if (evdevCode >= BTN_GAMEPAD) {
+        translatedCode = evdevCode - BTN_GAMEPAD + 10;
+    } else if (evdevCode >= BTN_BASE) {
+        translatedCode = evdevCode - BTN_BASE + 16;
+    } else if (evdevCode >= BTN_MOUSE) {
+        return convertMouseEvdevToXsetwacomButton(evdevCode);
+    } else if (evdevCode >= BTN_MISC) {
+        translatedCode = evdevCode - BTN_MISC;
+    } else {
+        return 0;
+    }
+
+    return skipWheelButtons(translatedCode + 1);
 }
 
 }
