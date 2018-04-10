@@ -150,14 +150,14 @@ signals:
     void controlPointsChanged(const QString & points);
 
 private:
-    QPointF m_cP1;              /**< Control point 1 */
-    QPointF m_cP2;              /**< Control point 2 */
-    int     m_pointSize;        /**< Size of the control point */
-    int     m_activePoint;      /**< The point that is dragged around */
-    QColor  m_pointColor;       /**< Color of the points */
-    QColor  m_curveColor;       /**< Color of the curve */
-    qreal   m_presssure;        /**< Buffers the current stylus pressure. (0.0 - 1.0) used to animate the pressure */
-    QColor  m_pressAreaColor;   /**< Color of the press indication area */
+    QPointF m_cP1;                        /**< Control point 1 */
+    QPointF m_cP2;                        /**< Control point 2 */
+    int     m_pointSize = 10;             /**< Size of the control point */
+    int     m_activePoint = 0;            /**< The point that is dragged around */
+    QColor  m_pointColor = Qt::red;       /**< Color of the points */
+    QColor  m_curveColor = Qt::black;     /**< Color of the curve */
+    qreal   m_presssure = 0;              /**< Buffers the current stylus pressure. (0.0 - 1.0) used to animate the pressure */
+    QColor  m_pressAreaColor = Qt::blue;  /**< Color of the press indication area */
 };
 
 }

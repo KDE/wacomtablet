@@ -100,9 +100,9 @@ public slots:
     void reject();
 
 private:
-    Ui::PressureCurveDialog *m_ui;              /**< Handler to the presscurvedialog.ui file */
+    Ui::PressureCurveDialog *m_ui;                   /**< Handler to the presscurvedialog.ui file */
     QString                  m_device;
-    PressureCurveWidget     *m_pressCurve;      /**< Widget that shows the presscurve and lets him change it */
+    PressureCurveWidget     *m_pressCurve = nullptr; /**< Widget that shows the presscurve and lets him change it */
     QString                  m_tabletId;
 };
 }

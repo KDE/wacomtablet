@@ -28,12 +28,7 @@
 using namespace Wacom;
 
 PressureCurveWidget::PressureCurveWidget(QWidget *parent) :
-        QWidget(parent),
-        m_pointSize(10),
-        m_pointColor(Qt::red),
-        m_curveColor(Qt::black),
-        m_presssure(0),
-        m_pressAreaColor(Qt::blue)
+        QWidget(parent)
 {
     setBackgroundRole(QPalette::Base);
     setAutoFillBackground(true);
