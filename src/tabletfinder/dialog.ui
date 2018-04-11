@@ -167,7 +167,7 @@
           <item>
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Number of available buttons (including pen tip):</string>
+             <string>Number of available Express Keys:</string>
             </property>
            </widget>
           </item>
