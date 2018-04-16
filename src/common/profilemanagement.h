@@ -50,9 +50,9 @@ class ProfileManagement
         static ProfileManagement& instance();
 
         /**
-         * @brief Returns a singleton of this class without asking DBus for devicenames
+         * @brief Returns a singleton of this class without asking DBus for devicename
          */
-        static ProfileManagement& instance(const QString &deviceName, const QString &touchName);
+        static ProfileManagement& instance(const QString &deviceName, bool hasTouch);
 
         void setTabletId(const QString &tabletId);
 
@@ -134,9 +134,9 @@ class ProfileManagement
 
         /**
           * Overloaded constructor.
-          * This is a singleton class, do not use this constructor, use \a instance(deviceName, touchName) instead.
+          * This is a singleton class, do not use this constructor, use \a instance(deviceName, hasTouch) instead.
           */
-        ProfileManagement(const QString &deviceName, const QString &touchName);
+        ProfileManagement(const QString &deviceName, bool hasTouch);
 
         /**
          * This is a singleton, no copying allowed
@@ -146,7 +146,7 @@ class ProfileManagement
 
         QString         m_tabletId;
         QString         m_deviceName;      /**< Cached name of the device so. So we don't have to ask via Dbus every time */
-        QString         m_touchName;       /**< Cached name of the device so. So we don't have to ask via Dbus every time */
+        bool            m_hasTouch = false;
         QString         m_profileName;     /**< Current selected profile. */
         ProfileManager  m_profileManager;  /**< Manages the profile configuration file */
 

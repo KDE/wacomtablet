@@ -446,7 +446,7 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
             // create a new default profile
             ProfileManagement* profileManagement =
                 &ProfileManagement::instance(tabletInformation.getDeviceName(DeviceType::Pad),
-                                             tabletInformation.getDeviceName(DeviceType::Touch));
+                                             tabletInformation.hasDevice(DeviceType::Touch));
             profileManagement->createNewProfile(i18nc( "Name of the default profile that will be created if none exists.","Default" ));
 
             if(!profileManagement->availableProfiles().empty()) {

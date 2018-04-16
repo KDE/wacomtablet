@@ -41,12 +41,12 @@ ProfileManagement::ProfileManagement()
 {
 }
 
-ProfileManagement::ProfileManagement(const QString &deviceName, const QString &touchName)
+ProfileManagement::ProfileManagement(const QString &deviceName, bool hasTouch)
     : m_deviceName(deviceName)
-    , m_touchName(touchName)
+    , m_hasTouch(hasTouch)
     , m_profileManager(QLatin1String("tabletprofilesrc"))
 {
-    dbgWacom << "Create instance for :: " << deviceName << touchName;
+    dbgWacom << "Create instance for :: " << deviceName << "Touch?" << hasTouch;
 }
 
 ProfileManagement& ProfileManagement::instance()
@@ -56,9 +56,9 @@ ProfileManagement& ProfileManagement::instance()
 }
 
 
-ProfileManagement& ProfileManagement::instance(const QString &deviceName, const QString &touchName)
+ProfileManagement& ProfileManagement::instance(const QString &deviceName, bool hasTouch)
 {
-    static ProfileManagement instance(deviceName, touchName);
+    static ProfileManagement instance(deviceName, hasTouch);
     return instance;
 }
 
@@ -124,8 +124,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
 
     // also add section for the touch if we have a touch tool
-    if( !m_touchName.isEmpty() ) {
-
+    if (m_hasTouch) {
         DeviceProfile touchDevice = tabletProfile.getDevice(DeviceType::Touch);
 
         touchDevice.setProperty(Property::Gesture, QLatin1String("on"));
@@ -205,12 +204,12 @@ void ProfileManagement::reload()
     }
 
     auto touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch.key());
-    deviceName.waitForFinished();
-    if( touchName.isValid() ) {
-        dbgWacom << "touchName.isValid()::" << m_touchName << "value" << touchName.value();
-        m_touchName = touchName.value();
+    touchName.waitForFinished();
+    if (touchName.isValid()) {
+        dbgWacom << "touchName.isValid()::" << m_tabletId  << "value" << touchName.value();
+        m_hasTouch = true;
     }
     else {
-        m_touchName.clear();
+        m_hasTouch = false;
     }
 }
