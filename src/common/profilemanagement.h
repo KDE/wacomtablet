@@ -139,14 +139,10 @@ class ProfileManagement
         ProfileManagement(const QString &deviceName, const QString &touchName);
 
         /**
-         * Copy constructor which does nothing.
+         * This is a singleton, no copying allowed
          */
-        ProfileManagement(const ProfileManagement&);
-
-        /**
-         * Copy operator which does nothing.
-         */
-        ProfileManagement& operator=(const ProfileManagement&);
+        ProfileManagement(const ProfileManagement&) = delete;
+        ProfileManagement &operator=(const ProfileManagement&) = delete;
 
         QString         m_tabletId;
         QString         m_deviceName;      /**< Cached name of the device so. So we don't have to ask via Dbus every time */

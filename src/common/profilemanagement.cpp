@@ -49,20 +49,6 @@ ProfileManagement::ProfileManagement(const QString &deviceName, const QString &t
     dbgWacom << "Create instance for :: " << deviceName << touchName;
 }
 
-ProfileManagement::ProfileManagement(const ProfileManagement& )
-    : m_profileManager(QLatin1String("tabletprofilesrc"))
-{
-    // this class is a singleton - no copying allowed
-}
-
-
-ProfileManagement& ProfileManagement::operator=(const ProfileManagement& )
-{
-    // this class is a singleton - no copying allowed
-    return *this;
-}
-
-
 ProfileManagement& ProfileManagement::instance()
 {
     static ProfileManagement instance;

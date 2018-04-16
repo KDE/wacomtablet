@@ -73,14 +73,10 @@ protected:
 private:
 
     /**
-     * Copy constructor which does nothing.
+     * Singleton, no copying allowed
      */
     DBusTabletInterface(const DBusTabletInterface&) = delete;
-
-    /**
-     * Copy operator which does nothing.
-     */
-    DBusTabletInterface& operator= (const DBusTabletInterface&);
+    DBusTabletInterface& operator= (const DBusTabletInterface&) = delete;
 
     static DBusTabletInterface* m_instance;
 

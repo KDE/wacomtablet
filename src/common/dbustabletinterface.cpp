@@ -28,7 +28,7 @@
 using namespace Wacom;
 
 // instanciate static class members
-DBusTabletInterface* DBusTabletInterface::m_instance = NULL;
+DBusTabletInterface* DBusTabletInterface::m_instance = nullptr;
 
 
 DBusTabletInterface::DBusTabletInterface()
@@ -61,7 +61,7 @@ void DBusTabletInterface::resetInterface()
 
     if (m_instance) {
         delete m_instance;
-        m_instance = NULL;
+        m_instance = nullptr;
     }
 
     m_instance = new DBusTabletInterface();
