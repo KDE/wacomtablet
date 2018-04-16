@@ -12,6 +12,13 @@ set(kded_wacomtablet_LIBS
 )
 
 ## sources
+
+# this file contains plugin definition and does not belong in kded_wacomtablet_lib
+# don't forget to add extra kcoreaddons_desktop_to_json for it if you wan to include it
+set(kded_wacomtablet_PLUGIN_SRC
+    tabletdaemon.cpp
+)
+
 set(kded_wacomtablet_SRCS
     dbustabletservice.cpp
     eventnotifier.cpp
@@ -19,7 +26,6 @@ set(kded_wacomtablet_SRCS
     procsystemproperty.cpp
     tabletbackend.cpp
     tabletbackendfactory.cpp
-    tabletdaemon.cpp
     tabletfinder.cpp
     tablethandler.cpp
     x11eventnotifier.cpp
@@ -36,7 +42,7 @@ qt5_add_dbus_adaptor(kded_wacomtablet_SRCS org.kde.Wacom.xml dbustabletservice.h
 
 ## build KDE daemon module
 add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
-add_library(kded_wacomtablet MODULE ${kded_wacomtablet_SRCS})
+add_library(kded_wacomtablet MODULE ${kded_wacomtablet_PLUGIN_SRC} ${kded_wacomtablet_SRCS})
 target_link_libraries( kded_wacomtablet ${kded_wacomtablet_LIBS} )
 
 set_target_properties(kded_wacomtablet PROPERTIES OUTPUT_NAME wacomtablet)
