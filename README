@@ -31,6 +31,7 @@ Manual installation
 
 Run-time dependencies:
 * X11 wacom tablet driver (xserver-xorg-input-wacom), including the xsetwacom tool, version 0.20 or higher
+* libwacom. Highly recommended to have version 0.29 or higher for support of consumer-grade tablets with quirky buttons.
 
 Build dependencies on Debian/Ubuntu:
 * g++
@@ -49,40 +50,45 @@ Build dependencies on Debian/Ubuntu:
 * plasma-framework-dev
 * kdoctools-dev
 * libxi-dev
+* libwacom-dev
 
 You can install them by running:
 
-$ apt install g++ cmake extra-cmake-modules gettext libqt5x11extras5-dev qtdeclarative5-dev libkf5coreaddons-dev libkf5i18n-dev libkf5dbusaddons-dev libkf5globalaccel-dev libkf5config-dev libkf5xmlgui-dev libkf5notifications-dev plasma-framework-dev kdoctools-dev libxi-dev
+$ apt install g++ cmake extra-cmake-modules gettext libqt5x11extras5-dev qtdeclarative5-dev libkf5coreaddons-dev libkf5i18n-dev libkf5dbusaddons-dev libkf5globalaccel-dev libkf5config-dev libkf5xmlgui-dev libkf5notifications-dev plasma-framework-dev kdoctools-dev libxi-dev libwacom-dev
 
 Building from source
 --------------------
 
+This is *not* a recommended way to use this application. Installing it manually creates files untracked by your pacakge manager.
+This can cause everyone problems later on. Please contact your distribution's maintainers to package it instead.
+
 $ mkdir build
 $ cd build
-$ cmake ../ -DCMAKE_BUILD_TYPE=release
+$ cmake ../ -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
 $ make
+
+Manual installation (this *will* loiter in your system):
+
 $ make install
 
-Building debian package
------------------------
+Test KCM component:
 
-$ debuild -us -uc -b
+$ QT_PLUGIN_PATH=src/kcmodule/ kcmshell5 wacomtablet
+
+Test KDED component:
+
+$ kquitapp5 kded5 && QT_PLUGIN_PATH=src/kded kded5
+
+Run tablet finder:
+
+$ src/tabletfinder/kde_wacom_tabletfinder
 
 Staring the module
 ==================
 
 Background daemon should be started automatically each time you log in.
-
-If you do not want to restart your session, you can just restart the kded with:
-
-$ kquitapp kded5
-$ kded5 &
-
-Afterwards you get a notice when you plug in your device and can configure it via
-
-$ kcmshell5 wacomtablet
-
-or have a look in the system settings where the input settings are.
+If you do not want to restart your session, navigate to System Settings → Startup and Shutdown → Background services and enable "Wacom Tablet" there.
+Device settings are located in System Settings → Input Devices → Graphic Tablet
 
 Running unit tests
 ==================
