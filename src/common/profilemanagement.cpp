@@ -196,18 +196,22 @@ QString ProfileManagement::profileName() const
 
 void ProfileManagement::reload()
 {
-    auto deviceName  = DBusTabletInterface::instance().getInformation(m_tabletId, TabletInfo::TabletName.key());
-    deviceName.waitForFinished();
-
-    if( deviceName.isValid() ) {
-        m_deviceName = deviceName;
+    auto vendorId = DBusTabletInterface::instance().getInformation(m_tabletId, TabletInfo::CompanyId.key());
+    vendorId.waitForFinished();
+    if (vendorId.isValid()) {
+        m_vendorId = vendorId;
+    } else {
+        dbgWacom << "Couldn't get vendor id for" << m_tabletId;
+        m_vendorId = QString::fromLatin1("unknown");
     }
+
+    m_deviceName = QString::fromLatin1("%1:%2").arg(m_vendorId).arg(m_tabletId);
 
     auto touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch.key());
     touchName.waitForFinished();
     if (touchName.isValid()) {
-        dbgWacom << "touchName.isValid()::" << m_tabletId  << "value" << touchName.value();
-        m_hasTouch = true;
+        dbgWacom << "touchName for" << m_tabletId << "is" << touchName.value();
+        m_hasTouch = !QString(touchName.value()).isEmpty();
     }
     else {
         m_hasTouch = false;

@@ -395,3 +395,14 @@ void TabletInformation::setDevice (const DeviceInformation& device)
     d->deviceMap.insert (device.getType().key(), device);
 }
 
+QString TabletInformation::getUniqueDeviceId() const
+{
+    return QString::fromLatin1("%1:%2")
+            .arg(get(TabletInfo::CompanyId))
+            .arg(get(TabletInfo::TabletId));
+}
+
+QString TabletInformation::getLegacyUniqueDeviceId() const
+{
+    return get(TabletInfo::TabletName);
+}

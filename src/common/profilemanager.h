@@ -189,9 +189,10 @@ public:
      * configuration file. If the tablet device identifier does not exist in
      * the configuration file, it will be created.
      *
-     * @param tablet The tablet identifier to load the profiles for.
+     * @param tabletIdentifier The tablet identifier to load the profiles for.
+     * @param tabletName Old tablet identifier for compatibility with old configs.
      */
-    bool readProfiles(const QString& tabletIdentifier);
+    bool readProfiles(const QString& tabletIdentifier, const QString &tabletName = QString());
 
 
     /**

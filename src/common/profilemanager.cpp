@@ -260,7 +260,7 @@ const QStringList ProfileManager::listProfiles() const
 
 
 
-bool ProfileManager::readProfiles(const QString& tabletIdentifier)
+bool ProfileManager::readProfiles(const QString& tabletIdentifier, const QString &legacyTabletId)
 {
     Q_D( ProfileManager );
 
@@ -272,6 +272,15 @@ bool ProfileManager::readProfiles(const QString& tabletIdentifier)
     d->config->reparseConfiguration();
     d->tabletId    = tabletIdentifier;
     d->tabletGroup = KConfigGroup( d->config, d->tabletId );
+
+    if (!d->tabletGroup.exists() && !legacyTabletId.isEmpty()) {
+        // Check for old configuration group
+        auto legacyGroup = KConfigGroup(d->config, legacyTabletId);
+        if (legacyGroup.exists()) {
+            dbgWacom << "Copying legacy tablet config:" << legacyTabletId << "to" << tabletIdentifier;
+            legacyGroup.copyTo(&d->tabletGroup);
+        }
+    }
 
     return true;
 }

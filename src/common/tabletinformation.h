@@ -248,11 +248,22 @@ public:
      */
     void setDevice (const DeviceInformation& device);
 
+    /**
+     * @brief getUniqueDeviceId
+     * @return Unique device ID used to refer the device in configuration files
+     */
+    QString getUniqueDeviceId() const;
+
+    /**
+     * @brief getLegacyUniqueDeviceId
+     * @return Unique device ID used to refer the device in configuration files (pre 3.1/libwacom support)
+     */
+    QString getLegacyUniqueDeviceId() const;
 
 private:
 
-    Q_DECLARE_PRIVATE (TabletInformation);
-    TabletInformationPrivate *const d_ptr;
+    Q_DECLARE_PRIVATE (TabletInformation)
+    TabletInformationPrivate *const d_ptr = nullptr;
 
 }; // CLASS
 }  // NAMESPACE

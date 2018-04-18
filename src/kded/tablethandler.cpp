@@ -145,7 +145,16 @@ void TabletHandler::onTabletAdded( const TabletInformation& info )
                  info.get(TabletInfo::TabletName) ));
 
     // set profile which was last used
-    setProfile(tabletId, d->mainConfig.getLastProfile(info.get(TabletInfo::TabletName)));
+    auto lastProfile = d->mainConfig.getLastProfile(info.getUniqueDeviceId());
+    if (lastProfile.isEmpty()) {
+        // try reading profile using device name for compatibility with older config
+        lastProfile = d->mainConfig.getLastProfile(info.getLegacyUniqueDeviceId());
+        if (!lastProfile.isEmpty()) {
+            dbgWacom << "Found legacy profile setting for" << tabletId;
+        }
+    }
+
+    setProfile(tabletId, lastProfile);
 
     // notify everyone else about the new tablet
     emit tabletAdded(info);
@@ -407,8 +416,8 @@ QStringList TabletHandler::listProfiles( const QString &tabletId )
         return QStringList();
     }
 
-    TabletInformation ti = d->tabletInformationList.value(tabletId);
-    pm->readProfiles(ti.get(TabletInfo::TabletName));
+    const TabletInformation ti = d->tabletInformationList.value(tabletId);
+    pm->readProfiles(ti.getUniqueDeviceId());
     return pm->listProfiles();
 }
 
@@ -433,7 +442,8 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
     }
 
     TabletInformation tabletInformation = d->tabletInformationList.value(tabletId);
-    profileManager->readProfiles(tabletInformation.get(TabletInfo::TabletName));
+    profileManager->readProfiles(tabletInformation.getUniqueDeviceId(),
+                                 tabletInformation.getLegacyUniqueDeviceId());
     TabletProfile tabletProfile = profileManager->loadProfile(profile);
 
     if (tabletProfile.listDevices().isEmpty()) {
@@ -445,7 +455,7 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
         if(pList.isEmpty()) {
             // create a new default profile
             ProfileManagement* profileManagement =
-                &ProfileManagement::instance(tabletInformation.getDeviceName(DeviceType::Pad),
+                &ProfileManagement::instance(tabletId,
                                              tabletInformation.hasDevice(DeviceType::Touch));
             profileManagement->createNewProfile(i18nc( "Name of the default profile that will be created if none exists.","Default" ));
 
@@ -485,7 +495,7 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
     // set profile on tablet
     QString currentProfile = d->currentProfileList.value(tabletId);
     d->tabletBackendList.value(tabletId)->setProfile(tabletProfile);
-    d->mainConfig.setLastProfile(tabletInformation.get(TabletInfo::TabletName), currentProfile);
+    d->mainConfig.setLastProfile(tabletInformation.getUniqueDeviceId(), currentProfile);
 
     // check profile rotation values and LEDs
     profileManager->updateCurrentProfileNumber(currentProfile);

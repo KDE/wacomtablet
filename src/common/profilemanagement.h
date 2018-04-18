@@ -145,6 +145,7 @@ class ProfileManagement
         ProfileManagement &operator=(const ProfileManagement&) = delete;
 
         QString         m_tabletId;
+        QString         m_vendorId;
         QString         m_deviceName;      /**< Cached name of the device so. So we don't have to ask via Dbus every time */
         bool            m_hasTouch = false;
         QString         m_profileName;     /**< Current selected profile. */
