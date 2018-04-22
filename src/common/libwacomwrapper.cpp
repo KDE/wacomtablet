@@ -37,7 +37,9 @@ static int skipWheelButtons(int button) {
         return button;
     }
 }
+#ifndef LIBWACOM_EVDEV_MISSING
 static int convertEvdevToXsetwacomButton(int evdevCode);
+#endif // LIBWACOM_EVDEV_MISSING
 
 libWacomWrapper::libWacomWrapper()
 {
@@ -175,7 +177,7 @@ static int convertEvdevToXsetwacomButton(int evdevCode) {
 
     return skipWheelButtons(translatedCode + 1);
 }
-
-}
-
 #endif // LIBWACOM_EVDEV_MISSING
+
+} // namespace ends
+
