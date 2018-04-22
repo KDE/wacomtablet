@@ -32,27 +32,15 @@ class DeviceType;
 class Property;
 
 /**
-  * The StylusPageWidget class holds all settings for the stylus/eraser pen.
-  * Through the xsetwacom interface the widget can manipulate the two buttons,
-  * tip press curve, absolute/relative mode, double tab speed and across monitor support
-  * via the Twinview options.
-  */
+ * @brief Provides interface to all settings for the stylus/eraser pen.
+ */
 class StylusPageWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    /**
-      * default constructor
-      * Initialize the widget.
-      *
-      * @param parent parent Widget
-      */
     explicit StylusPageWidget(QWidget *parent = 0);
 
-    /**
-      * default destructor
-      */
     ~StylusPageWidget();
 
     void setTabletId(const QString &tabletId);

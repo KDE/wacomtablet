@@ -27,6 +27,9 @@ typedef struct _WacomDeviceDatabase WacomDeviceDatabase;
 
 namespace Wacom {
 
+/**
+ * @brief Singleton that provides interface for libwacom tablet definition lookups
+ */
 class libWacomWrapper {
 private:
     libWacomWrapper();

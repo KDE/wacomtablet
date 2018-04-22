@@ -67,7 +67,7 @@ $ cd build
 $ cmake ../ -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
 $ make
 
-Manual installation (this *will* loiter in your system):
+Manual installation (this *will* litter in your system):
 
 $ make install
 

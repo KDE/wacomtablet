@@ -31,9 +31,13 @@ namespace Wacom
 
 class ScreenMapPrivate;
 
+/**
+ * @brief Contains device mappings for each screen
+ *
+ * Can be (de)serialized to be stored in the configuration file
+ */
 class ScreenMap
 {
-
 public:
 
     explicit ScreenMap(const TabletArea& tabletGeometry = TabletArea());
@@ -57,7 +61,7 @@ public:
 private:
 
     Q_DECLARE_PRIVATE(ScreenMap)
-    ScreenMapPrivate *const d_ptr; // D-Pointer for private members.
+    ScreenMapPrivate *const d_ptr = nullptr;
 
 }; // CLASS
 }  // NAMESPACE

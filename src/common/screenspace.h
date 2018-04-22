@@ -27,6 +27,10 @@ namespace Wacom
 
 class ScreenSpacePrivate;
 
+/**
+ * @brief Specifies either a specific display output (e.g. HDMI-0) or whole screen
+ */
+
 class ScreenSpace
 {
 

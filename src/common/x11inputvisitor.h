@@ -25,7 +25,7 @@
 namespace Wacom
 {
 /**
- * XInput device visitor.
+ * @brief XInput device visitor. Used by X11TabletFinder class.
  *
  * This class allows easy access to xinput devices when using
  * \a X11Input::scanDevices().
@@ -33,7 +33,7 @@ namespace Wacom
 class X11InputVisitor
 {
 public:
-    virtual ~X11InputVisitor() {};
+    virtual ~X11InputVisitor() {}
 
     /**
      * Called by X11Input when iterating the X11 input devices.

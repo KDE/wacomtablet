@@ -30,9 +30,11 @@ namespace Wacom
 {
 
 /**
- * A static class with some helper methods to get information about the running X server.
- * This should be used by all our classes instead of QX11Info. This way we have all X
- * specific stuff in one place.
+ * @brief Various display info helper functions
+ *
+ * Originally used to get informatino about the running X server.
+ * Since Qt5 has been ported to using QScreen.
+ * TODO: rename this class or make it a namespace even
  */
 class X11Info
 {

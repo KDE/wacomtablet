@@ -29,6 +29,9 @@ namespace Wacom
 
 class X11EventNotifierPrivate;
 
+/**
+ * @brief Singleton that listens to X11 events, mainly tablet plug/unplug events
+ */
 class X11EventNotifier : public EventNotifier, public QAbstractNativeEventFilter
 {
     Q_OBJECT
