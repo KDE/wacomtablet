@@ -125,6 +125,8 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
     return true;
 }
 
+#ifndef LIBWACOM_EVDEV_MISSING
+
 static int convertMouseEvdevToXsetwacomButton(int evdevCode) {
     // some quirky consumer tablets, e.g. Bamboo/Graphire, use mouse button events
     // instead of just numbered express keys. Translate them back to numbers
@@ -175,3 +177,5 @@ static int convertEvdevToXsetwacomButton(int evdevCode) {
 }
 
 }
+
+#endif // LIBWACOM_EVDEV_MISSING
