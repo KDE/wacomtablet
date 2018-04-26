@@ -1,0 +1,122 @@
+#include <iostream>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
+#include <csignal>
+#include <unistd.h>
+#include <fcntl.h>
+#include <linux/input.h>
+#include <linux/uinput.h>
+
+// edit uidev.id.product to change tablet id
+
+void check(int ioctlresult, const std::string &errormsg) {
+    if (ioctlresult < 0) {
+        std::cout << "ioctl failed: " << errormsg << std::endl;
+        exit(-1);
+    }
+}
+
+void init_device(int fd)
+{
+    struct uinput_setup uidev;
+
+    // enable synchronization
+    check(ioctl(fd, UI_SET_EVBIT, EV_SYN), "UI_SET_EVBIT EV_SYN");
+
+    // enable 1 button
+    check(ioctl(fd, UI_SET_EVBIT, EV_KEY), "UI_SET_EVBIT EV_KEY");
+    check(ioctl(fd, UI_SET_KEYBIT, BTN_TOUCH), "UI_SET_KEYBIT BTN_TOUCH");
+    check(ioctl(fd, UI_SET_KEYBIT, BTN_TOOL_PEN), "UI_SET_KEYBIT BTN_TOOL_PEN");
+    check(ioctl(fd, UI_SET_KEYBIT, BTN_STYLUS), "UI_SET_KEYBIT BTN_STYLUS");
+    check(ioctl(fd, UI_SET_KEYBIT, BTN_STYLUS2), "UI_SET_KEYBIT BTN_STYLUS2");
+
+    // enable 2 main axis + pressure (absolute positioning)
+    check(ioctl(fd, UI_SET_EVBIT, EV_ABS), "UI_SET_EVBIT EV_ABS");
+    check(ioctl(fd, UI_SET_ABSBIT, ABS_X), "UI_SETEVBIT ABS_X");
+    check(ioctl(fd, UI_SET_ABSBIT, ABS_Y), "UI_SETEVBIT ABS_Y");
+    check(ioctl(fd, UI_SET_ABSBIT, ABS_PRESSURE), "UI_SETEVBIT ABS_PRESSURE");
+    check(ioctl(fd, UI_SET_PROPBIT, INPUT_PROP_POINTER), "UI_SET_PROPBIT INPUT_PROP_POINTER");
+
+    memset(&uidev, 0, sizeof(uidev));
+    snprintf(uidev.name, UINPUT_MAX_NAME_SIZE, "Dummy Tablet");
+
+    uidev.id.bustype = BUS_VIRTUAL;
+    uidev.id.vendor  = 0x056a; // wacom
+    //uidev.id.product = 0xBEEF;
+    uidev.id.product = 0x00f4;
+    uidev.id.version = 1;
+
+    uidev.ff_effects_max = 0;
+
+    struct uinput_abs_setup xabs;
+    xabs.code = ABS_X;
+    xabs.absinfo.minimum = 0;
+    xabs.absinfo.maximum = UINT16_MAX;
+    xabs.absinfo.fuzz = 0;
+    xabs.absinfo.flat = 0;
+    xabs.absinfo.resolution = 100;
+    xabs.absinfo.value = 0;
+
+    struct uinput_abs_setup yabs;
+    yabs.code = ABS_Y;
+    yabs.absinfo.minimum = 0;
+    yabs.absinfo.maximum = UINT16_MAX;
+    yabs.absinfo.fuzz = 0;
+    yabs.absinfo.flat = 0;
+    yabs.absinfo.resolution = 100;
+    yabs.absinfo.value = 0;
+
+    struct uinput_abs_setup pressure;
+    pressure.code = ABS_PRESSURE;
+    pressure.absinfo.minimum = 0;
+    pressure.absinfo.maximum = UINT16_MAX;
+    pressure.absinfo.fuzz = 0;
+    pressure.absinfo.flat = 0;
+    pressure.absinfo.resolution = 0;
+    pressure.absinfo.value = 0;
+
+    struct uinput_abs_setup distance;
+    distance.code = ABS_DISTANCE;
+    distance.absinfo.minimum = 0;
+    distance.absinfo.maximum = UINT16_MAX;
+    distance.absinfo.fuzz = 0;
+    distance.absinfo.flat = 0;
+    distance.absinfo.resolution = 0;
+    distance.absinfo.value = 0;
+
+    check(ioctl(fd, UI_DEV_SETUP, &uidev), "UI_DEV_SETUP");
+    check(ioctl(fd, UI_ABS_SETUP, &xabs), "X setup");
+    check(ioctl(fd, UI_ABS_SETUP, &yabs), "Y setup");
+    check(ioctl(fd, UI_ABS_SETUP, &pressure), "pressure setup");
+    check(ioctl(fd, UI_ABS_SETUP, &distance), "distance setup");
+
+    check(ioctl(fd, UI_DEV_CREATE), "device creation");
+}
+
+void doNothing(int unused) {
+    (void)unused;
+}
+
+int main(void)
+{
+    int device;
+    if ((device = open("/dev/uinput", O_WRONLY | O_NONBLOCK)) < 0) {
+        std::cout << "Can't open /dev/uinput";
+        exit(-2);
+    }
+
+    init_device(device);
+
+    std::cout << "Fake device created. "
+              << "Press CTRL+C to disconnect the device" << std::endl;
+    signal(SIGINT, &doNothing);
+    pause();
+
+    std::cout << "Shutting down" << std::endl;
+    ioctl(device, UI_DEV_DESTROY);
+    close(device);
+    std::cout << "Ok" << std::endl;
+
+    return 0;
+}

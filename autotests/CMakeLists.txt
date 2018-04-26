@@ -8,6 +8,8 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/kded )
 set(WACOM_COMMON_TEST_LIBS wacom_common Qt5::Test)
 set(WACOM_KDED_TEST_LIBS kded_wacomtablet_lib ${kded_wacomtablet_LIBS} Qt5::Test)
 
+add_subdirectory(faketablet)
+
 # Add common Tests
 add_subdirectory( common/buttonshortcut )
 add_subdirectory( common/deviceinformation )
