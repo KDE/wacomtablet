@@ -350,10 +350,15 @@ void TabletInformation::set (const TabletInfo& info, const QString& value)
 
 
 
-void TabletInformation::set(const TabletInfo& info, bool value)
+void TabletInformation::set(const TabletInfo&info, bool value)
 {
     QString strValue = value ? QLatin1String("true") : QLatin1String("false");
     set (info, strValue);
+}
+
+void TabletInformation::set(const TabletInfo &info, int value)
+{
+    set(info, QString::number(value));
 }
 
 

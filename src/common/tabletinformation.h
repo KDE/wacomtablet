@@ -199,7 +199,7 @@ public:
      * @param info  The tablet information identifier.
      * @param value The new value.
      */
-    void set (const TabletInfo& info, const QString& value);
+    void set(const TabletInfo& info, const QString& value);
 
 
     /**
@@ -208,7 +208,15 @@ public:
      * @param info  The tablet information to set.
      * @param value The value to set.
      */
-    void set (const TabletInfo& info, bool value);
+    void set(const TabletInfo& info, bool value);
+
+    /**
+     * Sets a tablet information integer value.
+     *
+     * @param info  The tablet information to set.
+     * @param value The value to set.
+     */
+    void set(const TabletInfo &info, int value);
 
 
     /**

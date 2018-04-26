@@ -69,7 +69,19 @@ namespace Wacom {
     };
 } // NAMESPACE
 
+QString findLayoutFile(const QString &filename) {
+    if (filename.isEmpty())
+        return QString();
 
+    const QString builtinLayout  = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("wacomtablet/images/%1.png").arg(filename));
+    if (QFile::exists(builtinLayout)) {
+        return builtinLayout;
+    } else if (QFile::exists(filename)) {
+        return filename;
+    }
+
+    return QString();
+}
 
 ButtonPageWidget::ButtonPageWidget(QWidget* parent)
         : QWidget(parent), d_ptr(new ButtonPageWidgetPrivate)
@@ -213,12 +225,11 @@ void ButtonPageWidget::reloadWidget()
 {
     Q_D( ButtonPageWidget );
 
-    int padButtons = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::NumPadButtons.key()).value().toInt();
+    const int padButtons = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::NumPadButtons.key()).value().toInt();
 
-    QLabel*                     buttonLabel;
-    ButtonActionSelectorWidget* buttonSelector;
-
-    for (int i = 1;i < 19;i++) {
+    QLabel *buttonLabel = nullptr;
+    ButtonActionSelectorWidget *buttonSelector = nullptr;
+    for (int i = 1; i < 19; i++) {
         buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
         buttonLabel    = this->findChild<QLabel *>(QString::fromLatin1("button%1Label").arg(i));
 
@@ -240,10 +251,16 @@ void ButtonPageWidget::reloadWidget()
         }
     }
 
-    QString padLayout = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::ButtonLayout.key());
-    if (QFile::exists(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout)))) {
-        d->ui->padImage->setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("wacomtablet/images/%1.png").arg(padLayout))));
+    const QString padLayoutProperty = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::ButtonLayout.key());
+    const QString layoutFile = findLayoutFile(padLayoutProperty);
+    if (!layoutFile.isEmpty()) {
+        // FIXME: libwacom svg's are large in size and have small labels
+        // This looks ugly for some devices/with some themes, think of a better layout
+        d->ui->padImage->setPixmap(QPixmap(layoutFile));
     }
+
+    const bool anyButtonsOrLayout = padButtons > 0 || (!layoutFile.isEmpty());
+    d->ui->buttonGroupBox->setVisible(anyButtonsOrLayout);
 
     bool hasLeftTouchStrip  = StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasLeftTouchStrip.key()));
     bool hasRightTouchStrip = StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasRightTouchStrip.key()));

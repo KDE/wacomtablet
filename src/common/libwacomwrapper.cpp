@@ -73,7 +73,12 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
 
     // TODO: libWacom returned button layouts don't make much sense (yet)
     // because they use letters instead of numbers
-    tabletInfo.set(TabletInfo::ButtonLayout,  QString());
+    const auto layoutFileName = libwacom_get_layout_filename(device.get());
+    if (layoutFileName) {
+        tabletInfo.set(TabletInfo::ButtonLayout, QString::fromLatin1(layoutFileName));
+        dbgWacom << "Found layout:" << QString::fromLatin1(layoutFileName);
+    }
+
     // Seems like there is no model or vendor names in libwacom
     // TODO: are these properties even used anywhere?
     tabletInfo.set(TabletInfo::CompanyName,   QString());
@@ -83,12 +88,12 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
     tabletInfo.set(TabletInfo::HasWheel,      false);
     // TODO: Returns more detailed information than we expect,
     // current LED code is broken anyway so this should be untangled later
-    tabletInfo.set(TabletInfo::StatusLEDs,    QString::number(0));
+    tabletInfo.set(TabletInfo::StatusLEDs,    0);
 
     tabletInfo.set(TabletInfo::TabletName,    QString::fromLatin1(libwacom_get_name(device.get())));
 
     const int padButtonNumber = libwacom_get_num_buttons(device.get());
-    tabletInfo.set(TabletInfo::NumPadButtons, QString::number(padButtonNumber));
+    tabletInfo.set(TabletInfo::NumPadButtons, padButtonNumber);
 
     // Convert button evdev codes to buttonMap
     if (libwacom_get_num_buttons(device.get()) > 0) {
