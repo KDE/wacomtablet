@@ -62,6 +62,19 @@ public:
      * on the given tablet information object.
      *
      * @param tabletId   The tablet identifier to lookup.
+     * @param companyId  The company ID of the tablet to lookup.
+     * @param tabletInfo The tablet information object to set the data on.
+     *
+     * @return True if the tablet was found, else false.
+     */
+    bool lookupTablet(const QString& tabletId, const QString& companyId, Wacom::TabletInformation& tabletInfo) const;
+
+
+    /**
+     * Looks up tablet information from database and sets all available information
+     * on the given tablet information object.
+     *
+     * @param tabletId   The tablet identifier to lookup.
      * @param tabletInfo The tablet information object to set the data on.
      *
      * @return True if the tablet was found, else false.

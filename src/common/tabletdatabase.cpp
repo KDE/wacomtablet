@@ -79,6 +79,39 @@ QString TabletDatabase::lookupBackend(const QString& companyId) const
     return companyGroup.readEntry ("driver");
 }
 
+bool TabletDatabase::lookupTablet(const QString& tabletId, const QString& companyId, TabletInformation& tabletInfo) const
+{
+    KSharedConfig::Ptr companyConfig;
+
+    KConfigGroup companyGroup;
+    KConfigGroup tabletGroup;
+    QString      tabletsConfigFile;
+
+    if (!openCompanyConfig(companyConfig)) {
+        return false;
+    }
+
+    // get company group section
+    companyGroup = KConfigGroup (companyConfig, companyId.toLower());
+
+    // get tablet database configuration file for this company
+    tabletsConfigFile = companyGroup.readEntry("listfile");
+
+    if (tabletsConfigFile.isEmpty()) {
+        dbgWacom << QString::fromLatin1("Company group '%1' does not have a device list file!").arg(companyGroup.name());
+        return false;;
+    }
+
+    // lookup tablet
+    if (lookupTabletGroup (tabletsConfigFile, tabletId, tabletGroup)) {
+        // found tablet
+        getInformation (tabletGroup, tabletId, companyId, companyGroup.readEntry("name"), tabletInfo);
+        getButtonMap (tabletGroup, tabletInfo);
+        return true;
+    }
+
+    return false;
+}
 
 bool TabletDatabase::lookupTablet(const QString& tabletId, TabletInformation& tabletInfo) const
 {
@@ -89,9 +122,7 @@ bool TabletDatabase::lookupTablet(const QString& tabletId, TabletInformation& ta
     }
 
     // find tablet
-    KConfigGroup companyGroup;
     KConfigGroup tabletGroup;
-    QString      tabletsConfigFile;
 
     // first check the localdb
     // here we support only Wacom tablet at the moment
@@ -109,22 +140,7 @@ bool TabletDatabase::lookupTablet(const QString& tabletId, TabletInformation& ta
 
 
     foreach(const QString &companyId, companyConfig->groupList()) {
-        // get company group section
-        companyGroup = KConfigGroup (companyConfig, companyId.toLower());
-
-        // get tablet database configuration file for this company
-        tabletsConfigFile = companyGroup.readEntry("listfile");
-
-        if (tabletsConfigFile.isEmpty()) {
-            dbgWacom << QString::fromLatin1("Company group '%1' does not have a device list file!").arg(companyGroup.name());
-            continue;
-        }
-
-        // lookup tablet
-        if (lookupTabletGroup (tabletsConfigFile, tabletId, tabletGroup)) {
-            // found tablet
-            getInformation (tabletGroup, tabletId, companyId, companyGroup.readEntry("name"), tabletInfo);
-            getButtonMap (tabletGroup, tabletInfo);
+        if (lookupTablet(tabletId, companyId, tabletInfo)) {
             return true;
         }
     }
