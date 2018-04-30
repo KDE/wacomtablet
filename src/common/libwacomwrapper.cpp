@@ -88,7 +88,28 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
     tabletInfo.set(TabletInfo::HasWheel,      false);
     // TODO: Returns more detailed information than we expect,
     // current LED code is broken anyway so this should be untangled later
-    tabletInfo.set(TabletInfo::StatusLEDs,    0);
+    int numStatusLeds = 0;
+    int numLedGroups;
+    const WacomStatusLEDs *ledGroups = libwacom_get_status_leds(device.get(), &numLedGroups);
+    for (int i = 0; i < numLedGroups; i++) {
+        int groupModes = 0;
+        switch (ledGroups[i]) {
+            case WACOM_STATUS_LED_RING:
+                groupModes = libwacom_get_ring_num_modes(device.get());
+                break;
+            case WACOM_STATUS_LED_RING2:
+                groupModes = libwacom_get_ring2_num_modes(device.get());
+                break;
+            case WACOM_STATUS_LED_TOUCHSTRIP:
+                groupModes = libwacom_get_strips_num_modes(device.get());
+                break;
+            case WACOM_STATUS_LED_TOUCHSTRIP2:
+                groupModes = libwacom_get_strips_num_modes(device.get());
+                break;
+        }
+        numStatusLeds += groupModes;
+    }
+    tabletInfo.set(TabletInfo::StatusLEDs,    numStatusLeds);
 
     tabletInfo.set(TabletInfo::TabletName,    QString::fromLatin1(libwacom_get_name(device.get())));
 
