@@ -132,7 +132,7 @@ void TabletDaemon::setupActions()
     //if someone adds another action also add it to kcmodule/generalwidget.cpp
 
     // This method is called multiple times - make sure the action collection is only created once.
-    if (d->actionCollection.get() == NULL) {
+    if (!d->actionCollection) {
         d->actionCollection = std::shared_ptr<GlobalActions>(new GlobalActions(false, this));
         d->actionCollection->setConfigGlobal(true);
     }

@@ -78,7 +78,7 @@ public:
      *
      * @param id The property id to search for.
      *
-     * @return A constant pointer to the property or NULL if the property is not supported by this set.
+     * @return A constant pointer to the property or nullptr if the property is not supported by this set.
      */
     static const D* map (const Property& property)
     {
@@ -90,7 +90,7 @@ public:
             }
         }
 
-        return NULL;
+        return nullptr;
     }
 
     /**

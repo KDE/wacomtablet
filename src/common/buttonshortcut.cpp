@@ -85,7 +85,7 @@ const char* ButtonShortcut::CONVERT_KEY_MAP_DATA[][2] = {
     {"super_r",      "meta"},
     {"super",        "meta"}, // "super" default
     {"underscore",   "_"},
-    {NULL, NULL}
+    {nullptr, nullptr}
 };
 
 namespace Wacom {
@@ -441,7 +441,7 @@ QMap< QString, QString > ButtonShortcut::initConversionMap(bool fromStorageMap)
     QMap<QString, QString> map;
 
     for (int i = 0 ; ; ++i) {
-        if (CONVERT_KEY_MAP_DATA[i][0] == NULL || CONVERT_KEY_MAP_DATA[i][1] == NULL) {
+        if (CONVERT_KEY_MAP_DATA[i][0] == nullptr || CONVERT_KEY_MAP_DATA[i][1] == nullptr) {
             return map;
         }
 

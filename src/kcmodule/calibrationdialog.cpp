@@ -69,7 +69,7 @@ void CalibrationDialog::paintEvent( QPaintEvent *event )
     Q_UNUSED( event );
 
     QPainter painter( this );
-    painter.setPen( Qt::black );
+    painter.setPen(palette().color(QPalette::WindowText));
 
     // vertical line
     painter.drawLine( m_shiftLeft + boxwidth / 2,

@@ -41,7 +41,7 @@ class XsetwacomAdaptorPrivate
 
 
 XsetwacomAdaptor::XsetwacomAdaptor(const QString& deviceName)
-    : PropertyAdaptor(NULL), d_ptr(new XsetwacomAdaptorPrivate)
+    : PropertyAdaptor(nullptr), d_ptr(new XsetwacomAdaptorPrivate)
 {
     Q_D( XsetwacomAdaptor );
     d->device = deviceName;
@@ -49,7 +49,7 @@ XsetwacomAdaptor::XsetwacomAdaptor(const QString& deviceName)
 
 
 XsetwacomAdaptor::XsetwacomAdaptor(const QString& deviceName, const QMap< QString, QString >& buttonMap)
-    : PropertyAdaptor(NULL), d_ptr(new XsetwacomAdaptorPrivate)
+    : PropertyAdaptor(nullptr), d_ptr(new XsetwacomAdaptorPrivate)
 {
     Q_D( XsetwacomAdaptor );
 
@@ -73,9 +73,9 @@ const QString XsetwacomAdaptor::getProperty(const Property& property) const
 {
     Q_D( const XsetwacomAdaptor );
 
-    const XsetwacomProperty* xsetproperty = XsetwacomProperty::map(property);
+    const XsetwacomProperty *xsetproperty = XsetwacomProperty::map(property);
 
-    if (xsetproperty == NULL) {
+    if (!xsetproperty) {
         errWacom << QString::fromLatin1("Can not get unsupported property '%1' using xsetwacom!").arg(property.key());
         return QString();
     }
@@ -100,9 +100,9 @@ bool XsetwacomAdaptor::setProperty(const Property& property, const QString& valu
 
     dbgWacom << QString::fromLatin1("Setting property '%1' to '%2' on device '%3'.").arg(property.key()).arg(value).arg(d->device);
 
-    const XsetwacomProperty* xsetproperty = XsetwacomProperty::map(property);
+    const XsetwacomProperty *xsetproperty = XsetwacomProperty::map(property);
 
-    if (xsetproperty == NULL) {
+    if (!xsetproperty) {
         errWacom << QString::fromLatin1("Can not set unsupported property '%1' to '%2' on device '%3' using xsetwacom!").arg(property.key()).arg(value).arg(d->device);
         return false;
     }
@@ -129,7 +129,7 @@ bool XsetwacomAdaptor::setProperty(const Property& property, const QString& valu
 
 bool XsetwacomAdaptor::supportsProperty(const Property& property) const
 {
-    return (XsetwacomProperty::map(property) != NULL);
+    return (XsetwacomProperty::map(property) != nullptr);
 }
 
 
@@ -228,7 +228,7 @@ bool XsetwacomAdaptor::setRotation(const QString& value)
     Q_D( const XsetwacomAdaptor );
 
     const ScreenRotation* lookup   = ScreenRotation::find(value);
-    ScreenRotation        rotation = (lookup != NULL) ? *lookup : ScreenRotation::NONE;
+    ScreenRotation        rotation = lookup ? *lookup : ScreenRotation::NONE;
 
     // only accept real rotations
     if (rotation == ScreenRotation::NONE || rotation == ScreenRotation::CW ||

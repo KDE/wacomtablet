@@ -213,7 +213,7 @@ const DeviceInformation* TabletInformation::getDevice (const DeviceType& deviceT
     TabletInformationPrivate::DeviceInformationMap::ConstIterator iter = d->deviceMap.constFind(deviceType.key());
 
     if (iter == d->deviceMap.constEnd()) {
-        return NULL;
+        return nullptr;
     }
 
     return &(iter.value());
@@ -290,7 +290,7 @@ bool TabletInformation::hasDevice(int deviceId) const
     foreach (const DeviceType& type, DeviceType::list()) {
         const DeviceInformation* device = getDevice(type);
 
-        if (device != NULL && device->getDeviceId() == deviceId) {
+        if (device && device->getDeviceId() == deviceId) {
             return true;
         }
     }

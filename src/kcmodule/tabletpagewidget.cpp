@@ -174,7 +174,7 @@ void TabletPageWidget::onTabletMappingClicked()
     // get current rotation settings
     // we need to invert it as our rotation settings in this widget have a canvas viewpoint
     const ScreenRotation* lookupRotation = ScreenRotation::find(getRotation());
-    ScreenRotation        rotation       = (lookupRotation != NULL) ? lookupRotation->invert() : ScreenRotation::NONE;
+    ScreenRotation        rotation       = lookupRotation ? lookupRotation->invert() : ScreenRotation::NONE;
 
     TabletAreaSelectionDialog selectionDialog;
     selectionDialog.setupWidget( getScreenMap(), d->deviceNameStylus, rotation);
@@ -197,7 +197,7 @@ void TabletPageWidget::onRotationChanged()
 
     // we need to invert it as our rotation settings in this widget have a canvas viewpoint
     // and our private member variable has a tablet viewpoint
-    d->tabletRotation = (lookupRotation != NULL) ? lookupRotation->invert() : ScreenRotation::NONE;
+    d->tabletRotation = lookupRotation ? lookupRotation->invert() : ScreenRotation::NONE;
 
     emit rotationChanged(d->tabletRotation);
 }
@@ -336,7 +336,7 @@ void TabletPageWidget::setRotation(const QString& value)
     Q_D (TabletPageWidget);
 
     const ScreenRotation* lookup        = ScreenRotation::find(value);
-    ScreenRotation        rotation      = (lookup != NULL) ? *lookup : ScreenRotation::NONE;
+    ScreenRotation        rotation      = lookup ? *lookup : ScreenRotation::NONE;
     QString               rotationValue = rotation.key();
 
     if (rotation == ScreenRotation::AUTO) {

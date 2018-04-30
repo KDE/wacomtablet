@@ -36,9 +36,9 @@ class ProcSystemAdaptorPrivate
 
 
 ProcSystemAdaptor::ProcSystemAdaptor(const QString& deviceName)
-    : PropertyAdaptor(NULL), d_ptr(new ProcSystemAdaptorPrivate)
+    : PropertyAdaptor(nullptr), d_ptr(new ProcSystemAdaptorPrivate)
 {
-    Q_D( ProcSystemAdaptor );
+    Q_D(ProcSystemAdaptor);
     d->deviceName = deviceName;
 }
 
@@ -104,6 +104,6 @@ bool ProcSystemAdaptor::setProperty(const Property& property, const QString& val
 
 bool ProcSystemAdaptor::supportsProperty(const Property& property) const
 {
-    return (ProcSystemProperty::map(property) != NULL);
+    return (ProcSystemProperty::map(property));
 }
 

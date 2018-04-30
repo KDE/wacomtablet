@@ -47,7 +47,7 @@ class XinputAdaptorPrivate
 
 
 XinputAdaptor::XinputAdaptor(const QString& deviceName)
-    : PropertyAdaptor(NULL), d_ptr(new XinputAdaptorPrivate)
+    : PropertyAdaptor(nullptr), d_ptr(new XinputAdaptorPrivate)
 {
     Q_D( XinputAdaptor );
     d->deviceName = deviceName;
@@ -72,9 +72,9 @@ const QString XinputAdaptor::getProperty(const Property& property) const
 {
     Q_D(const XinputAdaptor);
 
-    const XinputProperty* xinputproperty = XinputProperty::map(property);
+    const XinputProperty *xinputproperty = XinputProperty::map(property);
 
-    if (xinputproperty == NULL) {
+    if (!xinputproperty) {
         errWacom << QString::fromLatin1("Can not get unsupported property '%1' from device '%2' using xinput!").arg(property.key()).arg(d->deviceName);
         return QString();
     }
@@ -94,9 +94,9 @@ bool XinputAdaptor::setProperty(const Property& property, const QString& value)
 
     dbgWacom << QString::fromLatin1("Setting property '%1' to '%2'.").arg(property.key()).arg(value);
 
-    const XinputProperty* xinputproperty = XinputProperty::map(property);
+    const XinputProperty *xinputproperty = XinputProperty::map(property);
 
-    if (xinputproperty == NULL) {
+    if (!xinputproperty) {
         errWacom << QString::fromLatin1("Can not set unsupported property '%1' to '%2' on device '%3' using xinput!").arg(property.key()).arg(value).arg(d->deviceName);
         return false;
     }
@@ -112,7 +112,7 @@ bool XinputAdaptor::setProperty(const Property& property, const QString& value)
 
 bool XinputAdaptor::supportsProperty(const Property& property) const
 {
-    return (XinputProperty::map(property) != NULL);
+    return (XinputProperty::map(property) != nullptr);
 }
 
 

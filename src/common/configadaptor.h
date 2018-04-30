@@ -43,12 +43,12 @@ public:
       *
       * @param adaptee The property adapter where all properties are read from (possibly NULL).
       */
-    explicit ConfigAdaptor(PropertyAdaptor* adaptee) : PropertyAdaptor(adaptee) {};
+    explicit ConfigAdaptor(PropertyAdaptor* adaptee) : PropertyAdaptor(adaptee) {}
 
     /**
       * Default destructor
       */
-    virtual ~ConfigAdaptor() {};
+    virtual ~ConfigAdaptor() {}
 
     /**
      * Loads a config from the given config group. The default implementation

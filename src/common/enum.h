@@ -123,7 +123,7 @@ public:
      *
      * @param key The key of the instance to search.
      * 
-     * @return A constant pointer to the instance or NULL if not found.
+     * @return A constant pointer to the instance or nullptr if not found.
      */
     static const D* find(const K& key)
     {
@@ -133,7 +133,7 @@ public:
                 return &(*i);
             }
         }
-        return NULL;
+        return nullptr;
     }
 
 

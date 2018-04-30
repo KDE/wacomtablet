@@ -202,7 +202,7 @@ const DeviceType* X11TabletFinder::getDeviceType (const QString& toolType) const
         return &(DeviceType::Stylus);
     }
 
-    return NULL;
+    return nullptr;
 }
 
 
@@ -272,7 +272,7 @@ const QString X11TabletFinder::getToolType (X11InputDevice& device) const
 
 #if defined(HAVE_XCB_XINPUT)
         xcb_get_atom_name_cookie_t cookie = xcb_get_atom_name(QX11Info::connection(), toolTypeAtoms.at(0));
-        xcb_get_atom_name_reply_t* reply = xcb_get_atom_name_reply(QX11Info::connection(), cookie, NULL);
+        xcb_get_atom_name_reply_t* reply = xcb_get_atom_name_reply(QX11Info::connection(), cookie, nullptr);
         if (reply) {
             toolTypeName = QString::fromLatin1(QByteArray(xcb_get_atom_name_name(reply), xcb_get_atom_name_name_length(reply)));
             free(reply);
@@ -280,7 +280,7 @@ const QString X11TabletFinder::getToolType (X11InputDevice& device) const
 
 #else  // HAVE_XCB_XINPUT
         char *type_name = XGetAtomName (device.getDisplay(), (Atom)toolTypeAtoms.at(0));
-        if (type_name != NULL) {
+        if (type_name != nullptr) {
             toolTypeName = QLatin1String(type_name);
             XFree( type_name );
         } else {

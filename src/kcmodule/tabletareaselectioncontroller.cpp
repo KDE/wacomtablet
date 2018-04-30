@@ -102,7 +102,7 @@ void TabletAreaSelectionController::setView(TabletAreaSelectionView* view)
     Q_D(TabletAreaSelectionController);
 
     // cleanup signal/slot connections if we already have a view
-    if (d->view != NULL) {
+    if (d->view) {
         disconnect(d->view, SIGNAL(signalCalibrateClicked()),     this, SLOT(onCalibrateClicked()));
         disconnect(d->view, SIGNAL(signalFullTabletSelection()),  this, SLOT(onFullTabletSelected()));
         disconnect(d->view, SIGNAL(signalScreenToggle()),         this, SLOT(onScreenToggle()));
@@ -113,7 +113,7 @@ void TabletAreaSelectionController::setView(TabletAreaSelectionView* view)
     // save view and connect signals
     d->view = view;
 
-    if (view != NULL) {
+    if (view) {
         connect(view, SIGNAL(signalCalibrateClicked()),     this, SLOT(onCalibrateClicked()));
         connect(view, SIGNAL(signalFullTabletSelection()),  this, SLOT(onFullTabletSelected()));
         connect(view, SIGNAL(signalScreenToggle()),         this, SLOT(onScreenToggle()));

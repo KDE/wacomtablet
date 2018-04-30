@@ -32,14 +32,13 @@ namespace Wacom {
       */
     class PropertyAdaptorPrivate {
         public:
-            PropertyAdaptor* adaptee;
+            PropertyAdaptor *adaptee = nullptr;
     };
 }
 
 PropertyAdaptor::PropertyAdaptor() : d_ptr(new PropertyAdaptorPrivate)
 {
-    Q_D( PropertyAdaptor );
-    d->adaptee = NULL;
+
 }
 
 
@@ -59,7 +58,7 @@ const QList<Property> PropertyAdaptor::getProperties() const
 {
     Q_D( const PropertyAdaptor );
 
-    if (d->adaptee != NULL) {
+    if (d->adaptee) {
         return d->adaptee->getProperties();
     }
 
@@ -71,7 +70,7 @@ const QString PropertyAdaptor::getProperty ( const Property& property ) const
 {
     Q_D( const PropertyAdaptor );
 
-    if (d->adaptee != NULL) {
+    if (d->adaptee) {
         return d->adaptee->getProperty(property);
     }
 
@@ -90,7 +89,7 @@ bool PropertyAdaptor::setProperty ( const Property& property, const QString& val
 {
     Q_D( PropertyAdaptor );
 
-    if (d->adaptee != NULL) {
+    if (d->adaptee) {
         return d->adaptee->setProperty(property, value);
     }
 
@@ -102,7 +101,7 @@ bool PropertyAdaptor::supportsProperty ( const Property& property ) const
 {
     Q_D( const PropertyAdaptor );
 
-    if (d->adaptee != NULL) {
+    if (d->adaptee) {
         return d->adaptee->supportsProperty(property);
     }
 

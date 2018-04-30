@@ -44,16 +44,16 @@ public:
 };
 }
 
-DeviceProfile::DeviceProfile() : PropertyAdaptor(NULL), d_ptr(new DeviceProfilePrivate) { }
+DeviceProfile::DeviceProfile() : PropertyAdaptor(nullptr), d_ptr(new DeviceProfilePrivate) { }
 
 DeviceProfile::DeviceProfile(const DeviceType& type)
-    : PropertyAdaptor(NULL), d_ptr(new DeviceProfilePrivate)
+    : PropertyAdaptor(nullptr), d_ptr(new DeviceProfilePrivate)
 {
     setDeviceType(type);
 }
 
 DeviceProfile::DeviceProfile(const DeviceProfile& profile)
-    : PropertyAdaptor(NULL), d_ptr(new DeviceProfilePrivate)
+    : PropertyAdaptor(nullptr), d_ptr(new DeviceProfilePrivate)
 {
     operator=(profile);
 }
@@ -250,6 +250,6 @@ bool DeviceProfile::setProperty(const Property& property, const QString& value)
 
 bool DeviceProfile::supportsProperty(const Property& property) const
 {
-    return (DeviceProperty::map(property) != NULL);
+    return (DeviceProperty::map(property) != nullptr);
 }
 

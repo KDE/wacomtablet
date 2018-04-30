@@ -107,7 +107,7 @@ bool TabletProfile::hasDevice(const QString& device) const
 {
     const DeviceType* deviceType = DeviceType::find(device);
 
-    if (deviceType == NULL) {
+    if (!deviceType) {
         return false;
     }
 

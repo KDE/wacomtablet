@@ -62,7 +62,7 @@ namespace Wacom
 using namespace Wacom;
 
 TabletHandler::TabletHandler()
-    : TabletHandlerInterface(NULL), d_ptr(new TabletHandlerPrivate)
+    : TabletHandlerInterface(nullptr), d_ptr(new TabletHandlerPrivate)
 {
     Q_D( TabletHandler );
 
@@ -72,7 +72,7 @@ TabletHandler::TabletHandler()
 
 
 TabletHandler::TabletHandler(const QString& profileFile, const QString configFile)
-    : TabletHandlerInterface(NULL), d_ptr(new TabletHandlerPrivate)
+    : TabletHandlerInterface(nullptr), d_ptr(new TabletHandlerPrivate)
 {
     Q_D( TabletHandler );
 
@@ -94,7 +94,7 @@ QString TabletHandler::getProperty(const QString &tabletId, const DeviceType& de
 {
     Q_D( const TabletHandler );
 
-    if( !d->tabletBackendList.contains(tabletId) || d->tabletBackendList.value(tabletId) == NULL) {
+    if( !d->tabletBackendList.contains(tabletId) || d->tabletBackendList.value(tabletId) == nullptr) {
         errWacom << QString::fromLatin1("Unable to get property '%1' from device '%2' as no device is currently available!").arg(property.key()).arg(deviceType.key());
         return QString();
     }
@@ -127,7 +127,7 @@ void TabletHandler::onTabletAdded( const TabletInformation& info )
     // create tablet backend
     TabletBackendInterface *tbi = TabletBackendFactory::createBackend(info);
 
-    if (tbi == NULL) {
+    if (!tbi) {
         errWacom << "Could not create tablet backend interface. Ignoring Tablet";
         return; // no valid backend found
     }
@@ -606,7 +606,7 @@ bool TabletHandler::hasTablet(const QString &tabletId) const
     Q_D( const TabletHandler );
 
     return (d->tabletBackendList.contains(tabletId) &&
-            d->tabletBackendList.value(tabletId) != NULL);
+            d->tabletBackendList.value(tabletId) != nullptr);
 }
 
 
