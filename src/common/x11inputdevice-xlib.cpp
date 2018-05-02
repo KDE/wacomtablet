@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
+#include "logging.h"
 
 #include <QtCore/QStringList>
 
@@ -168,7 +168,7 @@ bool X11InputDevice::getFloatProperty(const QString& property, QList< float >& v
     bool success = lookupProperty(QString::fromLatin1("FLOAT"), float_atom);
 
     if (success == false) {
-        errWacom << QLatin1String("Float values are unsupported by this XInput implementation!");
+        qCWarning(COMMON) << QLatin1String("Float values are unsupported by this XInput implementation!");
         return false;
     }
 
@@ -201,7 +201,7 @@ const QString& X11InputDevice::getName() const
 bool X11InputDevice::getStringProperty(const QString& property, QList< QString >& values, long int nelements) const
 {
     // get property data & values
-    unsigned char* data           = NULL;
+    unsigned char* data           = nullptr;
     unsigned long  nitems         = 0;
     int            expectedFormat = 8;
 
@@ -233,7 +233,7 @@ bool X11InputDevice::hasProperty(const QString& property) const
 
     if (!isOpen()) {
         // some devices like the virtual core keyboard/pointer can not be opened
-        dbgWacom << QString::fromLatin1("Cannot check property '%1' on a device which is not open!").arg(property);
+        qCDebug(COMMON) << QString::fromLatin1("Cannot check property '%1' on a device which is not open!").arg(property);
         return false;
     }
 
@@ -285,7 +285,7 @@ bool X11InputDevice::open(XID id, const QString& name)
     }
 
     if (id == 0) {
-        errWacom << QString::fromLatin1("Unable to open device '%1' as invalid parameters were provided!").arg(name);
+        qCWarning(COMMON) << QString::fromLatin1("Unable to open device '%1' as invalid parameters were provided!").arg(name);
         return false;
     }
 
@@ -293,7 +293,7 @@ bool X11InputDevice::open(XID id, const QString& name)
 
     if (device == nullptr) {
         // some virtual devices can not be opened
-        dbgWacom << QString::fromLatin1("XOpenDevice failed on device id '%1'!").arg(id);
+        qCWarning(COMMON) << QString::fromLatin1("XOpenDevice failed on device id '%1'!").arg(id);
         return false;
     }
 
@@ -315,7 +315,7 @@ bool X11InputDevice::setDeviceButtonMapping(const QVector<uint8_t> &buttonMap) c
 
     int result = XSetDeviceButtonMapping(d->display, d->device, QVector<uint8_t>(buttonMap).data(), buttonMap.count());
 
-    dbgWacom << "setDeviceButtonMapping returned result" << result;
+    qCDebug(COMMON) << "setDeviceButtonMapping returned result" << result;
 
     return (result == 0);
 }
@@ -341,7 +341,7 @@ bool X11InputDevice::setFloatProperty(const QString& property, const QString& va
         fvalue = svalue.toFloat(&ok);
 
         if (!ok) {
-            errWacom << QString::fromLatin1("Could not convert value '%1' to float!").arg(svalue);
+            qCWarning(COMMON) << QString::fromLatin1("Could not convert value '%1' to float!").arg(svalue);
             return false;
         }
 
@@ -365,7 +365,7 @@ bool X11InputDevice::setFloatProperty(const QString& property, const QList< floa
     bool has_float = lookupProperty(QString::fromLatin1("FLOAT"), float_atom);
 
     if (!has_float) {
-        errWacom << QLatin1String("Float values are unsupported by this XInput implementation!");
+        qCWarning(COMMON) << QLatin1String("Float values are unsupported by this XInput implementation!");
         return false;
     }
 
@@ -394,7 +394,7 @@ bool X11InputDevice::setLongProperty(const QString& property, const QString& val
         lvalue = svalue.toLong(&ok, 10);
 
         if (!ok) {
-            errWacom << QString::fromLatin1("Could not convert value '%1' to long!").arg(svalue);
+            qCWarning(COMMON) << QString::fromLatin1("Could not convert value '%1' to long!").arg(svalue);
             return false;
         }
 
@@ -423,7 +423,7 @@ template<typename T>
 bool X11InputDevice::getProperty(const QString& property, Atom expectedType, long int nelements, QList< T >& values) const
 {
     // get property data & values
-    long*          data           = NULL;
+    long*          data           = nullptr;
     unsigned long  nitems         = 0;
     int            expectedFormat = 32;
 
@@ -449,7 +449,7 @@ bool X11InputDevice::getPropertyData (const QString& property, Atom expectedType
 
     // check parameters
     if (!isOpen()) {
-        errWacom << QString::fromLatin1 ("Can not get XInput property '%1' as no device was opened!").arg(property);
+        qCWarning(COMMON) << QString::fromLatin1 ("Can not get XInput property '%1' as no device was opened!").arg(property);
         return false;
     }
 
@@ -457,7 +457,7 @@ bool X11InputDevice::getPropertyData (const QString& property, Atom expectedType
     Atom propertyAtom = 0;
 
     if (!lookupProperty(property, propertyAtom)) {
-        errWacom << QString::fromLatin1("Can't get unsupported XInput property '%1'!").arg(property);
+        qCWarning(COMMON) << QString::fromLatin1("Can't get unsupported XInput property '%1'!").arg(property);
         return false;
     }
 
@@ -467,12 +467,12 @@ bool X11InputDevice::getPropertyData (const QString& property, Atom expectedType
     unsigned long  bytes_after  = 0;
 
     if (XGetDeviceProperty (d->display, d->device, propertyAtom, 0, nelements, False, AnyPropertyType, &actualType, &actualFormat, &nitems, &bytes_after, data) != Success) {
-        errWacom << QString::fromLatin1("Could not get XInput property '%1'!").arg(property);
+        qCWarning(COMMON) << QString::fromLatin1("Could not get XInput property '%1'!").arg(property);
         return false;
     }
 
     if (actualFormat != expectedFormat || actualType != expectedType) {
-        errWacom << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
+        qCWarning(COMMON) << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
         XFree(data);
         return false;
     }
@@ -494,7 +494,7 @@ bool X11InputDevice::lookupProperty(const QString& property, Atom &atom) const
     atom = XInternAtom(d->display, property.toLatin1().constData(), false);
 
     if (atom == None) {
-        errWacom << QString::fromLatin1("The X server does not support XInput property '%1'!").arg(property);
+        qCWarning(COMMON) << QString::fromLatin1("The X server does not support XInput property '%1'!").arg(property);
         return false;
     }
 
@@ -515,13 +515,13 @@ bool X11InputDevice::setProperty(const QString& property, Atom expectedType, con
 
     // check parameters
     if (!isOpen()) {
-        errWacom << QString::fromLatin1 ("Can not get XInput property '%1' as no device was opened!").arg(property);
+        qCWarning(COMMON) << QString::fromLatin1 ("Can not get XInput property '%1' as no device was opened!").arg(property);
         return false;
     }
     
     
     if (values.size() == 0) {
-        errWacom << QString::fromLatin1 ("Can not set XInput property '%1' as no values were provided!").arg(property);
+        qCWarning(COMMON) << QString::fromLatin1 ("Can not set XInput property '%1' as no values were provided!").arg(property);
         return false;
     }
 
@@ -529,7 +529,7 @@ bool X11InputDevice::setProperty(const QString& property, Atom expectedType, con
     Atom propertyAtom = 0;
 
     if (!lookupProperty(property, propertyAtom)) {
-        errWacom << QString::fromLatin1("Can not get unsupported XInput property '%1'!").arg(property);
+        qCWarning(COMMON) << QString::fromLatin1("Can not get unsupported XInput property '%1'!").arg(property);
         return false;
     }
 
@@ -538,17 +538,17 @@ bool X11InputDevice::setProperty(const QString& property, Atom expectedType, con
     Atom           actualType;
     int            actualFormat;
     unsigned long  nitems, bytes_after;
-    unsigned char *actualData  = NULL;
+    unsigned char *actualData = nullptr;
 
     if (XGetDeviceProperty (d->display, d->device, propertyAtom, 0, values.size(), False, AnyPropertyType, &actualType, &actualFormat, &nitems, &bytes_after, (unsigned char **)&actualData) != Success) {
-        errWacom << QString::fromLatin1("Could not get XInput property '%1' for type and format validation!").arg(property);
+        qCWarning(COMMON) << QString::fromLatin1("Could not get XInput property '%1' for type and format validation!").arg(property);
         return false;
     }
 
     XFree(actualData);
 
     if (actualFormat != expectedFormat || actualType != expectedType) {
-        errWacom << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
+        qCWarning(COMMON) << QString::fromLatin1("Can not process incompatible Xinput property '%1': Format is '%2', expected was '%3'. Type is '%4', expected was '%5'.").arg(property).arg(actualFormat).arg(expectedFormat).arg(actualType).arg(expectedType);
         return false;
     }
 

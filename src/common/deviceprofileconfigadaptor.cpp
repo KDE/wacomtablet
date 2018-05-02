@@ -18,7 +18,9 @@
  */
 
 #include "deviceprofileconfigadaptor.h"
-#include "debug.h"
+
+#include "logging.h"
+
 #include "deviceproperty.h"
 
 #include <QtGlobal>
@@ -55,7 +57,7 @@ bool DeviceProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
         deviceProperty = DeviceProperty::find(lookupKey);
 
         if (deviceProperty == nullptr) {
-            dbgWacom << QString::fromLatin1("Unable to read unsupported configuration property '%1' from config file!").arg(key);
+            qCWarning(COMMON) << QString::fromLatin1("Unable to read unsupported configuration property '%1' from config file!").arg(key);
             continue;
         }
 
@@ -77,7 +79,7 @@ bool DeviceProfileConfigAdaptor::saveConfig(KConfigGroup& config) const
         deviceProperty = DeviceProperty::map(property);
 
         if (deviceProperty == nullptr) {
-            dbgWacom << QString::fromLatin1("Unable to save unsupported system property '%1' to config file!").arg(property.key());
+            qCWarning(COMMON) << QString::fromLatin1("Unable to save unsupported system property '%1' to config file!").arg(property.key());
             continue;
         }
 

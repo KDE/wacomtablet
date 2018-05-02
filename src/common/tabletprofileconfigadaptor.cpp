@@ -18,9 +18,9 @@
  */
 
 #include "tabletprofileconfigadaptor.h"
-#include "debug.h"
-#include "deviceprofileconfigadaptor.h"
 
+#include "logging.h"
+#include "deviceprofileconfigadaptor.h"
 
 using namespace Wacom;
 
@@ -31,7 +31,7 @@ namespace Wacom {
 class TabletProfileConfigAdaptorPrivate
 {
     public:
-        TabletProfile* profile;
+        TabletProfile *profile = nullptr;
 }; // CLASS
 }  // NAMESPACE
 
@@ -53,7 +53,7 @@ bool TabletProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
 {
     Q_D(TabletProfileConfigAdaptor);
     if (d->profile == nullptr) {
-        errWacom << "Profile is null";
+        qCWarning(COMMON) << "Profile is null";
         return false;
     }
 
@@ -66,7 +66,7 @@ bool TabletProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
         const DeviceType* deviceType = DeviceType::find(dev);
 
         if (deviceType == nullptr) {
-            errWacom << QString::fromLatin1("Invalid device identifier '%1' found in configuration file!").arg(dev);
+            qCWarning(COMMON) << QString::fromLatin1("Invalid device identifier '%1' found in configuration file!").arg(dev);
             continue;
         }
 
@@ -87,7 +87,7 @@ bool TabletProfileConfigAdaptor::saveConfig (KConfigGroup& config) const
 {
     Q_D( const TabletProfileConfigAdaptor );
     if (d->profile == nullptr) {
-        errWacom << "Profile is null";
+        qCWarning(COMMON) << "Profile is null";
         return false;
     }
 
@@ -104,7 +104,7 @@ bool TabletProfileConfigAdaptor::saveConfig (KConfigGroup& config) const
     foreach(const QString& dev, devices) {
         const DeviceType *deviceType = DeviceType::find(dev);
         if (deviceType == nullptr) {
-            errWacom << QString::fromLatin1("Invalid device identifier '%1' found in configuration file!").arg(dev);
+            qCWarning(COMMON) << QString::fromLatin1("Invalid device identifier '%1' found in configuration file!").arg(dev);
             continue;
         }
 

@@ -20,13 +20,10 @@
 #ifndef PROPERTYSET_H
 #define PROPERTYSET_H
 
-#include "debug.h"  // this include has to come first!
 #include "enum.h"
 #include "property.h"
 
-#include <assert.h>
-#include <iostream>
-
+#include <QDebug>
 #include <QList>
 #include <QString>
 
@@ -41,7 +38,9 @@ struct PropertySetTemplateSpecializationLessFunctor
         Q_UNUSED(d2);
 
         if ((d1 == d2) || !(d1->key().compare(d2->key(), Qt::CaseInsensitive))) {
-            errWacom << "Adding the same key or the same element is a severe error";
+            // FIXME: this template header spans across modules
+            // which do not share logging categories
+            qWarning() << "Adding the same key or the same element is a severe error";
         }
 
         // property sets should keep the order they were defined
@@ -132,7 +131,7 @@ protected:
 
 private:
 
-    const Property* m_id;       /**< The property identifier used to map between different property sets */
+    const Property *m_id = nullptr;       /**< The property identifier used to map between different property sets */
 
 };     // CLASS
 }      // NAMESPACE

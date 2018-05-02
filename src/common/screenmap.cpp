@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h" // always needs to be first include
-
 #include "screenmap.h"
+
 #include "stringutils.h"
 
 #include <QHash>

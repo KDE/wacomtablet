@@ -17,20 +17,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h" // always needs to be first include
-
 #include "tabletareaselectiondialog.h"
+
 #include "tabletareaselectionwidget.h"
 
 #include "stringutils.h"
 #include "x11info.h"
 
-#include <QRegExp>
-
 #include <KLocalizedString>
-#include <QVBoxLayout>
+
 #include <QDialogButtonBox>
 #include <QIcon>
+#include <QRegExp>
+#include <QVBoxLayout>
 
 using namespace Wacom;
 
@@ -39,7 +38,7 @@ namespace Wacom
     class TabletAreaSelectionDialogPrivate
     {
         public:
-            TabletAreaSelectionWidget* selectionWidget; // no need to delete this widget as it is properly parented.
+            TabletAreaSelectionWidget *selectionWidget = nullptr; // no need to delete this widget as it is properly parented.
     }; // PRIVATE CLASS
 } // NAMESPACE
 

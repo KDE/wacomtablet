@@ -56,7 +56,7 @@ void TestButtonShortcut::assertButton(const ButtonShortcut& shortcut, int button
 {
     QVERIFY(shortcut.isSet());
     QVERIFY(shortcut.isButton());
-    QCOMPARE(ButtonShortcut::BUTTON, shortcut.getType());
+    QCOMPARE(ButtonShortcut::ShortcutType::BUTTON, shortcut.getType());
 
     QVERIFY(!shortcut.isKeystroke());
     QVERIFY(!shortcut.isModifier());

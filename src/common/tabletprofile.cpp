@@ -18,7 +18,8 @@
  */
 
 #include "tabletprofile.h"
-#include "debug.h"
+
+#include "logging.h"
 #include "deviceprofile.h"
 
 #include <QHash>
@@ -126,7 +127,7 @@ QStringList TabletProfile::listDevices() const
     for (const auto &key : qAsConst(keys)) {
         const DeviceType *deviceType = DeviceType::find(key);
         if (!deviceType) {
-            errWacom << "DeviceType for" << key << "is null";
+            qCWarning(COMMON) << "DeviceType for" << key << "is null";
             continue;
         }
         result.append(getDevice(*deviceType).getName());

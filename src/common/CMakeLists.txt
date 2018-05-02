@@ -20,7 +20,6 @@ set(wacom_common_SRC
     deviceprofileconfigadaptor.cpp
     deviceproperty.cpp
     devicetype.cpp
-    debug.cpp
     libwacomwrapper.cpp
     mainconfig.cpp
     profilemanager.cpp
@@ -42,6 +41,12 @@ set(wacom_common_SRC
     x11inputdevice.cpp
     x11wacom.cpp
 )
+
+ecm_qt_declare_logging_category(
+    wacom_common_SRC
+    HEADER "logging.h"
+    IDENTIFIER "COMMON"
+    CATEGORY_NAME "org.kde.wacomtablet.common")
 
 qt5_add_dbus_interfaces(wacom_common_SRC
                         ../kded/org.kde.Wacom.xml)

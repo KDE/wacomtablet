@@ -19,7 +19,7 @@
 
 #include "profilemanagement.h"
 
-#include "debug.h"
+#include "logging.h"
 
 // common
 #include "dbustabletinterface.h"
@@ -46,7 +46,7 @@ ProfileManagement::ProfileManagement(const QString &deviceName, bool hasTouch)
     , m_hasTouch(hasTouch)
     , m_profileManager(QLatin1String("tabletprofilesrc"))
 {
-    dbgWacom << "Create instance for :: " << deviceName << "Touch?" << hasTouch;
+    qCDebug(COMMON) << "Create instance for :: " << deviceName << "Touch?" << hasTouch;
 }
 
 ProfileManagement& ProfileManagement::instance()
@@ -70,18 +70,18 @@ void ProfileManagement::setTabletId(const QString &tabletId)
 void ProfileManagement::createNewProfile( const QString &profilename )
 {
     if (profilename.isEmpty()) {
-        dbgWacom << "Can not create a profile with no name!";
+        qCWarning(COMMON) << "Can not create a profile with no name!";
     }
 
     //get information via DBus
     m_profileName = profilename;
 
-    if( m_deviceName.isEmpty() ) {
-        dbgWacom << "no device information are found. Can't create a new profile";
+    if(m_deviceName.isEmpty()) {
+        qCWarning(COMMON) << "No device information is found. Can't create a new profile";
         return;
     }
 
-    dbgWacom << "Creating a new profile for :: device:" << m_deviceName;
+    qCDebug(COMMON) << "Creating a new profile for device" << m_deviceName;
 
     m_profileManager.readProfiles(m_deviceName);
     TabletProfile tabletProfile = m_profileManager.loadProfile(profilename);
@@ -201,7 +201,7 @@ void ProfileManagement::reload()
     if (vendorId.isValid()) {
         m_vendorId = vendorId;
     } else {
-        dbgWacom << "Couldn't get vendor id for" << m_tabletId;
+        qCWarning(COMMON) << "Couldn't get vendor id for" << m_tabletId;
         m_vendorId = QString::fromLatin1("unknown");
     }
 
@@ -210,7 +210,7 @@ void ProfileManagement::reload()
     auto touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch.key());
     touchName.waitForFinished();
     if (touchName.isValid()) {
-        dbgWacom << "touchName for" << m_tabletId << "is" << touchName.value();
+        qCDebug(COMMON) << "touchName for" << m_tabletId << "is" << touchName.value();
         m_hasTouch = !QString(touchName.value()).isEmpty();
     }
     else {

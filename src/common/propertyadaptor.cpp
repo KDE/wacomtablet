@@ -17,12 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h" // always needs to be first include
-
 #include "propertyadaptor.h"
 
+#include "logging.h"
 #include "stringutils.h"
-
 
 using namespace Wacom;
 
@@ -62,7 +60,7 @@ const QList<Property> PropertyAdaptor::getProperties() const
         return d->adaptee->getProperties();
     }
 
-    errWacom << QString::fromLatin1("Someone is trying to get a list of properties, but no one implemented PropertyAdaptor::getProperties()!");
+    qCWarning(COMMON) << QString::fromLatin1("Someone is trying to get a list of properties, but no one implemented PropertyAdaptor::getProperties()!");
     return QList<Property>();
 }
 
@@ -74,7 +72,7 @@ const QString PropertyAdaptor::getProperty ( const Property& property ) const
         return d->adaptee->getProperty(property);
     }
 
-    errWacom << QString::fromLatin1("Someone is trying to get property '%1', but no one implemented PropertyAdaptor::getProperty()!").arg(property.key());
+    qCWarning(COMMON) << QString::fromLatin1("Someone is trying to get property '%1', but no one implemented PropertyAdaptor::getProperty()!").arg(property.key());
     return QString();
 }
 
@@ -93,7 +91,7 @@ bool PropertyAdaptor::setProperty ( const Property& property, const QString& val
         return d->adaptee->setProperty(property, value);
     }
 
-    errWacom << QString::fromLatin1("Someone is trying to set property '%1' to '%2', but no one implemented PropertyAdaptor::setProperty()!").arg(property.key()).arg(value);
+    qCWarning(COMMON) << QString::fromLatin1("Someone is trying to set property '%1' to '%2', but no one implemented PropertyAdaptor::setProperty()!").arg(property.key()).arg(value);
     return false;
 }
 

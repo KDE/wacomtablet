@@ -18,8 +18,8 @@
  */
 
 #include "tabletdaemon.h"
-#include "debug.h"
 
+#include "logging.h"
 #include "dbustabletservice.h"
 #include "tabletfinder.h"
 #include "tablethandler.h"
@@ -119,7 +119,7 @@ void TabletDaemon::onProfileChanged(const QString &tabletId, const QString& prof
     // When closing the KCM module the KAction destructor disables all global shortcuts.
     // Make sure the global shortcuts are restored when a profile changes. This is not
     // optimal but at least it will enable the shortcuts again.
-    dbgWacom << QLatin1String("Restoring global keyboard shortcuts...");
+    qCDebug(KDED) << QLatin1String("Restoring global keyboard shortcuts...");
     setupActions();
 }
 

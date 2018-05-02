@@ -19,7 +19,7 @@
 
 #include "dbustabletinterface.h"
 
-#include "debug.h"
+#include "logging.h"
 #include "dbustabletservice.h"
 #include "devicetype.h"
 #include "property.h"
@@ -37,8 +37,8 @@ namespace Wacom
     class DBusTabletServicePrivate
     {
         public:
-            WacomAdaptor*           wacomAdaptor;
-            TabletHandlerInterface* tabletHandler;
+            WacomAdaptor *wacomAdaptor = nullptr;
+            TabletHandlerInterface *tabletHandler = nullptr;
             QHash<QString, TabletInformation>        tabletInformationList; //!< Information of all currently connected tablets.
             QHash<QString, QString>                  currentProfileList;    //!< Currently active profile for each tablet.
     }; // CLASS
@@ -93,7 +93,7 @@ QString DBusTabletService::getDeviceName(const QString &tabletId, const QString&
     const DeviceType *type = DeviceType::find(device);
 
     if (!type) {
-        errWacom << QString::fromLatin1("Unsupported device type '%1'!").arg(device);
+        qCWarning(KDED) << QString::fromLatin1("Unsupported device type '%1'!").arg(device);
         return unknown;
     }
 
@@ -111,7 +111,7 @@ QString DBusTabletService::getInformation(const QString &tabletId,const QString&
     const TabletInfo* devinfo = TabletInfo::find(info);
 
     if (!devinfo) {
-        errWacom << QString::fromLatin1("Can not get unsupported tablet information '%1'!").arg(info);
+        qCWarning(KDED) << QString::fromLatin1("Can not get unsupported tablet information '%1'!").arg(info);
         return unknown;
     }
 
@@ -135,14 +135,14 @@ QString DBusTabletService::getProperty(const QString &tabletId, const QString& d
     const DeviceType* type = DeviceType::find(deviceType);
 
     if (!type) {
-        errWacom << QString::fromLatin1("Can not get property '%1' from invalid device '%2'!").arg(property).arg(deviceType);
+        qCWarning(KDED) << QString::fromLatin1("Can not get property '%1' from invalid device '%2'!").arg(property).arg(deviceType);
         return QString();
     }
 
     const Property* prop = Property::find(property);
 
     if (!prop) {
-        errWacom << QString::fromLatin1("Can not get invalid property '%1' from device '%2'!").arg(property).arg(deviceType);
+        qCWarning(KDED) << QString::fromLatin1("Can not get invalid property '%1' from device '%2'!").arg(property).arg(deviceType);
         return QString();
     }
 
@@ -190,14 +190,14 @@ void DBusTabletService::setProperty(const QString &tabletId, const QString& devi
     const DeviceType* type = DeviceType::find(deviceType);
 
     if (!type) {
-        errWacom << QString::fromLatin1("Can not set property '%1' on invalid device '%2' to '%3'!").arg(property).arg(deviceType).arg(value);
+        qCWarning(KDED) << QString::fromLatin1("Can not set property '%1' on invalid device '%2' to '%3'!").arg(property).arg(deviceType).arg(value);
         return;
     }
 
     const Property* prop = Property::find(property);
 
     if (!prop) {
-        errWacom << QString::fromLatin1("Can not set invalid property '%1' on device '%2' to '%3'!").arg(property).arg(deviceType).arg(value);
+        qCWarning(KDED) << QString::fromLatin1("Can not set invalid property '%1' on device '%2' to '%3'!").arg(property).arg(deviceType).arg(value);
         return;
     }
 

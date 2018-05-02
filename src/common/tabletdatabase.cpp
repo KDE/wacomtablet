@@ -18,7 +18,8 @@
  */
 
 #include "tabletdatabase.h"
-#include "debug.h"
+
+#include "logging.h"
 
 #include <QStandardPaths>
 
@@ -72,11 +73,11 @@ QString TabletDatabase::lookupBackend(const QString& companyId) const
     KConfigGroup companyGroup = KConfigGroup (companyConfig, companyId.toLower());
 
     if (companyGroup.keyList().isEmpty()) {
-        errWacom << QString::fromLatin1 ("Company with id '%1' could not be found in the tablet information database!").arg(companyId);
+        qCInfo(COMMON) << QString::fromLatin1("Company with id '%1' could not be found in the tablet information database!").arg(companyId);
         return QString();
     }
 
-    return companyGroup.readEntry ("driver");
+    return companyGroup.readEntry("driver");
 }
 
 
@@ -103,7 +104,7 @@ bool TabletDatabase::lookupTablet(const QString& tabletId, TabletInformation& ta
         return true;
     }
     else {
-        dbgWacom << QString::fromLatin1("tablet %1 not in local db").arg(tabletId);
+        qCInfo(COMMON) << QString::fromLatin1("tablet %1 not in local db").arg(tabletId);
     }
 
 
@@ -116,7 +117,7 @@ bool TabletDatabase::lookupTablet(const QString& tabletId, TabletInformation& ta
         tabletsConfigFile = companyGroup.readEntry("listfile");
 
         if (tabletsConfigFile.isEmpty()) {
-            dbgWacom << QString::fromLatin1("Company group '%1' does not have a device list file!").arg(companyGroup.name());
+            qCWarning(COMMON) << QString::fromLatin1("Company group '%1' does not have a device list file!").arg(companyGroup.name());
             continue;
         }
 
@@ -227,14 +228,14 @@ bool TabletDatabase::openConfig(const QString& configFileName, KSharedConfig::Pt
     }
 
     if (configFilePath.isEmpty()) {
-        dbgWacom << QString::fromLatin1("Tablet database configuration file '%1' does not exist or is not accessible!").arg(configFileName);
+        qCWarning(COMMON) << QString::fromLatin1("Tablet database configuration file '%1' does not exist or is not accessible!").arg(configFileName);
         return false;
     }
 
     configFile = KSharedConfig::openConfig (configFilePath, KConfig::SimpleConfig, QStandardPaths::GenericDataLocation);
 
     if (configFile->groupList().isEmpty()) {
-        dbgWacom << QString::fromLatin1("Tablet database configuration file '%1' is empty or not readable!").arg(configFilePath);
+        qCWarning(COMMON) << QString::fromLatin1("Tablet database configuration file '%1' is empty or not readable!").arg(configFilePath);
         return false;
     }
 

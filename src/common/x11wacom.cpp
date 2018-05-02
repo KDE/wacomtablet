@@ -17,10 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h" // always needs to be first include
-
 #include "x11wacom.h"
 
+#include "logging.h"
 #include "x11input.h"
 #include "x11inputdevice.h"
 
@@ -32,7 +31,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
     TabletArea maximumAreaRect;
 
     if (deviceName.isEmpty()) {
-        errWacom << QString::fromLatin1("Internal Error: Missing device name parameter!");
+        qCWarning(COMMON) << QString::fromLatin1("Internal Error: Missing device name parameter!");
         return maximumAreaRect;
     }
 
@@ -40,7 +39,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
     X11InputDevice x11Device;
 
     if (!X11Input::findDevice(deviceName, x11Device)) {
-        dbgWacom << QString::fromLatin1("Failed to lookup X11 input device '%1'!").arg(deviceName);
+        qCWarning(COMMON) << QString::fromLatin1("Failed to lookup X11 input device '%1'!").arg(deviceName);
         return maximumAreaRect;
     }
 
@@ -49,7 +48,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
     QList<long>          previousArea;
 
     if (!x11Device.getLongProperty(areaProperty, previousArea, 4)) {
-        errWacom << QString::fromLatin1("Failed to get tablet area property from X11 input device '%1'!").arg(deviceName);
+        qCWarning(COMMON) << QString::fromLatin1("Failed to get tablet area property from X11 input device '%1'!").arg(deviceName);
         return maximumAreaRect;
     }
 
@@ -61,7 +60,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
     resetArea.append(-1);
 
     if (!x11Device.setLongProperty(areaProperty, resetArea)) {
-        errWacom << QString::fromLatin1("Failed to reset tablet area property on X11 input device '%1'!").arg(deviceName);
+        qCWarning(COMMON) << QString::fromLatin1("Failed to reset tablet area property on X11 input device '%1'!").arg(deviceName);
         return maximumAreaRect;
     }
 
@@ -77,10 +76,10 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
 
     // reset the area back to the previous value
     if (!x11Device.setLongProperty(areaProperty, previousArea)) {
-        errWacom << QString::fromLatin1("Failed to set tablet area property on X11 input device '%1'!").arg(deviceName);
+        qCWarning(COMMON) << QString::fromLatin1("Failed to set tablet area property on X11 input device '%1'!").arg(deviceName);
     }
 
-    dbgWacom << "Returning area" << maximumAreaRect.toString();
+    qCDebug(COMMON) << "getMaximumTabletArea result" << maximumAreaRect.toString();
 
     return maximumAreaRect;
 }
@@ -156,4 +155,3 @@ bool X11Wacom::setScrollDirection(const QString& deviceName, bool inverted)
 
     return device.setDeviceButtonMapping(buttonMap);
 }
-

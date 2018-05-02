@@ -18,7 +18,7 @@
  */
 
 #include "tabletinformation.h"
-#include "debug.h"
+
 #include "stringutils.h"
 
 namespace Wacom
@@ -40,18 +40,8 @@ namespace Wacom
             QMap<QString,QString> buttonMap;
             DeviceInformationMap  deviceMap;
             TabletInfoMap         infoMap;
-            bool                  isAvailable;
-            bool                  hasButtons;
-
-            /*
-             * Helper methods
-             */
-            TabletInformationPrivate()
-            {
-                isAvailable = false;
-                hasButtons  = false;
-            }
-
+            bool                  isAvailable = false;
+            bool                  hasButtons = false;
 
             TabletInformationPrivate& operator= (const TabletInformationPrivate& that)
             {

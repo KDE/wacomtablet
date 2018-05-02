@@ -13,6 +13,7 @@ include(FeatureSummary)
 include(ECMOptionalAddSubdirectory)
 include(ECMInstallIcons)
 include(ECMSetupVersion)
+include(ECMQtDeclareLoggingCategory)
 
 ecm_setup_version(${PROJECT_VERSION}
     VARIABLE_PREFIX WACOMTABLET

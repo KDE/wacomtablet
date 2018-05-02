@@ -18,7 +18,6 @@
  */
 
 #include "stringutils.h"
-#include "debug.h"
 
 #include <QRect>
 #include <QRegExp>

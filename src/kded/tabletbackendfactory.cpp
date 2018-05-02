@@ -19,13 +19,10 @@
 
 #include "tabletbackendfactory.h"
 
-#include "debug.h"
 #include "tabletbackend.h"
 #include "tabletdatabase.h"
 #include "xinputadaptor.h"
 #include "xsetwacomadaptor.h"
-
-#include <QMap>
 
 using namespace Wacom;
 

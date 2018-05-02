@@ -19,7 +19,8 @@
 
 #include "calibrationdialog.h"
 
-#include "debug.h"
+#include "logging.h"
+#include "x11wacom.h"
 
 //KDE includes
 #include <KLocalizedString>
@@ -30,8 +31,6 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QX11Info>
-
-#include <x11wacom.h>
 
 using namespace Wacom;
 
@@ -148,7 +147,7 @@ void CalibrationDialog::calculateNewArea()
     m_newtabletArea.setWidth( newWidth );
     m_newtabletArea.setHeight( newHeight );
 
-    dbgWacom << "Calibration debug:" << frameGeometry() << size() << m_originaltabletArea << m_topLeft << m_bottomLeft << m_topRight << m_bottomRight;
-    dbgWacom << "Calibration debug:" << frameoffset << tabletScreenRatioWidth << tabletScreenRatioHeight << clickedX << clickedY << clickedWidth << clickedHeight;
-    dbgWacom << "Calibration debug:" << m_newtabletArea;
+    qCDebug(KCM) << "Calibration debug:" << frameGeometry() << size() << m_originaltabletArea << m_topLeft << m_bottomLeft << m_topRight << m_bottomRight;
+    qCDebug(KCM) << "Calibration debug:" << frameoffset << tabletScreenRatioWidth << tabletScreenRatioHeight << clickedX << clickedY << clickedWidth << clickedHeight;
+    qCDebug(KCM) << "Calibration debug:" << m_newtabletArea;
 }

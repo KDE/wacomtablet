@@ -18,10 +18,12 @@
  */
 
 #include "kcmwacomtabletwidget.h"
+
 #include "ui_kcmwacomtabletwidget.h"
 #include "ui_saveprofile.h"
 #include "ui_errorwidget.h"
-#include "debug.h"
+
+#include "logging.h"
 
 #include "profilemanagement.h"
 #include "generalpagewidget.h"
@@ -40,7 +42,6 @@
 #include <QStringList>
 #include <QPixmap>
 #include <QLineEdit>
-#include <QDebug>
 #include <QInputDialog>
 #include <QDialogButtonBox>
 #include <QX11Info>
@@ -88,11 +89,11 @@ void KCMWacomTabletWidget::setupUi()
 
     DBusTabletInterface* dbusTabletInterface = &DBusTabletInterface::instance();
 
-    if( !dbusTabletInterface->isValid() ) {
-        dbgWacom << "DBus interface not available";
+    if(!dbusTabletInterface->isValid()) {
+        qCWarning(KCM) << "DBus interface not available";
     }
 
-    d->profileChanged    = false;
+    d->profileChanged = false;
 
     // setup error widget
     d->deviceErrorUi.setupUi(&(d->deviceErrorWidget));
@@ -142,9 +143,8 @@ void KCMWacomTabletWidget::loadTabletInformation()
     d->ui.tabletListSelector->blockSignals(true);
     foreach(const QString &tabletId, connectedTablets.value()) {
         QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
-        dbgWacom << "add tablet"<< deviceName << tabletId << "with";
         QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
-        dbgWacom << inputDevices.value();
+        qCDebug(KCM) << "Adding tablet" << deviceName << tabletId << "with" << inputDevices.value();
 
         d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
     }
@@ -180,9 +180,8 @@ void KCMWacomTabletWidget::onTabletAdded(const QString &tabletId)
     Q_D( KCMWacomTabletWidget );
 
     QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
-    dbgWacom << "add tablet"<< deviceName << tabletId << "with";
     QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
-    dbgWacom << inputDevices.value();
+    qCDebug(KCM) << "Adding tablet" << deviceName << tabletId << "with" << inputDevices.value();
 
     d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
 }

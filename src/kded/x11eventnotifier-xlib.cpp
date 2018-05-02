@@ -17,11 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h" // always needs to be first include
-
 #include <QCoreApplication>
 #include <QX11Info>
 
+#include "logging.h"
 #include "x11eventnotifier.h"
 
 #include "x11input.h"
@@ -159,16 +158,16 @@ void X11EventNotifier::handleX11InputEvent(xcb_ge_generic_event_t* event)
 
     while(hev->num_infos--) {
         if (data->flags & XCB_INPUT_HIERARCHY_MASK_SLAVE_REMOVED) {
-            dbgWacom << QString::fromLatin1("X11 device with id '%1' removed.").arg(data->deviceid);
+            qCDebug(KDED) << QString::fromLatin1("X11 device with id '%1' removed.").arg(data->deviceid);
             emit tabletRemoved(data->deviceid);
 
         } else if (data->flags & XCB_INPUT_HIERARCHY_MASK_SLAVE_ADDED) {
-            dbgWacom << QString::fromLatin1("X11 device with id '%1' added.").arg(data->deviceid);
+            qCDebug(KDED) << QString::fromLatin1("X11 device with id '%1' added.").arg(data->deviceid);
 
             X11InputDevice device (data->deviceid, QLatin1String("Unknown X11 Device"));
 
             if (device.isOpen() && device.isTabletDevice()) {
-                dbgWacom << QString::fromLatin1("Wacom tablet device with X11 id '%1' added.").arg(data->deviceid);
+                qCDebug(KDED) << QString::fromLatin1("Wacom tablet device with X11 id '%1' added.").arg(data->deviceid);
                 emit tabletAdded(data->deviceid);
             }
         }

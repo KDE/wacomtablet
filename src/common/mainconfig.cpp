@@ -18,7 +18,6 @@
  */
 
 #include "mainconfig.h"
-#include "debug.h"
 
 #include <KSharedConfig>
 #include <KConfigGroup>

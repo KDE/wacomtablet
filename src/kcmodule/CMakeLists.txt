@@ -40,6 +40,12 @@ ki18n_wrap_ui( kcm_tablet_SRCS
                    touchpagewidget.ui
 )
 
+ecm_qt_declare_logging_category(
+    kcm_tablet_SRCS
+    HEADER "logging.h"
+    IDENTIFIER "KCM"
+    CATEGORY_NAME "org.kde.wacomtablet.kcm")
+
 add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
 add_library(kcm_wacomtablet MODULE ${kcm_tablet_SRCS})
 

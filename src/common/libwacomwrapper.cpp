@@ -19,7 +19,7 @@
 
 #include "libwacomwrapper.h"
 
-#include "debug.h"
+#include "logging.h"
 
 #include <memory>
 
@@ -59,7 +59,7 @@ libWacomWrapper::~libWacomWrapper()
 
 bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInformation &tabletInfo)
 {
-    dbgWacom << "LibWacom lookup for" << tabletId << vendorId;
+    qCDebug(COMMON) << "LibWacom lookup for" << tabletId << vendorId;
     auto errorDeleter = [](WacomError *&e){libwacom_error_free(&e);};
     std::unique_ptr<WacomError, decltype(errorDeleter)>
             error(libwacom_error_new(), errorDeleter);
@@ -67,7 +67,7 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
             device(libwacom_new_from_usbid(db, vendorId, tabletId, error.get()), &libwacom_destroy);
 
     if (!device) {
-        dbgWacom << "LibWacom lookup failed:" << libwacom_error_get_message(error.get());
+        qCInfo(COMMON) << "LibWacom lookup failed:" << libwacom_error_get_message(error.get());
         return false;
     }
 
@@ -76,7 +76,6 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
     const auto layoutFileName = libwacom_get_layout_filename(device.get());
     if (layoutFileName) {
         tabletInfo.set(TabletInfo::ButtonLayout, QString::fromLatin1(layoutFileName));
-        dbgWacom << "Found layout:" << QString::fromLatin1(layoutFileName);
     }
 
     // Seems like there is no model or vendor names in libwacom
@@ -100,8 +99,8 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
         QMap<QString, QString> buttonMapping;
         for (char i = 1; i < padButtonNumber + 1; i++) {
 #ifdef LIBWACOM_EVDEV_MISSING
-            dbgWacom << "Your libwacom version is too old. We will try and guess button mapping, "
-                     << "but it's going to be broken for quirky tablets. Use kde_wacomtablet_finder instead.";
+            qCWarning(COMMON) << "Your libwacom version is too old. We will try and guess button mapping, "
+                              << "but it's going to be broken for quirky tablets. Use kde_wacomtablet_finder instead.";
             const int buttonIndex = skipWheelButtons(i);
             buttonMapping[QString::number(i)] = QString::number(buttonIndex);
 #else
@@ -111,9 +110,9 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
             buttonMapping[QString::number(i)] = QString::number(buttonIndex);
 
             if (buttonIndex < 1) {
-                errWacom << "Unrecognized evdev code. "
-                         << "Device:" << tabletId << "Vendor:" << vendorId
-                         << "Button:" << buttonChar << "EvdevCode:" << buttonEvdevCode;
+                qCWarning(COMMON) << "Unrecognized evdev code. "
+                                  << "Device:" << tabletId << "Vendor:" << vendorId
+                                  << "Button:" << buttonChar << "EvdevCode:" << buttonEvdevCode;
                 return false;
             }
 #endif

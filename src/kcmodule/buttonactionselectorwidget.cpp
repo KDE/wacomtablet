@@ -17,8 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h" // always needs to be the first include
-
 #include "buttonactionselectorwidget.h"
 #include "ui_buttonactionselectorwidget.h"
 

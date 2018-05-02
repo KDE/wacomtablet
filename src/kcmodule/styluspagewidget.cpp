@@ -17,8 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h" // always needs to be first include
-
 #include "styluspagewidget.h"
 #include "ui_styluspagewidget.h"
 
@@ -179,7 +177,7 @@ const QString StylusPageWidget::getButtonShortcut(const Property& button) const
     } else if (button == Property::Button3) {
         shortcut = d->ui->button3ActionSelector->getShortcut();
     } else {
-        errWacom << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
+        qCWarning(KCM) << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
     }
 
     return shortcut.toString();
@@ -192,12 +190,10 @@ const QString StylusPageWidget::getPressureCurve(const DeviceType& type) const
 
     if (type == DeviceType::Stylus) {
         return d->ui->tipPressureButton->property( "curve" ).toString();
-
     } else if (type == DeviceType::Eraser) {
         return d->ui->eraserPressureButton->property( "curve" ).toString();
-
     } else {
-        errWacom << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+        qCWarning(KCM) << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
     }
 
     return QString();
@@ -210,12 +206,10 @@ const QString StylusPageWidget::getPressureFeel(const DeviceType& type) const
 
     if (type == DeviceType::Stylus) {
         return QString::number(d->ui->tipSlider->value());
-
     } else if (type == DeviceType::Eraser) {
         return QString::number(d->ui->eraserSlider->value());
-
     } else {
-        errWacom << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
+        qCWarning(KCM) << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
     }
 
     return QString();
@@ -235,15 +229,12 @@ void StylusPageWidget::setButtonShortcut(const Property& button, const QString& 
 
     if (button == Property::Button1) {
         d->ui->button1ActionSelector->setShortcut(ButtonShortcut(shortcut));
-
     } else if (button == Property::Button2) {
         d->ui->button2ActionSelector->setShortcut(ButtonShortcut(shortcut));
-
     } else if (button == Property::Button3) {
         d->ui->button3ActionSelector->setShortcut(ButtonShortcut(shortcut));
-
     } else {
-        errWacom << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
+        qCWarning(KCM) << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
     }
 }
 
@@ -254,12 +245,10 @@ void StylusPageWidget::setPressureCurve(const DeviceType& type, const QString& v
 
     if (type == DeviceType::Stylus) {
         d->ui->tipPressureButton->setProperty( "curve", value );
-
     } else if (type == DeviceType::Eraser) {
         d->ui->eraserPressureButton->setProperty( "curve", value );
-
     } else {
-        errWacom << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
+        qCWarning(KCM) << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
     }
 }
 
@@ -270,12 +259,10 @@ void StylusPageWidget::setPressureFeel(const DeviceType& type, const QString& va
 
     if (type == DeviceType::Stylus) {
         d->ui->tipSlider->setValue(value.toInt());
-
     } else if (type == DeviceType::Eraser) {
         d->ui->eraserSlider->setValue(value.toInt());
-
     } else {
-        errWacom << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
+        qCWarning(KCM) << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
     }
 }
 

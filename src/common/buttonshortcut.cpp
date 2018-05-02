@@ -17,9 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// this include always needs to be the first one!
-#include "debug.h"
-
 #include "buttonshortcut.h"
 
 #include <QRegExp>
@@ -92,11 +89,11 @@ namespace Wacom {
     class ButtonShortcutPrivate {
         public:
             ButtonShortcutPrivate() {
-                type   = ButtonShortcut::NONE;
+                type   = ButtonShortcut::ShortcutType::NONE;
                 button = 0;
             }
 
-            ButtonShortcut::ShortcutType type;     //!< The shortcut type.
+            ButtonShortcut::ShortcutType type;
             QString                      sequence; //!< The key or modifier sequence.
             int                          button;   //!< The button number.
     };
@@ -178,7 +175,7 @@ void ButtonShortcut::clear()
 {
     Q_D ( ButtonShortcut );
 
-    d->type   = ButtonShortcut::NONE;
+    d->type   = ShortcutType::NONE;
     d->button = 0;
     d->sequence.clear();
 }
@@ -200,25 +197,25 @@ ButtonShortcut::ShortcutType ButtonShortcut::getType() const
 
 bool ButtonShortcut::isButton() const
 {
-    return (getType() == BUTTON);
+    return (getType() == ShortcutType::BUTTON);
 }
 
 
 bool ButtonShortcut::isKeystroke() const
 {
-    return (getType() == KEYSTROKE);
+    return (getType() == ShortcutType::KEYSTROKE);
 }
 
 
 bool ButtonShortcut::isModifier() const
 {
-    return (getType() == MODIFIER);
+    return (getType() == ShortcutType::MODIFIER);
 }
 
 
 bool ButtonShortcut::isSet() const
 {
-    return (getType() != NONE);
+    return (getType() != ShortcutType::NONE);
 }
 
 
@@ -229,7 +226,7 @@ bool ButtonShortcut::setButton(int buttonNumber)
     clear();
 
     if (buttonNumber > 0 && buttonNumber <= 32) {
-        d->type   = ButtonShortcut::BUTTON;
+        d->type   = ShortcutType::BUTTON;
         d->button = buttonNumber;
         return true;
     }
@@ -274,7 +271,7 @@ const QString ButtonShortcut::toDisplayString() const
     int                          buttonNr = getButton();
 
     switch (d->type) {
-        case BUTTON:
+        case ShortcutType::BUTTON:
             if (buttonNr == 1) {
                 displayString = i18nc("Tablet button triggers a left mouse button click.", "Left Mouse Button Click");
             } else if (buttonNr == 2) {
@@ -290,12 +287,12 @@ const QString ButtonShortcut::toDisplayString() const
             }
             break;
 
-        case MODIFIER:
+        case ShortcutType::MODIFIER:
             displayString = d->sequence;
             convertKeySequenceToQKeySequenceFormat(displayString);
             break;
 
-        case KEYSTROKE:
+        case ShortcutType::KEYSTROKE:
             displayString = d->sequence;
             convertKeySequenceToQKeySequenceFormat(displayString);
 
@@ -307,11 +304,8 @@ const QString ButtonShortcut::toDisplayString() const
             }
             break;
 
-        case NONE:
+        case ShortcutType::NONE:
             break;
-
-        default:
-            dbgWacom << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
     }
 
     return displayString;
@@ -324,7 +318,7 @@ const QString ButtonShortcut::toQKeySequenceString() const
 
     QString keySequence;
 
-    if (d->type == KEYSTROKE) {
+    if (d->type == ShortcutType::KEYSTROKE) {
         keySequence = d->sequence;
         convertKeySequenceToQKeySequenceFormat(keySequence);
     }
@@ -341,20 +335,17 @@ const QString ButtonShortcut::toString() const
 
     switch (d->type) {
 
-        case BUTTON:
+        case ShortcutType::BUTTON:
             shortcutString = QString::number(d->button);
             break;
 
-        case MODIFIER:
-        case KEYSTROKE:
+        case ShortcutType::MODIFIER:
+        case ShortcutType::KEYSTROKE:
             shortcutString = QString::fromLatin1("key %2").arg(d->sequence);
             break;
 
-        case NONE:
+        case ShortcutType::NONE:
             break;
-
-        default:
-            dbgWacom << QString::fromLatin1("INTERNAL ERROR: Invalid type '%1' detected in ButtonShortcut!").arg(d->type);
     }
 
     return shortcutString.toLower();
@@ -539,7 +530,7 @@ bool ButtonShortcut::setKeySequence(QString sequence)
         return false;
     }
 
-    d->type     = ButtonShortcut::KEYSTROKE;
+    d->type     = ShortcutType::KEYSTROKE;
     d->sequence = sequence;
 
     return true;
@@ -553,7 +544,7 @@ bool ButtonShortcut::setModifierSequence(QString sequence)
     clear();
     convertKeySequenceToStorageFormat(sequence);
 
-    d->type     = ButtonShortcut::MODIFIER;
+    d->type     = ShortcutType::MODIFIER;
     d->sequence = sequence;
 
     return true;

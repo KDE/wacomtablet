@@ -19,7 +19,7 @@
 
 #include "tabletfinder.h"
 
-#include "debug.h"
+#include "logging.h"
 #include "tabletdatabase.h"
 #include "x11tabletfinder.h"
 #include "libwacomwrapper.h"
@@ -89,7 +89,7 @@ bool TabletFinder::scan()
                 continue;
             }
 
-            dbgWacom << QString::fromLatin1("Tablet '%1' (%2) found.").arg(iter->get(TabletInfo::TabletName)).arg(iter->get(TabletInfo::TabletId));
+            qCDebug(KDED) << QString::fromLatin1("Tablet '%1' (%2) found.").arg(iter->get(TabletInfo::TabletName)).arg(iter->get(TabletInfo::TabletId));
 
             // emit tablet added signal
             emit tabletAdded(*iter);
@@ -111,7 +111,7 @@ void TabletFinder::onX11TabletAdded(int deviceId)
     for (int i = 0 ; i < d->tabletList.size() ; ++i) {
         if (d->tabletList.at(i).hasDevice(deviceId)) {
             // we already know this tablet
-            errWacom << "X11 id:" << deviceId << "already added to Tablet" << d->tabletList.at(i).getDeviceName(DeviceType::Pad);
+            qCWarning(KDED) << "X11 id:" << deviceId << "already added to Tablet" << d->tabletList.at(i).getDeviceName(DeviceType::Pad);
             return;
         }
     }
@@ -120,7 +120,7 @@ void TabletFinder::onX11TabletAdded(int deviceId)
     X11TabletFinder x11TabletFinder;
 
     if (!x11TabletFinder.scanDevices()) {
-        errWacom << "Could not find Wacom device with X11 id:" << deviceId;
+        qCWarning(KDED) << "Could not find Wacom device with X11 id:" << deviceId;
         return;
     }
 
@@ -136,7 +136,7 @@ void TabletFinder::onX11TabletAdded(int deviceId)
                 continue;
             }
 
-            dbgWacom << QString::fromLatin1("Tablet '%1' (%2) added.").arg(tabletInfo.get(TabletInfo::TabletName)).arg(tabletInfo.get(TabletInfo::TabletId));
+            qCDebug(KDED) << QString::fromLatin1("Tablet '%1' (%2) added.").arg(tabletInfo.get(TabletInfo::TabletName)).arg(tabletInfo.get(TabletInfo::TabletId));
 
             // add tablet to the list of known tablets and emit added signal
             d->tabletList.append(tabletInfo);
@@ -159,7 +159,7 @@ void TabletFinder::onX11TabletRemoved(int deviceId)
         if (iter->hasDevice(deviceId)) {
             TabletInformation info = *iter;
             d->tabletList.erase(iter);
-            dbgWacom << QString::fromLatin1("Removed tablet '%1' (%2).").arg(info.get(TabletInfo::TabletName)).arg(info.get(TabletInfo::TabletId));
+            qCDebug(KDED) << QString::fromLatin1("Removed tablet '%1' (%2).").arg(info.get(TabletInfo::TabletName)).arg(info.get(TabletInfo::TabletId));
             emit tabletRemoved(info);
             return;
         }
@@ -172,7 +172,7 @@ bool TabletFinder::lookupInformation(TabletInformation& info)
 {
     // lookup information from our local & system-wide tablet databases
     if (TabletDatabase::instance().lookupTablet(info.get (TabletInfo::TabletId), info)) {
-        dbgWacom << "Found in database: " << info.get(TabletInfo::TabletId);
+        qCDebug(KDED) << "Found in database: " << info.get(TabletInfo::TabletId);
         return true;
     }
 
@@ -180,10 +180,10 @@ bool TabletFinder::lookupInformation(TabletInformation& info)
     auto tabletId = info.get(TabletInfo::TabletId).toInt(nullptr, 16);
     auto vendorId = info.get(TabletInfo::CompanyId).toInt(nullptr, 16);
     if (libWacomWrapper::instance().lookupTabletInfo(tabletId, vendorId, info)) {
-        dbgWacom << "Found in libwacom: " << info.get(TabletInfo::TabletId);
+        qCDebug(KDED) << "Found in libwacom: " << info.get(TabletInfo::TabletId);
         return true;
     }
 
-    dbgWacom << QString::fromLatin1("Could not find tablet with id '%1' in database.").arg(info.get (TabletInfo::TabletId));
+    qCWarning(KDED) << QString::fromLatin1("Could not find tablet with id '%1' in database.").arg(info.get (TabletInfo::TabletId));
     return false;
 }

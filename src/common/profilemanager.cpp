@@ -18,7 +18,8 @@
  */
 
 #include "profilemanager.h"
-#include "debug.h"
+
+#include "logging.h"
 #include "tabletprofile.h"
 #include "tabletprofileconfigadaptor.h"
 
@@ -277,7 +278,7 @@ bool ProfileManager::readProfiles(const QString& tabletIdentifier, const QString
         // Check for old configuration group
         auto legacyGroup = KConfigGroup(d->config, legacyTabletId);
         if (legacyGroup.exists()) {
-            dbgWacom << "Copying legacy tablet config:" << legacyTabletId << "to" << tabletIdentifier;
+            qCInfo(COMMON) << "Copying legacy tablet config:" << legacyTabletId << "to" << tabletIdentifier;
             legacyGroup.copyTo(&d->tabletGroup);
         }
     }
@@ -340,7 +341,7 @@ bool ProfileManager::saveProfile(TabletProfile& tabletProfile)
     QString profileName = tabletProfile.getName();
 
     if (!isLoaded() || profileName.isEmpty()) {
-        errWacom << QString::fromLatin1("Can not save profile '%1' as it either does not have a name or no configuration file was opened!").arg(profileName);
+        qCWarning(COMMON) << QString::fromLatin1("Can not save profile '%1' as it either does not have a name or no configuration file was opened!").arg(profileName);
         return false;
     }
 

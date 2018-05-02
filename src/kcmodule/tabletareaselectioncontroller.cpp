@@ -17,9 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h" // always needs to be first include
-
 #include "tabletareaselectioncontroller.h"
+
 #include "tabletareaselectionview.h"
 #include "calibrationdialog.h"
 
@@ -160,7 +159,7 @@ void TabletAreaSelectionController::setupController(const ScreenMap& mappings,
     }
 
 
-    dbgWacom << "Calling setupScreens and setupTablet from setupController.  ScreenGeometries: " << d->screenGeometries;
+    qCDebug(KCM) << "Calling setupScreens and setupTablet from setupController.  ScreenGeometries: " << d->screenGeometries;
     d->view->setupScreens(d->screenGeometries, QSize(200,200));
     d->view->setupTablet(d->tabletGeometryRotated, QSize(400,400));
 

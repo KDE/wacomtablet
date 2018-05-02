@@ -38,7 +38,7 @@ class ButtonShortcut {
 public:
 
     //! The shortcut types supported by this class.
-    enum ShortcutType {
+    enum class ShortcutType {
         NONE          = 0,
         BUTTON        = 1,
         KEYSTROKE     = 2,

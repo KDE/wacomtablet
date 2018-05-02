@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "debug.h"
 #include "tabletdependenttest.h"
 #include "kded/x11tabletfinder.h"
 
@@ -60,7 +59,7 @@ void TabletDependentTest::findTablet()
 
 void TabletDependentTest::printTabletInformation(const TabletInformation& info) const
 {
-    errWacom << QString::fromLatin1(
+    qDebug() << QString::fromLatin1(
         "\n\n Tablet Information:"
         "\n  + Stylus Name   : %1"
         "\n  + Eraser Name   : %2"
@@ -91,11 +90,11 @@ void TabletDependentTest::printTabletInformation(const TabletInformation& info) 
 
         const DeviceInformation* deviceInfo = info.getDevice(deviceType);
 
-        if (deviceInfo == NULL) {
+        if (deviceInfo == nullptr) {
             continue;
         }
 
-        errWacom << QString::fromLatin1(
+        qDebug() << QString::fromLatin1(
             "\n\n Device '%1'"
             "\n  + Device Id   : %2"
             "\n  + Product Id  : %3"

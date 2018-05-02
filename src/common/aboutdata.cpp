@@ -18,7 +18,6 @@
  */
 
 #include "aboutdata.h"
-#include "debug.h"
 
 #include <KLocalizedString>
 

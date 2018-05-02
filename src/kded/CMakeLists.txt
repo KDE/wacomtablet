@@ -37,6 +37,12 @@ set(kded_wacomtablet_SRCS
     ../common/globalactions.cpp
 )
 
+ecm_qt_declare_logging_category(
+    kded_wacomtablet_SRCS
+    HEADER "logging.h"
+    IDENTIFIER "KDED"
+    CATEGORY_NAME "org.kde.wacomtablet.kded")
+
 ## dbus interfaces
 qt5_add_dbus_adaptor(kded_wacomtablet_SRCS org.kde.Wacom.xml dbustabletservice.h Wacom::DBusTabletService)
 

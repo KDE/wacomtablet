@@ -23,6 +23,7 @@
 #include <QString>
 
 #include "enum.h"
+#include "logging.h"
 
 namespace Wacom {
 
