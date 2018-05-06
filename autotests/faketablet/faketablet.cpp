@@ -24,8 +24,15 @@
 #include <csignal>
 #include <unistd.h>
 #include <fcntl.h>
-#include <linux/input.h>
-#include <linux/uinput.h>
+
+#if __FreeBSD__
+#  include <dev/evdev/input.h>
+#  include <dev/evdev/uinput.h>
+#else
+#  include <linux/input.h>
+#  include <linux/uinput.h>
+#endif
+
 
 // edit uidev.id.product to change tablet id
 
