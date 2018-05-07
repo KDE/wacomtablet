@@ -25,7 +25,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#if __FreeBSD__
+#ifdef __FreeBSD__
 #  include <dev/evdev/input.h>
 #  include <dev/evdev/uinput.h>
 #else

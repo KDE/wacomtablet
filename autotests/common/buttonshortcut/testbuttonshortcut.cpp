@@ -36,9 +36,16 @@ private slots:
     void testAssignment();
     void testButton();
     void testInvalidKeyStrokes();
+
     void testKeyStrokes();
+    void testKeyStrokes_data();
+
     void testModifier();
+    void testModifier_data();
+
     void testQKeySequences();
+    void testQKeySequences_data();
+
     void testEmpty();
 
 private:
@@ -247,141 +254,149 @@ void TestButtonShortcut::testInvalidKeyStrokes()
 
 void TestButtonShortcut::testKeyStrokes()
 {
-    // key is input, value is expected output value
-    QMap<QString, QString> inputMap;
-
-    inputMap.insert(QLatin1String("A"), QLatin1String("key a"));
-    inputMap.insert(QLatin1String("key A"), QLatin1String("key a"));
-    inputMap.insert(QLatin1String("key +A"), QLatin1String("key a"));
-
-    inputMap.insert(QLatin1String("Ctrl+X"), QLatin1String("key ctrl x"));
-    inputMap.insert(QLatin1String("Ctrl X"), QLatin1String("key ctrl x"));
-    inputMap.insert(QLatin1String("key Ctrl+X"), QLatin1String("key ctrl x"));
-    inputMap.insert(QLatin1String("key +Ctrl +X"), QLatin1String("key ctrl x"));
-    inputMap.insert(QLatin1String("key Ctrl X"), QLatin1String("key ctrl x"));
-    inputMap.insert(QLatin1String("key +Ctrl +X -X"), QLatin1String("key ctrl x"));
-    inputMap.insert(QLatin1String("key +Ctrl +X -x -a"), QLatin1String("key ctrl x"));
-
-    inputMap.insert(QLatin1String("Meta+X"), QLatin1String("key super x"));
-    inputMap.insert(QLatin1String("Meta X"), QLatin1String("key super x"));
-    inputMap.insert(QLatin1String("key Meta+X"), QLatin1String("key super x"));
-    inputMap.insert(QLatin1String("key +Meta +X"), QLatin1String("key super x"));
-    inputMap.insert(QLatin1String("key Meta X"), QLatin1String("key super x"));
-
-    inputMap.insert(QLatin1String("+"), QLatin1String("key plus"));
-    inputMap.insert(QLatin1String("Ctrl++"), QLatin1String("key ctrl plus"));
-    inputMap.insert(QLatin1String("key +"), QLatin1String("key plus"));
-    inputMap.insert(QLatin1String("key ++"), QLatin1String("key plus"));
-    inputMap.insert(QLatin1String("key Ctrl +"), QLatin1String("key ctrl plus"));
-    inputMap.insert(QLatin1String("key +Ctrl ++"), QLatin1String("key ctrl plus"));
-
-    inputMap.insert(QLatin1String("-"), QLatin1String("key minus"));
-    inputMap.insert(QLatin1String("Ctrl+-"), QLatin1String("key ctrl minus"));
-    inputMap.insert(QLatin1String("key -"), QLatin1String("key minus"));
-    inputMap.insert(QLatin1String("key +-"), QLatin1String("key minus"));
-    inputMap.insert(QLatin1String("key Ctrl -"), QLatin1String("key ctrl minus"));
-    inputMap.insert(QLatin1String("key +Ctrl +-"), QLatin1String("key ctrl minus"));
-
-
+    QFETCH(QString, input);
+    QFETCH(QString, expected_output);
     ButtonShortcut shortcut;
 
-    for (QMap<QString,QString>::iterator inputIter = inputMap.begin() ; inputIter != inputMap.end() ; ++inputIter) {
-        shortcut.set(inputIter.key());
-        assertKeyStroke(shortcut, inputIter.value(), false);
+    shortcut.set(input);
+    assertKeyStroke(shortcut, expected_output, false);
 
-        shortcut.clear();
-        assertUnset(shortcut);
+    shortcut.clear();
+    assertUnset(shortcut);
 
-        shortcut.set(inputIter.key().toLower());
-        assertKeyStroke(shortcut, inputIter.value().toLower(), false);
-    }
+    shortcut.set(input.toLower());
+    assertKeyStroke(shortcut, expected_output.toLower(), false);
+}
+
+void TestButtonShortcut::testKeyStrokes_data()
+{
+    QTest::addColumn<QString>("input");
+    QTest::addColumn<QString>("expected_output");
+
+    QTest::addRow("A") << "A" << "key a";
+    QTest::addRow("key A") << "key A" << "key a";
+    QTest::addRow("key +A") << "key +A" << "key a";
+
+    QTest::addRow("Ctrl+X") << "Ctrl+X" << "key ctrl x";
+    QTest::addRow("Ctrl X") << "Ctrl X" << "key ctrl x";
+    QTest::addRow("key Ctrl+X") << "key Ctrl+X" << "key ctrl x";
+    QTest::addRow("key +Ctrl +X") << "key +Ctrl +X" << "key ctrl x";
+    QTest::addRow("key Ctrl X") << "key Ctrl X" << "key ctrl x";
+    QTest::addRow("key +Ctrl +X -X") << "key +Ctrl +X -X" << "key ctrl x";
+    QTest::addRow("key +Ctrl +X -x -a") << "key +Ctrl +X -x -a" << "key ctrl x";
+
+    QTest::addRow("Meta+X") << "Meta+X" << "key super x";
+    QTest::addRow("Meta X") << "Meta X" << "key super x";
+    QTest::addRow("key Meta+X") << "key Meta+X" << "key super x";
+    QTest::addRow("key +Meta +X") << "key +Meta +X" << "key super x";
+    QTest::addRow("key Meta X") << "key Meta X" << "key super x";
+
+    QTest::addRow("+") << "+" << "key plus";
+    QTest::addRow("Ctrl++") << "Ctrl++" << "key ctrl plus";
+    QTest::addRow("key +") << "key +" << "key plus";
+    QTest::addRow("key ++") << "key ++" << "key plus";
+    QTest::addRow("key Ctrl +") << "key Ctrl +" << "key ctrl plus";
+    QTest::addRow("key +Ctrl ++") << "key +Ctrl ++" << "key ctrl plus";
+
+    QTest::addRow("-") << "-" << "key minus";
+    QTest::addRow("Ctrl+-") << "Ctrl+-" << "key ctrl minus";
+    QTest::addRow("key -") << "key -" << "key minus";
+    QTest::addRow("key +-") << "key +-" << "key minus";
+    QTest::addRow("key Ctrl -") << "key Ctrl -" << "key ctrl minus";
+    QTest::addRow("key +Ctrl +-") << "key +Ctrl +-" << "key ctrl minus";
 }
 
 
 void TestButtonShortcut::testModifier()
 {
-    // key is input, value is expected output value
-    QMap<QString, QString> inputMap;
-    inputMap.insert(QLatin1String("Ctrl+Alt+Shift+Super"), QLatin1String("key ctrl alt shift super"));
-    inputMap.insert(QLatin1String("Ctrl+Alt+Shift+Meta"), QLatin1String("key ctrl alt shift super"));
-    inputMap.insert(QLatin1String("Shift+Meta+Ctrl"), QLatin1String("key shift super ctrl"));
-    inputMap.insert(QLatin1String("Alt+Ctrl"), QLatin1String("key alt ctrl"));
-    inputMap.insert(QLatin1String("Shift"), QLatin1String("key shift"));
-    inputMap.insert(QLatin1String("Meta"), QLatin1String("key super"));
-    inputMap.insert(QLatin1String("Super"), QLatin1String("key super"));
-
-    inputMap.insert(QLatin1String("key Ctrl+Alt+Shift+Super"), QLatin1String("key ctrl alt shift super"));
-    inputMap.insert(QLatin1String("key Ctrl+Alt+Shift+Meta"), QLatin1String("key ctrl alt shift super"));
-    inputMap.insert(QLatin1String("key Shift+Meta+Ctrl"), QLatin1String("key shift super ctrl"));
-    inputMap.insert(QLatin1String("key Alt+Ctrl"), QLatin1String("key alt ctrl"));
-    inputMap.insert(QLatin1String("key Shift"), QLatin1String("key shift"));
-    inputMap.insert(QLatin1String("key Meta"), QLatin1String("key super"));
-    inputMap.insert(QLatin1String("key Super"), QLatin1String("key super"));
-
-    inputMap.insert(QLatin1String("key +Ctrl +Alt +Shift +Super"), QLatin1String("key ctrl alt shift super"));
-    inputMap.insert(QLatin1String("key +Ctrl +Alt +Shift +Meta"), QLatin1String("key ctrl alt shift super"));
-    inputMap.insert(QLatin1String("key +Shift +Meta +Ctrl"), QLatin1String("key shift super ctrl"));
-    inputMap.insert(QLatin1String("key +Alt +Ctrl"), QLatin1String("key alt ctrl"));
-    inputMap.insert(QLatin1String("key +Shift"), QLatin1String("key shift"));
-    inputMap.insert(QLatin1String("key +Meta"), QLatin1String("key super"));
-    inputMap.insert(QLatin1String("key +Super"), QLatin1String("key super"));
-
-    inputMap.insert(QLatin1String("Ctrl Alt Shift Super"), QLatin1String("key ctrl alt shift super"));
-    inputMap.insert(QLatin1String("Ctrl Alt Shift Meta"), QLatin1String("key ctrl alt shift super"));
-    inputMap.insert(QLatin1String("Shift Meta Ctrl"), QLatin1String("key shift super ctrl"));
-    inputMap.insert(QLatin1String("Alt Ctrl"), QLatin1String("key alt ctrl"));
-    inputMap.insert(QLatin1String("Shift"), QLatin1String("key shift"));
-    inputMap.insert(QLatin1String("Meta"), QLatin1String("key super"));
-    inputMap.insert(QLatin1String("Super"), QLatin1String("key super"));
-
+    QFETCH(QString, input);
+    QFETCH(QString, expected_output);
     ButtonShortcut shortcut;
 
-    for (QMap<QString,QString>::iterator inputIter = inputMap.begin() ; inputIter != inputMap.end() ; ++inputIter) {
-        shortcut.set(inputIter.key());
-        assertModifier(shortcut, inputIter.value());
+    shortcut.set(input);
+    assertModifier(shortcut, expected_output);
 
-        shortcut.clear();
-        assertUnset(shortcut);
+    shortcut.clear();
+    assertUnset(shortcut);
 
-        shortcut.set(inputIter.key().toLower());
-        assertModifier(shortcut, inputIter.value().toLower());
-    }
+    shortcut.set(input.toLower());
+    assertModifier(shortcut, expected_output.toLower());
 }
 
+void TestButtonShortcut::testModifier_data()
+{
+    QTest::addColumn<QString>("input");
+    QTest::addColumn<QString>("expected_output");
+
+    QTest::addRow("Ctrl+Alt+Shift+Super") << "Ctrl+Alt+Shift+Super" << "key ctrl alt shift super";
+    QTest::addRow("Ctrl+Alt+Shift+Meta") << "Ctrl+Alt+Shift+Meta" << "key ctrl alt shift super";
+    QTest::addRow("Shift+Meta+Ctrl") << "Shift+Meta+Ctrl" << "key shift super ctrl";
+    QTest::addRow("Alt+Ctrl") << "Alt+Ctrl" << "key alt ctrl";
+    QTest::addRow("Shift") << "Shift" << "key shift";
+    QTest::addRow("Meta") << "Meta" << "key super";
+    QTest::addRow("Super") << "Super" << "key super";
+
+    QTest::addRow("key Ctrl+Alt+Shift+Super") << "key Ctrl+Alt+Shift+Super" << "key ctrl alt shift super";
+    QTest::addRow("key Ctrl+Alt+Shift+Meta") << "key Ctrl+Alt+Shift+Meta" << "key ctrl alt shift super";
+    QTest::addRow("key Shift+Meta+Ctrl") << "key Shift+Meta+Ctrl" << "key shift super ctrl";
+    QTest::addRow("key Alt+Ctrl") << "key Alt+Ctrl" << "key alt ctrl";
+    QTest::addRow("key Shift") << "key Shift" << "key shift";
+    QTest::addRow("key Meta") << "key Meta" << "key super";
+    QTest::addRow("key Super") << "key Super" << "key super";
+
+    QTest::addRow("key +Ctrl +Alt +Shift +Super") << "key +Ctrl +Alt +Shift +Super" << "key ctrl alt shift super";
+    QTest::addRow("key +Ctrl +Alt +Shift +Meta") << "key +Ctrl +Alt +Shift +Meta" << "key ctrl alt shift super";
+    QTest::addRow("key +Shift +Meta +Ctrl") << "key +Shift +Meta +Ctrl" << "key shift super ctrl";
+    QTest::addRow("key +Alt +Ctrl") << "key +Alt +Ctrl" << "key alt ctrl";
+    QTest::addRow("key +Shift") << "key +Shift" << "key shift";
+    QTest::addRow("key +Meta") << "key +Meta" << "key super";
+    QTest::addRow("key +Super") << "key +Super" << "key super";
+
+    QTest::addRow("Ctrl Alt Shift Super") << "Ctrl Alt Shift Super" << "key ctrl alt shift super";
+    QTest::addRow("Ctrl Alt Shift Meta") << "Ctrl Alt Shift Meta" << "key ctrl alt shift super";
+    QTest::addRow("Shift Meta Ctrl") << "Shift Meta Ctrl" << "key shift super ctrl";
+    QTest::addRow("Alt Ctrl") << "Alt Ctrl" << "key alt ctrl";
+    QTest::addRow("Shift") << "Shift" << "key shift";
+    QTest::addRow("Meta") << "Meta" << "key super";
+    QTest::addRow("Super") << "Super" << "key super";
+}
 
 void TestButtonShortcut::testQKeySequences()
 {
-    // key is input, value is expected output value
-    QMap<QString, QString> inputMap;
-
-    inputMap.insert(QLatin1String("A"), QLatin1String("A"));
-    inputMap.insert(QLatin1String("key A"), QLatin1String("A"));
-    inputMap.insert(QLatin1String("key +A"), QLatin1String("A"));
-
-    inputMap.insert(QLatin1String("Ctrl+X"), QLatin1String("Ctrl+X"));
-    inputMap.insert(QLatin1String("Ctrl X"), QLatin1String("Ctrl+X"));
-    inputMap.insert(QLatin1String("key Ctrl+X"), QLatin1String("Ctrl+X"));
-    inputMap.insert(QLatin1String("key +Ctrl +X"), QLatin1String("Ctrl+X"));
-    inputMap.insert(QLatin1String("key Ctrl X"), QLatin1String("Ctrl+X"));
-
-    inputMap.insert(QLatin1String("Meta+X"), QLatin1String("Meta+X"));
-    inputMap.insert(QLatin1String("Meta X"), QLatin1String("Meta+X"));
-    inputMap.insert(QLatin1String("key Meta+X"), QLatin1String("Meta+X"));
-    inputMap.insert(QLatin1String("key +Meta +X"), QLatin1String("Meta+X"));
-    inputMap.insert(QLatin1String("key Meta X"), QLatin1String("Meta+X"));
-
+    QFETCH(QString, input);
+    QFETCH(QString, expected_output);
     ButtonShortcut shortcut;
 
-    for (QMap<QString,QString>::iterator inputIter = inputMap.begin() ; inputIter != inputMap.end() ; ++inputIter) {
-        shortcut.set(inputIter.key());
-        assertKeyStroke(shortcut, inputIter.value(), true);
+    shortcut.set(input);
+    assertKeyStroke(shortcut, expected_output, true);
 
-        shortcut.clear();
-        assertUnset(shortcut);
+    shortcut.clear();
+    assertUnset(shortcut);
 
-        shortcut.set(inputIter.key().toLower());
-        assertKeyStroke(shortcut, inputIter.value(), true);
-    }
+    shortcut.set(input.toLower());
+    assertKeyStroke(shortcut, expected_output, true);
+}
+
+void TestButtonShortcut::testQKeySequences_data()
+{
+    QTest::addColumn<QString>("input");
+    QTest::addColumn<QString>("expected_output");
+
+    QTest::addRow("A") << "A" << "A";
+    QTest::addRow("key A") << "key A" << "A";
+    QTest::addRow("key +A") << "key +A" << "A";
+
+    QTest::addRow("Ctrl+X") << "Ctrl+X" << "Ctrl+X";
+    QTest::addRow("Ctrl X") << "Ctrl X" << "Ctrl+X";
+    QTest::addRow("key Ctrl+X") << "key Ctrl+X" << "Ctrl+X";
+    QTest::addRow("key +Ctrl +X") << "key +Ctrl +X" << "Ctrl+X";
+    QTest::addRow("key Ctrl X") << "key Ctrl X" << "Ctrl+X";
+
+    QTest::addRow("Meta+X") << "Meta+X" << "Meta+X";
+    QTest::addRow("Meta X") << "Meta X" << "Meta+X";
+    QTest::addRow("key Meta+X") << "key Meta+X" << "Meta+X";
+    QTest::addRow("key +Meta +X") << "key +Meta +X" << "Meta+X";
+    QTest::addRow("key Meta X") << "key Meta X" << "Meta+X";
 }
 
 #include "testbuttonshortcut.moc"
