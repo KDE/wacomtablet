@@ -47,12 +47,12 @@ public:
     /**
      * @see EventNotifier::start()
      */
-    void start();
+    void start() final;
 
     /**
      * @see EventNotifier::stop()
      */
-    void stop();
+    void stop() final;
 
 
 protected:

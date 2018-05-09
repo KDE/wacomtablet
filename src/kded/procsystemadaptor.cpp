@@ -68,8 +68,6 @@ const QString ProcSystemAdaptor::getProperty(const Property& property) const
 
 bool ProcSystemAdaptor::setProperty(const Property& property, const QString& value)
 {
-    Q_D(const ProcSystemAdaptor);
-
     qCDebug(KDED) << QString::fromLatin1("Setting property '%1' to '%2'.").arg(property.key()).arg(value);
 
     // https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-driver-wacom

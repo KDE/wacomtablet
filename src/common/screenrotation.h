@@ -29,7 +29,7 @@ namespace Wacom
 {
 
 class ScreenRotation;
-class ScreenRotationTemplateSpecializationLessFunctor;
+struct ScreenRotationTemplateSpecializationLessFunctor;
 
 /**
  * @brief Helper Typedef! Do not use!

@@ -29,7 +29,7 @@ namespace Wacom {
 
 // forward declaration
 class TabletInfo;
-class TabletInfoTemplateSpecializationLessFunctor;
+struct TabletInfoTemplateSpecializationLessFunctor;
 
 /**
  * @brief Helper Typedef! Do not use!

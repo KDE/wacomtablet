@@ -29,7 +29,7 @@ namespace Wacom {
 
 // forward declaration
 class DeviceType;
-class DeviceTypeTemplateSpecializationLessFunctor;
+struct DeviceTypeTemplateSpecializationLessFunctor;
 
 /**
  * @brief Helper Typedef! Do not use!

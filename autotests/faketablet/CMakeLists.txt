@@ -1,6 +1,12 @@
 include(CheckTypeSize)
+include(CheckIncludeFile)
 
-set(CMAKE_EXTRA_INCLUDE_FILES linux/uinput.h dev/evdev/uinput.h)
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    set(CMAKE_EXTRA_INCLUDE_FILES "linux/uinput.h")
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+    set(CMAKE_EXTRA_INCLUDE_FILES "dev/evdev/uinput.h")
+endif()
+
 check_type_size("struct uinput_setup" STRUCT_UINPUT_SETUP)
 set(CMAKE_EXTRA_INCLUDE_FILES)
 
