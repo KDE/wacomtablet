@@ -45,13 +45,11 @@ namespace Wacom {
 
 X11InputDevice::X11InputDevice() : d_ptr(new X11InputDevicePrivate)
 {
-    Q_D(X11InputDevice);
+
 }
 
 X11InputDevice::X11InputDevice(XID id, const QString& name) : d_ptr(new X11InputDevicePrivate)
 {
-    Q_D(X11InputDevice);
-
     open(id, name);
 }
 
@@ -59,7 +57,6 @@ X11InputDevice::X11InputDevice(XID id, const QString& name) : d_ptr(new X11Input
 
 X11InputDevice::X11InputDevice(const X11InputDevice& device) : d_ptr(new X11InputDevicePrivate)
 {
-    Q_D(X11InputDevice);
     operator=(device);
 }
 
@@ -158,8 +155,6 @@ Display* X11InputDevice::getDisplay() const
 
 bool X11InputDevice::getFloatProperty(const QString& property, QList< float >& values, long int nelements) const
 {
-    Q_D(const X11InputDevice);
-
     if (!isOpen()) {
         return false;
     }
@@ -355,8 +350,6 @@ bool X11InputDevice::setFloatProperty(const QString& property, const QString& va
 
 bool X11InputDevice::setFloatProperty(const QString& property, const QList< float >& values) const
 {
-    Q_D(const X11InputDevice);
-
     if (!isOpen()) {
         return false;
     }
@@ -570,4 +563,3 @@ bool X11InputDevice::setProperty(const QString& property, Atom expectedType, con
 
     return true;
 }
-

@@ -75,7 +75,7 @@ public Q_SLOTS:
       * @param title   The notification title.
       * @param message The notification message.
       */
-    void onNotify(const QString& eventId, const QString& title, const QString& message);
+    void onNotify(const QString& eventId, const QString& title, const QString& message) const;
 
     /**
      * Called when the profile was changed.

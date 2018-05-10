@@ -59,7 +59,7 @@ kcoreaddons_desktop_to_json(kded_wacomtablet wacomtablet.desktop)
 install(TARGETS kded_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kded)
 install(FILES wacomtablet.notifyrc DESTINATION "${KNOTIFYRC_INSTALL_DIR}")
 install(FILES org.kde.Wacom.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR})
-
+install(FILES wacomtablet.categories DESTINATION ${KDE_INSTALL_CONFDIR})
 
 ## LIBRARY FOR UNIT TESTS
 if (BUILD_TESTING)

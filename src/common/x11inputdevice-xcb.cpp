@@ -160,8 +160,6 @@ long X11InputDevice::getDeviceId() const
 
 bool X11InputDevice::getFloatProperty(const QString& property, QList< float >& values, long int nelements) const
 {
-    Q_D(const X11InputDevice);
-
     if (!isOpen()) {
         return false;
     }
@@ -370,8 +368,6 @@ bool X11InputDevice::setFloatProperty(const QString& property, const QString& va
 
 bool X11InputDevice::setFloatProperty(const QString& property, const QList< float >& values) const
 {
-    Q_D(const X11InputDevice);
-
     if (!isOpen()) {
         return false;
     }
@@ -516,8 +512,6 @@ xcb_input_get_device_property_reply_t* X11InputDevice::getPropertyData (const QS
 
 bool X11InputDevice::lookupProperty(const QString& property, X11InputDevice::Atom &atom) const
 {
-    Q_D(const X11InputDevice);
-
     if (!isOpen() || property.isEmpty()) {
         return false;
     }
