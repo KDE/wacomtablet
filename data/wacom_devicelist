@@ -1498,6 +1498,7 @@ model=PTH-651
 layout=bl_4
 name=Wacom Intuos Pro M
 padbuttons=9
+statusleds=4
 wheel=no
 touchring=yes
 touchstripl=no

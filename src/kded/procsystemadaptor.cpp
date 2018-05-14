@@ -71,25 +71,28 @@ bool ProcSystemAdaptor::setProperty(const Property& property, const QString& val
     qCDebug(KDED) << QString::fromLatin1("Setting property '%1' to '%2'.").arg(property.key()).arg(value);
 
     // https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-driver-wacom
-    /* /sys/bus/usb/devices/<busnum>-<devnum>:<cfg>.<intf>/wacom_led/status_led0_select
-       Writing to this file sets which one of the four (for Intuos 4
-       and Intuos 5) or of the right four (for Cintiq 21UX2 and Cintiq
-       24HD) status LEDs is active (0..3). The other three LEDs on the
-       same side are always inactive.
+    /* /sys/bus/hid/devices/<bus>:<vid>:<pid>.<n>/wacom_led/status0_luminance
+        <obsoleted by the LED class API now exported by the driver>
+        Writing to this file sets the status LED luminance (1..127)
+        when the stylus does not touch the tablet surface, and no
+        button is pressed on the stylus. This luminance level is
+        normally lower than the level when a button is pressed.
     */
-    /* /sys/bus/usb/devices/<busnum>-<devnum>:<cfg>.<intf>/wacom_led/status_led1_select
-       Writing to this file sets which one of the left four (for Cintiq 21UX2
-       and Cintiq 24HD) status LEDs is active (0..3). The other three LEDs on
-       the left are always inactive.
+    /* /sys/bus/hid/devices/<bus>:<vid>:<pid>.<n>/wacom_led/status1_luminance
+        <obsoleted by the LED class API now exported by the driver>
+        Writing to this file sets the status LED luminance (1..127)
+        when the stylus touches the tablet surface, or any button is
+        pressed on the stylus.
     */
+    // https://www.kernel.org/doc/Documentation/leds/leds-class.txt
     int statusLed = value.toInt();
     QString cmd;
     if(statusLed < 4 && statusLed >= 0) {
-        cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/usb/devices/*/wacom_led/status_led0_select\"").arg(statusLed);
+        cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status_led0_select\"").arg(statusLed);
     }
     else if(statusLed < 8 && statusLed >= 4) {
         statusLed -= 4;
-        cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/usb/devices/*/wacom_led/status_led1_select\"").arg(statusLed);
+        cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status_led1_select\"").arg(statusLed);
     }
     else {
         return false;
