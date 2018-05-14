@@ -50,6 +50,8 @@ public:
 
     void setStatusLED(int led);
 
+    void setStatusLEDBrightness(int brightness);
+
     bool setProperty(const DeviceType& type, const Property& property, const QString& value);
 
 

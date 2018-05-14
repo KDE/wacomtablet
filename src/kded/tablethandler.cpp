@@ -500,6 +500,7 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
     // check profile rotation values and LEDs
     profileManager->updateCurrentProfileNumber(currentProfile);
     d->tabletBackendList.value(tabletId)->setStatusLED( profileManager->profileNumber( currentProfile ));
+    d->tabletBackendList.value(tabletId)->setStatusLEDBrightness( 32 ); // TODO: Read the brightness from the settings. Add support to the kcmodule GUI for that.
 
     emit profileChanged( tabletId, currentProfile );
 }

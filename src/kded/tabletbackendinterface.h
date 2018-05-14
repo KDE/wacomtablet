@@ -94,6 +94,13 @@ public:
     virtual void setStatusLED(int led) = 0;
 
     /**
+     * Set the status LED brightness for the Intuos4/5 and Cintiq tablets
+     *
+     * @param brightness brightness gets a value of 0 or 128(off), 32 or 160(low), 64 or 192(mid), 96 or 224(high)
+     */
+    virtual void setStatusLEDBrightness(int brightness) = 0;
+
+    /**
      * Sets a property on a device.
      *
      * @param type     The device to set the property on.

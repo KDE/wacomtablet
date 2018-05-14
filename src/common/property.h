@@ -257,9 +257,11 @@ public:
      *
      * We use it to switch profiles and show which of the profiles is activated.
      * In the TabletDatabase the number of LEDs must be specified.
-     * They will be used via the proc system
+     * They will be used via the sys filesystem. The leds also support four
+     * brightness levels: off, min, mid, high
      */
     static const Property StatusLEDs;
+    static const Property StatusLEDsBrightness;
 
     /**
      * The action to which left/right strip up/down should be mapped.

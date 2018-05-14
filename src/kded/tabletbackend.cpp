@@ -166,6 +166,14 @@ void TabletBackend::setStatusLED(int led)
     }
 }
 
+void TabletBackend::setStatusLEDBrightness(int brightness)
+{
+    Q_D(TabletBackend);
+    if (d->tabletInformation.statusLEDs() > 0) {
+        d_ptr->statusLEDAdaptor->setProperty(Property::StatusLEDsBrightness, QString::number(brightness));
+    }
+}
+
 bool TabletBackend::setProperty(const DeviceType& type, const Property& property, const QString& value)
 {
     Q_D(TabletBackend);

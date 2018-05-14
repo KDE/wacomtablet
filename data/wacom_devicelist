@@ -1518,6 +1518,7 @@ model=PTH-851
 layout=bl_4
 name=Wacom Intuos Pro L
 padbuttons=9
+statusleds=4
 wheel=no
 touchring=yes
 touchstripl=no

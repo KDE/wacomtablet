@@ -85,17 +85,34 @@ bool ProcSystemAdaptor::setProperty(const Property& property, const QString& val
         pressed on the stylus.
     */
     // https://www.kernel.org/doc/Documentation/leds/leds-class.txt
-    int statusLed = value.toInt();
+
     QString cmd;
-    if(statusLed < 4 && statusLed >= 0) {
-        cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status_led0_select\"").arg(statusLed);
-    }
-    else if(statusLed < 8 && statusLed >= 4) {
-        statusLed -= 4;
-        cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status_led1_select\"").arg(statusLed);
-    }
-    else {
-        return false;
+    if (property == Property::StatusLEDs) {
+        int statusLed = value.toInt();
+        if(statusLed < 4 && statusLed >= 0) {
+            cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status_led0_select\"").arg(statusLed);
+        }
+        else if(statusLed < 8 && statusLed >= 4) {
+            statusLed -= 4;
+            cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status_led1_select\"").arg(statusLed);
+        }
+        else {
+            return false;
+        }
+    } else if (property == Property::StatusLEDsBrightness) {
+        int statusLedBrightness = value.toInt();
+        if(statusLedBrightness < 128 && statusLedBrightness >= 0) {
+            cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status0_luminance\"").arg(statusLedBrightness);
+        }
+        else if(statusLedBrightness < 256 && statusLedBrightness >= 128) {
+            statusLedBrightness -= 128;
+            cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status1_luminance\"").arg(statusLedBrightness);
+        }
+        else {
+            return false;
+        }
+    } else {
+        qCWarning(KDED) << "Unknown Property: " << property.key();
     }
 
     int ret = QProcess::execute(cmd);

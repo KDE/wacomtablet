@@ -74,6 +74,11 @@ public:
     void setStatusLED(int led);
 
     /**
+     * @see TabletBackendInterface::setStatusLEDBrightness(int brightness)
+     */
+    void setStatusLEDBrightness(int brightness);
+
+    /**
      * @see TabletBackendInterface::setProperty(const DeviceType&, const Property&, const QString&)
      */
     bool setProperty(const DeviceType& type, const Property& property, const QString& value);

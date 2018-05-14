@@ -32,7 +32,7 @@ TabletInfoTemplateSpecialization::Container TabletInfoTemplateSpecialization::in
 
 
 /*
- * Instanciate Properties.
+ * Instantiate Properties.
  */
 const TabletInfo TabletInfo::ButtonLayout       ( QLatin1String("ButtonLayout") );
 const TabletInfo TabletInfo::CompanyId          ( QLatin1String("CompanyId") );

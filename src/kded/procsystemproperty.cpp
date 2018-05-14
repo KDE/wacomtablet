@@ -29,3 +29,4 @@ ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Con
 // SOME PROPERTIES NEED TO BE SET BEFORE OTHERS!
 //
 const ProcSystemProperty ProcSystemProperty::StatusLEDs              ( Property::StatusLEDs,              QLatin1String("Status LEDs for Intuos4/5 and Cintiq") );
+const ProcSystemProperty ProcSystemProperty::StatusLEDsBrightness              ( Property::StatusLEDsBrightness,              QLatin1String("Status LED Brighness for Intuos4/5 and Cintiq") );

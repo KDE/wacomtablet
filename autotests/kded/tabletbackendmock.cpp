@@ -93,6 +93,10 @@ void TabletBackendMock::setStatusLED(int led) {
     Q_UNUSED(led)
 }
 
+void TabletBackendMock::setStatusLEDBrightness(int brightness) {
+    // doing nothing right now
+    Q_UNUSED(brightness)
+}
 
 bool TabletBackendMock::setProperty(const DeviceType& type, const Property& property, const QString& value)
 {

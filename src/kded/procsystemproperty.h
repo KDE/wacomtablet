@@ -39,6 +39,7 @@ class ProcSystemProperty : public ProcSystemPropertyTemplateSpecialization
 
 public:
     static const ProcSystemProperty StatusLEDs;
+    static const ProcSystemProperty StatusLEDsBrightness;
 
 private:
     ProcSystemProperty(const Property& id, const QString& key) : ProcSystemPropertyTemplateSpecialization(this, id, key) {}

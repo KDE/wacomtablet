@@ -76,6 +76,7 @@ const Property Property::ScreenMap        ( QLatin1String("ScreenMap") );
 const Property Property::ScreenSpace      ( QLatin1String("ScreenSpace") );
 const Property Property::ScrollDistance   ( QLatin1String("ScrollDistance") );
 const Property Property::StatusLEDs       ( QLatin1String("StatusLEDs") );
+const Property Property::StatusLEDsBrightness       ( QLatin1String("StatusLEDsBrightness") );
 const Property Property::StripLeftDown    ( QLatin1String("StripLeftDown") );
 const Property Property::StripLeftUp      ( QLatin1String("StripLeftUp") );
 const Property Property::StripRightDown   ( QLatin1String("StripRightDown") );
