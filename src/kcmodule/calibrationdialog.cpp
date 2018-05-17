@@ -130,24 +130,26 @@ void CalibrationDialog::calculateNewArea()
     qreal tabletScreenRatioWidth = m_originaltabletArea.width() / size().width();
     qreal tabletScreenRatioHeight = m_originaltabletArea.height() / size().height();
 
-    qreal clickedX = ( m_topLeft.x() + m_bottomLeft.x() ) / 2;
-    qreal newX = ( clickedX - frameGap - boxwidth / 2 ) * tabletScreenRatioWidth;
+    const qreal clickedX = ( m_topLeft.x() + m_bottomLeft.x() ) / 2;
+    const qreal clickedXadjusted = clickedX - frameGap - boxwidth / 2;
+    const qreal newX = m_originaltabletArea.x() + clickedXadjusted * tabletScreenRatioWidth;
 
-    qreal clickedY = ( m_topLeft.y() + m_topRight.y() ) / 2;
-    qreal newY = ( clickedY - frameGap - boxwidth / 2 - frameoffset ) * tabletScreenRatioHeight;
+    const qreal clickedY = ( m_topLeft.y() + m_topRight.y() ) / 2;
+    const qreal clickedYadjusted = clickedY - frameGap - boxwidth / 2;
+    const qreal newY = m_originaltabletArea.y() + clickedYadjusted * tabletScreenRatioHeight;
 
-    qreal clickedWidth = ( m_topRight.x() + m_bottomRight.x() ) / 2;
-    qreal newWidth = ( clickedWidth + frameGap + boxwidth / 2 ) * tabletScreenRatioWidth;
+    const qreal clickedXright = ( m_topRight.x() + m_bottomRight.x() ) / 2;
+    const qreal newWidth = ( clickedXright + frameGap + boxwidth / 2 ) * tabletScreenRatioWidth;
 
-    qreal clickedHeight = ( m_bottomRight.y() + m_bottomLeft.y() ) / 2;
-    qreal newHeight = ( clickedHeight + frameGap + boxwidth / 2 + frameoffset ) * tabletScreenRatioHeight;
+    const qreal clickedYbottom = ( m_bottomRight.y() + m_bottomLeft.y() ) / 2;
+    const qreal newHeight = ( clickedYbottom + frameGap + boxwidth / 2 + frameoffset ) * tabletScreenRatioHeight;
 
     m_newtabletArea.setX( newX );
     m_newtabletArea.setY( newY );
-    m_newtabletArea.setWidth( newWidth );
-    m_newtabletArea.setHeight( newHeight );
+    m_newtabletArea.setRight( newWidth );
+    m_newtabletArea.setBottom( newHeight );
 
     qCDebug(KCM) << "Calibration debug:" << frameGeometry() << size() << m_originaltabletArea << m_topLeft << m_bottomLeft << m_topRight << m_bottomRight;
-    qCDebug(KCM) << "Calibration debug:" << frameoffset << tabletScreenRatioWidth << tabletScreenRatioHeight << clickedX << clickedY << clickedWidth << clickedHeight;
+    qCDebug(KCM) << "Calibration debug:" << frameoffset << tabletScreenRatioWidth << tabletScreenRatioHeight << clickedX << clickedY << clickedXright << clickedYbottom;
     qCDebug(KCM) << "Calibration debug:" << m_newtabletArea;
 }

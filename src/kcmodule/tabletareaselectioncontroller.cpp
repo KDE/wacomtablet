@@ -19,6 +19,7 @@
 
 #include "tabletareaselectioncontroller.h"
 
+#include "logging.h"
 #include "tabletareaselectionview.h"
 #include "calibrationdialog.h"
 
@@ -229,8 +230,8 @@ void TabletAreaSelectionController::onSetScreenProportions()
     }
 
     // calculate x and y to center the selection
-    int newX = (int)((tabletGeometry.width() - newWidth) / 2.);
-    int newY = (int)((tabletGeometry.height() - newHeight) / 2.);
+    int newX = tabletGeometry.x() + (int)((tabletGeometry.width() - newWidth) / 2.);
+    int newY = tabletGeometry.y() + (int)((tabletGeometry.height() - newHeight) / 2.);
 
     setSelection(TabletArea(QRect(newX, newY, qRound(newWidth), qRound(newHeight))));
 }
