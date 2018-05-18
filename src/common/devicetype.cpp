@@ -43,5 +43,4 @@ const DeviceType DeviceType::Eraser ( QLatin1String("eraser") );
 const DeviceType DeviceType::Pad    ( QLatin1String("pad") );
 const DeviceType DeviceType::Stylus ( QLatin1String("stylus") );
 const DeviceType DeviceType::Touch  ( QLatin1String("touch") );
-
-
+const DeviceType DeviceType::Unknown( QLatin1String("unknown") );

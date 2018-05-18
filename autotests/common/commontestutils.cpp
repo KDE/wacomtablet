@@ -123,7 +123,7 @@ void CommonTestUtils::setValues(DeviceProfile& profile)
         profile.setProperty(property.id(), property.id().key());
     }
 
-    if (profile.getDeviceType().isEmpty()) {
+    if (profile.getDeviceType() == DeviceType::Unknown) {
         profile.setDeviceType(DeviceType::Pad);
     }
 }

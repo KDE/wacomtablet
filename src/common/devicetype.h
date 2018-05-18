@@ -78,7 +78,11 @@ public:
     static const DeviceType Pad;
     static const DeviceType Stylus;
     static const DeviceType Touch;
-
+    /*
+     * TODO: Unknown is an erroneous state and eventually should be removed
+     * but currently in use in tests a lot due to uninitialized DeviceProfiles
+     */
+    static const DeviceType Unknown;
 
 private:
     /**

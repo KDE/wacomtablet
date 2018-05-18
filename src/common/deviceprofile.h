@@ -70,10 +70,7 @@ public:
      */
     const QString getButton(int number) const;
 
-    /**
-     * Gets the device type this profile represents as string.
-     */
-    const QString getDeviceType() const;
+    Wacom::DeviceType getDeviceType() const;
     
     /**
      * Gets the name of this device profile.

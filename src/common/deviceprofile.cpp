@@ -32,12 +32,13 @@ namespace Wacom {
   *
   */
 class DeviceProfilePrivate {
-public:
-    QString                 deviceType;
+public:    
+    DeviceType deviceType = DeviceType::Unknown;
+    QString deviceTypeName;
 
     /**
      * Stores most of the configuration properties. In the future
-     * more and more properties might get switched to real member 
+     * more and more properties might get switched to real member
      * variables but for now this is the most convenient way.
      */
     QHash<QString, QString> config;
@@ -47,7 +48,8 @@ public:
 DeviceProfile::DeviceProfile() : PropertyAdaptor(nullptr), d_ptr(new DeviceProfilePrivate) { }
 
 DeviceProfile::DeviceProfile(const DeviceType& type)
-    : PropertyAdaptor(nullptr), d_ptr(new DeviceProfilePrivate)
+    : PropertyAdaptor(nullptr)
+    , d_ptr(new DeviceProfilePrivate)
 {
     setDeviceType(type);
 }
@@ -69,6 +71,7 @@ DeviceProfile& DeviceProfile::operator= ( const DeviceProfile& that )
 {
     Q_D( DeviceProfile );
 
+    d->deviceTypeName = that.d_ptr->deviceTypeName;
     d->deviceType = that.d_ptr->deviceType;
     d->config = that.d_ptr->config;
 
@@ -123,11 +126,10 @@ const QString DeviceProfile::getButton(int number) const
     return QString();
 }
 
-
-
-const QString DeviceProfile::getDeviceType() const
+DeviceType DeviceProfile::getDeviceType() const
 {
-    return getName();
+    Q_D(const DeviceProfile);
+    return d->deviceType;
 }
 
 
@@ -135,7 +137,7 @@ const QString DeviceProfile::getDeviceType() const
 const QString& DeviceProfile::getName() const
 {
     Q_D( const DeviceProfile );
-    return d->deviceType;
+    return d->deviceTypeName;
 }
 
 
@@ -224,7 +226,8 @@ bool DeviceProfile::setButton(int number, const QString& shortcut)
 void DeviceProfile::setDeviceType(const DeviceType& type)
 {
     Q_D( DeviceProfile );
-    d->deviceType = type.key();
+    d->deviceType = type;
+    d->deviceTypeName = type.key();
 }
 
 

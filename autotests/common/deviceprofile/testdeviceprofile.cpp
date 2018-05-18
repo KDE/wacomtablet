@@ -47,7 +47,7 @@ void TestDeviceProfile::testConstructor()
     QVERIFY (profile1.getName().isEmpty());
 
     DeviceProfile profile2(DeviceType::Stylus);
-    QCOMPARE (profile2.getDeviceType(), DeviceType::Stylus.key());
+    QCOMPARE (profile2.getDeviceType(), DeviceType::Stylus);
     QCOMPARE (profile2.getName(),       DeviceType::Stylus.key());
 }
 
