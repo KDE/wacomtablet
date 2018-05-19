@@ -36,6 +36,34 @@
 
 using namespace Wacom;
 
+void setupDefaultPad(DeviceProfile &pad) {
+    pad.setProperty(Property::AbsWheelUp, QLatin1String("4"));
+    pad.setProperty(Property::AbsWheelDown, QLatin1String("5"));
+}
+
+void setupDefaultStylus(DeviceProfile &stylus) {
+    stylus.setProperty(Property::Button1, QLatin1String("1"));
+    stylus.setProperty(Property::Button2, QLatin1String("2"));
+    stylus.setProperty(Property::Button3, QLatin1String("3"));
+    stylus.setProperty(Property::Mode, QLatin1String("absolute"));
+    stylus.setProperty(Property::PressureCurve, QLatin1String("0 0 100 100"));
+    stylus.setProperty(Property::RawSample, QLatin1String("4"));
+    stylus.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
+    stylus.setProperty(Property::Suppress, QLatin1String("2"));
+    stylus.setProperty(Property::Threshold, QLatin1String("27"));
+}
+
+void setupDefaultTouch(DeviceProfile &touch) {
+    touch.setProperty(Property::Gesture, QLatin1String("on"));
+    touch.setProperty(Property::InvertScroll, QLatin1String("off"));
+    touch.setProperty(Property::Mode, QLatin1String("absolute"));
+    touch.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
+    touch.setProperty(Property::ScrollDistance, QLatin1String("20"));
+    touch.setProperty(Property::TapTime, QLatin1String("250"));
+    touch.setProperty(Property::Touch, QLatin1String("on"));
+    touch.setProperty(Property::ZoomDistance, QLatin1String("50"));
+}
+
 ProfileManagement::ProfileManagement()
     : m_profileManager(QLatin1String("tabletprofilesrc"))
 {
@@ -85,61 +113,40 @@ void ProfileManagement::createNewProfile( const QString &profilename )
 
     m_profileManager.readProfiles(m_deviceName);
     TabletProfile tabletProfile = m_profileManager.loadProfile(profilename);
-    DeviceProfile padDevice     = tabletProfile.getDevice(DeviceType::Pad);
 
-    padDevice.setProperty(Property::AbsWheelUp, QLatin1String("4"));
-    padDevice.setProperty(Property::AbsWheelDown, QLatin1String("5"));
-
-    tabletProfile.setDevice(padDevice);
-
-
+    DeviceProfile padDevice    = tabletProfile.getDevice(DeviceType::Pad);
     DeviceProfile stylusDevice = tabletProfile.getDevice(DeviceType::Stylus);
-
-    stylusDevice.setProperty(Property::Button1, QLatin1String("1"));
-    stylusDevice.setProperty(Property::Button2, QLatin1String("2"));
-    stylusDevice.setProperty(Property::Button3, QLatin1String("3"));
-    stylusDevice.setProperty(Property::Mode, QLatin1String("absolute"));
-    stylusDevice.setProperty(Property::PressureCurve, QLatin1String("0 0 100 100"));
-    stylusDevice.setProperty(Property::RawSample, QLatin1String("4"));
-    stylusDevice.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
-    stylusDevice.setProperty(Property::Suppress, QLatin1String("2"));
-    stylusDevice.setProperty(Property::Threshold, QLatin1String("27"));
-
-    tabletProfile.setDevice(stylusDevice);
-
-
     DeviceProfile eraserDevice = tabletProfile.getDevice(DeviceType::Eraser);
 
-    eraserDevice.setProperty(Property::Button1, QLatin1String("1"));
-    eraserDevice.setProperty(Property::Button2, QLatin1String("2"));
-    eraserDevice.setProperty(Property::Button3, QLatin1String("3"));
-    eraserDevice.setProperty(Property::Mode, QLatin1String("absolute"));
-    eraserDevice.setProperty(Property::PressureCurve, QLatin1String("0 0 100 100"));
-    eraserDevice.setProperty(Property::RawSample, QLatin1String("4"));
-    eraserDevice.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
-    eraserDevice.setProperty(Property::Threshold, QLatin1String("27"));
-    eraserDevice.setProperty(Property::Suppress, QLatin1String("2"));
+    setupDefaultPad(padDevice);
+    setupDefaultStylus(stylusDevice);
+    setupDefaultStylus(eraserDevice);
 
+    tabletProfile.setDevice(padDevice);
+    tabletProfile.setDevice(stylusDevice);
     tabletProfile.setDevice(eraserDevice);
-
 
     // also add section for the touch if we have a touch tool
     if (m_hasTouch) {
         DeviceProfile touchDevice = tabletProfile.getDevice(DeviceType::Touch);
-
-        touchDevice.setProperty(Property::Gesture, QLatin1String("on"));
-        touchDevice.setProperty(Property::InvertScroll, QLatin1String("off"));
-        touchDevice.setProperty(Property::Mode, QLatin1String("absolute"));
-        touchDevice.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
-        touchDevice.setProperty(Property::ScrollDistance, QLatin1String("20"));
-        touchDevice.setProperty(Property::TapTime, QLatin1String("250"));
-        touchDevice.setProperty(Property::Touch, QLatin1String("on"));
-        touchDevice.setProperty(Property::ZoomDistance, QLatin1String("50"));
-
+        setupDefaultTouch(touchDevice);
         tabletProfile.setDevice(touchDevice);
     }
 
     m_profileManager.saveProfile(tabletProfile);
+
+    // FIXME: workaround for devices with a separate touch sensor USB ID
+    // Correct way to solve this is probably rewrite this whole class or comepletely get rid of it
+    if (!m_sensorId.isEmpty()) {
+        m_profileManager.readProfiles(m_sensorId);
+        TabletProfile childTabletProfile = m_profileManager.loadProfile(profilename);
+        DeviceProfile touchDevice = childTabletProfile.getDevice(DeviceType::Touch);
+        setupDefaultTouch(touchDevice);
+        childTabletProfile.setDevice(touchDevice);
+        m_profileManager.saveProfile(childTabletProfile);
+    }
+
+    m_profileManager.readProfiles(m_deviceName);
 }
 
 const QStringList ProfileManagement::availableProfiles()
@@ -153,6 +160,11 @@ void ProfileManagement::deleteProfile()
     m_profileManager.readProfiles(m_deviceName);
     m_profileManager.deleteProfile(m_profileName);
 
+    if (!m_sensorId.isEmpty()) {
+        m_profileManager.readProfiles(m_sensorId);
+        m_profileManager.deleteProfile(m_profileName);
+    }
+
     m_profileName.clear();
     m_profileManager.reload();
 
@@ -164,17 +176,23 @@ void ProfileManagement::deleteProfile()
 
 DeviceProfile ProfileManagement::loadDeviceProfile(const DeviceType& device)
 {
-    m_profileManager.readProfiles(m_deviceName);
+    if (m_sensorId.isEmpty() || device != DeviceType::Touch) {
+        m_profileManager.readProfiles(m_deviceName);
+    } else {
+        m_profileManager.readProfiles(m_sensorId);
+    }
+
     return m_profileManager.loadProfile(m_profileName).getDevice(device);
 }
 
 
 bool ProfileManagement::saveDeviceProfile(const DeviceProfile& profile)
 {
-    if (!m_profileManager.readProfiles(m_deviceName)) {
-        return false;
+    if (m_sensorId.isEmpty() || profile.getDeviceType() != DeviceType::Touch) {
+        m_profileManager.readProfiles(m_deviceName);
+    } else {
+        m_profileManager.readProfiles(m_sensorId);
     }
-
     TabletProfile tabletProfile = m_profileManager.loadProfile(m_profileName);
     tabletProfile.setDevice(profile);
 
@@ -206,6 +224,13 @@ void ProfileManagement::reload()
     }
 
     m_deviceName = QString::fromLatin1("%1:%2").arg(m_vendorId).arg(m_tabletId);
+
+    auto touchSensorId = DBusTabletInterface::instance().getTouchSensorId(m_tabletId);
+    m_sensorId = touchSensorId.value();
+    if (touchSensorId.isValid() && !m_sensorId.isEmpty()) {
+        m_sensorId = QString::fromLatin1("%1:%2").arg(m_vendorId).arg(m_sensorId);
+        qCInfo(COMMON) << "Multi-device touch" << m_sensorId;
+    }
 
     auto touchName = DBusTabletInterface::instance().getDeviceName(m_tabletId, DeviceType::Touch.key());
     touchName.waitForFinished();

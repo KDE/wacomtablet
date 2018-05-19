@@ -184,6 +184,28 @@ public Q_SLOTS:
       */
     Q_SCRIPTABLE void setProfileRotationList(const QString &tabletId, const QStringList &rotationList);
 
+    /**
+     * @brief Get touch sensor device USB ID
+     *
+     * Some tablets report devices with multiple USB IDs (e.g. Cintiq Companion Hybrid)
+     * Primary device (usually the one containing stylus sensor) should have this set
+     * to the USB ID of the corresponding secondary device (touch sensor)
+     *
+     * @param tabletId of the device to check
+     * @return tabletId of the touch device
+     */
+    Q_SCRIPTABLE QString getTouchSensorId(const QString &tabletId);
+
+    /**
+     * @brief Reports if this device is a secondary touch sensor
+     *
+     * Touch sensor devices shouldn't be visible in the KCM
+     *
+     * @param tabletId of the device to check
+     * @return true if it's a touch sensor
+     */
+    Q_SCRIPTABLE bool isTouchSensor(const QString &tabletId);
+
 // d-bus signals
 Q_SIGNALS:
 

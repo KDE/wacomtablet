@@ -20,6 +20,12 @@
             <arg type="s" direction="out"/>
         </method>
 
+        <method name="getTouchSensorId">
+            <arg type="s" name="tabletId" direction="in"/>
+            <arg type="s" direction="out"/>
+        </method>
+
+
         <!-- method name="getInformation">
             <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="Wacom::TabletInformation"/>
             <arg type="(sssssssssssbb)" direction="out"/>
@@ -44,6 +50,11 @@
         </method>
 
         <method name="hasPadButtons">
+            <arg type="s" name="tabletId" direction="in"/>
+            <arg type="b" direction="out"/>
+        </method>
+
+        <method name="isTouchSensor">
             <arg type="s" name="tabletId" direction="in"/>
             <arg type="b" direction="out"/>
         </method>

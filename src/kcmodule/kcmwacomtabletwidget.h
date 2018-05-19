@@ -178,6 +178,8 @@ private:
 
     void showTabletFinder();
 
+    void addTabletToSelector(const QString &tabletId);
+
     Q_DECLARE_PRIVATE( KCMWacomTabletWidget )
     KCMWacomTabletWidgetPrivate *const d_ptr; /**< d-pointer for this class */
 

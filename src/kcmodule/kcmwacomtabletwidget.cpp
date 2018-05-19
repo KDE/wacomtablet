@@ -142,11 +142,7 @@ void KCMWacomTabletWidget::loadTabletInformation()
 
     d->ui.tabletListSelector->blockSignals(true);
     foreach(const QString &tabletId, connectedTablets.value()) {
-        QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
-        QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
-        qCDebug(KCM) << "Adding tablet" << deviceName << tabletId << "with" << inputDevices.value();
-
-        d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
+        addTabletToSelector(tabletId);
     }
     d->ui.tabletListSelector->blockSignals(false);
 }
@@ -177,13 +173,7 @@ void KCMWacomTabletWidget::showHideConfig()
 
 void KCMWacomTabletWidget::onTabletAdded(const QString &tabletId)
 {
-    Q_D( KCMWacomTabletWidget );
-
-    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
-    QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
-    qCDebug(KCM) << "Adding tablet" << deviceName << tabletId << "with" << inputDevices.value();
-
-    d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
+    addTabletToSelector(tabletId);
 }
 
 void KCMWacomTabletWidget::onTabletRemoved(const QString &tabletId)
@@ -391,7 +381,18 @@ void KCMWacomTabletWidget::showConfig()
     d->stylusPage.setTabletId(tabletId);
     d->buttonPage.setTabletId(tabletId);
     d->tabletPage.setTabletId(tabletId);
-    d->touchPage.setTabletId(tabletId);
+
+    QDBusReply<QString> touchDeviceName = DBusTabletInterface::instance().getDeviceName(tabletId, DeviceType::Touch.key());
+    QDBusReply<QString> touchSensorId   = DBusTabletInterface::instance().getTouchSensorId(tabletId);
+
+    const bool hasBuiltInTouch = (touchDeviceName.isValid() && !touchDeviceName.value().isEmpty());
+    const bool hasPairedTouch  = (touchSensorId.isValid() && !touchSensorId.value().isEmpty());
+
+    if (hasPairedTouch) {
+        d->touchPage.setTabletId(touchSensorId.value());
+    } else {
+        d->touchPage.setTabletId(tabletId);
+    }
 
     d->generalPage.reloadWidget();
     d->stylusPage.reloadWidget();
@@ -435,10 +436,7 @@ void KCMWacomTabletWidget::showConfig()
 
     d->ui.deviceTabWidget->addTab( &(d->tabletPage), i18n ("Tablet") );
 
-    QDBusReply<QString> touchDeviceName = DBusTabletInterface::instance().getDeviceName(tabletId, DeviceType::Touch.key());
-    bool                hasTouchDevice  = (touchDeviceName.isValid() && !touchDeviceName.value().isEmpty());
-
-    if (hasTouchDevice) {
+    if (hasBuiltInTouch || hasPairedTouch) {
         d->ui.deviceTabWidget->addTab( &(d->touchPage), i18n ("Touch") );
     }
 
@@ -495,4 +493,21 @@ void KCMWacomTabletWidget::showTabletFinder()
         QString err = i18n("Failed to launch Wacom tablet finder tool. Check your installation.");
         QMessageBox::warning(QApplication::activeWindow(), QApplication::applicationName(), err);
     }
+}
+
+void KCMWacomTabletWidget::addTabletToSelector(const QString &tabletId)
+{
+    Q_D( KCMWacomTabletWidget );
+
+    QDBusReply<QString> deviceName = DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key());
+    QDBusReply<QStringList> inputDevices = DBusTabletInterface::instance().getDeviceList(tabletId);
+    QDBusReply<bool> isTouchSensor = DBusTabletInterface::instance().isTouchSensor(tabletId);
+    if (isTouchSensor.isValid() && isTouchSensor.value()) {
+        qCDebug(KCM) << "Ignoring tablet" << deviceName << tabletId << "because it's a touch sensor";
+        return;
+    }
+
+    qCDebug(KCM) << "Adding tablet" << deviceName << tabletId << "with" << inputDevices.value();
+
+    d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
 }

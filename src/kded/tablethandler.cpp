@@ -427,7 +427,7 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
 {
     Q_D( TabletHandler );
 
-    qCDebug(KDED) << QString::fromLatin1("Loading tablet profile '%1'...").arg(profile);
+    qCDebug(KDED) << QString::fromLatin1("Loading tablet profile '%1' for device '%2'...").arg(profile).arg(tabletId);
 
     if (!hasTablet(tabletId)) {
         qCWarning(KDED) << QString::fromLatin1("Can not set tablet profile to '%1' as no backend is available!").arg(profile);
@@ -454,8 +454,10 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
 
         if(pList.isEmpty()) {
             // create a new default profile
+            const QString vendorId = tabletInformation.get(TabletInfo::CompanyId);
+            const QString deviceName = QString::fromLatin1("%1:%2").arg(vendorId).arg(tabletId);
             ProfileManagement* profileManagement =
-                &ProfileManagement::instance(tabletId,
+                &ProfileManagement::instance(deviceName,
                                              tabletInformation.hasDevice(DeviceType::Touch));
             profileManagement->createNewProfile(i18nc( "Name of the default profile that will be created if none exists.","Default" ));
 
@@ -503,6 +505,12 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
     d->tabletBackendList.value(tabletId)->setStatusLEDBrightness( 32 ); // TODO: Read the brightness from the settings. Add support to the kcmodule GUI for that.
 
     emit profileChanged( tabletId, currentProfile );
+
+    QString touchSensorId = tabletInformation.get(TabletInfo::TouchSensorId);
+    // TODO: check if for some reason someone will make an infinitely nested tablets
+    if (!touchSensorId.isEmpty() && touchSensorId != tabletId) {
+        setProfile(touchSensorId, profile);
+    }
 }
 
 

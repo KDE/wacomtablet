@@ -47,4 +47,5 @@ const TabletInfo TabletInfo::TabletId           ( QLatin1String("TabletId") );
 const TabletInfo TabletInfo::TabletModel        ( QLatin1String("TabletModel") );
 const TabletInfo TabletInfo::TabletName         ( QLatin1String("TabletName") );
 const TabletInfo TabletInfo::TabletSerial       ( QLatin1String("TabletSerial") );
-
+const TabletInfo TabletInfo::TouchSensorId      ( QLatin1String("TouchSensorId") );
+const TabletInfo TabletInfo::IsTouchSensor      ( QLatin1String("IsTouchSensor") );

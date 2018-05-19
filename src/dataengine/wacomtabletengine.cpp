@@ -82,6 +82,11 @@ void WacomTabletEngine::onTabletAdded(const QString& tabletId)
         return;
     }
 
+    QDBusReply<bool> isTouchSensor = DBusTabletInterface::instance().isTouchSensor(tabletId);
+    if (isTouchSensor.isValid() && isTouchSensor.value()) {
+        return;
+    }
+
     QList<QDBusPendingCall> callList;
 
     callList << DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key())

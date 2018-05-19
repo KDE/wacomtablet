@@ -1256,7 +1256,7 @@ touchstripr=yes
 [00F8]
 model=unknown
 layout=unknown
-name=Wacom Cintiq 22HD touch
+name=Wacom Cintiq 24HD touch
 padbuttons=16
 wheel=no
 touchring=yes
@@ -1278,6 +1278,12 @@ hwbutton13=18
 hwbutton14=14
 hwbutton15=19
 hwbutton16=20
+touchsensorid=00f6
+
+[00F6]
+model=unknown
+name=Wacom Cintiq 24HD touch (touch sensor)
+istouchsensor=yes
 
 [00FA]
 model=dtk-2200
@@ -1442,25 +1448,13 @@ hwbutton6=10
 hwbutton7=13
 hwbutton8=8
 hwbutton9=9
+touchsensorid=0309
 
 [0309]
 model=DTH-A1300
 layout=unknown
-name=Wacom Cintiq Hybrid 13HD
-padbuttons=9
-wheel=no
-touchring=no
-touchstripl=no
-touchstripr=no
-hwbutton1=2
-hwbutton2=3
-hwbutton3=1
-hwbutton4=11
-hwbutton5=12
-hwbutton6=10
-hwbutton7=13
-hwbutton8=8
-hwbutton9=9
+name=Wacom Cintiq Hybrid 13HD (touch sensor)
+istouchsensor=yes
 
 [030E]
 model=CTH-480

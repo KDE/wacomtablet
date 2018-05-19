@@ -216,6 +216,18 @@ void DBusTabletService::setProfileRotationList(const QString &tabletId, const QS
     d->tabletHandler->setProfileRotationList(tabletId, rotationList);
 }
 
+QString DBusTabletService::getTouchSensorId(const QString &tabletId)
+{
+    Q_D(DBusTabletService);
+    return d->tabletInformationList.value(tabletId).get(TabletInfo::TouchSensorId);
+}
+
+bool DBusTabletService::isTouchSensor(const QString &tabletId)
+{
+    Q_D(DBusTabletService);
+    return d->tabletInformationList.value(tabletId).getBool(TabletInfo::IsTouchSensor);
+}
+
 void DBusTabletService::onProfileChanged(const QString &tabletId, const QString& profile)
 {
     Q_D ( DBusTabletService );

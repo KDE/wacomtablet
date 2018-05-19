@@ -82,6 +82,8 @@ public:
     static const TabletInfo TabletModel;        //!< The tablet model.
     static const TabletInfo TabletName;         //!< The name of the tablet.
     static const TabletInfo TabletSerial;       //!< The tablet serial id as reported by the wacom driver.
+    static const TabletInfo TouchSensorId;      // parent device stores touch sensor id here
+    static const TabletInfo IsTouchSensor;      // slave touch device is marked by this and is hidden from the KCM
 
 
 private:

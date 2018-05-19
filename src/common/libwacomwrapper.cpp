@@ -99,8 +99,10 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
         QMap<QString, QString> buttonMapping;
         for (char i = 1; i < padButtonNumber + 1; i++) {
 #ifdef LIBWACOM_EVDEV_MISSING
+            // TODO: warn the user in the KCM too
             qCWarning(COMMON) << "Your libwacom version is too old. We will try and guess button mapping, "
-                              << "but it's going to be broken for quirky tablets. Use kde_wacomtablet_finder instead.";
+                              << "but it's going to be broken for quirky tablets. Paired device detection is going to be broken as well."
+                              << "Use kde_wacomtablet_finder to configure your device instead.";
             const int buttonIndex = skipWheelButtons(i);
             buttonMapping[QString::number(i)] = QString::number(buttonIndex);
 #else
@@ -119,6 +121,18 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
         }
         tabletInfo.setButtonMap(buttonMapping);
     }
+
+#ifndef LIBWACOM_EVDEV_MISSING
+    const WacomMatch* paired_device_match = libwacom_get_paired_device(device.get());
+    if (paired_device_match) {
+        const std::uint32_t pairedTabletId = libwacom_match_get_product_id(paired_device_match);
+        const std::uint32_t pairedVendorId = libwacom_match_get_vendor_id(paired_device_match);
+        const auto pairedDeviceID = QString::number(pairedTabletId, 16);
+        tabletInfo.set(TabletInfo::TouchSensorId, pairedDeviceID);
+
+        qCDebug(COMMON) << "Libwacom reported a paired device" << pairedTabletId << pairedVendorId << pairedDeviceID;
+    }
+#endif
 
     const int numStrips = libwacom_get_num_strips(device.get());
     const bool hasLeftStrip = numStrips > 0;
