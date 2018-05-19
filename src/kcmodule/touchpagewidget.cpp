@@ -138,6 +138,7 @@ void TouchPageWidget::saveToProfile()
     touchProfile.setProperty  ( Property::InvertScroll,     getScrollInversion() );
     touchProfile.setProperty  ( Property::ZoomDistance,     getZoomDistance() );
     touchProfile.setProperty  ( Property::TapTime,          getTapTime() );
+    touchProfile.setProperty  ( Property::Rotate,           d->tabletRotation.key() );
 
     profileManagement->saveDeviceProfile(touchProfile);
 }
