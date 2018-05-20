@@ -135,14 +135,14 @@ void TabletDaemon::setupActions()
         d->actionCollection->setConfigGlobal(true);
     }
 
-    connect( d->actionCollection.get(), SIGNAL(toggleTouchTriggered()), &(d->tabletHandler), SLOT(onToggleTouch()) );
-    connect( d->actionCollection.get(), SIGNAL(toggleStylusTriggered()), &(d->tabletHandler), SLOT(onTogglePenMode()) );
-    connect( d->actionCollection.get(), SIGNAL(toggleScreenMapTriggered()), &(d->tabletHandler), SLOT(onToggleScreenMapping()) );
-    connect( d->actionCollection.get(), SIGNAL(mapToFullScreenTriggered()), &(d->tabletHandler), SLOT(onMapToFullScreen()) );
-    connect( d->actionCollection.get(), SIGNAL(mapToScreen1Triggered()), &(d->tabletHandler), SLOT(onMapToScreen1()) );
-    connect( d->actionCollection.get(), SIGNAL(mapToScreen2Triggered()), &(d->tabletHandler), SLOT(onMapToScreen2()) );
-    connect( d->actionCollection.get(), SIGNAL(nextProfileTriggered()), &(d->tabletHandler), SLOT(onNextProfile()) );
-    connect( d->actionCollection.get(), SIGNAL(previousProfileTriggered()), &(d->tabletHandler), SLOT(onPreviousProfile()) );
+    connect(d->actionCollection.get(), &GlobalActions::toggleTouchTriggered, &(d->tabletHandler), &TabletHandler::onToggleTouch, Qt::UniqueConnection);
+    connect(d->actionCollection.get(), &GlobalActions::toggleStylusTriggered, &(d->tabletHandler), &TabletHandler::onTogglePenMode, Qt::UniqueConnection);
+    connect(d->actionCollection.get(), &GlobalActions::toggleScreenMapTriggered, &(d->tabletHandler), &TabletHandler::onToggleScreenMapping, Qt::UniqueConnection);
+    connect(d->actionCollection.get(), &GlobalActions::mapToFullScreenTriggered, &(d->tabletHandler), &TabletHandler::onMapToFullScreen, Qt::UniqueConnection);
+    connect(d->actionCollection.get(), &GlobalActions::mapToScreen1Triggered, &(d->tabletHandler), &TabletHandler::onMapToScreen1, Qt::UniqueConnection);
+    connect(d->actionCollection.get(), &GlobalActions::mapToScreen2Triggered, &(d->tabletHandler), &TabletHandler::onMapToScreen2, Qt::UniqueConnection);
+    connect(d->actionCollection.get(), &GlobalActions::nextProfileTriggered, &(d->tabletHandler), &TabletHandler::onNextProfile, Qt::UniqueConnection);
+    connect(d->actionCollection.get(), &GlobalActions::previousProfileTriggered, &(d->tabletHandler), &TabletHandler::onPreviousProfile, Qt::UniqueConnection);
 }
 
 
