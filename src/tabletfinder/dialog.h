@@ -61,6 +61,11 @@ private slots:
     void onExpressKeyNumbersChanged(int buttons);
     void buttonBoxClicked(QAbstractButton *button);
 
+    void onPairedIdChanged(int index);
+    void onNormalTabletSet(bool enabled);
+    void onParentTabletSet(bool enabled);
+    void onTouchSensorSet(bool enabled);
+
     /**
      * @brief Open the dialog that allows the user to detect hardware key mappings
      */
@@ -70,23 +75,27 @@ private:
     bool validIndex();
     void showHWButtonMap();
 
-    Ui::Dialog *m_ui;
+    Ui::Dialog *m_ui = nullptr;
 
     struct Tablet {
-        int serialID;
+        int serialID = 0;
         QString company;
         QString name;
-        QString layout;
-        QString model;
+        QString layout = QString::fromLatin1("unknown");
+        QString model = QString::fromLatin1("unknown");
         QStringList devices;
-        bool hasWheel;
-        bool hasTouchRing;
-        bool hasTouchStripLeft;
-        bool hasTouchStripRight;
-        bool hasStatusLEDsLeft;
-        bool hasStatusLEDsRight;
-        int buttonNumber;
+        bool hasWheel = false;
+        bool hasTouchRing = false;
+        bool hasTouchStripLeft = false;
+        bool hasTouchStripRight = false;
+        bool hasStatusLEDsLeft = false;
+        bool hasStatusLEDsRight = false;
+        int buttonNumber = 0;
         QList<unsigned int> hwMapping;
+
+        QString pairedID;
+        bool hasPairedID = false;
+        bool isTouchSensor = false;
     };
 
     void saveTabletInfo(const Tablet &t);

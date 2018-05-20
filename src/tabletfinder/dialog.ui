@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>580</width>
-    <height>447</height>
+    <height>613</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -147,6 +147,13 @@
           </property>
          </widget>
         </item>
+        <item row="7" column="0">
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </spacer>
+        </item>
        </layout>
       </widget>
      </item>
@@ -207,6 +214,46 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>Touch sensor</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QRadioButton" name="radioNormalTablet">
+        <property name="text">
+         <string>&amp;Normal tablet</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QRadioButton" name="radioParentTablet">
+          <property name="text">
+           <string>&amp;Multi-device tablet, pen sensor. Touch sensor is:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboTouchSensor"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioTouchSensor">
+        <property name="text">
+         <string>Multi-&amp;device tablet, touch sensor</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <spacer name="verticalSpacer">

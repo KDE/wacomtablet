@@ -67,7 +67,13 @@ Dialog::Dialog(QWidget *parent)
     connect(m_ui->mapButtons, SIGNAL(clicked()),
             SLOT(onMapButtons()));
 
-    m_ui->mapButtons->setEnabled( false );
+    connect(m_ui->comboTouchSensor, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+            this, &Dialog::onPairedIdChanged);
+    connect(m_ui->radioNormalTablet, &QRadioButton::toggled, this, &Dialog::onNormalTabletSet);
+    connect(m_ui->radioParentTablet, &QRadioButton::toggled, this, &Dialog::onParentTabletSet);
+    connect(m_ui->radioTouchSensor,  &QRadioButton::toggled, this, &Dialog::onTouchSensorSet);
+
+    m_ui->mapButtons->setEnabled(false);
 
     refreshTabletList();
 }
@@ -80,7 +86,11 @@ Dialog::~Dialog()
 void Dialog::refreshTabletList()
 {
     m_ui->listTablets->blockSignals(true);
+    m_ui->comboTouchSensor->blockSignals(true);
+
     m_ui->listTablets->clear();
+    m_ui->comboTouchSensor->clear();
+
     m_tabletList.clear();
 
     // fetch all connected tablets
@@ -193,26 +203,27 @@ void Dialog::refreshTabletList()
                 }
             }
 
-        }
-        else {
-            t.buttonNumber = 0;
-            t.hasStatusLEDsLeft = false;
-            t.hasStatusLEDsRight = false;
-            t.hasTouchRing = false;
-            t.hasTouchStripLeft = false;
-            t.hasTouchStripRight = false;
-            t.hasWheel = false;
-            t.model = QLatin1String("unknown");
-            t.layout = QLatin1String("unknown");
+            auto pairedID = ti.get(TabletInfo::TouchSensorId);
+            if (pairedID.isEmpty()) {
+                t.hasPairedID = false;
+            } else {
+                t.hasPairedID = true;
+                t.pairedID = pairedID;
+            }
+            t.isTouchSensor = ti.getBool(TabletInfo::IsTouchSensor);
         }
 
         m_tabletList.append(t);
 
         m_ui->listTablets->addItem(t.name);
+        m_ui->comboTouchSensor->addItem(t.name);
     }
 
     m_ui->listTablets->setCurrentIndex(0);
     m_ui->listTablets->blockSignals(false);
+    m_ui->comboTouchSensor->setCurrentIndex(0);
+    m_ui->comboTouchSensor->blockSignals(false);
+
     changeTabletSelection(0);
 }
 
@@ -247,6 +258,20 @@ void Dialog::changeTabletSelection(int index)
     m_ui->hasTouchStripRight->setChecked(t.hasTouchStripRight);
     m_ui->hasWheel->setChecked(t.hasWheel);
     m_ui->expressKeyNumbers->setValue(t.buttonNumber);
+    m_ui->radioNormalTablet->setChecked(!t.isTouchSensor && !t.hasPairedID);
+    m_ui->radioTouchSensor->setChecked(t.isTouchSensor);
+    m_ui->radioParentTablet->setChecked(t.hasPairedID);
+    m_ui->comboTouchSensor->setEnabled(t.hasPairedID);
+
+    int tabletIndex = 0;
+    for (const auto &tablet : m_tabletList) {
+        if (QString::fromLatin1("%1").arg(tablet.serialID, 4, 16, QChar::fromLatin1('0')) == t.pairedID) {
+            m_ui->comboTouchSensor->setCurrentIndex(tabletIndex);
+            break;
+        }
+        ++tabletIndex;
+    }
+
     showHWButtonMap();
 }
 
@@ -362,6 +387,48 @@ void Dialog::buttonBoxClicked(QAbstractButton *button)
     }
 }
 
+void Dialog::onPairedIdChanged(int index)
+{
+    Tablet t = m_tabletList.at(m_ui->listTablets->currentIndex());
+    t.pairedID = QString::fromLatin1("%1").arg(m_tabletList.at(index).serialID, 4, 16, QChar::fromLatin1('0'));
+    m_tabletList.replace(m_ui->listTablets->currentIndex(), t);
+}
+
+void Dialog::onNormalTabletSet(bool enabled)
+{
+    if (enabled) {
+        Tablet t = m_tabletList.at(m_ui->listTablets->currentIndex());
+        t.isTouchSensor = false;
+        t.hasPairedID = false;
+        m_tabletList.replace(m_ui->listTablets->currentIndex(), t);
+        m_ui->comboTouchSensor->setEnabled(false);
+    }
+}
+
+void Dialog::onParentTabletSet(bool enabled)
+{
+    if (enabled) {
+        Tablet t = m_tabletList.at(m_ui->listTablets->currentIndex());
+        t.isTouchSensor = false;
+        t.hasPairedID = true;
+        m_tabletList.replace(m_ui->listTablets->currentIndex(), t);
+        m_ui->comboTouchSensor->setEnabled(true);
+    } else {
+        m_ui->comboTouchSensor->setEnabled(false);
+    }
+}
+
+void Dialog::onTouchSensorSet(bool enabled)
+{
+    if (enabled) {
+        Tablet t = m_tabletList.at(m_ui->listTablets->currentIndex());
+        t.isTouchSensor = true;
+        t.hasPairedID = false;
+        m_tabletList.replace(m_ui->listTablets->currentIndex(), t);
+        m_ui->comboTouchSensor->setEnabled(false);
+    }
+}
+
 void Dialog::onMapButtons()
 {
     m_hwbDialog = new HWButtonDialog(m_ui->expressKeyNumbers->value(), this);
@@ -369,16 +436,14 @@ void Dialog::onMapButtons()
     int ret = m_hwbDialog->exec();
 
     Tablet t = m_tabletList.at(m_ui->listTablets->currentIndex());
-    if(ret == QDialog::Accepted) {
+    if (ret == QDialog::Accepted) {
         t.hwMapping = m_hwbDialog->buttonMap();
-    }
-    else {
+    } else {
         t.hwMapping.clear();
     }
 
     m_tabletList.replace(m_ui->listTablets->currentIndex(), t);
     showHWButtonMap();
-
 }
 
 void Dialog::showHWButtonMap()
@@ -428,6 +493,13 @@ void Dialog::saveTabletInfo(const Tablet &t)
     tabletGroup.writeEntry( "padbuttons", t.buttonNumber );
     for(int i=0; i < t.hwMapping.size(); i++) {
         tabletGroup.writeEntry( QString::fromLatin1("hwbutton%1").arg(i+1), t.hwMapping.at(i) );
+    }
+
+    if (t.isTouchSensor) {
+        tabletGroup.writeEntry("istouchsensor", t.isTouchSensor);
+    }
+    if (t.hasPairedID) {
+        tabletGroup.writeEntry("touchsensorid", t.pairedID);
     }
 
     tabletGroup.config()->sync();
