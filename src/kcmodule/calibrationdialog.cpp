@@ -21,6 +21,7 @@
 
 #include "logging.h"
 #include "x11wacom.h"
+#include "x11info.h"
 
 //KDE includes
 #include <KLocalizedString>
@@ -37,13 +38,22 @@ using namespace Wacom;
 const int frameGap = 10;
 const int boxwidth = 100;
 
-CalibrationDialog::CalibrationDialog( const QString &toolname ) :
-    QDialog( )
+CalibrationDialog::CalibrationDialog(const QString &toolname, const QString &targetScreen)
+    : QDialog()
+    , m_drawCross(0)
+    , m_toolName(toolname)
 {
-    setWindowState( Qt::WindowFullScreen );
+    auto screenList = X11Info::getScreenGeometries();
+    if (screenList.count() > 1) {
+        if (screenList.contains(targetScreen)) {
+            move(screenList.value(targetScreen).topLeft());
+        } else {
+            qCWarning(KCM) << "Calibration requested for unknown screen" << targetScreen;
+        }
+    }
 
-    m_toolName = toolname;
-    m_drawCross = 0;
+    setWindowState(Qt::WindowFullScreen);
+
     m_shiftLeft = frameGap;
     m_shiftTop = frameGap;
 

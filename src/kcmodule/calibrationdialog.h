@@ -35,8 +35,9 @@ public:
      * @brief Constructs the fullscreen window for the calibration process
      *
      * @param toolname name of the tool to calibrate (stylus or touch name)
+     * @param targetScreen screen which is going to be used for calibration
     */
-    explicit CalibrationDialog( const QString &toolname );
+    CalibrationDialog(const QString &toolname, const QString &targetScreen);
 
     /**
      * @brief Returns the new tablet area
