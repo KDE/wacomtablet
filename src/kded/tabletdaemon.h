@@ -44,7 +44,7 @@ class TabletDaemonPrivate;
   *
   * It registers the service @c "org.kde.Wacom" and exports the following objects on this service:
   *
-  * @li @c /Tablet - this object. Allows to check if a tablet is available and applies the profile
+  * @li @c /Tablet - this object. Allows one to check if a tablet is available and applies the profile
   * @li @c /Device - tablet information. Basic information about the detected tablet
   */
 class TabletDaemon : public KDEDModule
