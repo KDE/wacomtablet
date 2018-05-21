@@ -158,6 +158,7 @@ public:
      */
     void setWidgetTargetSize(const QSize& size);
 
+    void lockProportions(bool enable);
 
 signals:
 
@@ -196,7 +197,7 @@ private:
      * user is dragging one of the border handles or the
      * whole area with the mouse.
      */
-    enum DragMode {
+    enum class DragMode {
         DragNone,          //!< The user is currently not dragging.
         DragSelectedArea,  //!< The user drags the whole selection ara.
         DragTopHandle,     //!< The user drags the top border handle.

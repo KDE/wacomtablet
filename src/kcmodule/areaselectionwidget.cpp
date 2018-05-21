@@ -39,7 +39,7 @@ namespace Wacom
         public:
             AreaSelectionWidgetPrivate() {
                 // set some reasonable default values
-                dragMode                     = AreaSelectionWidget::DragNone;
+                dragMode                     = AreaSelectionWidget::DragMode::DragNone;
                 widgetTargetSize             = QSize(400,400);
                 outOfBoundsMargin            = 0.;
                 outOfBoundsVirtualAreaMargin = 0.;
@@ -106,6 +106,8 @@ namespace Wacom
             QRect                rectDragHandleBottom;    //!< The rectangle which holds the size and position of the bottom drag handle.
             QRect                rectDragHandleLeft;      //!< The rectangle which holds the size and position of the top drag handle.
 
+            qreal                proportions = 1;
+            bool                 proportionsLocked = false;
     }; // PRIVATE CLASS
 
     const qreal AreaSelectionWidgetPrivate::DISPLAY_AREA_EXTRA_MARGIN = 5.;
@@ -235,6 +237,9 @@ void AreaSelectionWidget::setSelection(const QRect& selection)
 
     // update selection and repaint widget
     d->rectSelectedArea = calculateScaledArea(newSelection, d->scaleFactor, getTotalDisplayAreaMargin());
+    if (d->proportionsLocked) {
+        lockProportions(true);
+    }
 
     updateSelectedAreaSize();
     updateDragHandles();
@@ -270,6 +275,16 @@ void AreaSelectionWidget::setWidgetTargetSize(const QSize& size)
     setupWidget();
 }
 
+void AreaSelectionWidget::lockProportions(bool enable)
+{
+    Q_D(AreaSelectionWidget);
+
+    d->proportionsLocked = enable;
+    if (enable && d->rectSelectedArea.height() > 0) {
+        d->proportions = d->rectSelectedArea.width() / d->rectSelectedArea.height();
+    }
+}
+
 
 void AreaSelectionWidget::mouseMoveEvent(QMouseEvent* event)
 {
@@ -301,26 +316,26 @@ void AreaSelectionWidget::mousePressEvent(QMouseEvent* event)
     const QPoint mousePosition(event->pos());
 
     if (d->rectDragHandleTop.contains(mousePosition)){
-        d->dragMode = AreaSelectionWidget::DragTopHandle;
+        d->dragMode = AreaSelectionWidget::DragMode::DragTopHandle;
 
     } else if (d->rectDragHandleRight.contains(mousePosition)) {
-        d->dragMode = AreaSelectionWidget::DragRightHandle;
+        d->dragMode = AreaSelectionWidget::DragMode::DragRightHandle;
 
     } else if (d->rectDragHandleBottom.contains(mousePosition)) {
-        d->dragMode = AreaSelectionWidget::DragBottomHandle;
+        d->dragMode = AreaSelectionWidget::DragMode::DragBottomHandle;
 
     } else if (d->rectDragHandleLeft.contains(mousePosition)) {
-        d->dragMode = AreaSelectionWidget::DragLeftHandle;
+        d->dragMode = AreaSelectionWidget::DragMode::DragLeftHandle;
 
     } else if (d->rectSelectedArea.contains(mousePosition)) {
-        d->dragMode  = AreaSelectionWidget::DragSelectedArea;
+        d->dragMode  = AreaSelectionWidget::DragMode::DragSelectedArea;
         d->dragPoint = mousePosition;
 
         QWidget::setCursor(Qt::SizeAllCursor);
 
     } else {
         // the user did not click anything that is dragable
-        d->dragMode = AreaSelectionWidget::DragNone;
+        d->dragMode = AreaSelectionWidget::DragMode::DragNone;
     }
 }
 
@@ -337,7 +352,7 @@ void AreaSelectionWidget::mouseReleaseEvent(QMouseEvent* event)
 
     // if the user was dragging something, he is no longer now
     if (isUserDragging()) {
-        d->dragMode = AreaSelectionWidget::DragNone;
+        d->dragMode = AreaSelectionWidget::DragMode::DragNone;
         QWidget::setCursor(Qt::ArrowCursor);
         emit selectionChanged();
     }
@@ -493,7 +508,7 @@ bool AreaSelectionWidget::isUserDragging() const
 {
     Q_D(const AreaSelectionWidget);
 
-    return (d->dragMode != AreaSelectionWidget::DragNone);
+    return (d->dragMode != AreaSelectionWidget::DragMode::DragNone);
 }
 
 
@@ -717,23 +732,23 @@ void AreaSelectionWidget::updateSelectedAreaOnDrag(const QPoint& mousePosition)
 
     switch (d->dragMode) {
 
-        case AreaSelectionWidget::DragTopHandle:
+        case AreaSelectionWidget::DragMode::DragTopHandle:
             updateSelectedAreaOnDragTop(mousePosition);
             break;
 
-        case AreaSelectionWidget::DragRightHandle:
+        case AreaSelectionWidget::DragMode::DragRightHandle:
             updateSelectedAreaOnDragRight(mousePosition);
             break;
 
-        case AreaSelectionWidget::DragBottomHandle:
+        case AreaSelectionWidget::DragMode::DragBottomHandle:
             updateSelectedAreaOnDragBottom(mousePosition);
             break;
 
-        case AreaSelectionWidget::DragLeftHandle:
+        case AreaSelectionWidget::DragMode::DragLeftHandle:
             updateSelectedAreaOnDragLeft(mousePosition);
             break;
 
-        case AreaSelectionWidget::DragSelectedArea:
+        case AreaSelectionWidget::DragMode::DragSelectedArea:
             updateSelectedAreaOnDragArea(mousePosition);
             break;
 
@@ -798,14 +813,17 @@ void AreaSelectionWidget::updateSelectedAreaOnDragBottom(const QPoint& mousePosi
 
     if (mouseY < topBound) {
         newHeight = topBound - d->rectSelectedArea.y();
-
     } else if (mouseY > bottomBound) {
         newHeight = bottomBound - d->rectSelectedArea.y();
-
     } else {
         newHeight = mouseY - d->rectSelectedArea.y();
     }
 
+    if (d->proportionsLocked) {
+        const auto newWidth = newHeight * d->proportions;
+        if (newWidth < topBound || newWidth > bottomBound) return;
+        d->rectSelectedArea.setWidth(newWidth);
+    }
     d->rectSelectedArea.setHeight(newHeight);
 
     updateSelectedAreaSize(true);
@@ -825,14 +843,17 @@ void AreaSelectionWidget::updateSelectedAreaOnDragLeft(const QPoint& mousePositi
 
     if (mouseX < leftBound) {
         newX = leftBound;
-
     } else if (mouseX > rightBound) {
         newX = rightBound;
-
     } else {
         newX = mouseX;
     }
 
+    if (d->proportionsLocked) {
+        const auto newY = d->rectSelectedArea.y() + (newX - d->rectSelectedArea.x()) / d->proportions;
+        if (newY < leftBound || newY > rightBound) return;
+        d->rectSelectedArea.setY(newY);
+    }
     d->rectSelectedArea.setX(newX);
 
     updateSelectedAreaSize(false);
@@ -852,14 +873,17 @@ void AreaSelectionWidget::updateSelectedAreaOnDragRight(const QPoint& mousePosit
 
     if (mouseX < leftBound) {
         newWidth = leftBound - d->rectSelectedArea.x();
-
     } else if (mouseX > rightBound) {
         newWidth = rightBound - d->rectSelectedArea.x();
-
     } else {
         newWidth = mouseX - d->rectSelectedArea.x();
     }
 
+    if (d->proportionsLocked) {
+        const auto newHeight = newWidth / d->proportions;
+        if (newHeight < leftBound || newHeight > rightBound) return;
+        d->rectSelectedArea.setHeight(newWidth / d->proportions);
+    }
     d->rectSelectedArea.setWidth(newWidth);
 
     updateSelectedAreaSize(true);
@@ -879,14 +903,17 @@ void AreaSelectionWidget::updateSelectedAreaOnDragTop(const QPoint& mousePositio
 
     if (mouseY < topBound) {
         newY = topBound;
-
     } else if (mouseY > bottomBound) {
         newY = bottomBound;
-
     } else {
         newY = mouseY;
     }
 
+    if (d->proportionsLocked) {
+        const auto newX = d->rectSelectedArea.x() + (newY - d->rectSelectedArea.y()) * d->proportions;
+        if (newX < topBound || newX > bottomBound) return;
+        d->rectSelectedArea.setX(newX);
+    }
     d->rectSelectedArea.setY(newY);
 
     updateSelectedAreaSize(false);

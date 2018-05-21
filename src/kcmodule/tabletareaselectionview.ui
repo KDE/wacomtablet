@@ -102,7 +102,7 @@
           <item>
            <widget class="QRadioButton" name="fullTabletRadioButton">
             <property name="text">
-             <string>Full Tablet</string>
+             <string>&amp;Full Tablet</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -112,7 +112,7 @@
           <item>
            <widget class="QRadioButton" name="tabletAreaRadioButton">
             <property name="text">
-             <string>Tablet Area</string>
+             <string>&amp;Tablet Area</string>
             </property>
            </widget>
           </item>
@@ -217,6 +217,20 @@
          </layout>
         </item>
         <item>
+         <widget class="QPushButton" name="buttonLockProportions">
+          <property name="text">
+           <string>Lock proportions</string>
+          </property>
+          <property name="icon">
+           <iconset theme="lock">
+            <normaloff>.</normaloff>.</iconset>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="tabletFreeSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -256,8 +270,8 @@
    <slot>onCalibrateClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>100</x>
-     <y>185</y>
+     <x>123</x>
+     <y>282</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -272,8 +286,8 @@
    <slot>onForceProportionsClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>100</x>
-     <y>160</y>
+     <x>123</x>
+     <y>253</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -288,8 +302,8 @@
    <slot>onFullTabletSelected(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>100</x>
-     <y>110</y>
+     <x>123</x>
+     <y>195</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -304,8 +318,8 @@
    <slot>onTabletAreaSelected(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>100</x>
-     <y>135</y>
+     <x>123</x>
+     <y>224</y>
     </hint>
     <hint type="destinationlabel">
      <x>199</x>
@@ -329,6 +343,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>buttonLockProportions</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>TabletAreaSelectionView</receiver>
+   <slot>onLockProportionsToggled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>496</x>
+     <y>186</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>334</x>
+     <y>155</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onCalibrateClicked()</slot>
@@ -336,5 +366,6 @@
   <slot>onFullTabletSelected(bool)</slot>
   <slot>onTabletAreaSelected(bool)</slot>
   <slot>onScreenToggle()</slot>
+  <slot>onLockProportionsToggled(bool)</slot>
  </slots>
 </ui>

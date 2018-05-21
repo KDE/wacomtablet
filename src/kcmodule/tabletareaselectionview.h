@@ -53,11 +53,6 @@ public:
     const TabletArea getSelection() const;
 
     /**
-     * @return True if area selection mode is active, false if full tablet is selected.
-     */
-    bool isAreaSelectionMode() const;
-
-    /**
      * Selects all of the tablet.
      */
     void selectFullTablet();
@@ -133,6 +128,11 @@ public slots:
      */
     void onTabletAreaSelected(bool checked);
 
+    /**
+     * @brief onLockProportionsToggled
+     * @param enabled
+     */
+    void onLockProportionsToggled(bool enabled);
 
 signals:
 

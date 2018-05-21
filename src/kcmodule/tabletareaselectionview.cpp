@@ -59,14 +59,6 @@ const TabletArea TabletAreaSelectionView::getSelection() const
     return TabletArea(d->ui->areaWidget->getSelection());
 }
 
-
-bool TabletAreaSelectionView::isAreaSelectionMode() const
-{
-    Q_D(const TabletAreaSelectionView);
-
-    return d->ui->tabletAreaRadioButton->isChecked();
-}
-
 void TabletAreaSelectionView::selectFullTablet()
 {
     Q_D(TabletAreaSelectionView);
@@ -217,6 +209,13 @@ void TabletAreaSelectionView::onTabletAreaSelected(bool checked)
         return;
     }
     setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
+}
+
+void TabletAreaSelectionView::onLockProportionsToggled(bool enabled)
+{
+    Q_D(TabletAreaSelectionView);
+
+    d->ui->areaWidget->lockProportions(enabled);
 }
 
 
