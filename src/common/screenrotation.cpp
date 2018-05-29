@@ -22,7 +22,7 @@
 using namespace Wacom;
 
 /*
- * Instanciate static instances-container of the ScreenRotation template specialization.
+ * Instantiate static instances-container of the ScreenRotation template specialization.
  * This has to be done here obviously before any instance is created.
  */
 template<>
@@ -30,7 +30,7 @@ ScreenRotationTemplateSpecialization::Container ScreenRotationTemplateSpecializa
 
 
 /*
- * Instanciate Device Types.
+ * Instantiate Device Types.
  */
 const ScreenRotation ScreenRotation::NONE ( QLatin1String("none") );
 const ScreenRotation ScreenRotation::CCW ( QLatin1String("ccw") );

@@ -24,7 +24,7 @@
 using namespace Wacom;
 
 /*
- * Instanciate static instances-container of the DeviceType template specialization.
+ * Instantiate static instances-container of the DeviceType template specialization.
  * This has to be done here obviously before any instance is created.
  */
 template<>
@@ -36,7 +36,7 @@ bool DeviceType::operator<(const DeviceType& other) const
 }
 
 /*
- * Instanciate Device Types.
+ * Instantiate Device Types.
  */
 const DeviceType DeviceType::Cursor ( QLatin1String("cursor") );
 const DeviceType DeviceType::Eraser ( QLatin1String("eraser") );

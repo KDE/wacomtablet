@@ -72,7 +72,7 @@ public:
 
     static void assertValues (const DeviceInformation& info, const DeviceType& expectedType, const QString& expectedName);
 
-    static void assertValues (DeviceProfile& profile, const char* name = NULL);
+    static void assertValues (DeviceProfile& profile, const char *name = nullptr);
 
     static void assertValues (const TabletInformation& info);
 

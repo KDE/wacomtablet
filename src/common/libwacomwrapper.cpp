@@ -97,7 +97,7 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
     // Convert button evdev codes to buttonMap
     if (libwacom_get_num_buttons(device.get()) > 0) {
         QMap<QString, QString> buttonMapping;
-        for (char i = 1; i < padButtonNumber + 1; i++) {
+        for (char i = 1; i < padButtonNumber + 1; ++i) {
 #ifdef LIBWACOM_EVDEV_MISSING
             // TODO: warn the user in the KCM too
             qCWarning(COMMON) << "Your libwacom version is too old. We will try and guess button mapping, "

@@ -224,7 +224,7 @@ private:
 
     /**
      * Normalizes the key sequence and converts all keys.
-     * The result is a string of keys seperated by whitespaces.
+     * The result is a string of keys separated by whitespaces.
      *
      * @param sequence The sequence to convert. This parameter will also hold the result of the conversion.
      * @param fromStorage True to convert from xsetwacom to QKeySequence format, False to convert
@@ -234,7 +234,7 @@ private:
 
     /**
      * Normalizes the key sequence and converts it to storage format.
-     * The result is a string of keys seperated by whitespaces.
+     * The result is a string of keys separated by whitespaces.
      *
      * @param sequence The sequence to convert. This parameter will also hold the result of the conversion.
      */
@@ -243,7 +243,7 @@ private:
 
     /**
      * Normalizes the key sequence and converts it to QKeySequence format.
-     * The result is a string of keys seperated by whitespaces.
+     * The result is a string of keys separated by whitespaces.
      *
      * @param sequence The sequence to convert. This parameter will also hold the result of the conversion.
      */
@@ -272,7 +272,7 @@ private:
 
     /**
      * Normalizes the key sequence by removing all unnecessary '+' signs.
-     * The result is a string of keys and modifiers seperated by a whitespace.
+     * The result is a string of keys and modifiers separated by a whitespace.
      * This method also does some basic checks to verify that the syntax of
      * the sequence is valid. If the sequence is invalid it will be cleared and
      * the result will therefore be an empty string. The result of this method

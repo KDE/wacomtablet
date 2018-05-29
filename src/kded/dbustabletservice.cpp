@@ -17,10 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "dbustabletinterface.h"
+#include "dbustabletservice.h"
 
 #include "logging.h"
-#include "dbustabletservice.h"
+#include "dbustabletinterface.h"
 #include "devicetype.h"
 #include "property.h"
 #include "tabletinfo.h"

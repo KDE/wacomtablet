@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PADTABWIDGET_H
-#define PADTABWIDGET_H
+#ifndef TABLETPAGEWIDGET_H
+#define TABLETPAGEWIDGET_H
 
 #include "screenmap.h"
 #include "screenspace.h"

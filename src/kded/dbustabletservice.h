@@ -232,7 +232,7 @@ Q_SIGNALS:
 
 
 // normal Qt slots
-private slots:
+public slots:
 
     //! Has to be called when the current profile was changed.
     void onProfileChanged (const QString &tabletId, const QString& profile);

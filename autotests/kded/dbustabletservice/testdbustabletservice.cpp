@@ -160,14 +160,14 @@ void TestDBusTabletService::initTestCase()
     DBusTabletInterface::instance().resetInterface();;
 
     // connect tablet service to us
-    connect(m_tabletService, SIGNAL(profileChanged(const QString&, const QString&)), this, SLOT(onProfileChanged(const QString&, const QString&)));
-    connect(m_tabletService, SIGNAL(tabletAdded(const QString&)),                    this, SLOT(onTabletAdded(const QString&)));
-    connect(m_tabletService, SIGNAL(tabletRemoved(const QString&)),                  this, SLOT(onTabletRemoved(const QString&)));
+    connect(m_tabletService, &DBusTabletService::profileChanged, this, &TestDBusTabletService::onProfileChanged);
+    connect(m_tabletService, &DBusTabletService::tabletAdded,    this, &TestDBusTabletService::onTabletAdded);
+    connect(m_tabletService, &DBusTabletService::tabletRemoved,  this, &TestDBusTabletService::onTabletRemoved);
 
     // connect tablet handler to tablet service
-    connect(&m_tabletHandlerMock, SIGNAL(profileChanged(const QString&, const QString&)), m_tabletService, SLOT(onProfileChanged(const QString&, const QString&)));
-    connect(&m_tabletHandlerMock, SIGNAL(tabletAdded(const TabletInformation&)),          m_tabletService, SLOT(onTabletAdded(const TabletInformation&)));
-    connect(&m_tabletHandlerMock, SIGNAL(tabletRemoved(const QString&)),                  m_tabletService, SLOT(onTabletRemoved(const QString&)));
+    connect(&m_tabletHandlerMock, &TabletHandlerMock::profileChanged, m_tabletService, &DBusTabletService::onProfileChanged);
+    connect(&m_tabletHandlerMock, &TabletHandlerMock::tabletAdded,    m_tabletService, &DBusTabletService::onTabletAdded);
+    connect(&m_tabletHandlerMock, &TabletHandlerMock::tabletRemoved,  m_tabletService, &DBusTabletService::onTabletRemoved);
 }
 
 

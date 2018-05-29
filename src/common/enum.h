@@ -36,7 +36,7 @@ namespace Wacom {
  * NOTICE
  * This class uses template specialization to store a static set of all instances.
  * Thereofore a specialization of the private instances member  'instances' has
- * to be declared and instanciated before this template can be used.
+ * to be declared and instantiated before this template can be used.
  *
  * \tparam D The derived sub class type. This is the class which contains the enum instances.
  * \tparam K The key type used for these instances.
@@ -189,7 +189,7 @@ protected:
      * Initialization constructor.
      * Used to initialize class-static members. Never make this constructor
      * available to the public! Never use it for normal instances! It may
-     * only be used to instanciate class-static Enum instances.
+     * only be used to instantiate class-static Enum instances.
      *
      * @param key The key of this class-static Enum instance.
      * @param priority The sort order priority of this instance.
@@ -238,7 +238,7 @@ private:
 
     /**
      * A static container with all the class-static Enum instances.
-     * Every specialization of this template has to declare and instanciate
+     * Every specialization of this template has to declare and instantiate
      * the specialization of this member variable!
      */
     static Container instances;

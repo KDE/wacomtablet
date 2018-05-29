@@ -24,7 +24,7 @@
 using namespace Wacom;
 
 /*
- * Instanciate static instances-container of the Property template specialization.
+ * Instantiate static instances-container of the Property template specialization.
  * This has to be done here obviously before any instance is created.
  */
 template<>
@@ -32,7 +32,7 @@ PropertyTemplateSpecialization::Container PropertyTemplateSpecialization::instan
 
 
 /*
- * Instanciate Properties.
+ * Instantiate Properties.
  */
 const Property Property::AbsWheel2Down    ( QLatin1String("AbsWheel2Down") );
 const Property Property::AbsWheel2Up      ( QLatin1String("AbsWheel2Up") );

@@ -125,11 +125,11 @@ void TestEnum::testConstructor()
 
 void TestEnum::testFind()
 {
-    QVERIFY(EnumTest::find(QLatin1String("NON_EXISTANT")) == NULL);
+    QCOMPARE(EnumTest::find(QLatin1String("NON_EXISTANT")), nullptr);
 
     const EnumTest* find = EnumTest::find(QLatin1String("VAL01_PRIO50"));
-    QVERIFY(find != NULL);
-    QVERIFY(*find == EnumTest::VAL01_PRIO50);
+    QVERIFY(find != nullptr);
+    QCOMPARE(*find, EnumTest::VAL01_PRIO50);
 }
 
 void TestEnum::testIterator()

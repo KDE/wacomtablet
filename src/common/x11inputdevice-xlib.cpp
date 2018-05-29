@@ -19,7 +19,7 @@
 
 #include "logging.h"
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
 #include "x11inputdevice.h"
 #include <X11/extensions/XInput.h>
@@ -36,9 +36,9 @@ namespace Wacom {
     class X11InputDevicePrivate
     {
         public:
-            QString   name    = QString();
-            XDevice * device  = nullptr;
-            Display * display = QX11Info::display();
+            QString name;
+            XDevice *device  = nullptr;
+            Display *display = QX11Info::display();
     };
 }
 

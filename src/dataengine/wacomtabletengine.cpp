@@ -70,7 +70,7 @@ void WacomTabletEngine::onDBusDisconnected()
 {
     setData(m_source, QLatin1Literal("serviceAvailable"), false);
     const auto keys = m_tablets.keys();
-    for(auto iter = keys.begin(); iter != keys.end(); iter++) {
+    for (auto iter = keys.begin(); iter != keys.end(); ++iter) {
         onTabletRemoved(*iter);
     }
     m_tablets.clear();

@@ -24,7 +24,7 @@
 using namespace Wacom;
 
 /*
- * Instanciate static instances-container of the TabletInfo template specialization.
+ * Instantiate static instances-container of the TabletInfo template specialization.
  * This has to be done here obviously before any instance is created.
  */
 template<>

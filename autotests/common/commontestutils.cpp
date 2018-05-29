@@ -17,10 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "commontestutils.h"
+
 #include <QtTest>
 #include <QString>
 
-#include "commontestutils.h"
 #include "common/deviceproperty.h"
 #include "common/devicetype.h"
 
@@ -76,7 +77,7 @@ void CommonTestUtils::assertValues(DeviceProfile& profile, const char* name)
         QCOMPARE(profile.getProperty(property.id()), property.id().key());
     }
 
-    if (name != NULL) {
+    if (name != nullptr) {
         QCOMPARE(profile.getName(), QLatin1String(name));
     } else {
         QCOMPARE(profile.getName(), DeviceType::Pad.key());

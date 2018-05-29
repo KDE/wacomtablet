@@ -170,22 +170,22 @@ signals:
 
 protected:
     /**
-     * Overriden QWidget method which captures mouse movements.
+     * Overridden QWidget method which captures mouse movements.
      */
     virtual void mouseMoveEvent ( QMouseEvent * event );
 
     /**
-     * Overriden QWidget method which captures mouse button press events.
+     * Overridden QWidget method which captures mouse button press events.
      */
     virtual void mousePressEvent ( QMouseEvent * event );
 
     /**
-     * Overriden QWidget method which captures mouse button release events.
+     * Overridden QWidget method which captures mouse button release events.
      */
     virtual void mouseReleaseEvent ( QMouseEvent * event );
 
     /**
-     * Overriden QWidget method which paints the widget.
+     * Overridden QWidget method which paints the widget.
      */
     virtual void paintEvent(QPaintEvent *event);
 

@@ -23,11 +23,10 @@
 #include <QString>
 #include <QMetaType>
 #include <QMutex>
-#include <QtDBus>
 
 using namespace Wacom;
 
-// instanciate static class members
+// instantiate static class members
 DBusTabletInterface* DBusTabletInterface::m_instance = nullptr;
 
 

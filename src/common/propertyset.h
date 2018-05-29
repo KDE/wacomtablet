@@ -61,7 +61,7 @@ struct PropertySetTemplateSpecializationLessFunctor
  * NOTICE
  * This class uses template specialization to store a static set of all instances.
  * Thereofore a specialization of the private instances member  'm_instances' has
- * to be declared and instanciated before this template can be used.
+ * to be declared and instantiated before this template can be used.
  */
 
 template<class D, class L = PropertySetTemplateSpecializationLessFunctor<D>, class E = PropertyKeyEqualsFunctor>
@@ -118,7 +118,7 @@ protected:
     /**
      * Initialization constructor.
      * Used to initialize class-static members. Never make this constructor
-     * available to the public! It is only used to instanciate class-static
+     * available to the public! It is only used to instantiate class-static
      * PropertySet instances.
      *
      * @param key The key of this class-static PropertySet instance.
