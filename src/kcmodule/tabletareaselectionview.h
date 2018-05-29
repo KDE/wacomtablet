@@ -134,6 +134,10 @@ public slots:
      */
     void onLockProportionsToggled(bool enabled);
 
+    void onSelectionChanged();
+
+    void onFineTuneValuesChanged(QString);
+
 signals:
 
     /**

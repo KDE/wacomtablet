@@ -135,7 +135,7 @@ public:
      *
      * @param selection The area to select.
      */
-    void setSelection(const QRect& selection);
+    void setSelection(const QRect& selection, bool emitUpdate);
 
 
     /**

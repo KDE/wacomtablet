@@ -132,7 +132,7 @@ void AreaSelectionWidget::clearSelection()
 {
     Q_D(const AreaSelectionWidget);
 
-    setSelection(d->rectVirtualArea);
+    setSelection(d->rectVirtualArea, true);
 }
 
 
@@ -218,7 +218,7 @@ void AreaSelectionWidget::setOutOfBoundsMargin(qreal margin)
 }
 
 
-void AreaSelectionWidget::setSelection(const QRect& selection)
+void AreaSelectionWidget::setSelection(const QRect& selection, bool emitUpdate)
 {
     Q_D(AreaSelectionWidget);
 
@@ -245,6 +245,10 @@ void AreaSelectionWidget::setSelection(const QRect& selection)
     updateDragHandles();
 
     QWidget::update();
+
+    if (emitUpdate) {
+        emit selectionChanged();
+    }
 }
 
 
@@ -258,7 +262,7 @@ void AreaSelectionWidget::setSelection(QString output)
         return;
     }
 
-    setSelection(*areaRect);
+    setSelection(*areaRect, true);
 }
 
 
@@ -732,29 +736,28 @@ void AreaSelectionWidget::updateSelectedAreaOnDrag(const QPoint& mousePosition)
 
     switch (d->dragMode) {
 
-        case AreaSelectionWidget::DragMode::DragTopHandle:
-            updateSelectedAreaOnDragTop(mousePosition);
-            break;
+    case DragMode::DragNone:
+        break;
 
-        case AreaSelectionWidget::DragMode::DragRightHandle:
-            updateSelectedAreaOnDragRight(mousePosition);
-            break;
+    case AreaSelectionWidget::DragMode::DragTopHandle:
+        updateSelectedAreaOnDragTop(mousePosition);
+        break;
 
-        case AreaSelectionWidget::DragMode::DragBottomHandle:
-            updateSelectedAreaOnDragBottom(mousePosition);
-            break;
+    case AreaSelectionWidget::DragMode::DragRightHandle:
+        updateSelectedAreaOnDragRight(mousePosition);
+        break;
 
-        case AreaSelectionWidget::DragMode::DragLeftHandle:
-            updateSelectedAreaOnDragLeft(mousePosition);
-            break;
+    case AreaSelectionWidget::DragMode::DragBottomHandle:
+        updateSelectedAreaOnDragBottom(mousePosition);
+        break;
 
-        case AreaSelectionWidget::DragMode::DragSelectedArea:
-            updateSelectedAreaOnDragArea(mousePosition);
-            break;
+    case AreaSelectionWidget::DragMode::DragLeftHandle:
+        updateSelectedAreaOnDragLeft(mousePosition);
+        break;
 
-        default:
-            // prevent compiler warning
-            break;
+    case AreaSelectionWidget::DragMode::DragSelectedArea:
+        updateSelectedAreaOnDragArea(mousePosition);
+        break;
     }
 }
 

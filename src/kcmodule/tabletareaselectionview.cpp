@@ -73,7 +73,7 @@ void TabletAreaSelectionView::selectPartOfTablet(const TabletArea &selection)
     Q_D(TabletAreaSelectionView);
 
     setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
-    d->ui->areaWidget->setSelection(selection);
+    d->ui->areaWidget->setSelection(selection, true);
 }
 
 
@@ -262,7 +262,39 @@ void TabletAreaSelectionView::setTabletAreaType(TabletAreaSelectionView::TabletA
     d->ui->tabletAreaRadioButton->blockSignals(false);
 }
 
+void TabletAreaSelectionView::onSelectionChanged()
+{
+    Q_D(TabletAreaSelectionView);
 
+    const auto selection = d->ui->areaWidget->getSelection();
+
+    d->ui->lineEditX->setText(QString::number(selection.x()));
+    d->ui->lineEditY->setText(QString::number(selection.y()));
+    d->ui->lineEditWidth->setText(QString::number(selection.width()));
+    d->ui->lineEditHeight->setText(QString::number(selection.height()));
+}
+
+void TabletAreaSelectionView::onFineTuneValuesChanged(QString)
+{
+    Q_D(TabletAreaSelectionView);
+
+    bool xvalid = true;
+    bool yvalid = true;
+    bool wvalid = true;
+    bool hvalid = true;
+
+    const QRect newSelection(d->ui->lineEditX->text().toInt(&xvalid),
+                             d->ui->lineEditY->text().toInt(&yvalid),
+                             d->ui->lineEditWidth->text().toInt(&wvalid),
+                             d->ui->lineEditHeight->text().toInt(&hvalid));
+
+    if (newSelection.isEmpty() || !newSelection.isValid()
+            || !xvalid || !yvalid || !wvalid || !hvalid) {
+        return;
+    }
+
+    d->ui->areaWidget->setSelection(newSelection, false);
+}
 
 bool TabletAreaSelectionView::isFullAreaSelection(const TabletArea &selection) const
 {
@@ -282,6 +314,15 @@ void TabletAreaSelectionView::setupUi()
     d->ui->warningIcon->setPixmap(QIcon::fromTheme(QLatin1String("dialog-warning")).pixmap(QSize(16,16)));
     d->ui->warningIcon->setVisible(true);
     d->ui->warningLabel->setVisible(false);
+
+    // FIXME: signal-slot editor can't see this signal for some reason
+    // TODO: rename areaWidget and screenArea, this is confusing
+    connect(d->ui->areaWidget, &AreaSelectionWidget::selectionChanged, this, &TabletAreaSelectionView::onSelectionChanged);
+
+    connect(d->ui->lineEditX, &QLineEdit::textChanged, this, &TabletAreaSelectionView::onFineTuneValuesChanged);
+    connect(d->ui->lineEditY, &QLineEdit::textChanged, this, &TabletAreaSelectionView::onFineTuneValuesChanged);
+    connect(d->ui->lineEditHeight, &QLineEdit::textChanged, this, &TabletAreaSelectionView::onFineTuneValuesChanged);
+    connect(d->ui->lineEditWidth, &QLineEdit::textChanged, this, &TabletAreaSelectionView::onFineTuneValuesChanged);
 
     // Is this next call, like, fake?
     setupScreens(QMap<QString, QRect>(), QSize(200,200));
