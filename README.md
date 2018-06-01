@@ -1,33 +1,62 @@
-KDE KCModule
+KDE Wacom support
+=================
 
 This module implements a GUI for the Wacom Linux Drivers and extends it
 with profile support to handle different button / pen layouts per profile.
 
-For hardware support have a look at http://www.linuxwacom.sourceforge.net
+For hardware support have a look at https://linuxwacom.github.io/
 
-Easy profile switching is added via a small plasma applet.
-In addition a daemon running in the background helps with hotplug support.
+Configuration can be located in System Settings → Input devices → Tablets
+
+Easy profile switching is supported via hotkeys or a small plasma applet in tray notification area.
+In addition, a daemon running in the background helps with hotplug support.
+
+Hardware support
+----------------
 
 All tablets can be set up as long as they are found with the wacom kernel module.
 
 Check with
-$ xsetwacom list devices
+
+    $ xsetwacom list devices
+
 if your device is correctly recognized first. If it dosn't show up there, we can't configure it.
 
-Components:
-* kded:
-	runs in the background, detects a connected tablet and applies the pad button / stylus profile
-	detects xrandr rotation and rotates the tablet with it
-	apply global shortcuts for the touch on/off stylus feature
+Installation
+------------
 
-* systemsettings module:
-	unified gui to set-up the buttons and other aspects of the tablet
+Wacom support in KDE is a separate component and might be not installed by default.
+Package usually goes by name `wacomtablet` or `kcm-wacomtablet`.
 
-* plasma-applet:
-	optional applet for easy switching between different profiles
+On Kubuntu, the package should be avaliable in Kubuntu Experimental PPA.
 
-Manual installation
-===================
+More or less full list of distributions including the package should be avaliable at:
+
+* https://repology.org/metapackage/wacomtablet/versions
+* https://repology.org/metapackage/kcm-wacomtablet/versions
+
+Staring the module
+------------------
+
+Background daemon should be started automatically each time you log in.
+
+You can enable or manually start the service via System Settings → Startup and Shutdown → Background services.
+
+Adding missing tablet devices
+-----------------------------
+
+If your device is not recognized by this program, but you can set it up via the xsetwacom driver,
+run Wacom Tablet Finder (`kde_wacom_tabletfinder`), desribe your device and click `Save`, and restart Wacom tablet service (see above).
+
+Please send your device description (file `~/.config/tabletdblocalrc`) to the bugtracker, so it will be added in future versions.
+
+Reporting bugs
+--------------
+
+https://bugs.kde.org/enter_bug.cgi?product=wacomtablet
+
+Building & manual installation
+==============================
 
 Run-time dependencies:
 * X11 wacom tablet driver (xserver-xorg-input-wacom), including the xsetwacom tool, version 0.20 or higher
@@ -54,7 +83,7 @@ Build dependencies on Debian/Ubuntu:
 
 You can install them by running:
 
-$ apt install g++ cmake extra-cmake-modules gettext libqt5x11extras5-dev qtdeclarative5-dev libkf5coreaddons-dev libkf5i18n-dev libkf5dbusaddons-dev libkf5globalaccel-dev libkf5config-dev libkf5xmlgui-dev libkf5notifications-dev plasma-framework-dev kdoctools-dev libxi-dev libwacom-dev
+    $ apt install g++ cmake extra-cmake-modules gettext libqt5x11extras5-dev qtdeclarative5-dev libkf5coreaddons-dev libkf5i18n-dev libkf5dbusaddons-dev libkf5globalaccel-dev libkf5config-dev libkf5xmlgui-dev libkf5notifications-dev plasma-framework-dev kdoctools-dev libxi-dev libwacom-dev
 
 Building from source
 --------------------
@@ -62,62 +91,56 @@ Building from source
 This is *not* a recommended way to use this application. Installing it manually creates files untracked by your pacakge manager.
 This can cause everyone problems later on. Please contact your distribution's maintainers to package it instead.
 
-$ mkdir build
-$ cd build
-$ cmake ../ -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
-$ make
+    $ mkdir build
+    $ cd build
+    $ cmake ../ -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+    $ make
 
 Manual installation (this *will* litter in your system):
 
-$ make install
+    $ make install
 
-Test KCM component:
+Running without installing
+--------------------------
 
-$ QT_PLUGIN_PATH=src/kcmodule/ kcmshell5 wacomtablet
+This is not intended for daily use, but for people who want to test developer builds.
 
-Test KDED component:
+Running KCM component:
 
-$ kquitapp5 kded5 && QT_PLUGIN_PATH=src/kded kded5
+    $ QT_PLUGIN_PATH=src/kcmodule/ kcmshell5 wacomtablet
 
-Run tablet finder:
+Running KDED component:
 
-$ src/tabletfinder/kde_wacom_tabletfinder
+    $ ln -s kf5 src/
+    $ kquitapp5 kded5 && QT_PLUGIN_PATH=$PWD kded5
 
-Staring the module
-==================
+Running tablet finder:
 
-Background daemon should be started automatically each time you log in.
-If you do not want to restart your session, navigate to System Settings → Startup and Shutdown → Background services and enable "Wacom Tablet" there.
-Device settings are located in System Settings → Input Devices → Graphic Tablet
+    $ src/tabletfinder/kde_wacom_tabletfinder
 
 Running unit tests
 ==================
 
 First, configure the build to include tests by enabling BUILD_TESTING:
 
-$ mkdir build
-$ cd build
-$ cmake ../ -DBUILD_TESTING=ON
-$ make
+    $ mkdir build
+    $ cd build
+    $ cmake ../ -DBUILD_TESTING=ON
+    $ make
 
 Then, run the tests with:
 
-$ ctest
+    $ ctest
 
 or a single one via
 
-$ cd autotests/common/property
-$ ./Test.Common.Property
+    $ cd autotests/common/property
+    $ ./Test.Common.Property
 
-you can find the test results in Testing/Temporary/LastTest.log
-
-Add missing tablet devices
-==========================
-
-If your device is not recognized by this program, but you can set it up via the xsetwacom driver, run kde_wacom_tabletfinder.
+you can find the test results in `Testing/Temporary/LastTest.log`
 
 Manually adding missing tablet devices
---------------------------------------
+======================================
 
 This method shouldn't really be used anymore unless you've encountered problems with kde_wacom_tabletfinder
 
@@ -191,3 +214,12 @@ hwbutton1=3
 hwbutton2=8
 hwbutton3=9
 hwbutton4=1
+
+Releasing new version
+=====================
+
+Checklist for developers:
+
+* Bump main package version in: `CMakeLists.txt`
+* Bump applet version in: `src/applet/package/metadata.desktop`
+* Follow https://community.kde.org/ReleasingSoftware

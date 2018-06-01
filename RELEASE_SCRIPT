@@ -1,3 +1,0 @@
-* Bump main package version in: CMakeLists.txt
-* Bump applet version in: src/applet/package/metadata.desktop
-* Follow https://community.kde.org/ReleasingSoftware
