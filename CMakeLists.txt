@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 cmake_policy(SET CMP0048 NEW)
-project(wacomtablet VERSION "3.0.0")
+project(wacomtablet VERSION "3.1.0")
 
 set(QT_MIN_VERSION "5.7.0")
 find_package(ECM 1.6.0 REQUIRED CONFIG)
