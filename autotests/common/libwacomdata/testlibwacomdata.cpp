@@ -79,7 +79,7 @@ void TestLibwacomData::testData()
         bool inLocal = false;
         bool inLibWacom = false;
 
-        if (TabletDatabase::instance().lookupTablet(localInfo.get (TabletInfo::TabletId), localInfo)) {
+        if (TabletDatabase::instance().lookupTablet(localInfo.get (TabletInfo::TabletId), localInfo.get (TabletInfo::CompanyId), localInfo)) {
             inLocal = true;
         }
 
