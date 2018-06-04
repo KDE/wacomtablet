@@ -4,3 +4,4 @@
 .directory
 build
 CMakeLists.txt.user
+.vscode

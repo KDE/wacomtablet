@@ -63,7 +63,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Serial Nr.:</string>
+         <string>Serial No.:</string>
         </property>
        </widget>
       </item>

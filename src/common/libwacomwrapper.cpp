@@ -88,7 +88,11 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
     // TODO: Returns more detailed information than we expect,
     // current LED code is broken anyway so this should be untangled later
     int numStatusLeds = 0;
-    int numLedGroups;
+    int numLedGroups = 0;
+
+    // TODO: Following code might not work very well with Cintiq 24HD
+    // because of how we currently handle StatusLEDs property (we expect 0, 4 or 8 leds)
+    // and Cintiq 24HD supposedly has 3 + 3 leds
     const WacomStatusLEDs *ledGroups = libwacom_get_status_leds(device.get(), &numLedGroups);
     for (int i = 0; i < numLedGroups; i++) {
         int groupModes = 0;
@@ -104,6 +108,8 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
                 break;
             case WACOM_STATUS_LED_TOUCHSTRIP2:
                 groupModes = libwacom_get_strips_num_modes(device.get());
+                break;
+            case WACOM_STATUS_LED_UNAVAILABLE:
                 break;
         }
         numStatusLeds += groupModes;
