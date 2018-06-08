@@ -72,6 +72,8 @@
     <screenshot type="default">
       <caption>Settings window.</caption>
       <caption xml:lang="ca">Finestra de paràmetres.</caption>
+      <caption xml:lang="fr">Fenêtre de configuration.</caption>
+      <caption xml:lang="id">Jendela setelan.</caption>
       <caption xml:lang="it">Finestra delle impostazioni.</caption>
       <caption xml:lang="nl">Instellingenvenster.</caption>
       <caption xml:lang="pt">Janela de configuração.</caption>
