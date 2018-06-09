@@ -14,11 +14,6 @@ add_executable(kde_wacom_tabletfinder ${tabletfinder_SRCS})
 
 target_link_libraries( kde_wacom_tabletfinder
                        wacom_common
-                       ${KDE4_KDECORE_LIBS}
-                       ${KDE4_KDEUI_LIBS}
-                       ${X11_X11_LIB}
-                       ${X11_Xinput_LIB}
-                       ${X11_LIBRARIES}
 )
 
 install(TARGETS kde_wacom_tabletfinder DESTINATION ${KDE_INSTALL_BINDIR} )
