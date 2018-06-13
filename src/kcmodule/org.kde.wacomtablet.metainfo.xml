@@ -23,7 +23,7 @@
   <name xml:lang="sv">KDE:s modul för Wacom ritplatta</name>
   <name xml:lang="uk">Модуль планшета Wacom для KDE</name>
   <name xml:lang="x-test">xxKDE Wacom tablet modulexx</name>
-  <name xml:lang="zh-CN">KDE Wacom 绘图板模块</name>
+  <name xml:lang="zh-CN">KDE Wacom 数位板模块</name>
   <summary>Configuration GUI for graphical tablets</summary>
   <summary xml:lang="ca">IGU de configuració per a tauletes gràfiques</summary>
   <summary xml:lang="ca-valencia">IGU de configuració per a tauletes gràfiques</summary>
@@ -43,7 +43,7 @@
   <summary xml:lang="sv">Grafiskt inställningsgränssnitt för ritplattor</summary>
   <summary xml:lang="uk">Графічний інтерфейс для налаштовування графічних планшетів</summary>
   <summary xml:lang="x-test">xxConfiguration GUI for graphical tabletsxx</summary>
-  <summary xml:lang="zh-CN">绘图板配置界面</summary>
+  <summary xml:lang="zh-CN">数位板配置界面</summary>
   <description>
     <p>Wacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.</p>
     <p xml:lang="ca">Mòdul per a tauletes Wacom que proporciona la secció tauletes de l'Arranjament del sistema i un dimoni en segon pla que configura les tauletes connectades.</p>
@@ -62,7 +62,7 @@
     <p xml:lang="sv">Modulen för Wacom ritplatta tillhandahåller val av ritplatta för systeminställningarna och en bakgrundsdemon som anpassar anslutna ritplattor.</p>
     <p xml:lang="uk">Модуль планшетів Wacom забезпечує роботу розділу планшетів у Системних параметрах і фонової служби, яка налаштовує роботу із з'єднаними планшетами.</p>
     <p xml:lang="x-test">xxWacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.xx</p>
-    <p xml:lang="zh-CN">Wacom 绘图板模块提供了系统设置中的绘图板分区，以及一个用于配置连接的绘图板的后台守护程序。</p>
+    <p xml:lang="zh-CN">Wacom 数位板模块提供了系统设置中的数位板部分，它还提供了一个用于配置连接的数位板的后台守护进程。</p>
   </description>
   <url type="homepage">https://www.linux-apps.com/p/1127862/</url>
   <url type="bugtracker">https://bugs.kde.org/buglist.cgi?component=general&amp;product=wacomtablet&amp;resolution=---</url>
