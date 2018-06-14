@@ -17,6 +17,7 @@
   <name xml:lang="id">Modul tablet Wacom KDE</name>
   <name xml:lang="it">Modulo di KDE per le tavolette Wacom</name>
   <name xml:lang="nl">KDE Wacom tabletmodule</name>
+  <name xml:lang="nn">Oppsettmodul for Wacom-teikneplate</name>
   <name xml:lang="pl">Moduł KDE tabletu Wacom</name>
   <name xml:lang="pt">Módulo de tablete Wacom do KDE</name>
   <name xml:lang="sk">KDE modul Wacom tabletu</name>
@@ -37,6 +38,7 @@
   <summary xml:lang="id">Konfigurasi GUI untuk tablet grafikal</summary>
   <summary xml:lang="it">Interfaccia per la configurazione delle tavolette grafiche</summary>
   <summary xml:lang="nl">Configuratie GUI voor grafisch tablets</summary>
+  <summary xml:lang="nn">Grafisk oppsett av teikneplater</summary>
   <summary xml:lang="pl">Interfejs do ustawiania tabletów graficznych</summary>
   <summary xml:lang="pt">Interface de configuração para tabletes gráficas</summary>
   <summary xml:lang="sk">Konfiguračné GUI pre grafické tablety</summary>
@@ -56,6 +58,7 @@
     <p xml:lang="id">Modul tablet Wacom menyediakan bagian tablet untuk Setelan Sistem dan daemon latarbelakang yang mengkonfigurasi tablet-tablet yang tersambung.</p>
     <p xml:lang="it">Il modulo tavolette Wacom fornisce una sezione per la tavoletta nelle Impostazioni di sistema ed un demone in background che configura le tavolette connesse.</p>
     <p xml:lang="nl">Wacom tablet module biedt tabletsectie voor Systeeminstelling en een achtergrond-daemon die verbonden tablets configureert.</p>
+    <p xml:lang="nn">Oppsettmodulen for Wacom-teikneplater vert vist i systeminnstillingane og køyrer som ei bakgrunnsteneste for oppsett av teikneplater.</p>
     <p xml:lang="pl">Moduł tabletu Wacom zapewnia dział tabletów dla ustawień systemowych i usługę w tle do ustawiania podłączonych tabletów.</p>
     <p xml:lang="pt">O módulo da tablete Wacom oferece a secção de tablete para a Configuração do Sistema e um serviço em segundo plano que configura as tabletes ligadas.</p>
     <p xml:lang="sk">Modul Wacom tablet poskytuje sekciu tabletu pre systémové nastavenia a démon pozadia, ktorý nastavuje pripojené tablety.</p>
@@ -82,6 +85,7 @@
       <caption xml:lang="id">Jendela setelan.</caption>
       <caption xml:lang="it">Finestra delle impostazioni.</caption>
       <caption xml:lang="nl">Instellingenvenster.</caption>
+      <caption xml:lang="nn">Innstillingsvindauge.</caption>
       <caption xml:lang="pl">Okno ustawień.</caption>
       <caption xml:lang="pt">Janela de configuração.</caption>
       <caption xml:lang="sv">Inställningsfönster.</caption>
