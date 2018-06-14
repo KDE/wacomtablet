@@ -25,7 +25,7 @@ Name[sv]=Datagränssnitt för Wacom ritplatta
 Name[tr]=Wacom Tablet VeriMotoru
 Name[uk]=Рушій даних планшета Wacom
 Name[x-test]=xxWacom Tablet DataEnginexx
-Name[zh_CN]=Wacom 绘图板数据引擎
+Name[zh_CN]=Wacom 数位板数据引擎
 Icon=input-tablet
 Type=Service
 
