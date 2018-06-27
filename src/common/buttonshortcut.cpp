@@ -85,6 +85,27 @@ const char* ButtonShortcut::CONVERT_KEY_MAP_DATA[][2] = {
     {nullptr, nullptr}
 };
 
+QString buttonNumberToDescription(int buttonNr) {
+    switch (buttonNr) {
+    case 1:
+        return i18nc("Tablet button triggers a left mouse button click.", "Left Mouse Button Click");
+    case 2:
+        return i18nc("Tablet button triggers a middle mouse button click.", "Middle Mouse Button Click");
+    case 3:
+        return i18nc("Tablet button triggers a right mouse button click.", "Right Mouse Button Click");
+    case 4:
+        return i18nc("Tablet button triggers mouse wheel up.", "Mouse Wheel Up");
+    case 5:
+        return i18nc("Tablet button triggers mouse wheel down.", "Mouse Wheel Down");
+    case 6:
+        return i18nc("Tablet button triggers mouse wheel left.", "Mouse Wheel Left");
+    case 7:
+        return i18nc("Tablet button triggers mouse wheel right.", "Mouse Wheel Right");
+    default:
+        return i18nc("Tablet button triggers a click of mouse button with number #", "Mouse Button %1 Click", buttonNr);
+    }
+}
+
 namespace Wacom {
     class ButtonShortcutPrivate {
         public:
@@ -271,41 +292,29 @@ const QString ButtonShortcut::toDisplayString() const
     int                          buttonNr = getButton();
 
     switch (d->type) {
-        case ShortcutType::BUTTON:
-            if (buttonNr == 1) {
-                displayString = i18nc("Tablet button triggers a left mouse button click.", "Left Mouse Button Click");
-            } else if (buttonNr == 2) {
-                displayString = i18nc("Tablet button triggers a middle mouse button click.", "Middle Mouse Button Click");
-            } else if (buttonNr == 3) {
-                displayString = i18nc("Tablet button triggers a right mouse button click.", "Right Mouse Button Click");
-            } else if (buttonNr == 4) {
-                displayString = i18nc("Tablet button triggers mouse wheel up.", "Mouse Wheel Up");
-            } else if (buttonNr == 5) {
-                displayString = i18nc("Tablet button triggers mouse wheel down.", "Mouse Wheel Down");
-            } else {
-                displayString = i18nc("Tablet button triggers a click of mouse button with number #", "Mouse Button %1 Click", buttonNr);
-            }
-            break;
+    case ShortcutType::BUTTON:
+        displayString = buttonNumberToDescription(buttonNr);
+        break;
 
-        case ShortcutType::MODIFIER:
-            displayString = d->sequence;
-            convertKeySequenceToQKeySequenceFormat(displayString);
-            break;
+    case ShortcutType::MODIFIER:
+        displayString = d->sequence;
+        convertKeySequenceToQKeySequenceFormat(displayString);
+        break;
 
-        case ShortcutType::KEYSTROKE:
-            displayString = d->sequence;
-            convertKeySequenceToQKeySequenceFormat(displayString);
+    case ShortcutType::KEYSTROKE:
+        displayString = d->sequence;
+        convertKeySequenceToQKeySequenceFormat(displayString);
 
-            // check if a global shortcut is assigned to this sequence
-            globalShortcutList = KGlobalAccel::getGlobalShortcutsByKey(QKeySequence(displayString));
+        // check if a global shortcut is assigned to this sequence
+        globalShortcutList = KGlobalAccel::getGlobalShortcutsByKey(QKeySequence(displayString));
 
-            if(!globalShortcutList.isEmpty()) {
-                displayString = globalShortcutList.at(0).uniqueName();
-            }
-            break;
+        if(!globalShortcutList.isEmpty()) {
+            displayString = globalShortcutList.at(0).uniqueName();
+        }
+        break;
 
-        case ShortcutType::NONE:
-            break;
+    case ShortcutType::NONE:
+        break;
     }
 
     return displayString;
