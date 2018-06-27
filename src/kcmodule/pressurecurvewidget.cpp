@@ -20,6 +20,7 @@
 #include "pressurecurvewidget.h"
 
 //Qt includes
+#include <QDebug>
 #include <QPainter>
 #include <QMouseEvent>
 #include <QResizeEvent>
@@ -63,12 +64,14 @@ void PressureCurveWidget::mouseReleaseEvent(QMouseEvent * event)
 void PressureCurveWidget::resizeEvent(QResizeEvent * event)
 {
     // avoid unpredictable ratio on first initialisation
-    if (event->oldSize().width() == -1) {
+    if (event->oldSize().width() == -1
+            || event->oldSize().width() == 0
+            || event->oldSize().height() == 0) {
         return;
     }
 
-    qreal xRatio = (qreal)event->size().width() / (qreal)event->oldSize().width();
-    qreal yRatio = (qreal)event->size().height() / (qreal)event->oldSize().height();
+    const qreal xRatio = static_cast<qreal>(event->size().width())  / event->oldSize().width();
+    const qreal yRatio = static_cast<qreal>(event->size().height()) / event->oldSize().height();
 
     m_cP1.setX(m_cP1.x() * xRatio);
     m_cP1.setY(m_cP1.y() * yRatio);
@@ -81,15 +84,14 @@ void PressureCurveWidget::tabletEvent(QTabletEvent * event)
     event->accept();
     m_presssure = event->pressure();
 
-    if (event->pressure() == 0) {
+    constexpr qreal threshold = 0.001;
+    if (m_presssure <= threshold) {
         m_activePoint = 0;
     }
 
     if (m_activePoint > 0) {
         moveControlPoint(event->pos());
-    }
-
-    else if (event->pressure() > 0) {
+    } else if (m_presssure > threshold) {
         setNearestPoint(event->pos());
     }
 
@@ -118,7 +120,7 @@ void PressureCurveWidget::moveControlPoint(const QPointF & pos)
     } else if (pos.x() < 0) {
         x = 0;
     } else {
-        x = pos.x();
+        x = qRound(pos.x());
     }
 
     if (pos.y() > height()) {
@@ -126,7 +128,7 @@ void PressureCurveWidget::moveControlPoint(const QPointF & pos)
     } else if (pos.y() < 0) {
         y = 0;
     } else {
-        y = pos.y();
+        y = qRound(pos.y());
     }
 
     switch (m_activePoint) {
@@ -143,10 +145,10 @@ void PressureCurveWidget::moveControlPoint(const QPointF & pos)
     }
 
     // build string with controlpoints as used in xsetwacom settings
-    int p1 = (m_cP1.x() / width()) * 100.0;
-    int p2 = (m_cP1.y() / height()) * 100.0;
-    int p3 = (m_cP2.x() / width()) * 100.0;
-    int p4 = (m_cP2.y() / height()) * 100.0;
+    int p1 = qRound((m_cP1.x() / width())  * 100.0);
+    int p2 = qRound((m_cP1.y() / height()) * 100.0);
+    int p3 = qRound((m_cP2.x() / width())  * 100.0);
+    int p4 = qRound((m_cP2.y() / height()) * 100.0);
 
     //change y values upside down
     p2 = 100 - p2;
