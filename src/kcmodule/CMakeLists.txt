@@ -9,7 +9,6 @@ set( kcm_tablet_SRCS
      buttonpagewidget.cpp
      calibrationdialog.cpp
      generalpagewidget.cpp
-     kcmwacomtablet.cpp
      kcmwacomtabletwidget.cpp
      keysequenceinputbutton.cpp
      keysequenceinputwidget.cpp
@@ -22,7 +21,7 @@ set( kcm_tablet_SRCS
      tabletareaselectionwidget.cpp
      tabletpagewidget.cpp
      touchpagewidget.cpp
-     ../common/globalactions.cpp
+     ../common/globalactions.cpp # FIXME: why?
 )
 
 ki18n_wrap_ui( kcm_tablet_SRCS
@@ -46,22 +45,37 @@ ecm_qt_declare_logging_category(
     IDENTIFIER "KCM"
     CATEGORY_NAME "org.kde.wacomtablet.kcm")
 
-add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
-add_library(kcm_wacomtablet MODULE ${kcm_tablet_SRCS})
-
-target_link_libraries( kcm_wacomtablet
-                       wacom_common
-                       Qt5::Core
-                       Qt5::Widgets
-                       Qt5::X11Extras
-                       KF5::CoreAddons
-                       KF5::XmlGui
-                       KF5::WidgetsAddons
-                       KF5::WindowSystem
-                       ${X11_LIBRARIES}
-                       ${X11_Xinput_LIB}
+set(kcm_wacomtablet_PLUGIN_SRC
+    kcmwacomtablet.cpp
 )
 
-install(TARGETS kcm_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR} )
-install( FILES kcm_wacomtablet.desktop  DESTINATION  ${KDE_INSTALL_KSERVICES5DIR} )
+set(kcm_wacomtablet_LIBS
+    wacom_common
+    Qt5::Core
+    Qt5::Widgets
+    Qt5::X11Extras
+    KF5::CoreAddons
+    KF5::XmlGui
+    KF5::WidgetsAddons
+    KF5::WindowSystem
+    ${X11_LIBRARIES}
+    ${X11_Xinput_LIB}
+    )
+
+add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
+add_library(kcm_wacomtablet MODULE ${kcm_wacomtablet_PLUGIN_SRC} ${kcm_tablet_SRCS})
+
+target_link_libraries(kcm_wacomtablet ${kcm_wacomtablet_LIBS})
+
+install(TARGETS kcm_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR})
+install(FILES kcm_wacomtablet.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
 install(FILES org.kde.wacomtablet.metainfo.xml DESTINATION "${KDE_INSTALL_METAINFODIR}")
+
+## LIBRARY FOR UNIT TESTS
+if (BUILD_TESTING)
+    ## build static library for unit testing
+    add_library( kcm_testlib STATIC ${kcm_tablet_SRCS} )
+    target_link_libraries( kcm_testlib ${kcm_wacomtablet_LIBS} )
+    set_target_properties( kcm_testlib PROPERTIES COMPILE_FLAGS "-fPIC" )
+
+endif (BUILD_TESTING)

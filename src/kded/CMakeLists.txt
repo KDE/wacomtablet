@@ -63,16 +63,6 @@ install(FILES wacomtablet.categories DESTINATION ${KDE_INSTALL_CONFDIR})
 
 ## LIBRARY FOR UNIT TESTS
 if (BUILD_TESTING)
-
-    ## headers which need to be moc'ed for the static unit-testing library
-    set(kded_wacomtablet_HDRS
-        dbustabletservice.h
-        tabletdaemon.h
-        tablethandler.h
-        eventnotifier.h
-        x11eventnotifier.h
-    )
-
     ## build static library for unit testing
     add_library( kded_wacomtablet_lib STATIC ${kded_wacomtablet_SRCS} )
     target_link_libraries( kded_wacomtablet_lib ${kded_wacomtablet_LIBS} )
