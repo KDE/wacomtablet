@@ -18,6 +18,7 @@ set(wacom_common_SRC
     deviceinformation.cpp
     deviceprofile.cpp
     deviceprofileconfigadaptor.cpp
+    deviceprofiledefaults.cpp
     deviceproperty.cpp
     devicetype.cpp
     libwacomwrapper.cpp

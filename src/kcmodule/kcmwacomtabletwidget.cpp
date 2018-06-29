@@ -58,7 +58,7 @@ class KCMWacomTabletWidgetPrivate {
         Ui::KCMWacomTabletWidget ui;          //!< This user interface.
 
         GeneralPageWidget generalPage;        //!< Widget that shows some basic information about the tablet.
-        StylusPageWidget  stylusPage;         //!< Widget for the pen settings (stylus/eraser).
+        StylusPageWidget  stylusPage{ProfileManagement::instance()};         //!< Widget for the pen settings (stylus/eraser).
         ButtonPageWidget  buttonPage;         //!< Widget for the express button settings.
         TabletPageWidget  tabletPage;         //!< Widget for the tablet settings.
         TouchPageWidget   touchPage;          //!< Widget for the touch settings.

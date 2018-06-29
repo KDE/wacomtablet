@@ -42,19 +42,25 @@ using namespace Wacom;
 namespace Wacom {
     class StylusPageWidgetPrivate {
         public:
-            StylusPageWidgetPrivate() : ui(new Ui::StylusPageWidget) {}
+            StylusPageWidgetPrivate(ProfileManagementInterface &profileManagementPtr)
+                : ui(new Ui::StylusPageWidget)
+                , profileManagement(profileManagementPtr)
+            {}
+
             ~StylusPageWidgetPrivate() {
                 delete ui;
             }
 
             Ui::StylusPageWidget* ui;
             QString               tabletId;
+            ProfileManagementInterface &profileManagement;
     };
 } // NAMESPACE
 
 
-StylusPageWidget::StylusPageWidget( QWidget* parent )
-    : QWidget( parent ), d_ptr(new StylusPageWidgetPrivate)
+StylusPageWidget::StylusPageWidget(ProfileManagementInterface &profileManagementPtr, QWidget *parent)
+    : QWidget(parent)
+    , d_ptr(new StylusPageWidgetPrivate(profileManagementPtr))
 {
     setupUi();
 }
@@ -74,10 +80,9 @@ void StylusPageWidget::setTabletId(const QString &tabletId)
 void StylusPageWidget::loadFromProfile()
 {
     Q_D( const StylusPageWidget );
-    ProfileManagement* profileManagement = &ProfileManagement::instance();
 
-    DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( DeviceType::Stylus );
-    DeviceProfile eraserProfile = profileManagement->loadDeviceProfile( DeviceType::Eraser );
+    DeviceProfile stylusProfile = d->profileManagement.loadDeviceProfile( DeviceType::Stylus );
+    DeviceProfile eraserProfile = d->profileManagement.loadDeviceProfile( DeviceType::Eraser );
 
     // eraser feel / tip feel
     setPressureFeel  ( DeviceType::Eraser, eraserProfile.getProperty( Property::Threshold ) );
@@ -111,10 +116,9 @@ void StylusPageWidget::reloadWidget()
 void StylusPageWidget::saveToProfile()
 {
     Q_D( const StylusPageWidget );
-    ProfileManagement* profileManagement = &ProfileManagement::instance();
 
-    DeviceProfile stylusProfile = profileManagement->loadDeviceProfile( DeviceType::Stylus );
-    DeviceProfile eraserProfile = profileManagement->loadDeviceProfile( DeviceType::Eraser );
+    DeviceProfile stylusProfile = d->profileManagement.loadDeviceProfile( DeviceType::Stylus );
+    DeviceProfile eraserProfile = d->profileManagement.loadDeviceProfile( DeviceType::Eraser );
 
     // eraser / tip pressure
     eraserProfile.setProperty( Property::Threshold,     getPressureFeel(DeviceType::Eraser) );
@@ -141,8 +145,8 @@ void StylusPageWidget::saveToProfile()
     eraserProfile.setProperty( Property::Suppress, QString::number(d->ui->horizontalSliderSuppress->value()) );
     stylusProfile.setProperty( Property::Suppress, QString::number(d->ui->horizontalSliderSuppress->value()) );
 
-    profileManagement->saveDeviceProfile(stylusProfile);
-    profileManagement->saveDeviceProfile(eraserProfile);
+    d->profileManagement.saveDeviceProfile(stylusProfile);
+    d->profileManagement.saveDeviceProfile(eraserProfile);
 }
 
 

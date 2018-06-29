@@ -20,6 +20,8 @@
 #ifndef PROFILEMANAGEMENT_H
 #define PROFILEMANAGEMENT_H
 
+#include "profilemanagementinterface.h"
+
 #include "profilemanager.h"
 #include "deviceprofile.h"
 
@@ -38,7 +40,7 @@ namespace Wacom
   * interpret the profile information into whatever the device backends expect.
   * Profiles are saved by tablet name and thus it is possible to have the same profile names for different tablets
   */
-class ProfileManagement
+class ProfileManagement : public ProfileManagementInterface
 {
     public:
 

@@ -19,6 +19,12 @@
 
 
 #include "kcmodule/styluspagewidget.h"
+#include "../profilemanagementmocks.h"
+
+#include "deviceprofile.h"
+#include "deviceproperty.h"
+#include "screenrotation.h"
+#include "deviceprofiledefaults.h"
 
 #include <QtTest>
 
@@ -31,9 +37,10 @@ class TestStylusPageWidget: public QObject
 private slots:
     void initTestCase();
     void cleanupTestCase();
-    void noopTest();
+    void testStylusSettingsPersistency();
 
 private:
+    ProfileManagementIntegrityChecker p;
     StylusPageWidget * _testObject;
 };
 
@@ -41,7 +48,9 @@ private:
 
 void TestStylusPageWidget::initTestCase()
 {
-    _testObject = new StylusPageWidget();
+    p._savedProfiles.clear();
+    p._presetProfiles.clear();
+    _testObject = new StylusPageWidget(p);
 }
 
 void TestStylusPageWidget::cleanupTestCase()
@@ -49,9 +58,30 @@ void TestStylusPageWidget::cleanupTestCase()
     delete _testObject;
 }
 
-void TestStylusPageWidget::noopTest()
+void TestStylusPageWidget::testStylusSettingsPersistency()
 {
     QVERIFY(_testObject != nullptr);
+
+    DeviceProfile stylus;
+    DeviceProfile eraser;
+
+    stylus.setDeviceType(DeviceType::Stylus);
+    eraser.setDeviceType(DeviceType::Eraser);
+    setupDefaultStylus(stylus);
+    setupDefaultStylus(eraser);
+
+    p._presetProfiles[DeviceType::Stylus] = stylus;
+    p._presetProfiles[DeviceType::Eraser] = eraser;
+
+    _testObject->loadFromProfile();
+    _testObject->saveToProfile();
+
+    for(const DeviceProperty& property : DeviceProperty::list()) {
+        //qDebug() << "Comparing" << property.key();
+        QCOMPARE(p._savedProfiles[DeviceType::Stylus].getProperty(property.id()), p._presetProfiles[DeviceType::Stylus].getProperty(property.id()));
+        QCOMPARE(p._savedProfiles[DeviceType::Eraser].getProperty(property.id()), p._presetProfiles[DeviceType::Eraser].getProperty(property.id()));
+    }
+
 }
 
 QTEST_MAIN(TestStylusPageWidget)

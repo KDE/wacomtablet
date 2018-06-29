@@ -30,6 +30,7 @@ class StylusPageWidgetPrivate;
 class ButtonShortcut;
 class DeviceType;
 class Property;
+class ProfileManagementInterface;
 
 /**
  * @brief Provides interface to all settings for the stylus/eraser pen.
@@ -39,7 +40,7 @@ class StylusPageWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit StylusPageWidget(QWidget *parent = 0);
+    explicit StylusPageWidget(ProfileManagementInterface &profileManagementPtr, QWidget *parent = 0);
 
     ~StylusPageWidget();
 

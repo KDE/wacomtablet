@@ -22,6 +22,7 @@
 #include "logging.h"
 
 // common
+#include "deviceprofiledefaults.h"
 #include "dbustabletinterface.h"
 #include "tabletinfo.h"
 #include "devicetype.h"
@@ -35,34 +36,6 @@
 #include <QDBusReply>
 
 using namespace Wacom;
-
-void setupDefaultPad(DeviceProfile &pad) {
-    pad.setProperty(Property::AbsWheelUp, QLatin1String("4"));
-    pad.setProperty(Property::AbsWheelDown, QLatin1String("5"));
-}
-
-void setupDefaultStylus(DeviceProfile &stylus) {
-    stylus.setProperty(Property::Button1, QLatin1String("1"));
-    stylus.setProperty(Property::Button2, QLatin1String("2"));
-    stylus.setProperty(Property::Button3, QLatin1String("3"));
-    stylus.setProperty(Property::Mode, QLatin1String("absolute"));
-    stylus.setProperty(Property::PressureCurve, QLatin1String("0 0 100 100"));
-    stylus.setProperty(Property::RawSample, QLatin1String("4"));
-    stylus.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
-    stylus.setProperty(Property::Suppress, QLatin1String("2"));
-    stylus.setProperty(Property::Threshold, QLatin1String("27"));
-}
-
-void setupDefaultTouch(DeviceProfile &touch) {
-    touch.setProperty(Property::Gesture, QLatin1String("on"));
-    touch.setProperty(Property::InvertScroll, QLatin1String("off"));
-    touch.setProperty(Property::Mode, QLatin1String("absolute"));
-    touch.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
-    touch.setProperty(Property::ScrollDistance, QLatin1String("20"));
-    touch.setProperty(Property::TapTime, QLatin1String("250"));
-    touch.setProperty(Property::Touch, QLatin1String("on"));
-    touch.setProperty(Property::ZoomDistance, QLatin1String("50"));
-}
 
 ProfileManagement::ProfileManagement()
     : m_profileManager(QLatin1String("tabletprofilesrc"))
