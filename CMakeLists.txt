@@ -53,7 +53,7 @@ endif()
 add_definitions( -DQT_STRICT_ITERATORS )
 add_definitions( -DQT_NO_CAST_FROM_ASCII )
 add_definitions( -DQT_NO_CAST_TO_ASCII )
-add_definitions( -DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS )
+add_definitions( -DQT_USE_QSTRINGBUILDER )
 
 add_subdirectory( src )
 add_subdirectory( data )
