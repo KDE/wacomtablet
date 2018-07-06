@@ -215,7 +215,7 @@ Q_SIGNALS:
     /**
      * Emitted if the user should be notified.
      */
-    void notify (const QString& eventId, const QString& title, const QString& message);
+    void notify(const QString &eventId, const QString &title, const QString &message, bool suggestConfigure);
 
 
     /**

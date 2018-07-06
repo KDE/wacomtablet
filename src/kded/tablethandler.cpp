@@ -139,10 +139,10 @@ void TabletHandler::onTabletAdded( const TabletInformation& info )
     d->tabletInformationList.insert(tabletId, info);
 
     // if we found something notify about it and set the default profile to it
-    emit notify( QLatin1String("tabletAdded"),
-                 i18n("Tablet Connected"),
-                 i18n("New tablet '%1' connected.",
-                 info.get(TabletInfo::TabletName) ));
+    emit notify(QLatin1String("tabletAdded"),
+                i18n("Tablet Connected"),
+                i18n("New tablet '%1' connected.", info.get(TabletInfo::TabletName)),
+                true);
 
     // set profile which was last used
     auto lastProfile = d->mainConfig.getLastProfile(info.getUniqueDeviceId());
@@ -170,10 +170,10 @@ void TabletHandler::onTabletRemoved( const TabletInformation& info )
     TabletInformation       ti  = d->tabletInformationList.value(info.get(TabletInfo::TabletId));
 
     if ( tbi && ti.getTabletSerial() == info.getTabletSerial() ) {
-        emit notify( QLatin1String("tabletRemoved"),
-                     i18n("Tablet removed"),
-                     i18n("Tablet %1 removed",
-                     ti.get(TabletInfo::TabletName) ));
+        emit notify(QLatin1String("tabletRemoved"),
+                    i18n("Tablet removed"),
+                    i18n("Tablet %1 removed", ti.get(TabletInfo::TabletName)),
+                    false);
 
         QString tabletId = info.get(TabletInfo::TabletId);
         d->tabletBackendList.remove(tabletId);
@@ -470,9 +470,10 @@ void TabletHandler::setProfile( const QString &tabletId, const QString &profile 
         }
         else {
             qCWarning(KDED) << QString::fromLatin1("Tablet profile '%1' does not exist!").arg(profile);
-            emit notify( QLatin1String( "tabletError" ),
-                         i18n( "Graphic Tablet error" ),
-                         i18n( "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead", profile, pList.first() ) );
+            emit notify(QLatin1String( "tabletError"),
+                        i18n( "Graphic Tablet error" ),
+                        i18n( "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead", profile, pList.first() ),
+                        true);
 
             // set first known profile instead
             d->currentProfileList.insert(tabletId, pList.first());

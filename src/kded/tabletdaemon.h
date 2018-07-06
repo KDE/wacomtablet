@@ -75,7 +75,7 @@ public Q_SLOTS:
       * @param title   The notification title.
       * @param message The notification message.
       */
-    void onNotify(const QString& eventId, const QString& title, const QString& message) const;
+    void onNotify(const QString& eventId, const QString& title, const QString& message, bool suggestConfigure) const;
 
     /**
      * Called when the profile was changed.
@@ -83,6 +83,11 @@ public Q_SLOTS:
      * @param profile The name of the new profile.
      */
     void onProfileChanged(const QString &tabletId, const QString& profile);
+
+    /**
+     * @brief Called when user presses "Configure" button on the notification popup
+     */
+    void onOpenConfiguration() const;
 
 private:
     /**

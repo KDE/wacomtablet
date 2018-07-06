@@ -84,7 +84,7 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
     connect(&(d->tabletHandler), &TabletHandler::profileChanged, this, &TabletDaemon::onProfileChanged);
 
     // Connecting this after the device has been set up ensures that no notification is send on startup.
-    connect( &(d->tabletHandler), SIGNAL(notify(QString,QString,QString)), this, SLOT(onNotify(QString,QString,QString)) );
+    connect( &(d->tabletHandler), &TabletHandler::notify, this, &TabletDaemon::onNotify);
 }
 
 
@@ -97,13 +97,21 @@ TabletDaemon::~TabletDaemon()
 
 
 
-void TabletDaemon::onNotify(const QString& eventId, const QString& title, const QString& message) const
+void TabletDaemon::onNotify(const QString& eventId, const QString& title, const QString& message, bool suggestConfigure) const
 {
     KNotification* notification = new KNotification(eventId);
     notification->setComponentName( QStringLiteral("wacomtablet") );
     notification->setTitle(title);
     notification->setText(message);
     notification->setIconName( QLatin1String( "input-tablet" ) );
+
+    if (suggestConfigure) {
+        notification->setActions(QStringList{
+                                     i18nc("Button that shows up in notification of a new tablet being connected", "Configure")
+                                 });
+        connect(notification, &KNotification::action1Activated, this, &TabletDaemon::onOpenConfiguration);
+    }
+
     notification->sendEvent();
 }
 
@@ -119,6 +127,11 @@ void TabletDaemon::onProfileChanged(const QString &tabletId, const QString& prof
     // optimal but at least it will enable the shortcuts again.
     qCDebug(KDED) << QLatin1String("Restoring global keyboard shortcuts...");
     setupActions();
+}
+
+void TabletDaemon::onOpenConfiguration() const
+{
+    QProcess::startDetached(QStringLiteral("kcmshell5 wacomtablet"));
 }
 
 
