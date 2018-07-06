@@ -41,7 +41,7 @@ class TestTabletHandler: public QObject
 
 
 public Q_SLOTS:
-    void onNotify (const QString& eventId, const QString& title, const QString& message);
+    void onNotify (const QString& eventId, const QString& title, const QString& message, bool suggestConfigure);
     void onProfileChanged (const QString &tabletID, const QString& profile);
     void onTabletAdded (const TabletInformation& info);
     void onTabletRemoved(const QString &tabletID);
@@ -81,8 +81,10 @@ QTEST_MAIN(TestTabletHandler)
 
 
 
-void TestTabletHandler::onNotify(const QString& eventId, const QString& title, const QString& message)
+void TestTabletHandler::onNotify(const QString& eventId, const QString& title, const QString& message, bool suggestConfigure)
 {
+    Q_UNUSED(suggestConfigure)
+
     m_notifyEventId = eventId;
     m_notifyTitle   = title;
     m_notifyMessage = message;
@@ -122,7 +124,7 @@ void TestTabletHandler::initTestCase()
 {
     m_tabletAdded   = false;
     m_tabletRemoved = false;
-    m_backendMock   = NULL;
+    m_backendMock   = nullptr;
 
     TabletBackendFactory::setUnitTest(true);
 
@@ -130,10 +132,10 @@ void TestTabletHandler::initTestCase()
     QString configPath  = KdedTestUtils::getAbsolutePath(QLatin1String("testtablethandler.configrc"));
     m_tabletHandler = new TabletHandler(profilePath, configPath);
 
-    connect(m_tabletHandler, SIGNAL(notify(QString,QString,QString)), this, SLOT(onNotify(QString,QString,QString)));
-    connect(m_tabletHandler, SIGNAL(profileChanged(QString,QString)), this, SLOT(onProfileChanged(QString,QString)));
-    connect(m_tabletHandler, SIGNAL(tabletAdded(TabletInformation)),  this, SLOT(onTabletAdded(TabletInformation)));
-    connect(m_tabletHandler, SIGNAL(tabletRemoved(QString)),          this, SLOT(onTabletRemoved(QString)));
+    connect(m_tabletHandler, &TabletHandler::notify, this, &TestTabletHandler::onNotify);
+    connect(m_tabletHandler, &TabletHandler::profileChanged, this, &TestTabletHandler::onProfileChanged);
+    connect(m_tabletHandler, &TabletHandler::tabletAdded, this, &TestTabletHandler::onTabletAdded);
+    connect(m_tabletHandler, &TabletHandler::tabletRemoved, this, &TestTabletHandler::onTabletRemoved);
 }
 
 
