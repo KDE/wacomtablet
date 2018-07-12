@@ -125,13 +125,13 @@ void StylusPageWidget::savePropertiesToDeviceProfile(DeviceProfile &profile) con
 
 void StylusPageWidget::onChangeEraserPressureCurve()
 {
-    changePressureCurve(DeviceType::Eraser);
+    openPressureCurveDialog(DeviceType::Eraser);
 }
 
 
 void StylusPageWidget::onChangeTipPressureCurve()
 {
-    changePressureCurve(DeviceType::Stylus);
+    openPressureCurveDialog(DeviceType::Stylus);
 }
 
 
@@ -240,29 +240,18 @@ void StylusPageWidget::setTabletPcButton(const QString& value)
     }
 }
 
-void StylusPageWidget::changePressureCurve(const DeviceType& deviceType)
+void StylusPageWidget::openPressureCurveDialog(const DeviceType& deviceType)
 {
-    PressureCurveDialog selectPC(this);
+    QString initialPressureCurve = getPressureCurve(deviceType);
+    PressureCurveDialog pressureCurveDialog(initialPressureCurve, _tabletId, deviceType, this);
 
-    QString startValue = getPressureCurve(deviceType);
-    QString result (startValue);
+    if( pressureCurveDialog.exec() == QDialog::Accepted ) {
+        QString newPressureCurve = pressureCurveDialog.getControllPoints();
 
-    selectPC.setTabletId(_tabletId);
-    selectPC.setDeviceType( deviceType );
-    selectPC.setControllPoints( startValue );
-
-    if( selectPC.exec() == QDialog::Accepted ) {
-        result = selectPC.getControllPoints();
-
-    } else {
-        // reset the current pressurecurve to what is specified in the profile
-        // rather than stick to the curve the user declined in the dialogue
-        DBusTabletInterface::instance().setProperty( _tabletId, deviceType.key(), Property::PressureCurve.key(), startValue );
-    }
-
-    if (result != startValue) {
-        setPressureCurve( deviceType, result );
-        emit changed();
+        if (newPressureCurve != initialPressureCurve) {
+            setPressureCurve( deviceType, newPressureCurve );
+            emit changed();
+        }
     }
 }
 

@@ -120,7 +120,7 @@ protected:
 private:
     void savePropertiesToDeviceProfile(DeviceProfile &profile) const;
 
-    void changePressureCurve (const DeviceType& deviceType);
+    void openPressureCurveDialog (const DeviceType& deviceType);
 
     /**
      * Sets up the user interface widgets. Should only be called once by a constructor.

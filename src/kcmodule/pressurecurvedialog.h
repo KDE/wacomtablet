@@ -48,31 +48,15 @@ public:
       *
       * @param parent parent widget
       */
-    explicit PressureCurveDialog(QWidget *parent = 0);
+    PressureCurveDialog(const QString &initialValue,
+                        const QString &tabletId,
+                        const DeviceType& deviceType,
+                        QWidget *parent = 0);
 
     /**
       * default destructor
       */
     ~PressureCurveDialog();
-
-    /**
-      * Sets the controllpoints to some starting values
-      *
-      * @param points starting values in the format as expected by the xssetwacom settings
-      */
-    void setControllPoints(const QString & points);
-
-    void setTabletId(const QString &tabletId);
-
-    /**
-      * Sets the currently used WacomInterface instance to allow on the fly changing of the presscurve
-      * Gives a better feeling when changing the beziercurve and directly see how this affects
-      * the applied pressure with the pen
-      *
-      * @param deviceInterface Interface for the connection to the tablet device.
-      * @param device devicename as used by the xsetwacomsetting for the stylus/eraser and named in the xorg.conf or by HAL
-      */
-    void setDeviceType (const DeviceType& deviceType);
 
     /**
       * Returns the changed presscurve control points in the format needed by the xsetwacom settings
@@ -100,10 +84,20 @@ public slots:
     void reject();
 
 private:
-    Ui::PressureCurveDialog *m_ui;                   /**< Handler to the presscurvedialog.ui file */
-    QString                  m_device;
-    PressureCurveWidget     *m_pressCurve = nullptr; /**< Widget that shows the presscurve and lets him change it */
-    QString                  m_tabletId;
+    /**
+      * Sets the controllpoints to some starting values
+      *
+      * @param points starting values in the format as expected by the xssetwacom settings
+      */
+    void setControllPoints(const QString & points);
+
+private:
+    Ui::PressureCurveDialog *m_ui = nullptr;                   /**< Handler to the presscurvedialog.ui file */
+    PressureCurveWidget *m_pressCurve = nullptr; /**< Widget that shows the presscurve and lets him change it */
+
+    QString _initialValue;
+    QString _tabletId;
+    QString _deviceType;
 };
 }
 #endif // PRESSURECURVEDIALOG_H

@@ -20,6 +20,7 @@
 #include "pressurecurvedialog.h"
 #include "ui_pressurecurvedialog.h"
 
+#include "logging.h"
 #include "pressurecurvewidget.h"
 #include "dbustabletinterface.h"
 
@@ -29,13 +30,21 @@
 
 using namespace Wacom;
 
-PressureCurveDialog::PressureCurveDialog(QWidget *parent) :
-        QDialog(parent),
-        m_ui(new Ui::PressureCurveDialog)
+PressureCurveDialog::PressureCurveDialog(const QString &initialValue,
+                                         const QString &tabletId,
+                                         const DeviceType& deviceType,
+                                         QWidget *parent)
+    : QDialog(parent)
+    , m_ui(new Ui::PressureCurveDialog)
+    , _initialValue(initialValue)
+    , _tabletId(tabletId)
+    , _deviceType(deviceType.key())
 {
     m_ui->setupUi(this);
 
     connect(m_ui->pc_Widget, SIGNAL(controlPointsChanged(QString)), SLOT(updateControlPoints(QString)));
+
+    setControllPoints(initialValue);
 }
 
 PressureCurveDialog::~PressureCurveDialog()
@@ -43,21 +52,12 @@ PressureCurveDialog::~PressureCurveDialog()
     delete m_ui;
 }
 
-void PressureCurveDialog::setDeviceType (const DeviceType& deviceType)
-{
-    m_device = deviceType.key();
-}
-
-void PressureCurveDialog::setTabletId(const QString &tabletId)
-{
-    m_tabletId = tabletId;
-}
-
 void PressureCurveDialog::setControllPoints(const QString & points)
 {
     QStringList splitPoints = points.split(QLatin1Char( ' ' ));
 
     if (splitPoints.count() != 4) {
+        qCDebug(KCM) << "Invalid number of control points, using defaults";
         splitPoints.insert(0, QLatin1String("0"));
         splitPoints.insert(1, QLatin1String("0"));
         splitPoints.insert(2, QLatin1String("100"));
@@ -80,7 +80,7 @@ QString PressureCurveDialog::getControllPoints()
 void PressureCurveDialog::updateControlPoints(const QString & points)
 {
     m_ui->pc_Values->setText(points);
-    DBusTabletInterface::instance().setProperty(m_tabletId, DeviceType::find(m_device)->key(), Property::PressureCurve.key(), points);
+    DBusTabletInterface::instance().setProperty(_tabletId, _deviceType, Property::PressureCurve.key(), points);
 }
 
 void PressureCurveDialog::accept()
@@ -89,5 +89,8 @@ void PressureCurveDialog::accept()
 }
 void PressureCurveDialog::reject()
 {
+    // Reset pressure curve to initial values
+    DBusTabletInterface::instance().setProperty(_tabletId, _deviceType, Property::PressureCurve.key(), _initialValue);
+
     done(QDialog::Rejected);
 }
