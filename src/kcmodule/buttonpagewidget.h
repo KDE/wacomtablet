@@ -34,8 +34,8 @@ class QLabel;
 namespace Wacom
 {
 
-class ButtonPageWidgetPrivate;
 class ButtonShortcut;
+class ProfileManagementInterface;
 
 /**
   * The PadButton widget contains all settings to assign the buttons on the tablet pad
@@ -66,7 +66,7 @@ public:
     /**
       * Saves all values to the current profile
       */
-    void saveToProfile();
+    void saveToProfile(ProfileManagementInterface &profileManagement);
 
     /**
       * Reloads the widget when the status of the tablet device changes (connects/disconnects)
@@ -80,7 +80,7 @@ public slots:
       *
       * Updates all values on the widget to the values from the profile.
       */
-    void loadFromProfile();
+    void loadFromProfile(ProfileManagementInterface &profileManagement);
 
 signals:
     /**
@@ -103,9 +103,9 @@ private:
      */
     void setupUi();
 
-    Q_DECLARE_PRIVATE( ButtonPageWidget )
-    ButtonPageWidgetPrivate *const d_ptr; //!< The D-Pointer of this class.
-
+private:
+    Ui::ButtonPageWidget *ui = nullptr;
+    QString               _tabletId;
 }; // CLASS
 }  // NAMESPACE
 #endif /*BUTTONPAGEWIDGET_H*/

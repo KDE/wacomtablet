@@ -53,22 +53,6 @@
 
 using namespace Wacom;
 
-/*
- * D-Pointer class for private members.
- */
-namespace Wacom {
-    class ButtonPageWidgetPrivate {
-        public:
-            ButtonPageWidgetPrivate() : ui(new Ui::ButtonPageWidget) {}
-            ~ButtonPageWidgetPrivate() {
-                delete ui;
-            }
-
-            Ui::ButtonPageWidget* ui;
-            QString               tabletId;
-    };
-} // NAMESPACE
-
 QString findLayoutFile(const QString &filename) {
     if (filename.isEmpty())
         return QString();
@@ -84,7 +68,8 @@ QString findLayoutFile(const QString &filename) {
 }
 
 ButtonPageWidget::ButtonPageWidget(QWidget* parent)
-        : QWidget(parent), d_ptr(new ButtonPageWidgetPrivate)
+        : QWidget(parent)
+        , ui(new Ui::ButtonPageWidget)
 {
     setupUi();
     reloadWidget();
@@ -93,21 +78,17 @@ ButtonPageWidget::ButtonPageWidget(QWidget* parent)
 
 ButtonPageWidget::~ButtonPageWidget()
 {
-    delete this->d_ptr;
+    delete ui;
 }
 
 void ButtonPageWidget::setTabletId(const QString &tabletId)
 {
-    Q_D( ButtonPageWidget );
-    d->tabletId = tabletId;
+    _tabletId = tabletId;
 }
 
-void ButtonPageWidget::saveToProfile()
+void ButtonPageWidget::saveToProfile(ProfileManagementInterface &profileManagement)
 {
-    Q_D( ButtonPageWidget );
-
-    ProfileManagement* profileManagement = &ProfileManagement::instance();
-    DeviceProfile      padProfile        = profileManagement->loadDeviceProfile(DeviceType::Pad);
+    DeviceProfile padProfile = profileManagement.loadDeviceProfile(DeviceType::Pad);
 
     // save button shortcuts
     ButtonActionSelectorWidget* buttonSelector;
@@ -131,15 +112,15 @@ void ButtonPageWidget::saveToProfile()
     // save strip shortcuts - reset invalid ones - same reasons as above
     QString stripLUp, stripRUp, stripLDown, stripRDown;
 
-    if (d->ui->touchStripGroupBox->isEnabled()) {
-        if (d->ui->leftStripWidget->isEnabled()) {
-            stripLUp   = d->ui->leftStripUpSelector->getShortcut().toString();
-            stripLDown = d->ui->leftStripDownSelector->getShortcut().toString();
+    if (ui->touchStripGroupBox->isEnabled()) {
+        if (ui->leftStripWidget->isEnabled()) {
+            stripLUp   = ui->leftStripUpSelector->getShortcut().toString();
+            stripLDown = ui->leftStripDownSelector->getShortcut().toString();
         }
 
-        if (d->ui->rightStripWidget->isEnabled()) {
-            stripRUp   = d->ui->rightStripUpSelector->getShortcut().toString();
-            stripRDown = d->ui->rightStripDownSelector->getShortcut().toString();
+        if (ui->rightStripWidget->isEnabled()) {
+            stripRUp   = ui->rightStripUpSelector->getShortcut().toString();
+            stripRDown = ui->rightStripDownSelector->getShortcut().toString();
         }
     }
 
@@ -151,19 +132,19 @@ void ButtonPageWidget::saveToProfile()
     // save wheel and ring shortcuts - reset invalid values - same reasons as above
     QString absWUp, absWDown;
 
-    if (d->ui->touchRingGroupBox->isEnabled() || d->ui->wheelGroupBox->isEnabled()) {
+    if (ui->touchRingGroupBox->isEnabled() || ui->wheelGroupBox->isEnabled()) {
         // ring and wheel shortcuts are treated the same but only one value may be written,
         // as the other one could be empty. Use whichever value we can get our hands on first.
-        if (d->ui->ringUpSelector->getShortcut().isSet()) {
-            absWUp = d->ui->ringUpSelector->getShortcut().toString();
+        if (ui->ringUpSelector->getShortcut().isSet()) {
+            absWUp = ui->ringUpSelector->getShortcut().toString();
         } else {
-            absWUp = d->ui->wheelUpSelector->getShortcut().toString();
+            absWUp = ui->wheelUpSelector->getShortcut().toString();
         }
 
-        if (d->ui->ringDownSelector->getShortcut().isSet()) {
-            absWDown = d->ui->ringDownSelector->getShortcut().toString();
+        if (ui->ringDownSelector->getShortcut().isSet()) {
+            absWDown = ui->ringDownSelector->getShortcut().toString();
         } else {
-            absWDown = d->ui->wheelDownSelector->getShortcut().toString();
+            absWDown = ui->wheelDownSelector->getShortcut().toString();
         }
     }
 
@@ -173,24 +154,18 @@ void ButtonPageWidget::saveToProfile()
     padProfile.setProperty(Property::AbsWheel2Down, absWDown);
 
     // save device profile
-    profileManagement->saveDeviceProfile(padProfile);
+    profileManagement.saveDeviceProfile(padProfile);
 }
 
 
-void ButtonPageWidget::loadFromProfile()
+void ButtonPageWidget::loadFromProfile(ProfileManagementInterface &profileManagement)
 {
-    Q_D( ButtonPageWidget );
+    DeviceProfile padProfile = profileManagement.loadDeviceProfile(DeviceType::Pad);
+    QString propertyValue;
 
-    ProfileManagement* profileManagement = &ProfileManagement::instance();
-    DeviceProfile      padProfile        = profileManagement->loadDeviceProfile(DeviceType::Pad);
-    QString            propertyValue;
-
-    // set button shortcuts
-    ButtonActionSelectorWidget* buttonSelector;
-
-    for (int i = 1;i < 19 ;i++) {
-        buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
-        propertyValue  = padProfile.getButton(i);
+    for (int i = 1; i < 19 ;i++) {
+        auto buttonSelector = this->findChild<ButtonActionSelectorWidget*>(QString::fromLatin1("button%1ActionSelector").arg(i));
+        propertyValue = padProfile.getButton(i);
 
         if (buttonSelector) {
             buttonSelector->setShortcut(ButtonShortcut(propertyValue));
@@ -199,33 +174,31 @@ void ButtonPageWidget::loadFromProfile()
 
     // set wheel and ring shortcuts
     propertyValue = padProfile.getProperty(Property::AbsWheelUp);
-    d->ui->wheelUpSelector->setShortcut(ButtonShortcut(propertyValue));
-    d->ui->ringUpSelector->setShortcut(ButtonShortcut(propertyValue));
+    ui->wheelUpSelector->setShortcut(ButtonShortcut(propertyValue));
+    ui->ringUpSelector->setShortcut(ButtonShortcut(propertyValue));
 
     propertyValue = padProfile.getProperty(Property::AbsWheelDown);
-    d->ui->wheelDownSelector->setShortcut(ButtonShortcut(propertyValue));
-    d->ui->ringDownSelector->setShortcut(ButtonShortcut(propertyValue));
+    ui->wheelDownSelector->setShortcut(ButtonShortcut(propertyValue));
+    ui->ringDownSelector->setShortcut(ButtonShortcut(propertyValue));
 
     // set strip shortcuts
     propertyValue = padProfile.getProperty(Property::StripLeftUp);
-    d->ui->leftStripUpSelector->setShortcut(ButtonShortcut(propertyValue));
+    ui->leftStripUpSelector->setShortcut(ButtonShortcut(propertyValue));
 
     propertyValue = padProfile.getProperty(Property::StripLeftDown);
-    d->ui->leftStripDownSelector->setShortcut(ButtonShortcut(propertyValue));
+    ui->leftStripDownSelector->setShortcut(ButtonShortcut(propertyValue));
 
     propertyValue = padProfile.getProperty(Property::StripRightUp);
-    d->ui->rightStripUpSelector->setShortcut(ButtonShortcut(propertyValue));
+    ui->rightStripUpSelector->setShortcut(ButtonShortcut(propertyValue));
 
     propertyValue = padProfile.getProperty(Property::StripRightDown);
-    d->ui->rightStripDownSelector->setShortcut(ButtonShortcut(propertyValue));
+    ui->rightStripDownSelector->setShortcut(ButtonShortcut(propertyValue));
 }
 
 
 void ButtonPageWidget::reloadWidget()
 {
-    Q_D( ButtonPageWidget );
-
-    const int padButtons = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::NumPadButtons.key()).value().toInt();
+    const int padButtons = DBusTabletInterface::instance().getInformation(_tabletId, TabletInfo::NumPadButtons.key()).value().toInt();
 
     QLabel *buttonLabel = nullptr;
     ButtonActionSelectorWidget *buttonSelector = nullptr;
@@ -251,27 +224,27 @@ void ButtonPageWidget::reloadWidget()
         }
     }
 
-    const QString padLayoutProperty = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::ButtonLayout.key());
+    const QString padLayoutProperty = DBusTabletInterface::instance().getInformation(_tabletId, TabletInfo::ButtonLayout.key());
     const QString layoutFile = findLayoutFile(padLayoutProperty);
     if (!layoutFile.isEmpty()) {
         // FIXME: libwacom svg's are large in size and have small labels
         // This looks ugly for some devices/with some themes, think of a better layout
-        d->ui->padImage->setPixmap(QPixmap(layoutFile));
+        ui->padImage->setPixmap(QPixmap(layoutFile));
     }
 
     const bool anyButtonsOrLayout = padButtons > 0 || (!layoutFile.isEmpty());
-    d->ui->buttonGroupBox->setVisible(anyButtonsOrLayout);
+    ui->buttonGroupBox->setVisible(anyButtonsOrLayout);
 
-    bool hasLeftTouchStrip  = StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasLeftTouchStrip.key()));
-    bool hasRightTouchStrip = StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasRightTouchStrip.key()));
+    bool hasLeftTouchStrip  = StringUtils::asBool(DBusTabletInterface::instance().getInformation(_tabletId, TabletInfo::HasLeftTouchStrip.key()));
+    bool hasRightTouchStrip = StringUtils::asBool(DBusTabletInterface::instance().getInformation(_tabletId, TabletInfo::HasRightTouchStrip.key()));
 
     if (!hasLeftTouchStrip && !hasRightTouchStrip) {
-        d->ui->touchStripGroupBox->setEnabled(false);
-        d->ui->touchStripGroupBox->setVisible(false);
+        ui->touchStripGroupBox->setEnabled(false);
+        ui->touchStripGroupBox->setVisible(false);
 
     } else {
-        d->ui->touchStripGroupBox->setEnabled(true);
-        d->ui->touchStripGroupBox->setVisible(true);
+        ui->touchStripGroupBox->setEnabled(true);
+        ui->touchStripGroupBox->setVisible(true);
 
         // Hide the strip input widgets directly instead of
         // their parent widget, to keep the layout stable.
@@ -279,48 +252,48 @@ void ButtonPageWidget::reloadWidget()
         // Also disable the widgets so we can reliable determine
         // which settings to save.
         if (!hasLeftTouchStrip) {
-            d->ui->leftStripWidget->setEnabled(false);
-            d->ui->leftStripUpLabel->setVisible(false);
-            d->ui->leftStripUpSelector->setVisible(false);
-            d->ui->leftStripDownLabel->setVisible(false);
-            d->ui->leftStripDownSelector->setVisible(false);
+            ui->leftStripWidget->setEnabled(false);
+            ui->leftStripUpLabel->setVisible(false);
+            ui->leftStripUpSelector->setVisible(false);
+            ui->leftStripDownLabel->setVisible(false);
+            ui->leftStripDownSelector->setVisible(false);
         } else {
-            d->ui->leftStripWidget->setEnabled(true);
-            d->ui->leftStripUpLabel->setVisible(true);
-            d->ui->leftStripUpSelector->setVisible(true);
-            d->ui->leftStripDownLabel->setVisible(true);
-            d->ui->leftStripDownSelector->setVisible(true);
+            ui->leftStripWidget->setEnabled(true);
+            ui->leftStripUpLabel->setVisible(true);
+            ui->leftStripUpSelector->setVisible(true);
+            ui->leftStripDownLabel->setVisible(true);
+            ui->leftStripDownSelector->setVisible(true);
         }
 
         if (!hasRightTouchStrip) {
-            d->ui->rightStripWidget->setEnabled(false);
-            d->ui->rightStripUpLabel->setVisible(false);
-            d->ui->rightStripUpSelector->setVisible(false);
-            d->ui->rightStripDownLabel->setVisible(false);
-            d->ui->rightStripDownSelector->setVisible(false);
+            ui->rightStripWidget->setEnabled(false);
+            ui->rightStripUpLabel->setVisible(false);
+            ui->rightStripUpSelector->setVisible(false);
+            ui->rightStripDownLabel->setVisible(false);
+            ui->rightStripDownSelector->setVisible(false);
         } else {
-            d->ui->rightStripWidget->setEnabled(true);
-            d->ui->rightStripUpLabel->setVisible(true);
-            d->ui->rightStripUpSelector->setVisible(true);
-            d->ui->rightStripDownLabel->setVisible(true);
-            d->ui->rightStripDownSelector->setVisible(true);
+            ui->rightStripWidget->setEnabled(true);
+            ui->rightStripUpLabel->setVisible(true);
+            ui->rightStripUpSelector->setVisible(true);
+            ui->rightStripDownLabel->setVisible(true);
+            ui->rightStripDownSelector->setVisible(true);
         }
     }
 
-    if (!StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasTouchRing.key()))) {
-        d->ui->touchRingGroupBox->setEnabled(false);
-        d->ui->touchRingGroupBox->setVisible(false);
+    if (!StringUtils::asBool(DBusTabletInterface::instance().getInformation(_tabletId, TabletInfo::HasTouchRing.key()))) {
+        ui->touchRingGroupBox->setEnabled(false);
+        ui->touchRingGroupBox->setVisible(false);
     } else {
-        d->ui->touchRingGroupBox->setEnabled(true);
-        d->ui->touchRingGroupBox->setVisible(true);
+        ui->touchRingGroupBox->setEnabled(true);
+        ui->touchRingGroupBox->setVisible(true);
     }
 
-    if (!StringUtils::asBool(DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::HasWheel.key()))) {
-        d->ui->wheelGroupBox->setEnabled(false);
-        d->ui->wheelGroupBox->setVisible(false);
+    if (!StringUtils::asBool(DBusTabletInterface::instance().getInformation(_tabletId, TabletInfo::HasWheel.key()))) {
+        ui->wheelGroupBox->setEnabled(false);
+        ui->wheelGroupBox->setVisible(false);
     } else {
-        d->ui->wheelGroupBox->setEnabled(true);
-        d->ui->wheelGroupBox->setVisible(true);
+        ui->wheelGroupBox->setEnabled(true);
+        ui->wheelGroupBox->setVisible(true);
     }
 }
 
@@ -333,37 +306,35 @@ void ButtonPageWidget::onButtonActionChanged()
 
 void ButtonPageWidget::setupUi()
 {
-    Q_D (ButtonPageWidget);
+    ui->setupUi( this );
 
-    d->ui->setupUi( this );
+    connect ( ui->button1ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button2ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button3ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button4ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button5ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button6ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button7ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button8ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button9ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button10ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button11ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button12ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button13ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button14ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button15ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button16ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button17ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->button18ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
 
-    connect ( d->ui->button1ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button2ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button3ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button4ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button5ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button6ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button7ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button8ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button9ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button10ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button11ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button12ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button13ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button14ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button15ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button16ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button17ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->button18ActionSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->leftStripUpSelector,    SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->leftStripDownSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->rightStripUpSelector,   SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->rightStripDownSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
 
-    connect ( d->ui->leftStripUpSelector,    SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->leftStripDownSelector,  SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->rightStripUpSelector,   SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->rightStripDownSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->ringUpSelector,         SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->ringDownSelector,       SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
 
-    connect ( d->ui->ringUpSelector,         SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->ringDownSelector,       SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-
-    connect ( d->ui->wheelUpSelector,        SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
-    connect ( d->ui->wheelDownSelector,      SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->wheelUpSelector,        SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
+    connect ( ui->wheelDownSelector,      SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
 }

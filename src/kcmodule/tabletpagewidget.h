@@ -27,10 +27,14 @@
 #include <QWidget>
 #include <QString>
 
+namespace Ui {
+    class TabletPageWidget;
+}
+
 namespace Wacom
 {
 
-class TabletPageWidgetPrivate;
+class ProfileManagementInterface;
 
 /**
  * The "Tablet" tab of the main KCM widget.
@@ -50,7 +54,7 @@ public:
     /**
      * Loads settings from the current profile and updates the widget accordingly.
      */
-    void loadFromProfile();
+    void loadFromProfile(ProfileManagementInterface &profileManagement);
 
     /**
      * Reinitializes the widget when a new tablet gets connected.
@@ -60,7 +64,7 @@ public:
     /**
      * Saves the current settings to the current profile.
      */
-    void saveToProfile();
+    void saveToProfile(ProfileManagementInterface &profileManagement);
 
 
 public slots:
@@ -239,8 +243,15 @@ private:
      */
     void setupUi();
 
-    Q_DECLARE_PRIVATE( TabletPageWidget )
-    TabletPageWidgetPrivate *const d_ptr; //!< D-Pointer for this class.
+private:
+    Ui::TabletPageWidget *ui;
+    QString _tabletId;
+    TabletArea            _tabletGeometry;    // The full tablet area as rectangle.
+    ScreenMap             _screenMap;         // The current tablet to screen mapping of the pad.
+    ScreenSpace           _screenSpace;       // The current screen mapping of the pad.
+
+    QString               _deviceNameStylus;  // The Xinput name of the stylus device of the current tablet.
+    QString               _deviceNameTouch;   // The Xinput name of the touch device of the current tablet.
 
 }; // CLASS
 }  // NAMESPACE

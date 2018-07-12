@@ -35,7 +35,6 @@
 #include <KGlobalAccel>
 
 //Qt includes
-#include <QPointer>
 #include <QStringList>
 #include <QDBusInterface>
 #include <QDBusReply>
@@ -45,77 +44,55 @@
 
 using namespace Wacom;
 
-namespace Wacom {
-/**
-  * Private class for the d-pointer.
-  */
-class GeneralPageWidgetPrivate {
-    public:
-        ~GeneralPageWidgetPrivate() {
-            delete m_actionCollection;
-            delete m_shortcutEditor;
-        }
-
-        std::shared_ptr<Ui::GeneralPageWidget>  m_ui;                /**< Handler to the generalwidget.ui file */
-        QPointer<GlobalActions>       m_actionCollection;
-        QPointer<KShortcutsEditor>        m_shortcutEditor;
-        QString                           tabletId;
-}; // CLASS
-}  // NAMESPACE
-
-
 GeneralPageWidget::GeneralPageWidget(QWidget *parent)
-        : QWidget(parent), d_ptr(new GeneralPageWidgetPrivate)
+        : QWidget(parent)
+        , ui(new Ui::GeneralPageWidget)
 {
-    Q_D( GeneralPageWidget );
-
-    d->m_ui = std::shared_ptr<Ui::GeneralPageWidget>(new Ui::GeneralPageWidget);
-    d->m_ui->setupUi(this);
+    ui->setupUi(this);
 
     //if someone adds another action also add it to kded/tabletdeamon.cpp
-    d->m_actionCollection = new GlobalActions(true, this);
+    _actionCollection = new GlobalActions(true, this);
 
-    d->m_shortcutEditor = new KShortcutsEditor(this, KShortcutsEditor::GlobalAction);
-    d->m_shortcutEditor->addCollection(d->m_actionCollection, i18n("Wacom Tablet Settings"));
+    _shortcutEditor = new KShortcutsEditor(this, KShortcutsEditor::GlobalAction);
+    _shortcutEditor->addCollection(_actionCollection, i18n("Wacom Tablet Settings"));
 
-    d->m_ui->shortcutGroupBox->layout()->addWidget(d->m_shortcutEditor);
+    ui->shortcutGroupBox->layout()->addWidget(_shortcutEditor);
 
     //setup icons in the profilerotation list box
-    d->m_ui->pbAddToRotationList->setIcon(QIcon::fromTheme( QLatin1String( "list-add" ) ));
-    d->m_ui->pbRemoveFromRotationList->setIcon(QIcon::fromTheme( QLatin1String( "list-remove" ) ));
-    d->m_ui->pbUp->setIcon(QIcon::fromTheme( QLatin1String( "arrow-up" ) ));
-    d->m_ui->pbDown->setIcon(QIcon::fromTheme( QLatin1String( "arrow-down" ) ));
+    ui->pbAddToRotationList->setIcon(QIcon::fromTheme( QLatin1String( "list-add" ) ));
+    ui->pbRemoveFromRotationList->setIcon(QIcon::fromTheme( QLatin1String( "list-remove" ) ));
+    ui->pbUp->setIcon(QIcon::fromTheme( QLatin1String( "arrow-up" ) ));
+    ui->pbDown->setIcon(QIcon::fromTheme( QLatin1String( "arrow-down" ) ));
 
 
-    connect(d->m_shortcutEditor, SIGNAL(keyChange()), this, SLOT(profileChanged()));
+    connect(_shortcutEditor, SIGNAL(keyChange()), this, SLOT(profileChanged()));
 }
 
 
 GeneralPageWidget::~GeneralPageWidget()
 {
-    delete this->d_ptr;
+    delete ui;
+    delete _actionCollection;
+    delete _shortcutEditor;
 }
 
 void GeneralPageWidget::setTabletId(const QString &tabletId)
 {
-    Q_D( GeneralPageWidget );
-    d->tabletId = tabletId;
+    _tabletId = tabletId;
 }
 
 void GeneralPageWidget::saveToProfile()
 {
-    Q_D( GeneralPageWidget );
-
-    QList<QListWidgetItem *> items = d->m_ui->lwRotationList->findItems(QLatin1String("*"),
+    QList<QListWidgetItem *> items = ui->lwRotationList->findItems(QLatin1String("*"),
                                                                         Qt::MatchWrap | Qt::MatchWildcard);
     QStringList newRotationList;
     foreach(QListWidgetItem *item, items) {
         newRotationList.append(item->text());
     }
 
-    DBusTabletInterface::instance().setProfileRotationList(d->tabletId, newRotationList);
+    DBusTabletInterface::instance().setProfileRotationList(_tabletId, newRotationList);
 
-    d->m_shortcutEditor->save();
+    _shortcutEditor->save();
 }
 
 
@@ -130,29 +107,25 @@ void GeneralPageWidget::profileChanged()
 
 void GeneralPageWidget::reloadWidget()
 {
-    Q_D( GeneralPageWidget );
-
     //get information via DBus
-    QDBusReply<QString> deviceName       = DBusTabletInterface::instance().getInformation(d->tabletId, TabletInfo::TabletName.key());
+    QDBusReply<QString> deviceName       = DBusTabletInterface::instance().getInformation(_tabletId, TabletInfo::TabletName.key());
 
     //load rotation profile list based on current tablet
-    QDBusReply<QStringList> rotationList = DBusTabletInterface::instance().getProfileRotationList(d->tabletId);
-    d->m_ui->lwRotationList->clear();
-    d->m_ui->lwRotationList->addItems(rotationList);
+    QDBusReply<QStringList> rotationList = DBusTabletInterface::instance().getProfileRotationList(_tabletId);
+    ui->lwRotationList->clear();
+    ui->lwRotationList->addItems(rotationList);
 }
 
 void GeneralPageWidget::profileUp()
 {
-    Q_D( GeneralPageWidget );
-
-    QListWidgetItem *curItem = d->m_ui->lwRotationList->currentItem();
+    QListWidgetItem *curItem = ui->lwRotationList->currentItem();
     if(curItem) {
-        int curRow = d->m_ui->lwRotationList->row(curItem);
+        int curRow = ui->lwRotationList->row(curItem);
         int nextRow = curRow-1;
         if(nextRow >= 0) {
-            QListWidgetItem *curItem = d->m_ui->lwRotationList->takeItem(curRow);
-            d->m_ui->lwRotationList->insertItem(nextRow, curItem->text());
-            d->m_ui->lwRotationList->setCurrentRow(nextRow);
+            QListWidgetItem *curItem = ui->lwRotationList->takeItem(curRow);
+            ui->lwRotationList->insertItem(nextRow, curItem->text());
+            ui->lwRotationList->setCurrentRow(nextRow);
         }
         emit changed();
     }
@@ -160,14 +133,12 @@ void GeneralPageWidget::profileUp()
 
 void GeneralPageWidget::profileDown()
 {
-    Q_D( GeneralPageWidget );
-
-    QListWidgetItem *curItem = d->m_ui->lwRotationList->currentItem();
+    QListWidgetItem *curItem = ui->lwRotationList->currentItem();
     if(curItem) {
-        int curRow = d->m_ui->lwRotationList->row(curItem);
-        curItem = d->m_ui->lwRotationList->takeItem(curRow);
-        d->m_ui->lwRotationList->insertItem(curRow+1, curItem->text());
-        d->m_ui->lwRotationList->setCurrentRow(curRow+1);
+        int curRow = ui->lwRotationList->row(curItem);
+        curItem = ui->lwRotationList->takeItem(curRow);
+        ui->lwRotationList->insertItem(curRow+1, curItem->text());
+        ui->lwRotationList->setCurrentRow(curRow+1);
 
         emit changed();
     }
@@ -175,13 +146,11 @@ void GeneralPageWidget::profileDown()
 
 void GeneralPageWidget::profileAdd()
 {
-    Q_D( GeneralPageWidget );
-
-    bool ok;
+    bool ok = false;
     QString item = QInputDialog::getItem(this, i18n("Profile List"),
                                          i18n("Select the Profile you want to add:"), ProfileManagement::instance().availableProfiles(), 0, false, &ok);
     if (ok && !item.isEmpty()) {
-        d->m_ui->lwRotationList->addItem(item);
+        ui->lwRotationList->addItem(item);
 
         emit changed();
     }
@@ -189,11 +158,9 @@ void GeneralPageWidget::profileAdd()
 
 void GeneralPageWidget::profileRemove()
 {
-    Q_D( GeneralPageWidget );
-
-    QListWidgetItem *curItem = d->m_ui->lwRotationList->currentItem();
+    QListWidgetItem *curItem = ui->lwRotationList->currentItem();
     if(curItem) {
-        d->m_ui->lwRotationList->removeItemWidget(curItem);
+        ui->lwRotationList->removeItemWidget(curItem);
         delete curItem;
 
         emit changed();

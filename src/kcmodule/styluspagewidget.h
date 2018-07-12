@@ -45,7 +45,7 @@ class StylusPageWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit StylusPageWidget(ProfileManagementInterface &profileManagementPtr, QWidget *parent = 0);
+    explicit StylusPageWidget(QWidget *parent = 0);
 
     ~StylusPageWidget();
 
@@ -56,7 +56,7 @@ public:
       *
       * Updates all values on the widget to the values from the profile.
       */
-    void loadFromProfile();
+    void loadFromProfile(ProfileManagementInterface &profileManagement);
 
     /**
       * Reloads the widget when the status of the tablet device changes (connects/disconnects)
@@ -66,7 +66,7 @@ public:
     /**
       * Saves all values to the current profile
       */
-    void saveToProfile();
+    void saveToProfile(ProfileManagementInterface &profileManagement);
 
 
 public slots:
@@ -130,7 +130,6 @@ private:
 private:
     QString _tabletId;
     Ui::StylusPageWidget *ui = nullptr;
-    ProfileManagementInterface &profileManagement;
 }; // CLASS
 }  // NAMESPACE
 #endif /*STYLUSPAGEWIDGET_H*/

@@ -58,7 +58,7 @@ class KCMWacomTabletWidgetPrivate {
         Ui::KCMWacomTabletWidget ui;          //!< This user interface.
 
         GeneralPageWidget generalPage;        //!< Widget that shows some basic information about the tablet.
-        StylusPageWidget  stylusPage{ProfileManagement::instance()};         //!< Widget for the pen settings (stylus/eraser).
+        StylusPageWidget  stylusPage;         //!< Widget for the pen settings (stylus/eraser).
         ButtonPageWidget  buttonPage;         //!< Widget for the express button settings.
         TabletPageWidget  tabletPage;         //!< Widget for the tablet settings.
         TouchPageWidget   touchPage;          //!< Widget for the touch settings.
@@ -239,11 +239,13 @@ void KCMWacomTabletWidget::saveProfile()
 {
     Q_D( KCMWacomTabletWidget );
 
+    auto &profileManagement = ProfileManagement::instance();
+
     d->generalPage.saveToProfile();
-    d->stylusPage.saveToProfile();
-    d->buttonPage.saveToProfile();
-    d->tabletPage.saveToProfile();
-    d->touchPage.saveToProfile();
+    d->stylusPage.saveToProfile(profileManagement);
+    d->buttonPage.saveToProfile(profileManagement);
+    d->tabletPage.saveToProfile(profileManagement);
+    d->touchPage.saveToProfile(profileManagement);
 
     d->profileChanged = false;
     emit changed( false );
@@ -267,11 +269,13 @@ void KCMWacomTabletWidget::reloadProfile()
 {
     Q_D( KCMWacomTabletWidget );
 
+    auto &profileManagement = ProfileManagement::instance();
+
     d->generalPage.loadFromProfile();
-    d->stylusPage.loadFromProfile();
-    d->buttonPage.loadFromProfile();
-    d->tabletPage.loadFromProfile();
-    d->touchPage.loadFromProfile();
+    d->stylusPage.loadFromProfile(profileManagement);
+    d->buttonPage.loadFromProfile(profileManagement);
+    d->tabletPage.loadFromProfile(profileManagement);
+    d->touchPage.loadFromProfile(profileManagement);
 
     d->profileChanged = false;
     emit changed( false );

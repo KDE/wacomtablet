@@ -30,20 +30,14 @@
 #include "dbustabletinterface.h"
 #include "buttonshortcut.h"
 
-//Qt includes
 #include <QStandardPaths>
 #include <QPixmap>
 
 using namespace Wacom;
 
-/*
- * D-Pointer class for private members.
- */
-
-StylusPageWidget::StylusPageWidget(ProfileManagementInterface &profileManagementPtr, QWidget *parent)
+StylusPageWidget::StylusPageWidget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::StylusPageWidget)
-    , profileManagement(profileManagementPtr)
 {
     setupUi();
 }
@@ -59,7 +53,7 @@ void StylusPageWidget::setTabletId(const QString &tabletId)
     _tabletId = tabletId;
 }
 
-void StylusPageWidget::loadFromProfile()
+void StylusPageWidget::loadFromProfile(ProfileManagementInterface &profileManagement)
 {
     DeviceProfile stylusProfile = profileManagement.loadDeviceProfile( DeviceType::Stylus );
     DeviceProfile eraserProfile = profileManagement.loadDeviceProfile( DeviceType::Eraser );
@@ -93,7 +87,7 @@ void StylusPageWidget::reloadWidget()
 }
 
 
-void StylusPageWidget::saveToProfile()
+void StylusPageWidget::saveToProfile(ProfileManagementInterface &profileManagement)
 {
     DeviceProfile stylusProfile = profileManagement.loadDeviceProfile( DeviceType::Stylus );
     DeviceProfile eraserProfile = profileManagement.loadDeviceProfile( DeviceType::Eraser );

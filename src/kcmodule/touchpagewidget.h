@@ -27,10 +27,14 @@
 #include <QWidget>
 #include <QString>
 
+namespace Ui {
+    class TouchPageWidget;
+}
+
 namespace Wacom
 {
 
-class TouchPageWidgetPrivate;
+class ProfileManagementInterface;
 
 /**
  * The "Touch" tab of the main KCM widget.
@@ -49,7 +53,7 @@ public:
     /**
      * Loads settings from the current profile and updates the widget accordingly.
      */
-    void loadFromProfile();
+    void loadFromProfile(Wacom::ProfileManagementInterface &profileManagement);
 
     /**
      * Reinitializes the widget when a new tablet gets connected.
@@ -59,7 +63,7 @@ public:
     /**
      * Saves the current settings to the current profile.
      */
-    void saveToProfile();
+    void saveToProfile(ProfileManagementInterface &profileManagement);
 
 
 public slots:
@@ -291,9 +295,15 @@ private:
      */
     void setupUi();
 
-    Q_DECLARE_PRIVATE( TouchPageWidget )
-    TouchPageWidgetPrivate *const d_ptr; //!< D-Pointer for this class.
+private:
+    Ui::TouchPageWidget *ui = nullptr;
 
+    ScreenRotation _tabletRotation = ScreenRotation::NONE;     // The currently selected tablet rotation.
+    TabletArea     _tabletGeometry;     // The full touch area as rectangle.
+    ScreenMap      _screenMap;          // The current tablet to screen mapping of the touch device.
+    ScreenSpace    _screenSpace;        // The current screen mapping of the touch device.
+    QString        _touchDeviceName;    // The Xinput name of the touch device of the current tablet.
+    QString        _tabletId;
 }; // CLASS
 }  // NAMESPACE
 #endif // HEADER PROTECTION

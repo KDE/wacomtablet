@@ -32,7 +32,7 @@
       </size>
      </property>
      <property name="title">
-      <string>ProfileRotation</string>
+      <string>Profile rotation</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>

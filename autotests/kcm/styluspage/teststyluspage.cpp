@@ -55,7 +55,7 @@ void TestStylusPageWidget::initTestCase()
 {
     p._savedProfiles.clear();
     p._presetProfiles.clear();
-    _testObject = new StylusPageWidget(p);
+    _testObject = new StylusPageWidget();
 }
 
 void TestStylusPageWidget::cleanupTestCase()
@@ -78,8 +78,8 @@ void TestStylusPageWidget::testStylusSettingsPersistency()
     p._presetProfiles[DeviceType::Stylus] = stylus;
     p._presetProfiles[DeviceType::Eraser] = eraser;
 
-    _testObject->loadFromProfile();
-    _testObject->saveToProfile();
+    _testObject->loadFromProfile(p);
+    _testObject->saveToProfile(p);
 
     for(const DeviceProperty& property : DeviceProperty::list()) {
         //qDebug() << "Comparing" << property.key();
@@ -97,11 +97,11 @@ void TestStylusPageWidget::testSettingsStylus()
 
     p._presetProfiles[DeviceType::Stylus] = stylus;
 
-    _testObject->loadFromProfile();
+    _testObject->loadFromProfile(p);
 
     _testObject->findChild<QSlider*>(QLatin1String("horizontalSliderRawSample"))->setValue(15);
 
-    _testObject->saveToProfile();
+    _testObject->saveToProfile(p);
     for(const DeviceProperty& property : DeviceProperty::list()) {
         //qDebug() << "Comparing" << property.key();
         QCOMPARE(p._savedProfiles[DeviceType::Stylus].getProperty(property.id()), p._presetProfiles[DeviceType::Stylus].getProperty(property.id()));

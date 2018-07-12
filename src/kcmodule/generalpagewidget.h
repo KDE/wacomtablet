@@ -28,11 +28,12 @@ namespace Ui
 }
 
 class QDBusInterface;
+class KShortcutsEditor;
 
 namespace Wacom
 {
     class ProfileManagement;
-    class GeneralPageWidgetPrivate;
+    class GlobalActions;
 
 /**
   * This class shows some general information about the detected tablet device.
@@ -97,8 +98,10 @@ private slots:
     void profileRemove();
 
 private:
-    Q_DECLARE_PRIVATE( GeneralPageWidget )
-    GeneralPageWidgetPrivate *const d_ptr; /**< d-pointer for this class */
+    Ui::GeneralPageWidget *ui = nullptr;
+    GlobalActions *_actionCollection = nullptr;
+    KShortcutsEditor *_shortcutEditor = nullptr;
+    QString _tabletId;
 
 }; // CLASS
 }  // NAMESPACE
