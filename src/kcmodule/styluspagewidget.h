@@ -22,12 +22,17 @@
 
 #include <QWidget>
 
+namespace Ui {
+    class StylusPageWidget;
+}
+
 namespace Wacom
 {
 
 class StylusPageWidgetPrivate;
 
 class ButtonShortcut;
+class DeviceProfile;
 class DeviceType;
 class Property;
 class ProfileManagementInterface;
@@ -113,6 +118,7 @@ protected:
 
 
 private:
+    void savePropertiesToDeviceProfile(DeviceProfile &profile) const;
 
     void changePressureCurve (const DeviceType& deviceType);
 
@@ -121,9 +127,10 @@ private:
      */
     void setupUi();
 
-    Q_DECLARE_PRIVATE( StylusPageWidget )
-    StylusPageWidgetPrivate *const d_ptr; /**< d-pointer for this class */
-
+private:
+    QString _tabletId;
+    Ui::StylusPageWidget *ui = nullptr;
+    ProfileManagementInterface &profileManagement;
 }; // CLASS
 }  // NAMESPACE
 #endif /*STYLUSPAGEWIDGET_H*/

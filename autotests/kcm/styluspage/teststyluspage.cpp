@@ -26,7 +26,11 @@
 #include "screenrotation.h"
 #include "deviceprofiledefaults.h"
 
+#include "ui_styluspagewidget.h"
+
 #include <QtTest>
+
+#include <QSlider>
 
 using namespace Wacom;
 
@@ -38,6 +42,7 @@ private slots:
     void initTestCase();
     void cleanupTestCase();
     void testStylusSettingsPersistency();
+    void testSettingsStylus();
 
 private:
     ProfileManagementIntegrityChecker p;
@@ -81,7 +86,26 @@ void TestStylusPageWidget::testStylusSettingsPersistency()
         QCOMPARE(p._savedProfiles[DeviceType::Stylus].getProperty(property.id()), p._presetProfiles[DeviceType::Stylus].getProperty(property.id()));
         QCOMPARE(p._savedProfiles[DeviceType::Eraser].getProperty(property.id()), p._presetProfiles[DeviceType::Eraser].getProperty(property.id()));
     }
+}
 
+void TestStylusPageWidget::testSettingsStylus()
+{
+    DeviceProfile stylus;
+    stylus.setDeviceType(DeviceType::Stylus);
+    setupDefaultStylus(stylus);
+    stylus.setProperty(Property::RawSample, QLatin1String("15"));
+
+    p._presetProfiles[DeviceType::Stylus] = stylus;
+
+    _testObject->loadFromProfile();
+
+    _testObject->findChild<QSlider*>(QLatin1String("horizontalSliderRawSample"))->setValue(15);
+
+    _testObject->saveToProfile();
+    for(const DeviceProperty& property : DeviceProperty::list()) {
+        //qDebug() << "Comparing" << property.key();
+        QCOMPARE(p._savedProfiles[DeviceType::Stylus].getProperty(property.id()), p._presetProfiles[DeviceType::Stylus].getProperty(property.id()));
+    }
 }
 
 QTEST_MAIN(TestStylusPageWidget)

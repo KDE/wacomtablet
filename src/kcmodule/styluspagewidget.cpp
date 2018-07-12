@@ -39,50 +39,30 @@ using namespace Wacom;
 /*
  * D-Pointer class for private members.
  */
-namespace Wacom {
-    class StylusPageWidgetPrivate {
-        public:
-            StylusPageWidgetPrivate(ProfileManagementInterface &profileManagementPtr)
-                : ui(new Ui::StylusPageWidget)
-                , profileManagement(profileManagementPtr)
-            {}
-
-            ~StylusPageWidgetPrivate() {
-                delete ui;
-            }
-
-            Ui::StylusPageWidget* ui;
-            QString               tabletId;
-            ProfileManagementInterface &profileManagement;
-    };
-} // NAMESPACE
-
 
 StylusPageWidget::StylusPageWidget(ProfileManagementInterface &profileManagementPtr, QWidget *parent)
     : QWidget(parent)
-    , d_ptr(new StylusPageWidgetPrivate(profileManagementPtr))
+    , ui(new Ui::StylusPageWidget)
+    , profileManagement(profileManagementPtr)
 {
     setupUi();
 }
 
 StylusPageWidget::~StylusPageWidget()
 {
-    delete this->d_ptr;
+    delete ui;
 }
 
 
 void StylusPageWidget::setTabletId(const QString &tabletId)
 {
-    Q_D( StylusPageWidget );
-    d->tabletId = tabletId;
+    _tabletId = tabletId;
 }
 
 void StylusPageWidget::loadFromProfile()
 {
-    Q_D( const StylusPageWidget );
-
-    DeviceProfile stylusProfile = d->profileManagement.loadDeviceProfile( DeviceType::Stylus );
-    DeviceProfile eraserProfile = d->profileManagement.loadDeviceProfile( DeviceType::Eraser );
+    DeviceProfile stylusProfile = profileManagement.loadDeviceProfile( DeviceType::Stylus );
+    DeviceProfile eraserProfile = profileManagement.loadDeviceProfile( DeviceType::Eraser );
 
     // eraser feel / tip feel
     setPressureFeel  ( DeviceType::Eraser, eraserProfile.getProperty( Property::Threshold ) );
@@ -100,10 +80,10 @@ void StylusPageWidget::loadFromProfile()
 
 
     //Raw Sample Rate
-    d->ui->horizontalSliderRawSample->setValue( stylusProfile.getProperty( Property::RawSample ).toInt() );
+    ui->horizontalSliderRawSample->setValue( stylusProfile.getProperty( Property::RawSample ).toInt() );
 
     //Suppress Rate
-    d->ui->horizontalSliderSuppress->setValue( stylusProfile.getProperty( Property::Suppress ).toInt() );
+    ui->horizontalSliderSuppress->setValue( stylusProfile.getProperty( Property::Suppress ).toInt() );
 }
 
 
@@ -115,38 +95,37 @@ void StylusPageWidget::reloadWidget()
 
 void StylusPageWidget::saveToProfile()
 {
-    Q_D( const StylusPageWidget );
+    DeviceProfile stylusProfile = profileManagement.loadDeviceProfile( DeviceType::Stylus );
+    DeviceProfile eraserProfile = profileManagement.loadDeviceProfile( DeviceType::Eraser );
 
-    DeviceProfile stylusProfile = d->profileManagement.loadDeviceProfile( DeviceType::Stylus );
-    DeviceProfile eraserProfile = d->profileManagement.loadDeviceProfile( DeviceType::Eraser );
-
-    // eraser / tip pressure
-    eraserProfile.setProperty( Property::Threshold,     getPressureFeel(DeviceType::Eraser) );
-    eraserProfile.setProperty( Property::PressureCurve, getPressureCurve(DeviceType::Eraser) );
-    stylusProfile.setProperty( Property::Threshold,     getPressureFeel(DeviceType::Stylus) );
-    stylusProfile.setProperty( Property::PressureCurve, getPressureCurve(DeviceType::Stylus) );
-
-    // button 2 and 3 config
-    eraserProfile.setProperty( Property::Button1, getButtonShortcut(Property::Button1) );
-    eraserProfile.setProperty( Property::Button2, getButtonShortcut(Property::Button2) );
-    eraserProfile.setProperty( Property::Button3, getButtonShortcut(Property::Button3) );
-    stylusProfile.setProperty( Property::Button1, getButtonShortcut(Property::Button1) );
-    stylusProfile.setProperty( Property::Button2, getButtonShortcut(Property::Button2) );
-    stylusProfile.setProperty( Property::Button3, getButtonShortcut(Property::Button3) );
+    savePropertiesToDeviceProfile(stylusProfile);
+    savePropertiesToDeviceProfile(eraserProfile);
 
     // tap to click
     stylusProfile.setProperty( Property::TabletPcButton, getTabletPcButton() );
 
-    //Raw Sample Rate
-    eraserProfile.setProperty( Property::RawSample, QString::number(d->ui->horizontalSliderRawSample->value()) );
-    stylusProfile.setProperty( Property::RawSample, QString::number(d->ui->horizontalSliderRawSample->value()) );
+    profileManagement.saveDeviceProfile(stylusProfile);
+    profileManagement.saveDeviceProfile(eraserProfile);
+}
 
-    //Suppress Rate
-    eraserProfile.setProperty( Property::Suppress, QString::number(d->ui->horizontalSliderSuppress->value()) );
-    stylusProfile.setProperty( Property::Suppress, QString::number(d->ui->horizontalSliderSuppress->value()) );
+void StylusPageWidget::savePropertiesToDeviceProfile(DeviceProfile &profile) const
+{
+    const auto deviceType = profile.getDeviceType();
 
-    d->profileManagement.saveDeviceProfile(stylusProfile);
-    d->profileManagement.saveDeviceProfile(eraserProfile);
+    // eraser / tip pressure
+    profile.setProperty( Property::Threshold,     getPressureFeel(deviceType)  );
+    profile.setProperty( Property::PressureCurve, getPressureCurve(deviceType) );
+
+    // Buttons 1, 2 and 3 config
+    profile.setProperty( Property::Button1, getButtonShortcut(Property::Button1) );
+    profile.setProperty( Property::Button2, getButtonShortcut(Property::Button2) );
+    profile.setProperty( Property::Button3, getButtonShortcut(Property::Button3) );
+
+    // Raw Sample Rate
+    profile.setProperty( Property::RawSample, QString::number(ui->horizontalSliderRawSample->value()) );
+
+    // Suppress Rate
+    profile.setProperty( Property::Suppress, QString::number(ui->horizontalSliderSuppress->value()) );
 }
 
 
@@ -170,16 +149,14 @@ void StylusPageWidget::onProfileChanged()
 
 const QString StylusPageWidget::getButtonShortcut(const Property& button) const
 {
-    Q_D( const StylusPageWidget );
-
     ButtonShortcut shortcut;
 
     if (button == Property::Button1) {
-        shortcut = d->ui->button1ActionSelector->getShortcut();
+        shortcut = ui->button1ActionSelector->getShortcut();
     } else if (button == Property::Button2) {
-        shortcut = d->ui->button2ActionSelector->getShortcut();
+        shortcut = ui->button2ActionSelector->getShortcut();
     } else if (button == Property::Button3) {
-        shortcut = d->ui->button3ActionSelector->getShortcut();
+        shortcut = ui->button3ActionSelector->getShortcut();
     } else {
         qCWarning(KCM) << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
     }
@@ -190,12 +167,10 @@ const QString StylusPageWidget::getButtonShortcut(const Property& button) const
 
 const QString StylusPageWidget::getPressureCurve(const DeviceType& type) const
 {
-    Q_D (const StylusPageWidget);
-
     if (type == DeviceType::Stylus) {
-        return d->ui->tipPressureButton->property( "curve" ).toString();
+        return ui->tipPressureButton->property( "curve" ).toString();
     } else if (type == DeviceType::Eraser) {
-        return d->ui->eraserPressureButton->property( "curve" ).toString();
+        return ui->eraserPressureButton->property( "curve" ).toString();
     } else {
         qCWarning(KCM) << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
     }
@@ -206,12 +181,10 @@ const QString StylusPageWidget::getPressureCurve(const DeviceType& type) const
 
 const QString StylusPageWidget::getPressureFeel(const DeviceType& type) const
 {
-    Q_D (const StylusPageWidget);
-
     if (type == DeviceType::Stylus) {
-        return QString::number(d->ui->tipSlider->value());
+        return QString::number(ui->tipSlider->value());
     } else if (type == DeviceType::Eraser) {
-        return QString::number(d->ui->eraserSlider->value());
+        return QString::number(ui->eraserSlider->value());
     } else {
         qCWarning(KCM) << QString::fromLatin1("Invalid device type '%1' provided!").arg(type.key());
     }
@@ -222,21 +195,18 @@ const QString StylusPageWidget::getPressureFeel(const DeviceType& type) const
 
 const QString StylusPageWidget::getTabletPcButton() const
 {
-    Q_D (const StylusPageWidget);
-    return (d->ui->tpcCheckBox->isChecked() ? QLatin1String("on") : QLatin1String("off"));
+    return (ui->tpcCheckBox->isChecked() ? QLatin1String("on") : QLatin1String("off"));
 }
 
 
 void StylusPageWidget::setButtonShortcut(const Property& button, const QString& shortcut)
 {
-    Q_D( StylusPageWidget );
-
     if (button == Property::Button1) {
-        d->ui->button1ActionSelector->setShortcut(ButtonShortcut(shortcut));
+        ui->button1ActionSelector->setShortcut(ButtonShortcut(shortcut));
     } else if (button == Property::Button2) {
-        d->ui->button2ActionSelector->setShortcut(ButtonShortcut(shortcut));
+        ui->button2ActionSelector->setShortcut(ButtonShortcut(shortcut));
     } else if (button == Property::Button3) {
-        d->ui->button3ActionSelector->setShortcut(ButtonShortcut(shortcut));
+        ui->button3ActionSelector->setShortcut(ButtonShortcut(shortcut));
     } else {
         qCWarning(KCM) << QString::fromLatin1("Internal Error: Unknown button property '%1' provided!").arg(button.key());
     }
@@ -245,12 +215,10 @@ void StylusPageWidget::setButtonShortcut(const Property& button, const QString& 
 
 void StylusPageWidget::setPressureCurve(const DeviceType& type, const QString& value)
 {
-    Q_D( StylusPageWidget );
-
     if (type == DeviceType::Stylus) {
-        d->ui->tipPressureButton->setProperty( "curve", value );
+        ui->tipPressureButton->setProperty( "curve", value );
     } else if (type == DeviceType::Eraser) {
-        d->ui->eraserPressureButton->setProperty( "curve", value );
+        ui->eraserPressureButton->setProperty( "curve", value );
     } else {
         qCWarning(KCM) << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
     }
@@ -259,12 +227,10 @@ void StylusPageWidget::setPressureCurve(const DeviceType& type, const QString& v
 
 void StylusPageWidget::setPressureFeel(const DeviceType& type, const QString& value)
 {
-    Q_D( StylusPageWidget );
-
     if (type == DeviceType::Stylus) {
-        d->ui->tipSlider->setValue(value.toInt());
+        ui->tipSlider->setValue(value.toInt());
     } else if (type == DeviceType::Eraser) {
-        d->ui->eraserSlider->setValue(value.toInt());
+        ui->eraserSlider->setValue(value.toInt());
     } else {
         qCWarning(KCM) << QString::fromLatin1("Internal Error: Invalid device type '%1' provided!").arg(type.key());
     }
@@ -273,26 +239,21 @@ void StylusPageWidget::setPressureFeel(const DeviceType& type, const QString& va
 
 void StylusPageWidget::setTabletPcButton(const QString& value)
 {
-    Q_D( StylusPageWidget );
-
     if( value.compare(QLatin1String( "on" ), Qt::CaseInsensitive) == 0 ) {
-        d->ui->tpcCheckBox->setChecked( true );
+        ui->tpcCheckBox->setChecked( true );
     } else {
-        d->ui->tpcCheckBox->setChecked( false );
+        ui->tpcCheckBox->setChecked( false );
     }
 }
 
-
 void StylusPageWidget::changePressureCurve(const DeviceType& deviceType)
 {
-    Q_D( StylusPageWidget );
-
     PressureCurveDialog selectPC(this);
 
     QString startValue = getPressureCurve(deviceType);
     QString result (startValue);
 
-    selectPC.setTabletId(d->tabletId);
+    selectPC.setTabletId(_tabletId);
     selectPC.setDeviceType( deviceType );
     selectPC.setControllPoints( startValue );
 
@@ -302,7 +263,7 @@ void StylusPageWidget::changePressureCurve(const DeviceType& deviceType)
     } else {
         // reset the current pressurecurve to what is specified in the profile
         // rather than stick to the curve the user declined in the dialogue
-        DBusTabletInterface::instance().setProperty( d->tabletId, deviceType.key(), Property::PressureCurve.key(), startValue );
+        DBusTabletInterface::instance().setProperty( _tabletId, deviceType.key(), Property::PressureCurve.key(), startValue );
     }
 
     if (result != startValue) {
@@ -314,15 +275,11 @@ void StylusPageWidget::changePressureCurve(const DeviceType& deviceType)
 
 void StylusPageWidget::setupUi()
 {
-    Q_D( StylusPageWidget );
+    ui->setupUi( this );
 
-    d->ui->setupUi( this );
+    ui->penLabel->setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("wacomtablet/images/pen.png"))));
 
-    d->ui->penLabel->setPixmap(QPixmap(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QString::fromLatin1("wacomtablet/images/pen.png"))));
-
-    connect ( d->ui->button1ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
-    connect ( d->ui->button2ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
-    connect ( d->ui->button3ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
+    connect ( ui->button1ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
+    connect ( ui->button2ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
+    connect ( ui->button3ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
 }
-
-
