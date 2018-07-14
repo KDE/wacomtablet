@@ -20,7 +20,6 @@
 #include "kcmwacomtabletwidget.h"
 
 #include "ui_kcmwacomtabletwidget.h"
-#include "ui_saveprofile.h"
 #include "ui_errorwidget.h"
 
 #include "logging.h"
@@ -35,6 +34,8 @@
 // common
 #include "dbustabletinterface.h"
 #include "devicetype.h"
+
+#include <KMessageBox>
 
 //Qt includes
 #include <QDBusReply>
@@ -460,32 +461,15 @@ void KCMWacomTabletWidget::showSaveChanges()
 {
     Q_D( KCMWacomTabletWidget );
 
-    if( d->profileChanged ) {
-        QPointer<QDialog> saveDialog = new QDialog();
-        QWidget*          widget     = new QWidget( this );
+    if (!d->profileChanged) {
+        return;
+    }
 
-        Ui::SaveProfile askToSave;
-        askToSave.setupUi( widget );
-
-        QVBoxLayout* layout = new QVBoxLayout;
-        QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Apply | QDialogButtonBox::Cancel);
-        layout->addWidget( widget );
-        layout->addWidget( buttonBox);
-
-        connect( buttonBox, &QDialogButtonBox::clicked, [saveDialog, buttonBox](QAbstractButton* button) {
-            auto standardButton = buttonBox->standardButton(button);
-            if (standardButton == QDialogButtonBox::Apply) {
-                saveDialog->accept();
-            } else { // Cancel
-                saveDialog->reject();
-            }
-        });
-
-        if( saveDialog->exec() == QDialog::Accepted ) {
-            saveProfile();
-        }
-
-        delete saveDialog;
+    // TODO: This should be a proper Yes/No/Cancel dialog
+    // but this probably requires custom ComboBoxes for canceling selection
+    if (KMessageBox::questionYesNo(this, i18n("Save changes to the current profile?"))
+            == KMessageBox::Yes) {
+        saveProfile();
     }
 }
 

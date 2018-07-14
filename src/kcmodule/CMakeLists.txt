@@ -32,7 +32,6 @@ ki18n_wrap_ui( kcm_tablet_SRCS
                    generalpagewidget.ui
                    kcmwacomtabletwidget.ui
                    pressurecurvedialog.ui
-                   saveprofile.ui
                    styluspagewidget.ui
                    tabletareaselectionview.ui
                    tabletpagewidget.ui
