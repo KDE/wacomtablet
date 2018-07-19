@@ -6,240 +6,228 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>645</width>
-    <height>280</height>
+    <width>790</width>
+    <height>602</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_9">
    <item>
-    <widget class="QGroupBox" name="generalGroupBox">
-     <property name="title">
-      <string>Tablet</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QGroupBox" name="trackingModeGroupBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Defines how the cursor movement mode will be used.</string>
+       </property>
+       <property name="title">
+        <string>Stylus Tracking Mode</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <widget class="QGroupBox" name="trackingModeGroupBox">
+         <widget class="QRadioButton" name="trackAbsoluteRadioButton">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>&amp;Map to Screen (Absolute Mode)</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="trackRelativeRadioButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Map &amp;to Cursor (Relative Mode)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="trackingFreeSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::MinimumExpanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>1</width>
+            <height>5</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="padMappingGroupBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>Tablet Mapping</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPushButton" name="padMappingTabletButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>Defines how the cursor movement mode will be used.</string>
+           <string>Allows one to specify the tablet area for different screen selections in absolute cursor mode.</string>
           </property>
-          <property name="title">
-           <string>Stylus Tracking Mode</string>
+          <property name="text">
+           <string>Map Tablet Area to Screen</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
-            <widget class="QRadioButton" name="trackAbsoluteRadioButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Map to Screen (Absolute Mode)</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="trackRelativeRadioButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Map to Cursor (Relative Mode)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="trackingFreeSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::MinimumExpanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>1</width>
-               <height>5</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="padMappingGroupBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <layout class="QHBoxLayout" name="trackingWarningLayout">
+          <item>
+           <widget class="QLabel" name="trackingWarningIcon">
+            <property name="minimumSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="trackingWarningLabel">
+            <property name="text">
+             <string>Your currently selected mapping can not be applied in relative tracking mode.</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="padMappingFreeSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-          <property name="title">
-           <string>Tablet Mapping</string>
+          <property name="sizeType">
+           <enum>QSizePolicy::MinimumExpanding</enum>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QPushButton" name="padMappingTabletButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>Allows one to specify the tablet area for different screen selections in absolute cursor mode.</string>
-             </property>
-             <property name="text">
-              <string>Map Tablet Area to Screen</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="trackingWarningLayout">
-             <item>
-              <widget class="QLabel" name="trackingWarningIcon">
-               <property name="minimumSize">
-                <size>
-                 <width>16</width>
-                 <height>16</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16</width>
-                 <height>16</height>
-                </size>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="trackingWarningLabel">
-               <property name="text">
-                <string>Your currently selected mapping can not be applied in relative tracking mode.</string>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="padMappingFreeSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::MinimumExpanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>1</width>
-               <height>5</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>1</width>
+            <height>5</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QGroupBox" name="rotationGroupBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Changes the orientation of the tablet.</string>
+       </property>
+       <property name="title">
+        <string>Orientation</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QGroupBox" name="rotationGroupBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QComboBox" name="rotatationSelectionComboBox"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="rotateWithScreenCheckBox">
+          <property name="toolTip">
+           <string>If enabled, the tablet rotates together with the screen.</string>
+          </property>
+          <property name="text">
+           <string>Auto-Rotate with Screen</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="rotateWithScreenInvertCheckBox">
+          <property name="enabled">
+           <bool>false</bool>
           </property>
           <property name="toolTip">
-           <string>Changes the orientation of the tablet.</string>
+           <string>If enabled the automatic tablet rotation for clockwise and counterclockwise rotations will be inverted.</string>
           </property>
-          <property name="title">
-           <string>Orientation</string>
+          <property name="text">
+           <string>Invert Auto-Rotation</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <widget class="QComboBox" name="rotatationSelectionComboBox"/>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="rotateWithScreenCheckBox">
-             <property name="toolTip">
-              <string>If enabled, the tablet rotates together with the screen.</string>
-             </property>
-             <property name="text">
-              <string>Auto-Rotate with Screen</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="rotateWithScreenInvertCheckBox">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="toolTip">
-              <string>If enabled the automatic tablet rotation for clockwise and counterclockwise rotations will be inverted.</string>
-             </property>
-             <property name="text">
-              <string>Invert Auto-Rotation</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="rotatationFreeSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::MinimumExpanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>1</width>
-               <height>5</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widget" native="true">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <spacer name="rotatationFreeSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-         </widget>
+          <property name="sizeType">
+           <enum>QSizePolicy::MinimumExpanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>1</width>
+            <height>5</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
-      </item>
-     </layout>
-    </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QWidget" name="widget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <spacer name="verticalFreeSpacer">

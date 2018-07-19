@@ -7,351 +7,342 @@
     <x>0</x>
     <y>0</y>
     <width>663</width>
-    <height>349</height>
+    <height>418</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_9">
    <item>
-    <widget class="QGroupBox" name="touchGroupBox">
-     <property name="title">
-      <string>Touch</string>
+    <widget class="QCheckBox" name="touchCheckBox">
+     <property name="toolTip">
+      <string>If enabled the tablet will emit touch events.</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QCheckBox" name="touchCheckBox">
-        <property name="toolTip">
-         <string>If enabled the tablet will emit touch events.</string>
-        </property>
-        <property name="text">
-         <string>Enable Touch</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="touchHLayout1">
+     <property name="text">
+      <string>Enable Touch</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="touchHLayout1">
+     <item>
+      <widget class="QGroupBox" name="trackingModeGroupBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Defines how the cursor movement mode will be used.</string>
+       </property>
+       <property name="title">
+        <string>Touch Tracking Mode</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <widget class="QGroupBox" name="trackingModeGroupBox">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
+         <widget class="QRadioButton" name="trackAbsoluteRadioButton">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>&amp;Map to Screen (Absolute Mode)</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="trackRelativeRadioButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Map &amp;to Cursor (Relative Mode)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="trackingFreeSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::MinimumExpanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>1</width>
+            <height>5</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="touchMappingGroupBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>Touch Mapping</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QPushButton" name="touchMappingTabletButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>Defines how the cursor movement mode will be used.</string>
+           <string>Allows one to specify the tablet area for different screen selections in absolute cursor mode.</string>
           </property>
-          <property name="title">
-           <string>Touch Tracking Mode</string>
+          <property name="text">
+           <string>Map Touch Area to Screen</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
-            <widget class="QRadioButton" name="trackAbsoluteRadioButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Map to Screen (Absolute Mode)</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="trackRelativeRadioButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Map to Cursor (Relative Mode)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="trackingFreeSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::MinimumExpanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>1</width>
-               <height>5</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="touchMappingGroupBox">
-          <property name="enabled">
-           <bool>false</bool>
+         <layout class="QHBoxLayout" name="trackingWarningLayout">
+          <item>
+           <widget class="QLabel" name="trackingWarningIcon">
+            <property name="minimumSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="trackingWarningLabel">
+            <property name="text">
+             <string>Your currently selected mapping can not be applied in relative tracking mode.</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="touchMappingFreeSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+          <property name="sizeType">
+           <enum>QSizePolicy::MinimumExpanding</enum>
           </property>
-          <property name="title">
-           <string>Touch Mapping</string>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>1</width>
+            <height>5</height>
+           </size>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QPushButton" name="touchMappingTabletButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>Allows one to specify the tablet area for different screen selections in absolute cursor mode.</string>
-             </property>
-             <property name="text">
-              <string>Map Touch Area to Screen</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="trackingWarningLayout">
-             <item>
-              <widget class="QLabel" name="trackingWarningIcon">
-               <property name="minimumSize">
-                <size>
-                 <width>16</width>
-                 <height>16</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16</width>
-                 <height>16</height>
-                </size>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="trackingWarningLabel">
-               <property name="text">
-                <string>Your currently selected mapping can not be applied in relative tracking mode.</string>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="touchMappingFreeSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::MinimumExpanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>1</width>
-               <height>5</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
+         </spacer>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="gesturesCheckBox">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="toolTip">
-         <string>If enabled the touch events can recognize gestures.</string>
-        </property>
-        <property name="text">
-         <string>Enable Gestures</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="touchHLayout2">
-        <item>
-         <widget class="QGroupBox" name="gesturesGroupBox">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="title">
-           <string>Gestures</string>
-          </property>
-          <layout class="QFormLayout" name="formLayout">
-           <item row="2" column="0">
-            <widget class="QLabel" name="scrollDistanceLabel">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>Minimum motion before sending a scroll gesture.</string>
-             </property>
-             <property name="text">
-              <string>Scroll Distance</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QSpinBox" name="scrollDistanceSpinBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>The minimum motion in tablet units before sending a scroll event.</string>
-             </property>
-             <property name="maximum">
-              <number>1000</number>
-             </property>
-             <property name="singleStep">
-              <number>10</number>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="zoomDistanceLabel">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>Minimum distance for a zoom gesture is recognized.</string>
-             </property>
-             <property name="text">
-              <string>Zoom Distance</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QSpinBox" name="zoomDistanceSpinBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>The minimum distance in tablet units for a zoom gesture to be recognized.</string>
-             </property>
-             <property name="maximum">
-              <number>1000</number>
-             </property>
-             <property name="singleStep">
-              <number>10</number>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="tapTimeLabel">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>Minimum time between taps for a right click.</string>
-             </property>
-             <property name="text">
-              <string>Tap Time</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QSpinBox" name="tapTimeSpinBox">
-             <property name="toolTip">
-              <string>The minimum time in milliseconds between taps to trigger a right click.</string>
-             </property>
-             <property name="maximum">
-              <number>1000</number>
-             </property>
-             <property name="singleStep">
-              <number>10</number>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="scrollInversionLabel">
-             <property name="text">
-              <string>Invert Scroll Direction</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QCheckBox" name="scrollInversionCheckBox">
-             <property name="toolTip">
-              <string>If selected, the scroll direction for the scroll gesture is inverted.</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QWidget" name="dummyWidget" native="true">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="gesturesCheckBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="toolTip">
+      <string>If enabled the touch events can recognize gestures.</string>
+     </property>
+     <property name="text">
+      <string>Enable Gestures</string>
+     </property>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="touchHLayout2">
+     <item>
+      <widget class="QGroupBox" name="gesturesGroupBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>Gestures</string>
+       </property>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="2" column="0">
+         <widget class="QLabel" name="scrollDistanceLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Minimum motion before sending a scroll gesture.</string>
+          </property>
+          <property name="text">
+           <string>Scroll Distance</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QSpinBox" name="scrollDistanceSpinBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>The minimum motion in tablet units before sending a scroll event.</string>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="singleStep">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="zoomDistanceLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Minimum distance for a zoom gesture is recognized.</string>
+          </property>
+          <property name="text">
+           <string>Zoom Distance</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QSpinBox" name="zoomDistanceSpinBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>The minimum distance in tablet units for a zoom gesture to be recognized.</string>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="singleStep">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="tapTimeLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Minimum time between taps for a right click.</string>
+          </property>
+          <property name="text">
+           <string>Tap Time</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QSpinBox" name="tapTimeSpinBox">
+          <property name="toolTip">
+           <string>The minimum time in milliseconds between taps to trigger a right click.</string>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+          <property name="singleStep">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="scrollInversionLabel">
+          <property name="text">
+           <string>Invert Scroll Direction</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QCheckBox" name="scrollInversionCheckBox">
+          <property name="toolTip">
+           <string>If selected, the scroll direction for the scroll gesture is inverted.</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QWidget" name="dummyWidget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <spacer name="verticalFreeSpacer">

@@ -26,7 +26,6 @@
 #include "property.h"
 #include "stringutils.h"
 #include "tabletareaselectiondialog.h"
-#include "x11info.h"
 #include "x11wacom.h"
 
 #include <QRegExp>
@@ -247,12 +246,12 @@ const QString TouchPageWidget::getZoomDistance() const
 
 bool TouchPageWidget::isGesturesSupportEnabled() const
 {
-    return (ui->gesturesCheckBox->isChecked() && ui->touchGroupBox->isEnabled());
+    return ui->gesturesCheckBox->isChecked();
 }
 
 bool TouchPageWidget::isTouchSupportEnabled() const
 {
-    return (ui->touchCheckBox->isChecked() && ui->touchGroupBox->isEnabled());
+    return ui->touchCheckBox->isChecked();
 }
 
 

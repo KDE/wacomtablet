@@ -47,6 +47,7 @@
 #include <QDialogButtonBox>
 #include <QX11Info>
 #include <QMessageBox>
+#include <QScrollArea>
 
 using namespace Wacom;
 
@@ -69,6 +70,13 @@ class KCMWacomTabletWidgetPrivate {
 }; // CLASS
 }  // NAMESPACE
 
+void makeScrollableTab(QTabWidget *parent, QWidget &tab, const QString &title) {
+    auto scrollableTab = new QScrollArea(parent);
+    scrollableTab->setWidget(&tab);
+    scrollableTab->setWidgetResizable(true);
+    scrollableTab->setFrameShadow(QFrame::Shadow::Plain);
+    parent->addTab(scrollableTab, title);
+}
 
 
 KCMWacomTabletWidget::KCMWacomTabletWidget( QWidget *parent )
@@ -429,20 +437,20 @@ void KCMWacomTabletWidget::showConfig()
 
     // initialize configuration tabs
     d->ui.deviceTabWidget->clear();
-    d->ui.deviceTabWidget->addTab( &(d->generalPage), i18nc( "Basic overview page for the tablet hardware", "General" ) );
-    d->ui.deviceTabWidget->addTab( &(d->stylusPage), i18n( "Stylus" ) );
+    makeScrollableTab(d->ui.deviceTabWidget, d->generalPage, i18nc( "Basic overview page for the tablet hardware", "General" ) );
+    makeScrollableTab(d->ui.deviceTabWidget, d->stylusPage, i18n( "Stylus" ) );
 
 
     QDBusReply<bool> hasPadButtons = DBusTabletInterface::instance().hasPadButtons(tabletId);
 
     if( hasPadButtons.isValid() && hasPadButtons.value() ) {
-        d->ui.deviceTabWidget->addTab( &(d->buttonPage), i18n( "Express Buttons" ) );
+        makeScrollableTab(d->ui.deviceTabWidget, d->buttonPage, i18n( "Express Buttons" ) );
     }
 
-    d->ui.deviceTabWidget->addTab( &(d->tabletPage), i18n ("Tablet") );
+    makeScrollableTab(d->ui.deviceTabWidget, d->tabletPage, i18n ("Tablet") );
 
     if (hasBuiltInTouch || hasPairedTouch) {
-        d->ui.deviceTabWidget->addTab( &(d->touchPage), i18n ("Touch") );
+        makeScrollableTab(d->ui.deviceTabWidget, d->touchPage, i18n ("Touch") );
     }
 
     d->ui.deviceTabWidget->setEnabled( true );
