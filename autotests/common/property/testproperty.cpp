@@ -42,7 +42,7 @@ void TestProperty::test()
 {
     /*
      * Just some very basic tests to test the functors and proper class initialization.
-     * Most code shoud have been covered already by TestEnum.
+     * Most code should have been covered already by TestEnum.
      */
     Property test = Property::AbsWheelUp;
     QVERIFY(test == test);
