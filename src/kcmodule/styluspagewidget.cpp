@@ -243,10 +243,10 @@ void StylusPageWidget::setTabletPcButton(const QString& value)
 void StylusPageWidget::openPressureCurveDialog(const DeviceType& deviceType)
 {
     QString initialPressureCurve = getPressureCurve(deviceType);
-    PressureCurveDialog pressureCurveDialog(initialPressureCurve, _tabletId, deviceType, this);
+    QScopedPointer<PressureCurveDialog> pressureCurveDialog(new PressureCurveDialog(initialPressureCurve, _tabletId, deviceType, this));
 
-    if( pressureCurveDialog.exec() == QDialog::Accepted ) {
-        QString newPressureCurve = pressureCurveDialog.getControllPoints();
+    if( pressureCurveDialog->exec() == QDialog::Accepted ) {
+        QString newPressureCurve = pressureCurveDialog->getControllPoints();
 
         if (newPressureCurve != initialPressureCurve) {
             setPressureCurve( deviceType, newPressureCurve );

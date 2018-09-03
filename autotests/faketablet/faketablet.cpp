@@ -53,6 +53,8 @@ void init_device(int fd)
     // enable 1 button
     check(ioctl(fd, UI_SET_EVBIT, EV_KEY), "UI_SET_EVBIT EV_KEY");
     check(ioctl(fd, UI_SET_KEYBIT, BTN_TOUCH), "UI_SET_KEYBIT BTN_TOUCH");
+
+    // Needed only for stylus device, comment out for touch
     check(ioctl(fd, UI_SET_KEYBIT, BTN_TOOL_PEN), "UI_SET_KEYBIT BTN_TOOL_PEN");
     check(ioctl(fd, UI_SET_KEYBIT, BTN_STYLUS), "UI_SET_KEYBIT BTN_STYLUS");
     check(ioctl(fd, UI_SET_KEYBIT, BTN_STYLUS2), "UI_SET_KEYBIT BTN_STYLUS2");
@@ -69,8 +71,11 @@ void init_device(int fd)
 
     uidev.id.bustype = BUS_VIRTUAL;
     uidev.id.vendor  = 0x056a; // wacom
-    //uidev.id.product = 0xBEEF;
-    uidev.id.product = 0x00f4;
+    // Product ID really should match specific device
+    // pen
+    uidev.id.product = 0x0307;
+    // touch
+    //uidev.id.product = 0x0309;
     uidev.id.version = 1;
 
     uidev.ff_effects_max = 0;

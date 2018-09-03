@@ -173,10 +173,10 @@ void TabletAreaSelectionController::onCalibrateClicked()
 {
     Q_D(TabletAreaSelectionController);
 
-    CalibrationDialog calibDialog(d->deviceName, d->currentScreen.toString());
-    calibDialog.exec();
+    QScopedPointer<CalibrationDialog> calibDialog(new CalibrationDialog(d->deviceName, d->currentScreen.toString()));
+    calibDialog->exec();
 
-    setSelection(TabletArea(calibDialog.calibratedArea()));
+    setSelection(TabletArea(calibDialog->calibratedArea()));
 }
 
 
