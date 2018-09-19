@@ -15,3 +15,6 @@ if(HAVE_STRUCT_UINPUT_SETUP)
 else()
     message(STATUS "No suitable uinput API, fake tablet is disabled")
 endif()
+
+add_executable(setmapping setmapping.cpp)
+target_link_libraries(setmapping ${WACOM_KDED_TEST_LIBS})

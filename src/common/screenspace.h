@@ -21,6 +21,7 @@
 #define SCREENSPACE_H
 
 #include <QString>
+#include <QRect>
 
 namespace Wacom
 {
@@ -28,19 +29,27 @@ namespace Wacom
 class ScreenSpacePrivate;
 
 /**
- * @brief Specifies either a specific display output (e.g. HDMI-0) or whole screen
+ * @brief Specifies screen area that is used for mapping
+ *
+ * Stores either "desktop", specific output, arbitrary area
+ * or translation matrix (for relative mode).
+ * When set as a device property, is converted into translation matrix.
  */
 
 class ScreenSpace
 {
 
 public:
-    ScreenSpace();
-    ScreenSpace(const QString& screenSpace);
-    ScreenSpace(const ScreenSpace& screenSpace);
-    virtual ~ScreenSpace();
+    enum class ScreenSpaceType {
+        Desktop,
+        Output,
+        Area,
+        ArbitraryTranslationMatrix,
+    };
 
-    ScreenSpace& operator= (const ScreenSpace& screenSpace);
+    ScreenSpace();
+    ScreenSpace(const QString& screenSpaceString);
+    virtual ~ScreenSpace();
 
     bool operator== (const ScreenSpace& screenSpace) const;
 
@@ -64,12 +73,17 @@ public:
      */
     ScreenSpace next() const;
 
+    ScreenSpaceType getType() const;
+
+    QPointF getSpeed() const;
+    QRect getArea() const;
+
 private:
-    void setScreenSpace(const QString& screenSpace);
+    ScreenSpaceType _type = ScreenSpaceType::Desktop;
 
-    Q_DECLARE_PRIVATE(ScreenSpace)
-    ScreenSpacePrivate *const d_ptr; // D-Pointer for private members.
-
+    QString _output;
+    QRect _area;
+    QPointF _speed;
 }; // CLASS
 }  // NAMESPACE
 #endif // HEADER PROTECTION

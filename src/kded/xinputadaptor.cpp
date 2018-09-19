@@ -198,13 +198,16 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     QRect          fullScreenGeometry = X11Info::getDisplayGeometry();
     ScreenSpace    screenSpace(screenArea);
 
-    if (screenSpace.isDesktop()) {
-        // full screen area selected
+    switch (screenSpace.getType()) {
+    case Wacom::ScreenSpace::ScreenSpaceType::Desktop:
+    {
         qCDebug(KDED) << "Full screen area selected: " << fullScreenGeometry;
         screenAreaGeometry = fullScreenGeometry;
 
-    } else if (screenSpace.isMonitor()) {
-        // monitor selected
+        break;
+    }
+    case Wacom::ScreenSpace::ScreenSpaceType::Output:
+    {
         auto output = screenSpace.toString();
         QMap<QString, QRect> screenList = X11Info::getScreenGeometries();
 
@@ -216,16 +219,20 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
             screenAreaGeometry = screenList.value(output);
         }
 
-    } else {
-        // geometry selected
-        qCDebug(KDED) << "Geometry selected: " << StringUtils::toQRect(screenArea, true);
-        screenAreaGeometry = StringUtils::toQRect(screenArea, true);
+        break;
+    }
+    case Wacom::ScreenSpace::ScreenSpaceType::Area:
+    {
+        screenAreaGeometry = screenSpace.getArea();
+        qCDebug(KDED) << "Geometry selected: " << screenAreaGeometry;
+        break;
+    }
+    case Wacom::ScreenSpace::ScreenSpaceType::ArbitraryTranslationMatrix:
+    {
+        qCDebug(KDED) << "Arbitrary transformation matrix is selected" << screenSpace.getSpeed();
 
-        if (screenAreaGeometry.isEmpty()) {
-            // the input is invalid - use full screen
-            qCWarning(KDED) << "mapTabletToScreen :: can't parse ScreenSpace entry '" << screenArea << "' => device:" << d->deviceName;
-            screenAreaGeometry = fullScreenGeometry;
-        }
+        return X11Wacom::setCoordinateTransformationMatrix(d->deviceName, 0, 0, screenSpace.getSpeed().x(), screenSpace.getSpeed().y());
+    }
     }
 
     // calculate the new transformation matrix
