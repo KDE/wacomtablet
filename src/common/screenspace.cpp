@@ -93,13 +93,6 @@ bool ScreenSpace::operator==(const ScreenSpace& screenSpace) const
     }
 }
 
-
-bool ScreenSpace::operator!=(const ScreenSpace& screenSpace) const
-{
-    return (!operator==(screenSpace));
-}
-
-
 const ScreenSpace ScreenSpace::desktop()
 {
     return ScreenSpace(DESKTOP_STRING);

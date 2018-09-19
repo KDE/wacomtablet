@@ -26,8 +26,6 @@
 namespace Wacom
 {
 
-class ScreenSpacePrivate;
-
 /**
  * @brief Specifies screen area that is used for mapping
  *
@@ -52,8 +50,6 @@ public:
     virtual ~ScreenSpace();
 
     bool operator== (const ScreenSpace& screenSpace) const;
-
-    bool operator!= (const ScreenSpace& screenSpace) const;
 
     static const ScreenSpace desktop();
 
