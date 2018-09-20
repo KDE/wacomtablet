@@ -28,11 +28,8 @@ Installation
 Wacom support in KDE is a separate component and might be not installed by default.
 Package usually goes by name `wacomtablet` or `kcm-wacomtablet`.
 
-On Kubuntu, the package should be avaliable in Kubuntu Experimental PPA.
-
 More or less full list of distributions including the package should be avaliable at:
 
-* https://repology.org/metapackage/wacomtablet/versions
 * https://repology.org/metapackage/kcm-wacomtablet/versions
 
 Staring the module
@@ -57,6 +54,9 @@ https://bugs.kde.org/enter_bug.cgi?product=wacomtablet
 
 Building & manual installation
 ==============================
+
+This is *not* a recommended way to use this application. Installing it manually creates files untracked by your pacakge manager.
+This can cause everyone problems later on. Please contact your distribution's maintainers to package it instead.
 
 Run-time dependencies:
 * X11 wacom tablet driver (xserver-xorg-input-wacom), including the xsetwacom tool, version 0.20 or higher
@@ -87,9 +87,6 @@ You can install them by running:
 
 Building from source
 --------------------
-
-This is *not* a recommended way to use this application. Installing it manually creates files untracked by your pacakge manager.
-This can cause everyone problems later on. Please contact your distribution's maintainers to package it instead.
 
     $ mkdir build
     $ cd build
