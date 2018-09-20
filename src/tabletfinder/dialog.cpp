@@ -193,13 +193,11 @@ void Dialog::refreshTabletList()
                 t.hwMapping << i;
             }
 
-            QMapIterator<QString, QString> i(ti.getButtonMap());
-            while (i.hasNext()) {
-                i.next();
-                int b = i.key().toInt();
-                int k = i.value().toInt();
-                if(b < t.hwMapping.size()) {
-                    t.hwMapping.replace(b-1,k);
+            const auto buttonMap = ti.getButtonMap();
+            for (const auto key : buttonMap.keys()) {
+                const auto keyIndex = key.toInt() - 1;
+                if (keyIndex < t.buttonNumber) {
+                    t.hwMapping[keyIndex] = buttonMap.value(key).toInt();
                 }
             }
 
