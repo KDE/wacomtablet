@@ -62,6 +62,16 @@ public:
     const QString toString() const;
 
     /**
+     * @brief Converts ScreenSpace to corresponding geometry
+     *
+     * For example, if it's set to output DVI-1, returns geometry of the screen
+     * connected to DVI-1
+     *
+     * Returns empty rectangle on error
+     */
+    QRect toScreenGeometry() const;
+
+    /**
      * This function allows to cycle through all existing screen spaces in a loop,
      * which means every individual connected screen and "desktop" (whole screen)
      *

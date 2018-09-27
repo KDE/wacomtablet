@@ -156,7 +156,7 @@ const QString XsetwacomAdaptor::convertParameter(const XsetwacomProperty& param)
             kernelButtonNumber = hwButtonNumber;
         }
 
-        //qCDebug(KDED) << QString::fromLatin1("Mapping tablet button %1 to X11 button %2.").arg(hwButtonNumber).arg(kernelButtonNumber);
+        qCDebug(KDED) << QString::fromLatin1("Mapping tablet button %1 to X11 button %2.").arg(hwButtonNumber).arg(kernelButtonNumber);
 
         modifiedParam = QString(QLatin1String("Button %1")).arg(kernelButtonNumber);
     }

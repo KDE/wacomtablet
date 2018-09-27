@@ -134,6 +134,24 @@ const QString ScreenSpace::toString() const
     }
 }
 
+QRect ScreenSpace::toScreenGeometry() const
+{
+    switch (getType()) {
+    case ScreenSpaceType::Output:
+    {
+        const auto screenList = X11Info::getScreenGeometries();
+        return screenList.contains(toString()) ? screenList.value(toString()) : QRect();
+    }
+    case ScreenSpaceType::Area:
+        return getArea();
+    case ScreenSpaceType::Desktop:
+        return X11Info::getDisplayGeometry();
+    case ScreenSpaceType::ArbitraryTranslationMatrix:
+    default:
+        return QRect();
+    }
+}
+
 ScreenSpace ScreenSpace::next() const
 {
     ScreenSpace nextScreen = ScreenSpace::desktop();

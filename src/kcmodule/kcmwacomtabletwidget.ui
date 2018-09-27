@@ -17,21 +17,9 @@
    <locale language="English" country="UnitedKingdom"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
    <item>
-    <layout class="QHBoxLayout" name="tabletListLayout">
-     <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
       <widget class="QLabel" name="tabletListLabel">
        <property name="text">
         <string>&amp;Select Tablet:</string>
@@ -41,7 +29,7 @@
        </property>
       </widget>
      </item>
-     <item>
+     <item row="0" column="1">
       <widget class="QComboBox" name="tabletListSelector">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -51,11 +39,7 @@
        </property>
       </widget>
      </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="profileLayout">
-     <item>
+     <item row="1" column="0">
       <widget class="QLabel" name="profileLabel">
        <property name="text">
         <string>Select &amp;Profile:</string>
@@ -65,41 +49,45 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QComboBox" name="profileSelector">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KAnimatedButton" name="addProfileButton">
-       <property name="toolTip">
-        <string>Creates a new default profile</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonIconOnly</enum>
-       </property>
-       <property name="animationPath" stdset="0">
-        <string notr="true">document-new</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KAnimatedButton" name="delProfileButton">
-       <property name="toolTip">
-        <string>Deletes the current profile</string>
-       </property>
-       <property name="animationPath" stdset="0">
-        <string notr="true">edit-delete-page</string>
-       </property>
-      </widget>
+     <item row="1" column="1">
+      <layout class="QHBoxLayout" name="profileLayout">
+       <item>
+        <widget class="QComboBox" name="profileSelector">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KAnimatedButton" name="addProfileButton">
+         <property name="toolTip">
+          <string>Creates a new default profile</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
+         </property>
+         <property name="animationPath" stdset="0">
+          <string notr="true">document-new</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="KAnimatedButton" name="delProfileButton">
+         <property name="toolTip">
+          <string>Deletes the current profile</string>
+         </property>
+         <property name="animationPath" stdset="0">
+          <string notr="true">edit-delete-page</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
