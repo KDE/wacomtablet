@@ -39,3 +39,4 @@ add_subdirectory( kded/xsetwacomadaptor )
 
 # Add kcm tests
 add_subdirectory( kcm/styluspage )
+add_subdirectory( kcm/tabletpage )
