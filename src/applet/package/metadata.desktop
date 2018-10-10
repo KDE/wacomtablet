@@ -1,7 +1,6 @@
 [Desktop Entry]
 Name=Wacom Tablet Settings
 Name[ar]=إعدادات لوحيّّ واكُم
-Name[ast]=Axustes de tableta Wacom
 Name[bs]=Postavke wacom tableta
 Name[ca]=Arranjament per a les tauletes Wacom
 Name[ca@valencia]=Arranjament per a les tauletes Wacom
@@ -87,7 +86,6 @@ Icon=input-tablet
 Type=Service
 Keywords=Wacom
 Keywords[ar]=واكُم
-Keywords[ast]=Wacom
 Keywords[ca]=Wacom
 Keywords[ca@valencia]=Wacom
 Keywords[cs]=Wacom
