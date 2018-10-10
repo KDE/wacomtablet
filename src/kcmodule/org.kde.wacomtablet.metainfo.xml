@@ -4,7 +4,6 @@
   <extends>org.kde.systemsettings</extends>
   <extends>org.kde.kded</extends>
   <name>KDE Wacom tablet module</name>
-  <name xml:lang="ast">Módulu KDE de tabletes Wacom</name>
   <name xml:lang="ca">Mòdul del KDE per a tauletes Wacom</name>
   <name xml:lang="ca-valencia">Mòdul del KDE per a tauletes Wacom</name>
   <name xml:lang="cs">Modul KDE pro tablet Wacom</name>
