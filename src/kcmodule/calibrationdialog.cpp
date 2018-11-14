@@ -126,7 +126,7 @@ void CalibrationDialog::mousePressEvent( QMouseEvent *event )
         case 4:
             m_topRight = event->windowPos();
             calculateNewArea();
-            close();
+            accept();
             break;
         }
 

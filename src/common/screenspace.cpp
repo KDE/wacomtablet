@@ -114,6 +114,18 @@ const ScreenSpace ScreenSpace::monitor(QString output)
     return ScreenSpace(output);
 }
 
+const ScreenSpace ScreenSpace::matrix(qreal x, qreal y)
+{
+    return ScreenSpace(QString::fromLatin1("%1x%2x%3")
+                       .arg(SPEED_STRING).arg(x).arg(y));
+}
+
+const ScreenSpace ScreenSpace::area(QRect area)
+{
+    return ScreenSpace(QString::fromLatin1("%1x%2x%3x%4x%5")
+                       .arg(AREA_STRING).arg(area.left()).arg(area.top()).arg(area.width()).arg(area.height()));
+}
+
 
 const QString ScreenSpace::toString() const
 {

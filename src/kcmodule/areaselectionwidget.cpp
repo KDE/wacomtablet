@@ -271,7 +271,7 @@ void AreaSelectionWidget::setWidgetTargetSize(const QSize& size)
 {
     Q_D(AreaSelectionWidget);
 
-    if (size.height() <= 0 || size.width() <= 0) {
+    if (size.height() < 0 || size.width() < 0) {
         return;
     }
 
@@ -649,7 +649,10 @@ void AreaSelectionWidget::setupWidget()
     // calculate transformation data
     d->rectVirtualArea              = calculateVirtualArea(d->areaRectsList);
     d->outOfBoundsVirtualAreaMargin = calculateOutOfBoundsVirtualAreaMargin(d->rectVirtualArea, d->outOfBoundsMargin);
-    d->scaleFactor                  = calculateScaleFactor(d->widgetTargetSize, d->rectVirtualArea, d->outOfBoundsVirtualAreaMargin, d->DISPLAY_AREA_EXTRA_MARGIN);
+    d->scaleFactor                  = calculateScaleFactor(!d->widgetTargetSize.isEmpty() ? d->widgetTargetSize : size(),
+                                                           d->rectVirtualArea,
+                                                           d->outOfBoundsVirtualAreaMargin,
+                                                           d->DISPLAY_AREA_EXTRA_MARGIN);
     d->outOfBoundsDisplayAreaMargin = d->outOfBoundsVirtualAreaMargin * d->scaleFactor;
     d->rectDisplayArea              = calculateDisplayArea(d->rectVirtualArea, d->scaleFactor, getTotalDisplayAreaMargin());
     d->rectDisplayAreas             = calculateDisplayAreas(d->areaRectsList, d->scaleFactor, getTotalDisplayAreaMargin());

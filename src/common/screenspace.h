@@ -59,6 +59,10 @@ public:
 
     static const ScreenSpace monitor(QString output);
 
+    static const ScreenSpace matrix(qreal x, qreal y);
+
+    static const ScreenSpace area(QRect area);
+
     const QString toString() const;
 
     /**
