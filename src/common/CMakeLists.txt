@@ -1,3 +1,5 @@
+add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
+
 set(wacom_common_LIBS
   Qt5::Core
   Qt5::Gui
