@@ -75,7 +75,7 @@ public:
     /**
      * Maps the given property to an instance of this property set.
      *
-     * @param id The property id to search for.
+     * @param property The property to search for.
      *
      * @return A constant pointer to the property or nullptr if the property is not supported by this set.
      */

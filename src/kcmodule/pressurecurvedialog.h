@@ -67,7 +67,7 @@ public:
 
 public slots:
     /**
-      * Updates the pen presscurve viathe xsetwacom settings and shows the values in the dialog
+      * Updates the pen presscurve via the xsetwacom settings and shows the values in the dialog
       *
       * @param points string version of both control points separated by spaces
       */

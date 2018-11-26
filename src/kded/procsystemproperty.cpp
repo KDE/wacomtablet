@@ -21,7 +21,7 @@
 
 using namespace Wacom;
 
-// instances container specialization instanciation
+// instances container specialization instantiation
 template<>
 ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances = ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container();
 

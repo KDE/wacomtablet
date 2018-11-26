@@ -91,7 +91,7 @@ public:
     /**
      * Checks if a property is supported by the managed object. The default
      * implementation tries to query the managed object or parses the output
-     * of getProperties() to determin if the given property is supported.
+     * of getProperties() to determine if the given property is supported.
      *
      * @return True if the property is supported, else false.
      */

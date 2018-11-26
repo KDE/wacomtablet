@@ -39,7 +39,7 @@ class TabletInformationPrivate;
  * Contains all tablet information which could be gathered by either querying X11
  * or one of the tablet databases.
  *
- * DO NOT USE THE MEMBERS OF THIS CLASS, USE THE METHODS! The mebers are only
+ * DO NOT USE THE MEMBERS OF THIS CLASS, USE THE METHODS! The members are only
  * public because D-Bus needs access to them (for now).
  *
  * When extending this class, don't forget to update the DBusTabletInterface class as well!
@@ -78,7 +78,7 @@ public:
      *
      * @param info The tablet information identifier.
      *
-     * @return The requsted information.
+     * @return The requested information.
      *
      * @sa get(const QString&) const
      */

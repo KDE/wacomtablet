@@ -65,7 +65,7 @@ public Q_SLOTS:
 Q_SIGNALS:
 
     /**
-     * Emitted when a tablet is addd.
+     * Emitted when a tablet is add.
      */
     void tabletAdded (TabletInformation tabletInformation);
 

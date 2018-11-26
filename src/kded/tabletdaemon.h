@@ -74,13 +74,15 @@ public Q_SLOTS:
       * @param eventId The event identifier.
       * @param title   The notification title.
       * @param message The notification message.
+      * @param suggestConfigure Defines whether to suggest configuration.
       */
     void onNotify(const QString& eventId, const QString& title, const QString& message, bool suggestConfigure) const;
 
     /**
      * Called when the profile was changed.
      *
-     * @param profile The name of the new profile.
+     * @param tabletId The identifier of the tablet.
+     * @param profile  The name of the new profile.
      */
     void onProfileChanged(const QString &tabletId, const QString& profile);
 

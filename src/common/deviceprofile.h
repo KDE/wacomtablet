@@ -42,7 +42,7 @@ public:
     DeviceProfile();
 
     /**
-     * @param name The name of the device profile.
+     * @param type The type of the device.
      */
     explicit DeviceProfile( const DeviceType& type );
 

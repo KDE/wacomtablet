@@ -21,7 +21,7 @@
 
 using namespace Wacom;
 
-// instances container specialization instanciation
+// instances container specialization instantiation
 template<>
 XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances = XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container();
 

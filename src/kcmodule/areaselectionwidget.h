@@ -86,10 +86,10 @@ public:
     /**
      * Sets the areas which should be scaled and displayed to the user.
      * All areas will be united and displayed as one big area to the user.
-     * Therefore the areas should be adjecent or overlapping.
+     * Therefore the areas should be adjacent or overlapping.
      *
      * @param areas   The areas to display to the user.
-     * @param caption Optional captions to draw in the center of each area.
+     * @param areaCaptions Optional captions to draw in the center of each area.
      */
     void setAreas(const QMap<QString, QRect> &areas, const QStringList& areaCaptions);
 
@@ -142,7 +142,7 @@ public:
      * Selects an area by area index. This is the index from the list
      * the widget was initialized with.
      *
-     * @param areaIndex The list index of the sub-area to select.
+     * @param output The list index of the sub-area to select.
      */
     void setSelection(QString output);
 
@@ -199,7 +199,7 @@ private:
      */
     enum class DragMode {
         DragNone,          //!< The user is currently not dragging.
-        DragSelectedArea,  //!< The user drags the whole selection ara.
+        DragSelectedArea,  //!< The user drags the whole selection area.
         DragTopHandle,     //!< The user drags the top border handle.
         DragRightHandle,   //!< The user drags the right border handle.
         DragBottomHandle,  //!< The user drags the bottom border handle.
@@ -289,7 +289,7 @@ private:
 
 
     /**
-     * Returns the total margin of the display area. This is is the out of bounds
+     * Returns the total margin of the display area. This is the out of bounds
      * margin plus any additional margin which might be applied around the widget.
      *
      * @return The total display area margin.

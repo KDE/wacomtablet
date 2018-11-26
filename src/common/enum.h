@@ -191,8 +191,8 @@ protected:
      * available to the public! Never use it for normal instances! It may
      * only be used to instantiate class-static Enum instances.
      *
+     * @param derived A const pointer to the derived class of this instance.
      * @param key The key of this class-static Enum instance.
-     * @param priority The sort order priority of this instance.
      */
     explicit Enum( const D* derived, const K& key ) : m_key(key)
     {

@@ -60,7 +60,7 @@ public:
       * This is forwarded to the right backend specified by m_curDevice
       *
       * @param tabletId The id of the tablet where the property should be fetched from
-      * @param device name of the tablet device we set. Internal name of the pad/stylus/eraser/cursor
+      * @param deviceType name of the tablet device we set. Internal name of the pad/stylus/eraser/cursor
       * @param property the property we are looking for
       *
       * @return the value as string
@@ -94,7 +94,8 @@ public:
       * Sets the configuration of @p param from @p device with @p value
       * This is forwarded to the right backend specified by m_curDevice
       *
-      * @param device   The name of the device to set the property on.
+      * @param tabletId The identifier of the device to set the property on.
+      * @param deviceType The type of the device to set the property on.
       * @param property The property to set.
       * @param value    New value of the parameter
       */
@@ -113,7 +114,7 @@ public Q_SLOTS:
       * This slot has to be connected to the X device event notifier and
       * executed when a new tablet device is plugged in.
       *
-      * @param deviceid The device id as reported by X11.
+      * @param info The device info as reported by X11.
       */
     void onTabletAdded(const TabletInformation& info);
 
@@ -123,7 +124,7 @@ public Q_SLOTS:
       * This slot has to be connected to the X device event notifier and
       * executed when a tablet is disconnected from the system.
       *
-      * @param deviceid The device id as reported by X11.
+      * @param info The device info as reported by X11.
       */
     void onTabletRemoved(const TabletInformation& info);
 
@@ -134,7 +135,7 @@ public Q_SLOTS:
      * when the screen is rotated.
      *
      * @param output Name of the screen that has been rotated.
-     * @param screenRotation The screen rotation.
+     * @param newScreenRotation The screen rotation.
      */
     void onScreenRotated(QString output, const Qt::ScreenOrientation &newScreenRotation);
 
@@ -221,6 +222,7 @@ Q_SIGNALS:
     /**
       * Emitted when the profile of the current tablet is changed.
       *
+      * @param tabletId The identifier of the tablet.
       * @param profile The name of the new active profile.
       */
     void profileChanged(const QString &tabletId, const QString& profile);

@@ -106,7 +106,7 @@ public:
     QStringList profileRotationList() const;
 
     /**
-     * Returns last known profile number (as seved in the config)
+     * Returns last known profile number (as saved in the config)
      *
      * Helps to do the next/prev when current profile name is not available
      */
@@ -143,7 +143,7 @@ public:
      * tablet identifier. This method requires that the profiles for a tablet identifier
      * have been loaded first.
      *
-     * @param profile The tablet profile name to check for.
+     * @param profileName The tablet profile name to check for.
      *
      * @see ProfileManager::loadProfiles(const QString&)
      */

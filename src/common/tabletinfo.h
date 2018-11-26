@@ -34,7 +34,7 @@ struct TabletInfoTemplateSpecializationLessFunctor;
 /**
  * @brief Helper Typedef! Do not use!
  *
- * This typedef is required by the TabletInfo class. It eases maintenane of template parameters.
+ * This typedef is required by the TabletInfo class. It eases maintenance of template parameters.
  */
 typedef Enum<TabletInfo, QString, TabletInfoTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> TabletInfoTemplateSpecialization;
 

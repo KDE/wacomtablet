@@ -211,7 +211,7 @@ public:
     /**
      * Sets a float property.
      *
-     * @param propert The property to set.
+     * @param property The property to set.
      * @param values  A list of values to set on this property.
      *
      * @return True if the property could be set, else false.

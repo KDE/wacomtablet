@@ -74,7 +74,7 @@ signals:
 
 public slots:
     /**
-     * Check if dbus servcie is running and tablets are connected
+     * Check if dbus service is running and tablets are connected
      *
      * Shows either error message or the configuration for a selected tablet
      */

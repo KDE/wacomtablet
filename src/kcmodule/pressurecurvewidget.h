@@ -142,7 +142,7 @@ signals:
     /**
       * This signal will be fired if the position of the control points change
       * Used to inform the parent widget of this change to be able to display the new values
-      * Furthermore the changed presscurve will be set via the xsetwacom driver imidiatly thus
+      * Furthermore the changed presscurve will be set via the xsetwacom driver immidiatly thus
       * allow the user to see the changes in action right now
       *
       * @param points the presscurve points in a format expected by the xsetwacom driver (like "0 100 0 100")

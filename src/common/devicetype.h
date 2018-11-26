@@ -34,7 +34,7 @@ struct DeviceTypeTemplateSpecializationLessFunctor;
 /**
  * @brief Helper Typedef! Do not use!
  *
- * This typedef is required by the DeviceType class. It eases maintenane of template parameters.
+ * This typedef is required by the DeviceType class. It eases maintenance of template parameters.
  */
 typedef Enum<DeviceType, QString, DeviceTypeTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> DeviceTypeTemplateSpecialization;
 

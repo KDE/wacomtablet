@@ -109,7 +109,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     m_profileManager.saveProfile(tabletProfile);
 
     // FIXME: workaround for devices with a separate touch sensor USB ID
-    // Correct way to solve this is probably rewrite this whole class or comepletely get rid of it
+    // Correct way to solve this is probably rewrite this whole class or completely get rid of it
     if (!m_sensorId.isEmpty()) {
         m_profileManager.readProfiles(m_sensorId);
         TabletProfile childTabletProfile = m_profileManager.loadProfile(profilename);

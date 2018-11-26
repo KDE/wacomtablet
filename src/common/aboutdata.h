@@ -25,7 +25,7 @@
 namespace Wacom
 {
 /**
- * This KAboutData implementatation should be used in every KDE component.
+ * This KAboutData implementation should be used in every KDE component.
  * It is here so we have central place where to manage all authors of this
  * project.
  */

@@ -20,7 +20,7 @@ Check with
 
     $ xsetwacom list devices
 
-if your device is correctly recognized first. If it dosn't show up there, we can't configure it.
+if your device is correctly recognized first. If it doesn't show up there, we can't configure it.
 
 Installation
 ------------
@@ -43,7 +43,7 @@ Adding missing tablet devices
 -----------------------------
 
 If your device is not recognized by this program, but you can set it up via the xsetwacom driver,
-run Wacom Tablet Finder (`kde_wacom_tabletfinder`), desribe your device and click `Save`, and restart Wacom tablet service (see above).
+run Wacom Tablet Finder (`kde_wacom_tabletfinder`), describe your device and click `Save`, and restart Wacom tablet service (see above).
 
 Please send your device description (file `~/.config/tabletdblocalrc`) to the bugtracker, so it will be added in future versions.
 
@@ -55,7 +55,7 @@ https://bugs.kde.org/enter_bug.cgi?product=wacomtablet
 Building & manual installation
 ==============================
 
-This is *not* a recommended way to use this application. Installing it manually creates files untracked by your pacakge manager.
+This is *not* a recommended way to use this application. Installing it manually creates files untracked by your package manager.
 This can cause everyone problems later on. Please contact your distribution's maintainers to package it instead.
 
 Run-time dependencies:
@@ -184,15 +184,15 @@ hwbutton2=2          # see below for more information
 hwbutton3=3
 hwbutton4=8
 
-### hwbuttonX explanantion ###
+### hwbuttonX explanation ###
 
 Kernels >= 2.6.38 renamed the buttons for some reason.
 
-xsetwacom does not work with the pysical hardware button numbers 1-X
+xsetwacom does not work with the physical hardware button numbers 1-X
 but rather with the real numbers as seen by the XServer
 
 In case you run into trouble with the buttons do the following:
-* deinstall the kded/kcm ;)
+* uninstall the kded/kcm ;)
 * disconnect/reconnect the tablet
 * run xev in the terminal
 * move the mouse over the new window

@@ -40,7 +40,7 @@ QTEST_MAIN(TestDeviceProperty)
 
 void TestDeviceProperty::test()
 {
-    // very basic test to make sure instanciation works
+    // very basic test to make sure instantiation works
     // the real unit tests can be found in TestPropertySet
     QCOMPARE(DeviceProperty::Button1.key(), QLatin1String("Button1"));
 }

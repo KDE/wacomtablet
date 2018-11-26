@@ -636,7 +636,7 @@ void TabletHandler::mapDeviceToOutput(const QString &tabletId,
             (!X11Info::getScreenGeometries().contains(screen.toString())
              || QGuiApplication::screens().count() == 1)) {
         /**
-         * If we we have only one screen, or if the screen number is invalid,
+         * If we have only one screen, or if the screen number is invalid,
          * map to whole desktop.
          */
         screen = ScreenSpace::desktop();

@@ -21,7 +21,7 @@
 
 using namespace Wacom;
 
-// instances container specialization instanciation
+// instances container specialization instantiation
 template<>
 XsetwacomPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container XsetwacomPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances = XsetwacomPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container();
 

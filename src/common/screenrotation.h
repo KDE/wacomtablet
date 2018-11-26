@@ -34,7 +34,7 @@ struct ScreenRotationTemplateSpecializationLessFunctor;
 /**
  * @brief Helper Typedef! Do not use!
  *
- * This typedef is required by the ScreenRotation class. It eases maintenane of template parameters.
+ * This typedef is required by the ScreenRotation class. It eases maintenance of template parameters.
  */
 typedef Enum<ScreenRotation, QString, ScreenRotationTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> ScreenRotationTemplateSpecialization;
 

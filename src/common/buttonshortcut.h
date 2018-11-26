@@ -169,7 +169,7 @@ public:
      * The result can not be used as input string for this class!
      * If no shortcut is set, an empty string is returned.
      *
-     * @return The current shortcut as readble string.
+     * @return The current shortcut as readable string.
      */
     const QString toDisplayString() const;
 

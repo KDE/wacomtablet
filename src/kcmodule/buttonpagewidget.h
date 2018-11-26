@@ -51,7 +51,6 @@ public:
     /**
       * default constructor
       *
-      * @param profileManager Handles the connection to the config files
       * @param parent parent Widget
       */
     explicit ButtonPageWidget(QWidget *parent = 0);

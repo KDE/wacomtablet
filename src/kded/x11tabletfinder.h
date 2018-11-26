@@ -100,7 +100,7 @@ private:
 
     /**
      * Gets the product and vendor id if set. These are usually the company and
-     * product id of the USB device. However the information is opional and might
+     * product id of the USB device. However the information is optional and might
      * not be set.
      *
      * @param device The device to get the information from.

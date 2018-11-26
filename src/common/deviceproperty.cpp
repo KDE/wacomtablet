@@ -21,7 +21,7 @@
 
 using namespace Wacom;
 
-// instances container specialization instanciation
+// instances container specialization instantiation
 template<>
 DevicePropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container DevicePropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances = DevicePropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container();
 

@@ -52,14 +52,14 @@ Q_SIGNALS:
     /**
      * Emitted when a new tablet is connected.
      *
-     * @param info The tablet information gathered from the window system.
+     * @param deviceId The tablet identifier gathered from the window system.
      */
     void tabletAdded (int deviceId);
 
     /**
      * Emitted when a tablet is removed.
      *
-     * @param info The which was removed.
+     * @param deviceId The device that was removed by identifier.
      */
     void tabletRemoved (int deviceId);
 

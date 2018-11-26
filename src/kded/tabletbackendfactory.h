@@ -73,7 +73,6 @@ protected:
      * Creates a tablet backend instance.
      *
      * @param info      The tablet information.
-     * @param buttonMap The button mapping for this tablet.
      *
      * @return A new instance of a tablet backend.
      */

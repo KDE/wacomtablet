@@ -27,9 +27,9 @@
 namespace Wacom {
 
 /**
- * The interface for configuration adpaters.
+ * The interface for configuration adapters.
  *
- * These adaptors support direct reading and writing of KDE config groups as
+ * These adapters support direct reading and writing of KDE config groups as
  * well as property mapping between configuration file keys and config or
  * system properties. In case of a general adapter, an adaptee can be provided
  * where all configuration properties will be read from.

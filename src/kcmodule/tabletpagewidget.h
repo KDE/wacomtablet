@@ -176,7 +176,7 @@ protected:
     void setAutoRotationEnabled (bool value);
 
     /**
-     * Changes the inverte-auto rotation configuration. This will not
+     * Changes the inverted-auto rotation configuration. This will not
      * update the auto-rotation flag.
      *
      * @param value True to enable inverted auto-rotation, false to disable it.
@@ -210,7 +210,7 @@ protected:
     /**
      * Sets a new screen area mapping and updates all widgets accordingly.
      *
-     * @param value The new screen space mapping selection.
+     * @param screenSpace The new screen space mapping selection.
      */
     void setScreenSpace(const ScreenSpace& screenSpace);
 

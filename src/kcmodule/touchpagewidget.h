@@ -225,7 +225,7 @@ protected:
     /**
      * Sets a new screen space mapping and updates all widgets accordingly.
      *
-     * @param value The new screen space mapping selection.
+     * @param screenSpace The new screen space mapping selection.
      */
     void setScreenSpace(const ScreenSpace& screenSpace);
 
