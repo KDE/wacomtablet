@@ -82,16 +82,16 @@ void PressureCurveWidget::resizeEvent(QResizeEvent * event)
 void PressureCurveWidget::tabletEvent(QTabletEvent * event)
 {
     event->accept();
-    m_presssure = event->pressure();
+    m_pressure = event->pressure();
 
     constexpr qreal threshold = 0.001;
-    if (m_presssure <= threshold) {
+    if (m_pressure <= threshold) {
         m_activePoint = 0;
     }
 
     if (m_activePoint > 0) {
         moveControlPoint(event->pos());
-    } else if (m_presssure > threshold) {
+    } else if (m_pressure > threshold) {
         setNearestPoint(event->pos());
     }
 
@@ -190,7 +190,7 @@ void PressureCurveWidget::paintEvent(QPaintEvent * event)
     QPainterPath areaBelowCurve(curvePath);
     areaBelowCurve.lineTo(width(), height());
     areaBelowCurve.lineTo(0, height());
-    QRectF clearRect(m_presssure * width(), 0, width(), height());
+    QRectF clearRect(m_pressure * width(), 0, width(), height());
     QPainterPath subtract;
     subtract.addRect(clearRect);
 

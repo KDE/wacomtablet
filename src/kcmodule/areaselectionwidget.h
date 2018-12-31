@@ -134,6 +134,7 @@ public:
      * Selects an area.
      *
      * @param selection The area to select.
+     * @param emitUpdate Whether to emit the update signal.
      */
     void setSelection(const QRect& selection, bool emitUpdate);
 

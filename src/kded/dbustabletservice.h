@@ -52,7 +52,7 @@ public:
 // d-bus slots
 public Q_SLOTS:
     /**
-      * List all conncted tablets (by tabletid)
+      * List all connected tablets (by tabletid)
       *
       * @return StringList of the connected tablets with their id
       */

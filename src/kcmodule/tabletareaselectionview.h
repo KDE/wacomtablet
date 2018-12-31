@@ -69,6 +69,7 @@ public:
      * Switches to the given screen and selects the given tablet region.
      *
      * @param output The name of the screen to switch to.
+     * @param isDesktop Whether the screen is a desktop screen.
      * @param tabletSelection The selection to set on the tablet.
      */
     void select(QString output, bool isDesktop, const TabletArea &tabletSelection);

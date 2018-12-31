@@ -60,7 +60,7 @@ public:
       * @bug if this widget has no fixed size, the width()/height() return the
       *      the values as specified in the .ui file or when the widget is created
       *      The automatic layout changes took place before somehow and thus
-      *      leeds to a wrong placement of the control points
+      *      leads to a wrong placement of the control points
       * @param p1 x value of the first point
       * @param p2 y value of the first point
       * @param p3 x value of the second point
@@ -142,7 +142,7 @@ signals:
     /**
       * This signal will be fired if the position of the control points change
       * Used to inform the parent widget of this change to be able to display the new values
-      * Furthermore the changed presscurve will be set via the xsetwacom driver immidiatly thus
+      * Furthermore the changed presscurve will be set via the xsetwacom driver immediatly thus
       * allow the user to see the changes in action right now
       *
       * @param points the presscurve points in a format expected by the xsetwacom driver (like "0 100 0 100")
@@ -156,7 +156,7 @@ private:
     int     m_activePoint = 0;            /**< The point that is dragged around */
     QColor  m_pointColor = Qt::red;       /**< Color of the points */
     QColor  m_curveColor = Qt::black;     /**< Color of the curve */
-    qreal   m_presssure = 0;              /**< Buffers the current stylus pressure. (0.0 - 1.0) used to animate the pressure */
+    qreal   m_pressure = 0;              /**< Buffers the current stylus pressure. (0.0 - 1.0) used to animate the pressure */
     QColor  m_pressAreaColor = Qt::blue;  /**< Color of the press indication area */
 };
 

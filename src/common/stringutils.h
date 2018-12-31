@@ -30,9 +30,9 @@ class StringUtils
 {
 public:
     /**
-     * Trimms the input value and checks if it is one of '1', 'true', 'on' or 'yes'.
+     * Trims the input value and checks if it is one of '1', 'true', 'on' or 'yes'.
      *
-     * @param value The value to returen as bool.
+     * @param value The value to return as bool.
      *
      * @return True if the input string is one of "1/true/on/yes", else false.
      */
@@ -42,6 +42,7 @@ public:
     /**
      * Converts a QRect to string in the format "x y width height" or "x1 y1 x2 y2".
      *
+     * @param rect The given QRect.
      * @param returnCoordinates Return "x1 y1 x2 y2" instead of "x y width height".
      *
      * @return The rectangle as string.

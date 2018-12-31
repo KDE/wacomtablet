@@ -115,7 +115,7 @@ TabletInformation::TabletInformation() : d_ptr(new TabletInformationPrivate)
 }
 
 
-TabletInformation::TabletInformation(long int tabletSerial) : d_ptr(new TabletInformationPrivate)
+TabletInformation::TabletInformation(long tabletSerial) : d_ptr(new TabletInformationPrivate)
 {
     set(TabletInfo::TabletSerial, QString::number(tabletSerial));
     d_ptr->unknown.clear();

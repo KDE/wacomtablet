@@ -46,6 +46,9 @@ public:
     /**
       * default constructor
       *
+      * @param initialValue initial value of the pressure
+      * @param tabletId tablet identifier
+      * @param deviceType device type, @see DeviceType
       * @param parent parent widget
       */
     PressureCurveDialog(const QString &initialValue,

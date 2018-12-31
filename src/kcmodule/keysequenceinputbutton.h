@@ -43,7 +43,7 @@ class KeySequenceInputButtonPrivate;
  * all key codes of the sequence. While the original implementation would convert
  * "Shift+1" to "!", this implementation will actually return "Shift+!". The wacom
  * driver can not convert shifted keys back to its original key sequence as it
- * treats evey key as a keycode. Therefore we have to make sure we return every
+ * treats every key as a keycode. Therefore we have to make sure we return every
  * key which was pressed.
  */
 class KeySequenceInputButton : public QPushButton

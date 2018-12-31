@@ -47,6 +47,7 @@ public:
       * default constructor
       *
       * @param parent parent widget
+      * @param args arguments
       */
     KCMWacomTablet(QWidget *parent, const QVariantList &);
     virtual ~KCMWacomTablet();

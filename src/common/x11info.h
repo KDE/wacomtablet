@@ -32,7 +32,7 @@ namespace Wacom
 /**
  * @brief Various display info helper functions
  *
- * Originally used to get informatino about the running X server.
+ * Originally used to get information about the running X server.
  * Since Qt5 has been ported to using QScreen.
  * TODO: rename this class or make it a namespace even
  */

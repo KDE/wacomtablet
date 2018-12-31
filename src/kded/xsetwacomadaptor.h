@@ -83,7 +83,7 @@ private:
      * conversion will be stored in the \a value parameter. If the property is
      * not a button shortcut, the value is left untouched.
      *
-     * @param value The shortuct to validate.
+     * @param value The shortcut to validate.
      */
     void convertButtonShortcut (const XsetwacomProperty& property, QString& value) const;
 

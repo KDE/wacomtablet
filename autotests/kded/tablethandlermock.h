@@ -38,13 +38,13 @@ public:
     virtual ~TabletHandlerMock();
 
 
-    //! Emmits a profileChanged signal with the given parameter.
+    //! Emits a profileChanged signal with the given parameter.
     void emitProfileChanged(const QString &tabletId, const QString& profile);
 
-    //! Emmits a tabletAdded signal with the given parameter.
+    //! Emits a tabletAdded signal with the given parameter.
     void emitTabletAdded(const TabletInformation& info);
 
-    //! Emmits a tabletRemoved signal.
+    //! Emits a tabletRemoved signal.
     void emitTabletRemoved(const QString &tabletId);
 
 
