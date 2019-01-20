@@ -62,7 +62,7 @@
     <p xml:lang="fi">Ohjelma tarjoaa piirtoalustojen järjestelmäasetusmoduulin ja yhdistettyjen piirtoalustojen taustapalvelun.</p>
     <p xml:lang="fr">Le module pour les tablettes « Wacom » fournit une section tablette au sein de la « Configuration du Système » et un démon qui configure les tablettes connectées en arrière plan.</p>
     <p xml:lang="gl">O módulo de tabletas de Wacom fornece unha sección de tabletas para a configuración do sistema e un servizo en segundo plano que configura as tabletas conectadas.</p>
-    <p xml:lang="id">Modul tablet Wacom menyediakan bagian tablet untuk Setelan Sistem dan daemon latarbelakang yang mengkonfigurasi tablet-tablet yang tersambung.</p>
+    <p xml:lang="id">Modul tablet Wacom menyediakan bagian tablet untuk System Settings dan daemon latarbelakang yang mengkonfigurasi tablet-tablet yang tersambung.</p>
     <p xml:lang="it">Il modulo tavolette Wacom fornisce una sezione per la tavoletta nelle Impostazioni di sistema ed un demone in background che configura le tavolette connesse.</p>
     <p xml:lang="ko">와콤 태블릿 모듈은 시스템 설정에 통합된 태블릿 설정과 연결된 태블릿을 설정하는 배경 데몬을 제공합니다.</p>
     <p xml:lang="nl">Wacom tablet module biedt tabletsectie voor Systeeminstelling en een achtergrond-daemon die verbonden tablets configureert.</p>
