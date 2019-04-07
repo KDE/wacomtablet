@@ -1596,7 +1596,7 @@ hwbutton9=12
 
 [0378]
 model=CTL-6100WL
-layout=unknown
+layout=bl_11
 name=Wacom Intuos BT M
 padbuttons=4
 wheel=no
@@ -1610,7 +1610,7 @@ hwbutton4=8
 
 [0379]
 model=CTL-6100WL
-layout=unknown
+layout=bl_11
 name=Wacom Intuos BT M
 padbuttons=4
 wheel=no
