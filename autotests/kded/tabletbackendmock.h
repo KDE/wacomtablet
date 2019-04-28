@@ -36,23 +36,23 @@ public:
 
     TabletBackendMock();
 
-    virtual ~TabletBackendMock();
+    ~TabletBackendMock() override;
 
-    void addAdaptor(const DeviceType& deviceType, PropertyAdaptor* adaptor);
+    void addAdaptor(const DeviceType& deviceType, PropertyAdaptor* adaptor) override;
 
-    const TabletInformation& getInformation() const;
+    const TabletInformation& getInformation() const override;
 
-    const QString getProperty(const DeviceType& type, const Property& property) const;
+    const QString getProperty(const DeviceType& type, const Property& property) const override;
 
-    void setProfile(const TabletProfile& profile);
+    void setProfile(const TabletProfile& profile) override;
 
-    void setProfile(const DeviceType& deviceType, const DeviceProfile& profile);
+    void setProfile(const DeviceType& deviceType, const DeviceProfile& profile) override;
 
-    void setStatusLED(int led);
+    void setStatusLED(int led) override;
 
-    void setStatusLEDBrightness(int brightness);
+    void setStatusLEDBrightness(int brightness) override;
 
-    bool setProperty(const DeviceType& type, const Property& property, const QString& value);
+    bool setProperty(const DeviceType& type, const Property& property, const QString& value) override;
 
 
     QString           m_propertyAdaptorType; //!< The device type of the property adaptor.

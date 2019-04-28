@@ -43,7 +43,7 @@ class Dialog : public QDialog
 
 public:
     explicit Dialog(QWidget *parent = 0);
-    ~Dialog();
+    ~Dialog() override;
 
 private slots:
     // tablet detection and user selection

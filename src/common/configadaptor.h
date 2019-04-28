@@ -48,7 +48,7 @@ public:
     /**
       * Default destructor
       */
-    virtual ~ConfigAdaptor() {}
+    ~ConfigAdaptor() override {}
 
     /**
      * Loads a config from the given config group. The default implementation

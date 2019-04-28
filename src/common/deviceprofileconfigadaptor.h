@@ -40,7 +40,7 @@ public:
     /**
       * Default destructor
       */
-    virtual ~DeviceProfileConfigAdaptor();
+    ~DeviceProfileConfigAdaptor() override;
 
 
     /**
@@ -53,7 +53,7 @@ public:
      *
      * @return True on success, false on error.
      */
-    bool loadConfig( const KConfigGroup& config );
+    bool loadConfig( const KConfigGroup& config ) override;
 
     /**
      * Saves the device configuration of the currently managed device profile
@@ -64,7 +64,7 @@ public:
      *
      * @return True on success, false on error.
      */
-    bool saveConfig( KConfigGroup& config ) const;
+    bool saveConfig( KConfigGroup& config ) const override;
 };
 
 }

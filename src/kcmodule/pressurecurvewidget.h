@@ -75,7 +75,7 @@ protected:
       *
       * @param event the mouse event
       */
-    void mousePressEvent(QMouseEvent * event);
+    void mousePressEvent(QMouseEvent * event) override;
 
     /**
       * Drags the control points around
@@ -84,7 +84,7 @@ protected:
       *
       * @param event the mouse event
       */
-    void mouseMoveEvent(QMouseEvent * event);
+    void mouseMoveEvent(QMouseEvent * event) override;
 
     /**
       * Dragging the controlpoint stopped
@@ -92,7 +92,7 @@ protected:
       *
       * @param event the mouse event
       */
-    void mouseReleaseEvent(QMouseEvent * event);
+    void mouseReleaseEvent(QMouseEvent * event) override;
 
     /**
       * Changes the position of the controlpoints with the same ratio than the widget resize
@@ -100,7 +100,7 @@ protected:
       *
       * @param event the resize event
       */
-    void resizeEvent(QResizeEvent * event);
+    void resizeEvent(QResizeEvent * event) override;
 
     /**
       * If the tablet was detected by Qt this animates the pressure as filled area below the presscurve
@@ -109,7 +109,7 @@ protected:
       *
       * @param event the Tablet event
       */
-    void tabletEvent(QTabletEvent * event);
+    void tabletEvent(QTabletEvent * event) override;
 
     /**
       * Draws the background grid, controlpoints and the presscurve on the widget
@@ -117,7 +117,7 @@ protected:
       *
       * @param event the paint event
       */
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event) override;
 
     /**
       * Finds the nearest controlpoint the uses clicks on

@@ -46,7 +46,7 @@ class DBusTabletService : public QObject
 
 public:
      explicit DBusTabletService (TabletHandlerInterface& tabletHandler);
-    ~DBusTabletService ();
+    ~DBusTabletService () override;
 
 
 // d-bus slots

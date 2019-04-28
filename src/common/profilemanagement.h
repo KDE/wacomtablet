@@ -56,14 +56,14 @@ class ProfileManagement : public ProfileManagementInterface
          */
         static ProfileManagement& instance(const QString &deviceName, bool hasTouch);
 
-        void setTabletId(const QString &tabletId);
+        void setTabletId(const QString &tabletId) override;
 
         /**
           * Creates a new profile for the currently detected device and saves it back to the KConfig file
           *
           * @param profilename name of the profile that will be created
           */
-        void createNewProfile(const QString & profilename);
+        void createNewProfile(const QString & profilename) override;
 
         /**
           * Returns the KConfigGroup with all available profiles for the current tablet device
@@ -73,14 +73,14 @@ class ProfileManagement : public ProfileManagementInterface
           *
           * @return the profile group object that holds all profile information.
           */
-        const QStringList availableProfiles();
+        const QStringList availableProfiles() override;
 
         /**
           * Deletes the profile from the current connected device.
           *
           * Should no profile be left a default profile will be created and selected.
           */
-        void deleteProfile();
+        void deleteProfile() override;
 
         /**
           * Returns a device profile of the currently active tablet profile.
@@ -92,7 +92,7 @@ class ProfileManagement : public ProfileManagementInterface
           *
           * @return The device profile of the requested device.
           */
-        DeviceProfile loadDeviceProfile(const DeviceType& device);
+        DeviceProfile loadDeviceProfile(const DeviceType& device) override;
 
         /**
          * Saves the given profile as a device profile of the currently
@@ -101,7 +101,7 @@ class ProfileManagement : public ProfileManagementInterface
          * @param profile The profile to save.
          * @return True on success, false on error.
          */
-        bool saveDeviceProfile (const DeviceProfile& profile);
+        bool saveDeviceProfile (const DeviceProfile& profile) override;
 
         /**
           * Sets the used profile.
@@ -111,21 +111,21 @@ class ProfileManagement : public ProfileManagementInterface
           *
           * @param name Name of the new profile
           */
-        void setProfileName(const QString & name);
+        void setProfileName(const QString & name) override;
 
         /**
           * Returns the current used profile name.
           *
           * @return name of the profile in use
           */
-        QString profileName() const;
+        QString profileName() const override;
 
         /**
           * Reloads the profiles
           *
           * If the tablet is removed/connected/changed during runtime, this function updates its internal status
           */
-        void reload();
+        void reload() override;
 
     private:
         /**

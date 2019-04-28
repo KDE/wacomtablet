@@ -47,7 +47,7 @@ class StylusPageWidget : public QWidget
 public:
     explicit StylusPageWidget(QWidget *parent = 0);
 
-    ~StylusPageWidget();
+    ~StylusPageWidget() override;
 
     void setTabletId(const QString &tabletId);
 

@@ -54,7 +54,7 @@ public:
     /**
       * Default destructor
       */
-    ~DeviceProfile();
+    ~DeviceProfile() override;
 
     /**
      * Copy operator.
@@ -83,12 +83,12 @@ public:
     /**
      * @return The value of the given property or an empty string.
      */
-    const QString getProperty(const Property& key) const;
+    const QString getProperty(const Property& key) const override;
 
     /**
      * @return A list of properties supported by this profile.
      */
-    const QList<Property> getProperties() const;
+    const QList<Property> getProperties() const override;
 
     /**
      * Sets the button shortcut by button number.
@@ -111,7 +111,7 @@ public:
      * @param key   The property to set.
      * @param value The property's value.
      */
-    bool setProperty(const Property& key, const QString& value);
+    bool setProperty(const Property& key, const QString& value) override;
 
     /**
      * Checks if the given property is supported.
@@ -119,7 +119,7 @@ public:
      *
      * @param property The property to check for.
      */
-    bool supportsProperty(const Property& property) const;
+    bool supportsProperty(const Property& property) const override;
 
 
 private:

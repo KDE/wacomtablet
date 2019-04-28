@@ -49,7 +49,7 @@ public:
     /**
       * default destructor
       */
-    ~KCMWacomTabletWidget();
+    ~KCMWacomTabletWidget() override;
 
     /**
       * Reloads the profile to its saved values from the config file

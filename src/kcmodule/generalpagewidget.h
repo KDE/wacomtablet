@@ -57,7 +57,7 @@ public:
     /**
       * default destructor
       */
-    ~GeneralPageWidget();
+    ~GeneralPageWidget() override;
 
     void setTabletId(const QString &tabletId);
 

@@ -56,7 +56,7 @@ public:
     KeySequenceInputButton(QWidget *parent = 0);
 
     //! Destructor
-    virtual ~KeySequenceInputButton();
+    ~KeySequenceInputButton() override;
 
     //! Clears the current sequence.
     void clearSequence();
@@ -80,13 +80,13 @@ protected:
     void cancelRecording();
 
     // overloaded from QPushButton
-    virtual bool event (QEvent *event);
+    bool event (QEvent *event) override;
 
     // overloaded from QPushButton
-    virtual void keyPressEvent (QKeyEvent *event);
+    void keyPressEvent (QKeyEvent *event) override;
 
     // overloaded from QPushButton
-    virtual void keyReleaseEvent (QKeyEvent *event);
+    void keyReleaseEvent (QKeyEvent *event) override;
 
     //! Starts shortcut recording.
     void startRecording();

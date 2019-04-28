@@ -39,7 +39,7 @@ class TabletAreaSelectionWidget : public QWidget
 public:
 
     explicit TabletAreaSelectionWidget(QWidget* parent = 0);
-    virtual ~TabletAreaSelectionWidget();
+    ~TabletAreaSelectionWidget() override;
 
     const ScreenMap& getScreenMap();
 

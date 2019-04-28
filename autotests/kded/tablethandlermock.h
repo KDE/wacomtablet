@@ -35,7 +35,7 @@ class TabletHandlerMock : public TabletHandlerInterface
 
 public:
     TabletHandlerMock();
-    virtual ~TabletHandlerMock();
+    ~TabletHandlerMock() override;
 
 
     //! Emits a profileChanged signal with the given parameter.
@@ -49,22 +49,22 @@ public:
 
 
     //! Gets the current mock property value no matter which property or device is requested.
-    QString getProperty(const QString& tabletId, const DeviceType& deviceType, const Property& property) const;
+    QString getProperty(const QString& tabletId, const DeviceType& deviceType, const Property& property) const override;
 
     //! Returns the mock's profile list.
-    QStringList listProfiles(const QString& tabletId);
+    QStringList listProfiles(const QString& tabletId) override;
 
     //! Sets the given profile on the mock and emits a profileChanged signal.
-    void setProfile(const QString& tabletId, const QString& profile);
+    void setProfile(const QString& tabletId, const QString& profile) override;
 
     //! Sets the given property value on the mock no matter which device or property is set.
-    void setProperty(const QString& tabletId, const DeviceType& deviceType, const Property & property, const QString& value);
+    void setProperty(const QString& tabletId, const DeviceType& deviceType, const Property & property, const QString& value) override;
 
     //! return mock rotation list
-    QStringList getProfileRotationList(const QString& tabletId);
+    QStringList getProfileRotationList(const QString& tabletId) override;
 
     //! set mock rotation list
-    void setProfileRotationList(const QString& tabletId, const QStringList &rotationList);
+    void setProfileRotationList(const QString& tabletId, const QStringList &rotationList) override;
 
 
 Q_SIGNALS:

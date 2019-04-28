@@ -36,7 +36,7 @@ class TestXsetWacomAdaptor: public TabletDependentTest
     Q_OBJECT
 
 protected:
-    void initTestCaseDependent();
+    void initTestCaseDependent() override;
 
 private slots:
     void testSetProperty();

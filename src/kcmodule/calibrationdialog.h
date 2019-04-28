@@ -54,7 +54,7 @@ protected:
      *
      * @param event some additional event details
     */
-    void paintEvent( QPaintEvent *event );
+    void paintEvent( QPaintEvent *event ) override;
 
     /**
      * @brief Catch mousepress events
@@ -63,7 +63,7 @@ protected:
      *
      * @param event mouse press details
     */
-    void mousePressEvent( QMouseEvent *event );
+    void mousePressEvent( QMouseEvent *event ) override;
 
 private:
     /**

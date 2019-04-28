@@ -36,7 +36,7 @@ public:
 
     explicit ButtonActionSelectorWidget( QWidget *parent = 0 );
 
-    virtual ~ButtonActionSelectorWidget();
+    ~ButtonActionSelectorWidget() override;
 
 
     const ButtonShortcut& getShortcut() const;

@@ -46,7 +46,7 @@ class HWButtonDialog : public QDialog
 
 public:
     explicit HWButtonDialog(int maxButtons, QWidget *parent = nullptr);
-    ~HWButtonDialog();
+    ~HWButtonDialog() override;
 
     QList<unsigned int> buttonMap() const;
 

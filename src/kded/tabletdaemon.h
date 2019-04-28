@@ -63,7 +63,7 @@ public:
     /**
       * Destroys this module
       */
-    virtual ~TabletDaemon();
+    ~TabletDaemon() override;
 
 
 public Q_SLOTS:

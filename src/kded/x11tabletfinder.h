@@ -45,7 +45,7 @@ class X11TabletFinder : public X11InputVisitor
 public:
 
     X11TabletFinder();
-    virtual ~X11TabletFinder();
+    ~X11TabletFinder() override;
 
     /**
      * Returns the devices which were found from a previous run of scanDevices().
@@ -64,7 +64,7 @@ public:
     /**
      * @see X11InputVisitor::visit(X11InputDevice&)
      */
-    bool visit (X11InputDevice& device);
+    bool visit (X11InputDevice& device) override;
 
 
 private:

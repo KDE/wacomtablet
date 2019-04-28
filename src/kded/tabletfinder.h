@@ -39,7 +39,7 @@ class TabletFinder : public QObject
     Q_OBJECT
 
 public:
-    virtual ~TabletFinder();
+    ~TabletFinder() override;
 
     static TabletFinder& instance();
 

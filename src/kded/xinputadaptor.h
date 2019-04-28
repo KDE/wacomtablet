@@ -42,27 +42,27 @@ public:
     explicit XinputAdaptor(const QString& deviceName);
 
     //! Destructor
-    virtual ~XinputAdaptor();
+    ~XinputAdaptor() override;
 
     /**
      * @sa PropertyAdaptor::getProperties()
      */
-    const QList<Property> getProperties() const;
+    const QList<Property> getProperties() const override;
 
     /**
      * @sa PropertyAdaptor::getProperty(const Property&)
      */
-    const QString getProperty(const Property& property) const;
+    const QString getProperty(const Property& property) const override;
 
     /**
      * @sa PropertyAdaptor::setProperty(const Property&, const QString&)
      */
-    bool setProperty(const Wacom::Property& property, const QString& value);
+    bool setProperty(const Wacom::Property& property, const QString& value) override;
 
     /**
      * @sa PropertyAdaptor::supportsProperty(const Property&)
      */
-    bool supportsProperty(const Property& property) const;
+    bool supportsProperty(const Property& property) const override;
 
 
 private:

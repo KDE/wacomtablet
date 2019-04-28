@@ -44,7 +44,7 @@ public:
 
     explicit TabletAreaSelectionView( QWidget* parent = 0 );
 
-    virtual ~TabletAreaSelectionView();
+    ~TabletAreaSelectionView() override;
 
 
     /**

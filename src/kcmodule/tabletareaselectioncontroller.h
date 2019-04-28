@@ -41,7 +41,7 @@ class TabletAreaSelectionController : public QObject
 public:
 
     TabletAreaSelectionController();
-    virtual ~TabletAreaSelectionController();
+    ~TabletAreaSelectionController() override;
 
 
     /**

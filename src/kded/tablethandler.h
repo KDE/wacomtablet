@@ -53,7 +53,7 @@ public:
      */
     TabletHandler(const QString& profileFile, const QString configFile);
 
-    virtual ~TabletHandler();
+    ~TabletHandler() override;
 
     /**
       * returns the current value for a specific tablet setting
@@ -65,7 +65,7 @@ public:
       *
       * @return the value as string
       */
-    QString getProperty(const QString &tabletId, const DeviceType& deviceType, const Property& property) const;
+    QString getProperty(const QString &tabletId, const DeviceType& deviceType, const Property& property) const override;
 
 
 
@@ -75,7 +75,7 @@ public:
       * @param tabletId The id of the tablet which shall be queried
       * @return the list of all available profiles
       */
-    QStringList listProfiles(const QString &tabletId);
+    QStringList listProfiles(const QString &tabletId) override;
 
 
     /**
@@ -87,7 +87,7 @@ public:
       * @param tabletId The id of the tablet for which the profile shall be set
       * @param profile The name of the profile to apply.
       */
-    void setProfile(const QString &tabletId, const QString& profile);
+    void setProfile(const QString &tabletId, const QString& profile) override;
 
 
     /**
@@ -99,12 +99,12 @@ public:
       * @param property The property to set.
       * @param value    New value of the parameter
       */
-    void setProperty(const QString &tabletId, const DeviceType& deviceType, const Property & property, const QString& value);
+    void setProperty(const QString &tabletId, const DeviceType& deviceType, const Property & property, const QString& value) override;
 
 
-    QStringList getProfileRotationList(const QString &tabletId);
+    QStringList getProfileRotationList(const QString &tabletId) override;
 
-    void setProfileRotationList(const QString &tabletId, const QStringList &rotationList);
+    void setProfileRotationList(const QString &tabletId, const QStringList &rotationList) override;
 
 
 public Q_SLOTS:

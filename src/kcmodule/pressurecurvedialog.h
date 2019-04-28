@@ -59,7 +59,7 @@ public:
     /**
       * default destructor
       */
-    ~PressureCurveDialog();
+    ~PressureCurveDialog() override;
 
     /**
       * Returns the changed presscurve control points in the format needed by the xsetwacom settings
@@ -79,12 +79,12 @@ public slots:
     /**
       * called when the user accept his changes
       */
-    void accept();
+    void accept() override;
 
     /**
       * called when the user discards his changes
       */
-    void reject();
+    void reject() override;
 
 private:
     /**

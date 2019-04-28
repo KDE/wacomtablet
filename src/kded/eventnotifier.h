@@ -39,7 +39,7 @@ class EventNotifier : public QWidget
     Q_OBJECT
 
 public:
-    virtual ~EventNotifier();
+    ~EventNotifier() override;
 
     //! Registers the notifier with the window system.
     virtual void start() = 0;

@@ -41,7 +41,7 @@ public:
     /**
       * Default destructor
       */
-    virtual ~TabletProfileConfigAdaptor();
+    ~TabletProfileConfigAdaptor() override;
 
 
     /**
@@ -56,7 +56,7 @@ public:
      *
      * @return True on success, false on error.
      */
-    virtual bool loadConfig (const KConfigGroup& config);
+    bool loadConfig (const KConfigGroup& config) override;
 
 
     /**
@@ -68,7 +68,7 @@ public:
      *
      * @return True on success, false on error.
      */
-    virtual bool saveConfig (KConfigGroup& config) const;
+    bool saveConfig (KConfigGroup& config) const override;
 
 
 private:

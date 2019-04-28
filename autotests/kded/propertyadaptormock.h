@@ -37,12 +37,12 @@ public:
 
     PropertyAdaptorMock() : PropertyAdaptor() {}
 
-    virtual const QList<Property> getProperties() const
+    const QList<Property> getProperties() const override
     {
         return T::ids();
     }
 
-    virtual const QString getProperty(const Property& property) const
+    const QString getProperty(const Property& property) const override
     {
         if (!supportsProperty(property)) {
             return QString();
@@ -51,7 +51,7 @@ public:
         return m_properties.value(property.key());
     }
 
-    virtual bool setProperty(const Wacom::Property& property, const QString& value)
+    bool setProperty(const Wacom::Property& property, const QString& value) override
     {
         if (!supportsProperty(property)) {
             return false;
@@ -61,7 +61,7 @@ public:
         return true;
     }
 
-    virtual bool supportsProperty(const Property& property) const
+    bool supportsProperty(const Property& property) const override
     {
         return (T::map(property) != NULL);
     }

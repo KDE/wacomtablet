@@ -37,7 +37,7 @@ class X11EventNotifier : public EventNotifier, public QAbstractNativeEventFilter
     Q_OBJECT
 
 public:
-    virtual ~X11EventNotifier();
+    ~X11EventNotifier() override;
 
     /**
      * Returns an instance of this class.
@@ -60,7 +60,7 @@ protected:
     /**
       * Called by Qt when a new X11 event is detected.
       */
-    virtual bool nativeEventFilter(const QByteArray& eventType, void* message, long int* result) Q_DECL_OVERRIDE;
+    bool nativeEventFilter(const QByteArray& eventType, void* message, long int* result) Q_DECL_OVERRIDE;
 
 
 private:

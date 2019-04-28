@@ -55,7 +55,7 @@ public:
     KeySequenceInputWidget( QWidget *parent = nullptr );
 
     //! Destructor
-    virtual ~KeySequenceInputWidget();
+    ~KeySequenceInputWidget() override;
 
 
     //! Returns the current key sequence.

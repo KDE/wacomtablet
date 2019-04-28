@@ -41,7 +41,7 @@ class ButtonActionSelectionWidget : public QWidget
 public:
     explicit ButtonActionSelectionWidget(QWidget* parent = 0);
 
-    virtual ~ButtonActionSelectionWidget();
+    ~ButtonActionSelectionWidget() override;
 
     /**
      * @return The currently selected shortcut.

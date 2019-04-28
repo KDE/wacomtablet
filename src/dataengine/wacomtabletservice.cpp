@@ -27,10 +27,10 @@ class WacomTabletJob : public Plasma::ServiceJob
 {
     Q_OBJECT
 public:
-    WacomTabletJob(const QString& destination, const QString& operation, const QMap< QString, QVariant >& parameters, QObject* parent = 0) : ServiceJob(destination, operation, parameters, parent) {
+    WacomTabletJob(const QString& destination, const QString& operation, const QMap< QString, QVariant >& parameters, QObject* parent = nullptr) : ServiceJob(destination, operation, parameters, parent) {
     }
 
-    virtual void start() {
+    virtual void start() override {
         if (!DBusTabletInterface::instance().isValid()) {
             return;
         }

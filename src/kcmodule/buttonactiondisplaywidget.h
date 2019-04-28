@@ -33,7 +33,7 @@ class ButtonActionDisplayWidget : public QLineEdit {
 
 public:
     explicit ButtonActionDisplayWidget(QWidget* parent = 0);
-    virtual ~ButtonActionDisplayWidget();
+    ~ButtonActionDisplayWidget() override;
 
 signals:
 
@@ -42,9 +42,9 @@ signals:
 
 protected:
 
-    virtual void focusInEvent ( QFocusEvent* e );
+    void focusInEvent ( QFocusEvent* e ) override;
 
-    virtual void mousePressEvent ( QMouseEvent* e );
+    void mousePressEvent ( QMouseEvent* e ) override;
 
 }; // CLASS
 }  // NAMESPACE

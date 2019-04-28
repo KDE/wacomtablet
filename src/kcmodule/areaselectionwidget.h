@@ -43,7 +43,7 @@ public:
 
     explicit AreaSelectionWidget(QWidget* parent = 0);
 
-    virtual ~AreaSelectionWidget();
+    ~AreaSelectionWidget() override;
 
     /**
      * Resets the selection back to the full size.
@@ -173,22 +173,22 @@ protected:
     /**
      * Overridden QWidget method which captures mouse movements.
      */
-    virtual void mouseMoveEvent ( QMouseEvent * event );
+    void mouseMoveEvent ( QMouseEvent * event ) override;
 
     /**
      * Overridden QWidget method which captures mouse button press events.
      */
-    virtual void mousePressEvent ( QMouseEvent * event );
+    void mousePressEvent ( QMouseEvent * event ) override;
 
     /**
      * Overridden QWidget method which captures mouse button release events.
      */
-    virtual void mouseReleaseEvent ( QMouseEvent * event );
+    void mouseReleaseEvent ( QMouseEvent * event ) override;
 
     /**
      * Overridden QWidget method which paints the widget.
      */
-    virtual void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event) override;
 
 
 private:

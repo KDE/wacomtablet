@@ -50,17 +50,17 @@ public:
       * @param args arguments
       */
     KCMWacomTablet(QWidget *parent, const QVariantList &);
-    virtual ~KCMWacomTablet();
+    ~KCMWacomTablet() override;
 
     /**
       * Called when the user hits the default button to reload the saved values from the config file
       */
-    void load();
+    void load() override;
 
     /**
       * Called when the user hits apply/ok to save the current profile changes
       */
-    void save();
+    void save() override;
 
 private slots:
     /**

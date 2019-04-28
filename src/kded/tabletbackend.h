@@ -41,47 +41,47 @@ class TabletBackend : public TabletBackendInterface
 public:
 
     explicit TabletBackend(const TabletInformation& tabletInformation);
-    virtual ~TabletBackend();
+    ~TabletBackend() override;
 
     /**
      * @see TabletBackendInterface::addAdaptor(const DeviceType&, PropertyAdaptor*)
      */
-    void addAdaptor(const DeviceType& deviceType, PropertyAdaptor* adaptor);
+    void addAdaptor(const DeviceType& deviceType, PropertyAdaptor* adaptor) override;
 
     /**
      * @see TabletBackendInterface::getInformation() const;
      */
-    const TabletInformation& getInformation() const;
+    const TabletInformation& getInformation() const override;
 
     /**
      * @see TabletBackendInterface::getProperty(const DeviceType&, const Property&) const
      */
-    const QString getProperty(const DeviceType& type, const Property& property) const;
+    const QString getProperty(const DeviceType& type, const Property& property) const override;
 
     /**
      * @see TabletBackendInterface::setProfile(const TabletProfile&)
      */
-    void setProfile(const TabletProfile& profile);
+    void setProfile(const TabletProfile& profile) override;
 
     /**
      * @see TabletBackendInterface::setProfile(const DeviceType&, const DeviceProfile&)
      */
-    void setProfile(const DeviceType& deviceType, const DeviceProfile& profile);
+    void setProfile(const DeviceType& deviceType, const DeviceProfile& profile) override;
 
     /**
      * @see TabletBackendInterface::setStatusLED(int led)
      */
-    void setStatusLED(int led);
+    void setStatusLED(int led) override;
 
     /**
      * @see TabletBackendInterface::setStatusLEDBrightness(int brightness)
      */
-    void setStatusLEDBrightness(int brightness);
+    void setStatusLEDBrightness(int brightness) override;
 
     /**
      * @see TabletBackendInterface::setProperty(const DeviceType&, const Property&, const QString&)
      */
-    bool setProperty(const DeviceType& type, const Property& property, const QString& value);
+    bool setProperty(const DeviceType& type, const Property& property, const QString& value) override;
 
 
 private:

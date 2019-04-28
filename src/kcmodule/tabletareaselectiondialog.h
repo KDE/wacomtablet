@@ -45,7 +45,7 @@ public:
 
     explicit TabletAreaSelectionDialog();
 
-    virtual ~TabletAreaSelectionDialog();
+    ~TabletAreaSelectionDialog() override;
 
 
     /**

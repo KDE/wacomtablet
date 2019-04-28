@@ -37,7 +37,7 @@ class ButtonActionSelectionDialog : public QDialog
 public:
     explicit ButtonActionSelectionDialog(QWidget* parent = 0);
 
-    virtual ~ButtonActionSelectionDialog();
+    ~ButtonActionSelectionDialog() override;
 
     /**
      * Gets the shortcut which was selected by the user. If the

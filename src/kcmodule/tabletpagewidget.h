@@ -47,7 +47,7 @@ public:
 
     explicit TabletPageWidget( QWidget *parent = 0 );
 
-    virtual ~TabletPageWidget();
+    ~TabletPageWidget() override;
 
     void setTabletId(const QString &tabletId);
 
