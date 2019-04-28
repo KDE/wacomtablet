@@ -60,7 +60,7 @@ libWacomWrapper::~libWacomWrapper()
 bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInformation &tabletInfo)
 {
     qCDebug(COMMON) << "LibWacom lookup for" << tabletId << vendorId;
-    auto errorDeleter = [](WacomError *&e){libwacom_error_free(&e);};
+    auto errorDeleter = [](WacomError *e){libwacom_error_free(&e);};
     std::unique_ptr<WacomError, decltype(errorDeleter)>
             error(libwacom_error_new(), errorDeleter);
     std::unique_ptr<WacomDevice, decltype(&libwacom_destroy)>
