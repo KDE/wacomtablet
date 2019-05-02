@@ -31,6 +31,7 @@ set(wacom_common_SRC
     propertyadaptor.cpp
     screenrotation.cpp
     screenmap.cpp
+    screensinfo.cpp
     screenspace.cpp
     stringutils.cpp
     tabletarea.cpp
@@ -39,7 +40,6 @@ set(wacom_common_SRC
     tabletinformation.cpp
     tabletprofile.cpp
     tabletprofileconfigadaptor.cpp
-    x11info.cpp
     x11input.cpp
     x11inputdevice.cpp
     x11wacom.cpp

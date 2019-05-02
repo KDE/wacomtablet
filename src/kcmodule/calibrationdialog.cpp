@@ -21,7 +21,7 @@
 
 #include "logging.h"
 #include "x11wacom.h"
-#include "x11info.h"
+#include "screensinfo.h"
 
 //KDE includes
 #include <KLocalizedString>

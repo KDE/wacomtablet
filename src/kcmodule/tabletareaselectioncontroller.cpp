@@ -25,7 +25,7 @@
 
 #include "screenmap.h"
 #include "stringutils.h"
-#include "x11info.h"
+#include "screensinfo.h"
 #include "x11wacom.h"
 
 using namespace Wacom;

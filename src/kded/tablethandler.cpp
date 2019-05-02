@@ -35,7 +35,7 @@
 #include "profilemanager.h"
 #include "profilemanagement.h"
 #include "tabletprofile.h"
-#include "x11info.h"
+#include "screensinfo.h"
 
 #include <QGuiApplication>
 #include <QList>

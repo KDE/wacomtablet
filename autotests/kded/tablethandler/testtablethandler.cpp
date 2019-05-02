@@ -23,7 +23,7 @@
 #include "kded/tablethandler.h"
 #include "kded/tabletbackendfactory.h"
 #include "common/tabletinformation.h"
-#include "common/x11info.h"
+#include "common/screensinfo.h"
 
 #include <QtTest>
 

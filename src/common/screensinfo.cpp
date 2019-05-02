@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "x11info.h"
+#include "screensinfo.h"
 
 #include <QApplication>
 #include <QScreen>

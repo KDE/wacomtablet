@@ -22,7 +22,7 @@
 #include "tabletareaselectionwidget.h"
 
 #include "stringutils.h"
-#include "x11info.h"
+#include "screensinfo.h"
 
 #include <KLocalizedString>
 

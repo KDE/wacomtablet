@@ -26,7 +26,7 @@
 #include "property.h"
 #include "stringutils.h"
 #include "tabletareaselectiondialog.h"
-#include "x11info.h"
+#include "screensinfo.h"
 #include "x11wacom.h"
 
 #include <QRegExp>

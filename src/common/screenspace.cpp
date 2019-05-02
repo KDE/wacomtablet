@@ -20,7 +20,7 @@
 #include "screenspace.h"
 
 #include "logging.h"
-#include "x11info.h"
+#include "screensinfo.h"
 
 using namespace Wacom;
 

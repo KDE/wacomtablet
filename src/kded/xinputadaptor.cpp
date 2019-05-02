@@ -25,7 +25,7 @@
 #include "xinputproperty.h"
 #include "x11input.h"
 #include "x11inputdevice.h"
-#include "x11info.h"
+#include "screensinfo.h"
 #include "x11wacom.h"
 
 #include <QApplication>
