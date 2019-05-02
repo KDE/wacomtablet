@@ -17,18 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef X11INPUTDEVICE_H
-#define X11INPUTDEVICE_H
+#pragma once
+
+#include <cstdint>
 
 #include <QString>
 #include <QList>
-
 #include <QX11Info>
-#include <cstdint>
 
-#if defined(HAVE_XCB_XINPUT)
 struct xcb_input_get_device_property_reply_t;
-#endif
 
 namespace Wacom
 {
@@ -105,14 +102,6 @@ public:
      */
     long int getDeviceId() const;
 
-#if !defined(HAVE_XCB_XINPUT)
-    /**
-     * @return the display of this device, or NULL if one cannot be found.
-     */
-    Display* getDisplay() const;
-#endif
-
-
     /**
      * Gets a float property.
      *
@@ -134,7 +123,7 @@ public:
      * @return True if the property could be retrieved, else false.
      */
     bool getLongProperty (const QString& property, QList<long>& values, long nelements = 1) const;
-    
+
     bool getInt32Property (const QString& property, QList<uint32_t>& values, long nelements = 1) const;
 
     /**
@@ -265,20 +254,11 @@ private:
      *
      * @return xcb reply
      */
-#if defined(HAVE_XCB_XINPUT)
     xcb_input_get_device_property_reply_t*
     getPropertyData (const QString& property,
                      Wacom::X11InputDevice::Atom expectedType,
                      int expectedFormat,
                      long int nelements) const;
-#else
-    bool getPropertyData (const QString& property,
-                          Atom expectedType,
-                          int expectedFormat,
-                          long int nelements,
-                          unsigned char** data,
-                          long unsigned int& nitems) const;
-#endif
 
     /**
      * Looks up a X11 property atom.
@@ -308,4 +288,3 @@ private:
 
 }; // CLASS
 }  // NAMESPACE
-#endif // HEADER PROTECTION
