@@ -197,7 +197,7 @@ void TestTabletHandler::testOnScreenRotated()
     QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Touch, Property::Rotate), ScreenRotation::NONE.key());
 
     // rotate screen
-    m_tabletHandler->onScreenRotated(X11Info::getPrimaryScreenName(), Qt::InvertedLandscapeOrientation);
+    m_tabletHandler->onScreenRotated(ScreensInfo::getPrimaryScreenName(), Qt::InvertedLandscapeOrientation);
 
     // validate result
     QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Eraser, Property::Rotate), ScreenRotation::HALF.key());

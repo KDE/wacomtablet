@@ -135,18 +135,18 @@ void TabletAreaSelectionController::setupController(const ScreenMap& mappings,
 
     d->deviceName       = deviceName;
     d->tabletGeometry   = X11Wacom::getMaximumTabletArea(deviceName);
-    d->screenGeometries = X11Info::getScreenGeometries();
+    d->screenGeometries = ScreensInfo::getScreenGeometries();
     d->screenMap        = mappings;
 
     if (rotation == ScreenRotation::AUTO) {
         // TODO
-        d->tabletRotation = X11Info::getScreenRotation();
+        d->tabletRotation = ScreensInfo::getScreenRotation();
         // we have a tablet (not a canvas) viewpoint here, so we need to invert the screen rotation
         d->tabletRotation = d->tabletRotation.invert();
 
     } else if (rotation == ScreenRotation::AUTO_INVERTED) {
         // TODO
-        d->tabletRotation = X11Info::getScreenRotation();
+        d->tabletRotation = ScreensInfo::getScreenRotation();
 
     } else {
         d->tabletRotation = rotation;
@@ -322,7 +322,7 @@ const QRect TabletAreaSelectionController::getScreenGeometry(QString output) con
 {
     Q_D(const TabletAreaSelectionController);
 
-    return d->screenGeometries.value(output, X11Info::getDisplayGeometry());
+    return d->screenGeometries.value(output, ScreensInfo::getUnifiedDisplayGeometry());
 }
 
 

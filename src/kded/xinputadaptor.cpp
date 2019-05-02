@@ -195,7 +195,7 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
 
     // get the space the user wants to use to map the tablet
     QRect          screenAreaGeometry;
-    QRect          fullScreenGeometry = X11Info::getDisplayGeometry();
+    QRect          fullScreenGeometry = ScreensInfo::getUnifiedDisplayGeometry();
     ScreenSpace    screenSpace(screenArea);
 
     switch (screenSpace.getType()) {
@@ -209,7 +209,7 @@ bool XinputAdaptor::mapTabletToScreen(const QString& screenArea) const
     case Wacom::ScreenSpace::ScreenSpaceType::Output:
     {
         auto output = screenSpace.toString();
-        QMap<QString, QRect> screenList = X11Info::getScreenGeometries();
+        QMap<QString, QRect> screenList = ScreensInfo::getScreenGeometries();
 
         if (!screenList.contains(output)) {
             qCDebug(KDED) << "Selected monitor no longer connected - using full screen: " << fullScreenGeometry;

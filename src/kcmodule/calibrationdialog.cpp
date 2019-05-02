@@ -43,7 +43,7 @@ CalibrationDialog::CalibrationDialog(const QString &toolname, const QString &tar
     , m_drawCross(0)
     , m_toolName(toolname)
 {
-    auto screenList = X11Info::getScreenGeometries();
+    auto screenList = ScreensInfo::getScreenGeometries();
     if (screenList.count() > 1) {
         if (screenList.contains(targetScreen)) {
             move(screenList.value(targetScreen).topLeft());

@@ -359,7 +359,7 @@ void TabletHandler::onMapToScreen1()
     Q_D( TabletHandler );
 
     foreach(const QString &tabletId, d->tabletInformationList.keys()) {
-        mapPenToScreenSpace(tabletId, ScreenSpace::monitor(X11Info::getPrimaryScreenName()));
+        mapPenToScreenSpace(tabletId, ScreenSpace::monitor(ScreensInfo::getPrimaryScreenName()));
     }
 }
 
@@ -371,7 +371,7 @@ void TabletHandler::onMapToScreen2()
 
     if (QGuiApplication::screens().count() > 1) {
         foreach(const QString &tabletId, d->tabletInformationList.keys()) {
-            mapPenToScreenSpace(tabletId, ScreenSpace::monitor(X11Info::getPrimaryScreenName()).next());
+            mapPenToScreenSpace(tabletId, ScreenSpace::monitor(ScreensInfo::getPrimaryScreenName()).next());
         }
     }
 }
@@ -581,7 +581,7 @@ void TabletHandler::autoRotateTablet(const QString &tabletId,
     }
 
     if (output.isEmpty()) {
-        screenRotation = X11Info::getScreenRotation(stylusSpace.toString());
+        screenRotation = ScreensInfo::getScreenRotation(stylusSpace.toString());
     } else if (output != stylusSpace.toString() && QGuiApplication::screens().count() > 1) {
         qCDebug(KDED) << "Tablet is mapped to a different screen";
         return;
@@ -633,7 +633,7 @@ void TabletHandler::mapDeviceToOutput(const QString &tabletId,
     ScreenSpace screen(screenSpace);
 
     if (screen.isMonitor() &&
-            (!X11Info::getScreenGeometries().contains(screen.toString())
+            (!ScreensInfo::getScreenGeometries().contains(screen.toString())
              || QGuiApplication::screens().count() == 1)) {
         /**
          * If we have only one screen, or if the screen number is invalid,

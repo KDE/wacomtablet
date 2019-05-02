@@ -17,8 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef X11INFO_H
-#define X11INFO_H
+#pragma once
 
 #include "screenrotation.h"
 
@@ -31,26 +30,15 @@ namespace Wacom
 
 /**
  * @brief Various display info helper functions
- *
- * Originally used to get information about the running X server.
- * Since Qt5 has been ported to using QScreen.
- * TODO: rename this class or make it a namespace even
  */
-class X11Info
+namespace ScreensInfo
 {
-public:
-
     /**
      * @return All screens united as one rectangle.
      */
-    static const QRect getDisplayGeometry();
+    const QRect getUnifiedDisplayGeometry();
 
-    /**
-     * Returns a list of all X11 screen geometries.
-     *
-     * @return List of X11 screen geometries.
-     */
-    static const QMap<QString, QRect> getScreenGeometries();
+    const QMap<QString, QRect> getScreenGeometries();
 
     /**
      * Gets the current rotation of the screen. This is based on the monitor
@@ -59,17 +47,9 @@ public:
      *
      * @return The current rotation as seen by the monitor.
      */
-    static const ScreenRotation getScreenRotation(QString output = QString());
+    const ScreenRotation getScreenRotation(QString output = QString());
 
-    static const QString getPrimaryScreenName();
-    static const QString getNextScreenName(QString output);
-
-private:
-
-    X11Info() {
-        // no instance required - it's all static.
-    }
-
+    const QString getPrimaryScreenName();
+    const QString getNextScreenName(QString output);
 }; // CLASS
 }  // NAMESPACE
-#endif // HEADER PROTECTION

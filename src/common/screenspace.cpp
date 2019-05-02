@@ -151,13 +151,13 @@ QRect ScreenSpace::toScreenGeometry() const
     switch (getType()) {
     case ScreenSpaceType::Output:
     {
-        const auto screenList = X11Info::getScreenGeometries();
+        const auto screenList = ScreensInfo::getScreenGeometries();
         return screenList.contains(toString()) ? screenList.value(toString()) : QRect();
     }
     case ScreenSpaceType::Area:
         return getArea();
     case ScreenSpaceType::Desktop:
-        return X11Info::getDisplayGeometry();
+        return ScreensInfo::getUnifiedDisplayGeometry();
     case ScreenSpaceType::ArbitraryTranslationMatrix:
     default:
         return QRect();
@@ -169,10 +169,10 @@ ScreenSpace ScreenSpace::next() const
     ScreenSpace nextScreen = ScreenSpace::desktop();
 
     if (getType() != ScreenSpaceType::Output) {
-        nextScreen = ScreenSpace::monitor(X11Info::getPrimaryScreenName());
+        nextScreen = ScreenSpace::monitor(ScreensInfo::getPrimaryScreenName());
     } else {
-        auto nextScreenName = X11Info::getNextScreenName(toString());
-        if (nextScreenName == X11Info::getPrimaryScreenName()) {
+        auto nextScreenName = ScreensInfo::getNextScreenName(toString());
+        if (nextScreenName == ScreensInfo::getPrimaryScreenName()) {
             nextScreen = ScreenSpace::desktop();
         } else {
             nextScreen = ScreenSpace::monitor(nextScreenName);

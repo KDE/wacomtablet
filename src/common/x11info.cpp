@@ -22,34 +22,33 @@
 #include <QApplication>
 #include <QScreen>
 
-using namespace Wacom;
+namespace Wacom {
 
-const QRect X11Info::getDisplayGeometry()
+namespace ScreensInfo {
+
+const QRect getUnifiedDisplayGeometry()
 {
-    auto screens = getScreenGeometries();
     QRect unitedScreen(0, 0, 0, 0);
-
-    for (const auto &screen : screens) {
+    for (const auto &screen : getScreenGeometries()) {
         unitedScreen = unitedScreen.united(screen);
     }
 
     return unitedScreen;
 }
 
-const QMap<QString, QRect> X11Info::getScreenGeometries()
+const QMap<QString, QRect> getScreenGeometries()
 {
     QMap<QString, QRect> screenGeometries;
-    const auto screens = QGuiApplication::screens();
-
-    Q_FOREACH (QScreen *screen, screens) {
+    for (auto screen : QGuiApplication::screens()) {
         QRect geometry = screen->geometry();
-        screenGeometries[screen->name()] = QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio());
+        screenGeometries[screen->name()] =
+                QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio());
     }
 
     return screenGeometries;
 }
 
-const ScreenRotation X11Info::getScreenRotation(QString output)
+const ScreenRotation getScreenRotation(QString output)
 {
     for (const auto &screen : QGuiApplication::screens()) {
         if (screen->name() == output) {
@@ -70,12 +69,12 @@ const ScreenRotation X11Info::getScreenRotation(QString output)
     return ScreenRotation::NONE;
 }
 
-const QString X11Info::getPrimaryScreenName()
+const QString getPrimaryScreenName()
 {
     return QGuiApplication::primaryScreen()->name();
 }
 
-const QString X11Info::getNextScreenName(QString output)
+const QString getNextScreenName(QString output)
 {
     const auto screenNames = getScreenGeometries().keys();
     const auto index = screenNames.indexOf(output);
@@ -85,4 +84,8 @@ const QString X11Info::getNextScreenName(QString output)
     } else {
         return screenNames.at(index + 1);
     }
+}
+
+}
+
 }

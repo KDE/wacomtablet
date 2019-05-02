@@ -177,11 +177,11 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
 static int convertMouseEvdevToXsetwacomButton(int evdevCode) {
     // some quirky consumer tablets, e.g. Bamboo/Graphire, use mouse button events
     // instead of just numbered express keys. Translate them back to numbers
-    static const int BTN_LEFT = 0x110;
-    static const int BTN_RIGHT = 0x111;
-    static const int BTN_MIDDLE = 0x112;
-    static const int BTN_FORWARD = 0x115;
-    static const int BTN_BACK = 0x116;
+    constexpr int BTN_LEFT = 0x110;
+    constexpr int BTN_RIGHT = 0x111;
+    constexpr int BTN_MIDDLE = 0x112;
+    constexpr int BTN_FORWARD = 0x115;
+    constexpr int BTN_BACK = 0x116;
 
     switch (evdevCode) {
     case BTN_LEFT:
