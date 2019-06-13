@@ -70,8 +70,8 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
     if (x11Device.getLongProperty(areaProperty, maximumArea, 4) && maximumArea.size() == 4) {
         maximumAreaRect.setX(maximumArea.at(0));
         maximumAreaRect.setY(maximumArea.at(1));
-        maximumAreaRect.setWidth(maximumArea.at(2));
-        maximumAreaRect.setHeight(maximumArea.at(3));
+        maximumAreaRect.setWidth(maximumArea.at(2) - maximumArea.at(0));
+        maximumAreaRect.setHeight(maximumArea.at(3) - maximumArea.at(1));
     }
 
     // reset the area back to the previous value
