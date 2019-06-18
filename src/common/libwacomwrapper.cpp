@@ -202,6 +202,9 @@ static int convertMouseEvdevToXsetwacomButton(int evdevCode) {
 
 static int convertEvdevToXsetwacomButton(int evdevCode) {
     // based on set_button_codes_from_heuristics from libwacom/libwacom-database.c
+    // FIXME: this code might actually be wrong, see "Wacom Intuos BT M" (usb id 888 1386) for example:
+    // It's actually 1 2 3 8
+    // We report     1 3 8 9
     static const int BTN_MISC = 0x100;
     static const int BTN_MOUSE = 0x110;
     static const int BTN_BASE = 0x126;
