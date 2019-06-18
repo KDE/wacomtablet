@@ -51,7 +51,7 @@ public:
     QList<unsigned int> buttonMap() const;
 
 protected:
-    void mousePressEvent(QMouseEvent *event) final;
+    void mousePressEvent(QMouseEvent *event) final override;
 
 private:
     void hwKey(unsigned int button);
