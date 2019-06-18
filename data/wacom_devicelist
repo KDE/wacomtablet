@@ -1594,6 +1594,34 @@ hwbutton7=10
 hwbutton8=11
 hwbutton9=12
 
+[0378]
+model=CTL-6100WL
+layout=bl_11
+name=Wacom Intuos BT M
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
+
+[0379]
+model=CTL-6100WL
+layout=bl_11
+name=Wacom Intuos BT M
+padbuttons=4
+wheel=no
+touchring=no
+touchstripl=no
+touchstripr=no
+hwbutton1=1
+hwbutton2=2
+hwbutton3=3
+hwbutton4=8
+
 [504C]
 layout=unknown
 model=unknown
