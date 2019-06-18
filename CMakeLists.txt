@@ -24,7 +24,7 @@ ecm_setup_version(${PROJECT_VERSION}
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets DBus X11Extras Qml)
 find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools)
 find_package(XCB REQUIRED COMPONENTS XINPUT)
-find_package(X11 REQUIRED COMPONENTS XLIB)
+find_package(X11 REQUIRED)
 find_package(XorgWacom REQUIRED)
 find_package(LibWacom REQUIRED)
 
