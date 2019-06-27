@@ -50,7 +50,7 @@ Please send your device description (file `~/.config/tabletdblocalrc`) to the bu
 Reporting bugs
 --------------
 
-https://bugs.kde.org/enter_bug.cgi?product=wacomtablet
+Please report bugs here: https://bugs.kde.org/enter_bug.cgi?product=wacomtablet
 
 Building & manual installation
 ==============================
@@ -135,82 +135,6 @@ or a single one via
     $ ./Test.Common.Property
 
 you can find the test results in `Testing/Temporary/LastTest.log`
-
-Manually adding missing tablet devices
-======================================
-
-This method shouldn't really be used anymore unless you've encountered problems with kde_wacom_tabletfinder
-
-### Step 1) Get real internal Tablet name ###
-
-xsetwacom list dev
-
-for my Wacom Bamboo:
-Wacom Bamboo eraser ERASER
-Wacom Bamboo cursor CURSOR
-Wacom Bamboo pad PAD
-Wacom Bamboo     STYLUS
-
-### Step 2) Then you need the Tablet ID ###
-
-xsetwacom get "Wacom Bamboo" tabletid
-
-for my Wacom Bamboo:
-101
-
-### Step 3) Transform it into Hexadecimal ###
-
-For my Wacom Bamboo: 0065
-
-### Step 4) Add a new section into either ~/.config/tabletdblocalrc or the right datafile in /usr/share/wacomtablet/data/ ###
-
-for the Wacom Bamboo the right file is: wacom_devicelist
-
-Add a new entry
-
-for my Wacom Bamboo:
-
-[0065]
-model=MTE_450        # try to google for it but not used right now
-layout=bl_6          # can be empty if no button layout is available that exists (see images dir)
-name=Wacom Bamboo    # name as found above
-padbuttons=4         # available buttons on the pad
-wheel=no
-touchring=yes
-touchstripl=no
-touchstripr=no
-hwbutton1=1          # these mag the physical button numbers to what the XServer likes to name them
-hwbutton2=2          # see below for more information
-hwbutton3=3
-hwbutton4=8
-
-### hwbuttonX explanation ###
-
-Kernels >= 2.6.38 renamed the buttons for some reason.
-
-xsetwacom does not work with the physical hardware button numbers 1-X
-but rather with the real numbers as seen by the XServer
-
-In case you run into trouble with the buttons do the following:
-* uninstall the kded/kcm ;)
-* disconnect/reconnect the tablet
-* run xev in the terminal
-* move the mouse over the new window
-* press the hardware buttons and write down what button xev sees
-
-and now update the wacom_device list accordingly
-
-for the new Pen & touch tablets before the kernel 2.6.38 we got
-hwbutton1=1
-hwbutton2=2
-hwbutton3=3
-hwbutton4=8
-
-for kernels >= 2.6.38 we get
-hwbutton1=3
-hwbutton2=8
-hwbutton3=9
-hwbutton4=1
 
 Releasing new version
 =====================
