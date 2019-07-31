@@ -92,7 +92,7 @@
       <caption xml:lang="fi">Asetusikkuna.</caption>
       <caption xml:lang="fr">Fenêtre de configuration.</caption>
       <caption xml:lang="gl">Xanela de configuración.</caption>
-      <caption xml:lang="id">Jendela setelan.</caption>
+      <caption xml:lang="id">Jendela pengaturan.</caption>
       <caption xml:lang="it">Finestra delle impostazioni.</caption>
       <caption xml:lang="ko">설정 창입니다.</caption>
       <caption xml:lang="nl">Instellingenvenster.</caption>
@@ -100,6 +100,7 @@
       <caption xml:lang="pl">Okno ustawień.</caption>
       <caption xml:lang="pt">Janela de configuração.</caption>
       <caption xml:lang="pt-BR">Janela de configuração.</caption>
+      <caption xml:lang="sk">Okno nastavení.</caption>
       <caption xml:lang="sv">Inställningsfönster.</caption>
       <caption xml:lang="uk">Вікно параметрів.</caption>
       <caption xml:lang="x-test">xxSettings window.xx</caption>
