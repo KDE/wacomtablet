@@ -11,6 +11,7 @@
   <name xml:lang="el">Άρθρωμα πινακίου Wacom του KDE</name>
   <name xml:lang="en-GB">KDE Wacom tablet module</name>
   <name xml:lang="es">Módulo de tableta Wacom para KDE</name>
+  <name xml:lang="et">KDE Wacomi graafikalaua moodul</name>
   <name xml:lang="fi">KDE:n Wacom-piirtoalustamoduuli</name>
   <name xml:lang="fr">Module KDE pour tablette « Wacom »</name>
   <name xml:lang="gl">Módulo de tabletas de Wacom de KDE</name>
@@ -38,6 +39,7 @@
   <summary xml:lang="el">Γραφικό περιβάλλον διαμόρφωσης για πινάκια με γραφικά</summary>
   <summary xml:lang="en-GB">Configuration GUI for graphical tablets</summary>
   <summary xml:lang="es">Interfaz gráfica de configuración para tabletas gráficas</summary>
+  <summary xml:lang="et">Graafikalaua seadistamine</summary>
   <summary xml:lang="fi">Piirtoalustojen asetuskäyttöliittymä</summary>
   <summary xml:lang="fr">Un outil de configuration pour les tablettes graphiques</summary>
   <summary xml:lang="gl">Interface gráfica de usuario para a configuración de tabletas gráficas</summary>
@@ -63,6 +65,7 @@
     <p xml:lang="el">Το άρθρωμα πινακίου Wacom παρέχει μια ενότητα για πινάκια για τις ρυθμίσεις συστήματος και έναν δαίμονα παρασκηνίου που διαμορφώνει συνδεδεμένα πινάκια.</p>
     <p xml:lang="en-GB">Wacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.</p>
     <p xml:lang="es">El modulo de la tableta Wacom proporciona una sección para tabletas en las «Preferencias del sistema» y un programa que se ejecuta en segundo plano para configurar las tabletas conectadas.</p>
+    <p xml:lang="et">Wacomi graafikalaua moodul lisab Süsteemi seadistusesse vastava sektsiooni ja taustal töötava deemoni, mis seadistab ühendatud graafikalaudu.</p>
     <p xml:lang="fi">Ohjelma tarjoaa piirtoalustojen järjestelmäasetusmoduulin ja yhdistettyjen piirtoalustojen taustapalvelun.</p>
     <p xml:lang="fr">Le module pour les tablettes « Wacom » fournit une section tablette au sein de la « Configuration du Système » et un démon qui configure les tablettes connectées en arrière plan.</p>
     <p xml:lang="gl">O módulo de tabletas de Wacom fornece unha sección de tabletas para a configuración do sistema e un servizo en segundo plano que configura as tabletas conectadas.</p>
@@ -96,6 +99,7 @@
       <caption xml:lang="el">Παράθυρο ρυθμίσεων.</caption>
       <caption xml:lang="en-GB">Settings window.</caption>
       <caption xml:lang="es">Ventana de preferencias.</caption>
+      <caption xml:lang="et">Seadistusaken.</caption>
       <caption xml:lang="fi">Asetusikkuna.</caption>
       <caption xml:lang="fr">Fenêtre de configuration.</caption>
       <caption xml:lang="gl">Xanela de configuración.</caption>
