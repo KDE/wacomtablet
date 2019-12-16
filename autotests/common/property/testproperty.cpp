@@ -50,12 +50,12 @@ void TestProperty::test()
     QVERIFY(test != Property::AbsWheelDown);
     QVERIFY(test.key() == Property::AbsWheelUp.key());
 
-    const Property* nonexistant = Property::find(QLatin1String("NON_EXISTANT"));
-    QVERIFY(nonexistant == NULL);
+    const Property* nonexistent = Property::find(QLatin1String("NON_EXISTANT"));
+    QVERIFY(nonexistent == NULL);
 
-    const Property* existant = Property::find(QLatin1String("touch"));
-    QVERIFY(existant != NULL);
-    QVERIFY(*existant == Property::Touch);
+    const Property* existent = Property::find(QLatin1String("touch"));
+    QVERIFY(existent != NULL);
+    QVERIFY(*existent == Property::Touch);
 
     QVERIFY(Property::size() == Property::keys().size());
     QVERIFY(Property::size() == Property::list().size());

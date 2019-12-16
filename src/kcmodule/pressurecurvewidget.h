@@ -40,7 +40,7 @@ namespace Wacom
   * Qt relies on the xorg.conf to detect the tablet correctly because it use hardcoded names for it
   * name them "stylus", "pen", "eraser" to get it working.
   *
-  * @see http://doc.trolltech.com/4.5/qtabletevent.html
+  * @see https://doc.qt.io/qt-5/qtabletevent.html
   */
 class PressureCurveWidget : public QWidget
 {
@@ -142,7 +142,7 @@ signals:
     /**
       * This signal will be fired if the position of the control points change
       * Used to inform the parent widget of this change to be able to display the new values
-      * Furthermore the changed presscurve will be set via the xsetwacom driver immediatly thus
+      * Furthermore the changed presscurve will be set via the xsetwacom driver immediately thus
       * allow the user to see the changes in action right now
       *
       * @param points the presscurve points in a format expected by the xsetwacom driver (like "0 100 0 100")

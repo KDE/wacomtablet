@@ -32,7 +32,7 @@ AboutData::AboutData(const QString& componentName, const QString& displayName, c
                  KAboutLicense::GPL,
                  i18n("(c), 2009,2010 Jörg Ehrichs"),
                  otherText,
-                 QLatin1String("http://www.etricceline.de"))
+                 QLatin1String("https://kde.org/applications/system/org.kde.wacomtablet"))
 {
     addAuthor( i18n( "Jörg Ehrichs" ), i18n( "Maintainer" ) , QLatin1Literal("joerg.ehrichs@gmx.de") );
     addAuthor( i18n( "Alexander Maret-Huskinson" ), i18n( "Developer" ) , QLatin1Literal("alex@maret.de") );
