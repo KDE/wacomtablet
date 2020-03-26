@@ -85,7 +85,7 @@
     <p xml:lang="sv">Modulen för Wacom ritplatta tillhandahåller val av ritplatta för systeminställningarna och en bakgrundsdemon som anpassar anslutna ritplattor.</p>
     <p xml:lang="uk">Модуль планшетів Wacom забезпечує роботу розділу планшетів у Системних параметрах і фонової служби, яка налаштовує роботу із з'єднаними планшетами.</p>
     <p xml:lang="x-test">xxWacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.xx</p>
-    <p xml:lang="zh-CN">Wacom 数位板模块提供了系统设置中的数位板部分，它还提供了一个用于配置连接的数位板的后台守护进程。</p>
+    <p xml:lang="zh-CN">Wacom 数位板模块提供了系统设置中的数位板页面，它还提供了一个用于配置已连接数位板的后台守护进程。</p>
     <p xml:lang="zh-TW">Wacom 平板模組提供了「系統設定」的設定平板部份，和用來設定平板連線的背景守護程序。</p>
   </description>
   <url type="homepage">https://www.linux-apps.com/p/1127862/</url>
