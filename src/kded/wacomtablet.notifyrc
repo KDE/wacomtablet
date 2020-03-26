@@ -90,7 +90,7 @@ Name[tr]=WacomTablet
 Name[ug]=WacomTablet
 Name[uk]=Планшет Wacom
 Name[x-test]=xxWacomTabletxx
-Name[zh_CN]=WacomTablet
+Name[zh_CN]=Wacom 数位板
 Name[zh_TW]=Wacom 平板裝置
 
 [Event/tabletAdded]
