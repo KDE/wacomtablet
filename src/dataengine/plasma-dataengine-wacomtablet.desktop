@@ -31,7 +31,7 @@ Name[uk]=Рушій даних планшета Wacom
 Name[x-test]=xxWacom Tablet DataEnginexx
 Name[zh_CN]=Wacom 数位板数据引擎
 Name[zh_TW]=Wacom 平板裝置資料引擎
-Icon=input-tablet
+Icon=preferences-desktop-tablet
 Type=Service
 
 X-KDE-ServiceTypes=Plasma/DataEngine
