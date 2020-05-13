@@ -53,7 +53,7 @@ ButtonActionSelectionDialog::ButtonActionSelectionDialog(QWidget* parent)
     layout->addWidget(buttonBox);
 
     setWindowTitle( i18nc( "The action that will be assigned to a tablet button.", "Select Button Action" ) );
-    setWindowIcon( QIcon::fromTheme( QLatin1String("input-tablet") ) );
+    setWindowIcon( QIcon::fromTheme( QLatin1String("preferences-desktop-tablet") ) );
 
     connect( buttonBox, &QDialogButtonBox::clicked, [this, buttonBox](QAbstractButton* button){
         if (QDialogButtonBox::Ok == buttonBox->standardButton(button)) {

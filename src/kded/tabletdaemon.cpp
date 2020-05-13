@@ -103,7 +103,7 @@ void TabletDaemon::onNotify(const QString& eventId, const QString& title, const 
     notification->setComponentName( QStringLiteral("wacomtablet") );
     notification->setTitle(title);
     notification->setText(message);
-    notification->setIconName( QLatin1String( "input-tablet" ) );
+    notification->setIconName( QLatin1String( "preferences-desktop-tablet" ) );
 
     if (suggestConfigure) {
         notification->setActions(QStringList{

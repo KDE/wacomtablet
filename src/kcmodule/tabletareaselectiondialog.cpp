@@ -112,7 +112,7 @@ void TabletAreaSelectionDialog::setupUi()
     connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     setWindowTitle( i18nc( "Dialog title from a dialog which lets the user select an area of the tablet where the screen space will be mapped to.", "Select a Tablet Area" ) );
-    setWindowIcon( QIcon::fromTheme( QLatin1String("input-tablet") ) );
+    setWindowIcon( QIcon::fromTheme( QLatin1String("preferences-desktop-tablet") ) );
 
     //connect( this, SIGNAL(okClicked()), this, SLOT(onOkClicked()) );
 }
