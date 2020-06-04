@@ -22,6 +22,7 @@
 //Qt includes
 #include <QDebug>
 #include <QPainter>
+#include <QPainterPath>
 #include <QMouseEvent>
 #include <QResizeEvent>
 #include <QTabletEvent>
