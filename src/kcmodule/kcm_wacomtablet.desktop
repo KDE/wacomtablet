@@ -54,6 +54,7 @@ Name[th]=แท็บเล็ตกราฟิก
 Name[tr]=Grafik Tablet
 Name[ug]=گرافىكىلىق سەزگۈر تاختا
 Name[uk]=Графічний планшет
+Name[x-test]=xxGraphic Tabletxx
 Name[zh_CN]=数位板
 Name[zh_TW]=圖形平板裝置
 
@@ -100,6 +101,7 @@ Comment[th]=การตั้งค่าแท็บเล็ตของ Waco
 Comment[tr]=Wacom Tablet Ayarları
 Comment[ug]=Wacom سەزگۈر تاختا تەڭشەكلىرى
 Comment[uk]=Параметри планшетів Wacom
+Comment[x-test]=xxWacom Tablet Settingsxx
 Comment[zh_CN]=Wacom 数位板设置
 Comment[zh_TW]=Wacom 平板裝置設定
 
@@ -141,5 +143,6 @@ X-KDE-Keywords[sl]=Tablica,naprave za vnos,wacom,stylus
 X-KDE-Keywords[sv]=Ritplatta,Inmatning,Enheter,Wacom,Penna
 X-KDE-Keywords[tr]=Tablet,Girdi Aygıtları,Wacom,Stylus
 X-KDE-Keywords[uk]=Tablet,Input Devices,Wacom,Stylus,планшет,введення,малювання,стило,перо
+X-KDE-Keywords[x-test]=xxTabletxx,xxInput Devicesxx,xxWacomxx,xxStylusxx
 X-KDE-Keywords[zh_CN]=Tablet,Input Devices,Wacom,Stylus,数位板,输入设备,压感笔
 X-KDE-Keywords[zh_TW]=Tablet,Input Devices,Wacom,Stylus
