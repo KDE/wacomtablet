@@ -405,7 +405,7 @@ void Dialog::onNormalTabletSet(bool enabled)
 
 void Dialog::onParentTabletSet(bool enabled)
 {
-    if (enabled) {
+    if (enabled && m_ui->listTablets->currentIndex() != -1) {
         Tablet t = m_tabletList.at(m_ui->listTablets->currentIndex());
         t.isTouchSensor = false;
         t.hasPairedID = true;
@@ -418,7 +418,7 @@ void Dialog::onParentTabletSet(bool enabled)
 
 void Dialog::onTouchSensorSet(bool enabled)
 {
-    if (enabled) {
+    if (enabled && m_ui->listTablets->currentIndex() != -1) {
         Tablet t = m_tabletList.at(m_ui->listTablets->currentIndex());
         t.isTouchSensor = true;
         t.hasPairedID = false;
