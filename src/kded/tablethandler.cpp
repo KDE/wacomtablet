@@ -632,22 +632,22 @@ void TabletHandler::mapDeviceToOutput(const QString &tabletId,
 
     ScreenSpace screen(screenSpace);
 
-    if (screen.isMonitor() &&
-            (!ScreensInfo::getScreenGeometries().contains(screen.toString())
-             || QGuiApplication::screens().count() == 1)) {
-        /**
-         * If we have only one screen, or if the screen number is invalid,
-         * map to whole desktop.
-         */
-        screen = ScreenSpace::desktop();
-    }
+    // if the screen is missing or it's the only screen, use desktop instead
+    // however do not override this in the saved profile, because it breaks user
+    // settings if they disconnect external tablet
+    const bool screen_is_valid =
+        !screen.isMonitor() ||
+        (QGuiApplication::screens().count() > 1 &&
+         ScreensInfo::getScreenGeometries().contains(screen.toString()));
 
     DeviceProfile deviceProfile = tabletProfile.getDevice(device);
-    ScreenMap     screenMap(deviceProfile.getProperty(Property::ScreenMap));
-    QString       tabletArea    = screenMap.getMappingAsString(screen);
+    ScreenMap screenMap(deviceProfile.getProperty(Property::ScreenMap));
+    QString tabletArea = screenMap.getMappingAsString(screen);
 
     setProperty(tabletId, device, Property::Mode, trackingMode);
-    setProperty(tabletId, device, Property::ScreenSpace, screen.toString());
+    setProperty(tabletId, device, Property::ScreenSpace,
+                screen_is_valid ? screen.toString()
+                                : ScreenSpace::desktop().toString());
     setProperty(tabletId, device, Property::Area, tabletArea);
 
     deviceProfile.setProperty(Property::Mode, trackingMode);
