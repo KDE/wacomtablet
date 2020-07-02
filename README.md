@@ -79,6 +79,7 @@ Build dependencies on Debian/Ubuntu:
 * plasma-framework-dev
 * kdoctools-dev
 * libxi-dev
+* libxcb-xinput-dev
 * libwacom-dev
 
 You can install them by running:
