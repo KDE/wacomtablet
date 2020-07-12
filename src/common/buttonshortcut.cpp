@@ -388,7 +388,7 @@ void ButtonShortcut::convertToNormalizedKeySequence(QString& sequence, bool from
 {
     normalizeKeySequence(sequence);
 
-    QStringList keyList    = sequence.split (QRegExp (QLatin1String ("\\s+")), QString::SkipEmptyParts);
+    QStringList keyList    = sequence.split (QRegExp (QLatin1String ("\\s+")), Qt::SkipEmptyParts);
     bool        isFirstKey = true;
 
     sequence.clear();

@@ -483,7 +483,7 @@ void KCMWacomTabletWidget::showSaveChanges()
 
 void KCMWacomTabletWidget::showTabletFinder()
 {
-    bool success = QProcess::startDetached(QStringLiteral("kde_wacom_tabletfinder"));
+    const bool success = QProcess::startDetached(QStringLiteral("kde_wacom_tabletfinder"), QStringList());
 
     if (!success) {
         QString err = i18n("Failed to launch Wacom tablet finder tool. Check your installation.");

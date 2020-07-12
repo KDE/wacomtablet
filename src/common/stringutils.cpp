@@ -59,7 +59,7 @@ const QString StringUtils::fromQRect(const QRect& rect, bool returnCoordinates)
 const QRect StringUtils::toQRect(const QString& value, bool allowOnlyPositiveValues)
 {
     QRect       rect;
-    QStringList rectValues = value.split(QLatin1String(" "), QString::SkipEmptyParts);
+    QStringList rectValues = value.split(QLatin1String(" "), Qt::SkipEmptyParts);
 
     if (rectValues.count() != 4) {
         return rect;
@@ -92,7 +92,7 @@ const QRect StringUtils::toQRect(const QString& value, bool allowOnlyPositiveVal
 const QRect StringUtils::toQRectByCoordinates(const QString& value, bool allowOnlyPositiveValues)
 {
     QRect       rect;
-    QStringList rectValues = value.split(QLatin1String(" "), QString::SkipEmptyParts);
+    QStringList rectValues = value.split(QLatin1String(" "), Qt::SkipEmptyParts);
 
     if (rectValues.count() != 4) {
         return rect;

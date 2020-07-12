@@ -64,7 +64,7 @@ bool TabletArea::fromString(const QString &area, const QRect& defaultValue)
     *this = defaultValue;
 
     // expected format "x1 y1 x2 y2"
-    QStringList areaValues = area.split(QLatin1String(" "), QString::SkipEmptyParts);
+    QStringList areaValues = area.split(QLatin1String(" "), Qt::SkipEmptyParts);
 
     if (areaValues.count() != 4) {
         return false;

@@ -535,7 +535,7 @@ void AreaSelectionWidget::paintDisplayAreaCaptions(QPainter& painter)
         caption = (d->areaCaptionsList.size() > i) ? d->areaCaptionsList.at(i) : QString();
 
         if (!caption.isEmpty() && area.isValid()) {
-            captionX = area.x() + (float)area.width() / 2 - (float)fontMetrics.width(caption) / 2;
+            captionX = area.x() + (float)area.width() / 2 - (float)fontMetrics.horizontalAdvance(caption) / 2;
             captionY = area.y() + (float)area.height() / 2 + (float)fontMetrics.height() / 2;
 
             painter.drawText(captionX, captionY, caption);
@@ -613,7 +613,7 @@ void AreaSelectionWidget::paintSelectedAreaCaption(QPainter& painter)
                             .arg(selectedArea.x())
                             .arg(selectedArea.y());
 
-    qreal textX = d->rectDisplayArea.x() + (qreal)d->rectDisplayArea.width() / 2 - (qreal)fontMetrics.width(text) / 2;
+    qreal textX = d->rectDisplayArea.x() + (qreal)d->rectDisplayArea.width() / 2 - (qreal)fontMetrics.horizontalAdvance(text) / 2;
     qreal textY;
 
     if (paintBelow) {

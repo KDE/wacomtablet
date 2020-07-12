@@ -85,7 +85,7 @@ void ScreenMap::fromString(const QString& mappings)
 {
     Q_D(ScreenMap);
 
-    QStringList screenMappings = mappings.split(QLatin1String("|"), QString::SkipEmptyParts);
+    QStringList screenMappings = mappings.split(QLatin1String("|"), Qt::SkipEmptyParts);
     QString     separator(QLatin1String(":"));
     QStringList mapping;
     ScreenSpace screen;
@@ -95,7 +95,7 @@ void ScreenMap::fromString(const QString& mappings)
 
     foreach(QString screenMapping, screenMappings) {
 
-        mapping = screenMapping.split(separator, QString::SkipEmptyParts);
+        mapping = screenMapping.split(separator, Qt::SkipEmptyParts);
 
         if (mapping.count() != 2) {
             continue;

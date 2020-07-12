@@ -115,8 +115,7 @@ bool ProcSystemAdaptor::setProperty(const Property& property, const QString& val
         qCWarning(KDED) << "Unknown Property: " << property.key();
     }
 
-    int ret = QProcess::execute(cmd);
-    return ret == 0;
+    return QProcess::execute(cmd, {}) == 0;
 }
 
 

@@ -198,7 +198,7 @@ const QString XsetwacomAdaptor::getParameter(const QString& device, const QStrin
     QString cmd = QString::fromLatin1( "xsetwacom get \"%1\" %2" ).arg( device ).arg( param );
 
     QProcess getConf;
-    getConf.start( cmd );
+    getConf.start( cmd, QStringList() );
 
     if( !getConf.waitForStarted() || !getConf.waitForFinished() ) {
         return QString();
@@ -255,7 +255,7 @@ bool XsetwacomAdaptor::setParameter(const QString& device, const QString& param,
     }
 
     QProcess setConf;
-    setConf.start( cmd );
+    setConf.start( cmd, QStringList() );
 
     if( !setConf.waitForStarted() || !setConf.waitForFinished()) {
         return false;
