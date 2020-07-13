@@ -17,7 +17,6 @@ Name[gl]=Motor de datos das tabletas de Wacom
 Name[id]=MesinData Tablet Wacom
 Name[it]=DataEngine delle tavolette Wacom
 Name[ko]=와콤 태블릿 데이터 엔진
-Name[lt]=Wacom planšetės duomenų variklis
 Name[nl]=Gegevensengine van Wacom-tablet
 Name[nn]=Datamotor for Wacom-teikneplate
 Name[pl]=Silnik danych tabletu Wacom
@@ -30,7 +29,7 @@ Name[tr]=Wacom Tablet VeriMotoru
 Name[uk]=Рушій даних планшета Wacom
 Name[x-test]=xxWacom Tablet DataEnginexx
 Name[zh_CN]=Wacom 数位板数据引擎
-Name[zh_TW]=Wacom 平板裝置資料引擎
+Name[zh_TW]=Wacom Tablet DataEngine
 Icon=preferences-desktop-tablet
 Type=Service
 
