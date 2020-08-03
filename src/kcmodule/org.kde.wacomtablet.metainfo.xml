@@ -7,6 +7,7 @@
   <name xml:lang="ca">Mòdul del KDE per a tauletes Wacom</name>
   <name xml:lang="ca-valencia">Mòdul del KDE per a tauletes Wacom</name>
   <name xml:lang="cs">Modul KDE pro tablet Wacom</name>
+  <name xml:lang="da">Wacom-tabletmodul til KDE</name>
   <name xml:lang="de">KDE-Modul für Wacom-Tablett</name>
   <name xml:lang="el">Άρθρωμα πινακίου Wacom του KDE</name>
   <name xml:lang="en-GB">KDE Wacom tablet module</name>
@@ -37,6 +38,7 @@
   <summary xml:lang="ca">IGU de configuració per a tauletes gràfiques</summary>
   <summary xml:lang="ca-valencia">IGU de configuració per a tauletes gràfiques</summary>
   <summary xml:lang="cs">Prostředí pro nastavení grafických tabletů</summary>
+  <summary xml:lang="da">Grafisk konfiguration af grafik-tablets</summary>
   <summary xml:lang="de">Oberfläche zum Einrichten von Grafiktabletts</summary>
   <summary xml:lang="el">Γραφικό περιβάλλον διαμόρφωσης για πινάκια με γραφικά</summary>
   <summary xml:lang="en-GB">Configuration GUI for graphical tablets</summary>
@@ -66,6 +68,7 @@
     <p>Wacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.</p>
     <p xml:lang="ca">Mòdul per a tauletes Wacom que proporciona la secció tauletes de l'Arranjament del sistema i un dimoni en segon pla que configura les tauletes connectades.</p>
     <p xml:lang="ca-valencia">Mòdul per a tauletes Wacom que proporciona la secció tauletes de l'Arranjament del sistema i un dimoni en segon pla que configura les tauletes connectades.</p>
+    <p xml:lang="da">Wacom-tablet-modulet giver en tablet-sektion i Systemindstillinger og en baggrundsdæmon som indstiller tilsluttede tablets.</p>
     <p xml:lang="el">Το άρθρωμα πινακίου Wacom παρέχει μια ενότητα για πινάκια για τις ρυθμίσεις συστήματος και έναν δαίμονα παρασκηνίου που διαμορφώνει συνδεδεμένα πινάκια.</p>
     <p xml:lang="en-GB">Wacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.</p>
     <p xml:lang="es">El modulo de la tableta Wacom proporciona una sección para tabletas en las «Preferencias del sistema» y un programa que se ejecuta en segundo plano para configurar las tabletas conectadas.</p>
