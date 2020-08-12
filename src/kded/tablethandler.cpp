@@ -275,12 +275,12 @@ void TabletHandler::onTogglePenMode()
         // toggle tracking mode
         if (trackingMode.contains(QLatin1String("relative"), Qt::CaseInsensitive)) {
             trackingMode = QLatin1String("absolute");
-
         } else {
             // if the new mode is "relative" we have to switch to full desktop
             // as screen mappings are not supported in absolute mode
+            // XXX: this doesn't seem to be nescessary?
             trackingMode = QLatin1String("relative");
-            screenSpace  = ScreenSpace::desktop();
+            //screenSpace  = ScreenSpace::desktop();
         }
 
         // map tablet to output which will also save the current mode in the profile
@@ -647,7 +647,7 @@ void TabletHandler::mapDeviceToOutput(const QString &tabletId,
     setProperty(tabletId, device, Property::Mode, trackingMode);
     setProperty(tabletId, device, Property::ScreenSpace,
                 screen_is_valid ? screen.toString()
-                                : ScreenSpace::desktop().toString());
+                    : ScreenSpace::desktop().toString());
     setProperty(tabletId, device, Property::Area, tabletArea);
 
     deviceProfile.setProperty(Property::Mode, trackingMode);
