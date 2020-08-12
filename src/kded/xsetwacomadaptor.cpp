@@ -191,23 +191,17 @@ void XsetwacomAdaptor::convertToXsetwacomValue(const XsetwacomProperty& property
     convertButtonShortcut(property, value);
 }
 
-
-
-const QString XsetwacomAdaptor::getParameter(const QString& device, const QString& param) const
+const QString XsetwacomAdaptor::getParameter(const QString &device, const QString &param) const
 {
-    QString cmd = QString::fromLatin1( "xsetwacom get \"%1\" %2" ).arg( device ).arg( param );
-
     QProcess getConf;
-    getConf.start( cmd, QStringList() );
-
-    if( !getConf.waitForStarted() || !getConf.waitForFinished() ) {
+    getConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("get") << device << param);
+    if (!getConf.waitForStarted() || !getConf.waitForFinished()) {
         return QString();
     }
 
-    QString result = QLatin1String( getConf.readAll() );
-    return result.remove( QLatin1Char( '\n' ) );
+    QString result = QLatin1String(getConf.readAll());
+    return result.remove(QLatin1Char('\n'));
 }
-
 
 bool XsetwacomAdaptor::setArea(const QString& value)
 {
@@ -243,31 +237,25 @@ bool XsetwacomAdaptor::setRotation(const QString& value)
     return false;
 }
 
-
-bool XsetwacomAdaptor::setParameter(const QString& device, const QString& param, const QString& value) const
+bool XsetwacomAdaptor::setParameter(const QString &device, const QString &param, const QString &value) const
 {
-    QString  cmd;
-
-    if (value.isEmpty()) {
-        cmd = QString::fromLatin1( "xsetwacom set \"%1\" %2" ).arg( device ).arg( param );
+    QProcess setConf;
+    if (!value.isEmpty()) {
+        setConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("set") << device << param << value);
     } else {
-        cmd = QString::fromLatin1( "xsetwacom set \"%1\" %2 \"%3\"" ).arg( device ).arg( param ).arg( value );
+        setConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("set") << device << param);
     }
 
-    QProcess setConf;
-    setConf.start( cmd, QStringList() );
-
-    if( !setConf.waitForStarted() || !setConf.waitForFinished()) {
+    if (!setConf.waitForStarted() || !setConf.waitForFinished()) {
         return false;
     }
 
     QByteArray errorOutput = setConf.readAll();
 
-    if( !errorOutput.isEmpty() ) {
-        qCDebug(KDED) << cmd << " : " << errorOutput;
+    if (!errorOutput.isEmpty()) {
+        qCDebug(KDED) << errorOutput;
         return false;
     }
 
     return true;
 }
-
