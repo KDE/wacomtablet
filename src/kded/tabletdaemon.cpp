@@ -131,10 +131,8 @@ void TabletDaemon::onProfileChanged(const QString &tabletId, const QString& prof
 
 void TabletDaemon::onOpenConfiguration() const
 {
-    QProcess::startDetached(QStringLiteral("kcmshell5 wacomtablet"), {});
+    QProcess::startDetached(QStringLiteral("kcmshell5"), QStringList() << QStringLiteral("wacomtablet"));
 }
-
-
 
 void TabletDaemon::setupActions()
 {

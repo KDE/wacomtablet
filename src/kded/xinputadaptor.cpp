@@ -30,7 +30,6 @@
 
 #include <QApplication>
 #include <QDesktopWidget>
-#include <QProcess>
 #include <QRegExp>
 
 using namespace Wacom;
