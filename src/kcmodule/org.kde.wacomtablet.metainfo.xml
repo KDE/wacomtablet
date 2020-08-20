@@ -50,7 +50,7 @@
   <summary xml:lang="nn">Grafisk oppsett av teikneplater</summary>
   <summary xml:lang="pl">Interfejs do ustawiania tabletów graficznych</summary>
   <summary xml:lang="pt">Interface de configuração para tabletes gráficas</summary>
-  <summary xml:lang="pt-BR">Interface de configuração para mesas digitalizadoras gráficas</summary>
+  <summary xml:lang="pt-BR">Interface de configuração para mesas digitalizadoras</summary>
   <summary xml:lang="sk">Konfiguračné GUI pre grafické tablety</summary>
   <summary xml:lang="sv">Grafiskt inställningsgränssnitt för ritplattor</summary>
   <summary xml:lang="uk">Графічний інтерфейс для налаштовування графічних планшетів</summary>
@@ -75,7 +75,7 @@
     <p xml:lang="nn">Oppsettmodulen for Wacom-teikneplater vert vist i systeminnstillingane og køyrer som ei bakgrunnsteneste for oppsett av teikneplater.</p>
     <p xml:lang="pl">Moduł tabletu Wacom zapewnia dział tabletów dla ustawień systemowych i usługę w tle do ustawiania podłączonych tabletów.</p>
     <p xml:lang="pt">O módulo da tablete Wacom oferece a secção de tablete para a Configuração do Sistema e um serviço em segundo plano que configura as tabletes ligadas.</p>
-    <p xml:lang="pt-BR">O módulo de mesas digitalizadoras Wacom fornece uma seção nas Configurações do Sistema e um serviço em segundo plano que configura as mesas digitalizadoras conectadas.</p>
+    <p xml:lang="pt-BR">O módulo de mesas digitalizadoras Wacom fornece uma seção nas Configurações do sistema e um serviço em segundo plano que configura as mesas digitalizadoras conectadas.</p>
     <p xml:lang="sk">Modul Wacom tablet poskytuje sekciu tabletu pre systémové nastavenia a démon pozadia, ktorý nastavuje pripojené tablety.</p>
     <p xml:lang="sv">Modulen för Wacom ritplatta tillhandahåller val av ritplatta för systeminställningarna och en bakgrundsdemon som anpassar anslutna ritplattor.</p>
     <p xml:lang="uk">Модуль планшетів Wacom забезпечує роботу розділу планшетів у Системних параметрах і фонової служби, яка налаштовує роботу із з'єднаними планшетами.</p>
