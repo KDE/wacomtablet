@@ -28,7 +28,7 @@
 
     <legalnotice>&FDLNotice;</legalnotice>
 
-    <date>2013-03-16</date><!-- Date of (re)writing, or update.-->
+    <date>2020-10-17</date><!-- Date of (re)writing, or update.-->
     <releaseinfo>&kappversion;</releaseinfo><!-- Application version number. Use the variable definitions within header to change this value.-->
 
     <abstract>
@@ -48,12 +48,12 @@
     <title>Wacom Tablet Settings</title>
     <para>
         The tablet &systemsettings; module handles all setting for your graphic tablet. All tablets supported by
-        the <ulink url="http://linuxwacom.sourceforge.net">&Linux; Wacom driver</ulink> project are handled by this settings interface.
-        Make sure your tablet is detected either via xorg.conf or HAL and works in general. Refer to the <link linkend="detection">tablet detection</link> section for more information.
+        the <ulink url="https://linuxwacom.github.io">&Linux; Wacom driver</ulink> project are handled by this settings interface.
+        Make sure your tablet is detected either via xorg.conf or udev and works in general. Refer to the <link linkend="detection">tablet detection</link> section for more information.
     </para>
     <important>
         <para>
-            The <application>wacom-tools</application> or the <application>xf86-input-wacom</application> driver must be installed on your computer and <command>xsetwacom</command> must be available in order to make this module work correctly.
+            The <application>xf86-input-wacom</application> driver must be installed on your computer and <command>xsetwacom</command> must be available in order to make this module work correctly.
         </para>
     </important>
     <para>
@@ -71,7 +71,7 @@
         <para>
             This is the small drop down box with the two buttons next to it. You can create new profiles and delete already existing ones.
             Each profile is saved and specified for the currently connected tablet. If you create a new profile, it automatically creates one
-            with the default settings as returned by the wacom-tools.
+            with the default settings as returned by the driver.
         </para>
 
         <para>
@@ -127,7 +127,7 @@
             <para>
                 The slider allows to alter the threshold of the eraser. For a more fine grained setting of the pressure it is possible
                 to alter the complete pressure curve in the <guilabel>Edit Pressure Curve</guilabel> dialog.
-                See <link linkend="presscurve">Presscurve Dialog</link> for more information.
+                See <link linkend="presscurve">Press Curve Dialog</link> for more information.
             </para>
         </sect2>
 
@@ -288,24 +288,24 @@
 
 
     <sect1 id="presscurve">
-        <title>Presscurve Dialog</title>
+        <title>Press Curve Dialog</title>
 
         <para>
             <screenshot>
-                <screeninfo>Here's a screenshot of the Presscurve Dialog</screeninfo>
+                <screeninfo>Here's a screenshot of the Press Curve dialog</screeninfo>
                 <mediaobject>
                     <imageobject>
                         <imagedata fileref="presscurve.png" format="PNG"/>
                     </imageobject>
                     <textobject>
-                        <phrase>Changing the Presscurve</phrase>
+                        <phrase>Changing the press curve</phrase>
                     </textobject>
                 </mediaobject>
             </screenshot>
         </para>
 
         <para>
-            The Presscurve defines how the pressure of the stylus is translated. The Presscurve is defined via four points of a Bézier curve.
+            The press curve defines how the pressure of the stylus is translated. The press curve is defined via four points of a Bézier curve.
             To change this curve you can alter the red dots and move the curve around.
         </para>
         <note>
@@ -340,6 +340,9 @@
         <para>
             Use the <guilabel>Toggle Screen</guilabel> button to switch between fullscreen (all connected monitors) and each individual monitor.
             The settings will be saved for each screen configuration and applied to the tablet whenever the screen selection is switched by the global shortcut action.
+        </para>
+        <para>
+            It is possible to map the screen with the <guimenuitem>Full Tablet</guimenuitem> area or just defined <guimenuitem>Tablet Area</guimenuitem> on the <guilabel>Tablet</guilabel> pane rightwards. The proportions of the area can be locked or unlocked using the <guibutton>Lock proportions</guibutton> switch button.
         </para>
         <para>
             If you want to keep the aspect ratio of the tablet with the current screen selection you can press the <guilabel>Set Screen Proportions</guilabel> button. The tablet area will be calculated and changed automatically.
@@ -384,11 +387,11 @@
     <sect1 id="troubles">
         <title>Detection problems</title>
         <para>
-            If the tablet is not detected check the <ulink url="http://linuxwacom.sourceforge.net">&Linux; Wacom driver</ulink> page if your tablet is supported.
+            If the tablet is not detected check the <ulink url="https://linuxwacom.github.io">&Linux; Wacom driver</ulink> or <ulink url="https://digimend.github.io">DIGImend driver</ulink> page if your tablet is supported.
             Furthermore check via <command>lsusb</command> if you can find your tablet.
         </para>
         <para>
-            If HAL does not handle the detection add the tablet to your <filename>/etc/X11/xorg.conf</filename> file and restart the x-server.
+            If udev does not handle the detection add the tablet to your <filename>/etc/X11/xorg.conf.d/50-tablet.conf</filename> file (create it if it does not exist) and restart the x-server.
         </para>
         <para>
             In case of a serial device (Tablet PC and such) check if <command>xinput --list</command> lists your input devices (Stylus/Eraser/Pad).
