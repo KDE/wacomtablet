@@ -28,7 +28,6 @@
 // KDE includes
 #include <KCModule>
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <KAboutData>
 #include <KLocalizedString>
 
