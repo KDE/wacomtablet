@@ -115,6 +115,12 @@ void TouchPageWidget::saveToProfile(ProfileManagementInterface &profileManagemen
 
 void TouchPageWidget::onGesturesModeChanged(int state)
 {
+    if (state == Qt::Unchecked) {
+        ui->gesturesWarning->animatedHide();
+    } else {
+        ui->gesturesWarning->animatedShow();
+    }
+
     setGesturesSupportEnabled(state == Qt::Checked);
     onProfileChanged();
 }
@@ -148,10 +154,17 @@ void TouchPageWidget::onTabletMappingClicked()
 
 void TouchPageWidget::onTouchModeChanged(int state)
 {
+    // Show/hide the gestures warning as needed, since its UI gets enabled and
+    // disabled dynamically when touch is turned on or off
+    if (state == Qt::Unchecked) {
+        ui->gesturesWarning->animatedHide();
+    } else if (ui->gesturesCheckBox->isChecked()) {
+        ui->gesturesWarning->animatedShow();
+    }
+
     setTouchSupportEnabled(state == Qt::Checked);
     onProfileChanged();
 }
-
 
 void TouchPageWidget::onTrackingModeAbsolute(bool activated)
 {

@@ -12,6 +12,25 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_9">
    <item>
+    <widget class="KMessageWidget" name="gesturesWarning">
+     <property name="text">
+      <string>Enabling gestures may break touch input using a touchscreen.</string>
+     </property>
+     <property name="visible">
+      <bool>false</bool>
+     </property>
+     <property name="closeButtonVisible">
+      <bool>false</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="messageType">
+      <enum>KMessageWidget::Warning</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="touchCheckBox">
      <property name="toolTip">
       <string>If enabled the tablet will emit touch events.</string>
@@ -362,6 +381,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KMessageWidget</class>
+   <extends>QFrame</extends>
+   <header>kmessagewidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

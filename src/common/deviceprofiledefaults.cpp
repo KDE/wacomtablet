@@ -44,7 +44,7 @@ void setupDefaultStylus(DeviceProfile &stylus) {
 }
 
 void setupDefaultTouch(DeviceProfile &touch) {
-    touch.setProperty(Property::Gesture, QLatin1String("on"));
+    touch.setProperty(Property::Gesture, QLatin1String("off"));
     touch.setProperty(Property::InvertScroll, QLatin1String("off"));
     touch.setProperty(Property::Mode, QLatin1String("absolute"));
     touch.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
