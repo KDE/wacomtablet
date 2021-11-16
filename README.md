@@ -32,7 +32,7 @@ More or less full list of distributions including the package should be avaliabl
 
 * https://repology.org/metapackage/kcm-wacomtablet/versions
 
-Staring the module
+Starting the module
 ------------------
 
 Background daemon should be started automatically each time you log in.
