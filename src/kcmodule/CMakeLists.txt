@@ -66,8 +66,8 @@ add_library(kcm_wacomtablet MODULE ${kcm_wacomtablet_PLUGIN_SRC} ${kcm_tablet_SR
 
 target_link_libraries(kcm_wacomtablet ${kcm_wacomtablet_LIBS})
 
-install(TARGETS kcm_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR})
-install(FILES kcm_wacomtablet.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
+install(TARGETS kcm_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma/kcms/systemsettings)
+install(FILES kcm_wacomtablet.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES org.kde.wacomtablet.metainfo.xml DESTINATION "${KDE_INSTALL_METAINFODIR}")
 
 ## LIBRARY FOR UNIT TESTS
