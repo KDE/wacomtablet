@@ -14,7 +14,6 @@ set(kded_wacomtablet_LIBS
 ## sources
 
 # this file contains plugin definition and does not belong in kded_wacomtablet_lib
-# don't forget to add extra kcoreaddons_desktop_to_json for it if you wan to include it
 set(kded_wacomtablet_PLUGIN_SRC
     tabletdaemon.cpp
 )
@@ -52,9 +51,6 @@ add_library(kded_wacomtablet MODULE ${kded_wacomtablet_PLUGIN_SRC} ${kded_wacomt
 target_link_libraries( kded_wacomtablet ${kded_wacomtablet_LIBS} )
 
 set_target_properties(kded_wacomtablet PROPERTIES OUTPUT_NAME wacomtablet)
-
-## files to install
-kcoreaddons_desktop_to_json(kded_wacomtablet wacomtablet.desktop)
 
 install(TARGETS kded_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kded)
 install(FILES wacomtablet.notifyrc DESTINATION "${KNOTIFYRC_INSTALL_DIR}")

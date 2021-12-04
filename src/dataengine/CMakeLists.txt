@@ -13,13 +13,8 @@ target_link_libraries(plasma_engine_wacomtablet
                       wacom_common
 )
 
-kcoreaddons_desktop_to_json(plasma_engine_wacomtablet plasma-dataengine-wacomtablet.desktop)
-
 install(TARGETS plasma_engine_wacomtablet
         DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma/dataengine
-)
-install(FILES plasma-dataengine-wacomtablet.desktop
-        DESTINATION ${KDE_INSTALL_KSERVICES5DIR}
 )
 install(FILES wacomtablet.operations
         DESTINATION ${PLASMA_DATA_INSTALL_DIR}/services
