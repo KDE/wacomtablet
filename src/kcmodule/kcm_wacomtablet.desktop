@@ -10,6 +10,7 @@ X-KDE-ParentApp=kcontrol
 
 X-KDE-System-Settings-Parent-Category=keyboard-and-mouse
 X-KDE-System-Settings-Parent-Category-V2=input-devices
+X-KDE-OnlyShowOnQtPlatforms=xcb
 
 Name=Graphic Tablet
 Name[ar]=لوحيّ رسم

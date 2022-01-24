@@ -166,10 +166,6 @@ void KCMWacomTabletWidget::showHideConfig()
         QString errorMsg   = i18n( "Please start the KDE wacom tablet service to use this configuration dialog.\n"
                                    "The service is required for tablet detection and profile support." );
         showError( errorTitle, errorMsg );
-    } else if(!QX11Info::isPlatformX11()) {
-        QString errorTitle = i18n("Unsupported platform detected");
-        QString errorMsg   = i18n("Currently only X11 is supported.");
-        showError(errorTitle, errorMsg);
     } else if( connectedTablets.value().count() == 0 ) {
         QString errorTitle = i18n( "No tablet device detected" );
         QString errorMsg   = i18n( "Please connect a tablet device to continue.\n"
