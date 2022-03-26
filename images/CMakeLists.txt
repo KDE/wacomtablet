@@ -9,5 +9,6 @@ install( FILES
                bl_8.png
                bl_9.png
                bl_11.png
+               ek-remote.png
                pen.png
                DESTINATION  ${KDE_INSTALL_DATADIR}/wacomtablet/images )

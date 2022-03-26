@@ -1527,6 +1527,35 @@ hwbutton7=11
 hwbutton8=12
 hwbutton9=13
 
+[0331]
+model=ACK-411050
+layout=ek-remote
+name=Wacom Express Key Remote
+padbuttons=18
+statusleds=0
+touchring=yes
+touchstripl=no
+touchstripr=no
+wheel=no
+hwbutton1=3
+hwbutton2=2
+hwbutton3=1
+hwbutton4=11
+hwbutton5=14
+hwbutton6=17
+hwbutton7=21
+hwbutton8=12
+hwbutton9=15
+hwbutton10=8
+hwbutton11=9
+hwbutton12=10
+hwbutton13=13
+hwbutton14=16
+hwbutton15=19
+hwbutton16=22
+hwbutton17=18
+hwbutton18=20
+
 [033C]
 model=CTH-490
 layout=bl_5
