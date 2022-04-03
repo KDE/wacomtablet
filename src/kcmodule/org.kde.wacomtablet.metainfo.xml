@@ -70,7 +70,7 @@
   <description>
     <p>Wacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.</p>
     <p xml:lang="ca">El mòdul de tauletes Wacom proporciona la secció de tauletes per a l'Arranjament del sistema i un dimoni en segon pla que configura les tauletes connectades.</p>
-    <p xml:lang="ca-valencia">El mòdul de tauletes Wacom proporciona la secció de tauletes per a l'Arranjament del sistema i un dimoni en segon pla que configura les tauletes connectades.</p>
+    <p xml:lang="ca-valencia">El mòdul de tauletes Wacom proporciona la secció de tauletes per a Arranjament del sistema i un dimoni en segon pla que configura les tauletes connectades.</p>
     <p xml:lang="da">Wacom-tablet-modulet giver en tablet-sektion i Systemindstillinger og en baggrundsdæmon som indstiller tilsluttede tablets.</p>
     <p xml:lang="de">Wacom-Tablett ist ein Modul für die Systemeinstellungen und ein Hintergrunddienst zur Einrichtung angeschlossener Tabletts.</p>
     <p xml:lang="el">Το άρθρωμα πινακίου Wacom παρέχει μια ενότητα για πινάκια για τις ρυθμίσεις συστήματος και έναν δαίμονα παρασκηνίου που διαμορφώνει συνδεδεμένα πινάκια.</p>
