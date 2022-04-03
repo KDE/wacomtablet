@@ -44,7 +44,7 @@ Item {
 
         return i18n("Error - Tablet service not available.");
     }
-
+    
     Row {
         id: title
         anchors {
@@ -52,16 +52,20 @@ Item {
             left: parent.left
             right: parent.right
         }
-        height: childrenRect.height
-
+        spacing: units.smallSpacing
+        
         PlasmaCore.IconItem {
+            id: titleIcon
             source: "input-tablet"
             width: units.iconSizes.Medium
             height: width
         }
         PlasmaComponents.Label {
             id: deviceNameLabel
+            anchors.verticalCenter: parent.verticalCenter
+            width: parent.width - titleIcon.width - parent.spacing
             text: deviceLabel()
+            wrapMode: Text.Wrap
         }
     }
 
@@ -77,33 +81,27 @@ Item {
         height: lineSvg.elementSize("horizontal-line").height
     }
 
-    Item {
+    Row {
         anchors {
             top: separator.bottom
             bottom: parent.bottom
             left: parent.left
             right: parent.right
             topMargin: units.smallSpacing
+            leftMargin: units.smallSpacing
         }
         visible: !root.active
+        spacing: units.smallSpacing * 2
+        
         PlasmaCore.IconItem {
             id: errorIcon
-            anchors {
-                left: parent.left
-                verticalCenter: parent.verticalCenter
-            }
             width: units.iconSizes.medium
             height: width
             source: "dialog-warning"
         }
-
         PlasmaComponents.Label {
             id: errorLabel
-            anchors {
-                left: errorIcon.right
-                right: parent.right
-                verticalCenter: parent.verticalCenter
-            }
+            width: parent.width - errorIcon.width - parent.spacing
             text: dataSource.data["wacomtablet"]["serviceAvailable"] ?
                 i18n("This widget is inactive because your tablet device is not connected or currently not supported.") :
                 i18n("Please start the KDE wacom tablet service.\nThe service is required for tablet detection and profile support.")
