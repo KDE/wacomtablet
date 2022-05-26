@@ -32,6 +32,7 @@
   <name xml:lang="sk">KDE modul Wacom tabletu</name>
   <name xml:lang="sl">Modul KDE Wacom tablet</name>
   <name xml:lang="sv">KDE:s modul för Wacom ritplatta</name>
+  <name xml:lang="tr">KDE Wacom tablet modülü</name>
   <name xml:lang="uk">Модуль планшета Wacom для KDE</name>
   <name xml:lang="x-test">xxKDE Wacom tablet modulexx</name>
   <name xml:lang="zh-CN">KDE Wacom 数位板模块</name>
@@ -64,6 +65,7 @@
   <summary xml:lang="sk">Konfiguračné GUI pre grafické tablety</summary>
   <summary xml:lang="sl">Nastavitev grafičnega vmesnika za tablične računalnike</summary>
   <summary xml:lang="sv">Grafiskt inställningsgränssnitt för ritplattor</summary>
+  <summary xml:lang="tr">Grafik tabletler için yapılandırma grafik arayüzü</summary>
   <summary xml:lang="uk">Графічний інтерфейс для налаштовування графічних планшетів</summary>
   <summary xml:lang="x-test">xxConfiguration GUI for graphical tabletsxx</summary>
   <summary xml:lang="zh-CN">数位板配置界面</summary>
@@ -96,6 +98,7 @@
     <p xml:lang="sk">Modul Wacom tablet poskytuje sekciu tabletu pre systémové nastavenia a démon pozadia, ktorý nastavuje pripojené tablety.</p>
     <p xml:lang="sl">Modul tabličnih računalnikov Wacom ponuja oddelek sistemskih nastavitev za tablični računalnik za demon v ozadju, ki nastavlja povezane tablice.</p>
     <p xml:lang="sv">Modulen för Wacom ritplatta tillhandahåller val av ritplatta för systeminställningarna och en bakgrundsdemon som anpassar anslutna ritplattor.</p>
+    <p xml:lang="tr">Wacom tablet modülü, Sistem Ayarları için bir tablet bölümü ve bağlı tabletleri yapılandıran bir ardalan süreci sağlar.</p>
     <p xml:lang="uk">Модуль планшетів Wacom забезпечує роботу розділу планшетів у Системних параметрах і фонової служби, яка налаштовує роботу із з'єднаними планшетами.</p>
     <p xml:lang="x-test">xxWacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.xx</p>
     <p xml:lang="zh-CN">Wacom 数位板模块提供了系统设置中的数位板页面，它还提供了一个用于配置已连接数位板的后台守护进程。</p>
@@ -135,6 +138,7 @@
       <caption xml:lang="sk">Okno nastavení.</caption>
       <caption xml:lang="sl">Okno nastavitev.</caption>
       <caption xml:lang="sv">Inställningsfönster.</caption>
+      <caption xml:lang="tr">Ayarlar penceresi.</caption>
       <caption xml:lang="uk">Вікно параметрів.</caption>
       <caption xml:lang="x-test">xxSettings window.xx</caption>
       <caption xml:lang="zh-CN">设置窗口。</caption>
