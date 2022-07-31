@@ -7,7 +7,8 @@ set(kded_wacomtablet_LIBS
    KF5::XmlGui
    KF5::DBusAddons
    KF5::ConfigCore
-   ${USING_X_LIBRARIES}
+   XCB::XINPUT
+   X11::Xi
    PkgConfig::LIBWACOM
 )
 

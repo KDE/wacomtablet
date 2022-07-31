@@ -9,7 +9,8 @@ set(wacom_common_LIBS
   KF5::GlobalAccel
   KF5::ConfigCore
   KF5::CoreAddons
-  ${USING_X_LIBRARIES}
+  XCB::XINPUT
+  X11::Xi
   PkgConfig::LIBWACOM
 )
 

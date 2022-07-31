@@ -30,8 +30,6 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBWACOM libwacom REQUIRED IMPORTED_TARGET)
 pkg_check_modules(XORGWACOM xorg-wacom REQUIRED IMPORTED_TARGET)
 
-set(USING_X_LIBRARIES XCB::XINPUT ${X11_Xinput_LIB})
-
 if(${LIBWACOM_VERSION} VERSION_LESS "0.29")
     message(STATUS "Button detection with libwacom requires version at least 0.29. Detected version is: " ${LIBWACOM_VERSION})
     add_definitions(-DLIBWACOM_EVDEV_MISSING)
