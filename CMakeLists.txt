@@ -25,8 +25,10 @@ find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets DBus X11Extras Qml)
 find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools)
 find_package(XCB REQUIRED COMPONENTS XINPUT)
 find_package(X11 REQUIRED)
-find_package(XorgWacom REQUIRED)
-find_package(LibWacom REQUIRED)
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBWACOM libwacom REQUIRED IMPORTED_TARGET)
+pkg_check_modules(XORGWACOM xorg-wacom REQUIRED IMPORTED_TARGET)
 
 set(USING_X_LIBRARIES XCB::XINPUT ${X11_Xinput_LIB})
 

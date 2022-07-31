@@ -10,7 +10,7 @@ set(wacom_common_LIBS
   KF5::ConfigCore
   KF5::CoreAddons
   ${USING_X_LIBRARIES}
-  ${LIBWACOM_LIBRARIES}
+  PkgConfig::LIBWACOM
 )
 
 set(wacom_common_SRC
@@ -56,6 +56,5 @@ qt5_add_dbus_interfaces(wacom_common_SRC
 
 add_library( wacom_common STATIC ${wacom_common_SRC})
 
-target_include_directories(wacom_common PUBLIC ${LIBWACOM_INCLUDE_DIRS})
 target_link_libraries( wacom_common ${wacom_common_LIBS} )
 set_target_properties( wacom_common PROPERTIES COMPILE_FLAGS "-fPIC" )
