@@ -69,8 +69,6 @@ target_link_libraries( kded_wacomtablet ${kded_wacomtablet_LIBS} )
 set_target_properties(kded_wacomtablet PROPERTIES OUTPUT_NAME wacomtablet)
 
 ## files to install
-kcoreaddons_desktop_to_json(kded_wacomtablet wacomtablet.desktop)
-
 install(TARGETS kded_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kded)
 install(FILES wacomtablet.notifyrc DESTINATION "${KDE_INSTALL_KNOTIFYRCDIR}")
 install(FILES org.kde.Wacom.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR})
