@@ -160,7 +160,7 @@ void TabletDaemon::setupActions()
 
 void TabletDaemon::setupApplication()
 {
-    static AboutData about(QLatin1Literal("wacomtablet"),
+    static AboutData about(QLatin1String("wacomtablet"),
                            i18n( "Graphic Tablet Configuration daemon"),
                            QLatin1String(WACOMTABLET_VERSION_STRING), i18n( "A Wacom tablet control daemon" ));
 }

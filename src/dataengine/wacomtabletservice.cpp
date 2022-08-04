@@ -36,40 +36,40 @@ public:
         }
 
         const auto op = operationName();
-        if (op == QLatin1Literal("RunKCM")) {
-            QProcess::startDetached(QLatin1Literal("kcmshell5"), QStringList() << QLatin1Literal("wacomtablet"));
+        if (op == QLatin1String("RunKCM")) {
+            QProcess::startDetached(QLatin1String("kcmshell5"), QStringList() << QLatin1String("wacomtablet"));
             return;
         }
 
         const auto param = parameters();
 
-        if (!param.contains(QLatin1Literal("tabletId"))) {
+        if (!param.contains(QLatin1String("tabletId"))) {
             return;
         }
 
-        const auto tabletId = param[QLatin1Literal("tabletId")].toString();
+        const auto tabletId = param[QLatin1String("tabletId")].toString();
 
-        if (op == QLatin1Literal("SetProfile")) {
-            if (param.contains(QLatin1Literal("profile"))) {
-                DBusTabletInterface::instance().setProfile(tabletId, param[QLatin1Literal("profile")].toString());
+        if (op == QLatin1String("SetProfile")) {
+            if (param.contains(QLatin1String("profile"))) {
+                DBusTabletInterface::instance().setProfile(tabletId, param[QLatin1String("profile")].toString());
             }
-        } else if (op == QLatin1Literal("SetStylusMode")) {
-            if (param.contains(QLatin1Literal("mode"))) {
-                DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Stylus.key(), Property::Mode.key(), param[QLatin1Literal("mode")].toString());
-                DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Eraser.key(), Property::Mode.key(), param[QLatin1Literal("mode")].toString());
+        } else if (op == QLatin1String("SetStylusMode")) {
+            if (param.contains(QLatin1String("mode"))) {
+                DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Stylus.key(), Property::Mode.key(), param[QLatin1String("mode")].toString());
+                DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Eraser.key(), Property::Mode.key(), param[QLatin1String("mode")].toString());
             }
-        } else if (op == QLatin1Literal("SetRotation")) {
-            if (param.contains(QLatin1Literal("rotation"))) {
-                const auto rotationName = param[QLatin1Literal("rotation")].toString();
+        } else if (op == QLatin1String("SetRotation")) {
+            if (param.contains(QLatin1String("rotation"))) {
+                const auto rotationName = param[QLatin1String("rotation")].toString();
 
                 const ScreenRotation* rotation = nullptr;
-                if (rotationName == QLatin1Literal("none")) {
+                if (rotationName == QLatin1String("none")) {
                     rotation = &ScreenRotation::NONE;
-                } else if (rotationName == QLatin1Literal("cw")) {
+                } else if (rotationName == QLatin1String("cw")) {
                     rotation = &ScreenRotation::CW;
-                } else if (rotationName == QLatin1Literal("ccw")) {
+                } else if (rotationName == QLatin1String("ccw")) {
                     rotation = &ScreenRotation::CCW;
-                } else if (rotationName == QLatin1Literal("half")) {
+                } else if (rotationName == QLatin1String("half")) {
                     rotation = &ScreenRotation::HALF;
                 }
 
@@ -79,9 +79,9 @@ public:
                     DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Touch.key(), Property::Rotate.key(), rotation->key());
                 }
             }
-        } else if (op == QLatin1Literal("SetTouchMode")) {
-            if (param.contains(QLatin1Literal("enable"))) {
-                DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Touch.key(), Property::Touch.key(), param[QLatin1Literal("enable")].toBool() ? QLatin1String( "on" ) : QLatin1String( "off" ));
+        } else if (op == QLatin1String("SetTouchMode")) {
+            if (param.contains(QLatin1String("enable"))) {
+                DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Touch.key(), Property::Touch.key(), param[QLatin1String("enable")].toBool() ? QLatin1String( "on" ) : QLatin1String( "off" ));
             }
         }
     }
@@ -89,13 +89,13 @@ public:
 
 WacomTabletService::WacomTabletService(const QString& destination, QObject* parent): Service(parent)
 {
-    setName(QLatin1Literal("wacomtablet"));
+    setName(QLatin1String("wacomtablet"));
     setObjectName(destination);
     setDestination(destination);
-    setOperationEnabled(QLatin1Literal("SetProfile"), true);
-    setOperationEnabled(QLatin1Literal("SetStylusMode"), true);
-    setOperationEnabled(QLatin1Literal("SetRotation"), true);
-    setOperationEnabled(QLatin1Literal("SetTouchMode"), true);
+    setOperationEnabled(QLatin1String("SetProfile"), true);
+    setOperationEnabled(QLatin1String("SetStylusMode"), true);
+    setOperationEnabled(QLatin1String("SetRotation"), true);
+    setOperationEnabled(QLatin1String("SetTouchMode"), true);
 }
 
 WacomTabletService::~WacomTabletService()

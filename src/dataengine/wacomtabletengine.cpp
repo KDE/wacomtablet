@@ -24,11 +24,11 @@ using namespace Wacom;
 
 WacomTabletEngine::WacomTabletEngine(QObject* parent, const QVariantList& args):
     DataEngine(parent, args)
-   ,m_source(QLatin1Literal("wacomtablet"))
+   ,m_source(QLatin1String("wacomtablet"))
 {
     // init dbus service watcher
     QDBusServiceWatcher* dbusServiceWatcher = new QDBusServiceWatcher(this);
-    dbusServiceWatcher->setWatchedServices (QStringList(QLatin1Literal("org.kde.Wacom")));
+    dbusServiceWatcher->setWatchedServices (QStringList(QLatin1String("org.kde.Wacom")));
     dbusServiceWatcher->setWatchMode (QDBusServiceWatcher::WatchForRegistration | QDBusServiceWatcher::WatchForUnregistration);
     dbusServiceWatcher->setConnection (QDBusConnection::sessionBus());
 
@@ -52,7 +52,7 @@ void WacomTabletEngine::onDBusConnected()
         return;
     }
 
-    setData(m_source, QLatin1Literal("serviceAvailable"), true);
+    setData(m_source, QLatin1String("serviceAvailable"), true);
 
     connect( &DBusTabletInterface::instance(), SIGNAL(tabletAdded(QString)),    this, SLOT(onTabletAdded(QString)) );
     connect( &DBusTabletInterface::instance(), SIGNAL(tabletRemoved(QString)),  this, SLOT(onTabletRemoved(QString)) );
@@ -68,7 +68,7 @@ void WacomTabletEngine::onDBusConnected()
 
 void WacomTabletEngine::onDBusDisconnected()
 {
-    setData(m_source, QLatin1Literal("serviceAvailable"), false);
+    setData(m_source, QLatin1String("serviceAvailable"), false);
     const auto keys = m_tablets.keys();
     for (auto iter = keys.begin(); iter != keys.end(); ++iter) {
         onTabletRemoved(*iter);
@@ -112,7 +112,7 @@ void WacomTabletEngine::onTabletAdded(const QString& tabletId)
         QDBusPendingReply<QString> hasTouch = *watchers[4];
         QDBusPendingReply<QString> touchMode = *watchers[5];
 
-        const QString sourceName = QString(QLatin1Literal("Tablet%1")).arg(tabletId);
+        const QString sourceName = QString(QLatin1String("Tablet%1")).arg(tabletId);
         auto& tabletData = m_tablets[tabletId];
         tabletData.name = deviceName.value();
         const auto profileList = profileListReply.value();
@@ -123,19 +123,19 @@ void WacomTabletEngine::onTabletAdded(const QString& tabletId)
         tabletData.touch = tabletData.hasTouch ? QString( touchMode ).contains( QLatin1String( "on" )) : false;
         tabletData.stylusMode = ( QString( stylusMode ).contains( QLatin1String( "absolute" )) || QString( stylusMode ).contains( QLatin1String( "Absolute" )) );
 
-        setData(sourceName, QLatin1Literal("currentProfile"), tabletData.currentProfile);
-        setData(sourceName, QLatin1Literal("hasTouch"), tabletData.hasTouch);
-        setData(sourceName, QLatin1Literal("touch"), tabletData.touch);
-        setData(sourceName, QLatin1Literal("profiles"), tabletData.profiles);
-        setData(sourceName, QLatin1Literal("stylusMode"), tabletData.stylusMode);
-        setData(sourceName, QLatin1Literal("name"), tabletData.name);
-        setData(sourceName, QLatin1Literal("id"), tabletId);
+        setData(sourceName, QLatin1String("currentProfile"), tabletData.currentProfile);
+        setData(sourceName, QLatin1String("hasTouch"), tabletData.hasTouch);
+        setData(sourceName, QLatin1String("touch"), tabletData.touch);
+        setData(sourceName, QLatin1String("profiles"), tabletData.profiles);
+        setData(sourceName, QLatin1String("stylusMode"), tabletData.stylusMode);
+        setData(sourceName, QLatin1String("name"), tabletData.name);
+        setData(sourceName, QLatin1String("id"), tabletId);
     });
 }
 
 void WacomTabletEngine::onTabletRemoved(const QString& tabletId)
 {
-    const QString sourceName = QString(QLatin1Literal("Tablet%1")).arg(tabletId);
+    const QString sourceName = QString(QLatin1String("Tablet%1")).arg(tabletId);
     m_tablets.remove(tabletId);
     removeSource(sourceName);
 }
@@ -146,8 +146,8 @@ void WacomTabletEngine::setProfile(const QString& tabletId, const QString& profi
         return;
     }
     int item = m_tablets[tabletId].currentProfile = m_tablets[tabletId].profiles.indexOf(profile);
-    const QString sourceName = QString(QLatin1Literal("Tablet%1")).arg(tabletId);
-    setData(sourceName, QLatin1Literal("currentProfile"), item);
+    const QString sourceName = QString(QLatin1String("Tablet%1")).arg(tabletId);
+    setData(sourceName, QLatin1String("currentProfile"), item);
 }
 
 Plasma::Service* WacomTabletEngine::serviceForSource(const QString& source)

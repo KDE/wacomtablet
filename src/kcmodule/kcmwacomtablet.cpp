@@ -68,7 +68,7 @@ KCMWacomTablet::~KCMWacomTablet()
 void KCMWacomTablet::initUi()
 {
     // about data will be deleted by KCModule
-    AboutData *about = new AboutData(QLatin1Literal("kcm_wacomtablet"), i18n("Graphic Tablet Configuration"),
+    AboutData *about = new AboutData(QLatin1String("kcm_wacomtablet"), i18n("Graphic Tablet Configuration"),
                                      QLatin1String(WACOMTABLET_VERSION_STRING), i18n("A configurator for graphic tablets"),
                                      i18n("In this module you can configure your Wacom tablet profiles"));
 

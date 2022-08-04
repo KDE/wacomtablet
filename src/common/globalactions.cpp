@@ -25,7 +25,7 @@
 
 using namespace Wacom;
 
-GlobalActions::GlobalActions(bool isConfiguration, QObject* parent): KActionCollection(parent, QLatin1Literal("wacomtablet"))
+GlobalActions::GlobalActions(bool isConfiguration, QObject* parent): KActionCollection(parent, QLatin1String("wacomtablet"))
 {
     setComponentDisplayName(i18n("Wacom Tablet"));
     setConfigGlobal(true);
