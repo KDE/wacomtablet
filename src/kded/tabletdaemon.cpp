@@ -227,10 +227,12 @@ void TabletDaemon::monitorScreenGeometry(QScreen *screen)
         tabletHandler->onScreenRotated(screen->name(), newScreenRotation);
     });
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     screen->setOrientationUpdateMask(Qt::LandscapeOrientation |
                                      Qt::PortraitOrientation |
                                      Qt::InvertedLandscapeOrientation |
                                      Qt::InvertedPortraitOrientation);
+#endif
 
     connect(screen, &QScreen::geometryChanged, &(d->tabletHandler), &TabletHandler::onScreenGeometryChanged);
 }
