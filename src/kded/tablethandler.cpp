@@ -40,7 +40,6 @@
 #include <QGuiApplication>
 #include <QList>
 #include <QRect>
-#include <QRegExp>
 
 #include <KLocalizedString>
 

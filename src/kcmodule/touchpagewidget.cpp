@@ -28,7 +28,6 @@
 #include "tabletareaselectiondialog.h"
 #include "x11wacom.h"
 
-#include <QRegExp>
 #include <QStringList>
 
 using namespace Wacom;

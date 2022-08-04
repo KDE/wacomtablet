@@ -20,7 +20,6 @@
 #include "stringutils.h"
 
 #include <QRect>
-#include <QRegExp>
 #include <QStringList>
 
 using namespace Wacom;

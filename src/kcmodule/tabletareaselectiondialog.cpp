@@ -28,7 +28,6 @@
 
 #include <QDialogButtonBox>
 #include <QIcon>
-#include <QRegExp>
 #include <QVBoxLayout>
 
 using namespace Wacom;

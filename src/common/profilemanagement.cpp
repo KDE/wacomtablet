@@ -31,7 +31,6 @@
 #include "screenrotation.h"
 
 //Qt includes
-#include <QRegExp>
 #include <QDBusInterface>
 #include <QDBusReply>
 
