@@ -23,7 +23,6 @@
 
 #include <QString>
 #include <QList>
-#include <QX11Info>
 
 struct xcb_input_get_device_property_reply_t;
 

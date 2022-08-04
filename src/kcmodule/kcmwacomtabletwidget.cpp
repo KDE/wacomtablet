@@ -45,7 +45,6 @@
 #include <QLineEdit>
 #include <QInputDialog>
 #include <QDialogButtonBox>
-#include <QX11Info>
 #include <QMessageBox>
 #include <QScrollArea>
 

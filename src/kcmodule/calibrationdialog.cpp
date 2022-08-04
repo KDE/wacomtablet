@@ -31,7 +31,6 @@
 #include <QVBoxLayout>
 #include <QMouseEvent>
 #include <QPainter>
-#include <QX11Info>
 
 using namespace Wacom;
 

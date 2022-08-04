@@ -21,6 +21,7 @@
 #include "x11inputdevice.h"
 
 #include <QStringList>
+#include <QX11Info>
 
 #include <xcb/xinput.h>
 

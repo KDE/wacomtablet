@@ -27,6 +27,7 @@
 #include <QList>
 #include <QMap>
 #include <QString>
+#include <QX11Info>
 
 using namespace Wacom;
 
