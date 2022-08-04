@@ -27,7 +27,7 @@
 #include "tabletarea.h"
 
 #include <QProcess>
-#include <QRegExp>
+#include <QRegularExpression>
 
 using namespace Wacom;
 
@@ -142,10 +142,13 @@ const QString XsetwacomAdaptor::convertParameter(const XsetwacomProperty& param)
     QString modifiedParam = param.key();
 
     // convert tablet button number to hardware button number
-    QRegExp rx(QLatin1String("^Button\\s*([0-9]+)$"), Qt::CaseInsensitive);
+    static const QRegularExpression rx(QLatin1String("^Button\\s*([0-9]+)$"), QRegularExpression::CaseInsensitiveOption);
 
-    if (rx.indexIn(modifiedParam, 0) != -1) {
-        QString hwButtonNumber = rx.cap(1);
+    const QRegularExpressionMatch match = rx.match(modifiedParam);
+
+    if (match.hasMatch()) {
+        QString hwButtonNumber = match.captured(1);
+
         QString kernelButtonNumber;
 
         if (!d->buttonMap.isEmpty()) {
@@ -167,9 +170,11 @@ const QString XsetwacomAdaptor::convertParameter(const XsetwacomProperty& param)
 
 void XsetwacomAdaptor::convertButtonShortcut (const XsetwacomProperty& property, QString& value) const
 {
-    QRegExp rx (QLatin1String("^Button\\s*[0-9]+$"), Qt::CaseInsensitive);
+    static const QRegularExpression rx(QLatin1String("^Button\\s*[0-9]+$"), QRegularExpression::CaseInsensitiveOption);
 
-    if (rx.indexIn(property.key(), 0) != -1) {
+    const QRegularExpressionMatch match = rx.match(property.key());
+
+    if (match.hasMatch()) {
         ButtonShortcut buttonshortcut(value);
         value = buttonshortcut.toString();
     }
