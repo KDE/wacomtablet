@@ -29,7 +29,6 @@
 #include "x11wacom.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QRegExp>
 
 using namespace Wacom;
