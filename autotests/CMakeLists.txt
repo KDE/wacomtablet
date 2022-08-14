@@ -1,4 +1,4 @@
-find_package(Qt5Test REQUIRED)
+find_package(Qt${QT_MAJOR_VERSION}Test REQUIRED)
 include(ECMMarkAsTest)
 
 include_directories( ${CMAKE_SOURCE_DIR}/src )
@@ -6,9 +6,9 @@ include_directories( ${CMAKE_SOURCE_DIR}/src/common )
 include_directories( ${CMAKE_SOURCE_DIR}/src/kded )
 include_directories( ${CMAKE_SOURCE_DIR}/src/kcmodule )
 
-set(WACOM_COMMON_TEST_LIBS wacom_common Qt5::Test)
-set(WACOM_KDED_TEST_LIBS kded_wacomtablet_lib ${kded_wacomtablet_LIBS} Qt5::Test)
-set(WACOM_KCM_TEST_LIBS kcm_testlib ${kcm_wacomtablet_LIBS} Qt5::Test)
+set(WACOM_COMMON_TEST_LIBS wacom_common Qt::Test)
+set(WACOM_KDED_TEST_LIBS kded_wacomtablet_lib ${kded_wacomtablet_LIBS} Qt::Test)
+set(WACOM_KCM_TEST_LIBS kcm_testlib ${kcm_wacomtablet_LIBS} Qt::Test)
 
 add_subdirectory(faketablet)
 

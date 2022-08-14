@@ -50,9 +50,8 @@ set(kcm_wacomtablet_PLUGIN_SRC
 
 set(kcm_wacomtablet_LIBS
     wacom_common
-    Qt5::Core
-    Qt5::Widgets
-    Qt5::X11Extras
+    Qt::Core
+    Qt::Widgets
     KF5::CoreAddons
     KF5::XmlGui
     KF5::WidgetsAddons

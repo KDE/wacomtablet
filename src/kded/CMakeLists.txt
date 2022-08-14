@@ -45,7 +45,7 @@ ecm_qt_declare_logging_category(
     CATEGORY_NAME "org.kde.wacomtablet.kded")
 
 ## dbus interfaces
-qt5_add_dbus_adaptor(kded_wacomtablet_SRCS org.kde.Wacom.xml dbustabletservice.h Wacom::DBusTabletService)
+qt_add_dbus_adaptor(kded_wacomtablet_SRCS org.kde.Wacom.xml dbustabletservice.h Wacom::DBusTabletService)
 
 ## build KDE daemon module
 add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")

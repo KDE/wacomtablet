@@ -1,10 +1,9 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
 
 set(wacom_common_LIBS
-  Qt5::Core
-  Qt5::Gui
-  Qt5::Widgets
-  Qt5::X11Extras
+  Qt::Core
+  Qt::Gui
+  Qt::Widgets
   KF5::I18n
   KF5::GlobalAccel
   KF5::ConfigCore
@@ -13,6 +12,12 @@ set(wacom_common_LIBS
   X11::Xi
   PkgConfig::LIBWACOM
 )
+
+if(QT_MAJOR_VERSION EQUAL "5")
+  list(APPEND wacom_common_LIBS Qt::X11Extras)
+else()
+  list(APPEND wacom_common_LIBS Qt::GuiPrivate)
+endif()
 
 set(wacom_common_SRC
     aboutdata.cpp
@@ -52,7 +57,7 @@ ecm_qt_declare_logging_category(
     IDENTIFIER "COMMON"
     CATEGORY_NAME "org.kde.wacomtablet.common")
 
-qt5_add_dbus_interfaces(wacom_common_SRC
+qt_add_dbus_interfaces(wacom_common_SRC
                         ../kded/org.kde.Wacom.xml)
 
 add_library( wacom_common STATIC ${wacom_common_SRC})

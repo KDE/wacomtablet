@@ -21,7 +21,7 @@ ecm_setup_version(${PROJECT_VERSION}
     VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/src/wacomtablet-version.h"
 )
 
-find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets DBus X11Extras Qml)
+find_package(Qt${QT_MAJOR_VERSION} REQUIRED COMPONENTS Core Gui Widgets DBus Qml)
 find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools)
 find_package(XCB REQUIRED COMPONENTS XINPUT)
 find_package(X11 REQUIRED)
@@ -29,6 +29,10 @@ find_package(X11 REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBWACOM libwacom REQUIRED IMPORTED_TARGET)
 pkg_check_modules(XORGWACOM xorg-wacom REQUIRED IMPORTED_TARGET)
+
+if(QT_MAJOR_VERSION EQUAL "5")
+  find_package(Qt5X11Extras REQUIRED)
+endif()
 
 if(${LIBWACOM_VERSION} VERSION_LESS "0.29")
     message(STATUS "Button detection with libwacom requires version at least 0.29. Detected version is: " ${LIBWACOM_VERSION})
@@ -47,7 +51,7 @@ add_subdirectory( doc )
 
 ### Tests
 if(BUILD_TESTING)
-  find_package(Qt5Test ${QT_MIN_VERSION} CONFIG REQUIRED)
+  find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} CONFIG REQUIRED)
   add_subdirectory( autotests )
 endif()
 
