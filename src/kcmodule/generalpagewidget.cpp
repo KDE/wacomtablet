@@ -32,7 +32,6 @@
 
 //KDE includes
 #include <KShortcutsEditor>
-#include <KGlobalAccel>
 
 //Qt includes
 #include <QStringList>

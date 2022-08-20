@@ -36,8 +36,6 @@
 #include <memory>
 
 //KDE includes
-#include <KGlobalAccel>
-#include <KGlobalShortcutInfo>
 
 //Qt includes
 #include <QStandardPaths>
