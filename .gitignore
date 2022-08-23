@@ -2,7 +2,7 @@
 *.kdev4
 *.kate-swp
 .directory
-build
+/build*/
 CMakeLists.txt.user
 .vscode
 *.qmlc
