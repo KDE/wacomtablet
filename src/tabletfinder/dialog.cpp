@@ -194,7 +194,7 @@ void Dialog::refreshTabletList()
             }
 
             const auto buttonMap = ti.getButtonMap();
-            for (const auto key : buttonMap.keys()) {
+            for (const auto &key : buttonMap.keys()) {
                 const auto keyIndex = key.toInt() - 1;
                 if (keyIndex < t.buttonNumber) {
                     t.hwMapping[keyIndex] = buttonMap.value(key).toInt();
