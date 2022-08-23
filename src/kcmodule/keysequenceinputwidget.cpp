@@ -69,7 +69,7 @@ KeySequenceInputWidgetPrivate::~KeySequenceInputWidgetPrivate()
 void KeySequenceInputWidgetPrivate::setupUi()
 {
     layout = new QHBoxLayout(q);
-    layout->setMargin(0);
+    layout->setContentsMargins({});
 
     keyButton = new KeySequenceInputButton(q);
     layout->addWidget(keyButton);

@@ -79,7 +79,7 @@ void KCMWacomTablet::initUi()
     // setup module ui
     m_tabletWidget = new KCMWacomTabletWidget(this);
     m_layout       = new QVBoxLayout(this);
-    m_layout->setMargin(0);
+    m_layout->setContentsMargins({});
     m_layout->addWidget(m_tabletWidget);
 
     // connect signals
