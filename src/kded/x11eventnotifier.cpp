@@ -31,7 +31,6 @@
 #include "x11input.h"
 #include "x11inputdevice.h"
 
-#include <xcb/xcb.h>
 #include <xcb/xinput.h>
 
 namespace Wacom

@@ -19,9 +19,7 @@
 
 #include "x11input.h"
 
-#include "x11inputdevice.h"
 
-#include <QString>
 #include <QList>
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)

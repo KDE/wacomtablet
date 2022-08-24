@@ -19,7 +19,6 @@
 
 #include "deviceprofile.h"
 
-#include "property.h"
 #include "deviceproperty.h"
 
 #include <QHash>

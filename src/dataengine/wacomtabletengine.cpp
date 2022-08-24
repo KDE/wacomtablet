@@ -17,7 +17,6 @@
  */
 #include "wacomtabletengine.h"
 #include "wacomtabletservice.h"
-#include "dbustabletinterface.h"
 #include "multidbuspendingcallwatcher.h"
 
 using namespace Wacom;

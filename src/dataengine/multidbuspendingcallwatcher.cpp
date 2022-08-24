@@ -17,7 +17,6 @@
  */
 
 #include "multidbuspendingcallwatcher.h"
-#include <QDBusPendingCallWatcher>
 
 MultiDBusPendingCallWatcher::MultiDBusPendingCallWatcher(const QList< QDBusPendingCall >& calls, QObject* parent)
     : QObject(parent)

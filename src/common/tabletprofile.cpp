@@ -20,7 +20,6 @@
 #include "tabletprofile.h"
 
 #include "logging.h"
-#include "deviceprofile.h"
 
 #include <QHash>
 

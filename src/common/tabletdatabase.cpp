@@ -24,7 +24,6 @@
 #include <QStandardPaths>
 
 #include <KConfigGroup>
-#include <KSharedConfig>
 
 namespace Wacom {
 /**

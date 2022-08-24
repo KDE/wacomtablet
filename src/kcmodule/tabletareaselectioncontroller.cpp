@@ -23,7 +23,6 @@
 #include "tabletareaselectionview.h"
 #include "calibrationdialog.h"
 
-#include "screenmap.h"
 #include "stringutils.h"
 #include "screensinfo.h"
 #include "x11wacom.h"

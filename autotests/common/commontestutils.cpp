@@ -20,10 +20,8 @@
 #include "commontestutils.h"
 
 #include <QtTest>
-#include <QString>
 
 #include "common/deviceproperty.h"
-#include "common/devicetype.h"
 
 using namespace Wacom;
 

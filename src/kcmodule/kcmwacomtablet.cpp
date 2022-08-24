@@ -26,7 +26,6 @@
 #include "dbustabletinterface.h"
 
 // KDE includes
-#include <KCModule>
 #include <KPluginFactory>
 #include <KAboutData>
 #include <KLocalizedString>

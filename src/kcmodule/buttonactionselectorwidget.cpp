@@ -21,7 +21,6 @@
 #include "ui_buttonactionselectorwidget.h"
 
 #include "buttonactionselectiondialog.h"
-#include "buttonshortcut.h"
 
 #include <QIcon>
 

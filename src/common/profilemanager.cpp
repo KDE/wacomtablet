@@ -20,7 +20,6 @@
 #include "profilemanager.h"
 
 #include "logging.h"
-#include "tabletprofile.h"
 #include "tabletprofileconfigadaptor.h"
 
 #include <KSharedConfig>
