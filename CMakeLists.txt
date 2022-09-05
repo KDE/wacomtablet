@@ -6,7 +6,7 @@ project(wacomtablet VERSION "3.3.0")
 
 set(QT_MIN_VERSION "5.7.0")
 find_package(ECM 1.6.0 REQUIRED CONFIG)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_SOURCE_DIR}/cmake/modules)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake/modules)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
