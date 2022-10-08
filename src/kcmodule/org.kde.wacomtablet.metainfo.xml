@@ -21,6 +21,7 @@
   <name xml:lang="ia">Modulo de tabletta Wacom de KDE</name>
   <name xml:lang="id">Modul tablet Wacom KDE</name>
   <name xml:lang="it">Modulo di KDE per le tavolette Wacom</name>
+  <name xml:lang="ka">Wacom -ის ტაბლეტის მოდული KDE -სთვის</name>
   <name xml:lang="ko">KDE 와콤 태블릿 모듈</name>
   <name xml:lang="lt">KDE Wacom planšečių modulis</name>
   <name xml:lang="nl">KDE Wacom tabletmodule</name>
@@ -55,6 +56,7 @@
   <summary xml:lang="ia">GUI de configuration per tablettas graphic</summary>
   <summary xml:lang="id">Konfigurasi GUI untuk tablet grafikal</summary>
   <summary xml:lang="it">Interfaccia per la configurazione delle tavolette grafiche</summary>
+  <summary xml:lang="ka">გრაფიკული ტაბლეტების მორგების ინტერფეისი</summary>
   <summary xml:lang="ko">그래픽 태블릿 설정 GUI</summary>
   <summary xml:lang="lt">Grafinių planšečių konfigūravimo grafinė naudotojo sąsaja</summary>
   <summary xml:lang="nl">Configuratie GUI voor grafisch tablets</summary>
@@ -128,6 +130,7 @@
       <caption xml:lang="ia">Fenestra de preferentia.</caption>
       <caption xml:lang="id">Jendela pengaturan.</caption>
       <caption xml:lang="it">Finestra delle impostazioni.</caption>
+      <caption xml:lang="ka">მორგების ფანჯარა.</caption>
       <caption xml:lang="ko">설정 창입니다.</caption>
       <caption xml:lang="lt">Nuostatų langas.</caption>
       <caption xml:lang="nl">Instellingenvenster.</caption>
