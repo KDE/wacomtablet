@@ -6,19 +6,20 @@
 # Alexander Lakhin <exclusion@gmail.com>, 2013.
 # Alexander Potashev <aspotashev@gmail.com>, 2014, 2017, 2018.
 # Alexander Yavorsky <kekcuha@gmail.com>, 2019.
+# Olesya Gerasimenko <translation-team@basealt.ru>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet 2.0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-08-25 00:50+0000\n"
-"PO-Revision-Date: 2019-07-14 22:08+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"PO-Revision-Date: 2022-10-12 10:27+0300\n"
+"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 19.04.3\n"
+"X-Generator: Lokalize 22.04.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -28,12 +29,15 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Александр Прокудин,Александр Лахин,Александр Яворский"
+msgstr ""
+"Александр Прокудин,Александр Лахин,Александр Яворский,Олеся Герасименко"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "alexandre.prokoudine@gmail.com,exclusion@gmail.com,kekcuha@gmail.com"
+msgstr ""
+"alexandre.prokoudine@gmail.com,exclusion@gmail.com,kekcuha@gmail.com,"
+"translation-team@basealt.ru"
 
 #: src/common/aboutdata.cpp:33
 #, kde-format
@@ -469,10 +473,9 @@ msgstr "Общие сведения об устройстве"
 
 #. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
 #: src/kcmodule/generalpagewidget.ui:35
-#, fuzzy, kde-format
-#| msgid "Orientation"
+#, kde-format
 msgid "Profile rotation"
-msgstr "Ориентация"
+msgstr "Ротация профилей"
 
 #. i18n: ectx: property (text), widget (QPushButton, pbDown)
 #: src/kcmodule/generalpagewidget.ui:80
@@ -540,18 +543,15 @@ msgid "No tablet device detected"
 msgstr "Графических планшетов не обнаружено"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:170
-#, fuzzy, kde-format
-#| msgid ""
-#| "Please connect a tablet device to continue.\n"
-#| "If your device is already connected it is currently unsupported."
+#, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
 "If your device is already connected, it is currently not in the device "
 "database."
 msgstr ""
 "Подключите графический планшет, чтобы приступить к его настройке.\n"
-"Если планшет уже подключён и вы видите это сообщение, значит он не "
-"поддерживается."
+"Если планшет уже подключён и вы видите это сообщение, это означает, что его "
+"нет в базе данных устройств."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:215
 #, kde-format
@@ -928,54 +928,51 @@ msgstr "Эта проекция доступна только в абсолют�
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
 #: src/kcmodule/tabletareaselectionview.ui:219
-#, fuzzy, kde-format
-#| msgid "Set Screen Proportions"
+#, kde-format
 msgid "Lock proportions"
-msgstr "Указать пропорции экрана"
+msgstr "Зафиксировать пропорции"
 
 #. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:233
-#, fuzzy, kde-format
-#| msgid "Tablet Details"
+#, kde-format
 msgid "Tablet area fine tuning"
-msgstr "Информация о планшете"
+msgstr "Тонкая настройка области планшета"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
 #: src/kcmodule/tabletareaselectionview.ui:245
 #, kde-format
 msgid "Width"
-msgstr ""
+msgstr "Ширина"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
 #: src/kcmodule/tabletareaselectionview.ui:255
 #, kde-format
 msgid "Horizontal"
-msgstr ""
+msgstr "Горизонтально"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
 #: src/kcmodule/tabletareaselectionview.ui:268
-#, fuzzy, kde-format
-#| msgid "Left Strip Down"
+#, kde-format
 msgid "Left margin"
-msgstr "Вниз на левой полоске"
+msgstr "Левое поле"
 
 #. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
 #: src/kcmodule/tabletareaselectionview.ui:278
 #, kde-format
 msgid "Vertical"
-msgstr ""
+msgstr "Вертикально"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
 #: src/kcmodule/tabletareaselectionview.ui:291
 #, kde-format
 msgid "Top margin"
-msgstr ""
+msgstr "Верхнее поле"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
 #: src/kcmodule/tabletareaselectionview.ui:307
 #, kde-format
 msgid "Height"
-msgstr ""
+msgstr "Высота"
 
 #: src/kcmodule/tabletpagewidget.cpp:383
 #, kde-format
@@ -1017,15 +1014,13 @@ msgstr "Режим слежения за стилусом"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:72
-#, fuzzy, kde-format
-#| msgid "Map to Screen (Absolute Mode)"
+#, kde-format
 msgid "&Map to Screen (Absolute Mode)"
 msgstr "Проекция на экран"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackRelativeRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:56 src/kcmodule/touchpagewidget.ui:88
-#, fuzzy, kde-format
-#| msgid "Map to Cursor (Relative Mode)"
+#, kde-format
 msgid "Map &to Cursor (Relative Mode)"
 msgstr "Проекция к курсору"
 
@@ -1038,10 +1033,7 @@ msgstr "Проекция рабочей области планшета"
 #. i18n: ectx: property (toolTip), widget (QPushButton, touchMappingTabletButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, padMappingTabletButton)
 #: src/kcmodule/tabletpagewidget.ui:100 src/kcmodule/touchpagewidget.ui:135
-#, fuzzy, kde-format
-#| msgid ""
-#| "Allows to specify the tablet area for different screen selections in "
-#| "absolute cursor mode."
+#, kde-format
 msgid ""
 "Allows one to specify the tablet area for different screen selections in "
 "absolute cursor mode."
@@ -1237,7 +1229,7 @@ msgstr ""
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
-msgstr ""
+msgstr "Настроить"
 
 #: src/kded/tabletdaemon.cpp:169
 #, kde-format
@@ -1273,7 +1265,7 @@ msgstr "Графический планшет %1 отключён"
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exists."
 msgid "Default"
-msgstr ""
+msgstr "Стандартный"
 
 #: src/kded/tablethandler.cpp:473
 #, kde-format
@@ -1281,15 +1273,15 @@ msgid "Graphic Tablet error"
 msgstr "Ошибка графического планшета"
 
 #: src/kded/tablethandler.cpp:474
-#, fuzzy, kde-format
-#| msgid "Profile <b>%1</b> does not exist"
+#, kde-format
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
-msgstr "Профиль <b>%1</b> не существует"
+msgstr ""
+"Профиль <b>%1</b> не существует. Вместо него будет использоваться <b>%2</b>."
 
 #: src/tabletfinder/dialog.cpp:453
 #, kde-format
 msgid "Button %1 maps to Button %2"
-msgstr ""
+msgstr "Кнопка %1 связана с кнопкой %2"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
 #: src/tabletfinder/dialog.ui:14
@@ -1306,20 +1298,15 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tabletfinder/dialog.ui:27
-#, fuzzy, kde-format
-#| msgid "Tablet Details"
+#, kde-format
 msgid "Tablet Selection"
-msgstr "Информация о планшете"
+msgstr "Выбор планшета"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/tabletfinder/dialog.ui:39
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "Dialog title from a dialog which lets the user select an area of the "
-#| "tablet where the screen space will be mapped to."
-#| msgid "Select a Tablet Area"
+#, kde-format
 msgid "Detected Tablets:"
-msgstr "Выбор области планшета"
+msgstr "Обнаруженные планшеты:"
 
 #. i18n: ectx: property (text), widget (QPushButton, refreshButton)
 #: src/tabletfinder/dialog.ui:51
@@ -1347,111 +1334,102 @@ msgstr "Функции планшета"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchRing)
 #: src/tabletfinder/dialog.ui:111
-#, fuzzy, kde-format
-#| msgid "Touch Ring"
+#, kde-format
 msgid "has TouchRing"
-msgstr "Сенсорное кольцо"
+msgstr "имеет сенсорное кольцо"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsRight)
 #: src/tabletfinder/dialog.ui:118
 #, kde-format
 msgid "has Status LEDs right"
-msgstr ""
+msgstr "имеет индикаторы состояния справа"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripLeft)
 #: src/tabletfinder/dialog.ui:125
-#, fuzzy, kde-format
-#| msgid "Touch Strip"
+#, kde-format
 msgid "has Touchstrip Left"
-msgstr "Сенсорная полоска"
+msgstr "имеет сенсорную полоску слева"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripRight)
 #: src/tabletfinder/dialog.ui:132
-#, fuzzy, kde-format
-#| msgid "Touch Ring"
+#, kde-format
 msgid "has Touchstrip Right"
-msgstr "Сенсорное кольцо"
+msgstr "имеет сенсорную полоску справа"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsLeft)
 #: src/tabletfinder/dialog.ui:139
 #, kde-format
 msgid "has Status LEDs left"
-msgstr ""
+msgstr "имеет индикаторы состояния слева"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasWheel)
 #: src/tabletfinder/dialog.ui:146
-#, fuzzy, kde-format
-#| msgid "Wheel"
+#, kde-format
 msgid "has Wheel"
-msgstr "Колесо"
+msgstr "имеет колесо"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: src/tabletfinder/dialog.ui:169
-#, fuzzy, kde-format
-#| msgid "Button Settings"
+#, kde-format
 msgid "Button mapping"
-msgstr "Параметры кнопок"
+msgstr "Привязка кнопок"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tabletfinder/dialog.ui:177
 #, kde-format
 msgid "Number of available Express Keys:"
-msgstr ""
+msgstr "Количество доступных экспресс-кнопок:"
 
 #. i18n: ectx: property (text), widget (QPushButton, mapButtons)
 #: src/tabletfinder/dialog.ui:189
-#, fuzzy, kde-format
-#| msgid "Pad Buttons"
+#, kde-format
 msgid "Map Hardware Buttons"
-msgstr "Прикладные кнопки"
+msgstr "Привязка аппаратных кнопок"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
 #: src/tabletfinder/dialog.ui:221
-#, fuzzy, kde-format
-#| msgid "Touch Ring"
+#, kde-format
 msgid "Touch sensor"
-msgstr "Сенсорное кольцо"
+msgstr "Датчик касания"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
 #: src/tabletfinder/dialog.ui:227
-#, fuzzy, kde-format
-#| msgid "Wacom Tablet"
+#, kde-format
 msgid "&Normal tablet"
-msgstr "Планшет Wacom"
+msgstr "&Обычный планшет"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioParentTablet)
 #: src/tabletfinder/dialog.ui:239
 #, kde-format
 msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-msgstr ""
+msgstr "&Многофункциональный планшет, датчик стилуса. Датчик касания:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
 #: src/tabletfinder/dialog.ui:251
 #, kde-format
 msgid "Multi-&device tablet, touch sensor"
-msgstr ""
+msgstr "Многофункциональный &планшет, датчик касания"
 
 #: src/tabletfinder/hwbuttondialog.cpp:65
-#, fuzzy, kde-format
-#| msgid "Changes the orientation of the tablet."
+#, kde-format
 msgid "Please press Button %1 on the tablet now."
-msgstr "Изменяет ориентацию планшета."
+msgstr "Нажмите на планшете кнопку %1."
 
 #: src/tabletfinder/hwbuttondialog.cpp:89
 #, kde-format
 msgid "Hardware button %1 detected."
-msgstr ""
+msgstr "Обнаружена аппаратная кнопка %1."
 
 #: src/tabletfinder/hwbuttondialog.cpp:101
 #, kde-format
 msgid "All buttons detected. Please close dialog"
-msgstr ""
+msgstr "Обнаружены все кнопки. Закройте диалоговое окно."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, HWButtonDialog)
 #: src/tabletfinder/hwbuttondialog.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr ""
+msgstr "Диалоговое окно"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tabletfinder/hwbuttondialog.ui:26
@@ -1460,6 +1438,8 @@ msgid ""
 "Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
 "the mouse."
 msgstr ""
+"Переместите курсор мыши внутрь диалогового окна, но <b>не</b> щёлкайте по "
+"нему мышью."
 
 #~ msgid "Unsupported platform detected"
 #~ msgstr "Обнаружена неподдерживаемая платформа"
