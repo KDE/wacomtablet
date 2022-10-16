@@ -47,6 +47,7 @@
 #include <QDialogButtonBox>
 #include <QMessageBox>
 #include <QScrollArea>
+#include <kwidgetsaddons_version.h>
 
 using namespace Wacom;
 
@@ -470,8 +471,17 @@ void KCMWacomTabletWidget::showSaveChanges()
 
     // TODO: This should be a proper Yes/No/Cancel dialog
     // but this probably requires custom ComboBoxes for canceling selection
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+    if (KMessageBox::questionTwoActions(this, i18n("Save changes to the current profile?"), i18n("Save Profile"), KStandardGuiItem::save(), KStandardGuiItem::discard())
+#else
     if (KMessageBox::questionYesNo(this, i18n("Save changes to the current profile?"))
+
+#endif
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            == KMessageBox::ButtonCode::PrimaryAction) {
+#else
             == KMessageBox::Yes) {
+#endif
         saveProfile();
     }
 }
