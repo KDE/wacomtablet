@@ -36,6 +36,20 @@ set(kded_wacomtablet_SRCS
     xsetwacomadaptor.cpp
     xsetwacomproperty.cpp
     ../common/globalactions.cpp
+    dbustabletservice.h
+    eventnotifier.h
+    procsystemadaptor.h
+    procsystemproperty.h
+    tabletbackend.h
+    tabletbackendfactory.h
+    tabletfinder.h
+    tablethandler.h
+    x11eventnotifier.h
+    x11tabletfinder.h
+    xinputadaptor.h
+    xinputproperty.h
+    xsetwacomadaptor.h
+    xsetwacomproperty.h
 )
 
 ecm_qt_declare_logging_category(

@@ -3,6 +3,8 @@ set( tabletfinder_SRCS
      main.cpp
      dialog.cpp
      hwbuttondialog.cpp
+     dialog.h
+     hwbuttondialog.h
 )
 
 ki18n_wrap_ui( tabletfinder_SRCS

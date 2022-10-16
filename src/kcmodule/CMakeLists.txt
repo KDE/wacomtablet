@@ -22,6 +22,26 @@ set( kcm_tablet_SRCS
      tabletpagewidget.cpp
      touchpagewidget.cpp
      ../common/globalactions.cpp # FIXME: why?
+     areaselectionwidget.h
+     buttonactiondisplaywidget.h
+     buttonactionselectiondialog.h
+     buttonactionselectionwidget.h
+     buttonactionselectorwidget.h
+     buttonpagewidget.h
+     calibrationdialog.h
+     generalpagewidget.h
+     kcmwacomtabletwidget.h
+     keysequenceinputbutton.h
+     keysequenceinputwidget.h
+     pressurecurvewidget.h
+     pressurecurvedialog.h
+     styluspagewidget.h
+     tabletareaselectioncontroller.h
+     tabletareaselectiondialog.h
+     tabletareaselectionview.h
+     tabletareaselectionwidget.h
+     tabletpagewidget.h
+     touchpagewidget.h
 )
 
 ki18n_wrap_ui( kcm_tablet_SRCS
@@ -46,6 +66,7 @@ ecm_qt_declare_logging_category(
 
 set(kcm_wacomtablet_PLUGIN_SRC
     kcmwacomtablet.cpp
+    kcmwacomtablet.h
 )
 
 set(kcm_wacomtablet_LIBS

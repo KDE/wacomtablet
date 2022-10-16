@@ -4,6 +4,10 @@ set(dataengine_SRCS
     wacomtabletengine.cpp
     wacomtabletservice.cpp
     multidbuspendingcallwatcher.cpp
+
+    wacomtabletengine.h
+    wacomtabletservice.h
+    multidbuspendingcallwatcher.h
 )
 
 add_library(plasma_engine_wacomtablet MODULE ${dataengine_SRCS})

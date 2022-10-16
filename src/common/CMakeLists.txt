@@ -49,6 +49,36 @@ set(wacom_common_SRC
     x11input.cpp
     x11inputdevice.cpp
     x11wacom.cpp
+
+    aboutdata.h
+    buttonshortcut.h
+    dbustabletinterface.h
+    deviceinformation.h
+    deviceprofile.h
+    deviceprofileconfigadaptor.h
+    deviceprofiledefaults.h
+    deviceproperty.h
+    devicetype.h
+    libwacomwrapper.h
+    mainconfig.h
+    profilemanager.h
+    profilemanagement.h
+    property.h
+    propertyadaptor.h
+    screenrotation.h
+    screenmap.h
+    screensinfo.h
+    screenspace.h
+    stringutils.h
+    tabletarea.h
+    tabletdatabase.h
+    tabletinfo.h
+    tabletinformation.h
+    tabletprofile.h
+    tabletprofileconfigadaptor.h
+    x11input.h
+    x11inputdevice.h
+    x11wacom.h
 )
 
 ecm_qt_declare_logging_category(
