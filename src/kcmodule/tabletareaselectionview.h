@@ -42,7 +42,7 @@ class TabletAreaSelectionView : public QWidget
 
 public:
 
-    explicit TabletAreaSelectionView( QWidget* parent = 0 );
+    explicit TabletAreaSelectionView( QWidget* parent = nullptr );
 
     ~TabletAreaSelectionView() override;
 

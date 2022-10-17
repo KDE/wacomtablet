@@ -53,7 +53,7 @@ public:
       *
       * @param parent parent Widget
       */
-    explicit ButtonPageWidget(QWidget *parent = 0);
+    explicit ButtonPageWidget(QWidget *parent = nullptr);
 
     /**
       * default destructor

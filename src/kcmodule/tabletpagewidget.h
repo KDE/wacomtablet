@@ -45,7 +45,7 @@ class TabletPageWidget : public QWidget
 
 public:
 
-    explicit TabletPageWidget( QWidget *parent = 0 );
+    explicit TabletPageWidget( QWidget *parent = nullptr );
 
     ~TabletPageWidget() override;
 

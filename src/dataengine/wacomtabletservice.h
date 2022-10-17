@@ -25,7 +25,7 @@ class WacomTabletService : public Plasma::Service
     Q_OBJECT
 public:
     WacomTabletService(const QString &destination,
-                       QObject *parent = 0);
+                       QObject *parent = nullptr);
     ~WacomTabletService() override;
 
 protected:

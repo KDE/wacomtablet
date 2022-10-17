@@ -34,7 +34,7 @@ class ButtonActionSelectorWidget : public QWidget
 
 public:
 
-    explicit ButtonActionSelectorWidget( QWidget *parent = 0 );
+    explicit ButtonActionSelectorWidget( QWidget *parent = nullptr );
 
     ~ButtonActionSelectorWidget() override;
 

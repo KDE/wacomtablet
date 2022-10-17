@@ -54,7 +54,7 @@ public:
     PressureCurveDialog(const QString &initialValue,
                         const QString &tabletId,
                         const DeviceType& deviceType,
-                        QWidget *parent = 0);
+                        QWidget *parent = nullptr);
 
     /**
       * default destructor

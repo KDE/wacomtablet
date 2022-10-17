@@ -72,7 +72,7 @@ Q_SIGNALS:
 
 
 protected:
-    explicit EventNotifier(QWidget *parent = 0);
+    explicit EventNotifier(QWidget *parent = nullptr);
 
 }; // CLASS
 }  // NAMESPACE

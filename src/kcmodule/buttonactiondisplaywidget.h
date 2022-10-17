@@ -32,7 +32,7 @@ class ButtonActionDisplayWidget : public QLineEdit {
     Q_OBJECT
 
 public:
-    explicit ButtonActionDisplayWidget(QWidget* parent = 0);
+    explicit ButtonActionDisplayWidget(QWidget* parent = nullptr);
     ~ButtonActionDisplayWidget() override;
 
 signals:

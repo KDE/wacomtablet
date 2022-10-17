@@ -53,7 +53,7 @@ class KeySequenceInputButton : public QPushButton
 public:
 
     //! Default Constructor
-    KeySequenceInputButton(QWidget *parent = 0);
+    KeySequenceInputButton(QWidget *parent = nullptr);
 
     //! Destructor
     ~KeySequenceInputButton() override;

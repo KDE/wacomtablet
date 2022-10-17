@@ -41,7 +41,7 @@ class AreaSelectionWidget : public QWidget
 public:
     bool paintBelow{false};
 
-    explicit AreaSelectionWidget(QWidget* parent = 0);
+    explicit AreaSelectionWidget(QWidget* parent = nullptr);
 
     ~AreaSelectionWidget() override;
 

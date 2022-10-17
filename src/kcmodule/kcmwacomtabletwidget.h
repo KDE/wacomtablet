@@ -44,7 +44,7 @@ public:
       *
       * @param parent Parent widget
       */
-    explicit KCMWacomTabletWidget(QWidget *parent = 0);
+    explicit KCMWacomTabletWidget(QWidget *parent = nullptr);
 
     /**
       * default destructor

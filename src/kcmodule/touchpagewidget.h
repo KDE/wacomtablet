@@ -45,7 +45,7 @@ class TouchPageWidget : public QWidget
 
 public:
 
-    explicit TouchPageWidget(QWidget* parent = 0);
+    explicit TouchPageWidget(QWidget* parent = nullptr);
     ~TouchPageWidget() override;
 
     void setTabletId(const QString &tabletId);

@@ -35,7 +35,7 @@ class ButtonActionSelectionDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ButtonActionSelectionDialog(QWidget* parent = 0);
+    explicit ButtonActionSelectionDialog(QWidget* parent = nullptr);
 
     ~ButtonActionSelectionDialog() override;
 

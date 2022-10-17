@@ -45,7 +45,7 @@ class StylusPageWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit StylusPageWidget(QWidget *parent = 0);
+    explicit StylusPageWidget(QWidget *parent = nullptr);
 
     ~StylusPageWidget() override;
 

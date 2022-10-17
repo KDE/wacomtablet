@@ -52,7 +52,7 @@ public:
       *
       * @param parent the parent widget
       */
-    explicit GeneralPageWidget(QWidget* parent = 0);
+    explicit GeneralPageWidget(QWidget* parent = nullptr);
 
     /**
       * default destructor

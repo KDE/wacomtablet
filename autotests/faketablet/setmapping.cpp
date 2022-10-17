@@ -35,7 +35,7 @@ class Task : public QObject
 {
     Q_OBJECT
 public:
-    Task(QObject *parent = 0) : QObject(parent) {}
+    Task(QObject *parent = nullptr) : QObject(parent) {}
 
 public slots:
     void run()
