@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-25 00:50+0000\n"
+"POT-Creation-Date: 2022-10-17 00:49+0000\n"
 "PO-Revision-Date: 2015-12-30 18:09+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
@@ -233,7 +233,7 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:442
+#: src/kcmodule/kcmwacomtabletwidget.cpp:443
 #, kde-format
 msgid "Express Buttons"
 msgstr ""
@@ -525,24 +525,24 @@ msgstr ""
 msgid "In this module you can configure your Wacom tablet profiles"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:164
+#: src/kcmodule/kcmwacomtabletwidget.cpp:165
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:165
+#: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
 "The service is required for tablet detection and profile support."
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:169
+#: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
 msgid "No tablet device detected"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:170
+#: src/kcmodule/kcmwacomtabletwidget.cpp:171
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -550,51 +550,58 @@ msgid ""
 "database."
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:215
+#: src/kcmodule/kcmwacomtabletwidget.cpp:216
 #, kde-format
 msgid "Add new profile"
 msgstr "Priedėti naują profilį"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:216
+#: src/kcmodule/kcmwacomtabletwidget.cpp:217
 #, kde-format
 msgid "Profile name:"
 msgstr "Profilio pavadinimas:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:426
+#: src/kcmodule/kcmwacomtabletwidget.cpp:427
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:435
+#: src/kcmodule/kcmwacomtabletwidget.cpp:436
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "Bendri"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:436
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgid "Stylus"
 msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:445
+#: src/kcmodule/kcmwacomtabletwidget.cpp:446
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "Planšetė"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:448
+#: src/kcmodule/kcmwacomtabletwidget.cpp:449
 #, kde-format
 msgid "Touch"
 msgstr "Lietimas"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:473
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:477
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#, fuzzy, kde-format
+#| msgid "Select Profile:"
+msgid "Save Profile"
+msgstr "Pasirinkite profilį"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:494
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""

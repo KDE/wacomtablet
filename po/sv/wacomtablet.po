@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-25 00:50+0000\n"
+"POT-Creation-Date: 2022-10-17 00:49+0000\n"
 "PO-Revision-Date: 2021-08-07 10:03+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -227,7 +227,7 @@ msgstr "Knappsats"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:442
+#: src/kcmodule/kcmwacomtabletwidget.cpp:443
 #, kde-format
 msgid "Express Buttons"
 msgstr "Expressknappar"
@@ -512,12 +512,12 @@ msgstr "En inställningsmodul för grafiska ritplattor"
 msgid "In this module you can configure your Wacom tablet profiles"
 msgstr "Du kan anpassa profiler for Wacom ritplatta med den här modulen"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:164
+#: src/kcmodule/kcmwacomtabletwidget.cpp:165
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr "KDE:s tjänst för ritplattor hittades inte"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:165
+#: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
@@ -527,12 +527,12 @@ msgstr ""
 "inställningsdialogrutan.\n"
 "Tjänsten krävs för upptäckt av ritplattor och profilstöd."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:169
+#: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
 msgid "No tablet device detected"
 msgstr "Ingen ritplatta detekterad"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:170
+#: src/kcmodule/kcmwacomtabletwidget.cpp:171
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -542,51 +542,58 @@ msgstr ""
 "Anslut en ritplatta för att fortsätta.\n"
 "Om enheten redan är ansluten finns den för närvarande inte i enhetsdatabasen."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:215
+#: src/kcmodule/kcmwacomtabletwidget.cpp:216
 #, kde-format
 msgid "Add new profile"
 msgstr "Lägg till ny profil"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:216
+#: src/kcmodule/kcmwacomtabletwidget.cpp:217
 #, kde-format
 msgid "Profile name:"
 msgstr "Profilnamn:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:426
+#: src/kcmodule/kcmwacomtabletwidget.cpp:427
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr "Förval"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:435
+#: src/kcmodule/kcmwacomtabletwidget.cpp:436
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "Allmänt"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:436
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgid "Stylus"
 msgstr "Penna"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:445
+#: src/kcmodule/kcmwacomtabletwidget.cpp:446
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "Ritplatta"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:448
+#: src/kcmodule/kcmwacomtabletwidget.cpp:449
 #, kde-format
 msgid "Touch"
 msgstr "Beröring"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:473
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:477
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "Spara ändringar av den nuvarande profilen?"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#, fuzzy, kde-format
+#| msgid "Select &Profile:"
+msgid "Save Profile"
+msgstr "Välj &profil:"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:494
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""

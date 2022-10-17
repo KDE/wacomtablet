@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-25 00:50+0000\n"
+"POT-Creation-Date: 2022-10-17 00:49+0000\n"
 "PO-Revision-Date: 2019-12-04 23:02+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -226,7 +226,7 @@ msgstr "繪圖板按鍵"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:442
+#: src/kcmodule/kcmwacomtabletwidget.cpp:443
 #, kde-format
 msgid "Express Buttons"
 msgstr "快捷鍵"
@@ -512,12 +512,12 @@ msgstr "圖形繪圖板設定器"
 msgid "In this module you can configure your Wacom tablet profiles"
 msgstr "這個模組讓您設定您的 Wacom 繪圖板設定檔"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:164
+#: src/kcmodule/kcmwacomtabletwidget.cpp:165
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr "找不到 KDE 繪圖板服務"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:165
+#: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
@@ -526,12 +526,12 @@ msgstr ""
 "請啟動 KDE Wacom 繪圖板服務後再使用此設定對話框。\n"
 "此伺服程式負責偵測繪圖板與支援設定檔。"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:169
+#: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
 msgid "No tablet device detected"
 msgstr "偵測不到繪圖板"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:170
+#: src/kcmodule/kcmwacomtabletwidget.cpp:171
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -541,51 +541,58 @@ msgstr ""
 "請連接繪圖板以繼續。\n"
 "若您的裝置已連線，則表示其未在裝置資料庫中。"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:215
+#: src/kcmodule/kcmwacomtabletwidget.cpp:216
 #, kde-format
 msgid "Add new profile"
 msgstr "新增設定檔"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:216
+#: src/kcmodule/kcmwacomtabletwidget.cpp:217
 #, kde-format
 msgid "Profile name:"
 msgstr "設定檔名稱："
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:426
+#: src/kcmodule/kcmwacomtabletwidget.cpp:427
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr "預設值"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:435
+#: src/kcmodule/kcmwacomtabletwidget.cpp:436
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "一般"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:436
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgid "Stylus"
 msgstr "觸控筆"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:445
+#: src/kcmodule/kcmwacomtabletwidget.cpp:446
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "繪圖板"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:448
+#: src/kcmodule/kcmwacomtabletwidget.cpp:449
 #, kde-format
 msgid "Touch"
 msgstr "觸控"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:473
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:477
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "要儲存目前設定檔的變更嗎？"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#, fuzzy, kde-format
+#| msgid "Select &Profile:"
+msgid "Save Profile"
+msgstr "選擇設定檔(&P)："
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:494
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr "無法啟動 Wacom 繪圖板尋找工具。請檢查您的安裝實體。"

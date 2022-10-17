@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-08-25 00:50+0000\n"
+"POT-Creation-Date: 2022-10-17 00:49+0000\n"
 "PO-Revision-Date: 2022-04-16 23:19+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -225,7 +225,7 @@ msgstr "패드 단추"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:442
+#: src/kcmodule/kcmwacomtabletwidget.cpp:443
 #, kde-format
 msgid "Express Buttons"
 msgstr "익스프레스 단추"
@@ -510,12 +510,12 @@ msgstr "그래픽 태블릿 설정 도구"
 msgid "In this module you can configure your Wacom tablet profiles"
 msgstr "이 모듈에서 와콤 그래픽 태블릿 프로필을 설정할 수 있습니다"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:164
+#: src/kcmodule/kcmwacomtabletwidget.cpp:165
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr "KDE 태블릿 서비스를 찾을 수 없음"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:165
+#: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
@@ -524,12 +524,12 @@ msgstr ""
 "이 대화 상자를 사용하려면 KDE 와콤 태블릿 서비스를 시작하십시오.\n"
 "태블릿 감지 및 프로필 지원에 필요합니다."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:169
+#: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
 msgid "No tablet device detected"
 msgstr "태블릿 장치가 감지되지 않음"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:170
+#: src/kcmodule/kcmwacomtabletwidget.cpp:171
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -539,51 +539,58 @@ msgstr ""
 "계속하려면 태블릿 장치를 연결하십시오.\n"
 "만약 장치가 연결되어 있다면 해당 장치는 데이터베이스에 없습니다."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:215
+#: src/kcmodule/kcmwacomtabletwidget.cpp:216
 #, kde-format
 msgid "Add new profile"
 msgstr "새 프로필 추가"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:216
+#: src/kcmodule/kcmwacomtabletwidget.cpp:217
 #, kde-format
 msgid "Profile name:"
 msgstr "프로필 이름:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:426
+#: src/kcmodule/kcmwacomtabletwidget.cpp:427
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr "기본값"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:435
+#: src/kcmodule/kcmwacomtabletwidget.cpp:436
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "일반"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:436
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgid "Stylus"
 msgstr "스타일러스"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:445
+#: src/kcmodule/kcmwacomtabletwidget.cpp:446
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "태블릿"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:448
+#: src/kcmodule/kcmwacomtabletwidget.cpp:449
 #, kde-format
 msgid "Touch"
 msgstr "터치"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:473
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:477
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "현재 프로필에 변경 사항을 저장하시겠습니까?"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#, fuzzy, kde-format
+#| msgid "Select &Profile:"
+msgid "Save Profile"
+msgstr "프로필 선택(&P):"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:494
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr "와콤 태블릿 발견 도구를 불러올 수 없습니다. 설치 상태를 확인하십시오."
