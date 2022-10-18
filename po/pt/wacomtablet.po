@@ -593,10 +593,9 @@ msgid "Save changes to the current profile?"
 msgstr "Deseja gravar as alterações ao perfil actual?"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:475
-#, fuzzy, kde-format
-#| msgid "Select &Profile:"
+#, kde-format
 msgid "Save Profile"
-msgstr "Seleccione o &Perfil:"
+msgstr "Gravar o Perfil"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:494
 #, kde-format

@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2018, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2018, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-17 00:49+0000\n"
-"PO-Revision-Date: 2021-08-07 09:01+0300\n"
+"PO-Revision-Date: 2022-10-17 13:30+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -595,10 +595,9 @@ msgid "Save changes to the current profile?"
 msgstr "Зберегти зміни, внесені до поточного профілю?"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:475
-#, fuzzy, kde-format
-#| msgid "Select &Profile:"
+#, kde-format
 msgid "Save Profile"
-msgstr "Виберіть п&рофіль:"
+msgstr "Зберегти профіль"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:494
 #, kde-format

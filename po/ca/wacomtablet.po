@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-17 00:49+0000\n"
-"PO-Revision-Date: 2022-07-08 14:50+0200\n"
+"PO-Revision-Date: 2022-10-17 08:53+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -593,10 +593,9 @@ msgid "Save changes to the current profile?"
 msgstr "Desar els canvis al perfil actual?"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:475
-#, fuzzy, kde-format
-#| msgid "Select &Profile:"
+#, kde-format
 msgid "Save Profile"
-msgstr "Seleccioneu un &perfil:"
+msgstr "Desa el perfil"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:494
 #, kde-format
@@ -1440,9 +1439,3 @@ msgid ""
 msgstr ""
 "Moveu el cursor del ratolí dins del diàleg, però <b>no</b> hi cliqueu amb el "
 "ratolí."
-
-#~ msgid "Unsupported platform detected"
-#~ msgstr "S'ha detectat una plataforma no admesa"
-
-#~ msgid "Currently only X11 is supported."
-#~ msgstr "Actualment només s'admet X11."
