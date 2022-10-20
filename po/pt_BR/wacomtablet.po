@@ -2,7 +2,7 @@
 # Copyright (C) 2010-2018 This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2010, 2018, 2020, 2021.
+# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2010, 2018, 2020, 2021, 2022.
 # Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>, 2010.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2018.
 # Marcus Gama <marcus.gama@gmail.com>, 2011.
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-17 00:49+0000\n"
-"PO-Revision-Date: 2021-10-26 13:44-0300\n"
+"PO-Revision-Date: 2022-10-19 15:36-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -593,10 +593,9 @@ msgid "Save changes to the current profile?"
 msgstr "Deseja salvar as alterações ao perfil atual?"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:475
-#, fuzzy, kde-format
-#| msgid "Select &Profile:"
+#, kde-format
 msgid "Save Profile"
-msgstr "Selecionar &perfil:"
+msgstr "Salvar perfil"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:494
 #, kde-format
