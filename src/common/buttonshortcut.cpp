@@ -306,7 +306,7 @@ const QString ButtonShortcut::toDisplayString() const
         convertKeySequenceToQKeySequenceFormat(displayString);
 
         // check if a global shortcut is assigned to this sequence
-        globalShortcutList = KGlobalAccel::getGlobalShortcutsByKey(QKeySequence(displayString));
+        globalShortcutList = KGlobalAccel::globalShortcutsByKey(QKeySequence(displayString));
 
         if(!globalShortcutList.isEmpty()) {
             displayString = globalShortcutList.at(0).uniqueName();
