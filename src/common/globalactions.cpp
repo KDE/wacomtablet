@@ -33,49 +33,49 @@ GlobalActions::GlobalActions(bool isConfiguration, QObject* parent): KActionColl
     QAction *action = addAction(QLatin1String("Toggle touch tool"));
     action->setText( i18nc( "@action", "Enable/Disable the Touch Tool" ) );
     action->setIcon( QIcon::fromTheme( QLatin1String( "input-tablet" ) ) );
-    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL + Qt::META + Qt::Key_T ) );
+    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL | Qt::META | Qt::Key_T ) );
     connect(action, SIGNAL(triggered()), this, SIGNAL(toggleTouchTriggered()));
 
     action = addAction(QLatin1String("Toggle stylus mode"));
     action->setText( i18nc( "@action", "Toggle the Stylus Tool Relative/Absolute" ) );
     action->setIcon( QIcon::fromTheme( QLatin1String( "draw-path" ) ) );
-    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL + Qt::META + Qt::Key_S ));
+    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL | Qt::META | Qt::Key_S ));
     connect(action, SIGNAL(triggered()), this, SIGNAL(toggleStylusTriggered()));
 
     action = addAction(QLatin1String("Toggle screen map selection"));
     action->setText( i18nc( "@action", "Toggle between all screens" ) );
     action->setIcon( QIcon::fromTheme( QLatin1String( "draw-path" ) ) );
-    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL + Qt::META + Qt::Key_M ) );
+    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL | Qt::META | Qt::Key_M ) );
     connect(action, SIGNAL(triggered()), this, SIGNAL(toggleScreenMapTriggered()));
 
     action = addAction(QLatin1String("Map to fullscreen"));
     action->setText( i18nc( "@action Maps the area of the tablet to all available screen space (space depends on connected monitors)", "Map to fullscreen" ) );
     action->setIcon( QIcon::fromTheme( QLatin1String( "video-display" ) ) );
-    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL + Qt::META + Qt::Key_F ) );
+    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL | Qt::META | Qt::Key_F ) );
     connect(action, SIGNAL(triggered()), this, SIGNAL(mapToFullScreenTriggered()));
 
     action = addAction(QLatin1String("Map to screen 1"));
     action->setText( i18nc( "@action", "Map to screen 1" ) );
     action->setIcon( QIcon::fromTheme( QLatin1String( "video-display" ) ) );
-    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL + Qt::META + Qt::Key_1 ) );
+    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL | Qt::META | Qt::Key_1 ) );
     connect(action, SIGNAL(triggered()), this, SIGNAL(mapToScreen1Triggered()));
 
     action = addAction(QLatin1String("Map to screen 2"));
     action->setText( i18nc( "@action", "Map to screen 2" ) );
     action->setIcon( QIcon::fromTheme( QLatin1String( "video-display" ) ) );
-    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL + Qt::META + Qt::Key_2 ) );
+    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL | Qt::META | Qt::Key_2 ) );
     connect(action, SIGNAL(triggered()), this, SIGNAL(mapToScreen2Triggered()));
 
     action = addAction(QLatin1String("Next Profile"));
     action->setText( i18nc( "@action Switch to the next profile in the rotation", "Next profile" ) );
     action->setIcon( QIcon::fromTheme( QLatin1String( "go-next-use" ) ) );
-    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL + Qt::META + Qt::Key_N ) );
+    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL | Qt::META | Qt::Key_N ) );
     connect(action, SIGNAL(triggered()), this, SIGNAL(nextProfileTriggered()));
 
     action = addAction(QLatin1String("Previous Profile"));
     action->setText( i18nc( "@action Switch to the previous profile in the rotation", "Previous Profile" ) );
     action->setIcon( QIcon::fromTheme( QLatin1String( "go-previous-use" ) ) );
-    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL + Qt::META + Qt::Key_P ) );
+    KGlobalAccel::setGlobalShortcut(action, QKeySequence( Qt::CTRL | Qt::META | Qt::Key_P ) );
     connect(action, SIGNAL(triggered()), this, SIGNAL(previousProfileTriggered()));
 
     if (isConfiguration) {
