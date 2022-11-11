@@ -543,7 +543,7 @@ msgid ""
 "database."
 msgstr ""
 "Connecteu un dispositiu de tauleta per a continuar.\n"
-"Si el dispositiu ja està connectat, és que actualment no es troba a la base "
+"Si el dispositiu ja està connectat, és que actualment no es troba en la base "
 "de dades."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:216
