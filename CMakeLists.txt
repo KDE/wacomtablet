@@ -47,7 +47,12 @@ add_definitions( -DQT_USE_QSTRINGBUILDER )
 add_subdirectory( src )
 add_subdirectory( data )
 add_subdirectory( images )
-add_subdirectory( doc )
+
+ki18n_install(po)
+if(KF5DocTools_FOUND)
+    add_subdirectory( doc )
+    kdoctools_install(po)
+endif()
 
 ### Tests
 if(BUILD_TESTING)
