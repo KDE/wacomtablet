@@ -417,7 +417,7 @@ msgid ""
 "Please tap into all four corners to calibrate the tablet.\n"
 "Press escape to cancel the process."
 msgstr ""
-"Per favor, toqueu les quatre cantonades per a calibrar la tauleta.\n"
+"Per favor, toqueu els quatre cantons per a calibrar la tauleta.\n"
 "Premeu «Esc» per a cancel·lar el procés."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ErrorWidget)
