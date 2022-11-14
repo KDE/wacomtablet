@@ -245,10 +245,18 @@ bool XsetwacomAdaptor::setRotation(const QString& value)
 bool XsetwacomAdaptor::setParameter(const QString &device, const QString &param, const QString &value) const
 {
     QProcess setConf;
-    if (!value.isEmpty()) {
-        setConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("set") << device << param << value);
+
+    // https://bugs.kde.org/show_bug.cgi?id=454947
+    static const QRegularExpression buttonWithNumber(QStringLiteral("^Button \\d+$"));
+    if (param.contains(buttonWithNumber)) {
+        const QStringList splitted = param.split(QLatin1Char(' '));
+        setConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("set") << device << splitted[0] << splitted[1] << value);
     } else {
-        setConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("set") << device << param);
+        if (!value.isEmpty()) {
+            setConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("set") << device << param << value);
+        } else {
+            setConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("set") << device << param);
+        }
     }
 
     if (!setConf.waitForStarted() || !setConf.waitForFinished()) {
