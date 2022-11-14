@@ -22,7 +22,7 @@ ecm_setup_version(${PROJECT_VERSION}
 )
 
 find_package(Qt${QT_MAJOR_VERSION} REQUIRED COMPONENTS Core Gui Widgets DBus Qml)
-find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools)
+find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools KCMUtils)
 find_package(XCB REQUIRED COMPONENTS XINPUT)
 find_package(X11 REQUIRED)
 

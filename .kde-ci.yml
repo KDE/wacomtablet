@@ -13,3 +13,4 @@ Dependencies:
     'frameworks/kdbusaddons': '@stable'
     'frameworks/plasma-framework': '@stable'
     'frameworks/kdoctools': '@stable'
+    'frameworks/kcmutils': '@stable'

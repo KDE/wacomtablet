@@ -35,7 +35,7 @@
 
 using namespace Wacom;
 
-K_PLUGIN_FACTORY(KCMWacomTabletFactory, registerPlugin<KCMWacomTablet>();)
+K_PLUGIN_CLASS_WITH_JSON(KCMWacomTablet, "kcm_wacomtablet.json")
 
 KCMWacomTablet::KCMWacomTablet(QWidget *parent, const QVariantList & args)
         : KCModule(parent, args)
