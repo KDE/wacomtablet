@@ -38,6 +38,8 @@
 #include <KPluginFactory>
 #include <KNotification>
 #include <KLocalizedString>
+#include <KIO/ApplicationLauncherJob>
+
 #include <QGuiApplication>
 #include <QScreen>
 
@@ -114,7 +116,11 @@ void TabletDaemon::onNotify(const QString& eventId, const QString& title, const 
         notification->setActions(QStringList{
                                      i18nc("Button that shows up in notification of a new tablet being connected", "Configure")
                                  });
-        connect(notification, &KNotification::action1Activated, this, &TabletDaemon::onOpenConfiguration);
+        connect(notification, &KNotification::action1Activated, this, [notification]{
+            auto *job = new KIO::ApplicationLauncherJob(KService::serviceByDesktopName(QStringLiteral("kcm_wacomtablet")));
+            job->setStartupId(notification->xdgActivationToken().toUtf8());
+            job->start();
+        });
     }
 
     notification->sendEvent();
@@ -132,11 +138,6 @@ void TabletDaemon::onProfileChanged(const QString &tabletId, const QString& prof
     // optimal but at least it will enable the shortcuts again.
     qCDebug(KDED) << QLatin1String("Restoring global keyboard shortcuts...");
     setupActions();
-}
-
-void TabletDaemon::onOpenConfiguration() const
-{
-    QProcess::startDetached(QStringLiteral("kcmshell5"), QStringList() << QStringLiteral("wacomtablet"));
 }
 
 void TabletDaemon::setupActions()

@@ -86,11 +86,6 @@ public Q_SLOTS:
      */
     void onProfileChanged(const QString &tabletId, const QString& profile);
 
-    /**
-     * @brief Called when user presses "Configure" button on the notification popup
-     */
-    void onOpenConfiguration() const;
-
 private:
     /**
      * Sets up the global shortcut actions.

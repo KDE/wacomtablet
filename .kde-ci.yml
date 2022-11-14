@@ -14,3 +14,4 @@ Dependencies:
     'frameworks/plasma-framework': '@stable'
     'frameworks/kdoctools': '@stable'
     'frameworks/kcmutils': '@stable'
+    'frameworks/kio': '@stable'
