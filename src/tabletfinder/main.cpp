@@ -26,6 +26,7 @@
 int main(int argc, char *argv[])
 {
     KLocalizedString::setApplicationDomain("wacomtablet");
+    QGuiApplication::setDesktopFileName(QStringLiteral("kde_wacom_tabletfinder"));
     QApplication a(argc, argv);
     Wacom::Dialog w;
     w.show();
