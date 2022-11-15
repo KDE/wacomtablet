@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-17 00:49+0000\n"
+"POT-Creation-Date: 2022-11-15 00:49+0000\n"
 "PO-Revision-Date: 2021-08-07 10:03+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -1213,18 +1213,18 @@ msgstr "Invertera rullningsriktning"
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr "Om aktiverad, inverteras rullningsriktningen för rullningsgesten."
 
-#: src/kded/tabletdaemon.cpp:115
+#: src/kded/tabletdaemon.cpp:117
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Anpassa"
 
-#: src/kded/tabletdaemon.cpp:169
+#: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Inställningsdemon för grafisk ritplatta"
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:171
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "En styrdemon för Wacom ritplatta"

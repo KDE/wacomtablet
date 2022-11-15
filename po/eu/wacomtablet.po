@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-17 00:49+0000\n"
+"POT-Creation-Date: 2022-11-15 00:49+0000\n"
 "PO-Revision-Date: 2022-10-17 06:04+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1223,18 +1223,18 @@ msgstr ""
 "Hautatzen bada, kiribiltze keinurako kiribiltze noranzkoa alderantzikatzen "
 "da."
 
-#: src/kded/tabletdaemon.cpp:115
+#: src/kded/tabletdaemon.cpp:117
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Konfiguratu"
 
-#: src/kded/tabletdaemon.cpp:169
+#: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Tableta grafikoa konfiguratzeko daimona"
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:171
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Wacom tableta kontrolatzeko daimon bat"

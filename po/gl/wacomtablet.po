@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-17 00:49+0000\n"
+"POT-Creation-Date: 2022-11-15 00:49+0000\n"
 "PO-Revision-Date: 2020-01-05 18:43+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <kde-i18n-doc@kde.org>\n"
@@ -1221,18 +1221,18 @@ msgstr ""
 "Se se selecciona, invértese a dirección de desprazamento do xesto de "
 "desprazamento."
 
-#: src/kded/tabletdaemon.cpp:115
+#: src/kded/tabletdaemon.cpp:117
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Configurar"
 
-#: src/kded/tabletdaemon.cpp:169
+#: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Servizo de configuración da tableta dixitalizadora"
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:171
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Un servizo de control de tabletas de Wacom."

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-base-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-17 00:49+0000\n"
-"PO-Revision-Date: 2022-10-17 12:34+0300\n"
+"POT-Creation-Date: 2022-11-15 00:49+0000\n"
+"PO-Revision-Date: 2022-11-14 14:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1143,20 +1143,19 @@ msgstr "Hareketler"
 #: src/kcmodule/touchpagewidget.ui:235
 #, kde-format
 msgid "Minimum motion before sending a scroll gesture."
-msgstr "Kaydırma hareketi göndermeden önce asgari hareket."
+msgstr "Sarma hareketi göndermeden önce asgari hareket."
 
 #. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:238
 #, kde-format
 msgid "Scroll Distance"
-msgstr "Kaydırma Uzaklığı"
+msgstr "Sarma Uzaklığı"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, scrollDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:254
 #, kde-format
 msgid "The minimum motion in tablet units before sending a scroll event."
-msgstr ""
-"Kaydırma hareketi göndermeden önce tablet birimi olarak asgari hareket."
+msgstr "Sarma hareketi göndermeden önce tablet birimi olarak asgari hareket."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:273
@@ -1203,26 +1202,26 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:337
 #, kde-format
 msgid "Invert Scroll Direction"
-msgstr "Kaydırma Yönünü Tersine Çevir"
+msgstr "Sarma Yönünü Tersine Çevir"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, scrollInversionCheckBox)
 #: src/kcmodule/touchpagewidget.ui:344
 #, kde-format
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
-msgstr "Seçiliyse, kaydırma hareketi için kaydırma yönü tersine çevrilir."
+msgstr "Seçiliyse sarma hareketi için kaydırma yönü tersine çevrilir."
 
-#: src/kded/tabletdaemon.cpp:115
+#: src/kded/tabletdaemon.cpp:117
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Yapılandır"
 
-#: src/kded/tabletdaemon.cpp:169
+#: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Grafik Tablet Yapılandırma servisi"
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:171
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Wacom tablet kontrol servisi"
