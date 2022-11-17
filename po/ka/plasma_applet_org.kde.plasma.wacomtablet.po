@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-04-04 00:47+0000\n"
-"PO-Revision-Date: 2022-10-07 15:27+0200\n"
+"PO-Revision-Date: 2022-11-16 06:45+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:36
 #, kde-format
@@ -43,6 +43,8 @@ msgid ""
 "Please start the KDE wacom tablet service.\n"
 "The service is required for tablet detection and profile support."
 msgstr ""
+"გაუშვით KDE-ის wacom-ის ტაბლეტის სერვისი.\n"
+"ეს სერვისი აუცილებელია ტაბლეტების პოვნისა და პროფილების მხარდაჭერისათვის."
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:127
 #, kde-format

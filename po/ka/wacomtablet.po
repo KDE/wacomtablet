@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2022-10-07 15:31+0200\n"
+"PO-Revision-Date: 2022-11-16 06:52+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -110,7 +110,7 @@ msgstr "Wacom -ის ტაბლეტი"
 #, kde-format
 msgctxt "@action"
 msgid "Enable/Disable the Touch Tool"
-msgstr ""
+msgstr "შეხების ხელსაწყოს ჩართვა/გამორთვა"
 
 #: src/common/globalactions.cpp:40
 #, kde-format
@@ -122,7 +122,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action"
 msgid "Toggle between all screens"
-msgstr ""
+msgstr "ეკრანებს შორის გადართვა"
 
 #: src/common/globalactions.cpp:52
 #, kde-format
@@ -148,37 +148,37 @@ msgstr ""
 #, kde-format
 msgctxt "@action Switch to the next profile in the rotation"
 msgid "Next profile"
-msgstr ""
+msgstr "შემდეგი პროფილი"
 
 #: src/common/globalactions.cpp:76
 #, kde-format
 msgctxt "@action Switch to the previous profile in the rotation"
 msgid "Previous Profile"
-msgstr ""
+msgstr "წინა პროფილი"
 
 #: src/kcmodule/buttonactionselectiondialog.cpp:55
 #, kde-format
 msgctxt "The action that will be assigned to a tablet button."
 msgid "Select Button Action"
-msgstr ""
+msgstr "აირჩიეთ ღილაკის მოქმედება"
 
 #: src/kcmodule/buttonactionselectionwidget.cpp:150
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
-msgstr ""
+msgstr "დააწკაპუნეთ ასარჩევად..."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
 #: src/kcmodule/buttonactionselectionwidget.ui:14
 #, kde-format
 msgid "Select Key Function"
-msgstr ""
+msgstr "აირჩიეთ ღილაკის ფუნქცია"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:35
 #, kde-format
 msgid "Select Button Action"
-msgstr ""
+msgstr "აირჩიეთ ღილაკის მოქმედება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, ctrlModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:46
@@ -209,14 +209,14 @@ msgstr "Shift"
 #: src/kcmodule/buttonactionselectionwidget.ui:159
 #, kde-format
 msgid "Please select an action."
-msgstr ""
+msgstr "აირჩიეთ ქმედება."
 
 #. i18n: Click to assign an action (shortcut) to a tablet button.
 #. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameDisplayWidget)
 #: src/kcmodule/buttonactionselectorwidget.ui:51
 #, kde-format
 msgid "Click to assign an action."
-msgstr ""
+msgstr "ქმედების მისანიჭებლად დააწკაპუნეთ."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonPageWidget)
 #: src/kcmodule/buttonpagewidget.ui:20
@@ -229,7 +229,7 @@ msgstr ""
 #: src/kcmodule/kcmwacomtabletwidget.cpp:443
 #, kde-format
 msgid "Express Buttons"
-msgstr ""
+msgstr "სწრაფი ღილაკები"
 
 #. i18n: ectx: property (text), widget (QLabel, button1Label)
 #. i18n: ectx: property (text), widget (QLabel, labelButton1)
@@ -346,7 +346,7 @@ msgstr "ღილაკი 18"
 #: src/kcmodule/buttonpagewidget.ui:537
 #, kde-format
 msgid "Touch Strip"
-msgstr ""
+msgstr "ზოლის შეხება"
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:555
@@ -400,13 +400,13 @@ msgstr "ბორბალი"
 #: src/kcmodule/buttonpagewidget.ui:741
 #, kde-format
 msgid "Wheel Up"
-msgstr ""
+msgstr "რგოლი მაღლა"
 
 #. i18n: ectx: property (text), widget (QLabel, wheelDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:778
 #, kde-format
 msgid "Wheel Down"
-msgstr ""
+msgstr "რგოლი დაბლა"
 
 #: src/kcmodule/calibrationdialog.cpp:62
 #, kde-format
@@ -419,13 +419,13 @@ msgstr ""
 #: src/kcmodule/errorwidget.ui:14
 #, kde-format
 msgid "No Tablet Found"
-msgstr ""
+msgstr "ტაბლეტი ვერ ვიპოვე"
 
 #. i18n: ectx: property (text), widget (QCommandLinkButton, buttonRunTabletFinder)
 #: src/kcmodule/errorwidget.ui:107
 #, kde-format
 msgid "Manually register a tablet device"
-msgstr ""
+msgstr "ტაბლეტის მოწყობილობის ხელით რეგისტრაცია"
 
 #. i18n: ectx: property (description), widget (QCommandLinkButton, buttonRunTabletFinder)
 #: src/kcmodule/errorwidget.ui:110
@@ -448,19 +448,19 @@ msgstr "პროფილების სია"
 #: src/kcmodule/generalpagewidget.cpp:150
 #, kde-format
 msgid "Select the Profile you want to add:"
-msgstr ""
+msgstr "აირჩიეთ დასამატებელი პროფილი:"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, GeneralPageWidget)
 #: src/kcmodule/generalpagewidget.ui:14
 #, kde-format
 msgid "General Hardware Overview"
-msgstr ""
+msgstr "აპარატურის ზოგადი მიმოხილვა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
 #: src/kcmodule/generalpagewidget.ui:35
 #, kde-format
 msgid "Profile rotation"
-msgstr ""
+msgstr "პროფილის როტაცია"
 
 #. i18n: ectx: property (text), widget (QPushButton, pbDown)
 #: src/kcmodule/generalpagewidget.ui:80
@@ -495,12 +495,12 @@ msgstr "მალსახმობები"
 #: src/kcmodule/kcmwacomtablet.cpp:70
 #, kde-format
 msgid "Graphic Tablet Configuration"
-msgstr ""
+msgstr "გრაფიკული ტაბლეტის მორგება"
 
 #: src/kcmodule/kcmwacomtablet.cpp:71
 #, kde-format
 msgid "A configurator for graphic tablets"
-msgstr ""
+msgstr "გრაფიკული ტაბლეტების კონფიგურატორი"
 
 #: src/kcmodule/kcmwacomtablet.cpp:72
 #, kde-format
@@ -510,7 +510,7 @@ msgstr ""
 #: src/kcmodule/kcmwacomtabletwidget.cpp:165
 #, kde-format
 msgid "KDE tablet service not found"
-msgstr ""
+msgstr "KDE -ის ტაბლეტის სერვისი ვერ ვიპოვე"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
@@ -522,7 +522,7 @@ msgstr ""
 #: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
 msgid "No tablet device detected"
-msgstr ""
+msgstr "ტაბლეტის მოწყობილობა ვერ ვიპოვე"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:171
 #, kde-format
@@ -535,7 +535,7 @@ msgstr ""
 #: src/kcmodule/kcmwacomtabletwidget.cpp:216
 #, kde-format
 msgid "Add new profile"
-msgstr ""
+msgstr "ახალი პროფილის დამატება"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:217
 #, kde-format
@@ -575,12 +575,12 @@ msgstr "შეხება"
 #: src/kcmodule/kcmwacomtabletwidget.cpp:477
 #, kde-format
 msgid "Save changes to the current profile?"
-msgstr ""
+msgstr "შეინახეთ ცვლილებები მიმდინარე პროფილში?"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:475
 #, kde-format
 msgid "Save Profile"
-msgstr ""
+msgstr "პროფილის შენახვა"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:494
 #, kde-format
@@ -591,31 +591,31 @@ msgstr ""
 #: src/kcmodule/kcmwacomtabletwidget.ui:14
 #, kde-format
 msgid "Graphic Tablet Settings"
-msgstr ""
+msgstr "გრაფიკული ტაბლეტის მორგება"
 
 #. i18n: ectx: property (text), widget (QLabel, tabletListLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:25
 #, kde-format
 msgid "&Select Tablet:"
-msgstr ""
+msgstr "&აირჩიეთ ტაბლეტი:"
 
 #. i18n: ectx: property (text), widget (QLabel, profileLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:45
 #, kde-format
 msgid "Select &Profile:"
-msgstr ""
+msgstr "აირჩიეთ &პროფილი:"
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:67
 #, kde-format
 msgid "Creates a new default profile"
-msgstr ""
+msgstr "ახალი ნაგულისხმები პროფილის შექმნა"
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, delProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:83
 #, kde-format
 msgid "Deletes the current profile"
-msgstr ""
+msgstr "მიმდინარე პროფილის წაშლა"
 
 #: src/kcmodule/keysequenceinputbutton.cpp:287
 #, kde-format
@@ -859,7 +859,7 @@ msgstr ""
 #: src/kcmodule/tabletareaselectionview.ui:105
 #, kde-format
 msgid "&Full Tablet"
-msgstr ""
+msgstr "&სრული ტაბლეტი"
 
 #. i18n: ectx: property (text), widget (QRadioButton, tabletAreaRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:115
@@ -913,7 +913,7 @@ msgstr "სიგანე"
 #: src/kcmodule/tabletareaselectionview.ui:255
 #, kde-format
 msgid "Horizontal"
-msgstr ""
+msgstr "ჰორიზონტალური"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
 #: src/kcmodule/tabletareaselectionview.ui:268
@@ -1071,7 +1071,7 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:39
 #, kde-format
 msgid "Enable Touch"
-msgstr ""
+msgstr "სენსორის ჩართვა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/touchpagewidget.ui:60
@@ -1101,7 +1101,7 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:205
 #, kde-format
 msgid "Enable Gestures"
-msgstr ""
+msgstr "ჟესტების ჩართვა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gesturesGroupBox)
 #: src/kcmodule/touchpagewidget.ui:223
@@ -1195,12 +1195,12 @@ msgstr ""
 #: src/kded/tablethandler.cpp:142
 #, kde-format
 msgid "Tablet Connected"
-msgstr ""
+msgstr "ტაბლეტი დაკავშირებულია"
 
 #: src/kded/tablethandler.cpp:143
 #, kde-format
 msgid "New tablet '%1' connected."
-msgstr ""
+msgstr "მიერთებულია ახალი ტაბლეტი: '%1'."
 
 #: src/kded/tablethandler.cpp:173
 #, kde-format
@@ -1210,7 +1210,7 @@ msgstr "ტაბლეტი გამოერთდა"
 #: src/kded/tablethandler.cpp:174
 #, kde-format
 msgid "Tablet %1 removed"
-msgstr ""
+msgstr "ტაბლეტი %1 ამოღებულია"
 
 #: src/kded/tablethandler.cpp:461
 #, kde-format
@@ -1221,7 +1221,7 @@ msgstr "ნაგულისხმები"
 #: src/kded/tablethandler.cpp:473
 #, kde-format
 msgid "Graphic Tablet error"
-msgstr ""
+msgstr "გრაფიკული ტაბლეტის შეცდომა"
 
 #: src/kded/tablethandler.cpp:474
 #, kde-format
@@ -1249,13 +1249,13 @@ msgstr ""
 #: src/tabletfinder/dialog.ui:27
 #, kde-format
 msgid "Tablet Selection"
-msgstr ""
+msgstr "ტაბლეტის არჩევანი"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/tabletfinder/dialog.ui:39
 #, kde-format
 msgid "Detected Tablets:"
-msgstr ""
+msgstr "აღმოჩენილი ტაბლეტები:"
 
 #. i18n: ectx: property (text), widget (QPushButton, refreshButton)
 #: src/tabletfinder/dialog.ui:51
@@ -1345,7 +1345,7 @@ msgstr ""
 #: src/tabletfinder/dialog.ui:227
 #, kde-format
 msgid "&Normal tablet"
-msgstr ""
+msgstr "&ჩვეულებრივი ტაბლეტი"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioParentTablet)
 #: src/tabletfinder/dialog.ui:239
