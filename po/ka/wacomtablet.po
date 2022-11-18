@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2022-11-16 06:52+0100\n"
+"PO-Revision-Date: 2022-11-17 06:45+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -663,7 +663,7 @@ msgstr ""
 #: src/kcmodule/styluspagewidget.ui:14
 #, kde-format
 msgid "Pen Settings"
-msgstr ""
+msgstr "კალმის მორგება"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:28
