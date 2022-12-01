@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2022-10-18 07:51+0200\n"
+"PO-Revision-Date: 2022-11-24 08:49+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -441,7 +441,7 @@ msgstr ""
 #: src/kcmodule/generalpagewidget.cpp:56
 #, kde-format
 msgid "Wacom Tablet Settings"
-msgstr "Impostazioni della tavoletta Wacom"
+msgstr "Impostazioni delle tavoletta Wacom"
 
 #: src/kcmodule/generalpagewidget.cpp:149
 #, kde-format
