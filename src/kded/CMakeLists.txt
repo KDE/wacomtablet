@@ -57,7 +57,10 @@ ecm_qt_declare_logging_category(
     kded_wacomtablet_SRCS
     HEADER "logging.h"
     IDENTIFIER "KDED"
-    CATEGORY_NAME "org.kde.wacomtablet.kded")
+    DESCRIPTION "wacomtablet (kded)"
+    CATEGORY_NAME "org.kde.wacomtablet.kded"
+    EXPORT WACOMTABLET
+)
 
 ## dbus interfaces
 qt_add_dbus_adaptor(kded_wacomtablet_SRCS org.kde.Wacom.xml dbustabletservice.h Wacom::DBusTabletService)
@@ -73,7 +76,6 @@ set_target_properties(kded_wacomtablet PROPERTIES OUTPUT_NAME wacomtablet)
 install(TARGETS kded_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf5/kded)
 install(FILES wacomtablet.notifyrc DESTINATION "${KDE_INSTALL_KNOTIFYRCDIR}")
 install(FILES org.kde.Wacom.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR})
-install(FILES wacomtablet.categories DESTINATION ${KDE_INSTALL_CONFDIR})
 
 ## LIBRARY FOR UNIT TESTS
 if (BUILD_TESTING)

@@ -84,8 +84,11 @@ set(wacom_common_SRC
 ecm_qt_declare_logging_category(
     wacom_common_SRC
     HEADER "logging.h"
+    DESCRIPTION "wacomtablet (common)"
     IDENTIFIER "COMMON"
-    CATEGORY_NAME "org.kde.wacomtablet.common")
+    CATEGORY_NAME "org.kde.wacomtablet.common"
+    EXPORT WACOMTABLET
+)
 
 qt_add_dbus_interfaces(wacom_common_SRC
                         ../kded/org.kde.Wacom.xml)

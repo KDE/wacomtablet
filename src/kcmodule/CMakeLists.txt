@@ -61,8 +61,11 @@ ki18n_wrap_ui( kcm_tablet_SRCS
 ecm_qt_declare_logging_category(
     kcm_tablet_SRCS
     HEADER "logging.h"
+    DESCRIPTION "wacomtablet (kcm)"
     IDENTIFIER "KCM"
-    CATEGORY_NAME "org.kde.wacomtablet.kcm")
+    CATEGORY_NAME "org.kde.wacomtablet.kcm"
+    EXPORT WACOMTABLET
+)
 
 set(kcm_wacomtablet_PLUGIN_SRC
     kcmwacomtablet.cpp

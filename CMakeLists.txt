@@ -5,7 +5,7 @@ cmake_policy(SET CMP0048 NEW)
 project(wacomtablet VERSION "3.3.0")
 
 set(QT_MIN_VERSION "5.7.0")
-find_package(ECM 1.6.0 REQUIRED CONFIG)
+find_package(ECM 5.80.0 REQUIRED CONFIG)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake/modules)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
@@ -59,5 +59,10 @@ if(BUILD_TESTING)
   find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} CONFIG REQUIRED)
   add_subdirectory( autotests )
 endif()
+ecm_qt_install_logging_categories(
+        EXPORT WACOMTABLET
+        FILE wacomtablet.categories
+        DESTINATION ${KDE_INSTALL_LOGGINGCATEGORIESDIR}
+        )
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

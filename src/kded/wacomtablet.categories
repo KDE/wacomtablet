@@ -1,4 +1,0 @@
-# Logging categories for kdebugsettings
-org.kde.wacomtablet.common wacomtablet common library
-org.kde.wacomtablet.kcm wacomtablet systemsettings module
-org.kde.wacomtablet.kded wacomtablet service module
