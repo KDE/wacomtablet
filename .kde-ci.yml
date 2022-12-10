@@ -15,3 +15,6 @@ Dependencies:
     'frameworks/kdoctools': '@stable'
     'frameworks/kcmutils': '@stable'
     'frameworks/kio': '@stable'
+
+Options:
+  require-passing-tests-on: [ '@all' ]
