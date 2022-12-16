@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2022-11-17 06:45+0100\n"
+"PO-Revision-Date: 2022-12-15 10:59+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -116,7 +116,7 @@ msgstr "შეხების ხელსაწყოს ჩართვა/გ
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
-msgstr ""
+msgstr "სტილუსის რეჟიმის გადართვა (შედარებითი/აბსოლუტური)"
 
 #: src/common/globalactions.cpp:46
 #, kde-format
@@ -130,19 +130,19 @@ msgctxt ""
 "@action Maps the area of the tablet to all available screen space (space "
 "depends on connected monitors)"
 msgid "Map to fullscreen"
-msgstr ""
+msgstr "მთელ ეკრანზე პროექცია"
 
 #: src/common/globalactions.cpp:58
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 1"
-msgstr ""
+msgstr "პირველ ეკრანზე პროექცია"
 
 #: src/common/globalactions.cpp:64
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 2"
-msgstr ""
+msgstr "მეორე ეკრანზე პროექცია"
 
 #: src/common/globalactions.cpp:70
 #, kde-format
@@ -222,7 +222,7 @@ msgstr "ქმედების მისანიჭებლად დაა�
 #: src/kcmodule/buttonpagewidget.ui:20
 #, kde-format
 msgid "Pad Buttons"
-msgstr ""
+msgstr "გამოყენებითი ღილაკები"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
@@ -352,43 +352,43 @@ msgstr "ზოლის შეხება"
 #: src/kcmodule/buttonpagewidget.ui:555
 #, kde-format
 msgid "Left Strip Up"
-msgstr ""
+msgstr "მაღლა მარცხენა ზოლზე"
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:572
 #, kde-format
 msgid "Left Strip Down"
-msgstr ""
+msgstr "დაბლა მარცხენა ზოლზე"
 
 #. i18n: ectx: property (text), widget (QLabel, rightStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:620
 #, kde-format
 msgid "Right Strip Up"
-msgstr ""
+msgstr "მაღლა მარჯვენა ზოლზე"
 
 #. i18n: ectx: property (text), widget (QLabel, rightStripDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:637
 #, kde-format
 msgid "Right Strip Down"
-msgstr ""
+msgstr "დაბლა მარჯვენა ზოლზე"
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchRingGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:660
 #, kde-format
 msgid "Touch Ring"
-msgstr ""
+msgstr "სენსორული ბეჭედი"
 
 #. i18n: ectx: property (text), widget (QLabel, ringUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:671
 #, kde-format
 msgid "Ring Up"
-msgstr ""
+msgstr "ბეჭდის მაღლა დატრიალება"
 
 #. i18n: ectx: property (text), widget (QLabel, ringDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:711
 #, kde-format
 msgid "Ring Down"
-msgstr ""
+msgstr "ბეჭდის დაბლა დატრიალევა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, wheelGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:733
@@ -642,7 +642,7 @@ msgstr "არცერთი"
 #: src/kcmodule/pressurecurvedialog.ui:23
 #, kde-format
 msgid "Press Curve Settings"
-msgstr ""
+msgstr "დაჭერის მრუდის მორგება"
 
 #. i18n: ectx: property (text), widget (QLabel, explaining_Label)
 #: src/kcmodule/pressurecurvedialog.ui:37
@@ -657,7 +657,7 @@ msgstr ""
 #: src/kcmodule/pressurecurvedialog.ui:104
 #, kde-format
 msgid "Current Presscurve:"
-msgstr ""
+msgstr "დაჭერის მრუდის კოორდინატები:"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, StylusPageWidget)
 #: src/kcmodule/styluspagewidget.ui:14
@@ -669,13 +669,13 @@ msgstr "კალმის მორგება"
 #: src/kcmodule/styluspagewidget.ui:28
 #, kde-format
 msgid "Defines the button action on the stylus."
-msgstr ""
+msgstr "სტილუსის ღილაკის ქმედების აღწერა."
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:31
 #, kde-format
 msgid "Button Settings"
-msgstr ""
+msgstr "ღილაკის მორგება"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:113
@@ -691,19 +691,19 @@ msgstr ""
 #: src/kcmodule/styluspagewidget.ui:116
 #, kde-format
 msgid "Tap to execute action."
-msgstr ""
+msgstr "ქმედების შესასრულებლად დაატყაპუნეთ."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:128
 #, kde-format
 msgid "Sets eraser pressure threshold."
-msgstr ""
+msgstr "საშლელის დაწოლის ზღვრის მითითება."
 
 #. i18n: ectx: property (title), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:131
 #, kde-format
 msgid "Eraser Feel"
-msgstr ""
+msgstr "საშლელის შეგრძნება"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, eraserSlider)
 #. i18n: ectx: property (toolTip), widget (QSlider, tipSlider)
@@ -731,33 +731,33 @@ msgstr "რბილი"
 #, kde-format
 msgctxt "fast movement of the cursor (maximal value)"
 msgid "Firm"
-msgstr ""
+msgstr "მაგრად"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, eraserPressureButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, tipPressureButton)
 #: src/kcmodule/styluspagewidget.ui:241 src/kcmodule/styluspagewidget.ui:391
 #, kde-format
 msgid "Defines the pressure sensitivity with a bezier curve"
-msgstr ""
+msgstr "დაწოლის მგრძნობიარობის ბეზიეს მრუდით აღწერა"
 
 #. i18n: ectx: property (text), widget (QPushButton, eraserPressureButton)
 #. i18n: ectx: property (text), widget (QPushButton, tipPressureButton)
 #: src/kcmodule/styluspagewidget.ui:244 src/kcmodule/styluspagewidget.ui:394
 #, kde-format
 msgid "Edit Pressure Curve..."
-msgstr ""
+msgstr "დაწოლის მრუდის ჩასწორება..."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:272
 #, kde-format
 msgid "Sets stylus pressure threshold."
-msgstr ""
+msgstr "საშლელის დაწოლის ზღვრის დაყენება."
 
 #. i18n: ectx: property (title), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:275
 #, kde-format
 msgid "Tip Feel"
-msgstr ""
+msgstr "თავაკის შეგრძლება"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxRawSample)
 #. i18n: ectx: property (toolTip), widget (QSlider, horizontalSliderRawSample)
@@ -770,7 +770,7 @@ msgstr ""
 #: src/kcmodule/styluspagewidget.ui:415
 #, kde-format
 msgid "Raw Sample Rate"
-msgstr ""
+msgstr "დისკრეტიზაციის სიჩქარე"
 
 #. i18n: ectx: property (text), widget (QLabel, labelMinRawSample)
 #: src/kcmodule/styluspagewidget.ui:451
@@ -789,13 +789,13 @@ msgstr "20"
 #: src/kcmodule/styluspagewidget.ui:489
 #, kde-format
 msgid "Number of points trimmed (default is 2)"
-msgstr ""
+msgstr "წაკვეთილი წერტილების რაოდენობა (ნაგულისხმები: 2)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
 #: src/kcmodule/styluspagewidget.ui:492
 #, kde-format
 msgid "Suppress Rate"
-msgstr ""
+msgstr "ჩახშობის სიხშირე"
 
 #. i18n: ectx: property (text), widget (QLabel, labelMinSuppress)
 #: src/kcmodule/styluspagewidget.ui:525
@@ -809,7 +809,7 @@ msgctxt ""
 "Dialog title from a dialog which lets the user select an area of the tablet "
 "where the screen space will be mapped to."
 msgid "Select a Tablet Area"
-msgstr ""
+msgstr "აირჩიეთ ტაბლეტის რეგიონი"
 
 #: src/kcmodule/tabletareaselectionview.cpp:139
 #: src/kcmodule/tabletareaselectionview.cpp:168
@@ -835,13 +835,13 @@ msgstr "ეკრანი"
 #: src/kcmodule/tabletareaselectionview.ui:83
 #, kde-format
 msgid "Toggle between fullscreen and each single screen."
-msgstr ""
+msgstr "მთელ ეკრანსა და ერთ ეკრანს შორის გადართვა."
 
 #. i18n: ectx: property (text), widget (QPushButton, screenToggleButton)
 #: src/kcmodule/tabletareaselectionview.ui:86
 #, kde-format
 msgid "Toggle Screen"
-msgstr ""
+msgstr "ეკრანის გადართვა"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:96
@@ -853,7 +853,7 @@ msgstr ""
 #: src/kcmodule/tabletareaselectionview.ui:99
 #, kde-format
 msgid "Map Screen To"
-msgstr ""
+msgstr "ეკრანის პროექცია"
 
 #. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:105
@@ -865,7 +865,7 @@ msgstr "&სრული ტაბლეტი"
 #: src/kcmodule/tabletareaselectionview.ui:115
 #, kde-format
 msgid "&Tablet Area"
-msgstr ""
+msgstr "&ტაბლეტის რეგიონი"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:122
@@ -877,7 +877,7 @@ msgstr ""
 #: src/kcmodule/tabletareaselectionview.ui:125
 #, kde-format
 msgid "Set Screen Proportions"
-msgstr ""
+msgstr "ეკრანის პროპორციების დაყენება"
 
 #. i18n: ectx: property (text), widget (QPushButton, calibrateButton)
 #: src/kcmodule/tabletareaselectionview.ui:132
@@ -889,19 +889,19 @@ msgstr "კალიბრაცია"
 #: src/kcmodule/tabletareaselectionview.ui:204
 #, kde-format
 msgid "This mapping can only be applied in absolute tracking mode."
-msgstr ""
+msgstr "ეს პროექცია მხოლოდ აბსოლუტური დევნების რეჟიმში შეგიძლიათ, გამოიყენოთ."
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
 #: src/kcmodule/tabletareaselectionview.ui:219
 #, kde-format
 msgid "Lock proportions"
-msgstr ""
+msgstr "პროპორციების ჩაკეტვა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:233
 #, kde-format
 msgid "Tablet area fine tuning"
-msgstr ""
+msgstr "ტაბლეტის რეგიონის ზუსტი მორგება"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
 #: src/kcmodule/tabletareaselectionview.ui:245
@@ -919,7 +919,7 @@ msgstr "ჰორიზონტალური"
 #: src/kcmodule/tabletareaselectionview.ui:268
 #, kde-format
 msgid "Left margin"
-msgstr ""
+msgstr "მარცხენა ველი"
 
 #. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
 #: src/kcmodule/tabletareaselectionview.ui:278
@@ -931,7 +931,7 @@ msgstr "ვერტიკალური"
 #: src/kcmodule/tabletareaselectionview.ui:291
 #, kde-format
 msgid "Top margin"
-msgstr ""
+msgstr "ზედა ველი"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
 #: src/kcmodule/tabletareaselectionview.ui:307
@@ -969,31 +969,31 @@ msgstr "ტაბლეტი მაღლიდან დაბლა ააბ
 #: src/kcmodule/tabletpagewidget.ui:25 src/kcmodule/touchpagewidget.ui:57
 #, kde-format
 msgid "Defines how the cursor movement mode will be used."
-msgstr ""
+msgstr "აღიწერება კურსორის გადაადგილების რეჟიმი."
 
 #. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:28
 #, kde-format
 msgid "Stylus Tracking Mode"
-msgstr ""
+msgstr "სტილუსის დევნების რეჟიმი"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:72
 #, kde-format
 msgid "&Map to Screen (Absolute Mode)"
-msgstr ""
+msgstr "&ეკრანზე პროექცია"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackRelativeRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:56 src/kcmodule/touchpagewidget.ui:88
 #, kde-format
 msgid "Map &to Cursor (Relative Mode)"
-msgstr ""
+msgstr "კურსორით &პროექცია"
 
 #. i18n: ectx: property (title), widget (QGroupBox, padMappingGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:88
 #, kde-format
 msgid "Tablet Mapping"
-msgstr ""
+msgstr "ტაბლეტის სამუშაო ადგილის პროექცია"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, touchMappingTabletButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, padMappingTabletButton)
@@ -1008,7 +1008,7 @@ msgstr ""
 #: src/kcmodule/tabletpagewidget.ui:103
 #, kde-format
 msgid "Map Tablet Area to Screen"
-msgstr ""
+msgstr "ტაბლეტის სამუშაო ადგილის პროექცია ეკრანზე"
 
 #. i18n: ectx: property (text), widget (QLabel, trackingWarningLabel)
 #: src/kcmodule/tabletpagewidget.ui:128 src/kcmodule/touchpagewidget.ui:166
@@ -1021,7 +1021,7 @@ msgstr ""
 #: src/kcmodule/tabletpagewidget.ui:169
 #, kde-format
 msgid "Changes the orientation of the tablet."
-msgstr ""
+msgstr "ტაბლეტის ორიენტაციის შეცვლა."
 
 #. i18n: ectx: property (title), widget (QGroupBox, rotationGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:172
@@ -1033,13 +1033,13 @@ msgstr "ორიენტაცია"
 #: src/kcmodule/tabletpagewidget.ui:181
 #, kde-format
 msgid "If enabled, the tablet rotates together with the screen."
-msgstr ""
+msgstr "თუ ჩართულია, ტაბლეტი ეკრანთან ერთად მოტრიალდება."
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:184
 #, kde-format
 msgid "Auto-Rotate with Screen"
-msgstr ""
+msgstr "ეკრანთან ერთად შემობრუნება"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenInvertCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:194
@@ -1053,7 +1053,7 @@ msgstr ""
 #: src/kcmodule/tabletpagewidget.ui:197
 #, kde-format
 msgid "Invert Auto-Rotation"
-msgstr ""
+msgstr "ავტომატური შემობრუნების ინვერსია"
 
 #. i18n: ectx: property (text), widget (KMessageWidget, gesturesWarning)
 #: src/kcmodule/touchpagewidget.ui:17
@@ -1065,7 +1065,7 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:36
 #, kde-format
 msgid "If enabled the tablet will emit touch events."
-msgstr ""
+msgstr "თუ ჩართულია, პლანშეტი შეხების შესახებ შეტყობინებებს გაჩვენებთ."
 
 #. i18n: ectx: property (text), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:39
@@ -1077,25 +1077,25 @@ msgstr "სენსორის ჩართვა"
 #: src/kcmodule/touchpagewidget.ui:60
 #, kde-format
 msgid "Touch Tracking Mode"
-msgstr ""
+msgstr "შეხების დევნების რეჟიმი"
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchMappingGroupBox)
 #: src/kcmodule/touchpagewidget.ui:123
 #, kde-format
 msgid "Touch Mapping"
-msgstr ""
+msgstr "შეხების პროექცია"
 
 #. i18n: ectx: property (text), widget (QPushButton, touchMappingTabletButton)
 #: src/kcmodule/touchpagewidget.ui:138
 #, kde-format
 msgid "Map Touch Area to Screen"
-msgstr ""
+msgstr "სენსორული რეგიონის ეკრანზე პროექცია"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:202
 #, kde-format
 msgid "If enabled the touch events can recognize gestures."
-msgstr ""
+msgstr "თუ ჩართულია, შეხების მოვლენებს ჟესტების გამოცნობა შეეძლებათ."
 
 #. i18n: ectx: property (text), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:205
@@ -1113,13 +1113,13 @@ msgstr "ჟესტები"
 #: src/kcmodule/touchpagewidget.ui:235
 #, kde-format
 msgid "Minimum motion before sending a scroll gesture."
-msgstr ""
+msgstr "მინიმალური მოძრაობა დაქაჩვის ჟესტის გაგზავნამდე."
 
 #. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:238
 #, kde-format
 msgid "Scroll Distance"
-msgstr ""
+msgstr "გადახვევის მანძილი"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, scrollDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:254
@@ -1131,13 +1131,13 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:273
 #, kde-format
 msgid "Minimum distance for a zoom gesture is recognized."
-msgstr ""
+msgstr "მინიმალური მანძილი გადიდების ჟესტის ამოსაცნობად."
 
 #. i18n: ectx: property (text), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:276
 #, kde-format
 msgid "Zoom Distance"
-msgstr ""
+msgstr "გადიდების მანძილი"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, zoomDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:292
@@ -1150,13 +1150,13 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:311
 #, kde-format
 msgid "Minimum time between taps for a right click."
-msgstr ""
+msgstr "მინიმალური დრო დატყაპუნებებს შორის მარჯვენა წკაპისთვის."
 
 #. i18n: ectx: property (text), widget (QLabel, tapTimeLabel)
 #: src/kcmodule/touchpagewidget.ui:314
 #, kde-format
 msgid "Tap Time"
-msgstr ""
+msgstr "დატყაპუნების დრო"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, tapTimeSpinBox)
 #: src/kcmodule/touchpagewidget.ui:324
@@ -1168,7 +1168,7 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:337
 #, kde-format
 msgid "Invert Scroll Direction"
-msgstr ""
+msgstr "ჩოჩიის მიმართულების ინვერსია"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, scrollInversionCheckBox)
 #: src/kcmodule/touchpagewidget.ui:344
@@ -1185,12 +1185,12 @@ msgstr "მორგება"
 #: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
-msgstr ""
+msgstr "გრაფიკული ტაბლეტის მორგების დემონი"
 
 #: src/kded/tabletdaemon.cpp:171
 #, kde-format
 msgid "A Wacom tablet control daemon"
-msgstr ""
+msgstr "Wacom -ის ტაბლეტის კონტროლის დემონი"
 
 #: src/kded/tablethandler.cpp:142
 #, kde-format
@@ -1226,24 +1226,24 @@ msgstr "გრაფიკული ტაბლეტის შეცდომ�
 #: src/kded/tablethandler.cpp:474
 #, kde-format
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
-msgstr ""
+msgstr "პროფილი <b>%1</b> არ არსებობს. <b>%2</b> -ის გამოყენება"
 
 #: src/tabletfinder/dialog.cpp:453
 #, kde-format
 msgid "Button %1 maps to Button %2"
-msgstr ""
+msgstr "ღილაკი %1 მიბმულია ღილაკზე %2"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
 #: src/tabletfinder/dialog.ui:14
 #, kde-format
 msgid "Wacom Tablet detection"
-msgstr ""
+msgstr "Wacom -ის ტაბლეტის ამოცნობა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/tabletfinder/dialog.ui:20
 #, kde-format
 msgid "Connect your Tablet and click on Refresh to detect it."
-msgstr ""
+msgstr "აღმოსაჩენად, შეაერთეთ ტაბლეტი და განახლებას დააჭირეთ."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tabletfinder/dialog.ui:27
@@ -1285,61 +1285,61 @@ msgstr "ტაბლეტის ფუნქციები"
 #: src/tabletfinder/dialog.ui:111
 #, kde-format
 msgid "has TouchRing"
-msgstr ""
+msgstr "გააჩნია სენსორული ბეჭედი"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsRight)
 #: src/tabletfinder/dialog.ui:118
 #, kde-format
 msgid "has Status LEDs right"
-msgstr ""
+msgstr "სტატუსის LED-ები მარჯვნივ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripLeft)
 #: src/tabletfinder/dialog.ui:125
 #, kde-format
 msgid "has Touchstrip Left"
-msgstr ""
+msgstr "სენსორული ზოლი მარცხნივ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripRight)
 #: src/tabletfinder/dialog.ui:132
 #, kde-format
 msgid "has Touchstrip Right"
-msgstr ""
+msgstr "სენსორული ზოლი მარჯვნივ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsLeft)
 #: src/tabletfinder/dialog.ui:139
 #, kde-format
 msgid "has Status LEDs left"
-msgstr ""
+msgstr "სტატუსის LED-ები მარცხნივ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasWheel)
 #: src/tabletfinder/dialog.ui:146
 #, kde-format
 msgid "has Wheel"
-msgstr ""
+msgstr "აქვს ბორბალი"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: src/tabletfinder/dialog.ui:169
 #, kde-format
 msgid "Button mapping"
-msgstr ""
+msgstr "ღილაკების მიბმა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tabletfinder/dialog.ui:177
 #, kde-format
 msgid "Number of available Express Keys:"
-msgstr ""
+msgstr "ექსპრეს-ღილაკების ხელმისაწვდომი რაოდენობა:"
 
 #. i18n: ectx: property (text), widget (QPushButton, mapButtons)
 #: src/tabletfinder/dialog.ui:189
 #, kde-format
 msgid "Map Hardware Buttons"
-msgstr ""
+msgstr "აპარატურული ღილაკების მიბმა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
 #: src/tabletfinder/dialog.ui:221
 #, kde-format
 msgid "Touch sensor"
-msgstr ""
+msgstr "შეხების სენსორი"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
 #: src/tabletfinder/dialog.ui:227
@@ -1351,28 +1351,28 @@ msgstr "&ჩვეულებრივი ტაბლეტი"
 #: src/tabletfinder/dialog.ui:239
 #, kde-format
 msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-msgstr ""
+msgstr "&მრავალმოწყობილობიანი ტაბლეტი, ფანქრის სენსორი, შეხების სენსორია:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
 #: src/tabletfinder/dialog.ui:251
 #, kde-format
 msgid "Multi-&device tablet, touch sensor"
-msgstr ""
+msgstr "მრავალმოწყობილობიანი &ტაბლეტი, შეხების სენსორი"
 
 #: src/tabletfinder/hwbuttondialog.cpp:65
 #, kde-format
 msgid "Please press Button %1 on the tablet now."
-msgstr ""
+msgstr "დააწექით ტაბლეტის ღილაკს %1."
 
 #: src/tabletfinder/hwbuttondialog.cpp:89
 #, kde-format
 msgid "Hardware button %1 detected."
-msgstr ""
+msgstr "ფიზიკური ღილაკი %1 აღმოჩენილია."
 
 #: src/tabletfinder/hwbuttondialog.cpp:101
 #, kde-format
 msgid "All buttons detected. Please close dialog"
-msgstr ""
+msgstr "ყველა ღილაკი ნაპოვნია. დახურეთ ფანჯარა"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, HWButtonDialog)
 #: src/tabletfinder/hwbuttondialog.ui:14
