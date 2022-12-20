@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2022-12-15 10:59+0100\n"
+"PO-Revision-Date: 2022-12-19 09:26+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -505,7 +505,7 @@ msgstr "გრაფიკული ტაბლეტების კონფ�
 #: src/kcmodule/kcmwacomtablet.cpp:72
 #, kde-format
 msgid "In this module you can configure your Wacom tablet profiles"
-msgstr ""
+msgstr "ამ მოდულით თქვენი Wacom-ის ტაბლეტის პროფილების მართვა შეგიძლიათ"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:165
 #, kde-format
@@ -586,6 +586,8 @@ msgstr "პროფილის შენახვა"
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
+"Wacom-ის ტაბლეტის მომძებნი პროგრამის გაშვების შეცდომა. შეამოწმეთ თქვენი "
+"ფაილები."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
 #: src/kcmodule/kcmwacomtabletwidget.ui:14
@@ -765,6 +767,8 @@ msgstr "თავაკის შეგრძლება"
 #, kde-format
 msgid "Number of raw data used to filter the points (default is 4)"
 msgstr ""
+"წერტილების გასაფილტრად გამოყენებული დაუმუშავებელი მონაცემები (ნაგულისხმები: "
+"4)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxRawSample)
 #: src/kcmodule/styluspagewidget.ui:415
