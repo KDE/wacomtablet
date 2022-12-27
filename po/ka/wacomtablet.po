@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2022-12-19 09:26+0100\n"
+"PO-Revision-Date: 2022-12-26 02:08+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -875,7 +875,7 @@ msgstr "&ტაბლეტის რეგიონი"
 #: src/kcmodule/tabletareaselectionview.ui:122
 #, kde-format
 msgid "Set the tablet area proportional to the selected screen area."
-msgstr ""
+msgstr "ტაბლეტის ფართობის ეკრანის მონიშნულ ადგილზე პროპორციულად დაყენება."
 
 #. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:125
@@ -1007,6 +1007,8 @@ msgid ""
 "Allows one to specify the tablet area for different screen selections in "
 "absolute cursor mode."
 msgstr ""
+"საშუალებას გაძლევთ აბსოლუტურ კურსორის რეჟიმში ეკრანის ტაბლეტის ეკრანისგან "
+"განსხვავებულ მონიშნულზე მიამაგროთ."
 
 #. i18n: ectx: property (text), widget (QPushButton, padMappingTabletButton)
 #: src/kcmodule/tabletpagewidget.ui:103
@@ -1063,7 +1065,7 @@ msgstr "ავტომატური შემობრუნების ი�
 #: src/kcmodule/touchpagewidget.ui:17
 #, kde-format
 msgid "Enabling gestures may break touch input using a touchscreen."
-msgstr ""
+msgstr "ჟესტების ჩართვამ შეიძლება სენსორული ეკრანით შეყვანა გააფუჭოს."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:36
@@ -1129,7 +1131,7 @@ msgstr "გადახვევის მანძილი"
 #: src/kcmodule/touchpagewidget.ui:254
 #, kde-format
 msgid "The minimum motion in tablet units before sending a scroll event."
-msgstr ""
+msgstr "მინიმალური გადაადგილება ტაბლეტზე, სანამ აქაჩვის მოვლენა გაიგზავნება."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:273
@@ -1148,7 +1150,7 @@ msgstr "გადიდების მანძილი"
 #, kde-format
 msgid ""
 "The minimum distance in tablet units for a zoom gesture to be recognized."
-msgstr ""
+msgstr "მინიმალური მანძილი გადიდების ჟესტის ამოსაცნობად."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, tapTimeLabel)
 #: src/kcmodule/touchpagewidget.ui:311
@@ -1166,7 +1168,7 @@ msgstr "დატყაპუნების დრო"
 #: src/kcmodule/touchpagewidget.ui:324
 #, kde-format
 msgid "The minimum time in milliseconds between taps to trigger a right click."
-msgstr ""
+msgstr "მინიმალური დრო დატყაპუნებებს შორის მარჯვენა წკაპისთვის."
 
 #. i18n: ectx: property (text), widget (QLabel, scrollInversionLabel)
 #: src/kcmodule/touchpagewidget.ui:337
@@ -1178,7 +1180,7 @@ msgstr "ჩოჩიის მიმართულების ინვერ�
 #: src/kcmodule/touchpagewidget.ui:344
 #, kde-format
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
-msgstr ""
+msgstr "თუ ჩართულია, აქაჩვის ჟესტის მიმართულება შებრუნდება."
 
 #: src/kded/tabletdaemon.cpp:117
 #, kde-format
