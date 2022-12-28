@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2022-12-26 02:08+0100\n"
+"PO-Revision-Date: 2022-12-27 02:53+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -414,6 +414,8 @@ msgid ""
 "Please tap into all four corners to calibrate the tablet.\n"
 "Press escape to cancel the process."
 msgstr ""
+"ტაბლეტის კალიბრაციისთვის დაატყაპუნეთ მის ოთხივე კუთხეში.\n"
+"პროცესის გასაუქმებლად დააწექით Esc."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ErrorWidget)
 #: src/kcmodule/errorwidget.ui:14
@@ -434,6 +436,8 @@ msgid ""
 "This will open another window, prompting you to describe your tablet device. "
 "After you're done, please restart your desktop session."
 msgstr ""
+"ეს გახსნის ახალ ფანჯარას და გკითავთ აღწეროთ თქვენი ტაბლეტი. დამთავრების "
+"შემდეგ თქვენი სამუშაო მაგიდის სესიის გადატვირთვა აუცილებელია."
 
 #: src/kcmodule/generalpagewidget.cpp:56
 #, kde-format
@@ -518,6 +522,8 @@ msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
 "The service is required for tablet detection and profile support."
 msgstr ""
+"ამ ფანჯრის გამოსაყენებლად გაუშვით KDE -ის Wacom ტაბლეტის სერვისი.\n"
+"სერვისი აუცილებელია ტაბლეტის აღმოსაჩენად და პროფილის მხარდასაჭერად."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
@@ -531,6 +537,8 @@ msgid ""
 "If your device is already connected, it is currently not in the device "
 "database."
 msgstr ""
+"გასაგრძელებლად შეაერთეთ ტაბლეტის მოწყობილობა.\n"
+"თუ მოწყობილობა უკვე მიერთებულია, ის ამჟამად მოწყობილობების ბაზაში არაა."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:216
 #, kde-format
@@ -654,6 +662,9 @@ msgid ""
 "Drag around the dots to change the behavior\n"
 "Use the stylus inside the Widget to see the pressure changes."
 msgstr ""
+"დაწოლის სიმძლავრე განსაზღვრავს, როგორ მუშავდება ფანქრის დაწოლა.\n"
+"ქცევის შესაცვლელად წერტილების გარშემო შემოათრიეთ\n"
+"წნევის ცვლილებების სანახავად სტილუსი ვიჯეტის შიგნით გამოიყენეთ."
 
 #. i18n: ectx: property (text), widget (QLabel, pc_Label)
 #: src/kcmodule/pressurecurvedialog.ui:104
@@ -688,6 +699,8 @@ msgid ""
 "If deselected, stylus buttons will work once the stylus is in proximity of "
 "the tablet."
 msgstr ""
+"თუ არჩეულია, სტილუსის გვერდითი ღილაკის სამუშაოდ მისით ტაბლეტს უნდა შეეხოთ.\n"
+"თუ გამორთულია, სტილუსის ღილაკები ტაბლეტთან ახლოს მიტანისას ამუშავდებიან."
 
 #. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:116
@@ -718,6 +731,11 @@ msgid ""
 "irregardless of the actual hardware supported levels.\n"
 "This parameter is independent of the PressureCurve parameter."
 msgstr ""
+"დააყენეთ მინიმალური წნევა, რომელიც საჭიროა ღილაკის მოვლენის გენერაციისთვის "
+"სტილუსი/წვერით, საშლელით ან შეხებით.\n"
+"ტაბლეტის წნევის დონე ნორმალიზდება 2048 დონეს შორის იმის გაუთვალისწინებლად, "
+"რომელ აპარატურაზე მუშაობთ.\n"
+"პარამეტრი დამოუკიდებელია PressureCurve პარამეტრისგან."
 
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_3)
@@ -828,6 +846,8 @@ msgid ""
 "The tablet area defines how the screen space is mapped to your tablet. For "
 "each screen a different tablet area can be selected. "
 msgstr ""
+"ტაბლეტის ფართობი განსაზღვრავს, როგორაა ეკრანზე თქვენი ტაბლეტი მიბმული. "
+"თითოეულ ეკრანზე სხვადასხვა ტაბლეტის ადგილი შეგიძლიათ, მიაბათ. "
 
 #. i18n: ectx: property (title), widget (QGroupBox, screenGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:57
@@ -851,7 +871,7 @@ msgstr "ეკრანის გადართვა"
 #: src/kcmodule/tabletareaselectionview.ui:96
 #, kde-format
 msgid "Select the valid tablet area used for the selected screen space."
-msgstr ""
+msgstr "აირჩიტ სწორი ტაბლეტის ადგილები ეკრანის ამ მონიშნული ადგილისთვის."
 
 #. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:99
@@ -1021,7 +1041,7 @@ msgstr "ტაბლეტის სამუშაო ადგილის პ
 #, kde-format
 msgid ""
 "Your currently selected mapping can not be applied in relative tracking mode."
-msgstr ""
+msgstr "ტრეკინგის ამ რეჟიში ამჟამად მონიშნული მიბმა არ შეიძლება."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, rotationGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:169
@@ -1054,6 +1074,8 @@ msgid ""
 "If enabled the automatic tablet rotation for clockwise and counterclockwise "
 "rotations will be inverted."
 msgstr ""
+"თუ ჩართულია, ტაბლეტის ეკრანის საათის ან მისი საპირისპირო შემობრუნებები "
+"ინვერსიული იქნება."
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenInvertCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:197
@@ -1392,4 +1414,4 @@ msgstr "ფანჯარა"
 msgid ""
 "Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
 "the mouse."
-msgstr ""
+msgstr "გაარხიეთ თაგუნას კურსორი ფანჯრის შიგნით მაგრამ <b>ნუ</b> დააწკაპუნებთ."
