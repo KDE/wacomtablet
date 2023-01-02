@@ -11,6 +11,8 @@ Configuration can be located in System Settings → Input devices → Tablets
 Easy profile switching is supported via hotkeys or a small plasma applet in tray notification area.
 In addition, a daemon running in the background helps with hotplug support.
 
+This project only works on X11. For Plasma Wayland there is a separate KCM to configure graphics tablets in [plasma-desktop](https://invent.kde.org/plasma/plasma-desktop/-/tree/master/kcms/tablet).
+
 Hardware support
 ----------------
 
