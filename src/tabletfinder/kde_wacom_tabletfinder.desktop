@@ -80,3 +80,4 @@ GenericName[x-test]=xxHelper tool to detect Wacom Tabletsxx
 GenericName[zh_CN]=用于检测 Wacom 数位板的辅助工具
 GenericName[zh_TW]=偵測 Wacom 平百裝置的工具
 Categories=Qt;KDE;Settings
+X-KDE-OnlyShowOnQtPlatforms=xcb
