@@ -2,21 +2,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2013, 2014, 2015.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2013.
-# Vit Pelcak <vit@pelcak.org>, 2015, 2018.
+# Vit Pelcak <vit@pelcak.org>, 2015, 2018, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2018-07-16 12:51+0100\n"
+"PO-Revision-Date: 2023-01-04 10:09+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 22.12.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #, kde-format
@@ -428,7 +428,7 @@ msgstr "Tablet nenalezen"
 #: src/kcmodule/errorwidget.ui:107
 #, kde-format
 msgid "Manually register a tablet device"
-msgstr ""
+msgstr "Zaregistrujte zařízení tabletu ručně"
 
 #. i18n: ectx: property (description), widget (QCommandLinkButton, buttonRunTabletFinder)
 #: src/kcmodule/errorwidget.ui:110
@@ -437,6 +437,8 @@ msgid ""
 "This will open another window, prompting you to describe your tablet device. "
 "After you're done, please restart your desktop session."
 msgstr ""
+"Toto otevře další okno, kde bude potřeba popsat vaše zařízení tabletu. Poté, "
+"co to uděláte, prosím restartujte sezení pracovního prostředí."
 
 #: src/kcmodule/generalpagewidget.cpp:56
 #, kde-format
@@ -536,6 +538,8 @@ msgid ""
 "If your device is already connected, it is currently not in the device "
 "database."
 msgstr ""
+"Pro pokračování prosím připojte tablet.\n"
+"Pokud je vaše zařízení již připojeno, není momentálně v databázi zařízení."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:216
 #, kde-format
@@ -662,7 +666,7 @@ msgstr ""
 #: src/kcmodule/pressurecurvedialog.ui:104
 #, kde-format
 msgid "Current Presscurve:"
-msgstr ""
+msgstr "Současná křivka tlaku:"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, StylusPageWidget)
 #: src/kcmodule/styluspagewidget.ui:14
