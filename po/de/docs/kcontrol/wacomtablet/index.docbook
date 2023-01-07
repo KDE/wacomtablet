@@ -1,286 +1,338 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
-  <!ENTITY tablet "<application>KCM Tablet</application>">
+  <!ENTITY tablet "<application
+>KCM Tablet</application
+>">
   <!ENTITY kappname "&tablet;">
   <!ENTITY package "kcontrol">
-  <!ENTITY kappversion "2.0"><!--Application version. Use this variable everywhere it's needed.-->
+  <!ENTITY kappversion "2.0"
+><!--Application version. Use this variable everywhere it's needed.-->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE">
+  <!ENTITY % German "INCLUDE">
 ]>
 <book id="wacomtablet" lang="&language;">
     <bookinfo>
-    <title>The &tablet; Handbook</title>
+    <title
+>Das Handbuch zu &tablet;</title>
 
     <authorgroup>
-        <author>
-            <firstname>Jörg</firstname>
-            <surname>Ehrichs</surname>
-            <affiliation>
-                <address><email>joerg.ehrichs@gmx.de</email></address>
+        <author
+><firstname
+>Jörg</firstname
+> <surname
+>Ehrichs</surname
+> <affiliation
+> <address
+><email
+>joerg.ehrichs@gmx.de</email
+></address>
             </affiliation>
         </author>
-        <!-- TRANS:ROLES_OF_TRANSLATORS -->
+        <othercredit role="translator"
+><firstname
+>Burkhard</firstname
+><surname
+>Lück</surname
+><affiliation
+><address
+><email
+>lueck@hube-lueck.de</email
+></address
+></affiliation
+><contrib
+>Übersetzung</contrib
+></othercredit
+> 
     </authorgroup>
     <copyright>
-        <year>2013</year>
-        <holder>Jörg Ehrichs</holder>
+        <year
+>2013</year>
+        <holder
+>Jörg Ehrichs</holder>
     </copyright>
 
-    <legalnotice>&FDLNotice;</legalnotice>
+    <legalnotice
+>&FDLNotice;</legalnotice>
 
-    <date>2020-10-17</date><!-- Date of (re)writing, or update.-->
-    <releaseinfo>&kappversion;</releaseinfo><!-- Application version number. Use the variable definitions within header to change this value.-->
+    <date
+>2020-10-17</date
+><!-- Date of (re)writing, or update.-->
+    <releaseinfo
+>&kappversion;</releaseinfo
+><!-- Application version number. Use the variable definitions within header to change this value.-->
 
     <abstract>
-        <para>This is the documentation for the &kde; &systemsettings; module that configures graphic tablets.</para>
+        <para
+>Dies ist die Dokumentation für das &kde; &systemsettings;-Modul, mit dem Grafik-Tabletts eingerichtet werden.</para>
     </abstract>
 
     <keywordset>
-        <keyword>KDE</keyword><!-- do not change this! -->
-        <keyword>System Settings</keyword>
-        <keyword>Wacom</keyword>
-        <keyword>Tablet</keyword>
+        <keyword
+>KDE</keyword
+><!-- do not change this! -->
+        <keyword
+>Systemeinstellungen</keyword>
+        <keyword
+>Wacom</keyword>
+        <keyword
+>Tablett</keyword>
     </keywordset>
 
     </bookinfo>
 
     <chapter id="introduction">
-    <title>Wacom Tablet Settings</title>
-    <para>
-        The tablet &systemsettings; module handles all setting for your graphic tablet. All tablets supported by
-        the <ulink url="https://linuxwacom.github.io">&Linux; Wacom driver</ulink> project are handled by this settings interface.
-        Make sure your tablet is detected either via xorg.conf or udev and works in general. Refer to the <link linkend="detection">tablet detection</link> section for more information.
-    </para>
+    <title
+>Wacom-Tablett-Einstellungen</title>
+    <para
+>Dieses Modul ermöglicht die Einstellung Ihres Grafik-Tabletts. Alle Tabletts, die vom Projekt <ulink url="https://linuxwacom.github.io"
+>&Linux;-Wacom-Treiber</ulink
+> unterstützt werden, können mit diesem Modul eingestellt werden. Überprüfen Sie, ob Ihr Tablett entweder über „xorg.conf“ oder „udev“ erkannt wurde und grundsätzlich funktioniert. Weitere Informationen finden Sie im Abschnitt <link linkend="detection"
+>Tablett-Erkennung</link
+>. </para>
     <important>
-        <para>
-            The <application>xf86-input-wacom</application> driver must be installed on your computer and <command>xsetwacom</command> must be available in order to make this module work correctly.
-        </para>
+        <para
+>Der Treiber <application
+>xf86-input-wacom</application
+> muss auf Ihrem Rechner installiert und der Befehl <command
+>xsetwacom</command
+> muss verfügbar sein, damit dieses Modul richtig funktioniert. </para>
     </important>
-    <para>
-        The module is split into various tab pages that handle all aspects of your tablet and the pen:
-        <link linkend="tablet-profiles">Profiles</link>,
-        <link linkend="tablet-general">General Information</link>,
-        <link linkend="stylus">Stylus Settings</link>,
-        <link linkend="pad-buttons">Express Buttons</link>,
-        <link linkend="pad-mapping">Pad Mapping</link> and
-        <link linkend="touch-mapping">Touch Mapping</link>.
-    </para>
+    <para
+>Das Modul ist in mehrere Karteikarten aufgeteilt, die alle Einstellungen für das Tablett und den Stift ermöglichen: <link linkend="tablet-profiles"
+>Profile</link
+>, <link linkend="tablet-general"
+>Allgemeine Informationen</link
+>, <link linkend="pad-buttons"
+>Express-Knöpfe</link
+>, <link linkend="stylus"
+>Stift-Einstellungen</link
+><link linkend="pad-mapping"
+>Tablett-Einstellungen</link
+> und <link linkend="touch-mapping"
+>Touch-Zuordnung</link
+>. </para>
     <sect1 id="tablet-profiles">
-        <title>Profile Management</title>
+        <title
+>Profilverwaltung</title>
 
-        <para>
-            This is the small drop down box with the two buttons next to it. You can create new profiles and delete already existing ones.
-            Each profile is saved and specified for the currently connected tablet. If you create a new profile, it automatically creates one
-            with the default settings as returned by the driver.
-        </para>
+        <para
+>Im Auswahlfeld können Sie bereits definierte Profile auswählen. Mit den Köpfen rechts daneben können Sie neue Profile erstellen und vorhandene löschen. Jedes Profil wird für das gerade angeschlossene Tablett definiert und gespeichert. Erstellen Sie ein neues Profil, erhält es automatisch die vom Treiber zurückgegebenen Standardeinstellungen. </para>
 
-        <para>
-            Here you can specify different profiles for your settings.
-            For example if you like to have a different behavior of the pen when you use it
-            as a mouse replacement for your day to day work or using it as pen to draw something.
-        </para>
-        <para>
-            Each profile can be changed on the fly and directly changes the behavior of your tablet input.
-        </para>
+        <para
+>Hier können Sie verschiedene Profile für Ihre Einstellungen festlegen. Sie möchten zum Beispiel ein verschiedenes Verhalten des Stifts, wenn Sie ihn als Mausersatz für die normale Bedienung oder als Stift zum Zeichnen benutzen. </para>
+        <para
+>Sie können das Profil im laufenden Betrieb wechseln und das Verhalten der Tabletteingabe direkt ändern. </para>
         <note>
-            <para>
-                The <link linkend="kded">kded tablet daemon</link> must be running in the background to be able to change the profiles and apply them to the tablet.
-                All the work is done by the daemon. The &systemsettings; module just change the profile settings for it.
-            </para>
+            <para
+>Der <link linkend="kded"
+>kded-Tablettprozess</link
+> muss im Hintergrund ausgeführt werden, damit Profile geändert und diese Änderungen für das Tablett angewendet werden können. Die eigentliche Funktionalität wird durch den kded-Prozess zur Verfügung gestellt. Mit diesem Modul werden nur die Einstellungen der Profile festgelegt. </para>
         </note>
     </sect1>
 
     <sect1 id="tablet-general">
-        <title>General Tablet Settings and Information</title>
+        <title
+>Allgemeine Tablett-Einstellungen und -Informationen</title>
 
-        <para>
-            Shows some general Information about the detected tablet.
-            Beside the name and company of your tablet an image is shown and all detected input devices are listed.
-        </para>
+        <para
+>Zeigt einige allgemeine Informationen über das erkannte Tablett. Außer dem Namen und dem Hersteller des Tabletts wird ein Bild gezeigt und alle Eingabegeräte aufgelistet. </para>
 
         <note>
-            <para>
-                The tablet must be connected and the <link linkend="kded">kded</link> must be running to allow the module to work correctly.
-            </para>
-            <para>
-                See the <link linkend="troubles">Detection problems</link> section for further help on the tablet detection.
-            </para>
+            <para
+>Das Tablett muss angeschlossen und der <link linkend="kded"
+>kded</link
+>-Dienst muss gestartet sein, damit dieses Modul richtig funktioniert. </para>
+            <para
+>Weitere Hilfe für die Erkennung finden Sie im Abschnitt <link linkend="troubles"
+>Probleme bei der Erkennung</link
+>. </para>
         </note>
 
-        <para>
-            In addition to the tablet information the general tab allows to set various global shortcuts. Each shortcut allows to dynamically
-            change the options for the current connected tablet.
-        </para>
+        <para
+>Zusätzlich zu den Informationen über das Tablett können hier mehrere globale Kurzbefehle eingestellt werden. Mit jedem dieser Kurzbefehle können Sie die Einstellungen für das aktuell angeschlossene Tablett dynamisch ändern. </para>
 
     </sect1>
 
     <sect1 id="stylus">
-        <title>Stylus Settings</title>
+        <title
+>Stift-Einstellungen</title>
 
-        <para>
-            The pen that is used together with the tablet has two different sides, the main side is called stylus the other end is the eraser.
-            In this tab you can change any aspect of the pen from the button assignment to the pressure curve and threshold.
-        </para>
+        <para
+>Der zusammen mit dem Tablett verwendete Stift hat zwei Enden, die Hauptseite ist die Stiftspitze, die andere der Radierer. Auf dieser Karteikarte können Sie jeden Aspekt des Stifts von der Knopfzuweisung, über die Druckkurve bis zum Schwellwert ändern. </para>
 
         <sect2 id="eraser-settings">
-            <title>Eraser Feel</title>
-            <para>
-                The slider allows to alter the threshold of the eraser. For a more fine grained setting of the pressure it is possible
-                to alter the complete pressure curve in the <guilabel>Edit Pressure Curve</guilabel> dialog.
-                See <link linkend="presscurve">Press Curve Dialog</link> for more information.
-            </para>
+            <title
+>Radierer</title>
+            <para
+>Mit dem Schieberegler kann der Schwellwert des Radierers geändert werden. Für eine feinere Einstellung des Drucks kann die gesamte Kurve im Dialog <guilabel
+>Druckkurve</guilabel
+> verändert werden. Im Abschnitt <link linkend="presscurve"
+>Druckkurvendialog</link
+> finden Sie weitere Informationen. </para>
         </sect2>
 
         <sect2 id="pen-button-settings">
-            <title>Button Settings</title>
-            <para>
-                The <guilabel>Button Settings</guilabel> box allows to alter the executed action assigned to each button of the pen.
-                A simple click into the edit box opens a new dialog where different key combinations, modifier keys and mouse buttons can be selected.
-            </para>
+            <title
+>Knopf-Einstellungen</title>
+            <para
+>Im Feld <guilabel
+>Knopf-Einstellungen</guilabel
+> können Sie die ausgeführte Aktion, die jedem Knopf zugewiesen ist, bearbeiten. Ein einfacher Klick in das Eingabefeld öffnet einen neuen Dialog, in dem verschiedene Tastenkombinationen, Sondertasten und Maustaste ausgewählt werden können. </para>
 
-            <para>
-                If <guilabel>Tap to execute action</guilabel> is enabled the stylus must be in contact with the tablet in order to allow the button action
-                to be executed. If this option is disabled each button action works also when the stylus is hovering above the tablet.
-            </para>
+            <para
+>Ist <guilabel
+>Aktionsausführung nur bei Berührung</guilabel
+> aktiviert, muss der Stift Kontakt zur Tablettoberfläche haben, damit die Aktion für den Knopf ausgeführt wird. Ansonsten funktionieren die Aktionen der Knöpfe auch schon, wenn der Stift sich n der Nähe der Tablett-Oberfläche befindet. </para>
         </sect2>
 
         <sect2 id="tip-settings">
-            <title>Tip Feel</title>
-            <para>
-                The slider allows to alter the threshold of the stylus tip. For a more fine grained setting of the pressure it is possible
-                to alter the complete pressure curve in the <guilabel>Edit Pressure Curve</guilabel> dialog.
-                See <link linkend="presscurve">Presscurve Dialog</link> for more information.
-            </para>
+            <title
+>Stiftgefühl</title>
+            <para
+>Mit dem Schieberegler kann der Schwellwert der Stiftspitze geändert werden Für eine feinere Einstellung des Drucks kann die gesamte Kurve im Dialog <guilabel
+>Druckkurve</guilabel
+> verändert werden. Im Abschnitt <link linkend="presscurve"
+>Druckkurvendialog</link
+> finden Sie weitere Informationen. </para>
         </sect2>
     </sect1>
 
     <sect1 id="pad-buttons">
-        <title>Express Buttons</title>
+        <title
+>Express-Knöpfe</title>
 
-        <para>
-            The <guilabel>Express Buttons</guilabel> tab allows to set specific button actions for all hardware buttons for the tablet.
-            To change the used action, you need to click into the edit box and choose the action in the new dialog.
-        </para>
+        <para
+>Auf der Karteikarte <guilabel
+>Express-Knöpfe</guilabel
+> können Sie besondere Knopfaktionen für alle Hardware-Knöpfe des Tabletts einstellen. Um eine benutze Aktion zu ändern, klicken Sie in das Bearbeitungsfeld und wählen die Aktion im neuen Dialog. </para>
     </sect1>
 
 
    <sect1 id="pad-mapping">
-       <title>Tablet</title>
+       <title
+>Tablett</title>
 
-       <para>
-           The <guilabel>Tablet</guilabel> tab allows to set further properties of the tablet area when used together with a pen.
-           In here the orientation of the tablet area, valid space of the used tablet and the cursor tracking mode can be specified.
-       </para>
+       <para
+>Auf der Karteikarte <guilabel
+>Tablett</guilabel
+> können Sie weiter Eigenschaften des Tablettbereichs einstellen, wenn er mit zusammen mit einem Stift verwendet wird. Das betrifft die Ausrichtung des Tablettbereichs, der gültige Bereich auf dem verwendeten Tablett und den Verfolgungsmodus des Cursors. </para>
        <sect2 id="tablet-tracking">
-           <title>Stylus Tracking Mode</title>
+           <title
+>Verfolgungsmodus für den Stift</title>
 
            <itemizedlist>
                <listitem>
-                   <para>
-                       <guilabel>Map to Screen</guilabel> :
-                       This mode maps the pen cursor with absolute movement to the tablet.
-                       The edges of the tablet represent directly the space of the screen.
-                   </para>
+                   <para
+><guilabel
+>Auf Bildschirm abbilden</guilabel
+>: Dieser Modus bildet den Stift-Cursor mit absoluter Bewegung auf das Tablett ab. Die Ränder des Tabletts entsprechen direkt dem Bildschirmbereich. </para>
                </listitem>
                <listitem>
-                   <para>
-                       <guilabel>Map to Cursor</guilabel> :
-                       This mode maps the pen cursor with relative movement to the tablet.
-                   </para>
+                   <para
+><guilabel
+>Auf Cursor abbilden</guilabel
+>: Dieser Modus bildet den Stift-Cursor mit relativer Bewegung auf das Tablett ab. </para>
                </listitem>
            </itemizedlist>
        </sect2>
        <sect2 id="tablet-orientation">
-           <title>Orientation</title>
-           <para>
-               The orientation box specifies how the tablet area is rotated. You can set a specific rotation on your own in the combobox or if you enable the <guilabel>Auto-Rotate with Screen</guilabel> option, the tablet will automatically rotated together with the screen. This is done by listening to
-               the xrandr events when the screen is rotated.
-           </para>
-           <para>
-               If you have problems with the autorotation option and the tablet is always rotated into the wrong direction, enable the <guilabel>Invert Auto-Rotation</guilabel> option to invert this.
-           </para>
+           <title
+>Ausrichtung</title>
+           <para
+>Das Feld Ausrichtung gibt an, wie der Tablettbereich gedreht wird. Sie können im Kombinationsfeld eine benutzerdefinierte Drehung eingeben. Aktivieren Sie die Einstellung <guilabel
+>Automatische Drehung mit dem Bildschirm</guilabel
+>, wird das Tablett automatisch mit dem Bildschirm gedreht. Die s wird durch Ereignisse von „randr“ bei der Drehung des Bildschirms ausgelöst. </para>
+           <para
+>Haben Sie Probleme mit automatischen Drehung, weil das Tablett immer in die falsche Richtung gedreht wird, aktivieren Sie Einstellung <guilabel
+>Automatisches Drehen vertauschen</guilabel
+>, um das zu beheben. </para>
        </sect2>
        <sect2 id="tablet-area-mapping">
-           <title>Tablet Mapping</title>
-           <para>
-               This mapping allows to specify the proportions of the tablet that will be used for each screen. This is necessary to keep the tablet area proportional to the used screen space in absolute stylus tracking mode. For more information check the <link linkend="area-selection">Area Selection Dialog</link> section.
-           </para>
+           <title
+>Tablett-Zuordnung</title>
+           <para
+>Diese Zuordnung ermöglicht es, die Proportionen des Tabletts zu bestimmen, die für jeden Bildschirm verwendet werden. Dies ist erforderlich, um den Tablettbereich im absoluten Stift-Verfolgungsmodus proportional zur benutzten Bildschirmgröße zu behalten. Weitere Informationen finden Sie im Abschnitt <link linkend="area-selection"
+>Dialog zur Bereichsauswahl</link
+>. </para>
            <note>
-               <para>
-                   This option does not work for relative cursor mode.
-               </para>
+               <para
+>Diese Einstellung funktioniert nicht im relativen Cursor-Modus. </para>
            </note>
        </sect2>
    </sect1>
 
    <sect1 id="touch-mapping">
-       <title>Touch</title>
+       <title
+>Touch</title>
 
-       <para>
-           The <guilabel>Touch</guilabel> tab allows to set further properties for the touch part of the tablet (if available).
-           It is possible to disable the touch feature via the <guilabel>Enable Touch</guilabel> check box. Also a global shortcut exist that allows to enable/disable the touch feature.
-       </para>
+       <para
+>Auf der Karteikarte <guilabel
+>Touch</guilabel
+> können weitere Eigenschaften für den Touch-Teil des Tabletts eingestellt werden, falls dieser vorhanden ist. Die Touch-Funktion kann mit <guilabel
+>Touch-Ereignisse aktivieren</guilabel
+> abgeschaltet werden. Es gibt auch einen globalen Kurzbefehl, mit dem die Touch-Funktion ein- oder ausgeschaltet werden kann. </para>
 
        <sect2 id="touch-tracking">
-           <title>Touch Tracking Mode</title>
+           <title
+>Touch-Verfolgungsmodus</title>
 
            <itemizedlist>
                <listitem>
-                   <para>
-                       <guilabel>Map to Screen</guilabel> :
-                       This mode maps the touch cursor with absolute movement to the tablet.
-                       The edges of the tablet represent directly the space of the screen.
-                   </para>
+                   <para
+><guilabel
+>Auf Bildschirm abbilden</guilabel
+>: Dieser Modus bildet den Touch-Cursor mit absoluter Bewegung auf das Tablett ab. Die Ränder des Tabletts entsprechen direkt dem Bildschirmbereich. </para>
                </listitem>
                <listitem>
-                   <para>
-                       <guilabel>Map to Cursor</guilabel> :
-                       This mode maps the touch cursor with relative movement to the tablet.
-                   </para>
+                   <para
+><guilabel
+>Auf Cursor abbilden</guilabel
+>: Dieser Modus bildet den Touch-Cursor mit relativer Bewegung auf das Tablett ab. </para>
                </listitem>
            </itemizedlist>
        </sect2>
 
        <sect2 id="touch-gestures">
-           <title>Gestures</title>
+           <title
+>Gesten</title>
 
-           <para>
-               If <guilabel>Enable Gestures</guilabel> is enabled, the tablet can generate gesture events for the touch device.
-           </para>
+           <para
+>Ist <guilabel
+>Gesten aktivieren</guilabel
+> angekreuzt, kann das Tablett Gesten für das Touch-Gerät generieren. </para>
 
            <itemizedlist>
                <listitem>
-                   <para>
-                       <guilabel>Scroll Distance</guilabel> :
-                       Allows to scroll through windows when two fingers are placed on the tablet, moving them up/down creates a scroll event.
-                       The Distance is given in tablet units.
-                   </para>
+                   <para
+><guilabel
+>Scroll-Distanz</guilabel
+>: Ermöglicht das Durchblättern von Fenstern, wenn zwei Finger das Tablett berühren, Durch Verschieben nach oben oder unten wird ein Ereignis zum Blättern ausgelöst. Der Abstand wird in Tablett-Einheiten angegeben. </para>
                </listitem>
                <listitem>
-                   <para>
-                       <guilabel>Zoom Distance</guilabel> :
-                       Allows to zoom in/out by moving two fingers together or apart from each other.
-                       The Distance is given in tablet units.
-                   </para>
+                   <para
+><guilabel
+>Vergrößerungsabstand</guilabel
+>: Ermöglicht die Vergrößerung oder Verkleinerung durch Bewegen von zwei Fingern zu- oder auseinander. Der Abstand wird in Tablett-Einheiten angegeben. </para>
                </listitem>
                <listitem>
-                   <para>
-                       <guilabel>Tap Time</guilabel> :
-                       This time in milliseconds specifies when a double tap on the device is recognized as right-click
-                   </para>
+                   <para
+><guilabel
+>Berührungszeit</guilabel
+>: Diese Zeit in Millisekunden gibt an, wenn eine doppelte Berührung auf dem Gerät als Rechtsklick erkannt wird. </para>
                </listitem>
            </itemizedlist>
        </sect2>
 
        <sect2 id="touch-area-mapping">
-           <title>Touch Mapping</title>
-           <para>
-               This mapping allows to specify the proportions of the touch device that will be used for each screen. This is necessary to keep the tablet area proportional to the used screen space in absolute stylus tracking mode. For more information check the <link linkend="area-selection">Area Selection Dialog</link> section.
-           </para>
+           <title
+>Touch-Zuordnung</title>
+           <para
+>Diese Zuordnung ermöglicht es, die Proportionen des Touch-Geräts zu bestimmen, die für jeden Bildschirm verwendet werden. Dies ist erforderlich, um den Tablettbereich im absoluten Stift-Verfolgungsmodus proportional zur benutzten Bildschirmgröße zu behalten. Weitere Informationen finden Sie im Abschnitt <link linkend="area-selection"
+>Dialog zur Bereichsauswahl</link
+>. </para>
            <note>
-               <para>
-                   This option does not work for relative cursor mode.
-               </para>
+               <para
+>Diese Einstellung funktioniert nicht im relativen Cursor-Modus. </para>
            </note>
        </sect2>
 
@@ -288,76 +340,84 @@
 
 
     <sect1 id="presscurve">
-        <title>Press Curve Dialog</title>
+        <title
+>Druckkurvendialog</title>
 
         <para>
             <screenshot>
-                <screeninfo>Here's a screenshot of the Press Curve dialog</screeninfo>
+                <screeninfo
+>Bildschirmfoto des Druckkurvendialogs</screeninfo>
                 <mediaobject>
                     <imageobject>
                         <imagedata fileref="presscurve.png" format="PNG"/>
                     </imageobject>
                     <textobject>
-                        <phrase>Changing the press curve</phrase>
+                        <phrase
+>Ändern der Druckkurve</phrase>
                     </textobject>
                 </mediaobject>
             </screenshot>
         </para>
 
-        <para>
-            The press curve defines how the pressure of the stylus is translated. The press curve is defined via four points of a Bézier curve.
-            To change this curve you can alter the red dots and move the curve around.
-        </para>
+        <para
+>Die Druckkurve definiert, wie der Druck des Stifts umgesetzt wird. Die Druckkurve ist durch 4 Punkte einer Bézier-Kurve definiert. Zur Änderung der Kurve die roten Punkte verändern und damit die Kurve umher schieben. </para>
         <note>
-            <para>
-                Use your pen inside the press curve dialog to see the changes in the press curve directly.
-                A blue area below the curve shows the applied pressure of the pen.
-            </para>
+            <para
+>Benutzen Sie den Stift im Druckkurven-Dialog, um die Änderungen in der Druckkurve direkt zu sehen. Ein blauer Bereich unter der Kurve zeigt den angewandten Druck des Stifts. </para>
         </note>
     </sect1>
 
     <sect1 id="area-selection">
-        <title>Area Selection Dialog</title>
+        <title
+>Dialog zur Bereichsauswahl</title>
 
         <para>
             <screenshot>
-                <screeninfo>Here's a screenshot of the Tablet Area Dialog</screeninfo>
+                <screeninfo
+>Bildschirmfoto des Dialogs zur Bereichsauswahl</screeninfo>
                 <mediaobject>
                     <imageobject>
                         <imagedata fileref="tabletarea.png" format="PNG"/>
                     </imageobject>
                     <textobject>
-                        <phrase>Defining the Tablet Area</phrase>
+                        <phrase
+>Definition des Tablettbereichs</phrase>
                     </textobject>
                 </mediaobject>
             </screenshot>
         </para>
 
-        <para>
-            This dialog allows to specify the available tablet area for each selected screen space. In order to keep the aspect ratio of the tablet it
-            is necessary to reduce the tablet area depending on the screen resolution. This Dialog allows to specify them for each screen individually.
-        </para>
-        <para>
-            Use the <guilabel>Toggle Screen</guilabel> button to switch between fullscreen (all connected monitors) and each individual monitor.
-            The settings will be saved for each screen configuration and applied to the tablet whenever the screen selection is switched by the global shortcut action.
-        </para>
-        <para>
-            It is possible to map the screen with the <guimenuitem>Full Tablet</guimenuitem> area or just defined <guimenuitem>Tablet Area</guimenuitem> on the <guilabel>Tablet</guilabel> pane rightwards. The proportions of the area can be locked or unlocked using the <guibutton>Lock proportions</guibutton> switch button.
-        </para>
-        <para>
-            If you want to keep the aspect ratio of the tablet with the current screen selection you can press the <guilabel>Set Screen Proportions</guilabel> button. The tablet area will be calculated and changed automatically.
-        </para>
-        <para>
-        In addition you can open the <guilabel>Calibrate</guilabel> dialog to calibrate your tablet with the help of four points on the screen.
-        </para>
-        <para>
-            When the dialog is closed, the last selected screen will be used. If you want to switch the screen later on, you can use the <link linkend="tablet-general">Global Shortcut</link>.
-        </para>
+        <para
+>In diesem Dialog können Sie den verfügbaren Tablettbereich für jede ausgewählten Bildschirm festlegen. Um das Seitenverhältnis des Tabletts beizubehalten, ist es erforderlich, den Tablettbereich abhängig von der Bildschirmauflösung zur verringern. In diesem Dialog kann der Bereich für jeden einzelnen Bildschirm festgelegt werden. </para>
+        <para
+>Benutzen Sie den Knopf <guibutton
+>Bildschirm umschalten</guibutton
+>, um zwischen Vollbild mit allen verbundenen Monitoren jedem einzelnen Monitor zu wechseln. Die Einstellungen werden für jede einzelne Bildschirmeinrichtung gespeichert und auf das Tablett angewendet, wenn die Bildschirmauswahl durch den globalen Kurzbefehl gewechselt wird. </para>
+        <para
+>Sie können den Bildschirm auf das <guimenuitem
+>Vollständige Tablett</guimenuitem
+> oder auf einen benutzerdefinierten <guimenuitem
+>Tablettbereich</guimenuitem
+> auf der Seitenleiste <guilabel
+>Tablett</guilabel
+> abbilden. Die Proportion der Bereiche kann mit <guibutton
+>Proportionen sperren</guibutton
+> gesperrt oder entsperrt werden. </para>
+        <para
+>Möchten Sie das Seitenverhältnis des Tabletts für die aktuelle Bildschirmauswahl erhalten, drücken Sie den Knopf <guibutton
+>Proportionen einstellen</guibutton
+> Der Tablettbereich wird berechnet und automatisch geändert. </para>
+        <para
+>Zusätzlich können Sie den Dialog <guilabel
+>Kalibrieren</guilabel
+> öffnen, um mit Hilfe von vier Punkten auf dem Bildschirm Ihr Tablett zu kalibrieren. </para>
+        <para
+>Wird der Dialog geschlossen, wird der zuletzt ausgewählte Bildschirm verwendet. Möchten Sie zum nächsten Bildschirm wechseln, benutzen Sie die <link linkend="tablet-general"
+>Globalen Kurzbefehle</link
+>. </para>
         <note>
-            <para>
-                The tablet area only works for absolute tracking mode of the touch and pen cursor device.
-                In relative mode the full tablet is used.
-            </para>
+            <para
+>Der Tablettbereich funktioniert nur für den absoluten Verfolgungsmodus des Cursors von Touch- und Stiftgerät. Im relativen Modus wird das gesamte Tablett benutzt. </para>
         </note>
     </sect1>
     </chapter>
@@ -367,69 +427,95 @@
 
 
     <chapter id="kded">
-    <title>Tablet daemon</title>
-    <para>
-        The tablet daemon runs in the background and does the ground work. Detecting the tablet and set it up with the selected profiles.
-        If the daemon is not running the &systemsettings; module and the plasma applet cannot work properly and the tablet cannot be used with the profiles.
-    </para>
+    <title
+>Tablett-Hintergrundprozess</title>
+    <para
+>Der Tablett-Dienst läuft im Hintergrund und führt die grundlegenden Funktionen aus, Wie die Erkennung eines Tabletts und dessen Einrichtung mit den vorhandenen Profilen. Läuft der Dienst nicht, dann können das &systemsettings;-Modul und das Plasma-Miniprogramm nicht richtig funktionieren und das Tablett kann mit den Profilen nicht benutzt werden. </para>
 
     <sect1 id="detection">
-        <title>Tablet detection</title>
-        <para>
-            The detection of the <hardware>tablet device</hardware> is done in several ways.
-            <application>Solid</application> is used in the first step and does the hotplug support.
-            If Solid fails the next steps are <command>xsetwacom list dev</command>, <command>lsusb</command> and <command>xinput --list</command>.
-        </para>
-        <para>
-            Should none of the commands above return the name of the tablet, it is not supported and cannot be used by this module.
-        </para>
+        <title
+>Tablett-Erkennung</title>
+        <para
+>Die Erkennung des <hardware
+>Tablett-Geräts</hardware
+> erfolgt in mehrere Schritten. Zuerst wird <application
+>Solid</application
+> verwendet, um das Anschließen/Entfernen des Tabletts im laufenden Betrieb zu verarbeiten. Ist dies fehlgeschlagen, werden als nächster Schritt die Befehle <command
+>xsetwacom list dev</command
+>, <command
+>lsusb</command
+> and <command
+>xinput --list</command
+> benutzt. </para>
+        <para
+>Gibt keiner der oben genannten Befehle des Namen des Tabletts zurück, wird es nicht unterstützt und kann mit diesem Modul nicht verwendet werden. </para>
     </sect1>
     <sect1 id="troubles">
-        <title>Detection problems</title>
-        <para>
-            If the tablet is not detected check the <ulink url="https://linuxwacom.github.io">&Linux; Wacom driver</ulink> or <ulink url="https://digimend.github.io">DIGImend driver</ulink> page if your tablet is supported.
-            Furthermore check via <command>lsusb</command> if you can find your tablet.
-        </para>
-        <para>
-            If udev does not handle the detection add the tablet to your <filename>/etc/X11/xorg.conf.d/50-tablet.conf</filename> file (create it if it does not exist) and restart the x-server.
-        </para>
-        <para>
-            In case of a serial device (Tablet PC and such) check if <command>xinput --list</command> lists your input devices (Stylus/Eraser/Pad).
-            Should they be listed take a look at the internal tablet device id via <command>xsetwacom get "Name of your pad or stylus" TabletID</command>.
-            If an id is returned please mail all the necessary information to the author.
-        </para>
+        <title
+>Probleme bei der Erkennung</title>
+        <para
+>Wird das Tablett nicht erkannt, überprüfen Sie auf der Seite <ulink url="https://linuxwacom.github.io"
+>&Linux;-Wacom-Treiber</ulink
+> oder auf der Seite <ulink url="https://digimend.github.io"
+>DIGImend-Treiber</ulink
+>, ob Ihr Tablett unterstützt wird. Überprüfen Sie außerdem mit dem Befehl <command
+>lsusb</command
+>, dass das Tablett gefunden wurde. </para>
+        <para
+>Funktioniert die Erkennung durch „udev“ nicht, fügen Sie das Tablett in Ihre Datei <filename
+>/etc/X11/xorg.conf.d/50-tablet.conf</filename
+> ein oder erstellen Sie diese Datei, wenn sie noch nicht vorhanden ist und starten den X-Server neu. </para>
+        <para
+>Überprüfen Sie bei einem seriellen Gerät wie einem Tablett-PC oder ähnlich, ob mit dem Befehl <command
+>xinput --list</command
+> ihr Eingabegerät (Stift/Radierer/Pad) aufgelistet wird. Falls ja, überprüfen Sie die interne Gerätekennung des Tabletts mit <command
+>xsetwacom get "Name Ihres Pads oder Stiftes" Tablett-Kennung</command
+>. Wird eine Kennung zurückgegeben, schicken Sie bitte alle gesammelten Informationen an den Autor. </para>
         <note>
-        <para>
-            Hotplug support is only available if the tablet is found via <application>Solid</application> and its notification API.
-        </para>
-        <para>
-            <application>Solid</application> checks if the value for the entry <command>input.x11_options.Type</command> is <command>pen</command>,
-            <command>stylus</command>, <command>eraser</command> or <command>cursor</command> or if the value for the entry <command>input.x11_driver</command> is <command>wacom</command>.
-        </para>
-        <para>
-            Please mail the author if your tablet is detected by Solid but with other values to enhance the tablet support.
-        </para>
+        <para
+>Das Anschließen im laufenden Betrieb ist nur dann möglich, wenn das Tablett durch <application
+>Solid</application
+> und dessen Benachrichtigungs-Schnittstelle erkannt wird. </para>
+        <para
+><application
+>Solid</application
+> überprüft, ob der Wert des Eintrags <command
+>input.x11_options.Type</command
+> gleich <command
+>pen</command
+>, <command
+>stylus</command
+>, <command
+>eraser</command
+> oder <command
+>cursor</command
+> ist oder der Wert des Eintrags <command
+>input.x11_driver</command
+> gleich <command
+>wacom</command
+> ist. </para>
+        <para
+>Schicken Sie dem Autor eine E-Mail, wenn Ihr Tablett durch Solid mit anderen Werten erkannt wird, damit die Unterstützung für Tabletts verbessert wird. </para>
         </note>
     </sect1>
     </chapter>
 
     <chapter id="applet">
-    <title>Tablet plasma applet</title>
-    <para>
-        The tablet applet makes it possible to change the available profiles on the fly. Furthermore you can change the pad rotation and switch between absolute/relative mode
-        of the stylus/eraser regardless of the current profile settings.
-    </para>
-    <para>
-        It is not necessary to add the plasmoid for this module to work. The default profile will be activated by the  <link linkend="kded">tablet daemon</link> as soon as it
-        detects your tablet even if the plasmoid is not used. The plasmoid is just a visual helper to switch easily between the profiles.
-    </para>
+    <title
+>Tablett-Miniprogramm</title>
+    <para
+>Das Tablett-Miniprogramm ermöglicht das Wechseln der verfügbaren Profile im laufenden Betrieb. Weiterhin können Sie damit die Pad-Drehung ändern und zwischen absolutem und relativem Modus von Stift und Radierer unabhängig von den aktuellen Profil-Einstellungen wechseln. </para>
+    <para
+>Für das Funktionieren dieses Moduls ist das Plasmoid nicht erforderlich. Das Standardprofil wird durch den <link linkend="kded"
+>Tablett-Dienst</link
+> aktiviert, sobald ein Tablett erkannt wird, sogar wenn das Plasmoid nicht läuft. Es ist nur ein visuelles Hilfsmittel, um einfacher zwischen Profilen zu wechseln. </para>
     </chapter>
-    <chapter id="credits"><title>Credits and License</title>
-    <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
-
-    &underFDL;
-
-    &underGPL;
-
-    </chapter>
+    <chapter id="credits"
+><title
+>Danksagungen und Lizenz</title>
+    <para
+>Übersetzung Burkhard Lück<email
+>lueck@hube-lueck.de</email
+></para
+> &underFDL; &underGPL; </chapter>
 </book>
