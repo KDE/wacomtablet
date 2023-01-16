@@ -1,0 +1,2478 @@
+# translation of desktop_extragear-multimedia_amarok.po to Khmer
+# Auk Piseth <piseth_dv@khmeros.info>, 2007, 2008.
+# Khoem Sokhem <khoemsokhem@khmeros.info>, 2007, 2008, 2009, 2010.
+# Seng Sutha, 2009.
+# Sophea <sophea@khmeros.info>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: desktop_extragear-multimedia_amarok\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2021-03-28 13:55+0000\n"
+"PO-Revision-Date: 2012-06-08 14:50+0700\n"
+"Last-Translator: Sophea <sophea@khmeros.info>\n"
+"Language-Team: Khmer <>\n"
+"Language: km\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: WordForge 0.8 RC1\n"
+"X-Language: km-KH\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "ខឹម សុខែម, ម៉ន ម៉េត, សេង សុត្ថា, ចាន់ សម្បត្តិរតនៈ, សុខ សុភា"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+"khoemsokhem@khmeros.info,​​mornmet@khmeros.info,sutha@khmeros.info,"
+"ratanak@khmeros.info,sophea@khmeros.info"
+
+#: src/common/aboutdata.cpp:33
+#, kde-format
+msgid "(c), 2009,2010 Jörg Ehrichs"
+msgstr "រក្សាសិទ្ធិ ឆ្នាំ ២០០៩ ២០១០ ដោយ Jörg Ehrichs"
+
+#: src/common/aboutdata.cpp:37
+#, kde-format
+msgid "Jörg Ehrichs"
+msgstr "Jörg Ehrichs"
+
+#: src/common/aboutdata.cpp:37
+#, kde-format
+msgid "Maintainer"
+msgstr "អ្នក​ថែទាំ"
+
+#: src/common/aboutdata.cpp:38
+#, kde-format
+msgid "Alexander Maret-Huskinson"
+msgstr ""
+
+#: src/common/aboutdata.cpp:38
+#, kde-format
+msgid "Developer"
+msgstr ""
+
+#: src/common/buttonshortcut.cpp:91
+#, fuzzy, kde-format
+#| msgctxt "Pad Button action"
+#| msgid "Button %1"
+msgctxt "Tablet button triggers a left mouse button click."
+msgid "Left Mouse Button Click"
+msgstr "ប៊ូតុង %1"
+
+#: src/common/buttonshortcut.cpp:93
+#, fuzzy, kde-format
+#| msgctxt "Pad Button action"
+#| msgid "Button %1"
+msgctxt "Tablet button triggers a middle mouse button click."
+msgid "Middle Mouse Button Click"
+msgstr "ប៊ូតុង %1"
+
+#: src/common/buttonshortcut.cpp:95
+#, fuzzy, kde-format
+#| msgctxt "Pad Button action"
+#| msgid "Button %1"
+msgctxt "Tablet button triggers a right mouse button click."
+msgid "Right Mouse Button Click"
+msgstr "ប៊ូតុង %1"
+
+#: src/common/buttonshortcut.cpp:97
+#, kde-format
+msgctxt "Tablet button triggers mouse wheel up."
+msgid "Mouse Wheel Up"
+msgstr ""
+
+#: src/common/buttonshortcut.cpp:99
+#, kde-format
+msgctxt "Tablet button triggers mouse wheel down."
+msgid "Mouse Wheel Down"
+msgstr ""
+
+#: src/common/buttonshortcut.cpp:101
+#, kde-format
+msgctxt "Tablet button triggers mouse wheel left."
+msgid "Mouse Wheel Left"
+msgstr ""
+
+#: src/common/buttonshortcut.cpp:103
+#, kde-format
+msgctxt "Tablet button triggers mouse wheel right."
+msgid "Mouse Wheel Right"
+msgstr ""
+
+#: src/common/buttonshortcut.cpp:105
+#, fuzzy, kde-format
+#| msgctxt "Pad Button action"
+#| msgid "Button %1"
+msgctxt "Tablet button triggers a click of mouse button with number #"
+msgid "Mouse Button %1 Click"
+msgstr "ប៊ូតុង %1"
+
+#: src/common/globalactions.cpp:30
+#, fuzzy, kde-format
+#| msgid "Wacom Tablet Settings"
+msgid "Wacom Tablet"
+msgstr "ការ​កំណត់ Wacom Tablet"
+
+#: src/common/globalactions.cpp:34
+#, kde-format
+msgctxt "@action"
+msgid "Enable/Disable the Touch Tool"
+msgstr "បិទ/បើក​ឧបករណ៍​ប៉ះ"
+
+#: src/common/globalactions.cpp:40
+#, kde-format
+msgctxt "@action"
+msgid "Toggle the Stylus Tool Relative/Absolute"
+msgstr "បិទ/បើក​ឧបករណ៍​ចារ ដាច់ខាត/ដែល​ទាក់ទង"
+
+#: src/common/globalactions.cpp:46
+#, fuzzy, kde-format
+#| msgid "Full screen"
+msgctxt "@action"
+msgid "Toggle between all screens"
+msgstr "ពេញ​អេក្រង់"
+
+#: src/common/globalactions.cpp:52
+#, fuzzy, kde-format
+#| msgid "Map to screen"
+msgctxt ""
+"@action Maps the area of the tablet to all available screen space (space "
+"depends on connected monitors)"
+msgid "Map to fullscreen"
+msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់"
+
+#: src/common/globalactions.cpp:58
+#, fuzzy, kde-format
+#| msgid "Map to screen"
+msgctxt "@action"
+msgid "Map to screen 1"
+msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់"
+
+#: src/common/globalactions.cpp:64
+#, fuzzy, kde-format
+#| msgid "Map to screen"
+msgctxt "@action"
+msgid "Map to screen 2"
+msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់"
+
+#: src/common/globalactions.cpp:70
+#, fuzzy, kde-format
+#| msgid "Add new profile"
+msgctxt "@action Switch to the next profile in the rotation"
+msgid "Next profile"
+msgstr "បន្ថែម​ទម្រង់​ថ្មី"
+
+#: src/common/globalactions.cpp:76
+#, kde-format
+msgctxt "@action Switch to the previous profile in the rotation"
+msgid "Previous Profile"
+msgstr ""
+
+#: src/kcmodule/buttonactionselectiondialog.cpp:55
+#, fuzzy, kde-format
+#| msgid "Select Button:"
+msgctxt "The action that will be assigned to a tablet button."
+msgid "Select Button Action"
+msgstr "ជ្រើស​ប៊ូតុង ៖"
+
+#: src/kcmodule/buttonactionselectionwidget.cpp:150
+#, kde-format
+msgctxt "Select a mouse button from a dropwdown."
+msgid "Click to select..."
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
+#: src/kcmodule/buttonactionselectionwidget.ui:14
+#, kde-format
+msgid "Select Key Function"
+msgstr "ជ្រើស​មុខងារ​គ្រាប់ចុច"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/kcmodule/buttonactionselectionwidget.ui:35
+#, fuzzy, kde-format
+#| msgid "Select Button:"
+msgid "Select Button Action"
+msgstr "ជ្រើស​ប៊ូតុង ៖"
+
+#. i18n: ectx: property (text), widget (QCheckBox, ctrlModifierCheckBox)
+#: src/kcmodule/buttonactionselectionwidget.ui:46
+#, kde-format
+msgid "Ctrl"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, altModifierCheckBox)
+#: src/kcmodule/buttonactionselectionwidget.ui:69
+#, kde-format
+msgid "Alt"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, metaModifierCheckBox)
+#: src/kcmodule/buttonactionselectionwidget.ui:92
+#, kde-format
+msgid "Meta"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, shiftModifierCheckBox)
+#: src/kcmodule/buttonactionselectionwidget.ui:115
+#, kde-format
+msgid "Shift"
+msgstr ""
+
+#. i18n: Select an action which will be assigned to a tablet button.
+#. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameLineEdit)
+#: src/kcmodule/buttonactionselectionwidget.ui:159
+#, kde-format
+msgid "Please select an action."
+msgstr ""
+
+#. i18n: Click to assign an action (shortcut) to a tablet button.
+#. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameDisplayWidget)
+#: src/kcmodule/buttonactionselectorwidget.ui:51
+#, kde-format
+msgid "Click to assign an action."
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ButtonPageWidget)
+#: src/kcmodule/buttonpagewidget.ui:20
+#, kde-format
+msgid "Pad Buttons"
+msgstr "ប៊ូតុង Pad"
+
+#. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
+#: src/kcmodule/buttonpagewidget.ui:29
+#: src/kcmodule/kcmwacomtabletwidget.cpp:447
+#, fuzzy, kde-format
+#| msgid "Express Keys"
+msgid "Express Buttons"
+msgstr "គ្រាប់ចុច​រហ័ស"
+
+#. i18n: ectx: property (text), widget (QLabel, button1Label)
+#. i18n: ectx: property (text), widget (QLabel, labelButton1)
+#: src/kcmodule/buttonpagewidget.ui:43 src/kcmodule/styluspagewidget.ui:81
+#, fuzzy, kde-format
+#| msgid "Button 1:"
+msgid "Button 1"
+msgstr "ប៊ូតុង ១ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button2Label)
+#. i18n: ectx: property (text), widget (QLabel, labelButton2)
+#: src/kcmodule/buttonpagewidget.ui:56 src/kcmodule/styluspagewidget.ui:62
+#, fuzzy, kde-format
+#| msgid "Button 2:"
+msgid "Button 2"
+msgstr "ប៊ូតុង ២"
+
+#. i18n: ectx: property (text), widget (QLabel, button3Label)
+#. i18n: ectx: property (text), widget (QLabel, labelButton3)
+#: src/kcmodule/buttonpagewidget.ui:69 src/kcmodule/styluspagewidget.ui:43
+#, fuzzy, kde-format
+#| msgid "Button 3:"
+msgid "Button 3"
+msgstr "ប៊ូតុង ៣ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button4Label)
+#: src/kcmodule/buttonpagewidget.ui:82
+#, fuzzy, kde-format
+#| msgid "Button 4:"
+msgid "Button 4"
+msgstr "ប៊ូតុង ៤ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button5Label)
+#: src/kcmodule/buttonpagewidget.ui:95
+#, fuzzy, kde-format
+#| msgid "Button 5:"
+msgid "Button 5"
+msgstr "ប៊ូតុង ៥ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button6Label)
+#: src/kcmodule/buttonpagewidget.ui:108
+#, fuzzy, kde-format
+#| msgid "Button 6:"
+msgid "Button 6"
+msgstr "ប៊ូតុង ៦ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button7Label)
+#: src/kcmodule/buttonpagewidget.ui:121
+#, fuzzy, kde-format
+#| msgid "Button 7:"
+msgid "Button 7"
+msgstr "ប៊ូតុង ៧ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button8Label)
+#: src/kcmodule/buttonpagewidget.ui:134
+#, fuzzy, kde-format
+#| msgid "Button 8:"
+msgid "Button 8"
+msgstr "ប៊ូតុង ៨ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button9Label)
+#: src/kcmodule/buttonpagewidget.ui:147
+#, fuzzy, kde-format
+#| msgid "Button 9:"
+msgid "Button 9"
+msgstr "ប៊ូតុង ៩ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button10Label)
+#: src/kcmodule/buttonpagewidget.ui:315
+#, fuzzy, kde-format
+#| msgid "Button 10:"
+msgid "Button 10"
+msgstr "ប៊ូតុង ១០ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button11Label)
+#: src/kcmodule/buttonpagewidget.ui:328
+#, fuzzy, kde-format
+#| msgid "Button 1:"
+msgid "Button 11"
+msgstr "ប៊ូតុង ១ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button12Label)
+#: src/kcmodule/buttonpagewidget.ui:341
+#, fuzzy, kde-format
+#| msgid "Button 1:"
+msgid "Button 12"
+msgstr "ប៊ូតុង ១ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button13Label)
+#: src/kcmodule/buttonpagewidget.ui:354
+#, fuzzy, kde-format
+#| msgid "Button 1:"
+msgid "Button 13"
+msgstr "ប៊ូតុង ១ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button14Label)
+#: src/kcmodule/buttonpagewidget.ui:367
+#, fuzzy, kde-format
+#| msgid "Button 1:"
+msgid "Button 14"
+msgstr "ប៊ូតុង ១ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button15Label)
+#: src/kcmodule/buttonpagewidget.ui:380
+#, fuzzy, kde-format
+#| msgid "Button 1:"
+msgid "Button 15"
+msgstr "ប៊ូតុង ១ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button16Label)
+#: src/kcmodule/buttonpagewidget.ui:393
+#, fuzzy, kde-format
+#| msgid "Button 1:"
+msgid "Button 16"
+msgstr "ប៊ូតុង ១ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button17Label)
+#: src/kcmodule/buttonpagewidget.ui:406
+#, fuzzy, kde-format
+#| msgid "Button 1:"
+msgid "Button 17"
+msgstr "ប៊ូតុង ១ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, button18Label)
+#: src/kcmodule/buttonpagewidget.ui:419
+#, fuzzy, kde-format
+#| msgid "Button 1:"
+msgid "Button 18"
+msgstr "ប៊ូតុង ១ ៖"
+
+#. i18n: ectx: property (title), widget (QGroupBox, touchStripGroupBox)
+#: src/kcmodule/buttonpagewidget.ui:537
+#, kde-format
+msgid "Touch Strip"
+msgstr "ប៉ះ​ឆូត"
+
+#. i18n: ectx: property (text), widget (QLabel, leftStripUpLabel)
+#: src/kcmodule/buttonpagewidget.ui:555
+#, kde-format
+msgid "Left Strip Up"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, leftStripDownLabel)
+#: src/kcmodule/buttonpagewidget.ui:572
+#, fuzzy, kde-format
+#| msgid "Strip Left Down:"
+msgid "Left Strip Down"
+msgstr "ឆូត​ខាងឆ្វេង​ចុះ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, rightStripUpLabel)
+#: src/kcmodule/buttonpagewidget.ui:620
+#, kde-format
+msgid "Right Strip Up"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, rightStripDownLabel)
+#: src/kcmodule/buttonpagewidget.ui:637
+#, fuzzy, kde-format
+#| msgid "Strip Left Down:"
+msgid "Right Strip Down"
+msgstr "ឆូត​ខាងឆ្វេង​ចុះ ៖"
+
+#. i18n: ectx: property (title), widget (QGroupBox, touchRingGroupBox)
+#: src/kcmodule/buttonpagewidget.ui:660
+#, kde-format
+msgid "Touch Ring"
+msgstr "កង​ប៉ះ"
+
+#. i18n: ectx: property (text), widget (QLabel, ringUpLabel)
+#: src/kcmodule/buttonpagewidget.ui:671
+#, fuzzy, kde-format
+#| msgid "Ring Up:"
+msgid "Ring Up"
+msgstr "បង្កើន​សំឡេង ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, ringDownLabel)
+#: src/kcmodule/buttonpagewidget.ui:711
+#, fuzzy, kde-format
+#| msgid "Ring Down:"
+msgid "Ring Down"
+msgstr "បន្ថយ​សំឡេង ៖"
+
+#. i18n: ectx: property (title), widget (QGroupBox, wheelGroupBox)
+#: src/kcmodule/buttonpagewidget.ui:733
+#, kde-format
+msgid "Wheel"
+msgstr "កង់"
+
+#. i18n: ectx: property (text), widget (QLabel, wheelUpLabel)
+#: src/kcmodule/buttonpagewidget.ui:741
+#, fuzzy, kde-format
+#| msgid "Wheel"
+msgid "Wheel Up"
+msgstr "កង់"
+
+#. i18n: ectx: property (text), widget (QLabel, wheelDownLabel)
+#: src/kcmodule/buttonpagewidget.ui:778
+#, fuzzy, kde-format
+#| msgid "Wheel"
+msgid "Wheel Down"
+msgstr "កង់"
+
+#: src/kcmodule/calibrationdialog.cpp:63
+#, fuzzy, kde-format
+#| msgid ""
+#| "Please tab into all four corners to calibrate the tablet.\n"
+#| "Press escape to cancel the process."
+msgid ""
+"Please tap into all four corners to calibrate the tablet.\n"
+"Press escape to cancel the process."
+msgstr ""
+"សូម​ចុច​ថេប (Tab) ចូល​ទៅកាន់​ជ្រុង​ទាំង​បួន​ដើម្បី​ក្រិត​ខ្នាត tablet ។\n"
+"ចុច​គេច (Esc) ដើម្បី​បោះបង់​ដំណើរការ ។"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ErrorWidget)
+#: src/kcmodule/errorwidget.ui:14
+#, kde-format
+msgid "No Tablet Found"
+msgstr "រក​មិន​ឃើញ Tablet"
+
+#. i18n: ectx: property (text), widget (QCommandLinkButton, buttonRunTabletFinder)
+#: src/kcmodule/errorwidget.ui:107
+#, kde-format
+msgid "Manually register a tablet device"
+msgstr ""
+
+#. i18n: ectx: property (description), widget (QCommandLinkButton, buttonRunTabletFinder)
+#: src/kcmodule/errorwidget.ui:110
+#, kde-format
+msgid ""
+"This will open another window, prompting you to describe your tablet device. "
+"After you're done, please restart your desktop session."
+msgstr ""
+
+#: src/kcmodule/generalpagewidget.cpp:57
+#, kde-format
+msgid "Wacom Tablet Settings"
+msgstr "ការ​កំណត់ Wacom Tablet"
+
+#: src/kcmodule/generalpagewidget.cpp:150
+#, fuzzy, kde-format
+#| msgid "Profile name:"
+msgid "Profile List"
+msgstr "ឈ្មោះ​ទម្រង់ ៖"
+
+#: src/kcmodule/generalpagewidget.cpp:151
+#, fuzzy, kde-format
+#| msgid "Select Profile:"
+msgid "Select the Profile you want to add:"
+msgstr "ជ្រើស​ទម្រង់ ៖"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, GeneralPageWidget)
+#: src/kcmodule/generalpagewidget.ui:14
+#, kde-format
+msgid "General Hardware Overview"
+msgstr "ទិដ្ឋភាព​ទូទៅ​របស់​ផ្នែក​រឹង"
+
+#. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
+#: src/kcmodule/generalpagewidget.ui:35
+#, fuzzy, kde-format
+#| msgctxt "Rotation of the tablet pad"
+#| msgid "Rotation:"
+msgid "Profile rotation"
+msgstr "ការ​បង្វិល ៖"
+
+#. i18n: ectx: property (text), widget (QPushButton, pbDown)
+#: src/kcmodule/generalpagewidget.ui:80
+#, fuzzy, kde-format
+#| msgctxt "Action when the Wheel is used downwards"
+#| msgid "Down:"
+msgid "Down"
+msgstr "ចុះ ៖"
+
+#. i18n: ectx: property (text), widget (QPushButton, pbRemoveFromRotationList)
+#: src/kcmodule/generalpagewidget.ui:87
+#, kde-format
+msgid "Remove"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, pbAddToRotationList)
+#: src/kcmodule/generalpagewidget.ui:94
+#, kde-format
+msgid "Add"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, pbUp)
+#: src/kcmodule/generalpagewidget.ui:101
+#, fuzzy, kde-format
+#| msgctxt "Action when the Wheel is used upwards"
+#| msgid "Up:"
+msgid "Up"
+msgstr "ឡើង ៖"
+
+#. i18n: ectx: property (title), widget (QGroupBox, shortcutGroupBox)
+#: src/kcmodule/generalpagewidget.ui:140
+#, kde-format
+msgid "Shortcuts"
+msgstr "ផ្លូវកាត់"
+
+#: src/kcmodule/kcmwacomtablet.cpp:72
+#, kde-format
+msgid "Graphic Tablet Configuration"
+msgstr "ការ​កំណត់​រចនាសម្ព័ន្ធ Tablet ក្រាហ្វិក"
+
+#: src/kcmodule/kcmwacomtablet.cpp:73
+#, kde-format
+msgid "A configurator for graphic tablets"
+msgstr "កម្មវិធី​កំណត់​រចនាសម្ព័ន្ធ​សម្រាប់ tablets ក្រាហ្វិក"
+
+#: src/kcmodule/kcmwacomtablet.cpp:74
+#, kde-format
+msgid "In this module you can configure your Wacom tablet profiles"
+msgstr "នៅ​ក្នុង​ម៉ូឌុល​នេះ​អ្នក​អាច​កំណត់​រចនាសម្ព័ន្ធ​ទម្រង់ Wacom tablet របស់​អ្នក​បាន"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:165
+#, kde-format
+msgid "KDE tablet service not found"
+msgstr ""
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:166
+#, fuzzy, kde-format
+#| msgid ""
+#| "D-Bus connection to the kded daemon not available.\n"
+#| "\n"
+#| "Please start the Wacom tablet daemon and try again.\n"
+#| "The daemon is responsible for tablet detection and profile support."
+msgid ""
+"Please start the KDE wacom tablet service to use this configuration dialog.\n"
+"The service is required for tablet detection and profile support."
+msgstr ""
+"ការ​តភ្ជាប់ D-Bus ទៅកាន់​ដេមិន kded មិន​មាន​ទេ ។\n"
+"\n"
+"សូម​ចាប់ផ្ដើម​ដេមិន Wacom tablet រួច​សាកល្បង​ម្ដងទៀត ។\n"
+"ដេមិន​គឺ​មាន​ភារកិច្ច​ក្នុង​ការ​រកមើល tablet និង​គាំទ្រ​ទម្រង់ ។"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:170
+#, kde-format
+msgid "Unsupported platform detected"
+msgstr ""
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:171
+#, kde-format
+msgid "Currently only X11 is supported."
+msgstr ""
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:174
+#, fuzzy, kde-format
+#| msgid ""
+#| "No tablet device was found.\n"
+#| "\n"
+#| "Please connect the device."
+msgid "No tablet device detected"
+msgstr ""
+"រក​មិន​ឃើញ​ឧបករណ៍ tablet ។\n"
+"\n"
+"សូម​តភ្ជាប់​ឧបករណ៍ ។"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:175
+#, kde-format
+msgid ""
+"Please connect a tablet device to continue.\n"
+"If your device is already connected, it is currently not in the device "
+"database."
+msgstr ""
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:220
+#, kde-format
+msgid "Add new profile"
+msgstr "បន្ថែម​ទម្រង់​ថ្មី"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:221
+#, kde-format
+msgid "Profile name:"
+msgstr "ឈ្មោះ​ទម្រង់ ៖"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:431
+#, kde-format
+msgctxt "Name of the default profile that will be created if none exist."
+msgid "Default"
+msgstr ""
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:440
+#, kde-format
+msgctxt "Basic overview page for the tablet hardware"
+msgid "General"
+msgstr "ទូទៅ"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:441
+#, kde-format
+msgid "Stylus"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
+#: src/kcmodule/kcmwacomtabletwidget.cpp:450
+#: src/kcmodule/tabletareaselectionview.ui:157
+#, fuzzy, kde-format
+#| msgid "Tablet:"
+msgid "Tablet"
+msgstr "Tablet ៖"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:453
+#, kde-format
+msgid "Touch"
+msgstr "ប៉ះ"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:478
+#, kde-format
+msgid "Save changes to the current profile?"
+msgstr "រក្សាទុក​ការ​ផ្លាស់ប្ដូរ​ទៅកាន់​ទម្រង់​បច្ចុប្បន្ន​ដែរ​ឬទេ ?"
+
+#: src/kcmodule/kcmwacomtabletwidget.cpp:489
+#, kde-format
+msgid "Failed to launch Wacom tablet finder tool. Check your installation."
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
+#: src/kcmodule/kcmwacomtabletwidget.ui:14
+#, kde-format
+msgid "Graphic Tablet Settings"
+msgstr "ការ​កំណត់​ក្រាហ្វិក Tablet"
+
+#. i18n: ectx: property (text), widget (QLabel, tabletListLabel)
+#: src/kcmodule/kcmwacomtabletwidget.ui:25
+#, fuzzy, kde-format
+#| msgid "Screen Area"
+msgid "&Select Tablet:"
+msgstr "ផ្ទៃ​អេក្រង់"
+
+#. i18n: ectx: property (text), widget (QLabel, profileLabel)
+#: src/kcmodule/kcmwacomtabletwidget.ui:45
+#, fuzzy, kde-format
+#| msgid "Select Profile:"
+msgid "Select &Profile:"
+msgstr "ជ្រើស​ទម្រង់ ៖"
+
+#. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
+#: src/kcmodule/kcmwacomtabletwidget.ui:67
+#, kde-format
+msgid "Creates a new default profile"
+msgstr "បង្កើត​ទម្រង់​លំនាំដើម​ថ្មី"
+
+#. i18n: ectx: property (toolTip), widget (KAnimatedButton, delProfileButton)
+#: src/kcmodule/kcmwacomtabletwidget.ui:83
+#, kde-format
+msgid "Deletes the current profile"
+msgstr "លុប​ទម្រង់​បច្ចុប្បន្ន"
+
+#: src/kcmodule/keysequenceinputbutton.cpp:287
+#, kde-format
+msgid ""
+"Click on the button, then enter the shortcut like you would in the program.\n"
+"Example for Ctrl+A: hold the Ctrl key and press A."
+msgstr ""
+
+#: src/kcmodule/keysequenceinputbutton.cpp:321
+#, kde-format
+msgctxt "What the user inputs now will be taken as the new shortcut"
+msgid "Input"
+msgstr ""
+
+#: src/kcmodule/keysequenceinputbutton.cpp:328
+#, kde-format
+msgctxt "No shortcut defined"
+msgid "None"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QDialog, PressureCurveDialog)
+#: src/kcmodule/pressurecurvedialog.ui:23
+#, kde-format
+msgid "Press Curve Settings"
+msgstr "ការ​កំណត់​ខ្សែ​កោង​ចុច"
+
+#. i18n: ectx: property (text), widget (QLabel, explaining_Label)
+#: src/kcmodule/pressurecurvedialog.ui:37
+#, fuzzy, kde-format
+#| msgid ""
+#| "The presscurve defines how the pen press is handled.\n"
+#| "Drag around the dots to change the behavior"
+msgid ""
+"The presscurve defines how the pen press is handled.\n"
+"Drag around the dots to change the behavior\n"
+"Use the stylus inside the Widget to see the pressure changes."
+msgstr ""
+"ខ្សែ​កោង​ចុច​កំណត់​ពី​របៀប​ចុច​របស់​ប៊ិច​ពេល​វា​ត្រូវ​បាន​ចុច ។\n"
+"អូស​វា​ជុំវិញ​ចំណុច​ដើម្បី​ផ្លាស់ប្ដូរ​ឥរិយាបថ"
+
+#. i18n: ectx: property (text), widget (QLabel, pc_Label)
+#: src/kcmodule/pressurecurvedialog.ui:104
+#, kde-format
+msgid "Current Presscurve:"
+msgstr "ខ្សែ​កោង​ចុច​បច្ចុប្បន្ន ៖"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, StylusPageWidget)
+#: src/kcmodule/styluspagewidget.ui:14
+#, kde-format
+msgid "Pen Settings"
+msgstr "ការ​កំណត់​ប៊ិច"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, buttonGroupBox)
+#: src/kcmodule/styluspagewidget.ui:28
+#, fuzzy, kde-format
+#| msgid "Set the down action for the wheel"
+msgid "Defines the button action on the stylus."
+msgstr "កំណត់​សកម្មភាព​ចុះ​សម្រាប់​កង់"
+
+#. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
+#: src/kcmodule/styluspagewidget.ui:31
+#, kde-format
+msgid "Button Settings"
+msgstr "ការ​កំណត់​ប៊ូតុង"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, tpcCheckBox)
+#: src/kcmodule/styluspagewidget.ui:113
+#, kde-format
+msgid ""
+"If selected, the stylus must be in contact with the tablet for a stylus side "
+"button to work.\n"
+"If deselected, stylus buttons will work once the stylus is in proximity of "
+"the tablet."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
+#: src/kcmodule/styluspagewidget.ui:116
+#, kde-format
+msgid "Tap to execute action."
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, eraserBox)
+#: src/kcmodule/styluspagewidget.ui:128
+#, kde-format
+msgid "Sets eraser pressure threshold."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, eraserBox)
+#: src/kcmodule/styluspagewidget.ui:131
+#, kde-format
+msgid "Eraser Feel"
+msgstr "អារម្មណ៍​ជ័រលុប"
+
+#. i18n: ectx: property (toolTip), widget (QSlider, eraserSlider)
+#. i18n: ectx: property (toolTip), widget (QSlider, tipSlider)
+#: src/kcmodule/styluspagewidget.ui:153 src/kcmodule/styluspagewidget.ui:297
+#, fuzzy, kde-format
+#| msgid ""
+#| "Set the minimum pressure necessary to generate a Button event for the "
+#| "stylus/tip, eraser, or touch.\n"
+#| " The pressure levels of all tablets are normalized to 2048 levels "
+#| "irregardless of the actual hardware supported levels. \n"
+#| "This parameter is independent of the PressureCurve parameter."
+msgid ""
+"Set the minimum pressure necessary to generate a Button event for the stylus/"
+"tip, eraser, or touch.\n"
+" The pressure levels of all tablets are normalized to 2048 levels "
+"irregardless of the actual hardware supported levels.\n"
+"This parameter is independent of the PressureCurve parameter."
+msgstr ""
+"កំណត់​សម្ពាធ​អប្បបរមា​ចាំបាច់​ដើម្បី​បង្កើត​ព្រឹត្តិការណ៍​ប៊ូតុង​សម្រាប់ stylus/tip ជ័រលុប ឬ​ការ​ប៉ះ ។\n"
+" កម្រិត​សម្ពាធ​របស់​ tablets ទាំងអស់​ត្រូវ​បាន​ធ្វើឲ្យ​ធម្មតា​ទៅកាន់​កម្រិត ២០៤៨ ដោយ​មិន​គិត​អំពី​កម្រិត​គាំទ្រ​"
+"របស់​ផ្នែក​រឹង​ជាក់ស្ដែង ។ \n"
+"ប៉ារ៉ាម៉ែត្រ​នេះ​គឺជា​ប៉ារ៉ាម៉ែត្រ​ឯករាជ្យ​របស់ PressureCurve ។"
+
+#. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
+#. i18n: ectx: property (text), widget (QLabel, labelSlow_3)
+#: src/kcmodule/styluspagewidget.ui:183 src/kcmodule/styluspagewidget.ui:327
+#, kde-format
+msgctxt "slow movement of the cursor (minimal value)"
+msgid "Soft"
+msgstr "ទន់"
+
+#. i18n: ectx: property (text), widget (QLabel, labelFast_2)
+#. i18n: ectx: property (text), widget (QLabel, labelFast_3)
+#: src/kcmodule/styluspagewidget.ui:209 src/kcmodule/styluspagewidget.ui:353
+#, kde-format
+msgctxt "fast movement of the cursor (maximal value)"
+msgid "Firm"
+msgstr "រឹងមាំ"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, eraserPressureButton)
+#. i18n: ectx: property (toolTip), widget (QPushButton, tipPressureButton)
+#: src/kcmodule/styluspagewidget.ui:241 src/kcmodule/styluspagewidget.ui:391
+#, kde-format
+msgid "Defines the pressure sensitivity with a bezier curve"
+msgstr "កំណត់​សម្ពាធ​ភាព​ប្រែប្រួល​ជាមួយ​ខ្សែ​កោង bezier"
+
+#. i18n: ectx: property (text), widget (QPushButton, eraserPressureButton)
+#. i18n: ectx: property (text), widget (QPushButton, tipPressureButton)
+#: src/kcmodule/styluspagewidget.ui:244 src/kcmodule/styluspagewidget.ui:394
+#, fuzzy, kde-format
+#| msgid "Edit Press Curve..."
+msgid "Edit Pressure Curve..."
+msgstr "កែសម្រួល​ខ្សែ​កោង​ចុច..."
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, tipFeelGroupBox)
+#: src/kcmodule/styluspagewidget.ui:272
+#, kde-format
+msgid "Sets stylus pressure threshold."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, tipFeelGroupBox)
+#: src/kcmodule/styluspagewidget.ui:275
+#, kde-format
+msgid "Tip Feel"
+msgstr "អារម្មណ៍​ព័ត៌មាន​ជំនួយ"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxRawSample)
+#. i18n: ectx: property (toolTip), widget (QSlider, horizontalSliderRawSample)
+#: src/kcmodule/styluspagewidget.ui:412 src/kcmodule/styluspagewidget.ui:421
+#, kde-format
+msgid "Number of raw data used to filter the points (default is 4)"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBoxRawSample)
+#: src/kcmodule/styluspagewidget.ui:415
+#, kde-format
+msgid "Raw Sample Rate"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelMinRawSample)
+#: src/kcmodule/styluspagewidget.ui:451
+#, kde-format
+msgid "1"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelMaxRawSample)
+#. i18n: ectx: property (text), widget (QLabel, labelMaxSuppress)
+#: src/kcmodule/styluspagewidget.ui:471 src/kcmodule/styluspagewidget.ui:545
+#, kde-format
+msgid "20"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxSupress)
+#: src/kcmodule/styluspagewidget.ui:489
+#, kde-format
+msgid "Number of points trimmed (default is 2)"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
+#: src/kcmodule/styluspagewidget.ui:492
+#, kde-format
+msgid "Suppress Rate"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelMinSuppress)
+#: src/kcmodule/styluspagewidget.ui:525
+#, kde-format
+msgid "0"
+msgstr ""
+
+#: src/kcmodule/tabletareaselectiondialog.cpp:114
+#, fuzzy, kde-format
+#| msgid "Screen Area"
+msgctxt ""
+"Dialog title from a dialog which lets the user select an area of the tablet "
+"where the screen space will be mapped to."
+msgid "Select a Tablet Area"
+msgstr "ផ្ទៃ​អេក្រង់"
+
+#: src/kcmodule/tabletareaselectionview.cpp:139
+#: src/kcmodule/tabletareaselectionview.cpp:168
+#, fuzzy, kde-format
+#| msgctxt "Title of the applet when an error shows up"
+#| msgid "Tablet Error"
+msgid "Internal Error"
+msgstr "កំហុស Tablet"
+
+#. i18n: ectx: property (text), widget (QLabel, infoLabel)
+#: src/kcmodule/tabletareaselectionview.ui:41
+#, kde-format
+msgid ""
+"The tablet area defines how the screen space is mapped to your tablet. For "
+"each screen a different tablet area can be selected. "
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, screenGroupBox)
+#: src/kcmodule/tabletareaselectionview.ui:57
+#, fuzzy, kde-format
+#| msgid "Screen %1"
+msgid "Screen"
+msgstr "អេក្រង់ %1"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, screenToggleButton)
+#: src/kcmodule/tabletareaselectionview.ui:83
+#, kde-format
+msgid "Toggle between fullscreen and each single screen."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, screenToggleButton)
+#: src/kcmodule/tabletareaselectionview.ui:86
+#, fuzzy, kde-format
+#| msgid "Full screen"
+msgid "Toggle Screen"
+msgstr "ពេញ​អេក្រង់"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, controlsGroupBox)
+#: src/kcmodule/tabletareaselectionview.ui:96
+#, fuzzy, kde-format
+#| msgid "Use the complete tablet area to map the screen space on it"
+msgid "Select the valid tablet area used for the selected screen space."
+msgstr "ប្រើ​ផ្ទៃ tablet ពេញលេញ​ដើម្បី​ផ្គូផ្គង​ទំហំ​អេក្រង់​នៅ​លើ​វា"
+
+#. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
+#: src/kcmodule/tabletareaselectionview.ui:99
+#, fuzzy, kde-format
+#| msgid "Map to screen"
+msgid "Map Screen To"
+msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់"
+
+#. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
+#: src/kcmodule/tabletareaselectionview.ui:105
+#, fuzzy, kde-format
+#| msgid "Full tablet"
+msgid "&Full Tablet"
+msgstr "tablet ពេញលេញ"
+
+#. i18n: ectx: property (text), widget (QRadioButton, tabletAreaRadioButton)
+#: src/kcmodule/tabletareaselectionview.ui:115
+#, fuzzy, kde-format
+#| msgid "Tablet Area"
+msgid "&Tablet Area"
+msgstr "ផ្ទៃ Tablet"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, forceProportionsButton)
+#: src/kcmodule/tabletareaselectionview.ui:122
+#, fuzzy, kde-format
+#| msgid "Force the tablet to keep the shape of the used screen area."
+msgid "Set the tablet area proportional to the selected screen area."
+msgstr "បង្ខំ tablet ឲ្យ​រក្សា​ទ្រង់ទ្រាយ​អេក្រង់​ដែល​បាន​ប្រើ ។"
+
+#. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
+#: src/kcmodule/tabletareaselectionview.ui:125
+#, fuzzy, kde-format
+#| msgid "Force Proportions"
+msgid "Set Screen Proportions"
+msgstr "បង្ខំ​សមាមាត្រ"
+
+#. i18n: ectx: property (text), widget (QPushButton, calibrateButton)
+#: src/kcmodule/tabletareaselectionview.ui:132
+#, kde-format
+msgid "Calibrate"
+msgstr "ក្រិត​តាម​ខ្នាត"
+
+#. i18n: ectx: property (text), widget (QLabel, warningLabel)
+#: src/kcmodule/tabletareaselectionview.ui:204
+#, kde-format
+msgid "This mapping can only be applied in absolute tracking mode."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
+#: src/kcmodule/tabletareaselectionview.ui:219
+#, fuzzy, kde-format
+#| msgid "Force Proportions"
+msgid "Lock proportions"
+msgstr "បង្ខំ​សមាមាត្រ"
+
+#. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
+#: src/kcmodule/tabletareaselectionview.ui:233
+#, fuzzy, kde-format
+#| msgid "Tablet Details"
+msgid "Tablet area fine tuning"
+msgstr "សេចក្ដី​លម្អិត​របស់ Tablet"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
+#: src/kcmodule/tabletareaselectionview.ui:245
+#, kde-format
+msgid "Width"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
+#: src/kcmodule/tabletareaselectionview.ui:255
+#, fuzzy, kde-format
+#| msgctxt "monitors are horizontal aligned"
+#| msgid "horizontal"
+msgid "Horizontal"
+msgstr "ផ្ដេក"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
+#: src/kcmodule/tabletareaselectionview.ui:268
+#, fuzzy, kde-format
+#| msgid "Strip Left Down:"
+msgid "Left margin"
+msgstr "ឆូត​ខាងឆ្វេង​ចុះ ៖"
+
+#. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
+#: src/kcmodule/tabletareaselectionview.ui:278
+#, fuzzy, kde-format
+#| msgctxt "monitors are vertical aligned"
+#| msgid "vertical"
+msgid "Vertical"
+msgstr "បញ្ឈរ"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
+#: src/kcmodule/tabletareaselectionview.ui:291
+#, kde-format
+msgid "Top margin"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
+#: src/kcmodule/tabletareaselectionview.ui:307
+#, kde-format
+msgid "Height"
+msgstr ""
+
+#: src/kcmodule/tabletpagewidget.cpp:384
+#, fuzzy, kde-format
+#| msgid "Orientation"
+msgctxt ""
+"Either no orientation or the current screen orientation is applied to the "
+"tablet."
+msgid "Default Orientation"
+msgstr "ទិស"
+
+#: src/kcmodule/tabletpagewidget.cpp:385
+#, kde-format
+msgctxt "The tablet will be rotated clockwise."
+msgid "Rotate Tablet Clockwise"
+msgstr ""
+
+#: src/kcmodule/tabletpagewidget.cpp:386
+#, fuzzy, kde-format
+#| msgctxt "rotate the pad counter clock wise"
+#| msgid "counter clockwise"
+msgctxt "The tablet will be rotated counterclockwise."
+msgid "Rotate Tablet Counterclockwise"
+msgstr "ច្រាស​ទ្រនិច​នាឡិកា"
+
+#: src/kcmodule/tabletpagewidget.cpp:387
+#, kde-format
+msgctxt "The tablet will be rotated up side down."
+msgid "Rotate Tablet Upside-Down"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, trackingModeGroupBox)
+#: src/kcmodule/tabletpagewidget.ui:25 src/kcmodule/touchpagewidget.ui:38
+#, kde-format
+msgid "Defines how the cursor movement mode will be used."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
+#: src/kcmodule/tabletpagewidget.ui:28
+#, fuzzy, kde-format
+#| msgctxt "Name"
+#| msgid "Track Change"
+msgid "Stylus Tracking Mode"
+msgstr "ការ​ផ្លាស់​ប្ដូរ​បទ"
+
+#. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
+#: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:53
+#, kde-format
+msgid "&Map to Screen (Absolute Mode)"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QRadioButton, trackRelativeRadioButton)
+#: src/kcmodule/tabletpagewidget.ui:56 src/kcmodule/touchpagewidget.ui:69
+#, kde-format
+msgid "Map &to Cursor (Relative Mode)"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, padMappingGroupBox)
+#: src/kcmodule/tabletpagewidget.ui:88
+#, fuzzy, kde-format
+#| msgid "Pad Mapping"
+msgid "Tablet Mapping"
+msgstr "ការ​ផ្គូផ្គង Pad"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, touchMappingTabletButton)
+#. i18n: ectx: property (toolTip), widget (QPushButton, padMappingTabletButton)
+#: src/kcmodule/tabletpagewidget.ui:100 src/kcmodule/touchpagewidget.ui:116
+#, kde-format
+msgid ""
+"Allows one to specify the tablet area for different screen selections in "
+"absolute cursor mode."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, padMappingTabletButton)
+#: src/kcmodule/tabletpagewidget.ui:103
+#, fuzzy, kde-format
+#| msgid "Screen Area"
+msgid "Map Tablet Area to Screen"
+msgstr "ផ្ទៃ​អេក្រង់"
+
+#. i18n: ectx: property (text), widget (QLabel, trackingWarningLabel)
+#: src/kcmodule/tabletpagewidget.ui:128 src/kcmodule/touchpagewidget.ui:147
+#, kde-format
+msgid ""
+"Your currently selected mapping can not be applied in relative tracking mode."
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, rotationGroupBox)
+#: src/kcmodule/tabletpagewidget.ui:169
+#, fuzzy, kde-format
+#| msgid "Select the rotation of the tablet device."
+msgid "Changes the orientation of the tablet."
+msgstr "ជ្រើស​ការ​បង្វិល​សម្រាប់​ឧបករណ៍ tablet ។"
+
+#. i18n: ectx: property (title), widget (QGroupBox, rotationGroupBox)
+#: src/kcmodule/tabletpagewidget.ui:172
+#, kde-format
+msgid "Orientation"
+msgstr "ទិស"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenCheckBox)
+#: src/kcmodule/tabletpagewidget.ui:181
+#, fuzzy, kde-format
+#| msgid ""
+#| "If enabled the tablet is automatically rotated together with the screen"
+msgid "If enabled, the tablet rotates together with the screen."
+msgstr "ប្រសិនបើ​បាន​បើក tablet នឹង​ត្រូវ​បាន​បង្វិល​តាម​អេក្រង់​ដោយ​ស្វ័យប្រវត្តិ"
+
+#. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenCheckBox)
+#: src/kcmodule/tabletpagewidget.ui:184
+#, fuzzy, kde-format
+#| msgid "Rotate with screen"
+msgid "Auto-Rotate with Screen"
+msgstr "បង្វិល​តាម​អេក្រង់"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenInvertCheckBox)
+#: src/kcmodule/tabletpagewidget.ui:194
+#, fuzzy, kde-format
+#| msgid ""
+#| "If enabled the tablet is automatically rotated together with the screen"
+msgid ""
+"If enabled the automatic tablet rotation for clockwise and counterclockwise "
+"rotations will be inverted."
+msgstr "ប្រសិនបើ​បាន​បើក tablet នឹង​ត្រូវ​បាន​បង្វិល​តាម​អេក្រង់​ដោយ​ស្វ័យប្រវត្តិ"
+
+#. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenInvertCheckBox)
+#: src/kcmodule/tabletpagewidget.ui:197
+#, kde-format
+msgid "Invert Auto-Rotation"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, touchCheckBox)
+#: src/kcmodule/touchpagewidget.ui:17
+#, fuzzy, kde-format
+#| msgid ""
+#| "If enabled the tablet is automatically rotated together with the screen"
+msgid "If enabled the tablet will emit touch events."
+msgstr "ប្រសិនបើ​បាន​បើក tablet នឹង​ត្រូវ​បាន​បង្វិល​តាម​អេក្រង់​ដោយ​ស្វ័យប្រវត្តិ"
+
+#. i18n: ectx: property (text), widget (QCheckBox, touchCheckBox)
+#: src/kcmodule/touchpagewidget.ui:20
+#, fuzzy, kde-format
+#| msgid "Enable Touch events"
+msgid "Enable Touch"
+msgstr "បើក​ព្រឹត្តិការណ៍​ប៉ះ"
+
+#. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
+#: src/kcmodule/touchpagewidget.ui:41
+#, fuzzy, kde-format
+#| msgctxt "Name"
+#| msgid "Track Change"
+msgid "Touch Tracking Mode"
+msgstr "ការ​ផ្លាស់​ប្ដូរ​បទ"
+
+#. i18n: ectx: property (title), widget (QGroupBox, touchMappingGroupBox)
+#: src/kcmodule/touchpagewidget.ui:104
+#, kde-format
+msgid "Touch Mapping"
+msgstr "ការ​ផ្គូផ្គង​ប៉ះ"
+
+#. i18n: ectx: property (text), widget (QPushButton, touchMappingTabletButton)
+#: src/kcmodule/touchpagewidget.ui:119
+#, fuzzy, kde-format
+#| msgid "Map to screen"
+msgid "Map Touch Area to Screen"
+msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, gesturesCheckBox)
+#: src/kcmodule/touchpagewidget.ui:183
+#, kde-format
+msgid "If enabled the touch events can recognize gestures."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, gesturesCheckBox)
+#: src/kcmodule/touchpagewidget.ui:186
+#, kde-format
+msgid "Enable Gestures"
+msgstr "បើក​កាយវិការ"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gesturesGroupBox)
+#: src/kcmodule/touchpagewidget.ui:204
+#, fuzzy, kde-format
+#| msgid "Enable Gestures"
+msgid "Gestures"
+msgstr "បើក​កាយវិការ"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, scrollDistanceLabel)
+#: src/kcmodule/touchpagewidget.ui:216
+#, fuzzy, kde-format
+#| msgid "Minimum motion before sending a scroll gesture (default is 20)."
+msgid "Minimum motion before sending a scroll gesture."
+msgstr "ចលនា​អប្បបរមា​មុន​ពេល​ផ្ញើ​កាយវិការ​រមូរ (លំនាំដើម​គឺ ២០) ។"
+
+#. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
+#: src/kcmodule/touchpagewidget.ui:219
+#, fuzzy, kde-format
+#| msgid "Scroll Distance:"
+msgid "Scroll Distance"
+msgstr "ចម្ងាយ​រមូរ ៖"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, scrollDistanceSpinBox)
+#: src/kcmodule/touchpagewidget.ui:235
+#, fuzzy, kde-format
+#| msgid "Minimum motion before sending a scroll gesture (default is 20)."
+msgid "The minimum motion in tablet units before sending a scroll event."
+msgstr "ចលនា​អប្បបរមា​មុន​ពេល​ផ្ញើ​កាយវិការ​រមូរ (លំនាំដើម​គឺ ២០) ។"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
+#: src/kcmodule/touchpagewidget.ui:254
+#, fuzzy, kde-format
+#| msgid "Minimum distance for a zoom gesture (default is 50)."
+msgid "Minimum distance for a zoom gesture is recognized."
+msgstr "ចម្ងាយ​អប្បបរមា​សម្រាប់​កាយវិការ​ពង្រីក (លំនាំដើម​គឺ ៥០) ។"
+
+#. i18n: ectx: property (text), widget (QLabel, zoomDistanceLabel)
+#: src/kcmodule/touchpagewidget.ui:257
+#, fuzzy, kde-format
+#| msgid "Zoom Distance:"
+msgid "Zoom Distance"
+msgstr "ចម្ងាយ​ពង្រីក ៖"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, zoomDistanceSpinBox)
+#: src/kcmodule/touchpagewidget.ui:273
+#, fuzzy, kde-format
+#| msgid "Minimum distance for a zoom gesture (default is 50)."
+msgid ""
+"The minimum distance in tablet units for a zoom gesture to be recognized."
+msgstr "ចម្ងាយ​អប្បបរមា​សម្រាប់​កាយវិការ​ពង្រីក (លំនាំដើម​គឺ ៥០) ។"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, tapTimeLabel)
+#: src/kcmodule/touchpagewidget.ui:292
+#, fuzzy, kde-format
+#| msgid "Minimum time between taps for a right click (default is 250)"
+msgid "Minimum time between taps for a right click."
+msgstr "រយៈពេល​អប្បបរមា​រវាង​ការ​គោះ​បន្ថើរ​សម្រាប់​ការ​ចុច​កណ្ដុរស្ដាំ (លំនាំដើម​គឺ​ ២៥០)"
+
+#. i18n: ectx: property (text), widget (QLabel, tapTimeLabel)
+#: src/kcmodule/touchpagewidget.ui:295
+#, fuzzy, kde-format
+#| msgid "Tap time:"
+msgid "Tap Time"
+msgstr "រយៈពេល​គោះ​បន្ថើរ ៖"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, tapTimeSpinBox)
+#: src/kcmodule/touchpagewidget.ui:305
+#, fuzzy, kde-format
+#| msgid "Minimum time between taps for a right click (default is 250)"
+msgid "The minimum time in milliseconds between taps to trigger a right click."
+msgstr "រយៈពេល​អប្បបរមា​រវាង​ការ​គោះ​បន្ថើរ​សម្រាប់​ការ​ចុច​កណ្ដុរស្ដាំ (លំនាំដើម​គឺ​ ២៥០)"
+
+#. i18n: ectx: property (text), widget (QLabel, scrollInversionLabel)
+#: src/kcmodule/touchpagewidget.ui:318
+#, fuzzy, kde-format
+#| msgid "Invert Scrolldirection"
+msgid "Invert Scroll Direction"
+msgstr "បញ្ច្រាស​ទិសដៅ​រមូរ"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, scrollInversionCheckBox)
+#: src/kcmodule/touchpagewidget.ui:325
+#, kde-format
+msgid "If selected, the scroll direction for the scroll gesture is inverted."
+msgstr ""
+
+#: src/kded/tabletdaemon.cpp:110
+#, kde-format
+msgctxt "Button that shows up in notification of a new tablet being connected"
+msgid "Configure"
+msgstr ""
+
+#: src/kded/tabletdaemon.cpp:164
+#, kde-format
+msgid "Graphic Tablet Configuration daemon"
+msgstr "ដេមិន​ការ​កំណត់​រចនាសម្ព័ន្ធ​ក្រាហ្វិក Tablet"
+
+#: src/kded/tabletdaemon.cpp:165
+#, kde-format
+msgid "A Wacom tablet control daemon"
+msgstr "ដេមិន​ការ​ត្រួតពិនិត្យ Wacom tablet"
+
+#: src/kded/tablethandler.cpp:143
+#, fuzzy, kde-format
+#| msgid "Tablet removed"
+msgid "Tablet Connected"
+msgstr "បាន​យក tablet ចេញ"
+
+#: src/kded/tablethandler.cpp:144
+#, kde-format
+msgid "New tablet '%1' connected."
+msgstr ""
+
+#: src/kded/tablethandler.cpp:174
+#, kde-format
+msgid "Tablet removed"
+msgstr "បាន​យក tablet ចេញ"
+
+#: src/kded/tablethandler.cpp:175
+#, kde-format
+msgid "Tablet %1 removed"
+msgstr "បាន​យក Tablet %1 ចេញ"
+
+#: src/kded/tablethandler.cpp:462
+#, kde-format
+msgctxt "Name of the default profile that will be created if none exists."
+msgid "Default"
+msgstr ""
+
+#: src/kded/tablethandler.cpp:474
+#, kde-format
+msgid "Graphic Tablet error"
+msgstr "កំហុស​ក្រាហ្វិក Tablet"
+
+#: src/kded/tablethandler.cpp:475
+#, fuzzy, kde-format
+#| msgid "Profile <b>%1</b> does not exist"
+msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
+msgstr "ទម្រង់ <b>%1</b> មិន​មាន​ទេ"
+
+#: src/tabletfinder/dialog.cpp:453
+#, kde-format
+msgid "Button %1 maps to Button %2"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
+#: src/tabletfinder/dialog.ui:14
+#, fuzzy, kde-format
+#| msgid "Wacom Tablet Settings"
+msgid "Wacom Tablet detection"
+msgstr "ការ​កំណត់ Wacom Tablet"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/tabletfinder/dialog.ui:20
+#, kde-format
+msgid "Connect your Tablet and click on Refresh to detect it."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/tabletfinder/dialog.ui:27
+#, fuzzy, kde-format
+#| msgid "Tablet Details"
+msgid "Tablet Selection"
+msgstr "សេចក្ដី​លម្អិត​របស់ Tablet"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/tabletfinder/dialog.ui:39
+#, fuzzy, kde-format
+#| msgid "Screen Area"
+msgid "Detected Tablets:"
+msgstr "ផ្ទៃ​អេក្រង់"
+
+#. i18n: ectx: property (text), widget (QPushButton, refreshButton)
+#: src/tabletfinder/dialog.ui:51
+#, kde-format
+msgid "Refresh"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/tabletfinder/dialog.ui:66
+#, kde-format
+msgid "Serial No.:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tabletfinder/dialog.ui:86
+#, fuzzy, kde-format
+#| msgid "Input Devices:"
+msgid "Devices: "
+msgstr "បញ្ចូល​ឧបករណ៍ ៖"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: src/tabletfinder/dialog.ui:105
+#, fuzzy, kde-format
+#| msgid "Enable Gestures"
+msgid "Tablet Features"
+msgstr "បើក​កាយវិការ"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasTouchRing)
+#: src/tabletfinder/dialog.ui:111
+#, fuzzy, kde-format
+#| msgid "Touch Ring"
+msgid "has TouchRing"
+msgstr "កង​ប៉ះ"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsRight)
+#: src/tabletfinder/dialog.ui:118
+#, kde-format
+msgid "has Status LEDs right"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripLeft)
+#: src/tabletfinder/dialog.ui:125
+#, fuzzy, kde-format
+#| msgid "Touch Strip"
+msgid "has Touchstrip Left"
+msgstr "ប៉ះ​ឆូត"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripRight)
+#: src/tabletfinder/dialog.ui:132
+#, fuzzy, kde-format
+#| msgid "Touch Ring"
+msgid "has Touchstrip Right"
+msgstr "កង​ប៉ះ"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsLeft)
+#: src/tabletfinder/dialog.ui:139
+#, kde-format
+msgid "has Status LEDs left"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasWheel)
+#: src/tabletfinder/dialog.ui:146
+#, fuzzy, kde-format
+#| msgid "Wheel"
+msgid "has Wheel"
+msgstr "កង់"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: src/tabletfinder/dialog.ui:169
+#, fuzzy, kde-format
+#| msgid "Button Settings"
+msgid "Button mapping"
+msgstr "ការ​កំណត់​ប៊ូតុង"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/tabletfinder/dialog.ui:177
+#, kde-format
+msgid "Number of available Express Keys:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, mapButtons)
+#: src/tabletfinder/dialog.ui:189
+#, fuzzy, kde-format
+#| msgid "Pad Buttons"
+msgid "Map Hardware Buttons"
+msgstr "ប៊ូតុង Pad"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
+#: src/tabletfinder/dialog.ui:221
+#, fuzzy, kde-format
+#| msgid "Touch Settings"
+msgid "Touch sensor"
+msgstr "ការ​កំណត់​ប៉ះ"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
+#: src/tabletfinder/dialog.ui:227
+#, fuzzy, kde-format
+#| msgid "Wacom Tablet Settings"
+msgid "&Normal tablet"
+msgstr "ការ​កំណត់ Wacom Tablet"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioParentTablet)
+#: src/tabletfinder/dialog.ui:239
+#, kde-format
+msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
+#: src/tabletfinder/dialog.ui:251
+#, kde-format
+msgid "Multi-&device tablet, touch sensor"
+msgstr ""
+
+#: src/tabletfinder/hwbuttondialog.cpp:65
+#, fuzzy, kde-format
+#| msgid "Select the rotation of the tablet device."
+msgid "Please press Button %1 on the tablet now."
+msgstr "ជ្រើស​ការ​បង្វិល​សម្រាប់​ឧបករណ៍ tablet ។"
+
+#: src/tabletfinder/hwbuttondialog.cpp:89
+#, kde-format
+msgid "Hardware button %1 detected."
+msgstr ""
+
+#: src/tabletfinder/hwbuttondialog.cpp:101
+#, kde-format
+msgid "All buttons detected. Please close dialog"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QDialog, HWButtonDialog)
+#: src/tabletfinder/hwbuttondialog.ui:14
+#, kde-format
+msgid "Dialog"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tabletfinder/hwbuttondialog.ui:26
+#, kde-format
+msgid ""
+"Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
+"the mouse."
+msgstr ""
+
+#~ msgid "document-new"
+#~ msgstr "ឯកសារ​ថ្មី"
+
+#~ msgid "edit-delete-page"
+#~ msgstr "កែសម្រួល-លុប-ទំព័រ"
+
+#, fuzzy
+#~| msgid "Map to screen"
+#~ msgctxt ""
+#~ "@action Maps the area of the tablet to all available screen space (space "
+#~ "depends on connected monitors)"
+#~ msgid "Map to all fullscreen"
+#~ msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់"
+
+#~ msgid "Company:"
+#~ msgstr "ក្រុមហ៊ុន ៖"
+
+#~ msgid "Tablet:"
+#~ msgstr "Tablet ៖"
+
+#, fuzzy
+#~| msgid ""
+#~| "D-Bus connection to the kded daemon not available.\n"
+#~| "\n"
+#~| "Please start the Wacom tablet daemon and try again.\n"
+#~| "The daemon is responsible for tablet detection and profile support."
+#~ msgid ""
+#~ "Please start the KDE wacom tablet service.\n"
+#~ "The service is required for tablet detection and profile support."
+#~ msgstr ""
+#~ "ការ​តភ្ជាប់ D-Bus ទៅកាន់​ដេមិន kded មិន​មាន​ទេ ។\n"
+#~ "\n"
+#~ "សូម​ចាប់ផ្ដើម​ដេមិន Wacom tablet រួច​សាកល្បង​ម្ដងទៀត ។\n"
+#~ "ដេមិន​គឺ​មាន​ភារកិច្ច​ក្នុង​ការ​រកមើល tablet និង​គាំទ្រ​ទម្រង់ ។"
+
+#~ msgctxt "Groupbox Settings for the applet to change some values on the fly"
+#~ msgid "Settings"
+#~ msgstr "ការ​កំណត់"
+
+#~ msgctxt "Toggle between touch on/off"
+#~ msgid "Touch:"
+#~ msgstr "ប៉ះ ៖"
+
+#~ msgctxt "Touch tool enabled"
+#~ msgid "On"
+#~ msgstr "បើក"
+
+#~ msgctxt "Touch tool disabled"
+#~ msgid "Off"
+#~ msgstr "បិទ"
+
+#~ msgctxt "Rotation of the tablet pad"
+#~ msgid "Rotation:"
+#~ msgstr "ការ​បង្វិល ៖"
+
+#~ msgctxt "Toggle between absolute/relative penmode"
+#~ msgid "Mode:"
+#~ msgstr "របៀប ៖"
+
+#~ msgctxt "absolute pen movement (pen mode)"
+#~ msgid "Absolute"
+#~ msgstr "ដាច់ខាត"
+
+#~ msgctxt "relative pen movement (mouse mode)"
+#~ msgid "Relative"
+#~ msgstr "ដែល​ទាក់ទង"
+
+#, fuzzy
+#~| msgid ""
+#~| "No tablet device was found.\n"
+#~| "\n"
+#~| "Please connect the device."
+#~ msgid "Graphic Tablet - Device not detected."
+#~ msgstr ""
+#~ "រក​មិន​ឃើញ​ឧបករណ៍ tablet ។\n"
+#~ "\n"
+#~ "សូម​តភ្ជាប់​ឧបករណ៍ ។"
+
+#, fuzzy
+#~| msgid ""
+#~| "Click on the field and press the key or keycombo that should be used "
+#~| "with this action"
+#~ msgid ""
+#~ "Click on the button and press the key or key combination to assign a "
+#~ "shortcut."
+#~ msgstr "ចុច​លើ​វាល ឬ​ចុច​គ្រាប់ចុច ឬ​ចុច​បន្សំ​គ្រាប់ចុច​ដែល​គួរ​ត្រូវ​បាន​ប្រើ​សម្រាប់​សកម្មភាព​នេះ"
+
+#~ msgid ""
+#~ "D-Bus connection to the kded daemon not available.\n"
+#~ "\n"
+#~ "Please start the Wacom tablet daemon.\n"
+#~ "The daemon is responsible for tablet detection and profile support."
+#~ msgstr ""
+#~ "មិន​មាន​ការ​តភ្ជាប់ D-Bus ទៅកាន់​ដេមិន kded ទេ ។\n"
+#~ "\n"
+#~ "សូម​ចាប់ផ្ដើម​ដេមិន Wacom tablet ។\n"
+#~ "ដេមិន​ទទួលខុសត្រូវ​សម្រាប់​ការ​រក​ឃើញ tablet និង​ទម្រង់​ដែល​គាំទ្រ ។"
+
+#~ msgctxt "Title of the applet when an error shows up"
+#~ msgid "Tablet Error"
+#~ msgstr "កំហុស Tablet"
+
+#~ msgid ""
+#~ "No tablet device was found.\n"
+#~ "\n"
+#~ "Please connect the device."
+#~ msgstr ""
+#~ "រក​មិន​ឃើញ​ឧបករណ៍ tablet ។\n"
+#~ "\n"
+#~ "សូម​តភ្ជាប់​ឧបករណ៍ ។"
+
+#, fuzzy
+#~| msgid "Screen Area"
+#~ msgctxt ""
+#~ "Dialog title from a dialog which lets the user select an area of the "
+#~ "screen where the tablet space will be mapped to."
+#~ msgid "Select a Screen Area"
+#~ msgstr "ផ្ទៃ​អេក្រង់"
+
+#, fuzzy
+#~| msgid "Screen %1"
+#~ msgctxt "Maps the tablet to the X11 screen #."
+#~ msgid "Screen %1"
+#~ msgstr "អេក្រង់ %1"
+
+#, fuzzy
+#~| msgid "Graphic Tablet error"
+#~ msgid "Map Tablet To"
+#~ msgstr "កំហុស​ក្រាហ្វិក Tablet"
+
+#, fuzzy
+#~| msgid "Full screen"
+#~ msgid "Full Screen"
+#~ msgstr "ពេញ​អេក្រង់"
+
+#, fuzzy
+#~| msgid "Multi Monitor:"
+#~ msgid "Monitor"
+#~ msgstr "ម៉ូនីទ័រ​ច្រើន ៖"
+
+#, fuzzy
+#~| msgid "Screen Area"
+#~ msgid "Map Screen to Tablet Area ..."
+#~ msgstr "ផ្ទៃ​អេក្រង់"
+
+#, fuzzy
+#~| msgid "Touch Strip"
+#~ msgid "Touch Area"
+#~ msgstr "ប៉ះ​ឆូត"
+
+#, fuzzy
+#~| msgid "Screen Area"
+#~ msgid "Map Screen to Touch Area ..."
+#~ msgstr "ផ្ទៃ​អេក្រង់"
+
+#~ msgid "Screen Area"
+#~ msgstr "ផ្ទៃ​អេក្រង់"
+
+#~ msgid "The mouse cursor will move exactly to the position on the tablet."
+#~ msgstr "ព្រួញ​កណ្ដុរ​នឹង​ផ្លាស់ទី​ជាក់លាក់​ទៅកាន់​ទីតាំង​នៅ​លើ tablet ។"
+
+#~ msgid ""
+#~ "The mouse cursor can be moved freely. The tablet working space does not "
+#~ "represent the screen space\n"
+#~ " The speed of the mouse is the same as specified for any other mouse "
+#~ "pointer. This can be changed in the mouse setting section"
+#~ msgstr ""
+#~ "ព្រួញ​កណ្ដុរ​អាច​ត្រូវ​បាន​ផ្លាស់ទី​ដោយ​សេរី ។ តំបន់​ការងារ​របស់ tablet មិន​តំណាង​ឲ្យ​ទំហំ​អេក្រង់​ទេ\n"
+#~ " ល្បឿន​កណ្ដុរ​គឺ​ដូចគ្នា​ទៅ​នឹង​អ្វី​ដែល​បាន​បញ្ជាក់​សម្រាប់​ព្រួញ​កណ្ដុរ​ផ្សេង​ទៀត ។ វា​អាច​ផ្លាស់ប្ដូរ​បាន​នៅ​ក្នុង​"
+#~ "ផ្នែក​ការ​កំណត់​កណ្ដុរ"
+
+#, fuzzy
+#~| msgctxt "Rotation of the tablet pad"
+#~| msgid "Rotation:"
+#~ msgctxt "No rotation is applied to the tablet."
+#~ msgid "No Rotation"
+#~ msgstr "ការ​បង្វិល ៖"
+
+#~ msgid "General"
+#~ msgstr "ទូទៅ"
+
+#~ msgid "Tablet added"
+#~ msgstr "បាន​បន្ថែម Tablet"
+
+#~ msgid "New %1 tablet added"
+#~ msgstr "បាន​បន្ថែម tablet %1 ថ្មី"
+
+#~ msgid "Express Keys"
+#~ msgstr "គ្រាប់ចុច​រហ័ស"
+
+#, fuzzy
+#~| msgid "Screen Area"
+#~ msgid "Fullscreen TabletArea"
+#~ msgstr "ផ្ទៃ​អេក្រង់"
+
+#, fuzzy
+#~| msgid "Part of the Tablet"
+#~ msgid "Part of screen TabletArea"
+#~ msgstr "ផ្នែក​របស់ Tablet"
+
+#, fuzzy
+#~| msgid "Screen Area"
+#~ msgid "Screen 2 TabletArea"
+#~ msgstr "ផ្ទៃ​អេក្រង់"
+
+#~ msgctxt "no pad rotation"
+#~ msgid "none"
+#~ msgstr "គ្មាន"
+
+#~ msgctxt "rotate the tablet clockwise"
+#~ msgid "clockwise"
+#~ msgstr "ស្រប​ទ្រនិច​នាឡិកា"
+
+#~ msgctxt "pad rotation up side down (180°)"
+#~ msgid "half"
+#~ msgstr "ពាក់កណ្ដាល"
+
+#~ msgid "Map to a specific screen"
+#~ msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់​ជាក់លាក់"
+
+#~ msgid "Map to screen"
+#~ msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់"
+
+#~ msgid ""
+#~ "Select the XRandR display which will be used to map the tablet area on it."
+#~ msgstr "ជ្រើស​ការ​បង្ហាញ XRandR ដែល​នឹង​ត្រូវ​បាន​ប្រើ​ដើម្បី​ផ្គូផ្គង​ផ្ទៃ tablet នៅ​លើ​វា ។"
+
+#~ msgid "Specify the used screen space manually"
+#~ msgstr "បញ្ជាក់​ទំហំ​អេក្រង់​ដែល​បាន​ប្រើ​ដោយ​ដៃ"
+
+#~ msgid "Part of the Screen"
+#~ msgstr "ផ្នែក​នៃ​អេក្រង់"
+
+#~ msgid "Map to the full screen area"
+#~ msgstr "ផ្គូផ្គង​ទៅកាន់​ផ្ទៃ​ពេញ​អេក្រង់"
+
+#~ msgid "Use only a part of the tablet to map the screen space on it"
+#~ msgstr "ប្រើ​តែ​ផ្នែក​របស់ tablet ប៉ុណ្ណោះ​ដើម្បី​ផ្គូផ្គង​ទំហំ​អេក្រង់​នៅ​លើ​វា"
+
+#~ msgid "Part of the Tablet"
+#~ msgstr "ផ្នែក​របស់ Tablet"
+
+#~ msgid "Opens a fullscreen window to calibrate the tablet."
+#~ msgstr "បើក​បង្អួច​ពេញ​អេក្រង់​ដើម្បី​ក្រិត tablet តាម​ខ្នាត ។"
+
+#~ msgid ""
+#~ "Select the screen area that should be mapped onto the tablet. Use the "
+#~ "drag handles to change the selected area."
+#~ msgstr ""
+#~ "ជ្រើស​ផ្ទៃ​អេក្រង់​ដែល​គួរ​ត្រូវ​បាន​ផ្គូផ្គង​ទៅ​លើ tablet ។ ប្រើ​ការ​ចាប់​អូស​ដើម្បី​ផ្លាស់ប្ដូរ​ផ្ទៃ​ដែល​បាន​"
+#~ "ជ្រើស ។"
+
+#~ msgid ""
+#~ "Select the tablet area that should be used to map the screen space on it. "
+#~ "Use the drag handles to change the selected area."
+#~ msgstr ""
+#~ "ជ្រើស​ផ្ទៃ​អេក្រង់​ដែល​គួរ​ត្រូវ​បាន​ប្រើ​ដើម្បី​ផ្គូផ្គង​ទំហំ​អេក្រង់​នៅ​លើ​វា ។ ប្រើ​ការ​ចាប់​អូស​ដើម្បី​ផ្លាស់ប្ដូរ​"
+#~ "ផ្ទៃ​ដែល​បាន​ជ្រើស ។"
+
+#~ msgid "Screen Setup"
+#~ msgstr "ការ​រៀបចំ​អេក្រង់"
+
+#~ msgid "Twinview:"
+#~ msgstr "Twinview ៖"
+
+#~ msgctxt "none means disabled twinview"
+#~ msgid "none"
+#~ msgstr "គ្មាន"
+
+#~ msgid "Resolution 1:"
+#~ msgstr "គុណភាព​បង្ហាញ ១ ៖"
+
+#~ msgctxt ""
+#~ "Divider for the Metamode Display resolution settings like 1280x1024"
+#~ msgid "x"
+#~ msgstr "x"
+
+#~ msgid "Resolution 2:"
+#~ msgstr "គុណភាព​បង្ហាញ ២ ៖"
+
+#~ msgctxt "none means no screen mapped"
+#~ msgid "none"
+#~ msgstr "គ្មាន"
+
+#~ msgctxt "enables multi monitor support if twinview is not enabled"
+#~ msgid "on"
+#~ msgstr "លើ"
+
+#~ msgid "Map to screen:"
+#~ msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់ ៖"
+
+#~ msgid "Select Quote Text"
+#~ msgstr "ជ្រើស​អត្ថបទ​សម្រង់"
+
+#~ msgid ""
+#~ "Enter the text that should be pasted into the current cursor position."
+#~ msgstr "បញ្ចូល​អត្ថបទ​ដែល​គួរ​ត្រូវ​បាន​បិទភ្ជាប់​ទៅ​ក្នុង​ទីតាំង​ទស្សន៍ទ្រនិច​បច្ចុប្បន្ន ។"
+
+#~ msgid "Enter Text:"
+#~ msgstr "បញ្ចូល​អត្ថបទ ៖"
+
+#~ msgid "Enter the text that should be pasted when the action is used."
+#~ msgstr "បញ្ចូល​អត្ថបទ​ដែល​គួរ​ត្រូវ​បាន​បិទភ្ជាប់​ពេល​សកម្មភាព​ត្រូវ​បាន​ប្រើ ។"
+
+#~ msgid "Turns on/off Touch events (default is enable/on)."
+#~ msgstr "បិទ/បើក​ព្រឹត្តិការណ៍​ប៉ះ (លំនាំដើម​គឺ​បើក/លើ) ។"
+
+#~ msgctxt "absolute pen movement (pen mode)"
+#~ msgid "Absolute (Pen Mode)"
+#~ msgstr "ដាច់ខាត (របៀប​ប៊ិច)"
+
+#~ msgctxt "relative pen movement (mouse mode)"
+#~ msgid "Relative (Mouse Mode)"
+#~ msgstr "ទំនាក់ទំនង (របៀប​កណ្ដុរ)"
+
+#~ msgid "Multi-Touch"
+#~ msgstr "ប៉ះ​ចម្រុះ"
+
+#~ msgid "Turns on/off multi-touch gesture events (default is enable/on). "
+#~ msgstr "បិទ/បើក​ព្រឹត្តិការណ៍​កាយវិការ​ប៉ះ​ចម្រុះ (លំនាំដើម​គឺ​បើក/លើ) ។"
+
+#~ msgid "Cursor Settings"
+#~ msgstr "ការ​កំណត់​ទស្សន៍ទ្រនិច"
+
+#~ msgid ""
+#~ "If enabled pressing a button is recognized when the pen is above the "
+#~ "tablet. If disabled the click and tap function is active"
+#~ msgstr ""
+#~ "ប្រសិនបើ​បើក ការ​ចុច​ប៊ូតុង​គឺ​ត្រូវ​បាន​ស្គាល់​ពេល​ប៊ិច​នៅ​លើ tablet ។ ប្រសិនបើ​បិទ ការ​ចុច និង​មុខងារ​គោះ​គឺ​"
+#~ "សកម្ម"
+
+#~ msgid "use Hover Click"
+#~ msgstr "ប្រើ​ការ​ចុច​ជាប់"
+
+#~ msgid ""
+#~ "No tablet device was found.\n"
+#~ "\n"
+#~ "Please connect the device before you start this module.\n"
+#~ "If the device is already connected refer to the help file for any further "
+#~ "information."
+#~ msgstr ""
+#~ "រក​មិន​ឃើញ​ឧបករណ៍ tablet ។\n"
+#~ "\n"
+#~ "សូម​តភ្ជាប់​ឧបករណ៍​មុន​ពេល​ចាប់ផ្ដើម​ម៉ូឌុល​នេះ ។\n"
+#~ "ប្រសិនបើ​ឧបករណ៍​ត្រូវ​បាន​តភ្ជាប់​រួចហើយ សូម​មើល​ទៅ​ឯកសារ​ជំនួយ​សម្រាប់​ព័ត៌មាន​បន្ថែម ។"
+
+#~ msgid "Pen"
+#~ msgstr "ប៊ិច"
+
+#, fuzzy
+#~| msgctxt "Disable button function"
+#~| msgid "Disable"
+#~ msgctxt "Disable button function"
+#~ msgid "Disabled"
+#~ msgstr "បិទ"
+
+#, fuzzy
+#~| msgctxt "Indicates the use of one of the standard buttons (1-32)"
+#~| msgid "Button..."
+#~ msgctxt "Indicates an assigned action."
+#~ msgid "Action..."
+#~ msgstr "ប៊ូតុង..."
+
+#~ msgid "Set the action for Button 1"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ប៊ូតុង ១"
+
+#~ msgid "Button 2:"
+#~ msgstr "ប៊ូតុង ២"
+
+#~ msgid "Set the action for Button 2"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ប៊ូតុង ២"
+
+#~ msgid "Button 3:"
+#~ msgstr "ប៊ូតុង ៣ ៖"
+
+#~ msgid "Set the action for Button 3"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ប៊ូតុង ៣"
+
+#~ msgid "Set the action for Button 4"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ប៊ូតុង ៤"
+
+#~ msgid "Set the action for Button 5"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ប៊ូតុង ៥"
+
+#~ msgid "Set the action for Button 6"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ប៊ូតុង ៦"
+
+#~ msgid "Set the action for Button 7"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ប៊ូតុង ៧"
+
+#~ msgid "Set the action for Button 8"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ប៊ូតុង ៨"
+
+#~ msgid "Set the action for Button 9"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ប៊ូតុង ៩"
+
+#~ msgid "Set the action for Button 10"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ប៊ូតុង ១០"
+
+#~ msgid "Strip Left Up:"
+#~ msgstr "ឆូតត​ខាងឆ្វេង​ឡើង ៖"
+
+#~ msgid "Set the up action for the left strip"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ឆូត​ខាងឆ្វេង"
+
+#~ msgid "Strip Right Up:"
+#~ msgstr "ឆូត​ខាងស្ដាំ​ឡើង ៖"
+
+#~ msgid "Set the up action for the right strip"
+#~ msgstr "កំណត់​សកម្មភាព​សម្រាប់​ឆូត​ខាងស្ដាំ"
+
+#~ msgid "Strip Right Down:"
+#~ msgstr "ឆូត​ខាងស្ដាំ​ចុះ ៖"
+
+#~ msgid "Set the down action for the right strip"
+#~ msgstr "កំណត់​សកម្មភាព​ចុះ​សម្រាប់​ឆូត​ខាងស្ដាំ"
+
+#~ msgid "Set the down action for the left strip"
+#~ msgstr "កំណត់​សកម្មភាព​ចុះ​សម្រាប់​ឆូត​ខាងឆ្វេង"
+
+#~ msgid "Set the down action for the touch ring"
+#~ msgstr "កំណត់​សកម្មភាព​ចុះ​សម្រាប់​កង​ប៉ះ"
+
+#~ msgid "Set the up action for the touch ring"
+#~ msgstr "កំណត់​សកម្មភាព​ឡើង​សម្រាប់​កង​ប៉ះ"
+
+#~ msgid "Set the up action for the wheel"
+#~ msgstr "កំណត់​សកម្មភាព​ឡើង​សម្រាប់​កង់"
+
+#, fuzzy
+#~| msgctxt "Left mouse click"
+#~| msgid "Left Click"
+#~ msgctxt "Left mouse button click."
+#~ msgid "Left Click"
+#~ msgstr "ចុច​ខាងឆ្វេង"
+
+#, fuzzy
+#~| msgctxt "Middle mouse click"
+#~| msgid "Middle Click"
+#~ msgctxt "Middle mouse button click."
+#~ msgid "Middle Click"
+#~ msgstr "ចុច​កណ្ដាល"
+
+#, fuzzy
+#~| msgctxt "Right mouse click"
+#~| msgid "Right Click"
+#~ msgctxt "Right mouse button click."
+#~ msgid "Right Click"
+#~ msgstr "ចុច​ខាងស្ដាំ"
+
+#, fuzzy
+#~| msgid "Select Button:"
+#~ msgctxt "Select a mouse button from a dropwdown."
+#~ msgid "Select Button..."
+#~ msgstr "ជ្រើស​ប៊ូតុង ៖"
+
+#, fuzzy
+#~| msgid "Orientation"
+#~ msgid "Current Action:"
+#~ msgstr "ទិស"
+
+#, fuzzy
+#~| msgid "Key Modifier:"
+#~ msgid "Modifiers:"
+#~ msgstr "គ្រាប់ចុច​កែប្រែ ៖"
+
+#~ msgid "Shortcut:"
+#~ msgstr "ផ្លូវកាត់ ៖"
+
+#~ msgid "Double Click Distance"
+#~ msgstr "រយៈពេល​ចុច​ទ្វេដង"
+
+#~ msgid ""
+#~ "The time difference between two tip clicks that still counts as double "
+#~ "click"
+#~ msgstr "រយៈពេល​ខុសគ្នា​រវាង​ការ​ចុច​ព័ត៌មាន​ជំនួយ​ពីរ​ដែល​នៅតែ​រាប់​ជា​ការ​ចុច​ទ្វេដង"
+
+#~ msgctxt "doubleclick with the tip disabled"
+#~ msgid "Small"
+#~ msgstr "តូច"
+
+#~ msgctxt ""
+#~ "large distance between two tip clicks to still count is as double click"
+#~ msgid "Big"
+#~ msgstr "ធំ"
+
+#~ msgid "Action defined by the 3rd stylus button"
+#~ msgstr "សកម្មភាព​ដែល​បាន​កំណត់​ដោយ​ប៊ូតុង stylus ទី​បី"
+
+#~ msgid "Action defined by the 2nd stylus button"
+#~ msgstr "សកម្មភាព​ដែល​បាន​កំណត់​ដោយ​ប៊ូតុង stylus ទី​ពីរ"
+
+#~ msgctxt "Indicates the use of a specific key/keystroke"
+#~ msgid "Keystroke..."
+#~ msgstr "សង្កត់​គ្រាប់ចុច..."
+
+#~ msgctxt "Function to toggle between absolute/relative mousemode"
+#~ msgid "Mode Toggle"
+#~ msgstr "របៀប​បិទ/បើក"
+
+#~ msgctxt "Function to toggle between single/multi display support"
+#~ msgid "Display Toggle"
+#~ msgstr "បង្ហាញ​បិទ/បើក"
+
+#~ msgid "Select Key Button"
+#~ msgstr "ជ្រើស​ប៊ូតុង​គ្រាប់ចុច"
+
+#~ msgid "Select the default button action that should be used by this action."
+#~ msgstr "ជ្រើស​សកម្មភាព​ប៊ូតុង​លំនាំដើម​ដែល​គួរ​ត្រូវ​បាន​ប្រើ​សកម្មភាព​នេះ ។"
+
+#~ msgid "Select the standard button action that should be used by this action"
+#~ msgstr "ជ្រើស​សកម្មភាព​ប៊ូតុង​ស្តង់ដារ​ដែល​គួរ​ត្រូវ​បាន​ប្រើ​សកម្មភាព​នេះ"
+
+#~ msgctxt ""
+#~ "none means no special modifier is used. instead use the values from the "
+#~ "Key Sequence Widget"
+#~ msgid "none"
+#~ msgstr "គ្មាន"
+
+#~ msgctxt "ALT key"
+#~ msgid "ALT"
+#~ msgstr "ជំនួស (Alt)"
+
+#~ msgctxt "CTRL key"
+#~ msgid "CTRL"
+#~ msgstr "បញ្ជា (Ctrl)"
+
+#~ msgctxt "SHIFT key"
+#~ msgid "SHIFT"
+#~ msgstr "ប្ដូរ (Shift)"
+
+#~ msgctxt "META key"
+#~ msgid "META"
+#~ msgstr "មេតា (Meta)"
+
+#~ msgctxt "ALT+CTRL key combination"
+#~ msgid "ALT+CTRL"
+#~ msgstr "ជំនួស+បញ្ជា (Alt+Ctrl)"
+
+#~ msgctxt "ALT+SHIFT key combination"
+#~ msgid "ALT+SHIFT"
+#~ msgstr "ជំនួស+ប្ដូរ (Alt+Shift)"
+
+#~ msgctxt "ALT+META key combination"
+#~ msgid "ALT+META"
+#~ msgstr "ជំនួស+មេតា (ALT+META)"
+
+#~ msgctxt "CTRL+SHIFT key combination"
+#~ msgid "CTRL+SHIFT"
+#~ msgstr "បញ្ជា+ប្ដូរ (Ctrl+Shift)"
+
+#~ msgctxt "CTRL+META key combination"
+#~ msgid "CTRL+META"
+#~ msgstr "បញ្ជា+មេតា (CTRL+META)"
+
+#~ msgctxt "SHIFT+META key combination"
+#~ msgid "SHIFT+META"
+#~ msgstr "ប្ដូរ+មេតា (SHIFT+META)"
+
+#~ msgctxt "ALT+CTRL+META key combination"
+#~ msgid "ALT+CTRL+META"
+#~ msgstr "ជំនួស+បញ្ជា+មេតា (ALT+CTRL+META)"
+
+#~ msgctxt "ALT+CTRL+SHIFT key combination"
+#~ msgid "ALT+CTRL+SHIFT"
+#~ msgstr "ជំនួស+បញ្ជា+ប្ដូរ (ALT+CTRL+SHIFT)"
+
+#~ msgctxt "CTRL+META+SHIFT key combination"
+#~ msgid "CTRL+META+SHIFT"
+#~ msgstr "បញ្ជា+មេតា+ប្ដូរ (CTRL+META+SHIFT)"
+
+#~ msgid ""
+#~ "Select either one of the special key modifiers alone or enter a specific "
+#~ "key or key combination into the shortcut field.\n"
+#~ "\n"
+#~ "The selected keys will be send if you activate this action."
+#~ msgstr ""
+#~ "ជ្រើស​គ្រាប់ចុច​មួយ​ក្នុង​ចំណោម​គ្រាប់ចុច​កែប្រែ​ពិសេស​តែ​ឯង ឬ​បញ្ចូល​គ្រាប់ចុច​ជាក់លាក់ ឬ​បង្គំ​គ្រាប់ចុច​ទៅ​ក្នុង​"
+#~ "វាល​ផ្លូវកាត់ ។\n"
+#~ "\n"
+#~ "គ្រាប់ចុច​ដែល​បាន​ជ្រើស​នឹង​ត្រូវ​បាន​បញ្ជូន ប្រសិនបើ​អ្នក​ធ្វើឲ្យ​សកម្មភាព​នេះ​សកម្ម ។"
+
+#~ msgid ""
+#~ "Select the special modifier or modifier combination used by this action"
+#~ msgstr "ជ្រើស​កម្មវិធី​កែប្រែ​ពិសេស ឬ​បន្សំ​កម្មវិធី​កែប្រែ​ដែល​បាន​ប្រើ​ដោយ​សកម្មភាព​នេះ"
+
+#~ msgid "or"
+#~ msgstr "ឬ"
+
+#~ msgid "(c) 2010 Jörg Ehrichs"
+#~ msgstr "រក្សាសិទ្ធិ​ឆ្នាំ ២០១០ ដោយ Jörg Ehrichs"
+
+#~ msgctxt "Name"
+#~ msgid "Cloud"
+#~ msgstr "ពពក"
+
+#~ msgctxt "Name"
+#~ msgid "CoverBling"
+#~ msgstr "CoverBling"
+
+#~ msgctxt "Name"
+#~ msgid "Javascript Applet"
+#~ msgstr "អាប់ភ្លេត Javascript"
+
+#~ msgctxt "Name"
+#~ msgid "Last.Fm Events"
+#~ msgstr "ព្រឹត្តិការណ៍ Last.Fm"
+
+#~ msgctxt "Name"
+#~ msgid "Scripted Applet"
+#~ msgstr "អាប់ភ្លេត​​ដែល​មាន​ស្គ្រីប"
+
+#~ msgctxt "Name"
+#~ msgid "Video"
+#~ msgstr "វីដេអូ"
+
+#~ msgctxt "Name"
+#~ msgid "Wiki-MetaApplet"
+#~ msgstr "Wiki-MetaApplet"
+
+#~ msgctxt "Name"
+#~ msgid "Cloud Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ​ពពក"
+
+#~ msgctxt "Name"
+#~ msgid "JS Sample Engine"
+#~ msgstr "ម៉ាស៊ីន​គំរូ JS"
+
+#~ msgctxt "Comment"
+#~ msgid "Javascript Sample Engine"
+#~ msgstr "ម៉ាស៊ីន​គំរូ Javascript"
+
+#~ msgctxt "Name"
+#~ msgid "LastFM Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ LastFM"
+
+#~ msgctxt "Name"
+#~ msgid "Wiki Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ​វីគី"
+
+#~ msgctxt "Name"
+#~ msgid "Add as Podcast to Amarok"
+#~ msgstr "បន្ថែម​ជា​ផតខាស់​ទៅ Amarok"
+
+#~ msgctxt "X-KDE-Submenu"
+#~ msgid "Amarok"
+#~ msgstr "Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "Append to Playlist"
+#~ msgstr "បន្ថែម​ទៅ​ខាង​ចុង​បញ្ជី​ចាក់"
+
+#~ msgctxt "Name"
+#~ msgid "Append & Play"
+#~ msgstr "បន្ថែម​ខាង​ចុង និង​ចាក់"
+
+#~ msgctxt "Name"
+#~ msgid "Queue Track"
+#~ msgstr "តម្រៀប​បទ​ជា​ជួរ"
+
+#~ msgctxt "Name"
+#~ msgid "Amarok"
+#~ msgstr "Amarok"
+
+#~ msgctxt "GenericName"
+#~ msgid "Audio Player"
+#~ msgstr "កម្មវិធី​ចាក់​អូឌីយ៉ូ"
+
+#~ msgctxt "Comment"
+#~ msgid "Amarok - Rediscover Your Music!"
+#~ msgstr "Amarok - រក​ឃើញ​តន្ត្រី​របស់​អ្នក​ឡើង​វិញ !"
+
+#~ msgctxt "Name"
+#~ msgid "Play Audio CD with Amarok"
+#~ msgstr "ចាក់​ស៊ីឌី​អូឌីយ៉ូ​ជា​មួយ Amarok"
+
+#~ msgctxt "Comment"
+#~ msgid "Plugin for Amarok"
+#~ msgstr "កម្មវិធី​ជំនួយ​សម្រាប់ Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "Albums"
+#~ msgstr "អាល់ប៊ុម"
+
+#~ msgctxt "Name"
+#~ msgid "Info"
+#~ msgstr "ព័ត៌មាន"
+
+#~ msgctxt "Name"
+#~ msgid "Labels"
+#~ msgstr "ស្លាក"
+
+#~ msgctxt "Name"
+#~ msgid "Lyrics"
+#~ msgstr "ទំនុក​"
+
+#~ msgctxt "Name"
+#~ msgid "Photos"
+#~ msgstr "រូប​ថត"
+
+#~ msgctxt "Name"
+#~ msgid "Playlist Information"
+#~ msgstr "ព័ត៌មាន​បញ្ជី​ចាក់"
+
+#~ msgctxt "Name"
+#~ msgid "Similar Artists"
+#~ msgstr "សិល្បករ​ស្រដៀង​គ្នា"
+
+#~ msgctxt "Name"
+#~ msgid "Songkick"
+#~ msgstr "Songkick"
+
+#~ msgctxt "Name"
+#~ msgid "Tabs"
+#~ msgstr "ផ្ទាំង"
+
+#~ msgctxt "Name"
+#~ msgid "Upcoming Events"
+#~ msgstr "ព្រឹត្តិការណ៍​ដែល​នឹង​កើត​មាន​ឡើង"
+
+#~ msgctxt "Name"
+#~ msgid "Videoclip"
+#~ msgstr "ឈុត​វីដេអូ"
+
+#~ msgctxt "Name"
+#~ msgid "Wikipedia"
+#~ msgstr "វីគីភីឌៀ"
+
+#~ msgctxt "Name"
+#~ msgid "Vertical Context Containment"
+#~ msgstr "ការ​ផ្ទុក​បរិបទ​បញ្ឈរ"
+
+#~ msgctxt "Comment"
+#~ msgid "A vertical containment for the Amarok Context"
+#~ msgstr "ការ​ផ្ទុក​បញ្ឈរ​សម្រាប់​​បរិបទ Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "Current Info Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ​ព័ត៌មាន​បច្ចុប្បន្ន"
+
+#~ msgctxt "Name"
+#~ msgid "Info Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ​ព័ត៌មាន​"
+
+#~ msgctxt "Name"
+#~ msgid "Labels Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ​ស្លាក"
+
+#~ msgctxt "Name"
+#~ msgid "Lyrics Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ​ទំនុក"
+
+#~ msgctxt "Name"
+#~ msgid "Photos Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ​រូប​ថត"
+
+#~ msgctxt "Name"
+#~ msgid "Upcoming Events Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ​ព្រឹត្តិការណ៍​ដែល​នឹង​កើត​ឡើង​"
+
+#~ msgctxt "Name"
+#~ msgid "Songkick Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ Songkick"
+
+#~ msgctxt "Name"
+#~ msgid "Tabs Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ​ផ្ទាំង"
+
+#~ msgctxt "Name"
+#~ msgid "Video Clip Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ​ឈុត​វីដេអូ"
+
+#~ msgctxt "Name"
+#~ msgid "Wikipedia Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ​វីគីភីឌៀ"
+
+#~ msgctxt "Name"
+#~ msgid "Amarok JavaScript Applet"
+#~ msgstr "អាប់ភ្លេត​ JavaScript របស់​ Amarok"
+
+#~ msgctxt "Comment"
+#~ msgid "Native Amarok applet written in JavaScript"
+#~ msgstr "អាប់ភ្លេត​ដើម​របស់ Amarok បាន​សរសេរ​នៅ​ក្នុង JavaScript"
+
+#~ msgctxt "Name"
+#~ msgid "Amarok JavaScript Runner"
+#~ msgstr "កម្មវិធី​រត់ JavaScript របស់ Amarok"
+
+#~ msgctxt "Comment"
+#~ msgid "Plasma Animation Engine"
+#~ msgstr "ម៉ាស៊ីន​ចលនា​ប្លាស្មា"
+
+#~ msgctxt "Comment"
+#~ msgid "Plasma applet container and background painter"
+#~ msgstr "ឧបករណ៍​ផ្ទុក​អាប់ភ្លេត​ប្លាស្មា និង​ឧបករណ៍​គូរ​ផ្ទៃ​ខាង​ក្រោយ"
+
+#~ msgctxt "Comment"
+#~ msgid "Amarok Context applet"
+#~ msgstr "អាប់ភ្លេត​បរិបទ​របស់ Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "Amarok Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ Amarok"
+
+#~ msgctxt "Comment"
+#~ msgid "Amarok Data Engine"
+#~ msgstr "ម៉ាស៊ីន​ទិន្នន័យ Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "AudioCd Collection"
+#~ msgstr "សម្រាំង​ស៊ីឌី​អូឌីយ៉ូ"
+
+#~ msgctxt "Comment"
+#~ msgid "AudioCd collection plugin for Amarok"
+#~ msgstr "កម្មវិធី​ជំនួយ​សម្រាំង​ស៊ីឌី​អូឌីយ៉ូ​​សម្រាប់ Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "DAAP Collection"
+#~ msgstr "សម្រាំង DAAP"
+
+#~ msgctxt "Comment"
+#~ msgid "DAAP collection plugin for Amarok"
+#~ msgstr "កម្មវិធី​ជំនួយ​សម្រាំង DAAP សម្រាប់​ Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "Mass Storage Device"
+#~ msgstr "ឧបករណ៍​ផ្ទុក​ធំ"
+
+#~ msgctxt "Comment"
+#~ msgid "Device plugin for Amarok"
+#~ msgstr "កម្មវិធី​ជំនួយ​ឧបករណ៍​សម្រាប់ Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "NFS Device"
+#~ msgstr "ឧបករណ៍ NFS"
+
+#~ msgctxt "Comment"
+#~ msgid "Device plugin for Amarok which supports NFS"
+#~ msgstr "កម្មវិធី​ជំនួយ​ឧបករណ៍​សម្រាប់ Amarok ដែល​គាំទ្រ NFS"
+
+#~ msgctxt "Name"
+#~ msgid "SMB Device"
+#~ msgstr "ឧបករណ៍ SMB"
+
+#~ msgctxt "Comment"
+#~ msgid "Device plugin for Amarok which supports SMBFS"
+#~ msgstr "កម្មវិធី​ជំនួយ​ឧបករណ៍​សម្រាប់ Amarok ដែល​គាំទ្រ SMBFS"
+
+#~ msgctxt "Name"
+#~ msgid "MySQLe Collection"
+#~ msgstr "សម្រាំង MySQLe"
+
+#~ msgctxt "Comment"
+#~ msgid "Collection plugin for Amarok"
+#~ msgstr "កម្មវិធី​ជំនួយ​សម្រាំង​សម្រាប់​ Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "MySQLServer Collection"
+#~ msgstr "សម្រាំង MySQLServer"
+
+#~ msgctxt "Name"
+#~ msgid "Ipod Collection"
+#~ msgstr "សម្រាំង Ipod"
+
+#~ msgctxt "Comment"
+#~ msgid "Ipod collection plugin for Amarok"
+#~ msgstr "កម្មវិធី​ជំនួយ​សម្រាំង Ipod សម្រាប់ Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "Media Device Collection"
+#~ msgstr "សម្រាំង​ឧបករណ៍​មេឌៀ"
+
+#~ msgctxt "Comment"
+#~ msgid "Media Device collection plugin for Amarok"
+#~ msgstr "កម្មវិធី​ជំនួយ​សម្រាំង​ឧបករណ៍​មេឌៀ​សម្រាប់​ Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "MTP Collection"
+#~ msgstr "សម្រាំង MTP"
+
+#~ msgctxt "Comment"
+#~ msgid "MTP collection plugin for Amarok"
+#~ msgstr "កម្មវិធី​ជំនួយ​សម្រាំង MTP សម្រាប់​ Amarok"
+
+#~ msgctxt "Name"
+#~ msgid "Nepomuk Collection"
+#~ msgstr "សម្រាំង Nepomuk"
+
+#~ msgctxt "Name"
+#~ msgid "Playdar Collection"
+#~ msgstr "សម្រាំង Playdar"
+
+#~ msgctxt "Comment"
+#~ msgid "Music that Playdar can find"
+#~ msgstr "តន្ត្រី​ដែល​ Playdar អាច​រក​ឃើញ"
+
+#~ msgctxt "Name"
+#~ msgid "Universal Mass Storage Collection"
+#~ msgstr "សម្រាំង​ឧបករណ៍​​ផ្ទុក​សកល"
+
+#~ msgctxt "Name"
+#~ msgid "UPnP Collection"
+#~ msgstr "សម្រាំង UPnP"
+
+#~ msgctxt "Comment"
+#~ msgid "UPnP collection plugin for Amarok"
+#~ msgstr "កម្មវិធី​ជំនួយ​សម្រាំង UPnP សម្រាប់ Amarok"
+
+#~ msgctxt "Comment"
+#~ msgid "Amarok"
+#~ msgstr "Amarok"
+
+#~ msgctxt "Comment"
+#~ msgid "Amarok changed to a new track"
+#~ msgstr "Amarok បាន​ផ្លាស់ប្ដូរ​ទៅ​បទ​ថ្មី"
+
+#~ msgctxt "Name"
+#~ msgid "Ampache Service Config"
+#~ msgstr "កំណត់​រចនាសម្ព័ន្ធ​សេវា​របស់ Ampache"
+
+#~ msgctxt "Comment"
+#~ msgid "Sets up the ampache server(s) to connect to"
+#~ msgstr "រៀបចំ​ម៉ាស៊ីន​បម្រើ ampache ដើម្បី​​តភ្ជាប់"
+
+#~ msgctxt "Name"
+#~ msgid "Ampache"
+#~ msgstr "Ampache"
+
+#~ msgctxt "Comment"
+#~ msgid "Listen to music from an Ampache server"
+#~ msgstr "ស្ដាប់​តន្ត្រី​ពី​ម៉ាស៊ីន​បម្រើ Ampache"
+
+#~ msgctxt "Name"
+#~ msgid "gpodder.net"
+#~ msgstr "gpodder.net"
