@@ -2,7 +2,7 @@
     "DocPath": "kcontrol/wacomtablet/index.html",
     "KPlugin": {
         "Description": "Wacom Tablet Settings",
-        "Description[ca@valencia]": "Configuració de les tauletes Wacom",
+        "Description[ca@valencia]": "Configureu les tauletes Wacom",
         "Description[ca]": "Configuració de les tauletes Wacom",
         "Description[en_GB]": "Wacom Tablet Settings",
         "Description[es]": "Preferencias de la tableta Wacom",
