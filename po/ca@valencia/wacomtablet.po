@@ -445,7 +445,7 @@ msgstr ""
 #: src/kcmodule/generalpagewidget.cpp:57
 #, kde-format
 msgid "Wacom Tablet Settings"
-msgstr "Configuració de la tauleta Wacom"
+msgstr "Configureu la tauleta Wacom"
 
 #: src/kcmodule/generalpagewidget.cpp:150
 #, kde-format
@@ -502,7 +502,7 @@ msgstr "Dreceres"
 #: src/kcmodule/kcmwacomtablet.cpp:72
 #, kde-format
 msgid "Graphic Tablet Configuration"
-msgstr "Configuració de la tauleta gràfica"
+msgstr "Configureu la tauleta gràfica"
 
 #: src/kcmodule/kcmwacomtablet.cpp:73
 #, kde-format
@@ -663,7 +663,7 @@ msgstr "Cap"
 #: src/kcmodule/pressurecurvedialog.ui:23
 #, kde-format
 msgid "Press Curve Settings"
-msgstr "Configuració de la corba de pressió"
+msgstr "Configureu la corba de pressió"
 
 #. i18n: ectx: property (text), widget (QLabel, explaining_Label)
 #: src/kcmodule/pressurecurvedialog.ui:37
@@ -687,7 +687,7 @@ msgstr "Corba de pressió actual:"
 #: src/kcmodule/styluspagewidget.ui:14
 #, kde-format
 msgid "Pen Settings"
-msgstr "Configuració del llapis"
+msgstr "Configureu el llapis"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:28
@@ -699,7 +699,7 @@ msgstr "Definix l'acció del botó sobre el llapis."
 #: src/kcmodule/styluspagewidget.ui:31
 #, kde-format
 msgid "Button Settings"
-msgstr "Configuració del botó"
+msgstr "Configureu el botó"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:113
