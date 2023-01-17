@@ -192,7 +192,11 @@ void XsetwacomAdaptor::convertToXsetwacomValue(const XsetwacomProperty &property
 const QString XsetwacomAdaptor::getParameter(const QString &device, const QString &param) const
 {
     QProcess getConf;
-    getConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("get") << device << param);
+    // When param is something like 'Button 1' we must pass the segments separately
+    // https://bugs.kde.org/show_bug.cgi?id=454947
+    static const QRegularExpression param_with_spaces(QStringLiteral("\\s+"));
+    getConf.start(QString::fromLatin1("xsetwacom"),
+                  QStringList() << QString::fromLatin1("get") << device << param.split(param_with_spaces, Qt::SkipEmptyParts));
     if (!getConf.waitForStarted() || !getConf.waitForFinished()) {
         return QString();
     }
@@ -236,18 +240,17 @@ bool XsetwacomAdaptor::setParameter(const QString &device, const QString &param,
 {
     QProcess setConf;
 
+    // When param is something like 'Button 1' we must pass the segments separately
     // https://bugs.kde.org/show_bug.cgi?id=454947
-    static const QRegularExpression buttonWithNumber(QStringLiteral("^Button \\d+$"));
-    if (param.contains(buttonWithNumber)) {
-        const QStringList splitted = param.split(QLatin1Char(' '));
-        setConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("set") << device << splitted[0] << splitted[1] << value);
-    } else {
-        if (!value.isEmpty()) {
-            setConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("set") << device << param << value);
-        } else {
-            setConf.start(QString::fromLatin1("xsetwacom"), QStringList() << QString::fromLatin1("set") << device << param);
-        }
-    }
+    static const QRegularExpression param_with_spaces(QStringLiteral("\\s+"));
+    QStringList args = QStringList();
+
+    args << QString::fromLatin1("set") << device << param.split(param_with_spaces, Qt::SkipEmptyParts);
+
+    if (!value.isEmpty())
+        args << value;
+
+    setConf.start(QString::fromLatin1("xsetwacom"), args);
 
     if (!setConf.waitForStarted() || !setConf.waitForFinished()) {
         return false;
