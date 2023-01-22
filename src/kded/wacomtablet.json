@@ -3,6 +3,7 @@
         "Description": "Wacom tablet control daemon",
         "Description[ca@valencia]": "Dimoni de control de les tauletes Wacom",
         "Description[ca]": "Dimoni de control de les tauletes Wacom",
+        "Description[cs]": "Ovládací démon tabletu Wacom",
         "Description[en_GB]": "Wacom tablet control daemon",
         "Description[es]": "Servicio de control de la tableta Wacom",
         "Description[eu]": "Wacom tableta kontrolatzeko daimona",
