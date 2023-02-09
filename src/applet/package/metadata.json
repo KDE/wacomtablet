@@ -23,7 +23,8 @@
                 "Name[tr]": "Weng Şüetien",
                 "Name[uk]": "Weng Xuetian",
                 "Name[x-test]": "xxWeng Xuetianxx",
-                "Name[zh_CN]": "Weng Xuetian"
+                "Name[zh_CN]": "Weng Xuetian",
+                "Name[zh_TW]": "Weng Xuetian"
             }
         ],
         "Category": "System Information",
@@ -48,6 +49,7 @@
         "Description[uk]": "Підтримка з’єднання та профілювання планшетів Wacom",
         "Description[x-test]": "xxHotplugging and profile support for Wacom tabletsxx",
         "Description[zh_CN]": "Wacom 数位板的热插拔和配置文件支持",
+        "Description[zh_TW]": "Wacom 繪圖板的熱插拔與設定檔支援",
         "Icon": "preferences-desktop-tablet",
         "Id": "org.kde.plasma.wacomtablet",
         "License": "GPL",

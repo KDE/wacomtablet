@@ -21,6 +21,7 @@
         "Description[uk]": "Фонова служба керування планшетними пристроями Wacom",
         "Description[x-test]": "xxWacom tablet control daemonxx",
         "Description[zh_CN]": "Wacom 数位板控制守护进程",
+        "Description[zh_TW]": "Wacom 繪圖版控制守護程式",
         "Icon": "preferences-desktop-tablet",
         "Name": "Wacom Tablet",
         "Name[ar]": "لوحيّّ واكُم",
