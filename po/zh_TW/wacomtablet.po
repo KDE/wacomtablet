@@ -3,19 +3,20 @@
 #
 # Franklin Weng <franklin@goodhorse.idv.tw>, 2010, 2011, 2013.
 # pan93412 <pan93412@gmail.com>, 2019.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-03-28 13:55+0000\n"
-"PO-Revision-Date: 2019-12-04 23:02+0800\n"
-"Last-Translator: pan93412 <pan93412@gmail.com>\n"
-"Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
+"PO-Revision-Date: 2023-02-09 01:29+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 19.11.90\n"
+"X-Generator: Lokalize 23.03.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -461,9 +462,7 @@ msgstr "一般硬體概觀"
 
 #. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
 #: src/kcmodule/generalpagewidget.ui:35
-#, fuzzy, kde-format
-#| msgctxt "Rotation of the tablet pad"
-#| msgid "Rotation:"
+#, kde-format
 msgid "Profile rotation"
 msgstr "設定檔旋轉"
 
@@ -810,7 +809,7 @@ msgstr "20"
 #: src/kcmodule/styluspagewidget.ui:489
 #, kde-format
 msgid "Number of points trimmed (default is 2)"
-msgstr ""
+msgstr "修剪掉的點的數量（預設為 2）"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
 #: src/kcmodule/styluspagewidget.ui:492
@@ -1021,14 +1020,11 @@ msgstr "繪圖板映射"
 #. i18n: ectx: property (toolTip), widget (QPushButton, touchMappingTabletButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, padMappingTabletButton)
 #: src/kcmodule/tabletpagewidget.ui:100 src/kcmodule/touchpagewidget.ui:116
-#, fuzzy, kde-format
-#| msgid ""
-#| "Allows to specify the tablet area for different screen selections in "
-#| "absolute cursor mode."
+#, kde-format
 msgid ""
 "Allows one to specify the tablet area for different screen selections in "
 "absolute cursor mode."
-msgstr "在絕對游標模式中，允許指定不同螢幕選取的繪圖板區域。"
+msgstr "在絕對游標模式中，讓人為不同螢幕指定不同的繪圖板區域。"
 
 #. i18n: ectx: property (text), widget (QPushButton, padMappingTabletButton)
 #: src/kcmodule/tabletpagewidget.ui:103
@@ -1309,7 +1305,7 @@ msgstr "有觸控環"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsRight)
 #: src/tabletfinder/dialog.ui:118
-#, fuzzy, kde-format
+#, kde-format
 msgid "has Status LEDs right"
 msgstr "有右狀態燈"
 
@@ -1327,7 +1323,7 @@ msgstr "有右觸控帶"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsLeft)
 #: src/tabletfinder/dialog.ui:139
-#, fuzzy, kde-format
+#, kde-format
 msgid "has Status LEDs left"
 msgstr "有左狀態燈"
 
@@ -1347,7 +1343,7 @@ msgstr "按鍵映射"
 #: src/tabletfinder/dialog.ui:177
 #, kde-format
 msgid "Number of available Express Keys:"
-msgstr ""
+msgstr "可用的 ExpressKey 數量："
 
 #. i18n: ectx: property (text), widget (QPushButton, mapButtons)
 #: src/tabletfinder/dialog.ui:189
@@ -1371,13 +1367,13 @@ msgstr "一般繪圖板(&N)"
 #: src/tabletfinder/dialog.ui:239
 #, kde-format
 msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-msgstr ""
+msgstr "多裝置繪圖板，畫筆感應器(&M)。觸控感應器是："
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
 #: src/tabletfinder/dialog.ui:251
 #, kde-format
 msgid "Multi-&device tablet, touch sensor"
-msgstr ""
+msgstr "多裝置繪圖板，觸控感應器(&D)"
 
 #: src/tabletfinder/hwbuttondialog.cpp:65
 #, kde-format
