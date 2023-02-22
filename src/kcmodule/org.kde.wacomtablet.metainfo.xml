@@ -11,7 +11,7 @@
   <name xml:lang="de">KDE-Modul für Wacom-Tablett</name>
   <name xml:lang="el">Άρθρωμα πινακίου Wacom του KDE</name>
   <name xml:lang="en-GB">KDE Wacom tablet module</name>
-  <name xml:lang="es">Módulo de tableta Wacom para KDE</name>
+  <name xml:lang="es">Módulo de KDE para tabletas Wacom</name>
   <name xml:lang="et">KDE Wacomi graafikalaua moodul</name>
   <name xml:lang="eu">KDE  Wacom tableta modulua</name>
   <name xml:lang="fi">KDE:n Wacom-piirtoalustamoduuli</name>
@@ -81,7 +81,7 @@
     <p xml:lang="de">Wacom-Tablett ist ein Modul für die Systemeinstellungen und ein Hintergrunddienst zur Einrichtung angeschlossener Tabletts.</p>
     <p xml:lang="el">Το άρθρωμα πινακίου Wacom παρέχει μια ενότητα για πινάκια για τις ρυθμίσεις συστήματος και έναν δαίμονα παρασκηνίου που διαμορφώνει συνδεδεμένα πινάκια.</p>
     <p xml:lang="en-GB">Wacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.</p>
-    <p xml:lang="es">El modulo de la tableta Wacom proporciona una sección para tabletas en las «Preferencias del sistema» y un programa que se ejecuta en segundo plano para configurar las tabletas conectadas.</p>
+    <p xml:lang="es">El modulo de tabletas Wacom proporciona una sección para tabletas en las «Preferencias del sistema» y un servicio que se ejecuta en segundo plano para configurar las tabletas conectadas.</p>
     <p xml:lang="et">Wacomi graafikalaua moodul lisab Süsteemi seadistusesse vastava sektsiooni ja taustal töötava deemoni, mis seadistab ühendatud graafikalaudu.</p>
     <p xml:lang="eu">Wacom tableta moduluak tableta atala hornitzen du Sistemako Ezarpenetan eta atzeko planoko daimon bat, konektatutako tabletak konfiguratzen dituena.</p>
     <p xml:lang="fi">Ohjelma tarjoaa piirtoalustojen järjestelmäasetusmoduulin ja yhdistettyjen piirtoalustojen taustapalvelun.</p>
