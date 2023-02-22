@@ -3,14 +3,14 @@
 #
 # Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>, 2010, 2011.
 # Kira J. Fernandez <kirajfdez@gmail.com>, 2010.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2011, 2012, 2013, 2014, 2015, 2018, 2021, 2022.
+# Eloy Cuadra <ecuadra@eloihr.net>, 2011, 2012, 2013, 2014, 2015, 2018, 2021, 2022, 2023.
 # Rocio Gallego <traducciones@rociogallego.com>, 2013, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2022-10-17 17:56+0200\n"
+"PO-Revision-Date: 2023-02-21 14:03+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -21,23 +21,23 @@ msgstr ""
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Rocío Gallego,Eloy Cuadra,Cristina Yenyxe González García"
+msgstr "Eloy Cuadra,Rocío Gallego,Cristina Yenyxe González García"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
-"traducciones@rociogallego.com,ecuadra@eloihr.net,the.blue.valkyrie@gmail.com"
+"ecuadra@eloihr.net,traducciones@rociogallego.com,the.blue.valkyrie@gmail.com"
 
 #: src/common/aboutdata.cpp:33
 #, kde-format
 msgid "(c), 2009,2010 Jörg Ehrichs"
-msgstr "(c), 2009,2010 Jörg Ehrichs"
+msgstr "© 2009-2010 Jörg Ehrichs"
 
 #: src/common/aboutdata.cpp:37
 #, kde-format
@@ -47,7 +47,7 @@ msgstr "Jörg Ehrichs"
 #: src/common/aboutdata.cpp:37
 #, kde-format
 msgid "Maintainer"
-msgstr "Mantenedor"
+msgstr "Responsable"
 
 #: src/common/aboutdata.cpp:38
 #, kde-format
@@ -93,13 +93,13 @@ msgstr "Rueda del ratón abajo"
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel left."
 msgid "Mouse Wheel Left"
-msgstr "Rueda del ratón izquierda"
+msgstr "Rueda del ratón a la izquierda"
 
 #: src/common/buttonshortcut.cpp:103
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel right."
 msgid "Mouse Wheel Right"
-msgstr "Rueda del ratón derecha"
+msgstr "Rueda del ratón a la derecha"
 
 #: src/common/buttonshortcut.cpp:105
 #, kde-format
@@ -116,7 +116,7 @@ msgstr "Tableta Wacom"
 #, kde-format
 msgctxt "@action"
 msgid "Enable/Disable the Touch Tool"
-msgstr "Activar o desactivar la herramienta de toques"
+msgstr "Activar o desactivar la herramienta táctil"
 
 #: src/common/globalactions.cpp:40
 #, kde-format
@@ -178,7 +178,7 @@ msgstr "Clic para seleccionar..."
 #: src/kcmodule/buttonactionselectionwidget.ui:14
 #, kde-format
 msgid "Select Key Function"
-msgstr "Seleccionar función clave"
+msgstr "Seleccionar función de tecla"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:35
@@ -215,7 +215,7 @@ msgstr "Mayús"
 #: src/kcmodule/buttonactionselectionwidget.ui:159
 #, kde-format
 msgid "Please select an action."
-msgstr "Por favor, seleccione una acción."
+msgstr "Seleccione una acción."
 
 #. i18n: Click to assign an action (shortcut) to a tablet button.
 #. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameDisplayWidget)
@@ -352,7 +352,7 @@ msgstr "Botón 18"
 #: src/kcmodule/buttonpagewidget.ui:537
 #, kde-format
 msgid "Touch Strip"
-msgstr "Franja de toque"
+msgstr "Franja táctil"
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:555
@@ -382,7 +382,7 @@ msgstr "Franja derecha abajo"
 #: src/kcmodule/buttonpagewidget.ui:660
 #, kde-format
 msgid "Touch Ring"
-msgstr "Anillo de toque"
+msgstr "Anillo táctil"
 
 #. i18n: ectx: property (text), widget (QLabel, ringUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:671
@@ -427,7 +427,7 @@ msgstr ""
 #: src/kcmodule/errorwidget.ui:14
 #, kde-format
 msgid "No Tablet Found"
-msgstr "No se encontró ninguna tableta"
+msgstr "No se ha encontrado ninguna tableta"
 
 #. i18n: ectx: property (text), widget (QCommandLinkButton, buttonRunTabletFinder)
 #: src/kcmodule/errorwidget.ui:107
@@ -448,7 +448,7 @@ msgstr ""
 #: src/kcmodule/generalpagewidget.cpp:56
 #, kde-format
 msgid "Wacom Tablet Settings"
-msgstr "Preferencias de la tableta gráfica Wacom"
+msgstr "Preferencias de tableta gráfica Wacom"
 
 #: src/kcmodule/generalpagewidget.cpp:149
 #, kde-format
@@ -528,8 +528,8 @@ msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
 "The service is required for tablet detection and profile support."
 msgstr ""
-"Por favor, inicie el servicio de la tableta wacom de KDE para usar este "
-"diálogo de configuración.\n"
+"Inicie el servicio de KDE para tabletas Wacom para usar este diálogo de "
+"configuración.\n"
 "Este servicio se necesita para detectar la tableta y gestionar los perfiles."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:170
@@ -544,7 +544,7 @@ msgid ""
 "If your device is already connected, it is currently not in the device "
 "database."
 msgstr ""
-"Por favor, conecte un dispositivo de tableta para continuar.\n"
+"Conecte un dispositivo de tableta para continuar.\n"
 "Si el dispositivo ya está conectado, no se encuentra en la base de datos de "
 "dispositivos en la actualidad."
 
@@ -602,7 +602,7 @@ msgstr "Guardar perfil"
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
-"Ha fallado el inicio de la herramienta para identificar la tableta Wacom. "
+"Ha fallado el inicio de la herramienta para identificar tabletas Wacom. "
 "Compruebe su instalación."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
@@ -621,7 +621,7 @@ msgstr "&Seleccionar tableta:"
 #: src/kcmodule/kcmwacomtabletwidget.ui:45
 #, kde-format
 msgid "Select &Profile:"
-msgstr "Seleccione un &perfil:"
+msgstr "Seleccionar &perfil:"
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:67
@@ -633,7 +633,7 @@ msgstr "Crea un nuevo perfil predeterminado"
 #: src/kcmodule/kcmwacomtabletwidget.ui:83
 #, kde-format
 msgid "Deletes the current profile"
-msgstr "Elimina el perfil actual"
+msgstr "Borra el perfil actual"
 
 #: src/kcmodule/keysequenceinputbutton.cpp:287
 #, kde-format
@@ -643,7 +643,7 @@ msgid ""
 msgstr ""
 "Haga clic en el botón y después introduzca el acceso rápido que desee "
 "asignar al programa.\n"
-"Por ejemplo, para Ctrol+A: mantenga pulsado la tecla Ctrl y pulse A."
+"Por ejemplo, para Ctrl+A: mantenga pulsada la tecla Ctrl y pulse A."
 
 #: src/kcmodule/keysequenceinputbutton.cpp:321
 #, kde-format
@@ -697,7 +697,7 @@ msgstr "Define la acción del botón del lápiz."
 #: src/kcmodule/styluspagewidget.ui:31
 #, kde-format
 msgid "Button Settings"
-msgstr "Preferencias del botón"
+msgstr "Preferencias de los botones"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:113
@@ -709,7 +709,7 @@ msgid ""
 "the tablet."
 msgstr ""
 "Si está seleccionada, el lápiz debe estar en contacto con la tableta para "
-"que funcione el botón lateral del lápiz.\n"
+"que funcione un botón lateral del lápiz.\n"
 "Si no está seleccionada, los botones del lápiz funcionarán en cuanto el "
 "lápiz esté próximo a la tableta."
 
@@ -717,7 +717,7 @@ msgstr ""
 #: src/kcmodule/styluspagewidget.ui:116
 #, kde-format
 msgid "Tap to execute action."
-msgstr "Toque para ejecutar una acción."
+msgstr "Toque para ejecutar la acción."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:128
@@ -754,7 +754,7 @@ msgstr ""
 #, kde-format
 msgctxt "slow movement of the cursor (minimal value)"
 msgid "Soft"
-msgstr "Lento"
+msgstr "Suave"
 
 #. i18n: ectx: property (text), widget (QLabel, labelFast_2)
 #. i18n: ectx: property (text), widget (QLabel, labelFast_3)
@@ -762,7 +762,7 @@ msgstr "Lento"
 #, kde-format
 msgctxt "fast movement of the cursor (maximal value)"
 msgid "Firm"
-msgstr "Rápido"
+msgstr "Firme"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, eraserPressureButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, tipPressureButton)
@@ -796,7 +796,7 @@ msgstr "Sensibilidad de la punta"
 #, kde-format
 msgid "Number of raw data used to filter the points (default is 4)"
 msgstr ""
-"Número de datos en bruto usados para filtrar los puntos (4 por omisión)"
+"Número de datos en bruto que se usan para filtrar los puntos (4 por omisión)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxRawSample)
 #: src/kcmodule/styluspagewidget.ui:415
@@ -985,7 +985,7 @@ msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
 msgid "Default Orientation"
-msgstr "Orientación por omisión"
+msgstr "Orientación predeterminada"
 
 #: src/kcmodule/tabletpagewidget.cpp:384
 #, kde-format
@@ -1241,12 +1241,12 @@ msgstr "Configurar"
 #: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
-msgstr "Demonio de configuración de tabletas gráficas"
+msgstr "Servicio de configuración de tabletas gráficas"
 
 #: src/kded/tabletdaemon.cpp:171
 #, kde-format
 msgid "A Wacom tablet control daemon"
-msgstr "Un demonio de control de tabletas Wacom"
+msgstr "Un servicio de control de tabletas Wacom"
 
 #: src/kded/tablethandler.cpp:142
 #, kde-format
@@ -1261,12 +1261,12 @@ msgstr "Se ha conectado la nueva tableta «%1»."
 #: src/kded/tablethandler.cpp:173
 #, kde-format
 msgid "Tablet removed"
-msgstr "Tableta eliminada"
+msgstr "Tableta desconectada"
 
 #: src/kded/tablethandler.cpp:174
 #, kde-format
 msgid "Tablet %1 removed"
-msgstr "Tableta %1 eliminada"
+msgstr "Tableta %1 desconectada"
 
 #: src/kded/tablethandler.cpp:461
 #, kde-format
@@ -1282,7 +1282,7 @@ msgstr "Error de la tableta gráfica"
 #: src/kded/tablethandler.cpp:474
 #, kde-format
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
-msgstr "El perfil <b>%1</b> no existe. Aplique <b>%2</b> en su lugar"
+msgstr "El perfil <b>%1</b> no existe. Aplique <b>%2</b> en su lugar."
 
 #: src/tabletfinder/dialog.cpp:453
 #, kde-format
@@ -1305,7 +1305,7 @@ msgstr "Conecte su tableta y haga clic en «Refrescar» para detectarla."
 #: src/tabletfinder/dialog.ui:27
 #, kde-format
 msgid "Tablet Selection"
-msgstr "Selección de la tableta"
+msgstr "Selección de tableta"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/tabletfinder/dialog.ui:39
@@ -1329,7 +1329,7 @@ msgstr "Núm. de serie:"
 #: src/tabletfinder/dialog.ui:86
 #, kde-format
 msgid "Devices: "
-msgstr "Dispositivos:"
+msgstr "Dispositivos: "
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/tabletfinder/dialog.ui:105
@@ -1341,7 +1341,7 @@ msgstr "Características de la tableta"
 #: src/tabletfinder/dialog.ui:111
 #, kde-format
 msgid "has TouchRing"
-msgstr "tiene anillo de toque"
+msgstr "tiene anillo táctil"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsRight)
 #: src/tabletfinder/dialog.ui:118
@@ -1353,13 +1353,13 @@ msgstr "tiene los LED de estado a la derecha"
 #: src/tabletfinder/dialog.ui:125
 #, kde-format
 msgid "has Touchstrip Left"
-msgstr "tiene franja de toque a la izquierda"
+msgstr "tiene franja táctil a la izquierda"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripRight)
 #: src/tabletfinder/dialog.ui:132
 #, kde-format
 msgid "has Touchstrip Right"
-msgstr "tiene franja de toque a la derecha"
+msgstr "tiene franja táctil a la derecha"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsLeft)
 #: src/tabletfinder/dialog.ui:139
@@ -1395,7 +1395,7 @@ msgstr "Correspondencia de botones hardware"
 #: src/tabletfinder/dialog.ui:221
 #, kde-format
 msgid "Touch sensor"
-msgstr "Sensor de toques"
+msgstr "Sensor táctil"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
 #: src/tabletfinder/dialog.ui:227
@@ -1407,13 +1407,13 @@ msgstr "Tableta &normal"
 #: src/tabletfinder/dialog.ui:239
 #, kde-format
 msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-msgstr "Tableta &multidispositivo, sensor de lápiz. El sensor de toques es:"
+msgstr "Tableta &multidispositivo, sensor de lápiz. El sensor táctil es:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
 #: src/tabletfinder/dialog.ui:251
 #, kde-format
 msgid "Multi-&device tablet, touch sensor"
-msgstr "Tableta multi&dispositivo, sensor de lápiz"
+msgstr "Tableta multi&dispositivo, sensor táctil"
 
 #: src/tabletfinder/hwbuttondialog.cpp:65
 #, kde-format
@@ -1428,7 +1428,7 @@ msgstr "Botón hardware %1 detectado."
 #: src/tabletfinder/hwbuttondialog.cpp:101
 #, kde-format
 msgid "All buttons detected. Please close dialog"
-msgstr "Detectados todos los botones. Cierre el diálogo"
+msgstr "Se han detectado todos los botones. Ya puede cerrar el diálogo."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, HWButtonDialog)
 #: src/tabletfinder/hwbuttondialog.ui:14
