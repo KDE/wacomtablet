@@ -69,7 +69,7 @@
 >&FDLNotice;</legalnotice>
 
     <date
->16/03/2013</date
+>2020-10-17</date
 ><!-- Date of (re)writing, or update.-->
     <releaseinfo
 >&kappversion;</releaseinfo
@@ -77,7 +77,7 @@
 
     <abstract>
         <para
->Esta é a documentação do módulo do &systemsettings; para o &kde; para configurar as tabletes gráficas.</para>
+>Esta é a documentação do módulo do &systemsettings; para o &kde; para configurar as mesas digitalizadoras.</para>
     </abstract>
 
     <keywordset>
@@ -98,23 +98,21 @@
     <title
 >Configurações da mesa digitalizadora Wacom</title>
     <para
->O módulo da tablete para o &systemsettings; lida com toda a configuração da sua tablete gráfica. Todas as tabletes suportadas pelo <ulink url="http://linuxwacom.sourceforge.net"
->controlador Wacom para &Linux;</ulink
-> são tratadas por esta interface de configuração. Certifique-se de que a sua tablete é detectada pelo 'xorg.conf' ou pelo HAL, e se está funcionando. Veja a seção da <link linkend="detection"
->detecção da tablete</link
-> para obter mais informações. </para>
+>The tablet &systemsettings; module handles all setting for your graphic tablet. All tablets supported by the <ulink url="https://linuxwacom.github.io"
+>&Linux; Wacom driver</ulink
+> project are handled by this settings interface. Make sure your tablet is detected either via xorg.conf or udev and works in general. Refer to the <link linkend="detection"
+>tablet detection</link
+> section for more information. </para>
     <important>
         <para
->Você deverá ter instalado o controlador <application
->wacom-tools</application
-> ou o <application
+>The <application
 >xf86-input-wacom</application
-> no seu computador e deverá ter disponível o programa <command
+> driver must be installed on your computer and <command
 >xsetwacom</command
-> para que este módulo funcione corretamente. </para>
+> must be available in order to make this module work correctly. </para>
     </important>
     <para
->O módulo é dividido em várias páginas que gerenciam todos os aspectos do seu tablete e da caneta: <link linkend="tablet-profiles"
+>O módulo é dividido em várias páginas que gerenciam todos os aspectos da sua mesa digitalizadora e caneta: <link linkend="tablet-profiles"
 >Perfis</link
 >, <link linkend="tablet-general"
 >Informações gerais</link
@@ -132,36 +130,36 @@
 >Gerenciamento de perfis</title>
 
         <para
->Isto é uma pequena lista com os dois botões ao lado. Você poderá criar perfis novos e apagar os já existentes. Cada perfil é gravado e definido para a tablete conectada neste exato momento. Se você criar um novo perfil, ele irá criar um automaticamente com as opções padrão que são devolvidas pelas 'wacom-tools'. </para>
+>This is the small drop down box with the two buttons next to it. You can create new profiles and delete already existing ones. Each profile is saved and specified for the currently connected tablet. If you create a new profile, it automatically creates one with the default settings as returned by the driver. </para>
 
         <para
 >Aqui você poderá indicar diferentes perfis para a sua configuração. Por exemplo, se quiser ter um comportamento diferente da caneta, caso a use como substituto do mouse no seu dia a dia ou a use para desenhar qualquer coisa. </para>
         <para
->Cada perfil poderá ser alterado instantaneamente e muda diretamente o comportamento dos dados inseridos pela sua tablete. </para>
+>Cada perfil poderá ser alterado instantaneamente e muda diretamente o comportamento dos dados inseridos pela sua mesa digitalizadora. </para>
         <note>
             <para
 >O <link linkend="kded"
 >servidor tablet do kded</link
-> deverá estar em execução, em segundo plano, para poder alterar os perfis e aplicá-los na tablete. Todo esse trabalho é feito pelo servidor. O módulo do &systemsettings; apenas altera a configuração dos perfis para ele. </para>
+> deverá estar em execução, em segundo plano, para poder alterar os perfis e aplicá-los na mesa digitalizadora. Todo esse trabalho é feito pelo servidor. O módulo do &systemsettings; apenas altera a configuração dos perfis para ele. </para>
         </note>
     </sect1>
 
     <sect1 id="tablet-general">
         <title
->Configuração e Informações Gerais da Tablete</title>
+>Configuração e informações gerais da mesa digitalizadora</title>
 
         <para
->Mostra algumas informações gerais sobre a tablete selecionada. Além do nome e do fabricante da sua tablete, é apresentada uma imagem onde aparecem enumerados todos os dispositivos de entrada. </para>
+>Mostra algumas informações gerais sobre a mesa digitalizadora selecionada. Além do nome e do fabricante da sua mesa digitalizadora, é apresentada uma imagem onde aparecem enumerados todos os dispositivos de entrada. </para>
 
         <note>
             <para
->A tablete deverá estar conectada e o serviço do <link linkend="kded"
+>A mesa digitalizadora deverá estar conectada e o serviço do <link linkend="kded"
 >kded</link
 > deverá estar rodando, de modo a que o módulo funcione corretamente. </para>
             <para
 >Veja a seção de <link linkend="troubles"
 >Problemas na detecção</link
-> para obter mais alguma ajuda na detecção da tablete. </para>
+> para obter mais alguma ajuda na detecção da mesa digitalizadora. </para>
         </note>
 
         <para
@@ -180,11 +178,11 @@
             <title
 >Sensibilidade da borracha</title>
             <para
->A barra deslizante permite alterar o limite da borracha. Para uma definição mais precisa da pressão, é possível alterar a curva de pressão completa na janela <guilabel
->Editar a curva de pressão</guilabel
->. Veja mais informações na <link linkend="presscurve"
->Janela da curva de pressão</link
->. </para>
+>The slider allows to alter the threshold of the eraser. For a more fine grained setting of the pressure it is possible to alter the complete pressure curve in the <guilabel
+>Edit Pressure Curve</guilabel
+> dialog. See <link linkend="presscurve"
+>Press Curve Dialog</link
+> for more information. </para>
         </sect2>
 
         <sect2 id="pen-button-settings">
@@ -357,26 +355,26 @@
 
     <sect1 id="presscurve">
         <title
->Janela da curva de pressão</title>
+>Press Curve Dialog</title>
 
         <para>
             <screenshot>
                 <screeninfo
->Aqui está uma imagem da janela da curva de pressão</screeninfo>
+>Here's a screenshot of the Press Curve dialog</screeninfo>
                 <mediaobject>
                     <imageobject>
                         <imagedata fileref="presscurve.png" format="PNG"/>
                     </imageobject>
                     <textobject>
                         <phrase
->Alterando a curva de pressão</phrase>
+>Changing the press curve</phrase>
                     </textobject>
                 </mediaobject>
             </screenshot>
         </para>
 
         <para
->A curva de pressão define como se traduz a pressão da caneta. Esta é definida através dos quatro pontos de uma curva Bézier. Para mudar esta curva, você pode alterar os pontos vermelhos e mover a curva. </para>
+>The press curve defines how the pressure of the stylus is translated. The press curve is defined via four points of a Bézier curve. To change this curve you can alter the red dots and move the curve around. </para>
         <note>
             <para
 >Use a sua caneta dentro da janela da curva de pressão para ver diretamente as alterações na curva de pressão. Uma área azul, abaixo da curva, mostra a pressão aplicada da caneta. </para>
@@ -410,6 +408,16 @@
 >Alternar tela</guilabel
 > para alternar entre o modo de tela inteira (todos os monitores ligados) e cada monitor individual. As configurações serão salvas para cada definição de tela e será aplicada à mesa digitalizadora sempre que a seleção da tela é alterada pela ação do atalho global. </para>
         <para
+>It is possible to map the screen with the <guimenuitem
+>Full Tablet</guimenuitem
+> area or just defined <guimenuitem
+>Tablet Area</guimenuitem
+> on the <guilabel
+>Tablet</guilabel
+> pane rightwards. The proportions of the area can be locked or unlocked using the <guibutton
+>Lock proportions</guibutton
+> switch button. </para>
+        <para
 >Se quiser manter as proporções da mesa digitalizadora com a seleção da tela atual, você pode clicar no botão <guilabel
 >Definir as proporções da tela</guilabel
 >. A área da mesa digitalizadora será calculada e alterada automaticamente. </para>
@@ -434,16 +442,16 @@
 
     <chapter id="kded">
     <title
->Servidor da tablete</title>
+>Servidor da mesa digitalizadora</title>
     <para
->O servidor da tablete roda em segundo plano e faz todo o trabalho: a detecção da tablete e a sua configuração com os perfis selecionados. Se o servidor não estiver rodando, o módulo do &systemsettings; e o miniaplicativo do Plasma não poderão funcionar corretamente e, assim sendo, a tablete não poderá ser usada com os perfis. </para>
+>O servidor da mesa digitalizadora roda em segundo plano e faz todo o trabalho: a detecção da mesa digitalizadora e a sua configuração com os perfis selecionados. Se o servidor não estiver rodando, o módulo do &systemsettings; e o miniaplicativo do Plasma não poderão funcionar corretamente e, assim sendo, a mesa digitalizadora não poderá ser usada com os perfis. </para>
 
     <sect1 id="detection">
         <title
->Detecção da tablete</title>
+>Detecção da mesa digitalizadora</title>
         <para
 >A detecção do <hardware
->dispositivo da tablete</hardware
+>dispositivo da mesa digitalizadora</hardware
 > é feita de várias formas. O <application
 >Solid</application
 > é usado em primeiro lugar e faz o suporte de conexão instantânea. Se o Solid não funcionar, os próximos passos são o <command
@@ -454,30 +462,32 @@
 >xinput --list</command
 >. </para>
         <para
->Se nenhum dos comandos acima devolver o nome da tablete, ela não é suportada e não poderá ser usada com este módulo. </para>
+>Se nenhum dos comandos acima devolver o nome da mesa digitalizadora, ela não é suportada e não poderá ser usada com este módulo. </para>
     </sect1>
     <sect1 id="troubles">
         <title
 >Problemas de detecção</title>
         <para
->Se a tablete não for detectada, veja a página do <ulink url="http://linuxwacom.sourceforge.net"
->controlador Wacom para &Linux;</ulink
->, para saber se a sua tablete é suportada. Além disso, veja o resultado do <command
+>If the tablet is not detected check the <ulink url="https://linuxwacom.github.io"
+>&Linux; Wacom driver</ulink
+> or <ulink url="https://digimend.github.io"
+>DIGImend driver</ulink
+> page if your tablet is supported. Furthermore check via <command
 >lsusb</command
-> para ver se consegue descobrir a sua tablete. </para>
+> if you can find your tablet. </para>
         <para
->Se o HAL não conseguir lidar com a detecção, adicione a tablete ao seu arquivo <filename
->/etc/X11/xorg.conf</filename
-> e reinicie o servidor do X. </para>
+>If udev does not handle the detection add the tablet to your <filename
+>/etc/X11/xorg.conf.d/50-tablet.conf</filename
+> file (create it if it does not exist) and restart the x-server. </para>
         <para
 >No caso de um dispositivo serial (Tablet PC ou outros), verifique se o <command
 >xinput --list</command
-> apresenta os seus dispositivos de entrada (Caneta/Borracha/Painel). Caso apareçam, veja o ID interno do dispositivo da tablete com o comando <command
+> apresenta os seus dispositivos de entrada (Caneta/Borracha/Painel). Caso apareçam, veja o ID interno do dispositivo da mesa digitalizadora com o comando <command
 >xsetwacom get "Nome do seu painel ou caneta" TabletID</command
 >. Se for devolvido algum identificador, por favor envie toda a informação necessária para o autor. </para>
         <note>
         <para
->O suporte de conexão instantânea só está disponível se a tablete for detectada pelo <application
+>O suporte de conexão instantânea só está disponível se a mesa digitalizadora for detectada pelo <application
 >Solid</application
 > e pela sua API de notificações. </para>
         <para
@@ -499,20 +509,20 @@
 >wacom</command
 >. </para>
         <para
->Envie por favor um e-mail ao autor, caso a sua tablete seja detectada pelo Solid, mas devolvendo outros valores, de modo a melhorar o suporte das tabletes. </para>
+>Envie por favor um e-mail ao autor, caso a sua mesa digitalizadora seja detectada pelo Solid, mas devolvendo outros valores, de modo a melhorar o suporte das mesas digitalizadoras. </para>
         </note>
     </sect1>
     </chapter>
 
     <chapter id="applet">
     <title
->Miniaplicativo do Plasma para a Tablete</title>
+>Miniaplicativo do plasma para a mesa digitalizadora</title>
     <para
->O miniaplicativo da tablete possibilita a alteração instantânea dos perfis. Além disso, você poderá alterar a rotação do painel, bem como a comutação entre o modo relativo e absoluto da caneta/borracha, independentemente da configuração atual do perfil. </para>
+>O miniaplicativo da mesa digitalizadora possibilita a alteração instantânea dos perfis. Além disso, você poderá alterar a rotação do painel, bem como a comutação entre o modo relativo e absoluto da caneta/borracha, independentemente da configuração atual do perfil. </para>
     <para
 >Não é necessário adicionar o plasmoide para que este módulo funcione. O perfil predefinido será ativado pelo <link linkend="kded"
->servidor da tablete</link
->, assim que detectar a sua tablete, mesmo que não esteja usando o plasmoide. Este é apenas um auxiliar visual para mudar facilmente entre os vários perfis. </para>
+>servidor da mesa digitalizadora</link
+>, assim que detectar a sua mesa digitalizadora, mesmo que não esteja usando o plasmoide. Este é apenas um auxiliar visual para mudar facilmente entre os vários perfis. </para>
     </chapter>
     <chapter id="credits"
 ><title
@@ -523,6 +533,5 @@
 > e André Marcelo Alvarenga <email
 >alvarenga@kde.org</email
 ></para
-> 
-&underFDL; &underGPL; </chapter>
+> &underFDL; &underGPL; </chapter>
 </book>
