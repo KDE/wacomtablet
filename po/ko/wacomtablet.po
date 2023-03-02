@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2013, 2014, 2015, 2018, 2020, 2021, 2022.
+# Shinjo Park <kde@peremen.name>, 2013, 2014, 2015, 2018, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2022-04-16 23:19+0200\n"
+"PO-Revision-Date: 2023-03-01 01:31+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.08.1\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -585,10 +585,9 @@ msgid "Save changes to the current profile?"
 msgstr "현재 프로필에 변경 사항을 저장하시겠습니까?"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:475
-#, fuzzy, kde-format
-#| msgid "Select &Profile:"
+#, kde-format
 msgid "Save Profile"
-msgstr "프로필 선택(&P):"
+msgstr "프로필 저장"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:494
 #, kde-format
@@ -1081,8 +1080,8 @@ msgstr "자동 회전 반전"
 #, kde-format
 msgid "Enabling gestures may break touch input using a touchscreen."
 msgstr ""
-"제스처를 활성화하면 터치 스크린의 터치 입력이 올바르게 작동하지 않을 수도 있"
-"습니다."
+"제스처를 활성화하면 터치스크린의 터치 입력이 올바르게 작동하지 않을 수도 있습"
+"니다."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:36
