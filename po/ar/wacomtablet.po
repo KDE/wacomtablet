@@ -513,7 +513,7 @@ msgstr "يمكنك في هذه الوحدة ضبط تشكيلات لوحيّ و�
 #: src/kcmodule/kcmwacomtabletwidget.cpp:165
 #, kde-format
 msgid "KDE tablet service not found"
-msgstr "لم توجد خدمة كدي للّوحيّات"
+msgstr "لم توجد خدمة كِيدِي للّوحيّات"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
@@ -521,7 +521,7 @@ msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
 "The service is required for tablet detection and profile support."
 msgstr ""
-"رجاء ابدأ خدمة كدي للوحيّات واكُم لاستخدام حواريّ الضّبط هذا.\n"
+"رجاء ابدأ خدمة كِيدِي للوحيّات واكُم لاستخدام حواريّ الضّبط هذا.\n"
 "هذه الخدمة مطلوبة لاكتشاف اللوحيّات ودعم التّشكيلات."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:170
