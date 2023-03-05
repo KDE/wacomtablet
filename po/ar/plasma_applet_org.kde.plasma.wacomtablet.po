@@ -41,7 +41,7 @@ msgid ""
 "Please start the KDE wacom tablet service.\n"
 "The service is required for tablet detection and profile support."
 msgstr ""
-"رجاء ابدأ خدمة كدي للّوحيّات واكُم.\n"
+"رجاء ابدأ خدمة كِيدِي للّوحيّات واكُم.\n"
 "هذه الخدمة مطلوبة لاكتشاف اللوحيّات ودعم التّشكيلات."
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:129
