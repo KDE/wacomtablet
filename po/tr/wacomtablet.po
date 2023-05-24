@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: extragear-base-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2023-01-18 22:34+0300\n"
+"PO-Revision-Date: 2023-05-24 01:09+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 23.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -516,7 +516,7 @@ msgstr "Bu modül ile Wacom tablet profillerinizi yapılandırabilirsiniz"
 #: src/kcmodule/kcmwacomtabletwidget.cpp:165
 #, kde-format
 msgid "KDE tablet service not found"
-msgstr "KDE tablet servisi bulunamadı"
+msgstr "KDE tablet hizmeti bulunamadı"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
@@ -524,9 +524,9 @@ msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
 "The service is required for tablet detection and profile support."
 msgstr ""
-"Bu yapılandırma pencerisini kullanmak için, lütfen KDE wacom tablet "
-"servisini başlatın.\n"
-"Bu servis, tablet algılamak ve profil desteği için gereklidir."
+"Bu yapılandırma penceresini kullanmak için lütfen KDE Wacom tablet hizmetini "
+"başlatın.\n"
+"Bu hizmet, tableti algılamak ve profil desteği için gereklidir."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
@@ -1219,12 +1219,12 @@ msgstr "Yapılandır"
 #: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
-msgstr "Grafik Tablet Yapılandırma servisi"
+msgstr "Grafik Tablet Yapılandırma ardalan süreci"
 
 #: src/kded/tabletdaemon.cpp:171
 #, kde-format
 msgid "A Wacom tablet control daemon"
-msgstr "Wacom tablet kontrol servisi"
+msgstr "Wacom tablet denetim ardalan süreci"
 
 #: src/kded/tablethandler.cpp:142
 #, kde-format
