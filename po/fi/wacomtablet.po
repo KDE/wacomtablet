@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-03-28 13:55+0000\n"
-"PO-Revision-Date: 2022-02-05 17:54+0200\n"
+"PO-Revision-Date: 2023-05-18 14:13+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2012-12-01 22:20:07+0000\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -1161,13 +1161,13 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:254
 #, kde-format
 msgid "Minimum distance for a zoom gesture is recognized."
-msgstr "Vähimmäisetäisyys zoomauseleen tunnistamiseksi"
+msgstr "Vähimmäisetäisyys lähennyseleen tunnistamiseksi."
 
 #. i18n: ectx: property (text), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:257
 #, kde-format
 msgid "Zoom Distance"
-msgstr "Zoomausetäisyys"
+msgstr "Lähennysetäisyys"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, zoomDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:273
@@ -1175,8 +1175,8 @@ msgstr "Zoomausetäisyys"
 msgid ""
 "The minimum distance in tablet units for a zoom gesture to be recognized."
 msgstr ""
-"Piirtopöydän yksikössä ilmaistu vähimmäisetäisyys zoomauseleen "
-"tunnistamiseksi"
+"Piirtopöydän yksiköissä ilmaistu vähimmäisetäisyys lähennyseleen "
+"tunnistamiseksi."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, tapTimeLabel)
 #: src/kcmodule/touchpagewidget.ui:292
