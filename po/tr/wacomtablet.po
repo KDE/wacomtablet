@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: extragear-base-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-15 00:49+0000\n"
-"PO-Revision-Date: 2023-05-24 01:09+0300\n"
+"PO-Revision-Date: 2023-06-04 01:57+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -186,13 +186,13 @@ msgstr "Düğme Eylemi Seç"
 #: src/kcmodule/buttonactionselectionwidget.ui:46
 #, kde-format
 msgid "Ctrl"
-msgstr "Ctrl"
+msgstr "Kontrol"
 
 #. i18n: ectx: property (text), widget (QCheckBox, altModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:69
 #, kde-format
 msgid "Alt"
-msgstr "Alt"
+msgstr "Seçenek"
 
 #. i18n: ectx: property (text), widget (QCheckBox, metaModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:92
@@ -204,7 +204,7 @@ msgstr "Meta"
 #: src/kcmodule/buttonactionselectionwidget.ui:115
 #, kde-format
 msgid "Shift"
-msgstr "Shift"
+msgstr "Üst Karakter"
 
 #. i18n: Select an action which will be assigned to a tablet button.
 #. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameLineEdit)
@@ -635,7 +635,7 @@ msgid ""
 "Example for Ctrl+A: hold the Ctrl key and press A."
 msgstr ""
 "Düğmeye tıklayın, ardından kısayol düğmelerine basın.\n"
-"Ctrl+A örneği için: Ctrl düğmesine basılı tutun ve A düğmesine basın."
+"Kontrol+A örneği için: Kontrol düğmesine basılı tutun ve A düğmesine basın."
 
 #: src/kcmodule/keysequenceinputbutton.cpp:321
 #, kde-format
