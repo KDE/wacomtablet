@@ -37,8 +37,13 @@ using namespace Wacom;
 
 K_PLUGIN_CLASS_WITH_JSON(KCMWacomTablet, "kcm_wacomtablet.json")
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 KCMWacomTablet::KCMWacomTablet(QWidget *parent, const QVariantList & args)
         : KCModule(parent, args)
+#else
+KCMWacomTablet::KCMWacomTablet(QObject *parent, const KPluginMetaData &md, const QVariantList &args)
+        : KCModule(parent, md, args)
+#endif
         , m_changed(false)
 {
     initUi();
@@ -64,8 +69,16 @@ KCMWacomTablet::~KCMWacomTablet()
 }
 
 
+#if KCOREADDONS_VERSION  < QT_VERSION_CHECK(5, 105, 0)
+QWidget *KCMWacomTablet::widget()
+{
+    return this;
+}
+#endif
+
 void KCMWacomTablet::initUi()
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     // about data will be deleted by KCModule
     AboutData *about = new AboutData(QLatin1String("kcm_wacomtablet"), i18n("Graphic Tablet Configuration"),
                                      QLatin1String(WACOMTABLET_VERSION_STRING), i18n("A configurator for graphic tablets"),
@@ -73,11 +86,12 @@ void KCMWacomTablet::initUi()
 
     // setup kcm module
     setAboutData(about);
+#endif
     setButtons(Apply | Help);
 
     // setup module ui
-    m_tabletWidget = new KCMWacomTabletWidget(this);
-    m_layout       = new QVBoxLayout(this);
+    m_tabletWidget = new KCMWacomTabletWidget(widget());
+    m_layout = new QVBoxLayout(widget());
     m_layout->setContentsMargins({});
     m_layout->addWidget(m_tabletWidget);
 
@@ -91,7 +105,11 @@ void KCMWacomTablet::load()
         m_tabletWidget->reloadProfile();
     }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     emit changed(false);
+#else
+    setNeedsSave(false);
+#endif
 }
 
 void KCMWacomTablet::save()
@@ -100,7 +118,11 @@ void KCMWacomTablet::save()
         m_tabletWidget->saveProfile();
     }
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     emit changed(false);
+#else
+    setNeedsSave(false);
+#endif
 }
 
 #include "kcmwacomtablet.moc"
