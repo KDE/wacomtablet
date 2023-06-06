@@ -22,7 +22,7 @@ ecm_setup_version(${PROJECT_VERSION}
 )
 
 find_package(Qt${QT_MAJOR_VERSION} REQUIRED COMPONENTS Core Gui Widgets DBus Qml)
-find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools KCMUtils KIO)
+find_package(KF${QT_MAJOR_VERSION} REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools KCMUtils KIO)
 find_package(XCB REQUIRED COMPONENTS XINPUT)
 find_package(X11 REQUIRED)
 
@@ -53,7 +53,7 @@ add_subdirectory( data )
 add_subdirectory( images )
 
 ki18n_install(po)
-if(KF5DocTools_FOUND)
+if(KF${QT_MAJOR_VERSION}DocTools_FOUND)
     add_subdirectory( doc )
     kdoctools_install(po)
 endif()

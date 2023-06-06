@@ -12,7 +12,7 @@ set(dataengine_SRCS
 
 add_library(plasma_engine_wacomtablet MODULE ${dataengine_SRCS})
 target_link_libraries(plasma_engine_wacomtablet
-                      KF5::Plasma
+                      KF${QT_MAJOR_VERSION}::Plasma
                       Qt::DBus
                       wacom_common
 )

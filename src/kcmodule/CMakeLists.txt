@@ -76,13 +76,17 @@ set(kcm_wacomtablet_LIBS
     wacom_common
     Qt::Core
     Qt::Widgets
-    KF5::CoreAddons
-    KF5::XmlGui
-    KF5::WidgetsAddons
-    KF5::WindowSystem
+    KF${QT_MAJOR_VERSION}::CoreAddons
+    KF${QT_MAJOR_VERSION}::XmlGui
+    KF${QT_MAJOR_VERSION}::WidgetsAddons
+    KF${QT_MAJOR_VERSION}::WindowSystem
     ${X11_LIBRARIES}
     ${X11_Xinput_LIB}
     )
+
+if(QT_MAJOR_VERSION STREQUAL "6")
+    set(kcm_wacomtablet_LIBS ${kcm_wacomtablet_LIBS} KF6::KCMUtils)
+endif()
 
 add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
 add_library(kcm_wacomtablet MODULE ${kcm_wacomtablet_PLUGIN_SRC} ${kcm_tablet_SRCS})

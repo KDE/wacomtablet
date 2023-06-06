@@ -2,12 +2,12 @@
 ## libraries
 set(kded_wacomtablet_LIBS
    wacom_common
-   KF5::CoreAddons
-   KF5::Notifications
-   KF5::XmlGui
-   KF5::DBusAddons
-   KF5::ConfigCore
-   KF5::KIOGui
+   KF${QT_MAJOR_VERSION}::CoreAddons
+   KF${QT_MAJOR_VERSION}::Notifications
+   KF${QT_MAJOR_VERSION}::XmlGui
+   KF${QT_MAJOR_VERSION}::DBusAddons
+   KF${QT_MAJOR_VERSION}::ConfigCore
+   KF${QT_MAJOR_VERSION}::KIOGui
    XCB::XINPUT
    X11::Xi
    PkgConfig::LIBWACOM
