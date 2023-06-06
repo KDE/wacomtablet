@@ -160,5 +160,6 @@
     "X-Plasma-DefaultSize": "32,32",
     "X-Plasma-MainScript": "ui/main.qml",
     "X-Plasma-NotificationArea": "true",
-    "X-Plasma-RemoteLocation": ""
+    "X-Plasma-RemoteLocation": "",
+    "KPackageStructure": "Plasma/Applet"
 }
