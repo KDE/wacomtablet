@@ -20,6 +20,7 @@
 #include <iostream>
 #include <cstring>
 #include <cstdio>
+#include <cstdint>
 #include <cstdlib>
 #include <csignal>
 #include <unistd.h>
