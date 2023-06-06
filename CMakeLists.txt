@@ -26,6 +26,10 @@ find_package(KF5 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui W
 find_package(XCB REQUIRED COMPONENTS XINPUT)
 find_package(X11 REQUIRED)
 
+if(QT_MAJOR_VERSION STREQUAL "6")
+  find_package(KF6Plasma5Support REQUIRED)
+endif()
+
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBWACOM libwacom REQUIRED IMPORTED_TARGET)
 pkg_check_modules(XORGWACOM xorg-wacom REQUIRED IMPORTED_TARGET)

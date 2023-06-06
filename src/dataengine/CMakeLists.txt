@@ -17,6 +17,10 @@ target_link_libraries(plasma_engine_wacomtablet
                       wacom_common
 )
 
+if(QT_MAJOR_VERSION STREQUAL "6")
+        target_link_libraries(plasma_engine_wacomtablet KF6::Plasma5Support)
+endif()
+
 install(TARGETS plasma_engine_wacomtablet
         DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma/dataengine
 )

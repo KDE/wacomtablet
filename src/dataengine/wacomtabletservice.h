@@ -18,7 +18,14 @@
 #ifndef WACOMTABLETSERVICE_H
 #define WACOMTABLETSERVICE_H
 
+#include <QtGlobal>
+
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <Plasma/Service>
+#else
+#include <Plasma5Support/Service>
+namespace Plasma = Plasma5Support;
+#endif
 
 class WacomTabletService : public Plasma::Service
 {

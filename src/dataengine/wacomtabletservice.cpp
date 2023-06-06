@@ -19,7 +19,11 @@
 #include "dbustabletinterface.h"
 #include "screenrotation.h"
 #include <QProcess>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <Plasma/ServiceJob>
+#else
+#include <Plasma5Support/ServiceJob>
+#endif
 
 using namespace Wacom;
 
