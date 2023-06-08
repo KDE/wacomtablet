@@ -78,25 +78,25 @@ msgstr "Feu clic amb el botó dret del ratolí"
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel up."
 msgid "Mouse Wheel Up"
-msgstr "Moveu amunt la roda del ratolí"
+msgstr "Moveu cap amunt la roda del ratolí"
 
 #: src/common/buttonshortcut.cpp:99
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel down."
 msgid "Mouse Wheel Down"
-msgstr "Moveu avall la roda del ratolí"
+msgstr "Moveu cap avall la roda del ratolí"
 
 #: src/common/buttonshortcut.cpp:101
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel left."
 msgid "Mouse Wheel Left"
-msgstr "Moveu a l'esquerra la roda del ratolí"
+msgstr "Moveu cap a l'esquerra la roda del ratolí"
 
 #: src/common/buttonshortcut.cpp:103
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel right."
 msgid "Mouse Wheel Right"
-msgstr "Moveu a la dreta la roda del ratolí"
+msgstr "Moveu cap a la dreta la roda del ratolí"
 
 #: src/common/buttonshortcut.cpp:105
 #, kde-format
@@ -403,13 +403,13 @@ msgstr "Roda"
 #: src/kcmodule/buttonpagewidget.ui:741
 #, kde-format
 msgid "Wheel Up"
-msgstr "Moveu amunt la roda"
+msgstr "Moveu cap amunt la roda"
 
 #. i18n: ectx: property (text), widget (QLabel, wheelDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:778
 #, kde-format
 msgid "Wheel Down"
-msgstr "Moveu avall la roda"
+msgstr "Moveu cap avall la roda"
 
 #: src/kcmodule/calibrationdialog.cpp:62
 #, kde-format
