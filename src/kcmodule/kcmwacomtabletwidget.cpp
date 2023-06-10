@@ -1,4 +1,4 @@
-/*
+	/*
  * This file is part of the KDE wacomtablet project. For copyright
  * information and license terms see the AUTHORS and COPYING files
  * in the top-level directory of this distribution.
