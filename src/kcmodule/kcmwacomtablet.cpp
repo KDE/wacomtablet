@@ -96,7 +96,11 @@ void KCMWacomTablet::initUi()
     m_layout->addWidget(m_tabletWidget);
 
     // connect signals
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     connect(m_tabletWidget, SIGNAL(changed(bool)), SIGNAL(changed(bool)));
+#else
+    connect(m_tabletWidget, &KCMWacomTabletWidget::changed, this, &KCMWacomTablet::setNeedsSave);
+#endif
 }
 
 void KCMWacomTablet::load()

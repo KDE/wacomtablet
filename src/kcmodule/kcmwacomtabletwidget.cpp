@@ -116,13 +116,22 @@ void KCMWacomTabletWidget::setupUi()
     d->ui.delProfileButton->setIcon( QIcon::fromTheme( QLatin1String( "edit-delete-page" ) ) );
 
     // connect tablet selector
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     connect( d->ui.tabletListSelector,  SIGNAL(currentIndexChanged(QString)), SLOT(onTabletSelectionChanged()) );
+#else
+    connect( d->ui.tabletListSelector,  QOverload<int>::of(&QComboBox::currentIndexChanged), this, &KCMWacomTabletWidget::onTabletSelectionChanged);
+#endif
 
     // connect profile selector
     connect( d->ui.addProfileButton, SIGNAL(clicked(bool)), SLOT(addProfile()) );
     connect( d->ui.delProfileButton, SIGNAL(clicked(bool)), SLOT(delProfile()) );
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     connect( d->ui.profileSelector,  SIGNAL(currentIndexChanged(QString)), SLOT(switchProfile(QString)) );
-
+#else
+    connect( d->ui.profileSelector,  qOverload<int>(&QComboBox::currentIndexChanged), this, [this, d](int index) {
+        switchProfile(d->ui.profileSelector->itemText(index));
+    });
+#endif
 
     // connect configuration tabs
     connect( &(d->generalPage), SIGNAL(changed()), SLOT(profileChanged()) );
