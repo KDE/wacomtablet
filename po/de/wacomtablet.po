@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-15 00:49+0000\n"
+"POT-Creation-Date: 2023-06-10 00:50+0000\n"
 "PO-Revision-Date: 2023-04-26 21:09+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -497,17 +497,17 @@ msgstr "Aufwärts"
 msgid "Shortcuts"
 msgstr "Kurzbefehle"
 
-#: src/kcmodule/kcmwacomtablet.cpp:70
+#: src/kcmodule/kcmwacomtablet.cpp:83
 #, kde-format
 msgid "Graphic Tablet Configuration"
 msgstr "Einstellungen für Grafiktablett"
 
-#: src/kcmodule/kcmwacomtablet.cpp:71
+#: src/kcmodule/kcmwacomtablet.cpp:84
 #, kde-format
 msgid "A configurator for graphic tablets"
 msgstr "Einstellungsdialog für Tablett-Geräte"
 
-#: src/kcmodule/kcmwacomtablet.cpp:72
+#: src/kcmodule/kcmwacomtablet.cpp:85
 #, kde-format
 msgid "In this module you can configure your Wacom tablet profiles"
 msgstr "Dieses Modul erlaubt das Einrichten der Wacom-Tablett-Profile"

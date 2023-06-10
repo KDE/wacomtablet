@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-15 00:49+0000\n"
+"POT-Creation-Date: 2023-06-10 00:50+0000\n"
 "PO-Revision-Date: 2012-03-07 22:27+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
@@ -558,17 +558,17 @@ msgstr "ਉੱਤੇ:"
 msgid "Shortcuts"
 msgstr "ਸ਼ਾਰਟਕੱਟ"
 
-#: src/kcmodule/kcmwacomtablet.cpp:70
+#: src/kcmodule/kcmwacomtablet.cpp:83
 #, kde-format
 msgid "Graphic Tablet Configuration"
 msgstr "ਗਰਾਫਿਕਸ ਟੈਬਲੇਟ ਸੰਰਚਨਾ"
 
-#: src/kcmodule/kcmwacomtablet.cpp:71
+#: src/kcmodule/kcmwacomtablet.cpp:84
 #, kde-format
 msgid "A configurator for graphic tablets"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtablet.cpp:72
+#: src/kcmodule/kcmwacomtablet.cpp:85
 #, kde-format
 msgid "In this module you can configure your Wacom tablet profiles"
 msgstr "ਇਹ ਮੋਡੀਊਲ ਨਾਲ ਤੁਹਾਡੇ ਵਕੋਮ ਟੈਬਲੇਟ ਪਰੋਫਾਇਲ ਦੀ ਸੰਰਚਨਾ ਕਰ ਸਕਦੇ ਹੋ"

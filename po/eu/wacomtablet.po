@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-15 00:49+0000\n"
+"POT-Creation-Date: 2023-06-10 00:50+0000\n"
 "PO-Revision-Date: 2022-10-17 06:04+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -498,17 +498,17 @@ msgstr "Gora"
 msgid "Shortcuts"
 msgstr "Lasterbideak"
 
-#: src/kcmodule/kcmwacomtablet.cpp:70
+#: src/kcmodule/kcmwacomtablet.cpp:83
 #, kde-format
 msgid "Graphic Tablet Configuration"
 msgstr "Tableta grafikoaren konfiguratzea"
 
-#: src/kcmodule/kcmwacomtablet.cpp:71
+#: src/kcmodule/kcmwacomtablet.cpp:84
 #, kde-format
 msgid "A configurator for graphic tablets"
 msgstr "Tableta grafikoen konfiguratzaile bat"
 
-#: src/kcmodule/kcmwacomtablet.cpp:72
+#: src/kcmodule/kcmwacomtablet.cpp:85
 #, kde-format
 msgid "In this module you can configure your Wacom tablet profiles"
 msgstr "Modulu honetan zure Wacom tabletako profilak konfiguratu ditzakezu"

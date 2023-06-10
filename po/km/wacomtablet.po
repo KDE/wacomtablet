@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: desktop_extragear-multimedia_amarok\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-15 00:49+0000\n"
+"POT-Creation-Date: 2023-06-10 00:50+0000\n"
 "PO-Revision-Date: 2012-06-08 14:50+0700\n"
 "Last-Translator: Sophea <sophea@khmeros.info>\n"
 "Language-Team: Khmer <>\n"
@@ -549,17 +549,17 @@ msgstr "ឡើង ៖"
 msgid "Shortcuts"
 msgstr "ផ្លូវកាត់"
 
-#: src/kcmodule/kcmwacomtablet.cpp:70
+#: src/kcmodule/kcmwacomtablet.cpp:83
 #, kde-format
 msgid "Graphic Tablet Configuration"
 msgstr "ការ​កំណត់​រចនាសម្ព័ន្ធ Tablet ក្រាហ្វិក"
 
-#: src/kcmodule/kcmwacomtablet.cpp:71
+#: src/kcmodule/kcmwacomtablet.cpp:84
 #, kde-format
 msgid "A configurator for graphic tablets"
 msgstr "កម្មវិធី​កំណត់​រចនាសម្ព័ន្ធ​សម្រាប់ tablets ក្រាហ្វិក"
 
-#: src/kcmodule/kcmwacomtablet.cpp:72
+#: src/kcmodule/kcmwacomtablet.cpp:85
 #, kde-format
 msgid "In this module you can configure your Wacom tablet profiles"
 msgstr "នៅ​ក្នុង​ម៉ូឌុល​នេះ​អ្នក​អាច​កំណត់​រចនាសម្ព័ន្ធ​ទម្រង់ Wacom tablet របស់​អ្នក​បាន"
