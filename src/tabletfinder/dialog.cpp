@@ -395,21 +395,25 @@ void Dialog::onPairedIdChanged(int index)
 void Dialog::onNormalTabletSet(bool enabled)
 {
     if (enabled) {
-        Tablet t = m_tabletList.at(m_ui->listTablets->currentIndex());
-        t.isTouchSensor = false;
-        t.hasPairedID = false;
-        m_tabletList.replace(m_ui->listTablets->currentIndex(), t);
-        m_ui->comboTouchSensor->setEnabled(false);
+        const int index = m_ui->listTablets->currentIndex();
+        if (index != -1) {
+            Tablet t = m_tabletList.at(index);
+            t.isTouchSensor = false;
+            t.hasPairedID = false;
+            m_tabletList.replace(index, t);
+            m_ui->comboTouchSensor->setEnabled(false);
+        }
     }
 }
 
 void Dialog::onParentTabletSet(bool enabled)
 {
-    if (enabled && m_ui->listTablets->currentIndex() != -1) {
-        Tablet t = m_tabletList.at(m_ui->listTablets->currentIndex());
+    const int index = m_ui->listTablets->currentIndex();
+    if (enabled && index != -1) {
+        Tablet t = m_tabletList.at(index);
         t.isTouchSensor = false;
         t.hasPairedID = true;
-        m_tabletList.replace(m_ui->listTablets->currentIndex(), t);
+        m_tabletList.replace(index, t);
         m_ui->comboTouchSensor->setEnabled(true);
     } else {
         m_ui->comboTouchSensor->setEnabled(false);
@@ -418,11 +422,12 @@ void Dialog::onParentTabletSet(bool enabled)
 
 void Dialog::onTouchSensorSet(bool enabled)
 {
-    if (enabled && m_ui->listTablets->currentIndex() != -1) {
-        Tablet t = m_tabletList.at(m_ui->listTablets->currentIndex());
+    const int index = m_ui->listTablets->currentIndex();
+    if (enabled && index != -1) {
+        Tablet t = m_tabletList.at(index);
         t.isTouchSensor = true;
         t.hasPairedID = false;
-        m_tabletList.replace(m_ui->listTablets->currentIndex(), t);
+        m_tabletList.replace(index, t);
         m_ui->comboTouchSensor->setEnabled(false);
     }
 }
