@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-10 00:50+0000\n"
+"POT-Creation-Date: 2023-06-11 00:50+0000\n"
 "PO-Revision-Date: 2022-01-27 18:50+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -227,7 +227,7 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:443
+#: src/kcmodule/kcmwacomtabletwidget.cpp:452
 #, kde-format
 msgid "Express Buttons"
 msgstr ""
@@ -510,12 +510,12 @@ msgstr ""
 msgid "In this module you can configure your Wacom tablet profiles"
 msgstr "يمكنك في هذه الوحدة ضبط تشكيلات لوحيّ واكُم"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:165
+#: src/kcmodule/kcmwacomtabletwidget.cpp:174
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr "لم توجد خدمة كِيدِي للّوحيّات"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:166
+#: src/kcmodule/kcmwacomtabletwidget.cpp:175
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
@@ -524,12 +524,12 @@ msgstr ""
 "رجاء ابدأ خدمة كِيدِي للوحيّات واكُم لاستخدام حواريّ الضّبط هذا.\n"
 "هذه الخدمة مطلوبة لاكتشاف اللوحيّات ودعم التّشكيلات."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:170
+#: src/kcmodule/kcmwacomtabletwidget.cpp:179
 #, kde-format
 msgid "No tablet device detected"
 msgstr "لم يُكتشف أيّ جهاز لوحيّ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:171
+#: src/kcmodule/kcmwacomtabletwidget.cpp:180
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -539,58 +539,58 @@ msgstr ""
 "رجاء أوصل جهازًا لوحيًّا للمتابعة.\n"
 "إن كان الجهاز موصل بالفعل، فهو غير موجود في قاعد بيانات الأجهزة حاليًّا."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:216
+#: src/kcmodule/kcmwacomtabletwidget.cpp:225
 #, kde-format
 msgid "Add new profile"
 msgstr "أضف تشكيلة جديدة"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:217
+#: src/kcmodule/kcmwacomtabletwidget.cpp:226
 #, kde-format
 msgid "Profile name:"
 msgstr "اسم التّشكيلة:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:427
+#: src/kcmodule/kcmwacomtabletwidget.cpp:436
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr "الافتراضيّ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:436
+#: src/kcmodule/kcmwacomtabletwidget.cpp:445
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "عامّ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:437
+#: src/kcmodule/kcmwacomtabletwidget.cpp:446
 #, kde-format
 msgid "Stylus"
 msgstr "قلم التّأشير"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:446
+#: src/kcmodule/kcmwacomtabletwidget.cpp:455
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "اللوحيّ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:449
+#: src/kcmodule/kcmwacomtabletwidget.cpp:458
 #, kde-format
 msgid "Touch"
 msgstr "اللمس"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
-#: src/kcmodule/kcmwacomtabletwidget.cpp:477
+#: src/kcmodule/kcmwacomtabletwidget.cpp:484
+#: src/kcmodule/kcmwacomtabletwidget.cpp:486
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "أأحفظ التّغييرات على التّشكيلة الحاليّة؟"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:484
 #, fuzzy, kde-format
 #| msgid "Select &Profile:"
 msgid "Save Profile"
 msgstr "اختر &تشكيلة:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:494
+#: src/kcmodule/kcmwacomtabletwidget.cpp:503
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""

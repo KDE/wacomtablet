@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: desktop_extragear-multimedia_amarok\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-10 00:50+0000\n"
+"POT-Creation-Date: 2023-06-11 00:50+0000\n"
 "PO-Revision-Date: 2012-06-08 14:50+0700\n"
 "Last-Translator: Sophea <sophea@khmeros.info>\n"
 "Language-Team: Khmer <>\n"
@@ -245,7 +245,7 @@ msgstr "ប៊ូតុង Pad"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:443
+#: src/kcmodule/kcmwacomtabletwidget.cpp:452
 #, fuzzy, kde-format
 #| msgid "Express Keys"
 msgid "Express Buttons"
@@ -564,12 +564,12 @@ msgstr "កម្មវិធី​កំណត់​រចនាសម្ព័
 msgid "In this module you can configure your Wacom tablet profiles"
 msgstr "នៅ​ក្នុង​ម៉ូឌុល​នេះ​អ្នក​អាច​កំណត់​រចនាសម្ព័ន្ធ​ទម្រង់ Wacom tablet របស់​អ្នក​បាន"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:165
+#: src/kcmodule/kcmwacomtabletwidget.cpp:174
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:166
+#: src/kcmodule/kcmwacomtabletwidget.cpp:175
 #, fuzzy, kde-format
 #| msgid ""
 #| "D-Bus connection to the kded daemon not available.\n"
@@ -585,7 +585,7 @@ msgstr ""
 "សូម​ចាប់ផ្ដើម​ដេមិន Wacom tablet រួច​សាកល្បង​ម្ដងទៀត ។\n"
 "ដេមិន​គឺ​មាន​ភារកិច្ច​ក្នុង​ការ​រកមើល tablet និង​គាំទ្រ​ទម្រង់ ។"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:170
+#: src/kcmodule/kcmwacomtabletwidget.cpp:179
 #, fuzzy, kde-format
 #| msgid ""
 #| "No tablet device was found.\n"
@@ -597,7 +597,7 @@ msgstr ""
 "\n"
 "សូម​តភ្ជាប់​ឧបករណ៍ ។"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:171
+#: src/kcmodule/kcmwacomtabletwidget.cpp:180
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -605,59 +605,59 @@ msgid ""
 "database."
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:216
+#: src/kcmodule/kcmwacomtabletwidget.cpp:225
 #, kde-format
 msgid "Add new profile"
 msgstr "បន្ថែម​ទម្រង់​ថ្មី"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:217
+#: src/kcmodule/kcmwacomtabletwidget.cpp:226
 #, kde-format
 msgid "Profile name:"
 msgstr "ឈ្មោះ​ទម្រង់ ៖"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:427
+#: src/kcmodule/kcmwacomtabletwidget.cpp:436
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:436
+#: src/kcmodule/kcmwacomtabletwidget.cpp:445
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "ទូទៅ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:437
+#: src/kcmodule/kcmwacomtabletwidget.cpp:446
 #, kde-format
 msgid "Stylus"
 msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:446
+#: src/kcmodule/kcmwacomtabletwidget.cpp:455
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, fuzzy, kde-format
 #| msgid "Tablet:"
 msgid "Tablet"
 msgstr "Tablet ៖"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:449
+#: src/kcmodule/kcmwacomtabletwidget.cpp:458
 #, kde-format
 msgid "Touch"
 msgstr "ប៉ះ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
-#: src/kcmodule/kcmwacomtabletwidget.cpp:477
+#: src/kcmodule/kcmwacomtabletwidget.cpp:484
+#: src/kcmodule/kcmwacomtabletwidget.cpp:486
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "រក្សាទុក​ការ​ផ្លាស់ប្ដូរ​ទៅកាន់​ទម្រង់​បច្ចុប្បន្ន​ដែរ​ឬទេ ?"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:484
 #, fuzzy, kde-format
 #| msgid "Select Profile:"
 msgid "Save Profile"
 msgstr "ជ្រើស​ទម្រង់ ៖"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:494
+#: src/kcmodule/kcmwacomtabletwidget.cpp:503
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
