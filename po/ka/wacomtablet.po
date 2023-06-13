@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-11 00:50+0000\n"
+"POT-Creation-Date: 2023-06-13 00:50+0000\n"
 "PO-Revision-Date: 2022-12-27 02:53+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -1256,7 +1256,7 @@ msgstr "გრაფიკული ტაბლეტის შეცდომ�
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr "პროფილი <b>%1</b> არ არსებობს. <b>%2</b> -ის გამოყენება"
 
-#: src/tabletfinder/dialog.cpp:453
+#: src/tabletfinder/dialog.cpp:458
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr "ღილაკი %1 მიბმულია ღილაკზე %2"

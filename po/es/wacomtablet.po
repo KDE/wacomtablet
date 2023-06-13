@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-11 00:50+0000\n"
+"POT-Creation-Date: 2023-06-13 00:50+0000\n"
 "PO-Revision-Date: 2023-02-21 14:03+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -1284,7 +1284,7 @@ msgstr "Error de la tableta gráfica"
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr "El perfil <b>%1</b> no existe. Aplique <b>%2</b> en su lugar."
 
-#: src/tabletfinder/dialog.cpp:453
+#: src/tabletfinder/dialog.cpp:458
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr "El botón %1 se corresponde con el botón %2"

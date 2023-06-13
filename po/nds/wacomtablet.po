@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-11 00:50+0000\n"
+"POT-Creation-Date: 2023-06-13 00:50+0000\n"
 "PO-Revision-Date: 2014-09-18 23:35+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -1298,7 +1298,7 @@ msgstr "Grafiktablettfehler"
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr "Profil <b>%1</b> gifft dat nich. Bruuk ansteed <b>%2</b>"
 
-#: src/tabletfinder/dialog.cpp:453
+#: src/tabletfinder/dialog.cpp:458
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr "Knoop %1 afbildt op Knoop %2"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-11 00:50+0000\n"
+"POT-Creation-Date: 2023-06-13 00:50+0000\n"
 "PO-Revision-Date: 2013-09-15 06:32+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -1291,7 +1291,7 @@ msgstr "Графикалық планшет қатесі"
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr "<b>%1</b> іс-әлпеті жоқ"
 
-#: src/tabletfinder/dialog.cpp:453
+#: src/tabletfinder/dialog.cpp:458
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr ""

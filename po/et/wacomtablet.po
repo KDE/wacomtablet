@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-11 00:50+0000\n"
+"POT-Creation-Date: 2023-06-13 00:50+0000\n"
 "PO-Revision-Date: 2020-05-02 11:34+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -1259,7 +1259,7 @@ msgstr "Graafikalaua tõrge"
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr "Profiili <b>%1</b> ei ole olemas. Selle asemel rakendatakse <b>%2</b>"
 
-#: src/tabletfinder/dialog.cpp:453
+#: src/tabletfinder/dialog.cpp:458
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr "Nupp %1 on seondatud nupuga %2"

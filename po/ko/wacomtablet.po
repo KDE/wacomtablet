@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-11 00:50+0000\n"
+"POT-Creation-Date: 2023-06-13 00:50+0000\n"
 "PO-Revision-Date: 2023-03-01 01:31+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1250,7 +1250,7 @@ msgstr "그래픽 태블릿 오류"
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr "프로필 <b>%1</b>이(가) 없습니다. <b>%2</b>을(를) 대신 사용합니다."
 
-#: src/tabletfinder/dialog.cpp:453
+#: src/tabletfinder/dialog.cpp:458
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr "단추 %1이(가) 단추 %2에 연결됨"

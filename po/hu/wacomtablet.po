@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-11 00:50+0000\n"
+"POT-Creation-Date: 2023-06-13 00:50+0000\n"
 "PO-Revision-Date: 2021-08-25 17:21+0200\n"
 "Last-Translator: Kristóf Kiszel <kiszel.kristof@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1270,7 +1270,7 @@ msgstr "Rajztáblahiba"
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr "A(z) <b>%1</b> profil nem létezik. A(z) <b>%2</b> alkalmazása helyette"
 
-#: src/tabletfinder/dialog.cpp:453
+#: src/tabletfinder/dialog.cpp:458
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr "A(z) %1 gomb leképezése a(z) %2 gombra"
