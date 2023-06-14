@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-15 00:49+0000\n"
+"POT-Creation-Date: 2023-06-13 00:50+0000\n"
 "PO-Revision-Date: 2023-02-19 20:30+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -227,7 +227,7 @@ msgstr "Plateknappar"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:443
+#: src/kcmodule/kcmwacomtabletwidget.cpp:452
 #, kde-format
 msgid "Express Buttons"
 msgstr "Ekspressknappar"
@@ -499,27 +499,27 @@ msgid "Shortcuts"
 msgstr "Snarvegar"
 
 # Dette er ei vanleg teikneplate, ikkje ei grafisk ei.
-#: src/kcmodule/kcmwacomtablet.cpp:70
+#: src/kcmodule/kcmwacomtablet.cpp:83
 #, kde-format
 msgid "Graphic Tablet Configuration"
 msgstr "Oppsett av teikneplate"
 
-#: src/kcmodule/kcmwacomtablet.cpp:71
+#: src/kcmodule/kcmwacomtablet.cpp:84
 #, kde-format
 msgid "A configurator for graphic tablets"
 msgstr "Oppsett av teikneplater"
 
-#: src/kcmodule/kcmwacomtablet.cpp:72
+#: src/kcmodule/kcmwacomtablet.cpp:85
 #, kde-format
 msgid "In this module you can configure your Wacom tablet profiles"
 msgstr "Her kan du setja opp profilane dine for Wacom-teikneplater"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:165
+#: src/kcmodule/kcmwacomtabletwidget.cpp:174
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr "Fann ikkje teikneplateteneste"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:166
+#: src/kcmodule/kcmwacomtabletwidget.cpp:175
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
@@ -529,12 +529,12 @@ msgstr ""
 "oppsettvindauget.\n"
 "Tenesta er nødvendig for oppdaging av teikneplater og for profilstøtte."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:170
+#: src/kcmodule/kcmwacomtabletwidget.cpp:179
 #, kde-format
 msgid "No tablet device detected"
 msgstr "Fann inga teikneplate"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:171
+#: src/kcmodule/kcmwacomtabletwidget.cpp:180
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -544,58 +544,58 @@ msgstr ""
 "Kopla til ei teikneplate for å halda fram.\n"
 "Viss eininga di alt er kopla til, finst ho ikkje i einingsdatabasen."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:216
+#: src/kcmodule/kcmwacomtabletwidget.cpp:225
 #, kde-format
 msgid "Add new profile"
 msgstr "Lag ny profil"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:217
+#: src/kcmodule/kcmwacomtabletwidget.cpp:226
 #, kde-format
 msgid "Profile name:"
 msgstr "Profilnamn:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:427
+#: src/kcmodule/kcmwacomtabletwidget.cpp:436
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr "Standard"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:436
+#: src/kcmodule/kcmwacomtabletwidget.cpp:445
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "Generelt"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:437
+#: src/kcmodule/kcmwacomtabletwidget.cpp:446
 #, kde-format
 msgid "Stylus"
 msgstr "Penn"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:446
+#: src/kcmodule/kcmwacomtabletwidget.cpp:455
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "Teikneplate"
 
 # Så vidt eg forstår det: Bruk av fingrar i staden for penn (ein funksjon ein kan slå på og av). Vert brukt til lågpresisjonsarbeid.
-#: src/kcmodule/kcmwacomtabletwidget.cpp:449
+#: src/kcmodule/kcmwacomtabletwidget.cpp:458
 #, kde-format
 msgid "Touch"
 msgstr "Fingerstøtte"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
-#: src/kcmodule/kcmwacomtabletwidget.cpp:477
+#: src/kcmodule/kcmwacomtabletwidget.cpp:484
+#: src/kcmodule/kcmwacomtabletwidget.cpp:486
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "Vil du lagra endringane til gjeldande profil?"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:484
 #, kde-format
 msgid "Save Profile"
 msgstr "Lagra profil"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:494
+#: src/kcmodule/kcmwacomtabletwidget.cpp:503
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
@@ -1267,7 +1267,7 @@ msgstr "Feil ved teikneplate"
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr "Profilen <b>%1</b> finst ikkje. Bruk <b>%2</b> i staden for."
 
-#: src/tabletfinder/dialog.cpp:453
+#: src/tabletfinder/dialog.cpp:458
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr "Knapp %1 vert avbilda til knapp %2"
