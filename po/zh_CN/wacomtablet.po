@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-03-28 13:55+0000\n"
-"PO-Revision-Date: 2023-05-22 14:03\n"
+"PO-Revision-Date: 2023-06-17 04:13\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -420,7 +420,7 @@ msgstr ""
 #: src/kcmodule/errorwidget.ui:14
 #, kde-format
 msgid "No Tablet Found"
-msgstr "未发现数位板"
+msgstr "没有找到数位板"
 
 #. i18n: ectx: property (text), widget (QCommandLinkButton, buttonRunTabletFinder)
 #: src/kcmodule/errorwidget.ui:107
@@ -512,7 +512,7 @@ msgstr "你可以在此模块中配置 Wacom 数位板的配置方案"
 #: src/kcmodule/kcmwacomtabletwidget.cpp:165
 #, kde-format
 msgid "KDE tablet service not found"
-msgstr "未找到 KDE 数位板服务"
+msgstr "没有找到 KDE 数位板服务"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
@@ -536,7 +536,7 @@ msgstr "目前仅支持 X11。"
 #: src/kcmodule/kcmwacomtabletwidget.cpp:174
 #, kde-format
 msgid "No tablet device detected"
-msgstr "未发现数位板设备"
+msgstr "没有检测到数位板设备"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:175
 #, kde-format
