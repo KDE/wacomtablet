@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plasma_applet_org.kde.wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-04-04 00:47+0000\n"
+"POT-Creation-Date: 2023-06-27 00:50+0000\n"
 "PO-Revision-Date: 2021-01-14 18:24+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -122,12 +122,12 @@ msgctxt "relative pen movement (mouse mode)"
 msgid "Relative"
 msgstr "Relatif"
 
-#: src/applet/package/contents/ui/main.qml:39
+#: src/applet/package/contents/ui/main.qml:37
 #, kde-format
 msgid "&Configure Graphics Tablet..."
 msgstr "&Configurer la tablette graphique..."
 
-#: src/applet/package/contents/ui/main.qml:44
+#: src/applet/package/contents/ui/main.qml:42
 #, kde-format
 msgid "Wacom Tablet"
 msgstr "Tablette Wacom"

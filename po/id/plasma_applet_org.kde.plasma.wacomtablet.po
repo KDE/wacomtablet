@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-04-04 00:47+0000\n"
+"POT-Creation-Date: 2023-06-27 00:50+0000\n"
 "PO-Revision-Date: 2022-08-26 23:44+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -117,12 +117,12 @@ msgctxt "relative pen movement (mouse mode)"
 msgid "Relative"
 msgstr "Relatif"
 
-#: src/applet/package/contents/ui/main.qml:39
+#: src/applet/package/contents/ui/main.qml:37
 #, kde-format
 msgid "&Configure Graphics Tablet..."
 msgstr "&Konfigurasikan Tablet Grafik..."
 
-#: src/applet/package/contents/ui/main.qml:44
+#: src/applet/package/contents/ui/main.qml:42
 #, kde-format
 msgid "Wacom Tablet"
 msgstr "Tablet Wacom"

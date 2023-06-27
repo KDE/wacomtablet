@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-04-04 00:47+0000\n"
+"POT-Creation-Date: 2023-06-27 00:50+0000\n"
 "PO-Revision-Date: 2019-11-19 22:46+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -117,12 +117,12 @@ msgctxt "relative pen movement (mouse mode)"
 msgid "Relative"
 msgstr "Suhteline"
 
-#: src/applet/package/contents/ui/main.qml:39
+#: src/applet/package/contents/ui/main.qml:37
 #, kde-format
 msgid "&Configure Graphics Tablet..."
 msgstr "&Seadista graafikalauda ..."
 
-#: src/applet/package/contents/ui/main.qml:44
+#: src/applet/package/contents/ui/main.qml:42
 #, kde-format
 msgid "Wacom Tablet"
 msgstr "Wacomi graafikalaud"

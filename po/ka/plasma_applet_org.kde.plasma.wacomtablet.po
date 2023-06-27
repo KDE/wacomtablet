@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-04-04 00:47+0000\n"
+"POT-Creation-Date: 2023-06-27 00:50+0000\n"
 "PO-Revision-Date: 2022-11-16 06:45+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -118,12 +118,12 @@ msgctxt "relative pen movement (mouse mode)"
 msgid "Relative"
 msgstr "ფარდობითი"
 
-#: src/applet/package/contents/ui/main.qml:39
+#: src/applet/package/contents/ui/main.qml:37
 #, kde-format
 msgid "&Configure Graphics Tablet..."
 msgstr "&გრაფიკული ტაბლეტის მორგება..."
 
-#: src/applet/package/contents/ui/main.qml:44
+#: src/applet/package/contents/ui/main.qml:42
 #, kde-format
 msgid "Wacom Tablet"
 msgstr "Wacom -ის ტაბლეტი"
