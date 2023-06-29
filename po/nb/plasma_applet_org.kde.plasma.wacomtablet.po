@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-04-04 00:47+0000\n"
+"POT-Creation-Date: 2023-06-27 00:50+0000\n"
 "PO-Revision-Date: 2013-08-09 12:43+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -119,12 +119,12 @@ msgctxt "relative pen movement (mouse mode)"
 msgid "Relative"
 msgstr "Relativ"
 
-#: src/applet/package/contents/ui/main.qml:39
+#: src/applet/package/contents/ui/main.qml:37
 #, kde-format
 msgid "&Configure Graphics Tablet..."
 msgstr ""
 
-#: src/applet/package/contents/ui/main.qml:44
+#: src/applet/package/contents/ui/main.qml:42
 #, kde-format
 msgid "Wacom Tablet"
 msgstr ""
