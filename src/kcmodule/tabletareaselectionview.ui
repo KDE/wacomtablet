@@ -219,8 +219,7 @@
            <string>Lock proportions</string>
           </property>
           <property name="icon">
-           <iconset theme="lock">
-            <normaloff>.</normaloff>.</iconset>
+           <iconset theme="lock"/>
           </property>
           <property name="checkable">
            <bool>true</bool>
