@@ -244,3 +244,5 @@ void TabletDaemon::monitorScreenGeometry(QScreen *screen)
 }
 
 #include "tabletdaemon.moc"
+
+#include "moc_tabletdaemon.cpp"

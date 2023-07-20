@@ -158,3 +158,5 @@ int X11EventNotifier::registerForNewDeviceEvent(xcb_connection_t* conn)
     xcb_input_xi_select_events(conn, QX11Info::appRootWindow(), 1, evmask);
     return 0;
 }
+
+#include "moc_x11eventnotifier.cpp"

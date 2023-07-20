@@ -161,3 +161,5 @@ Plasma::Service* WacomTabletEngine::serviceForSource(const QString& source)
 K_PLUGIN_CLASS_WITH_JSON(WacomTabletEngine, "plasma-dataengine-wacomtablet.json")
 
 #include "wacomtabletengine.moc"
+
+#include "moc_wacomtabletengine.cpp"

@@ -268,3 +268,5 @@ void ButtonActionSelectionWidget::updateShortcutWidgets(const ButtonShortcut& sh
         }
     }
 }
+
+#include "moc_buttonactionselectionwidget.cpp"

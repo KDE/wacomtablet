@@ -333,3 +333,5 @@ void KeySequenceInputButton::updateShortcutDisplay()
 
     this->setText(keySequenceString);
 }
+
+#include "moc_keysequenceinputbutton.cpp"

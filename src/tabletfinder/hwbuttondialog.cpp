@@ -116,3 +116,5 @@ QList<unsigned int> HWButtonDialog::buttonMap() const
 {
     return m_buttonMap;
 }
+
+#include "moc_hwbuttondialog.cpp"

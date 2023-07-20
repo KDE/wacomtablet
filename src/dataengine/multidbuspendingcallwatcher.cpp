@@ -38,3 +38,5 @@ MultiDBusPendingCallWatcher::MultiDBusPendingCallWatcher(const QList< QDBusPendi
     }
 }
 
+
+#include "moc_multidbuspendingcallwatcher.cpp"

@@ -130,3 +130,5 @@ void KCMWacomTablet::save()
 }
 
 #include "kcmwacomtablet.moc"
+
+#include "moc_kcmwacomtablet.cpp"

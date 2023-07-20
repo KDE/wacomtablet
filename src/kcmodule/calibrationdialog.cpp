@@ -162,3 +162,5 @@ void CalibrationDialog::calculateNewArea()
     qCDebug(KCM) << "Calibration debug:" << frameoffset << tabletScreenRatioWidth << tabletScreenRatioHeight << clickedX << clickedY << clickedXright << clickedYbottom;
     qCDebug(KCM) << "Calibration debug:" << m_newtabletArea;
 }
+
+#include "moc_calibrationdialog.cpp"

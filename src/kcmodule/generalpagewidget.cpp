@@ -165,3 +165,5 @@ void GeneralPageWidget::profileRemove()
         emit changed();
     }
 }
+
+#include "moc_generalpagewidget.cpp"

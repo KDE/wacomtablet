@@ -214,3 +214,5 @@ void PressureCurveWidget::paintEvent(QPaintEvent * event)
     painter.drawEllipse(m_cP1, m_pointSize, m_pointSize);
     painter.drawEllipse(m_cP2, m_pointSize, m_pointSize);
 }
+
+#include "moc_pressurecurvewidget.cpp"

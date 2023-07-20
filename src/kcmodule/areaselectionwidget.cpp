@@ -961,3 +961,5 @@ void AreaSelectionWidget::updateSelectedAreaSize(bool fixPositionInsteadOfSize)
 
     }
 }
+
+#include "moc_areaselectionwidget.cpp"

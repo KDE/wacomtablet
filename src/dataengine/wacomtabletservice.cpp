@@ -117,3 +117,5 @@ Plasma::ServiceJob* WacomTabletService::createJob(const QString& operation, QMap
 }
 
 #include "wacomtabletservice.moc"
+
+#include "moc_wacomtabletservice.cpp"

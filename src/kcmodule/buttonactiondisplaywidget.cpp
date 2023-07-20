@@ -46,3 +46,5 @@ void ButtonActionDisplayWidget::mousePressEvent(QMouseEvent* e)
     QLineEdit::mousePressEvent(e);
     emit mousePressed();
 }
+
+#include "moc_buttonactiondisplaywidget.cpp"

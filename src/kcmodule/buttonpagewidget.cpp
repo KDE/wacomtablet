@@ -336,3 +336,5 @@ void ButtonPageWidget::setupUi()
     connect ( ui->wheelUpSelector,        SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
     connect ( ui->wheelDownSelector,      SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT (onButtonActionChanged()) );
 }
+
+#include "moc_buttonpagewidget.cpp"

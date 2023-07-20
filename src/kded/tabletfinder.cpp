@@ -193,3 +193,5 @@ bool TabletFinder::lookupInformation(TabletInformation& info)
     qCWarning(KDED) << QString::fromLatin1("Could not find tablet with id '%1' in database.").arg(info.get (TabletInfo::TabletId));
     return false;
 }
+
+#include "moc_tabletfinder.cpp"

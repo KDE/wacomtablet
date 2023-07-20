@@ -137,3 +137,5 @@ void ButtonActionSelectorWidget::updateSelectorButton(const ButtonShortcut& shor
         d->ui->actionSelectionButton->setIcon(QIcon::fromTheme(QLatin1String("configure")));
     }
 }
+
+#include "moc_buttonactionselectorwidget.cpp"

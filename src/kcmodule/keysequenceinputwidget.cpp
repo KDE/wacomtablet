@@ -132,3 +132,5 @@ void KeySequenceInputWidget::onKeySequenceChanged(const QKeySequence &sequence)
     emit keySequenceChanged(sequence);
 }
 
+
+#include "moc_keysequenceinputwidget.cpp"

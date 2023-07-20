@@ -328,3 +328,5 @@ void TabletAreaSelectionView::setupUi()
     setupScreens(QMap<QString, QRect>(), QSize(200,200));
     setupTablet(TabletArea(), QSize(400,400));
 }
+
+#include "moc_tabletareaselectionview.cpp"

@@ -107,3 +107,5 @@ void TabletHandlerMock::setProfileRotationList(const QString& tabletId, const QS
     Q_UNUSED(tabletId)
     m_rotationList = rotationList;
 }
+
+#include "moc_tablethandlermock.cpp"

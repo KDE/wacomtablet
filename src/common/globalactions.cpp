@@ -84,3 +84,5 @@ GlobalActions::GlobalActions(bool isConfiguration, QObject* parent): KActionColl
         }
     }
 }
+
+#include "moc_globalactions.cpp"

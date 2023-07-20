@@ -93,3 +93,5 @@ void ButtonActionSelectionDialog::onOkClicked()
     Q_D (ButtonActionSelectionDialog);
     d->shortcut = d->selectionWidget->getShortcut();
 }
+
+#include "moc_buttonactionselectiondialog.cpp"

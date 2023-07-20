@@ -94,3 +94,5 @@ void PressureCurveDialog::reject()
 
     done(QDialog::Rejected);
 }
+
+#include "moc_pressurecurvedialog.cpp"

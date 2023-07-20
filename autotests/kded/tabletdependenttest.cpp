@@ -126,3 +126,5 @@ void TabletDependentTest::initTestCase()
 }
 
 
+
+#include "moc_tabletdependenttest.cpp"

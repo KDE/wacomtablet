@@ -521,3 +521,5 @@ void KCMWacomTabletWidget::addTabletToSelector(const QString &tabletId)
 
     d->ui.tabletListSelector->addItem(QString::fromLatin1("%1 [%2]").arg(deviceName).arg(tabletId),tabletId);
 }
+
+#include "moc_kcmwacomtabletwidget.cpp"

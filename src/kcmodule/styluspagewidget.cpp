@@ -266,3 +266,5 @@ void StylusPageWidget::setupUi()
     connect ( ui->button2ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
     connect ( ui->button3ActionSelector, SIGNAL (buttonActionChanged(ButtonShortcut)), this, SLOT(onProfileChanged()) );
 }
+
+#include "moc_styluspagewidget.cpp"

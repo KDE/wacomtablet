@@ -259,3 +259,5 @@ void DBusTabletService::onTabletRemoved(const QString &tabletId)
 
     emit tabletRemoved(tabletId);
 }
+
+#include "moc_dbustabletservice.cpp"

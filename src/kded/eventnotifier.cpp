@@ -34,3 +34,5 @@ EventNotifier::~EventNotifier()
 {
     // nothing to do
 }
+
+#include "moc_eventnotifier.cpp"

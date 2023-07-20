@@ -115,3 +115,5 @@ void TabletAreaSelectionDialog::setupUi()
 
     //connect( this, SIGNAL(okClicked()), this, SLOT(onOkClicked()) );
 }
+
+#include "moc_tabletareaselectiondialog.cpp"

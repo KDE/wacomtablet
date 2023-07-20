@@ -507,3 +507,5 @@ void Dialog::saveTabletInfo(const Tablet &t)
 
     tabletGroup.config()->sync();
 }
+
+#include "moc_dialog.cpp"

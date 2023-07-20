@@ -400,3 +400,5 @@ void TouchPageWidget::setupUi()
     ui->trackingWarningIcon->setVisible(false);
     ui->trackingWarningLabel->setVisible(false);
 }
+
+#include "moc_touchpagewidget.cpp"

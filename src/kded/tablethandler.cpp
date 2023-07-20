@@ -699,3 +699,5 @@ void TabletHandler::mapTabletToCurrentScreenSpace(const QString &tabletId,
 }
 
 
+
+#include "moc_tablethandler.cpp"

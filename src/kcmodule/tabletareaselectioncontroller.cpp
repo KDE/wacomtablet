@@ -357,3 +357,5 @@ void TabletAreaSelectionController::setSelection(const TabletArea &selection)
         d->view->selectPartOfTablet(selection);
     }
 }
+
+#include "moc_tabletareaselectioncontroller.cpp"

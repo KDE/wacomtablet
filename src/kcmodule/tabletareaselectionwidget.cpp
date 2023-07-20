@@ -96,3 +96,5 @@ void TabletAreaSelectionWidget::setupUi()
     // setup controller
     d->controller.setView(view);
 }
+
+#include "moc_tabletareaselectionwidget.cpp"
