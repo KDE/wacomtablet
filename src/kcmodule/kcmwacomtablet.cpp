@@ -41,8 +41,8 @@ K_PLUGIN_CLASS_WITH_JSON(KCMWacomTablet, "kcm_wacomtablet.json")
 KCMWacomTablet::KCMWacomTablet(QWidget *parent, const QVariantList & args)
         : KCModule(parent, args)
 #else
-KCMWacomTablet::KCMWacomTablet(QObject *parent, const KPluginMetaData &md, const QVariantList &args)
-        : KCModule(parent, md, args)
+KCMWacomTablet::KCMWacomTablet(QObject *parent, const KPluginMetaData &md)
+        : KCModule(parent, md)
 #endif
         , m_changed(false)
 {

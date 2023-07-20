@@ -53,7 +53,7 @@ public:
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     KCMWacomTablet(QWidget *parent, const QVariantList &);
 #else
-    KCMWacomTablet(QObject *parent, const KPluginMetaData &md, const QVariantList &);
+    KCMWacomTablet(QObject *parent, const KPluginMetaData &md);
 #endif
     ~KCMWacomTablet() override;
 
