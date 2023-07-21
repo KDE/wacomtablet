@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:50+0000\n"
+"POT-Creation-Date: 2023-07-21 00:53+0000\n"
 "PO-Revision-Date: 2022-10-17 08:53+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -937,43 +937,43 @@ msgid "Lock proportions"
 msgstr "Bloqueja les proporcions"
 
 #. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:233
+#: src/kcmodule/tabletareaselectionview.ui:232
 #, kde-format
 msgid "Tablet area fine tuning"
 msgstr "Ajust fi de l'àrea de la tauleta"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
-#: src/kcmodule/tabletareaselectionview.ui:245
+#: src/kcmodule/tabletareaselectionview.ui:244
 #, kde-format
 msgid "Width"
 msgstr "Amplada"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
-#: src/kcmodule/tabletareaselectionview.ui:255
+#: src/kcmodule/tabletareaselectionview.ui:254
 #, kde-format
 msgid "Horizontal"
 msgstr "Horitzontal"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
-#: src/kcmodule/tabletareaselectionview.ui:268
+#: src/kcmodule/tabletareaselectionview.ui:267
 #, kde-format
 msgid "Left margin"
 msgstr "Marge esquerre"
 
 #. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
-#: src/kcmodule/tabletareaselectionview.ui:278
+#: src/kcmodule/tabletareaselectionview.ui:277
 #, kde-format
 msgid "Vertical"
 msgstr "Vertical"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
-#: src/kcmodule/tabletareaselectionview.ui:291
+#: src/kcmodule/tabletareaselectionview.ui:290
 #, kde-format
 msgid "Top margin"
 msgstr "Marge superior"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
-#: src/kcmodule/tabletareaselectionview.ui:307
+#: src/kcmodule/tabletareaselectionview.ui:306
 #, kde-format
 msgid "Height"
 msgstr "Alçada"

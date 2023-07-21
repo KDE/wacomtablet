@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:50+0000\n"
+"POT-Creation-Date: 2023-07-21 00:53+0000\n"
 "PO-Revision-Date: 2022-10-18 09:14+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -923,43 +923,43 @@ msgid "Lock proportions"
 msgstr "Nastavi razmerja zaslona"
 
 #. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:233
+#: src/kcmodule/tabletareaselectionview.ui:232
 #, kde-format
 msgid "Tablet area fine tuning"
 msgstr "Fino nastavljanje področja tablice"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
-#: src/kcmodule/tabletareaselectionview.ui:245
+#: src/kcmodule/tabletareaselectionview.ui:244
 #, kde-format
 msgid "Width"
 msgstr "Širina"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
-#: src/kcmodule/tabletareaselectionview.ui:255
+#: src/kcmodule/tabletareaselectionview.ui:254
 #, kde-format
 msgid "Horizontal"
 msgstr "Vodoravno"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
-#: src/kcmodule/tabletareaselectionview.ui:268
+#: src/kcmodule/tabletareaselectionview.ui:267
 #, kde-format
 msgid "Left margin"
 msgstr "Levi rob"
 
 #. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
-#: src/kcmodule/tabletareaselectionview.ui:278
+#: src/kcmodule/tabletareaselectionview.ui:277
 #, kde-format
 msgid "Vertical"
 msgstr "Navpično"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
-#: src/kcmodule/tabletareaselectionview.ui:291
+#: src/kcmodule/tabletareaselectionview.ui:290
 #, kde-format
 msgid "Top margin"
 msgstr "Rob zgoraj"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
-#: src/kcmodule/tabletareaselectionview.ui:307
+#: src/kcmodule/tabletareaselectionview.ui:306
 #, kde-format
 msgid "Height"
 msgstr "Višina"

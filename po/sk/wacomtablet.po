@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:50+0000\n"
+"POT-Creation-Date: 2023-07-21 00:53+0000\n"
 "PO-Revision-Date: 2021-11-17 12:13+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: sk\n"
@@ -924,43 +924,43 @@ msgid "Lock proportions"
 msgstr "Uzamknúť proporcie"
 
 #. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:233
+#: src/kcmodule/tabletareaselectionview.ui:232
 #, kde-format
 msgid "Tablet area fine tuning"
 msgstr "Jemné ladenie oblasti tabletu"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
-#: src/kcmodule/tabletareaselectionview.ui:245
+#: src/kcmodule/tabletareaselectionview.ui:244
 #, kde-format
 msgid "Width"
 msgstr "Šírka"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
-#: src/kcmodule/tabletareaselectionview.ui:255
+#: src/kcmodule/tabletareaselectionview.ui:254
 #, kde-format
 msgid "Horizontal"
 msgstr "Vodorovne"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
-#: src/kcmodule/tabletareaselectionview.ui:268
+#: src/kcmodule/tabletareaselectionview.ui:267
 #, kde-format
 msgid "Left margin"
 msgstr "Ľavý okraj"
 
 #. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
-#: src/kcmodule/tabletareaselectionview.ui:278
+#: src/kcmodule/tabletareaselectionview.ui:277
 #, kde-format
 msgid "Vertical"
 msgstr "Zvislo"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
-#: src/kcmodule/tabletareaselectionview.ui:291
+#: src/kcmodule/tabletareaselectionview.ui:290
 #, kde-format
 msgid "Top margin"
 msgstr "Horný okraj"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
-#: src/kcmodule/tabletareaselectionview.ui:307
+#: src/kcmodule/tabletareaselectionview.ui:306
 #, kde-format
 msgid "Height"
 msgstr "Výška"

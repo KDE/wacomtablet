@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-13 00:50+0000\n"
+"POT-Creation-Date: 2023-07-21 00:53+0000\n"
 "PO-Revision-Date: 2014-09-18 23:35+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -948,20 +948,20 @@ msgid "Lock proportions"
 msgstr "Schirmproportschonen bruken"
 
 #. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:233
+#: src/kcmodule/tabletareaselectionview.ui:232
 #, fuzzy, kde-format
 #| msgid "Tablet Selection"
 msgid "Tablet area fine tuning"
 msgstr "Tablett-Köör"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
-#: src/kcmodule/tabletareaselectionview.ui:245
+#: src/kcmodule/tabletareaselectionview.ui:244
 #, kde-format
 msgid "Width"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
-#: src/kcmodule/tabletareaselectionview.ui:255
+#: src/kcmodule/tabletareaselectionview.ui:254
 #, fuzzy, kde-format
 #| msgctxt "monitors are horizontal aligned"
 #| msgid "horizontal"
@@ -969,14 +969,14 @@ msgid "Horizontal"
 msgstr "kimmrecht"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
-#: src/kcmodule/tabletareaselectionview.ui:268
+#: src/kcmodule/tabletareaselectionview.ui:267
 #, fuzzy, kde-format
 #| msgid "Left Strip Down"
 msgid "Left margin"
 msgstr "Striep links na nerrn"
 
 #. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
-#: src/kcmodule/tabletareaselectionview.ui:278
+#: src/kcmodule/tabletareaselectionview.ui:277
 #, fuzzy, kde-format
 #| msgctxt "monitors are vertical aligned"
 #| msgid "vertical"
@@ -984,13 +984,13 @@ msgid "Vertical"
 msgstr "pielrecht"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
-#: src/kcmodule/tabletareaselectionview.ui:291
+#: src/kcmodule/tabletareaselectionview.ui:290
 #, kde-format
 msgid "Top margin"
 msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
-#: src/kcmodule/tabletareaselectionview.ui:307
+#: src/kcmodule/tabletareaselectionview.ui:306
 #, kde-format
 msgid "Height"
 msgstr ""
