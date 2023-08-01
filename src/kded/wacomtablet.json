@@ -23,6 +23,7 @@
         "Description[pt]": "Servidor de controlo das tabletes Wacom",
         "Description[pt_BR]": "Servidor de controle da mesa digitalizadora Wacom",
         "Description[sl]": "Ozadnji program za nadzor tablice Wacom",
+        "Description[sv]": "Styrdemon för Wacom ritplatta",
         "Description[tr]": "Wacom tablet yapılandırma ardalan süreci",
         "Description[uk]": "Фонова служба керування планшетними пристроями Wacom",
         "Description[x-test]": "xxWacom tablet control daemonxx",
