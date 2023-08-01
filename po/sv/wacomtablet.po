@@ -2,21 +2,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Stefan Asserhäll <stefan.asserhall@bredband.net>, 2010.
-# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2018, 2021.
+# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2018, 2019.
 # Arve Eriksson <031299870@telia.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-21 00:53+0000\n"
-"PO-Revision-Date: 2021-08-07 10:03+0200\n"
+"PO-Revision-Date: 2019-06-28 17:47+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.08.1\n"
+"X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -901,7 +901,7 @@ msgstr "Område på ri&tplattan"
 #: src/kcmodule/tabletareaselectionview.ui:122
 #, kde-format
 msgid "Set the tablet area proportional to the selected screen area."
-msgstr "Ställ in område på ritplattan proportionell till valt skärmområde."
+msgstr "Ställ in yta på ritplattan proportionell till valt skärmområde."
 
 #. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:125
@@ -1011,13 +1011,13 @@ msgstr "Följningsläge för penna"
 #: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:72
 #, kde-format
 msgid "&Map to Screen (Absolute Mode)"
-msgstr "A&vbilda på skärm (absolut läge)"
+msgstr "Av&bilda på skärm (absolut läge)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackRelativeRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:56 src/kcmodule/touchpagewidget.ui:88
 #, kde-format
 msgid "Map &to Cursor (Relative Mode)"
-msgstr "Av&bilda på markör (relativt läge)"
+msgstr "Avbilda på markör (rela&tivt läge)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, padMappingGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:88
@@ -1094,8 +1094,6 @@ msgstr "Invertera automatisk rotation"
 #, kde-format
 msgid "Enabling gestures may break touch input using a touchscreen."
 msgstr ""
-"Att aktivera gester kan göra att beröringsinmatning på en pekskärm slutar "
-"fungera."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:36
