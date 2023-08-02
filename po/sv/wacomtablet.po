@@ -2,21 +2,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Stefan Asserhäll <stefan.asserhall@bredband.net>, 2010.
-# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2018, 2019.
+# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2018, 2019, 2023.
 # Arve Eriksson <031299870@telia.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-21 00:53+0000\n"
-"PO-Revision-Date: 2019-06-28 17:47+0100\n"
+"PO-Revision-Date: 2023-08-01 07:20+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 20.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -588,10 +588,9 @@ msgid "Save changes to the current profile?"
 msgstr "Spara ändringar av den nuvarande profilen?"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:484
-#, fuzzy, kde-format
-#| msgid "Select &Profile:"
+#, kde-format
 msgid "Save Profile"
-msgstr "Välj &profil:"
+msgstr "Spara profil"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:503
 #, kde-format
@@ -1094,6 +1093,8 @@ msgstr "Invertera automatisk rotation"
 #, kde-format
 msgid "Enabling gestures may break touch input using a touchscreen."
 msgstr ""
+"Att aktivera gester kan göra att beröringsinmatning på en pekskärm slutar "
+"fungera."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:36
