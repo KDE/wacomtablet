@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-21 00:53+0000\n"
-"PO-Revision-Date: 2023-06-05 15:28+0200\n"
+"PO-Revision-Date: 2023-08-06 05:07+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.1\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -629,7 +629,7 @@ msgstr "Crea un novo perfil predeterminado."
 #: src/kcmodule/kcmwacomtabletwidget.ui:83
 #, kde-format
 msgid "Deletes the current profile"
-msgstr "Elimina o perfil actual"
+msgstr "Elimina o perfil actual."
 
 #: src/kcmodule/keysequenceinputbutton.cpp:287
 #, kde-format
@@ -940,7 +940,7 @@ msgstr "Axuste da zona de tableta"
 #: src/kcmodule/tabletareaselectionview.ui:244
 #, kde-format
 msgid "Width"
-msgstr "Anchura"
+msgstr "Anchura."
 
 #. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
 #: src/kcmodule/tabletareaselectionview.ui:254
@@ -952,7 +952,7 @@ msgstr "Horizontal"
 #: src/kcmodule/tabletareaselectionview.ui:267
 #, kde-format
 msgid "Left margin"
-msgstr "Marxe esquerda"
+msgstr "Marxe esquerda."
 
 #. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
 #: src/kcmodule/tabletareaselectionview.ui:277
@@ -964,13 +964,13 @@ msgstr "Vertical"
 #: src/kcmodule/tabletareaselectionview.ui:290
 #, kde-format
 msgid "Top margin"
-msgstr "Marxe superior"
+msgstr "Marxe superior."
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
 #: src/kcmodule/tabletareaselectionview.ui:306
 #, kde-format
 msgid "Height"
-msgstr "Altura"
+msgstr "Altura."
 
 #: src/kcmodule/tabletpagewidget.cpp:383
 #, kde-format
@@ -1076,7 +1076,7 @@ msgstr "Se activa esta opción, a tableta rota automaticamente coa pantalla."
 #: src/kcmodule/tabletpagewidget.ui:184
 #, kde-format
 msgid "Auto-Rotate with Screen"
-msgstr "Rotar automaticamente coa pantalla"
+msgstr "Rotar automaticamente coa pantalla."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenInvertCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:194
@@ -1092,7 +1092,7 @@ msgstr ""
 #: src/kcmodule/tabletpagewidget.ui:197
 #, kde-format
 msgid "Invert Auto-Rotation"
-msgstr "Inverter o xiro automático"
+msgstr "Inverter o xiro automático."
 
 #. i18n: ectx: property (text), widget (KMessageWidget, gesturesWarning)
 #: src/kcmodule/touchpagewidget.ui:17
@@ -1110,7 +1110,7 @@ msgstr "Se activa esta opción, a tableta emite eventos de toque."
 #: src/kcmodule/touchpagewidget.ui:39
 #, kde-format
 msgid "Enable Touch"
-msgstr "Activar os toques"
+msgstr "Activar os toques."
 
 #. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/touchpagewidget.ui:60
@@ -1140,7 +1140,7 @@ msgstr "Se activa esta opción, os eventos de toque poden recoñecer xestos."
 #: src/kcmodule/touchpagewidget.ui:205
 #, kde-format
 msgid "Enable Gestures"
-msgstr "Activar os xestos"
+msgstr "Activar os xestos."
 
 #. i18n: ectx: property (title), widget (QGroupBox, gesturesGroupBox)
 #: src/kcmodule/touchpagewidget.ui:223
