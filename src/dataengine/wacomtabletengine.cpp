@@ -22,7 +22,7 @@
 using namespace Wacom;
 
 WacomTabletEngine::WacomTabletEngine(QObject* parent, const QVariantList& args):
-    DataEngine(parent, args)
+    DataEngine(parent)
    ,m_source(QLatin1String("wacomtablet"))
 {
     // init dbus service watcher
