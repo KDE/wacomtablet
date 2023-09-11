@@ -82,7 +82,7 @@
 
     <chapter id="introduction">
     <title
->Impostazioni delle tavoletta Wacom</title>
+>Impostazioni della tavoletta Wacom</title>
     <para
 >Il modulo delle &systemsettings; della tavoletta gestisce tutte le impostazioni della tua tavoletta grafica. Sono supportate da questa interfaccia per le impostazioni tutte le tavolette supportate dal progetto dei <ulink url="https://linuxwacom.github.io"
 >driver Wacom per &Linux;</ulink
