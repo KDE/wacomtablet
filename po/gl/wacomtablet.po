@@ -598,7 +598,7 @@ msgstr "Gardar o perfil"
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
-"Non se puido iniciar a ferramenta para atopar tabletas de Wacom. Revise a "
+"Non foi posíbel iniciar a ferramenta para atopar tabletas de Wacom. Revise a "
 "súa instalación."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
@@ -1051,7 +1051,7 @@ msgstr "Asociar a zona da tableta á pantalla"
 msgid ""
 "Your currently selected mapping can not be applied in relative tracking mode."
 msgstr ""
-"Non se pode aplicar a asociación que está escollida no modo de seguimento "
+"Non é posíbel aplicar a asociación que está escollida no modo de seguimento "
 "relativo."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, rotationGroupBox)
