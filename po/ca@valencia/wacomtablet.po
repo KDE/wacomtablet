@@ -90,13 +90,13 @@ msgstr "Moveu cap avall la roda del ratolí"
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel left."
 msgid "Mouse Wheel Left"
-msgstr "Moure a l'esquerra la roda del ratolí"
+msgstr "Moure cap a l'esquerra la roda del ratolí"
 
 #: src/common/buttonshortcut.cpp:103
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel right."
 msgid "Mouse Wheel Right"
-msgstr "Moure a la dreta la roda del ratolí"
+msgstr "Moure cap a la dreta la roda del ratolí"
 
 #: src/common/buttonshortcut.cpp:105
 #, kde-format
@@ -645,7 +645,8 @@ msgid ""
 msgstr ""
 "Cliqueu en el botó, llavors introduïu la drecera com ho faríeu en el "
 "programa.\n"
-"Exemple per a Ctrl+a: manteniu premuda la tecla «Ctrl» mentre premeu la «a»."
+"Exemple per a «Ctrl+A»: manteniu premuda la tecla «Ctrl» mentre premeu la "
+"«a»."
 
 #: src/kcmodule/keysequenceinputbutton.cpp:321
 #, kde-format
