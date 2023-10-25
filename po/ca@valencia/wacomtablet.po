@@ -641,7 +641,8 @@ msgid ""
 msgstr ""
 "Cliqueu en el botó, llavors introduïu la drecera com ho faríeu en el "
 "programa.\n"
-"Exemple per a Ctrl+a: manteniu premuda la tecla «Ctrl» mentre premeu la «a»."
+"Exemple per a «Ctrl+A»: manteniu premuda la tecla «Ctrl» mentre premeu la "
+"«a»."
 
 #: src/kcmodule/keysequenceinputbutton.cpp:321
 #, kde-format
