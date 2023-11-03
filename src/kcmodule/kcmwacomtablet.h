@@ -50,11 +50,7 @@ public:
       * @param parent parent widget
       * @param args arguments
       */
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    KCMWacomTablet(QWidget *parent, const QVariantList &);
-#else
     KCMWacomTablet(QObject *parent, const KPluginMetaData &md);
-#endif
     ~KCMWacomTablet() override;
 
     /**
@@ -72,10 +68,6 @@ private slots:
       * Initializes the module's user interface.
       */
     void initUi();
-
-#if KCOREADDONS_VERSION  < QT_VERSION_CHECK(5, 105, 0)
-    QWidget *widget();
-#endif
 
 private:
     QPointer<QVBoxLayout>          m_layout;        /**< Basic layout for the module */

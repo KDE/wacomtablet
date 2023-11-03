@@ -19,11 +19,7 @@
 #include "dbustabletinterface.h"
 #include "screenrotation.h"
 #include <QProcess>
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <Plasma/ServiceJob>
-#else
 #include <Plasma5Support/ServiceJob>
-#endif
 
 using namespace Wacom;
 
@@ -41,11 +37,7 @@ public:
 
         const auto op = operationName();
         if (op == QLatin1String("RunKCM")) {
-#if QT_VERSION > QT_VERSION_CHECK(6, 0, 0)
             QProcess::startDetached(QLatin1String("kcmshell6"), QStringList() << QLatin1String("wacomtablet"));
-#else
-            QProcess::startDetached(QLatin1String("kcmshell5"), QStringList() << QLatin1String("wacomtablet"));
-#endif
             return;
         }
 

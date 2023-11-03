@@ -19,12 +19,8 @@
 #define WACOMTABLETENGINE_H
 
 #include "dbustabletinterface.h"
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <Plasma/DataEngine>
-#else
 #include <Plasma5Support/DataEngine>
 namespace Plasma = Plasma5Support;
-#endif
 
 struct TabletData
 {

@@ -19,11 +19,7 @@
 
 #include <QCoreApplication>
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <QX11Info>
-#else
 #include "private/qtx11extras_p.h"
-#endif
 
 #include "logging.h"
 #include "x11eventnotifier.h"
@@ -94,11 +90,7 @@ void X11EventNotifier::stop()
 }
 
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-bool X11EventNotifier::nativeEventFilter(const QByteArray &eventType, void *message, long int *result)
-#else
 bool X11EventNotifier::nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)
-#endif
 {
     Q_UNUSED(eventType);
     Q_UNUSED(result);
