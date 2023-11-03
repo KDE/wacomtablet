@@ -33,17 +33,11 @@ find_package(KF${QT_MAJOR_VERSION} REQUIRED COMPONENTS CoreAddons I18n GlobalAcc
 find_package(XCB REQUIRED COMPONENTS XINPUT)
 find_package(X11 REQUIRED)
 
-if(QT_MAJOR_VERSION STREQUAL "6")
-  find_package(KF6Plasma5Support REQUIRED)
-endif()
+find_package(KF6Plasma5Support REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBWACOM libwacom REQUIRED IMPORTED_TARGET)
 pkg_check_modules(XORGWACOM xorg-wacom REQUIRED IMPORTED_TARGET)
-
-if(QT_MAJOR_VERSION EQUAL "5")
-  find_package(Qt5X11Extras REQUIRED)
-endif()
 
 if(${LIBWACOM_VERSION} VERSION_LESS "0.29")
     message(STATUS "Button detection with libwacom requires version at least 0.29. Detected version is: " ${LIBWACOM_VERSION})
@@ -60,7 +54,7 @@ add_subdirectory( data )
 add_subdirectory( images )
 
 ki18n_install(po)
-if(KF${QT_MAJOR_VERSION}DocTools_FOUND)
+if(KF6DocTools_FOUND)
     add_subdirectory( doc )
     kdoctools_install(po)
 endif()

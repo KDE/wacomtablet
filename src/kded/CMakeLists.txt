@@ -2,12 +2,12 @@
 ## libraries
 set(kded_wacomtablet_LIBS
    wacom_common
-   KF${QT_MAJOR_VERSION}::CoreAddons
-   KF${QT_MAJOR_VERSION}::Notifications
-   KF${QT_MAJOR_VERSION}::XmlGui
-   KF${QT_MAJOR_VERSION}::DBusAddons
-   KF${QT_MAJOR_VERSION}::ConfigCore
-   KF${QT_MAJOR_VERSION}::KIOGui
+   KF6::CoreAddons
+   KF6::Notifications
+   KF6::XmlGui
+   KF6::DBusAddons
+   KF6::ConfigCore
+   KF6::KIOGui
    XCB::XINPUT
    X11::Xi
    PkgConfig::LIBWACOM
@@ -73,7 +73,7 @@ target_link_libraries( kded_wacomtablet ${kded_wacomtablet_LIBS} )
 set_target_properties(kded_wacomtablet PROPERTIES OUTPUT_NAME wacomtablet)
 
 ## files to install
-install(TARGETS kded_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf${QT_MAJOR_VERSION}/kded)
+install(TARGETS kded_wacomtablet DESTINATION ${KDE_INSTALL_PLUGINDIR}/kf6/kded)
 install(FILES wacomtablet.notifyrc DESTINATION "${KDE_INSTALL_KNOTIFYRCDIR}")
 install(FILES org.kde.Wacom.xml DESTINATION ${KDE_INSTALL_DBUSINTERFACEDIR})
 

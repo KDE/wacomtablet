@@ -76,10 +76,10 @@ set(kcm_wacomtablet_LIBS
     wacom_common
     Qt::Core
     Qt::Widgets
-    KF${QT_MAJOR_VERSION}::CoreAddons
-    KF${QT_MAJOR_VERSION}::XmlGui
-    KF${QT_MAJOR_VERSION}::WidgetsAddons
-    KF${QT_MAJOR_VERSION}::WindowSystem
+    KF6::CoreAddons
+    KF6::XmlGui
+    KF6::WidgetsAddons
+    KF6::WindowSystem
     ${X11_LIBRARIES}
     ${X11_Xinput_LIB}
     )

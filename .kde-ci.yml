@@ -1,21 +1,4 @@
 Dependencies:
-- 'on': ['Linux/Qt5', 'FreeBSD/Qt5']
-  'require':
-    'frameworks/extra-cmake-modules': '@stable'
-    'frameworks/kcoreaddons': '@stable'
-    'frameworks/ki18n': '@stable'
-    'frameworks/kglobalaccel': '@stable'
-    'frameworks/kconfig': '@stable'
-    'frameworks/kxmlgui': '@stable'
-    'frameworks/kwidgetsaddons': '@stable'
-    'frameworks/kwindowsystem': '@stable'
-    'frameworks/knotifications': '@stable'
-    'frameworks/kdbusaddons': '@stable'
-    'frameworks/plasma-framework': '@stable'
-    'frameworks/kdoctools': '@stable'
-    'frameworks/kcmutils': '@stable'
-    'frameworks/kio': '@stable'
-
 - 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
   'require':
     'frameworks/extra-cmake-modules': '@latest-kf6'

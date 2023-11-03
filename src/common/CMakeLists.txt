@@ -4,10 +4,10 @@ set(wacom_common_LIBS
   Qt::Core
   Qt::Gui
   Qt::Widgets
-  KF${QT_MAJOR_VERSION}::I18n
-  KF${QT_MAJOR_VERSION}::GlobalAccel
-  KF${QT_MAJOR_VERSION}::ConfigCore
-  KF${QT_MAJOR_VERSION}::CoreAddons
+  KF6::I18n
+  KF6::GlobalAccel
+  KF6::ConfigCore
+  KF6::CoreAddons
   XCB::XINPUT
   X11::Xi
   PkgConfig::LIBWACOM
