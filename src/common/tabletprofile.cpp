@@ -123,7 +123,7 @@ QStringList TabletProfile::listDevices() const
 
     // keys are all lower case, but we want to list the names as-is
     QList<QString> keys = d->devices.keys();
-    for (const auto &key : qAsConst(keys)) {
+    for (const auto &key : std::as_const(keys)) {
         const DeviceType *deviceType = DeviceType::find(key);
         if (!deviceType) {
             qCWarning(COMMON) << "DeviceType for" << key << "is null";
