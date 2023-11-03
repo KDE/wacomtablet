@@ -28,8 +28,8 @@ ecm_setup_version(${PROJECT_VERSION}
     VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/src/wacomtablet-version.h"
 )
 
-find_package(Qt${QT_MAJOR_VERSION} REQUIRED COMPONENTS Core Gui Widgets DBus Qml)
-find_package(KF${QT_MAJOR_VERSION} REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools KCMUtils KIO)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets DBus Qml)
+find_package(KF6 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools KCMUtils KIO)
 find_package(XCB REQUIRED COMPONENTS XINPUT)
 find_package(X11 REQUIRED)
 
@@ -61,7 +61,7 @@ endif()
 
 ### Tests
 if(BUILD_TESTING)
-  find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} CONFIG REQUIRED)
+  find_package(Qt6Test ${QT_MIN_VERSION} CONFIG REQUIRED)
   add_subdirectory( autotests )
 endif()
 ecm_qt_install_logging_categories(

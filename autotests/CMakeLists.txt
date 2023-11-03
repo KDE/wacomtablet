@@ -1,4 +1,4 @@
-find_package(Qt${QT_MAJOR_VERSION}Test REQUIRED)
+find_package(Qt6Test REQUIRED)
 include(ECMMarkAsTest)
 
 include_directories( ${CMAKE_SOURCE_DIR}/src )

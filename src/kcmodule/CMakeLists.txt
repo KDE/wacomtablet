@@ -82,11 +82,8 @@ set(kcm_wacomtablet_LIBS
     KF6::WindowSystem
     ${X11_LIBRARIES}
     ${X11_Xinput_LIB}
+    KF6::KCMUtils
     )
-
-if(QT_MAJOR_VERSION STREQUAL "6")
-    set(kcm_wacomtablet_LIBS ${kcm_wacomtablet_LIBS} KF6::KCMUtils)
-endif()
 
 add_definitions(-DTRANSLATION_DOMAIN=\"wacomtablet\")
 add_library(kcm_wacomtablet MODULE ${kcm_wacomtablet_PLUGIN_SRC} ${kcm_tablet_SRCS})
