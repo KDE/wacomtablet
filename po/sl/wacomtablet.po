@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-21 00:53+0000\n"
+"POT-Creation-Date: 2023-11-04 00:44+0000\n"
 "PO-Revision-Date: 2022-10-18 09:14+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -227,7 +227,7 @@ msgstr "Gumbi plošče"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:452
+#: src/kcmodule/kcmwacomtabletwidget.cpp:444
 #, kde-format
 msgid "Express Buttons"
 msgstr "Hitri gumbi"
@@ -497,27 +497,12 @@ msgstr "Gor"
 msgid "Shortcuts"
 msgstr "Bližnjice"
 
-#: src/kcmodule/kcmwacomtablet.cpp:83
-#, kde-format
-msgid "Graphic Tablet Configuration"
-msgstr "Nastavitev grafične tablice"
-
-#: src/kcmodule/kcmwacomtablet.cpp:84
-#, kde-format
-msgid "A configurator for graphic tablets"
-msgstr "Nastavitve za grafične tablice"
-
-#: src/kcmodule/kcmwacomtablet.cpp:85
-#, kde-format
-msgid "In this module you can configure your Wacom tablet profiles"
-msgstr "V tem modulu lahko nastavite vaše profile za tablice Wacom"
-
-#: src/kcmodule/kcmwacomtabletwidget.cpp:174
+#: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr "Storitev tablice za KDE ni bila najdena"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:175
+#: src/kcmodule/kcmwacomtabletwidget.cpp:167
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
@@ -527,12 +512,12 @@ msgstr ""
 "pogovorno okno.\n"
 "Ta je odgovorna za zaznavanje tablic in podporo profilom."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:179
+#: src/kcmodule/kcmwacomtabletwidget.cpp:171
 #, kde-format
 msgid "No tablet device detected"
 msgstr "Ni bilo zaznanih naprav tablic"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:180
+#: src/kcmodule/kcmwacomtabletwidget.cpp:172
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -542,57 +527,56 @@ msgstr ""
 "Da bi nadaljevali, povežite tablično napravo.\n"
 "Če je vaša naprava že povezana, trenutno ni v podatkovni bazi naprav."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:225
+#: src/kcmodule/kcmwacomtabletwidget.cpp:217
 #, kde-format
 msgid "Add new profile"
 msgstr "Dodaj nov profil"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:226
+#: src/kcmodule/kcmwacomtabletwidget.cpp:218
 #, kde-format
 msgid "Profile name:"
 msgstr "Ime profila:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:436
+#: src/kcmodule/kcmwacomtabletwidget.cpp:428
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr "Privzet"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:445
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "Splošno"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:446
+#: src/kcmodule/kcmwacomtabletwidget.cpp:438
 #, kde-format
 msgid "Stylus"
 msgstr "Pisalo"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:455
+#: src/kcmodule/kcmwacomtabletwidget.cpp:447
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "Tablica"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:458
+#: src/kcmodule/kcmwacomtabletwidget.cpp:450
 #, kde-format
 msgid "Touch"
 msgstr "Dotik"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
-#: src/kcmodule/kcmwacomtabletwidget.cpp:486
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "Shranim spremembe v trenutnem profilu?"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
 #, kde-format
 msgid "Save Profile"
 msgstr "Shrani profil"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:503
+#: src/kcmodule/kcmwacomtabletwidget.cpp:486
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
@@ -1207,18 +1191,18 @@ msgstr "Obrni smer drsenja"
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr "Če je označeno, bo smer drsenja za kretnjo drsenja obrnjena."
 
-#: src/kded/tabletdaemon.cpp:117
+#: src/kded/tabletdaemon.cpp:113
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Nastavi"
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:166
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Ozadnji program za nastavitev grafične tablice"
 
-#: src/kded/tabletdaemon.cpp:171
+#: src/kded/tabletdaemon.cpp:167
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Ozadnji program za nastavitev tablice Wacom"
@@ -1420,6 +1404,15 @@ msgid ""
 msgstr ""
 "Premaknite miškino kazalko znotraj pogovornega okna, vendar ga <b>ne</b> "
 "kliknite."
+
+#~ msgid "Graphic Tablet Configuration"
+#~ msgstr "Nastavitev grafične tablice"
+
+#~ msgid "A configurator for graphic tablets"
+#~ msgstr "Nastavitve za grafične tablice"
+
+#~ msgid "In this module you can configure your Wacom tablet profiles"
+#~ msgstr "V tem modulu lahko nastavite vaše profile za tablice Wacom"
 
 #~ msgid "Unsupported platform detected"
 #~ msgstr "Zaznana nepodprta naprava"

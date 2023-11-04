@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-base-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-21 00:53+0000\n"
+"POT-Creation-Date: 2023-11-04 00:44+0000\n"
 "PO-Revision-Date: 2023-10-23 12:47+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -228,7 +228,7 @@ msgstr "Doldurma Düğmeleri"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:452
+#: src/kcmodule/kcmwacomtabletwidget.cpp:444
 #, kde-format
 msgid "Express Buttons"
 msgstr "Ekspres Düğmeler"
@@ -498,27 +498,12 @@ msgstr "Yukarı"
 msgid "Shortcuts"
 msgstr "Kısayollar"
 
-#: src/kcmodule/kcmwacomtablet.cpp:83
-#, kde-format
-msgid "Graphic Tablet Configuration"
-msgstr "Grafik Tablet Yapılandırması"
-
-#: src/kcmodule/kcmwacomtablet.cpp:84
-#, kde-format
-msgid "A configurator for graphic tablets"
-msgstr "Grafik tabletler için yapılandırma aracı"
-
-#: src/kcmodule/kcmwacomtablet.cpp:85
-#, kde-format
-msgid "In this module you can configure your Wacom tablet profiles"
-msgstr "Bu modül ile Wacom tablet profillerinizi yapılandırabilirsiniz"
-
-#: src/kcmodule/kcmwacomtabletwidget.cpp:174
+#: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr "KDE tablet hizmeti bulunamadı"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:175
+#: src/kcmodule/kcmwacomtabletwidget.cpp:167
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
@@ -528,12 +513,12 @@ msgstr ""
 "başlatın.\n"
 "Bu hizmet, tableti algılamak ve profil desteği için gereklidir."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:179
+#: src/kcmodule/kcmwacomtabletwidget.cpp:171
 #, kde-format
 msgid "No tablet device detected"
 msgstr "Tablet aygıtı algılanamadı"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:180
+#: src/kcmodule/kcmwacomtabletwidget.cpp:172
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -543,57 +528,56 @@ msgstr ""
 "Sürdürmek için bir tablet aygıtı bağlayın.\n"
 "Aygıtınız halihazırda bağlıysa şu anda aygıt veritabanında gözükmüyor."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:225
+#: src/kcmodule/kcmwacomtabletwidget.cpp:217
 #, kde-format
 msgid "Add new profile"
 msgstr "Yeni profil ekle"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:226
+#: src/kcmodule/kcmwacomtabletwidget.cpp:218
 #, kde-format
 msgid "Profile name:"
 msgstr "Profil adı:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:436
+#: src/kcmodule/kcmwacomtabletwidget.cpp:428
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr "Öntanımlı"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:445
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "Genel"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:446
+#: src/kcmodule/kcmwacomtabletwidget.cpp:438
 #, kde-format
 msgid "Stylus"
 msgstr "Stylus"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:455
+#: src/kcmodule/kcmwacomtabletwidget.cpp:447
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "Tablet"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:458
+#: src/kcmodule/kcmwacomtabletwidget.cpp:450
 #, kde-format
 msgid "Touch"
 msgstr "Dokunma"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
-#: src/kcmodule/kcmwacomtabletwidget.cpp:486
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "Değişiklikler mevcut profile kaydedilsin mi?"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
 #, kde-format
 msgid "Save Profile"
 msgstr "Profili Kaydet"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:503
+#: src/kcmodule/kcmwacomtabletwidget.cpp:486
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr "Wacom tablet bulucu aracı başlatılamadı. Kurulumunuzu denetleyin."
@@ -1210,18 +1194,18 @@ msgstr "Sarma Yönünü Tersine Çevir"
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr "Seçiliyse sarma hareketi için kaydırma yönü tersine çevrilir."
 
-#: src/kded/tabletdaemon.cpp:117
+#: src/kded/tabletdaemon.cpp:113
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Yapılandır"
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:166
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Grafik Tablet Yapılandırma ardalan süreci"
 
-#: src/kded/tabletdaemon.cpp:171
+#: src/kded/tabletdaemon.cpp:167
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Wacom tablet denetim ardalan süreci"
@@ -1422,3 +1406,12 @@ msgid ""
 "the mouse."
 msgstr ""
 "Fare imlecini pencere içinde hareket ettirin ama fare ile <b>tıklamayın</b>."
+
+#~ msgid "Graphic Tablet Configuration"
+#~ msgstr "Grafik Tablet Yapılandırması"
+
+#~ msgid "A configurator for graphic tablets"
+#~ msgstr "Grafik tabletler için yapılandırma aracı"
+
+#~ msgid "In this module you can configure your Wacom tablet profiles"
+#~ msgstr "Bu modül ile Wacom tablet profillerinizi yapılandırabilirsiniz"

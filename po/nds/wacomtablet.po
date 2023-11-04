@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-21 00:53+0000\n"
+"POT-Creation-Date: 2023-11-04 00:44+0000\n"
 "PO-Revision-Date: 2014-09-18 23:35+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -232,7 +232,7 @@ msgstr "Röhrfeldknööp"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:452
+#: src/kcmodule/kcmwacomtabletwidget.cpp:444
 #, kde-format
 msgid "Express Buttons"
 msgstr "Fixknööp"
@@ -509,27 +509,12 @@ msgstr "Na baven"
 msgid "Shortcuts"
 msgstr "Tastkombinatschonen"
 
-#: src/kcmodule/kcmwacomtablet.cpp:83
-#, kde-format
-msgid "Graphic Tablet Configuration"
-msgstr "Grafiktablett instellen"
-
-#: src/kcmodule/kcmwacomtablet.cpp:84
-#, kde-format
-msgid "A configurator for graphic tablets"
-msgstr "En Instellprogramm för Grafiktabletts"
-
-#: src/kcmodule/kcmwacomtablet.cpp:85
-#, kde-format
-msgid "In this module you can configure your Wacom tablet profiles"
-msgstr "Mit dit Moduul kannst Du Profilen för Dien Wacom-Tablett instellen"
-
-#: src/kcmodule/kcmwacomtabletwidget.cpp:174
+#: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr "KDE-Tablettdeenst nich funnen"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:175
+#: src/kcmodule/kcmwacomtabletwidget.cpp:167
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
@@ -539,12 +524,12 @@ msgstr ""
 "Instellendialoog bruken wullt.\n"
 "De Deenst deckt Tabletts op un ünnerstütt Profilen."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:179
+#: src/kcmodule/kcmwacomtabletwidget.cpp:171
 #, kde-format
 msgid "No tablet device detected"
 msgstr "Keen Tablettreedschap funnen."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:180
+#: src/kcmodule/kcmwacomtabletwidget.cpp:172
 #, fuzzy, kde-format
 #| msgid ""
 #| "Please connect a tablet device to continue.\n"
@@ -557,58 +542,57 @@ msgstr ""
 "Koppel bitte en Tablettreedschap to, wenn Du wiedermaken wullt.\n"
 "Hest Du Dien Reedschap al tokoppelt, warrt dat opstunns nich ünnerstütt."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:225
+#: src/kcmodule/kcmwacomtabletwidget.cpp:217
 #, kde-format
 msgid "Add new profile"
 msgstr "Nieg Profil tofögen"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:226
+#: src/kcmodule/kcmwacomtabletwidget.cpp:218
 #, kde-format
 msgid "Profile name:"
 msgstr "Profilnaam:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:436
+#: src/kcmodule/kcmwacomtabletwidget.cpp:428
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr "Standard"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:445
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "Allmeen"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:446
+#: src/kcmodule/kcmwacomtabletwidget.cpp:438
 #, kde-format
 msgid "Stylus"
 msgstr "Ingaavstift"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:455
+#: src/kcmodule/kcmwacomtabletwidget.cpp:447
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "Tablett"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:458
+#: src/kcmodule/kcmwacomtabletwidget.cpp:450
 #, kde-format
 msgid "Touch"
 msgstr "Anrögen"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
-#: src/kcmodule/kcmwacomtabletwidget.cpp:486
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "Ännern an't aktuelle Profil sekern?"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
 #, fuzzy, kde-format
 #| msgid "Select Profile:"
 msgid "Save Profile"
 msgstr "Profil utsöken:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:503
+#: src/kcmodule/kcmwacomtabletwidget.cpp:486
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
@@ -1246,18 +1230,18 @@ msgstr "Ümdreiht Rullricht"
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr "Wenn anmaakt warrt de Richt för Rulltekens ümdreiht"
 
-#: src/kded/tabletdaemon.cpp:117
+#: src/kded/tabletdaemon.cpp:113
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr ""
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:166
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Grafiktablett-Instelldämoon"
 
-#: src/kded/tabletdaemon.cpp:171
+#: src/kded/tabletdaemon.cpp:167
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "En Stüerdämoon för Wacom-Tabletts"
@@ -1464,6 +1448,15 @@ msgid ""
 msgstr ""
 "Schuuv den Muuswieser binnen den Dialoog, man klick dor <b>nich</b> binnen "
 "mit de Muus."
+
+#~ msgid "Graphic Tablet Configuration"
+#~ msgstr "Grafiktablett instellen"
+
+#~ msgid "A configurator for graphic tablets"
+#~ msgstr "En Instellprogramm för Grafiktabletts"
+
+#~ msgid "In this module you can configure your Wacom tablet profiles"
+#~ msgstr "Mit dit Moduul kannst Du Profilen för Dien Wacom-Tablett instellen"
 
 #~ msgid "document-new"
 #~ msgstr "Nieg Dokment"

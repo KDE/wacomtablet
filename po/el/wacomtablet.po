@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-21 00:53+0000\n"
+"POT-Creation-Date: 2023-11-04 00:44+0000\n"
 "PO-Revision-Date: 2021-09-04 10:15+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -228,7 +228,7 @@ msgstr "Κουμπιά επιφάνειας"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:452
+#: src/kcmodule/kcmwacomtabletwidget.cpp:444
 #, kde-format
 msgid "Express Buttons"
 msgstr "Κουμπιά συντόμευσης"
@@ -498,28 +498,12 @@ msgstr "Επάνω"
 msgid "Shortcuts"
 msgstr "Συντομεύσεις"
 
-#: src/kcmodule/kcmwacomtablet.cpp:83
-#, kde-format
-msgid "Graphic Tablet Configuration"
-msgstr "Διαμόρφωση πινακίου"
-
-#: src/kcmodule/kcmwacomtablet.cpp:84
-#, kde-format
-msgid "A configurator for graphic tablets"
-msgstr "Εργαλείο διαμόρφωσης για πινάκια"
-
-#: src/kcmodule/kcmwacomtablet.cpp:85
-#, kde-format
-msgid "In this module you can configure your Wacom tablet profiles"
-msgstr ""
-"Σε αυτήν την ενότητα μπορείτε να διαμορφώσετε τα προφίλ του πινακίου Wacom"
-
-#: src/kcmodule/kcmwacomtabletwidget.cpp:174
+#: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr "Η υπηρεσία πινακίων του KDE δεν βρέθηκε"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:175
+#: src/kcmodule/kcmwacomtabletwidget.cpp:167
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
@@ -530,12 +514,12 @@ msgstr ""
 "Η υπηρεσία απαιτείται για τον εντοπισμό του πινακίου και την υποστήριξη του "
 "προφίλ."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:179
+#: src/kcmodule/kcmwacomtabletwidget.cpp:171
 #, kde-format
 msgid "No tablet device detected"
 msgstr "Δεν βρέθηκε πινάκιο"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:180
+#: src/kcmodule/kcmwacomtabletwidget.cpp:172
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -546,58 +530,57 @@ msgstr ""
 "Αν η συσκευή σας είναι ήδη συνδεδεμένη, προς το παρόν δεν βρίσκεται στη βάση "
 "δεδομένων της συσκευής."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:225
+#: src/kcmodule/kcmwacomtabletwidget.cpp:217
 #, kde-format
 msgid "Add new profile"
 msgstr "Προσθήκη νέου προφίλ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:226
+#: src/kcmodule/kcmwacomtabletwidget.cpp:218
 #, kde-format
 msgid "Profile name:"
 msgstr "Όνομα προφίλ:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:436
+#: src/kcmodule/kcmwacomtabletwidget.cpp:428
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr "Προκαθορισμένο"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:445
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "Γενικά"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:446
+#: src/kcmodule/kcmwacomtabletwidget.cpp:438
 #, kde-format
 msgid "Stylus"
 msgstr "Γραφίδα"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:455
+#: src/kcmodule/kcmwacomtabletwidget.cpp:447
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "Πινάκιο"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:458
+#: src/kcmodule/kcmwacomtabletwidget.cpp:450
 #, kde-format
 msgid "Touch"
 msgstr "Επαφή"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
-#: src/kcmodule/kcmwacomtabletwidget.cpp:486
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "Να αποθηκευτούν οι αλλαγές στο τρέχον προφίλ;"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:484
+#: src/kcmodule/kcmwacomtabletwidget.cpp:475
 #, fuzzy, kde-format
 #| msgid "Select &Profile:"
 msgid "Save Profile"
 msgstr "Επιλογή &προφίλ:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:503
+#: src/kcmodule/kcmwacomtabletwidget.cpp:486
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
@@ -1228,18 +1211,18 @@ msgstr "Αντιστροφή κατεύθυνσης κύλησης"
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr "Αν επιλεγεί, αντιστρέφεται η κατεύθυνση κύλησης στο σχετικό νεύμα."
 
-#: src/kded/tabletdaemon.cpp:117
+#: src/kded/tabletdaemon.cpp:113
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Διαμόρφωση"
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:166
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Δαίμων διαμόρφωσης πινακίου"
 
-#: src/kded/tabletdaemon.cpp:171
+#: src/kded/tabletdaemon.cpp:167
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Δαίμων ελέγχου πινακίου Wacom"
@@ -1441,6 +1424,16 @@ msgid ""
 msgstr ""
 "Μετακινήστε το δρομέα του ποντικιού μέσα στο διάλογο αλλά <b>μην</b> κάνετε "
 "κλικ πάνω σε αυτό με το ποντίκι."
+
+#~ msgid "Graphic Tablet Configuration"
+#~ msgstr "Διαμόρφωση πινακίου"
+
+#~ msgid "A configurator for graphic tablets"
+#~ msgstr "Εργαλείο διαμόρφωσης για πινάκια"
+
+#~ msgid "In this module you can configure your Wacom tablet profiles"
+#~ msgstr ""
+#~ "Σε αυτήν την ενότητα μπορείτε να διαμορφώσετε τα προφίλ του πινακίου Wacom"
 
 #~ msgid "Unsupported platform detected"
 #~ msgstr "Εντοπίστηκε μη υποστηριζόμενη πλατφόρμα"
