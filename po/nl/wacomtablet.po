@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 00:44+0000\n"
+"POT-Creation-Date: 2023-11-05 12:36+0000\n"
 "PO-Revision-Date: 2022-10-17 12:09+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -1207,18 +1207,18 @@ msgstr ""
 "Indien geselecteerd, wordt de schuifrichting voor het schuifgebaar "
 "omgedraaid."
 
-#: src/kded/tabletdaemon.cpp:113
+#: src/kded/tabletdaemon.cpp:114 src/kded/tabletdaemon.cpp:121
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Configureren"
 
-#: src/kded/tabletdaemon.cpp:166
+#: src/kded/tabletdaemon.cpp:174
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Daemon voor instellingen van grafisch tablet"
 
-#: src/kded/tabletdaemon.cpp:167
+#: src/kded/tabletdaemon.cpp:175
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Een besturingsdaemon voor Wacom-tablet"

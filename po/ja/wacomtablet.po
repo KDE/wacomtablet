@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 00:44+0000\n"
+"POT-Creation-Date: 2023-11-05 12:36+0000\n"
 "PO-Revision-Date: 2014-08-16 23:06-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -1177,18 +1177,18 @@ msgstr "スクロール方向を反転"
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr ""
 
-#: src/kded/tabletdaemon.cpp:113
+#: src/kded/tabletdaemon.cpp:114 src/kded/tabletdaemon.cpp:121
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr ""
 
-#: src/kded/tabletdaemon.cpp:166
+#: src/kded/tabletdaemon.cpp:174
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "グラフィックタブレット設定デーモン"
 
-#: src/kded/tabletdaemon.cpp:167
+#: src/kded/tabletdaemon.cpp:175
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Wacom タブレット管理デーモン"

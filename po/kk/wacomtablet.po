@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 00:44+0000\n"
+"POT-Creation-Date: 2023-11-05 12:36+0000\n"
 "PO-Revision-Date: 2013-09-15 06:32+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -1222,18 +1222,18 @@ msgstr "Қимыл бағытын инверсиялау "
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr "Белгіленсе, жүгірту ым-қимылының қимыл бағыты инверсияланады."
 
-#: src/kded/tabletdaemon.cpp:113
+#: src/kded/tabletdaemon.cpp:114 src/kded/tabletdaemon.cpp:121
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr ""
 
-#: src/kded/tabletdaemon.cpp:166
+#: src/kded/tabletdaemon.cpp:174
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Графикалық планшетті баптау қызметі"
 
-#: src/kded/tabletdaemon.cpp:167
+#: src/kded/tabletdaemon.cpp:175
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Watcom планшетін басқару қызметі"
