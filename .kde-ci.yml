@@ -11,11 +11,11 @@ Dependencies:
     'frameworks/kwindowsystem': '@latest-kf6'
     'frameworks/knotifications': '@latest-kf6'
     'frameworks/kdbusaddons': '@latest-kf6'
-    'frameworks/plasma-framework': '@latest-kf6'
     'frameworks/kdoctools': '@latest-kf6'
     'frameworks/kcmutils': '@latest-kf6'
     'frameworks/kio': '@latest-kf6'
-    'plasma/plasma5support': '@latest-kf6'
+    'plasma/plasma-framework': '@same'
+    'plasma/plasma5support': '@same'
 
 Options:
   require-passing-tests-on: [ '@all' ]
