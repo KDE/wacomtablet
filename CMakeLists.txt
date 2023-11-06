@@ -1,9 +1,7 @@
-project(wacomtablet)
-set(PROJECT_VERSION "5.27.80")
+cmake_minimum_required(VERSION 3.16)
 
-cmake_minimum_required(VERSION 3.0)
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-cmake_policy(SET CMP0048 NEW)
+set(PROJECT_VERSION "5.27.80")
+project(wacomtablet VERSION ${PROJECT_VERSION})
 
 set(QT_MIN_VERSION "6.5.0")
 set(KF6_MIN_VERSION "5.240.0")
@@ -14,6 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(ECM ${KF6_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake/modules)
+
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings NO_POLICY_SCOPE)
@@ -44,25 +43,25 @@ if(${LIBWACOM_VERSION} VERSION_LESS "0.29")
     add_definitions(-DLIBWACOM_EVDEV_MISSING)
 endif()
 
-add_definitions( -DQT_STRICT_ITERATORS )
-add_definitions( -DQT_NO_CAST_FROM_ASCII )
-add_definitions( -DQT_NO_CAST_TO_ASCII )
-add_definitions( -DQT_USE_QSTRINGBUILDER )
+add_definitions(-DQT_STRICT_ITERATORS)
+add_definitions(-DQT_NO_CAST_FROM_ASCII)
+add_definitions(-DQT_NO_CAST_TO_ASCII)
+add_definitions(-DQT_USE_QSTRINGBUILDER)
 
-add_subdirectory( src )
-add_subdirectory( data )
-add_subdirectory( images )
+add_subdirectory(src)
+add_subdirectory(data)
+add_subdirectory(images)
 
 ki18n_install(po)
 if(KF6DocTools_FOUND)
-    add_subdirectory( doc )
+    add_subdirectory(doc)
     kdoctools_install(po)
 endif()
 
 ### Tests
 if(BUILD_TESTING)
   find_package(Qt6Test ${QT_MIN_VERSION} CONFIG REQUIRED)
-  add_subdirectory( autotests )
+  add_subdirectory(autotests)
 endif()
 ecm_qt_install_logging_categories(
         EXPORT WACOMTABLET
