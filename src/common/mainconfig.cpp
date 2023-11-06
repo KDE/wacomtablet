@@ -63,7 +63,7 @@ void MainConfig::open(const QString& fileName)
 {
     Q_D( MainConfig );
     d->config  = KSharedConfig::openConfig( fileName );
-    d->general = KConfigGroup(d->config, "LastProfile");
+    d->general = KConfigGroup(d->config, QStringLiteral("LastProfile"));
 }
 
 
