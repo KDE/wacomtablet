@@ -30,6 +30,7 @@
                 "Name[sv]": "Weng Xuetian",
                 "Name[tr]": "Weng Şüetien",
                 "Name[uk]": "Weng Xuetian",
+                "Name[x-test]": "xxWeng Xuetianxx",
                 "Name[zh_CN]": "Weng Xuetian",
                 "Name[zh_TW]": "Weng Xuetian"
             }
@@ -61,6 +62,7 @@
         "Description[sv]": "Anslutning under körning och profilstöd för Wacom ritplattor",
         "Description[tr]": "Wacom tabletler için tak/çalıştır ve profil desteği",
         "Description[uk]": "Підтримка з’єднання та профілювання планшетів Wacom",
+        "Description[x-test]": "xxHotplugging and profile support for Wacom tabletsxx",
         "Description[zh_CN]": "Wacom 数位板的热插拔和配置文件支持",
         "Description[zh_TW]": "Wacom 繪圖板的熱插拔與設定檔支援",
         "Icon": "preferences-desktop-tablet",
@@ -112,6 +114,7 @@
         "Name[tr]": "Wacom Tablet",
         "Name[ug]": "Wacom سەزگۈر تاختا",
         "Name[uk]": "Планшет Wacom",
+        "Name[x-test]": "xxWacom Tabletxx",
         "Name[zh_CN]": "Wacom 数位板",
         "Name[zh_TW]": "Wacom 平板裝置",
         "ServiceTypes": [

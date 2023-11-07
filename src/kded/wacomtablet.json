@@ -26,6 +26,7 @@
         "Description[sv]": "Styrdemon för Wacom ritplatta",
         "Description[tr]": "Wacom tablet yapılandırma ardalan süreci",
         "Description[uk]": "Фонова служба керування планшетними пристроями Wacom",
+        "Description[x-test]": "xxWacom tablet control daemonxx",
         "Description[zh_CN]": "Wacom 数位板控制守护进程",
         "Description[zh_TW]": "Wacom 繪圖版控制守護程式",
         "Icon": "preferences-desktop-tablet",
@@ -75,6 +76,7 @@
         "Name[tr]": "Wacom Tablet",
         "Name[ug]": "Wacom سەزگۈر تاختا",
         "Name[uk]": "Планшет Wacom",
+        "Name[x-test]": "xxWacom Tabletxx",
         "Name[zh_CN]": "Wacom 数位板",
         "Name[zh_TW]": "Wacom 平板裝置"
     },
