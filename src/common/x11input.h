@@ -54,15 +54,15 @@ public:
      *
      * @return True if device was found, else false.
      */
-    static bool findDevice (const QString& deviceName, X11InputDevice& device);
+    static bool findDevice(const QString &deviceName, X11InputDevice &device);
 
     /**
      * Iterates over all X11 input devices and passes each device to the
      * visitor object. The visitor can then decide either to continue
      * iteration or abort it.
      */
-    static void scanDevices(X11InputVisitor& visitor);
+    static void scanDevices(X11InputVisitor &visitor);
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

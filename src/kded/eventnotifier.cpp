@@ -25,9 +25,10 @@
 
 using namespace Wacom;
 
-EventNotifier::EventNotifier(QWidget* parent)  : QWidget(parent)
+EventNotifier::EventNotifier(QWidget *parent)
+    : QWidget(parent)
 {
-    // nothing to do 
+    // nothing to do
 }
 
 EventNotifier::~EventNotifier()

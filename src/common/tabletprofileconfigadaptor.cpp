@@ -19,27 +19,28 @@
 
 #include "tabletprofileconfigadaptor.h"
 
-#include "logging.h"
 #include "deviceprofileconfigadaptor.h"
+#include "logging.h"
 
 using namespace Wacom;
 
-namespace Wacom {
+namespace Wacom
+{
 /**
-  * Private class for the d-pointer.
-  */
+ * Private class for the d-pointer.
+ */
 class TabletProfileConfigAdaptorPrivate
 {
-    public:
-        TabletProfile *profile = nullptr;
+public:
+    TabletProfile *profile = nullptr;
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 
-
-TabletProfileConfigAdaptor::TabletProfileConfigAdaptor(TabletProfile& profile)
-    : ConfigAdaptor(nullptr), d_ptr(new TabletProfileConfigAdaptorPrivate)
+TabletProfileConfigAdaptor::TabletProfileConfigAdaptor(TabletProfile &profile)
+    : ConfigAdaptor(nullptr)
+    , d_ptr(new TabletProfileConfigAdaptorPrivate)
 {
-    Q_D( TabletProfileConfigAdaptor );
+    Q_D(TabletProfileConfigAdaptor);
     d->profile = &profile;
 }
 
@@ -48,8 +49,7 @@ TabletProfileConfigAdaptor::~TabletProfileConfigAdaptor()
     delete this->d_ptr;
 }
 
-
-bool TabletProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
+bool TabletProfileConfigAdaptor::loadConfig(const KConfigGroup &config)
 {
     Q_D(TabletProfileConfigAdaptor);
     if (d->profile == nullptr) {
@@ -62,16 +62,16 @@ bool TabletProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
 
     QStringList devices = config.groupList();
 
-    foreach(const QString& dev, devices) {
-        const DeviceType* deviceType = DeviceType::find(dev);
+    foreach (const QString &dev, devices) {
+        const DeviceType *deviceType = DeviceType::find(dev);
 
         if (deviceType == nullptr) {
             qCWarning(COMMON) << QString::fromLatin1("Invalid device identifier '%1' found in configuration file!").arg(dev);
             continue;
         }
 
-        KConfigGroup               devconfig(&config, dev);
-        DeviceProfile              devprofile(*deviceType);
+        KConfigGroup devconfig(&config, dev);
+        DeviceProfile devprofile(*deviceType);
         DeviceProfileConfigAdaptor devadaptor(devprofile);
 
         devadaptor.loadConfig(devconfig);
@@ -82,10 +82,9 @@ bool TabletProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
     return true;
 }
 
-
-bool TabletProfileConfigAdaptor::saveConfig (KConfigGroup& config) const
+bool TabletProfileConfigAdaptor::saveConfig(KConfigGroup &config) const
 {
-    Q_D( const TabletProfileConfigAdaptor );
+    Q_D(const TabletProfileConfigAdaptor);
     if (d->profile == nullptr) {
         qCWarning(COMMON) << "Profile is null";
         return false;
@@ -94,22 +93,22 @@ bool TabletProfileConfigAdaptor::saveConfig (KConfigGroup& config) const
     // delete all groups before writing out the new device groups
     QStringList groups = config.groupList();
 
-    foreach (const QString& group, groups) {
+    foreach (const QString &group, groups) {
         KConfigGroup(&config, group).deleteGroup();
     }
 
     // write out new device config groups
     QStringList devices = d->profile->listDevices();
 
-    foreach(const QString& dev, devices) {
+    foreach (const QString &dev, devices) {
         const DeviceType *deviceType = DeviceType::find(dev);
         if (deviceType == nullptr) {
             qCWarning(COMMON) << QString::fromLatin1("Invalid device identifier '%1' found in configuration file!").arg(dev);
             continue;
         }
 
-        KConfigGroup               devconfig  = KConfigGroup(&config, dev);
-        DeviceProfile              devprofile = d->profile->getDevice(*deviceType);
+        KConfigGroup devconfig = KConfigGroup(&config, dev);
+        DeviceProfile devprofile = d->profile->getDevice(*deviceType);
         DeviceProfileConfigAdaptor devadaptor(devprofile);
 
         devconfig.deleteGroup();

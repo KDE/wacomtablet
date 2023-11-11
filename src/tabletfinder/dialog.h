@@ -24,8 +24,9 @@
 
 #include "tabletinformation.h"
 
-namespace Ui {
-    class Dialog;
+namespace Ui
+{
+class Dialog;
 }
 
 class QAbstractButton;

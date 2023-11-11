@@ -25,27 +25,26 @@
 class QFocusEvent;
 class QMouseEvent;
 
-namespace Wacom {
+namespace Wacom
+{
 
-class ButtonActionDisplayWidget : public QLineEdit {
-
+class ButtonActionDisplayWidget : public QLineEdit
+{
     Q_OBJECT
 
 public:
-    explicit ButtonActionDisplayWidget(QWidget* parent = nullptr);
+    explicit ButtonActionDisplayWidget(QWidget *parent = nullptr);
     ~ButtonActionDisplayWidget() override;
 
 signals:
 
     void mousePressed();
 
-
 protected:
+    void focusInEvent(QFocusEvent *e) override;
 
-    void focusInEvent ( QFocusEvent* e ) override;
-
-    void mousePressEvent ( QMouseEvent* e ) override;
+    void mousePressEvent(QMouseEvent *e) override;
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

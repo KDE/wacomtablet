@@ -20,23 +20,22 @@
 #include "dbustabletinterface.h"
 #include "stringutils.h"
 
-#include <QString>
 #include <QMetaType>
 #include <QMutex>
+#include <QString>
 
 using namespace Wacom;
 
 // instantiate static class members
-DBusTabletInterface* DBusTabletInterface::m_instance = nullptr;
-
+DBusTabletInterface *DBusTabletInterface::m_instance = nullptr;
 
 DBusTabletInterface::DBusTabletInterface()
-    : OrgKdeWacomInterface( QLatin1String( "org.kde.Wacom" ), QLatin1String( "/Tablet" ), QDBusConnection::sessionBus())
+    : OrgKdeWacomInterface(QLatin1String("org.kde.Wacom"), QLatin1String("/Tablet"), QDBusConnection::sessionBus())
 {
     DBusTabletInterface::registerMetaTypes();
 }
 
-DBusTabletInterface& DBusTabletInterface::instance()
+DBusTabletInterface &DBusTabletInterface::instance()
 {
     if (!m_instance) {
         static QMutex mutex;
@@ -51,7 +50,6 @@ DBusTabletInterface& DBusTabletInterface::instance()
 
     return *m_instance;
 }
-
 
 void DBusTabletInterface::resetInterface()
 {
@@ -73,5 +71,5 @@ void DBusTabletInterface::registerMetaTypes()
     // nothing to register for now
     // we keep this method so we have a central location to manage meta-types from
 
-    //qDBusRegisterMetaType<Wacom::TabletInformation>();
+    // qDBusRegisterMetaType<Wacom::TabletInformation>();
 }

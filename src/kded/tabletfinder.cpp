@@ -19,10 +19,10 @@
 
 #include "tabletfinder.h"
 
+#include "libwacomwrapper.h"
 #include "logging.h"
 #include "tabletdatabase.h"
 #include "x11tabletfinder.h"
-#include "libwacomwrapper.h"
 
 #include <QList>
 #include <QMap>
@@ -34,16 +34,15 @@ using namespace Wacom;
 
 namespace Wacom
 {
-    class TabletFinderPrivate
-    {
-        public:
-            typedef QList<TabletInformation> TabletInformationList;
+class TabletFinderPrivate
+{
+public:
+    typedef QList<TabletInformation> TabletInformationList;
 
-            TabletInformationList tabletList;
+    TabletInformationList tabletList;
 
-    }; // CLASS
+}; // CLASS
 } // NAMESPACE
-
 
 TabletFinder::TabletFinder()
     : QObject(nullptr)
@@ -56,15 +55,11 @@ TabletFinder::~TabletFinder()
     delete d_ptr;
 }
 
-
-
-TabletFinder& TabletFinder::instance()
+TabletFinder &TabletFinder::instance()
 {
     static TabletFinder instance;
     return instance;
 }
-
-
 
 bool TabletFinder::scan()
 {
@@ -74,15 +69,15 @@ bool TabletFinder::scan()
         return false;
     }
 
-    X11TabletFinder       x11tabletFinder;
-    QMap<QString,QString> buttonMap;
+    X11TabletFinder x11tabletFinder;
+    QMap<QString, QString> buttonMap;
 
     if (x11tabletFinder.scanDevices()) {
         d->tabletList = x11tabletFinder.getTablets();
 
         TabletFinderPrivate::TabletInformationList::Iterator iter;
 
-        for (iter = d->tabletList.begin() ; iter != d->tabletList.end() ; ++iter) {
+        for (iter = d->tabletList.begin(); iter != d->tabletList.end(); ++iter) {
             // lookup device information and button map
             lookupInformation(*iter);
 
@@ -103,14 +98,12 @@ bool TabletFinder::scan()
     return false;
 }
 
-
-
 void TabletFinder::onX11TabletAdded(int deviceId)
 {
     Q_D(TabletFinder);
 
     // check if we already know this tablet
-    for (int i = 0 ; i < d->tabletList.size() ; ++i) {
+    for (int i = 0; i < d->tabletList.size(); ++i) {
         if (d->tabletList.at(i).hasDevice(deviceId)) {
             // we already know this tablet
             qCWarning(KDED) << "X11 id:" << deviceId << "already added to Tablet" << d->tabletList.at(i).getDeviceName(DeviceType::Pad);
@@ -127,7 +120,7 @@ void TabletFinder::onX11TabletAdded(int deviceId)
     }
 
     // check if the device id can be found
-    foreach (const TabletInformation& info, x11TabletFinder.getTablets()) {
+    foreach (const TabletInformation &info, x11TabletFinder.getTablets()) {
         if (info.hasDevice(deviceId)) {
             // tablet found - lookup additional information
             TabletInformation tabletInfo = info;
@@ -138,7 +131,8 @@ void TabletFinder::onX11TabletAdded(int deviceId)
                 continue;
             }
 
-            qCDebug(KDED) << QString::fromLatin1("Tablet '%1' (%2) added.").arg(tabletInfo.get(TabletInfo::TabletName)).arg(tabletInfo.get(TabletInfo::TabletId));
+            qCDebug(KDED)
+                << QString::fromLatin1("Tablet '%1' (%2) added.").arg(tabletInfo.get(TabletInfo::TabletName)).arg(tabletInfo.get(TabletInfo::TabletId));
 
             // add tablet to the list of known tablets and emit added signal
             d->tabletList.append(tabletInfo);
@@ -148,8 +142,6 @@ void TabletFinder::onX11TabletAdded(int deviceId)
     }
 }
 
-
-
 void TabletFinder::onX11TabletRemoved(int deviceId)
 {
     Q_D(TabletFinder);
@@ -157,7 +149,7 @@ void TabletFinder::onX11TabletRemoved(int deviceId)
     // check if we know this tablet
     TabletFinderPrivate::TabletInformationList::iterator iter;
 
-    for (iter = d->tabletList.begin() ; iter != d->tabletList.end() ; ++iter) {
+    for (iter = d->tabletList.begin(); iter != d->tabletList.end(); ++iter) {
         if (iter->hasDevice(deviceId)) {
             TabletInformation info = *iter;
             d->tabletList.erase(iter);
@@ -168,12 +160,10 @@ void TabletFinder::onX11TabletRemoved(int deviceId)
     }
 }
 
-
-
-bool TabletFinder::lookupInformation(TabletInformation& info)
+bool TabletFinder::lookupInformation(TabletInformation &info)
 {
     // lookup information from our local & system-wide tablet databases
-    if (TabletDatabase::instance().lookupTablet(info.get (TabletInfo::TabletId), info)) {
+    if (TabletDatabase::instance().lookupTablet(info.get(TabletInfo::TabletId), info)) {
         qCDebug(KDED) << "Found in database: " << info.get(TabletInfo::TabletId);
         return true;
     }
@@ -186,7 +176,7 @@ bool TabletFinder::lookupInformation(TabletInformation& info)
         return true;
     }
 
-    qCWarning(KDED) << QString::fromLatin1("Could not find tablet with id '%1' in database.").arg(info.get (TabletInfo::TabletId));
+    qCWarning(KDED) << QString::fromLatin1("Could not find tablet with id '%1' in database.").arg(info.get(TabletInfo::TabletId));
     return false;
 }
 

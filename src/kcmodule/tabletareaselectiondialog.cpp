@@ -21,8 +21,8 @@
 
 #include "tabletareaselectionwidget.h"
 
-#include "stringutils.h"
 #include "screensinfo.h"
+#include "stringutils.h"
 
 #include <KLocalizedString>
 
@@ -34,34 +34,31 @@ using namespace Wacom;
 
 namespace Wacom
 {
-    class TabletAreaSelectionDialogPrivate
-    {
-        public:
-            TabletAreaSelectionWidget *selectionWidget = nullptr; // no need to delete this widget as it is properly parented.
-    }; // PRIVATE CLASS
+class TabletAreaSelectionDialogPrivate
+{
+public:
+    TabletAreaSelectionWidget *selectionWidget = nullptr; // no need to delete this widget as it is properly parented.
+}; // PRIVATE CLASS
 } // NAMESPACE
 
-
 TabletAreaSelectionDialog::TabletAreaSelectionDialog()
-        : QDialog(nullptr), d_ptr(new TabletAreaSelectionDialogPrivate)
+    : QDialog(nullptr)
+    , d_ptr(new TabletAreaSelectionDialogPrivate)
 {
     setupUi();
 }
-
 
 TabletAreaSelectionDialog::~TabletAreaSelectionDialog()
 {
     delete this->d_ptr;
 }
 
-
-const ScreenMap& TabletAreaSelectionDialog::getScreenMap()
+const ScreenMap &TabletAreaSelectionDialog::getScreenMap()
 {
     Q_D(TabletAreaSelectionDialog);
 
     return d->selectionWidget->getScreenMap();
 }
-
 
 const ScreenSpace TabletAreaSelectionDialog::getScreenSpace() const
 {
@@ -70,7 +67,6 @@ const ScreenSpace TabletAreaSelectionDialog::getScreenSpace() const
     return d->selectionWidget->getScreenSpace();
 }
 
-
 void TabletAreaSelectionDialog::select(QString output)
 {
     Q_D(TabletAreaSelectionDialog);
@@ -78,23 +74,19 @@ void TabletAreaSelectionDialog::select(QString output)
     d->selectionWidget->select(output);
 }
 
-
-void TabletAreaSelectionDialog::select(const ScreenSpace& screenSpace)
+void TabletAreaSelectionDialog::select(const ScreenSpace &screenSpace)
 {
     Q_D(TabletAreaSelectionDialog);
 
     d->selectionWidget->select(screenSpace);
 }
 
-
-void TabletAreaSelectionDialog::setupWidget(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation)
+void TabletAreaSelectionDialog::setupWidget(const ScreenMap &mappings, const QString &deviceName, const ScreenRotation &rotation)
 {
     Q_D(TabletAreaSelectionDialog);
 
     d->selectionWidget->setupWidget(mappings, deviceName, rotation);
 }
-
-
 
 void TabletAreaSelectionDialog::setupUi()
 {
@@ -102,18 +94,19 @@ void TabletAreaSelectionDialog::setupUi()
 
     d->selectionWidget = new TabletAreaSelectionWidget(this);
 
-    QVBoxLayout* layout = new QVBoxLayout;
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-    layout->addWidget( d->selectionWidget );
-    layout->addWidget( buttonBox );
+    QVBoxLayout *layout = new QVBoxLayout;
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    layout->addWidget(d->selectionWidget);
+    layout->addWidget(buttonBox);
     setLayout(layout);
 
     connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-    setWindowTitle( i18nc( "Dialog title from a dialog which lets the user select an area of the tablet where the screen space will be mapped to.", "Select a Tablet Area" ) );
-    setWindowIcon( QIcon::fromTheme( QLatin1String("preferences-desktop-tablet") ) );
+    setWindowTitle(
+        i18nc("Dialog title from a dialog which lets the user select an area of the tablet where the screen space will be mapped to.", "Select a Tablet Area"));
+    setWindowIcon(QIcon::fromTheme(QLatin1String("preferences-desktop-tablet")));
 
-    //connect( this, SIGNAL(okClicked()), this, SLOT(onOkClicked()) );
+    // connect( this, SIGNAL(okClicked()), this, SLOT(onOkClicked()) );
 }
 
 #include "moc_tabletareaselectiondialog.cpp"

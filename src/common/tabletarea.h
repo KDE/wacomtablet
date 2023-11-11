@@ -31,9 +31,7 @@ namespace Wacom
  */
 class TabletArea : public QRect
 {
-
 public:
-
     /**
      * Creates a new empty tablet area.
      */
@@ -46,7 +44,7 @@ public:
      * @param area The area string as returned by TabletArea::toString()
      * @param defaultValue A fallback area which is used if the area string is not parseable.
      */
-    explicit TabletArea(const QString& area, const QRect& defaultValue = QRect(0, 0, 0, 0));
+    explicit TabletArea(const QString &area, const QRect &defaultValue = QRect(0, 0, 0, 0));
 
     /**
      * Creates a new tablet area from the given rectangle.
@@ -54,7 +52,7 @@ public:
      *
      * @param area The area to select.
      */
-    explicit TabletArea(const QRect& area);
+    explicit TabletArea(const QRect &area);
 
     /**
      * Copy operators.
@@ -63,7 +61,7 @@ public:
      *
      * @return A reference to this instance.
      */
-    TabletArea& operator=(const QRect& rect);
+    TabletArea &operator=(const QRect &rect);
 
     /**
      * Parses an area string as returned by TabletArea::toString().
@@ -75,7 +73,7 @@ public:
      *
      * @return True if the area was successfully parsed, false if the default value was applied.
      */
-    bool fromString(const QString& area, const QRect& defaultValue = QRect(0, 0, 0, 0));
+    bool fromString(const QString &area, const QRect &defaultValue = QRect(0, 0, 0, 0));
 
     /**
      * Converts the current area to a string. The format is "x1 y1 x2 y2".
@@ -85,6 +83,5 @@ public:
     const QString toString() const;
 
 }; // CLASS TabletArea
-}  // NAMESPACE Wacom
+} // NAMESPACE Wacom
 #endif // TABLETAREA_H
-

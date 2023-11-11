@@ -21,177 +21,146 @@
 
 namespace Wacom
 {
-    class DeviceInformationPrivate
+class DeviceInformationPrivate
+{
+public:
+    DeviceInformationPrivate(const DeviceType &type)
+        : deviceType(type)
     {
-        public:
-            DeviceInformationPrivate (const DeviceType& type) : deviceType (type) {}
+    }
 
-            QString    deviceName;
-            QString    deviceNode;
-            DeviceType deviceType;
-            long       deviceId = 0;
-            long       productId = 0;
-            long       tabletSerial = 0;
-            long       vendorId = 0;
-    };
+    QString deviceName;
+    QString deviceNode;
+    DeviceType deviceType;
+    long deviceId = 0;
+    long productId = 0;
+    long tabletSerial = 0;
+    long vendorId = 0;
+};
 }
 
 using namespace Wacom;
 
-DeviceInformation::DeviceInformation (const DeviceType& deviceType, const QString& deviceName)
-    : d_ptr (new DeviceInformationPrivate (deviceType))
+DeviceInformation::DeviceInformation(const DeviceType &deviceType, const QString &deviceName)
+    : d_ptr(new DeviceInformationPrivate(deviceType))
 {
-    Q_D (DeviceInformation);
+    Q_D(DeviceInformation);
 
-    d->deviceName   = deviceName;
+    d->deviceName = deviceName;
 }
 
-
-DeviceInformation::DeviceInformation (const DeviceInformation& that)
-    : d_ptr (new DeviceInformationPrivate (that.d_ptr->deviceType))
+DeviceInformation::DeviceInformation(const DeviceInformation &that)
+    : d_ptr(new DeviceInformationPrivate(that.d_ptr->deviceType))
 {
-    operator= (that);
+    operator=(that);
 }
-
 
 DeviceInformation::~DeviceInformation()
 {
     delete d_ptr;
 }
 
-
-
-DeviceInformation& DeviceInformation::operator= (const DeviceInformation& that)
+DeviceInformation &DeviceInformation::operator=(const DeviceInformation &that)
 {
-    Q_D (DeviceInformation);
+    Q_D(DeviceInformation);
 
-    d->deviceId     = that.d_ptr->deviceId;
-    d->deviceName   = that.d_ptr->deviceName;
-    d->deviceNode   = that.d_ptr->deviceNode;
-    d->deviceType   = that.d_ptr->deviceType;
-    d->productId    = that.d_ptr->productId;
+    d->deviceId = that.d_ptr->deviceId;
+    d->deviceName = that.d_ptr->deviceName;
+    d->deviceNode = that.d_ptr->deviceNode;
+    d->deviceType = that.d_ptr->deviceType;
+    d->productId = that.d_ptr->productId;
     d->tabletSerial = that.d_ptr->tabletSerial;
-    d->vendorId     = that.d_ptr->vendorId;
+    d->vendorId = that.d_ptr->vendorId;
 
     return *this;
 }
 
-
-
-bool DeviceInformation::operator!= (const DeviceInformation& that) const
+bool DeviceInformation::operator!=(const DeviceInformation &that) const
 {
     return !operator==(that);
 }
 
-
-
-bool DeviceInformation::operator== (const DeviceInformation& that) const
+bool DeviceInformation::operator==(const DeviceInformation &that) const
 {
-    Q_D (const DeviceInformation);
+    Q_D(const DeviceInformation);
 
-    if (d->deviceName.compare(that.d_ptr->deviceName, Qt::CaseInsensitive) != 0 ||
-        d->deviceNode.compare(that.d_ptr->deviceNode, Qt::CaseInsensitive) != 0 ||
-        d->deviceId     != that.d_ptr->deviceId   ||
-        d->deviceType   != that.d_ptr->deviceType ||
-        d->productId    != that.d_ptr->productId  ||
-        d->tabletSerial != that.d_ptr->tabletSerial   ||
-        d->vendorId     != that.d_ptr->vendorId)
-    {
+    if (d->deviceName.compare(that.d_ptr->deviceName, Qt::CaseInsensitive) != 0 || d->deviceNode.compare(that.d_ptr->deviceNode, Qt::CaseInsensitive) != 0
+        || d->deviceId != that.d_ptr->deviceId || d->deviceType != that.d_ptr->deviceType || d->productId != that.d_ptr->productId
+        || d->tabletSerial != that.d_ptr->tabletSerial || d->vendorId != that.d_ptr->vendorId) {
         return false;
     }
 
     return true;
 }
 
-
 long int DeviceInformation::getDeviceId() const
 {
-    Q_D (const DeviceInformation);
+    Q_D(const DeviceInformation);
     return d->deviceId;
 }
 
-
-const QString& DeviceInformation::getDeviceNode() const
+const QString &DeviceInformation::getDeviceNode() const
 {
-    Q_D (const DeviceInformation);
+    Q_D(const DeviceInformation);
     return d->deviceNode;
 }
 
-
-
-const QString& DeviceInformation::getName() const
+const QString &DeviceInformation::getName() const
 {
-    Q_D (const DeviceInformation);
+    Q_D(const DeviceInformation);
     return d->deviceName;
 }
 
-
-
 long int DeviceInformation::getProductId() const
 {
-    Q_D (const DeviceInformation);
+    Q_D(const DeviceInformation);
     return d->productId;
 }
 
-
-
 long int DeviceInformation::getTabletSerial() const
 {
-    Q_D (const DeviceInformation);
+    Q_D(const DeviceInformation);
     return d->tabletSerial;
 }
 
-
-
-const DeviceType& DeviceInformation::getType() const
+const DeviceType &DeviceInformation::getType() const
 {
-    Q_D (const DeviceInformation);
+    Q_D(const DeviceInformation);
     return d->deviceType;
 }
 
-
-
 long int DeviceInformation::getVendorId() const
 {
-    Q_D (const DeviceInformation);
+    Q_D(const DeviceInformation);
     return d->vendorId;
 }
 
-
-
 void DeviceInformation::setDeviceId(long int deviceId)
 {
-    Q_D (DeviceInformation);
+    Q_D(DeviceInformation);
     d->deviceId = deviceId;
 }
 
-
-void DeviceInformation::setDeviceNode (const QString& deviceNode)
+void DeviceInformation::setDeviceNode(const QString &deviceNode)
 {
-    Q_D (DeviceInformation);
+    Q_D(DeviceInformation);
     d->deviceNode = deviceNode;
 }
 
-
-
-void DeviceInformation::setProductId (long productId)
+void DeviceInformation::setProductId(long productId)
 {
-    Q_D (DeviceInformation);
+    Q_D(DeviceInformation);
     d->productId = productId;
 }
 
-
-
-void DeviceInformation::setTabletSerial (long tabletSerial)
+void DeviceInformation::setTabletSerial(long tabletSerial)
 {
-    Q_D (DeviceInformation);
+    Q_D(DeviceInformation);
     d->tabletSerial = tabletSerial;
 }
 
-
-
-void DeviceInformation::setVendorId (long vendorId)
+void DeviceInformation::setVendorId(long vendorId)
 {
-    Q_D (DeviceInformation);
+    Q_D(DeviceInformation);
     d->vendorId = vendorId;
 }

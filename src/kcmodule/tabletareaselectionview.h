@@ -41,11 +41,9 @@ class TabletAreaSelectionView : public QWidget
     Q_OBJECT
 
 public:
-
-    explicit TabletAreaSelectionView( QWidget* parent = nullptr );
+    explicit TabletAreaSelectionView(QWidget *parent = nullptr);
 
     ~TabletAreaSelectionView() override;
-
 
     /**
      * @return The current selection as rectangle.
@@ -62,8 +60,7 @@ public:
      *
      * @param selection The part to select, may not be empty.
      */
-    void selectPartOfTablet(const TabletArea& selection);
-
+    void selectPartOfTablet(const TabletArea &selection);
 
     /**
      * Switches to the given screen and selects the given tablet region.
@@ -74,7 +71,6 @@ public:
      */
     void select(QString output, bool isDesktop, const TabletArea &tabletSelection);
 
-
     /**
      * Shows or hides a warning that the current selection is only
      * available in absolute tracking mode.
@@ -82,7 +78,6 @@ public:
      * @param doShow If true the warning is displayed, else it is hidden.
      */
     void setTrackingModeWarning(bool doShow);
-
 
     /**
      * Sets up the screen area widget.
@@ -92,15 +87,13 @@ public:
      */
     void setupScreens(const QMap<QString, QRect> &screenGeometries, const QSize &widgetTargetSize);
 
-
     /**
      * Sets up the tablet area widget.
      *
      * @param geometry The geometry of the tablet.
      * @param widgetTargetSize The target size of the tablet area widget.
      */
-    void setupTablet( const TabletArea& geometry, const QSize& widgetTargetSize );
-
+    void setupTablet(const TabletArea &geometry, const QSize &widgetTargetSize);
 
 public slots:
 
@@ -166,17 +159,14 @@ signals:
      */
     void signalTabletAreaSelection();
 
-
 protected:
-
     /**
      * The available mapping types for the tablet.
      */
     enum TabletAreaType {
-        FullTabletArea,    //!< Enables full desktop selection.
-        PartialTabletArea  //!< Enables area selection.
+        FullTabletArea, //!< Enables full desktop selection.
+        PartialTabletArea //!< Enables area selection.
     };
-
 
     /**
      * Sets a selection on the tablet based on the given geometry.
@@ -187,8 +177,7 @@ protected:
      *
      * @param selection The geometry of the new selection.
      */
-    void setSelection(const TabletArea& selection);
-
+    void setSelection(const TabletArea &selection);
 
     /**
      * Sets the given mapping type and updates the widgets
@@ -198,9 +187,7 @@ protected:
      */
     void setTabletAreaType(TabletAreaType type);
 
-
 private:
-
     /**
      * Checks if the given selection selects the full tablet area.
      *
@@ -208,17 +195,16 @@ private:
      *
      * @return True if the given selection selects the full tablet area, else false.
      */
-    bool isFullAreaSelection(const TabletArea& selection) const;
+    bool isFullAreaSelection(const TabletArea &selection) const;
 
     /**
      * Sets up this widget. Must only be called once by the constructor.
      */
     void setupUi();
 
-
     Q_DECLARE_PRIVATE(TabletAreaSelectionView)
     TabletAreaSelectionViewPrivate *const d_ptr; //!< D-Pointer for this class.
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

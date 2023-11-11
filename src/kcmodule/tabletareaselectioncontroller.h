@@ -39,17 +39,15 @@ class TabletAreaSelectionController : public QObject
     Q_OBJECT
 
 public:
-
     TabletAreaSelectionController();
     ~TabletAreaSelectionController() override;
-
 
     /**
      * Get the screen space mapping.
      *
      * @return The current screen space mapping.
      */
-    const ScreenMap& getScreenMap();
+    const ScreenMap &getScreenMap();
 
     /**
      * @return The current screen space which was selected.
@@ -59,8 +57,7 @@ public:
     /**
      * Shows the selection for the given screen space.
      */
-    void select(const ScreenSpace& screenSpace);
-
+    void select(const ScreenSpace &screenSpace);
 
     /**
      * Sets the view. When a view has been set, the controller
@@ -68,8 +65,7 @@ public:
      *
      * @param view The view to control.
      */
-    void setView(TabletAreaSelectionView* view);
-
+    void setView(TabletAreaSelectionView *view);
 
     /**
      * Initializes the controller. This method has to be called before the widget
@@ -79,8 +75,7 @@ public:
      * @param deviceName The X11 xinput device name of the device we ware handling.
      * @param rotation The currently selected tablet rotation.
      */
-    void setupController(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation);
-
+    void setupController(const ScreenMap &mappings, const QString &deviceName, const ScreenRotation &rotation);
 
 public slots:
 
@@ -109,21 +104,18 @@ public slots:
      */
     void onTabletAreaSelected();
 
-
 private:
-
     void checkConfigurationForTrackingModeProblems();
 
-    const TabletArea convertAreaFromRotation(const TabletArea& tablet, const TabletArea& area, const ScreenRotation& rotation) const;
+    const TabletArea convertAreaFromRotation(const TabletArea &tablet, const TabletArea &area, const ScreenRotation &rotation) const;
 
-    const TabletArea convertAreaToRotation(const TabletArea& tablet, const TabletArea& area, const ScreenRotation& rotation) const;
+    const TabletArea convertAreaToRotation(const TabletArea &tablet, const TabletArea &area, const ScreenRotation &rotation) const;
 
     const QRect getScreenGeometry(QString output) const;
 
     const TabletArea getMapping(ScreenSpace screenSpace) const;
 
-    void setMapping(ScreenSpace screenSpace, const TabletArea& mapping);
-
+    void setMapping(ScreenSpace screenSpace, const TabletArea &mapping);
 
     /**
      * @return True if this controller has a view, else false.
@@ -137,12 +129,11 @@ private:
      *
      * @param selection The selection to set.
      */
-    void setSelection(const TabletArea& selection);
-
+    void setSelection(const TabletArea &selection);
 
     Q_DECLARE_PRIVATE(TabletAreaSelectionController)
     TabletAreaSelectionControllerPrivate *const d_ptr; //!< D-Pointer for this class.
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

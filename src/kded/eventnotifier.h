@@ -47,33 +47,31 @@ public:
     //! Unregisters the notifier from the window system.
     virtual void stop() = 0;
 
-
 Q_SIGNALS:
     /**
      * Emitted when a new tablet is connected.
      *
      * @param deviceId The tablet identifier gathered from the window system.
      */
-    void tabletAdded (int deviceId);
+    void tabletAdded(int deviceId);
 
     /**
      * Emitted when a tablet is removed.
      *
      * @param deviceId The device that was removed by identifier.
      */
-    void tabletRemoved (int deviceId);
+    void tabletRemoved(int deviceId);
 
     /**
      * Emitted when the screen is rotated.
      *
      * @param screenRotation The rotation direction.
      */
-    void screenRotated (const ScreenRotation& screenRotation);
-
+    void screenRotated(const ScreenRotation &screenRotation);
 
 protected:
     explicit EventNotifier(QWidget *parent = nullptr);
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

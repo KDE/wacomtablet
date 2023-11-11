@@ -23,10 +23,13 @@ using namespace Wacom;
 
 // instances container specialization instantiation
 template<>
-ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances = ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container();
+ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container
+    ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances =
+        ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container();
 
 // KEEP THIS LIST IN AN ORDER WHICH CAN BE SET DIRECTLY!
 // SOME PROPERTIES NEED TO BE SET BEFORE OTHERS!
 //
-const ProcSystemProperty ProcSystemProperty::StatusLEDs              ( Property::StatusLEDs,              QLatin1String("Status LEDs for Intuos4/5 and Cintiq") );
-const ProcSystemProperty ProcSystemProperty::StatusLEDsBrightness              ( Property::StatusLEDsBrightness,              QLatin1String("Status LED Brightness for Intuos4/5 and Cintiq") );
+const ProcSystemProperty ProcSystemProperty::StatusLEDs(Property::StatusLEDs, QLatin1String("Status LEDs for Intuos4/5 and Cintiq"));
+const ProcSystemProperty ProcSystemProperty::StatusLEDsBrightness(Property::StatusLEDsBrightness,
+                                                                  QLatin1String("Status LED Brightness for Intuos4/5 and Cintiq"));

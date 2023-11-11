@@ -20,12 +20,13 @@
 #ifndef PROPERTYADAPTOR_H
 #define PROPERTYADAPTOR_H
 
-#include <QString>
 #include <QList>
+#include <QString>
 
 #include "property.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 class PropertyAdaptorPrivate;
 
@@ -36,13 +37,12 @@ class PropertyAdaptorPrivate;
  * They are also used to convert property values between the internal storage
  * format of the adapted object and the global data format.
  */
-class PropertyAdaptor {
-
+class PropertyAdaptor
+{
 public:
-
     /**
-      * Default destructor
-      */
+     * Default destructor
+     */
     virtual ~PropertyAdaptor();
 
     /**
@@ -63,8 +63,7 @@ public:
      *
      * @return The property value.
      */
-    virtual const QString getProperty(const Property& property) const;
-
+    virtual const QString getProperty(const Property &property) const;
 
     /**
      * Gets a property value as boolean. If the conversion to boolean fails,
@@ -74,8 +73,7 @@ public:
      *
      * @return The property value as boolean or false if the value can not be converted.
      */
-    virtual bool getPropertyAsBool(const Property& property) const;
-
+    virtual bool getPropertyAsBool(const Property &property) const;
 
     /**
      * Sets a property value. The default implementation passes the value to the
@@ -86,7 +84,7 @@ public:
      *
      * @return True if the value was set, else false.
      */
-    virtual bool setProperty(const Wacom::Property& property, const QString& value);
+    virtual bool setProperty(const Wacom::Property &property, const QString &value);
 
     /**
      * Checks if a property is supported by the managed object. The default
@@ -95,37 +93,35 @@ public:
      *
      * @return True if the property is supported, else false.
      */
-    virtual bool supportsProperty(const Property& property) const;
-
+    virtual bool supportsProperty(const Property &property) const;
 
 protected:
     /**
-      * Protected default constructor.
-      */
+     * Protected default constructor.
+     */
     PropertyAdaptor();
 
     /**
-      * Constructor.
-      *
-      * @param adaptee The object to adapt (possibly NULL).
-      */
-    PropertyAdaptor(PropertyAdaptor* adaptee);
+     * Constructor.
+     *
+     * @param adaptee The object to adapt (possibly NULL).
+     */
+    PropertyAdaptor(PropertyAdaptor *adaptee);
 
     /**
      * Gets the adaptee managed by this instance.
      */
-    PropertyAdaptor* getAdaptee();
+    PropertyAdaptor *getAdaptee();
 
     /**
      * Gets the adaptee managed by this instance.
      */
-    const PropertyAdaptor* getAdaptee() const;
-
+    const PropertyAdaptor *getAdaptee() const;
 
 private:
-    Q_DECLARE_PRIVATE( PropertyAdaptor )
+    Q_DECLARE_PRIVATE(PropertyAdaptor)
     PropertyAdaptorPrivate *const d_ptr; /**< d-pointer for this class */
 
-};     // CLASS
-}      // NAMESPACE
+}; // CLASS
+} // NAMESPACE
 #endif // HEADER PROTECTION

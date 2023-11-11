@@ -22,8 +22,9 @@
 
 #include <QDialog>
 
-namespace Ui {
-    class HWButtonDialog;
+namespace Ui
+{
+class HWButtonDialog;
 }
 
 namespace Wacom

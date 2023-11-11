@@ -17,13 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#include "../propertyadaptormock.h"
 #include "../kdedtestutils.h"
+#include "../propertyadaptormock.h"
 
+#include "common/deviceinformation.h"
 #include "common/tabletinfo.h"
 #include "common/tabletinformation.h"
-#include "common/deviceinformation.h"
 
 #include "kded/tabletbackend.h"
 #include "kded/xinputproperty.h"
@@ -38,7 +37,7 @@ using namespace Wacom;
  *
  * @test UnitTest for ...
  */
-class TestTabletBackend: public QObject
+class TestTabletBackend : public QObject
 {
     Q_OBJECT
 
@@ -51,19 +50,17 @@ private slots:
     void cleanupTestCase();
 
 private:
+    TabletInformation m_tabletInformation;
+    TabletBackend *m_tabletBackend;
 
-    TabletInformation                       m_tabletInformation;
-    TabletBackend*                          m_tabletBackend;
+    PropertyAdaptorMock<XinputProperty> *m_eraserXinputAdaptor;
+    PropertyAdaptorMock<XsetwacomProperty> *m_eraserXsetwacomAdaptor;
 
-    PropertyAdaptorMock<XinputProperty>*    m_eraserXinputAdaptor;
-    PropertyAdaptorMock<XsetwacomProperty>* m_eraserXsetwacomAdaptor;
+    PropertyAdaptorMock<XinputProperty> *m_padXinputAdaptor;
+    PropertyAdaptorMock<XsetwacomProperty> *m_padXsetwacomAdaptor;
 
-    PropertyAdaptorMock<XinputProperty>*    m_padXinputAdaptor;
-    PropertyAdaptorMock<XsetwacomProperty>* m_padXsetwacomAdaptor;
-
-    PropertyAdaptorMock<XinputProperty>*    m_stylusXinputAdaptor;
-    PropertyAdaptorMock<XsetwacomProperty>* m_stylusXsetwacomAdaptor;
-
+    PropertyAdaptorMock<XinputProperty> *m_stylusXinputAdaptor;
+    PropertyAdaptorMock<XsetwacomProperty> *m_stylusXsetwacomAdaptor;
 };
 
 QTEST_MAIN(TestTabletBackend)
@@ -71,30 +68,30 @@ QTEST_MAIN(TestTabletBackend)
 void TestTabletBackend::initTestCase()
 {
     // init tablet information
-    m_tabletInformation.set (TabletInfo::CompanyId,   TabletInfo::CompanyId.key());
-    m_tabletInformation.set (TabletInfo::CompanyName, TabletInfo::CompanyName.key());
-    m_tabletInformation.set (TabletInfo::TabletId,    TabletInfo::TabletId.key());
-    m_tabletInformation.set (TabletInfo::TabletModel, TabletInfo::TabletModel.key());
-    m_tabletInformation.set (TabletInfo::TabletName,  TabletInfo::TabletName.key());
-    m_tabletInformation.set (TabletInfo::NumPadButtons, QLatin1String("4"));
+    m_tabletInformation.set(TabletInfo::CompanyId, TabletInfo::CompanyId.key());
+    m_tabletInformation.set(TabletInfo::CompanyName, TabletInfo::CompanyName.key());
+    m_tabletInformation.set(TabletInfo::TabletId, TabletInfo::TabletId.key());
+    m_tabletInformation.set(TabletInfo::TabletModel, TabletInfo::TabletModel.key());
+    m_tabletInformation.set(TabletInfo::TabletName, TabletInfo::TabletName.key());
+    m_tabletInformation.set(TabletInfo::NumPadButtons, QLatin1String("4"));
     m_tabletInformation.setAvailable(true);
 
-    DeviceInformation eraserDevInfo (DeviceType::Eraser, QLatin1String("Eraser Device"));
-    DeviceInformation padDevInfo (DeviceType::Eraser, QLatin1String("Pad Device"));
-    DeviceInformation stylusDevInfo (DeviceType::Stylus, QLatin1String("Stylus Device"));
+    DeviceInformation eraserDevInfo(DeviceType::Eraser, QLatin1String("Eraser Device"));
+    DeviceInformation padDevInfo(DeviceType::Eraser, QLatin1String("Pad Device"));
+    DeviceInformation stylusDevInfo(DeviceType::Stylus, QLatin1String("Stylus Device"));
 
     m_tabletInformation.setDevice(eraserDevInfo);
     m_tabletInformation.setDevice(padDevInfo);
     m_tabletInformation.setDevice(stylusDevInfo);
 
     // init property adaptors
-    m_eraserXinputAdaptor    = new PropertyAdaptorMock<XinputProperty>();
+    m_eraserXinputAdaptor = new PropertyAdaptorMock<XinputProperty>();
     m_eraserXsetwacomAdaptor = new PropertyAdaptorMock<XsetwacomProperty>();
 
-    m_padXinputAdaptor       = new PropertyAdaptorMock<XinputProperty>();
-    m_padXsetwacomAdaptor    = new PropertyAdaptorMock<XsetwacomProperty>();
+    m_padXinputAdaptor = new PropertyAdaptorMock<XinputProperty>();
+    m_padXsetwacomAdaptor = new PropertyAdaptorMock<XsetwacomProperty>();
 
-    m_stylusXinputAdaptor    = new PropertyAdaptorMock<XinputProperty>();
+    m_stylusXinputAdaptor = new PropertyAdaptorMock<XinputProperty>();
     m_stylusXsetwacomAdaptor = new PropertyAdaptorMock<XsetwacomProperty>();
 
     // init tablet backend
@@ -107,15 +104,11 @@ void TestTabletBackend::initTestCase()
     m_tabletBackend->addAdaptor(DeviceType::Stylus, m_stylusXinputAdaptor);
 }
 
-
-
 void TestTabletBackend::testGetInformation()
 {
     TabletInformation tabletInformation = m_tabletBackend->getInformation();
     KdedTestUtils::assertTabletInformation(m_tabletInformation, tabletInformation);
 }
-
-
 
 void TestTabletBackend::testSetDeviceProfile()
 {
@@ -140,8 +133,6 @@ void TestTabletBackend::testSetDeviceProfile()
     QVERIFY(!m_eraserXinputAdaptor->m_properties.contains(Property::Button5.key()));
     QCOMPARE(Property::CursorAccelAdaptiveDeceleration.key(), m_eraserXinputAdaptor->m_properties.value(Property::CursorAccelAdaptiveDeceleration.key()));
 }
-
-
 
 void TestTabletBackend::testSetProfile()
 {
@@ -181,8 +172,6 @@ void TestTabletBackend::testSetProfile()
     QVERIFY(!m_eraserXsetwacomAdaptor->m_properties.contains(Property::CursorAccelVelocityScaling.key()));
     QCOMPARE(Property::CursorAccelVelocityScaling.key(), m_stylusXinputAdaptor->m_properties.value(Property::CursorAccelVelocityScaling.key()));
 }
-
-
 
 void TestTabletBackend::testSetProperty()
 {
@@ -226,7 +215,6 @@ void TestTabletBackend::testSetProperty()
     QCOMPARE(Property::CursorAccelProfile.key(), m_padXinputAdaptor->m_properties.value(Property::CursorAccelProfile.key()));
     QCOMPARE(Property::Button1.key(), m_padXsetwacomAdaptor->m_properties.value(Property::Button1.key()));
 
-
     // make sure the values we just set can be get again
     QCOMPARE(Property::Mode.key(), m_tabletBackend->getProperty(DeviceType::Eraser, Property::Mode));
     QCOMPARE(Property::Mode.key(), m_tabletBackend->getProperty(DeviceType::Stylus, Property::Mode));
@@ -234,12 +222,9 @@ void TestTabletBackend::testSetProperty()
     QCOMPARE(Property::CursorAccelProfile.key(), m_tabletBackend->getProperty(DeviceType::Pad, Property::CursorAccelProfile));
 }
 
-
-
 void TestTabletBackend::cleanupTestCase()
 {
     delete m_tabletBackend;
 }
-
 
 #include "testtabletbackend.moc"

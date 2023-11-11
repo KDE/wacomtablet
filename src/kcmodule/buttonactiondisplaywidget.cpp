@@ -21,27 +21,25 @@
 
 using namespace Wacom;
 
-ButtonActionDisplayWidget::ButtonActionDisplayWidget(QWidget* parent): QLineEdit(parent)
+ButtonActionDisplayWidget::ButtonActionDisplayWidget(QWidget *parent)
+    : QLineEdit(parent)
 {
     // nothing to do
 }
-
 
 ButtonActionDisplayWidget::~ButtonActionDisplayWidget()
 {
     // nothing to do
 }
 
-
-void ButtonActionDisplayWidget::focusInEvent(QFocusEvent* e)
+void ButtonActionDisplayWidget::focusInEvent(QFocusEvent *e)
 {
     // we do not want to have focus as this would clear the placeholder text.
     QLineEdit::focusInEvent(e);
     clearFocus();
 }
 
-
-void ButtonActionDisplayWidget::mousePressEvent(QMouseEvent* e)
+void ButtonActionDisplayWidget::mousePressEvent(QMouseEvent *e)
 {
     QLineEdit::mousePressEvent(e);
     emit mousePressed();

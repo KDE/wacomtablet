@@ -28,7 +28,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the properties
  */
-class TestProperty: public QObject
+class TestProperty : public QObject
 {
     Q_OBJECT
 
@@ -50,10 +50,10 @@ void TestProperty::test()
     QVERIFY(test != Property::AbsWheelDown);
     QVERIFY(test.key() == Property::AbsWheelUp.key());
 
-    const Property* nonexistent = Property::find(QLatin1String("NON_EXISTANT"));
+    const Property *nonexistent = Property::find(QLatin1String("NON_EXISTANT"));
     QVERIFY(nonexistent == NULL);
 
-    const Property* existent = Property::find(QLatin1String("touch"));
+    const Property *existent = Property::find(QLatin1String("touch"));
     QVERIFY(existent != NULL);
     QVERIFY(*existent == Property::Touch);
 

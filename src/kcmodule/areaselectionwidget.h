@@ -20,10 +20,10 @@
 #ifndef AREASELECTIONWIDGET_H
 #define AREASELECTIONWIDGET_H
 
+#include <QFont>
 #include <QRectF>
 #include <QSize>
 #include <QStringList>
-#include <QFont>
 #include <QWidget>
 
 class QBrush;
@@ -41,7 +41,7 @@ class AreaSelectionWidget : public QWidget
 public:
     bool paintBelow{false};
 
-    explicit AreaSelectionWidget(QWidget* parent = nullptr);
+    explicit AreaSelectionWidget(QWidget *parent = nullptr);
 
     ~AreaSelectionWidget() override;
 
@@ -50,14 +50,12 @@ public:
      */
     void clearSelection();
 
-
     /**
      * Gets the currently selected area.
      *
      * @return The currently selected area.
      */
     const QRect getSelection() const;
-
 
     /**
      * Returns the current selection as string.
@@ -67,12 +65,10 @@ public:
      */
     const QString getSelectionAsString() const;
 
-
     /**
      * @return The virtual area rectangle which is the union of all areas currently set.
      */
-    const QRect& getVirtualArea() const;
-
+    const QRect &getVirtualArea() const;
 
     /**
      * Sets the area which should be scaled and displayed to the user.
@@ -80,8 +76,7 @@ public:
      * @param area The area to scale and present to the user.
      * @param caption An optional caption which is drawn in the center of the area.
      */
-    void setArea(const QRect& area, const QString& caption);
-
+    void setArea(const QRect &area, const QString &caption);
 
     /**
      * Sets the areas which should be scaled and displayed to the user.
@@ -91,8 +86,7 @@ public:
      * @param areas   The areas to display to the user.
      * @param areaCaptions Optional captions to draw in the center of each area.
      */
-    void setAreas(const QMap<QString, QRect> &areas, const QStringList& areaCaptions);
-
+    void setAreas(const QMap<QString, QRect> &areas, const QStringList &areaCaptions);
 
     /**
      * Enables or disables drawing of area captions.
@@ -101,7 +95,6 @@ public:
      */
     void setDrawAreaCaptions(bool value);
 
-
     /**
      * Enables or disables drawing of the selection area caption.
      *
@@ -109,14 +102,12 @@ public:
      */
     void setDrawSelectionCaption(bool value);
 
-
     /**
      * Sets the font used to draw all captions.
      *
      * @param font The font used for captions.
      */
-    void setFont(const QFont& font);
-
+    void setFont(const QFont &font);
 
     /**
      * Sets the out of bounds margin in pixels or as a percentage.
@@ -129,15 +120,13 @@ public:
      */
     void setOutOfBoundsMargin(qreal margin);
 
-
     /**
      * Selects an area.
      *
      * @param selection The area to select.
      * @param emitUpdate Whether to emit the update signal.
      */
-    void setSelection(const QRect& selection, bool emitUpdate);
-
+    void setSelection(const QRect &selection, bool emitUpdate);
 
     /**
      * Selects an area by area index. This is the index from the list
@@ -146,7 +135,6 @@ public:
      * @param output The list index of the sub-area to select.
      */
     void setSelection(QString output);
-
 
     /**
      * Sets the widget's target size. This is only a hint for the widget
@@ -157,7 +145,7 @@ public:
      *
      * @param size The widget's target size (Default: 400x400)
      */
-    void setWidgetTargetSize(const QSize& size);
+    void setWidgetTargetSize(const QSize &size);
 
     void lockProportions(bool enable);
 
@@ -168,45 +156,41 @@ signals:
      */
     void selectionChanged();
 
-
 protected:
     /**
      * Overridden QWidget method which captures mouse movements.
      */
-    void mouseMoveEvent ( QMouseEvent * event ) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
 
     /**
      * Overridden QWidget method which captures mouse button press events.
      */
-    void mousePressEvent ( QMouseEvent * event ) override;
+    void mousePressEvent(QMouseEvent *event) override;
 
     /**
      * Overridden QWidget method which captures mouse button release events.
      */
-    void mouseReleaseEvent ( QMouseEvent * event ) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
     /**
      * Overridden QWidget method which paints the widget.
      */
     void paintEvent(QPaintEvent *event) override;
 
-
 private:
-
     /**
      * The current dragging mode which determines if the
      * user is dragging one of the border handles or the
      * whole area with the mouse.
      */
     enum class DragMode {
-        DragNone,          //!< The user is currently not dragging.
-        DragSelectedArea,  //!< The user drags the whole selection area.
-        DragTopHandle,     //!< The user drags the top border handle.
-        DragRightHandle,   //!< The user drags the right border handle.
-        DragBottomHandle,  //!< The user drags the bottom border handle.
-        DragLeftHandle     //!< The user drags the left border handle.
+        DragNone, //!< The user is currently not dragging.
+        DragSelectedArea, //!< The user drags the whole selection area.
+        DragTopHandle, //!< The user drags the top border handle.
+        DragRightHandle, //!< The user drags the right border handle.
+        DragBottomHandle, //!< The user drags the bottom border handle.
+        DragLeftHandle //!< The user drags the left border handle.
     };
-
 
     /**
      * Calculates the size and position of the area which is displayed
@@ -217,8 +201,7 @@ private:
      * @param scaleFactor The scale factor which is applied to the virtual area.
      * @param totalDisplayAreaMargin The total display area margin.
      */
-    const QRectF calculateDisplayArea(const QRect& virtualArea, qreal scaleFactor, qreal totalDisplayAreaMargin) const;
-
+    const QRectF calculateDisplayArea(const QRect &virtualArea, qreal scaleFactor, qreal totalDisplayAreaMargin) const;
 
     /**
      * Calculates the size and position of the display sub-areas which
@@ -228,8 +211,7 @@ private:
      * @param scaleFactor The scale factor which is applied to the areas.
      * @param totalDisplayAreaMargin The total display area margin.
      */
-    const QList< QRectF > calculateDisplayAreas(const QMap<QString, QRect> areas, qreal scaleFactor, qreal totalDisplayAreaMargin) const;
-
+    const QList<QRectF> calculateDisplayAreas(const QMap<QString, QRect> areas, qreal scaleFactor, qreal totalDisplayAreaMargin) const;
 
     /**
      * Calculates the out of bounds margin for the virtual area.
@@ -239,7 +221,7 @@ private:
      *
      * @return The out ouf bounds margin in virtual area pixels.
      */
-    qreal calculateOutOfBoundsVirtualAreaMargin(const QRect& virtualArea, qreal outOfBoundsMargin) const;
+    qreal calculateOutOfBoundsVirtualAreaMargin(const QRect &virtualArea, qreal outOfBoundsMargin) const;
 
     /**
      * Calculates a scaling factor based on a widget target size and the
@@ -252,8 +234,7 @@ private:
      *
      * @return The scaling factor for the given target size.
      */
-    qreal calculateScaleFactor(const QSize& targetSize, const QRect& virtualArea, qreal virtualAreaOutOfBoundsMargin, qreal displayAreaExtraMargin) const;
-
+    qreal calculateScaleFactor(const QSize &targetSize, const QRect &virtualArea, qreal virtualAreaOutOfBoundsMargin, qreal displayAreaExtraMargin) const;
 
     /**
      * Calculates a scaled version of the given area.
@@ -264,8 +245,7 @@ private:
      *
      * @return The scaled area.
      */
-    const QRectF calculateScaledArea(const QRect& area, qreal scaleFactor, qreal totalDisplayAreaMargin) const;
-
+    const QRectF calculateScaledArea(const QRect &area, qreal scaleFactor, qreal totalDisplayAreaMargin) const;
 
     /**
      * Unscales a scaled area.
@@ -276,8 +256,7 @@ private:
      *
      * @return The unscaled area.
      */
-    const QRect calculateUnscaledArea(const QRectF& area, qreal scaleFactor, qreal totalDisplayAreaMargin) const;
-
+    const QRect calculateUnscaledArea(const QRectF &area, qreal scaleFactor, qreal totalDisplayAreaMargin) const;
 
     /**
      * Calculates the size of the virtual area.
@@ -288,7 +267,6 @@ private:
      */
     const QRect calculateVirtualArea(const QMap<QString, QRect> &areas) const;
 
-
     /**
      * Returns the total margin of the display area. This is the out of bounds
      * margin plus any additional margin which might be applied around the widget.
@@ -296,7 +274,6 @@ private:
      * @return The total display area margin.
      */
     qreal getTotalDisplayAreaMargin() const;
-
 
     /**
      * Determines if the user is currently dragging a handle or
@@ -306,14 +283,12 @@ private:
      */
     bool isUserDragging() const;
 
-
     /**
      * Paints the captions of the display areas.
      *
      * @param painter The painter to use.
      */
-    void paintDisplayAreaCaptions(QPainter& painter);
-
+    void paintDisplayAreaCaptions(QPainter &painter);
 
     /**
      * Paints the display area and all of its sub-areas.
@@ -321,98 +296,85 @@ private:
      * @param painter     The painter to use.
      * @param outlineOnly A flag if only the outline should be painted.
      */
-    void paintDisplayAreas(QPainter& painter, bool outlineOnly);
-
+    void paintDisplayAreas(QPainter &painter, bool outlineOnly);
 
     /**
      * Paints the drag handles.
      *
      * @param painter The painter to use.
      */
-    void paintDragHandles(QPainter& painter);
-
+    void paintDragHandles(QPainter &painter);
 
     /**
      * Paints the selected area.
      *
      * @param painter The painter to use.
      */
-    void paintSelectedArea(QPainter& painter, bool outlineOnly);
-
+    void paintSelectedArea(QPainter &painter, bool outlineOnly);
 
     /**
      * Paints the size of the selected area as string.
      *
      * @param painter The painter to sue.
      */
-    void paintSelectedAreaCaption(QPainter& painter);
-
+    void paintSelectedAreaCaption(QPainter &painter);
 
     /**
      * Sets up the widget. Can be called anytime to recalculate the display area size.
      */
     void setupWidget();
 
-
     /**
      * Recalculates the positions of the drag handles.
      */
     void updateDragHandles();
-
 
     /**
      * Updates the mouse cursor according to the mouse's position.
      *
      * @param mousePosition The current position of the mouse.
      */
-    void updateMouseCursor(const QPoint& mousePosition);
-
+    void updateMouseCursor(const QPoint &mousePosition);
 
     /**
      * Updates the selected area when the user drags it.
      */
-    void updateSelectedAreaOnDrag(const QPoint& mousePosition);
-
+    void updateSelectedAreaOnDrag(const QPoint &mousePosition);
 
     /**
      * Updates the selected area when the user is moving it.
      *
      * @param mousePosition The current mouse position where the user wants to move the selection to.
      */
-    void updateSelectedAreaOnDragArea(const QPoint& mousePosition);
-
+    void updateSelectedAreaOnDragArea(const QPoint &mousePosition);
 
     /**
      * Updates the selected area when the user is dragging with the bottom handle.
      *
      * @param mousePosition The current mouse position where the user wants to have the new border set.
      */
-    void updateSelectedAreaOnDragBottom(const QPoint& mousePosition);
-
+    void updateSelectedAreaOnDragBottom(const QPoint &mousePosition);
 
     /**
      * Updates the selected area when the user is dragging with the left handle.
      *
      * @param mousePosition The current mouse position where the user wants to have the new border set.
      */
-    void updateSelectedAreaOnDragLeft(const QPoint& mousePosition);
-
+    void updateSelectedAreaOnDragLeft(const QPoint &mousePosition);
 
     /**
      * Updates the selected area when the user is dragging with the right handle.
      *
      * @param mousePosition The current mouse position where the user wants to have the new border set.
      */
-    void updateSelectedAreaOnDragRight(const QPoint& mousePosition);
-
+    void updateSelectedAreaOnDragRight(const QPoint &mousePosition);
 
     /**
      * Updates the selected area when the user is dragging with the top handle.
      *
      * @param mousePosition The current mouse position where the user wants to have the new border set.
      */
-    void updateSelectedAreaOnDragTop(const QPoint& mousePosition);
-
+    void updateSelectedAreaOnDragTop(const QPoint &mousePosition);
 
     /**
      * Asserts that the selected area is not wider or higher than the display area.
@@ -422,10 +384,9 @@ private:
      */
     void updateSelectedAreaSize(bool fixPositionInsteadOfSize = false);
 
-
     Q_DECLARE_PRIVATE(AreaSelectionWidget)
     AreaSelectionWidgetPrivate *const d_ptr; //!< D-Pointer for this class.
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

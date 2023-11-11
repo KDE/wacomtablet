@@ -17,27 +17,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
-#include <cstring>
-#include <cstdio>
-#include <cstdint>
-#include <cstdlib>
 #include <csignal>
-#include <unistd.h>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <fcntl.h>
+#include <iostream>
+#include <unistd.h>
 
 #ifdef __FreeBSD__
-#  include <dev/evdev/input.h>
-#  include <dev/evdev/uinput.h>
+#include <dev/evdev/input.h>
+#include <dev/evdev/uinput.h>
 #else
-#  include <linux/input.h>
-#  include <linux/uinput.h>
+#include <linux/input.h>
+#include <linux/uinput.h>
 #endif
-
 
 // edit uidev.id.product to change tablet id
 
-void check(int ioctlresult, const std::string &errormsg) {
+void check(int ioctlresult, const std::string &errormsg)
+{
     if (ioctlresult < 0) {
         std::cout << "ioctl failed: " << errormsg << std::endl;
         exit(-1);
@@ -71,12 +71,12 @@ void init_device(int fd)
     snprintf(uidev.name, UINPUT_MAX_NAME_SIZE, "Dummy Tablet");
 
     uidev.id.bustype = BUS_VIRTUAL;
-    uidev.id.vendor  = 0x056a; // wacom
+    uidev.id.vendor = 0x056a; // wacom
     // Product ID really should match specific device
     // pen
     uidev.id.product = 0x0307;
     // touch
-    //uidev.id.product = 0x0309;
+    // uidev.id.product = 0x0309;
     uidev.id.version = 1;
 
     uidev.ff_effects_max = 0;
@@ -126,7 +126,8 @@ void init_device(int fd)
     check(ioctl(fd, UI_DEV_CREATE), "device creation");
 }
 
-void doNothing(int unused) {
+void doNothing(int unused)
+{
     (void)unused;
 }
 

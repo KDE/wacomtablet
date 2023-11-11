@@ -20,12 +20,11 @@
 #ifndef X11TABLETFINDER_H
 #define X11TABLETFINDER_H
 
-#include <QString>
 #include <QList>
+#include <QString>
 
-#include "x11inputvisitor.h"
 #include "tabletinformation.h"
-
+#include "x11inputvisitor.h"
 
 namespace Wacom
 {
@@ -41,9 +40,7 @@ class X11TabletFinderPrivate;
  */
 class X11TabletFinder : public X11InputVisitor
 {
-
 public:
-
     X11TabletFinder();
     ~X11TabletFinder() override;
 
@@ -52,7 +49,7 @@ public:
      *
      * @return A list of devices found.
      */
-    const QList<TabletInformation>& getTablets() const;
+    const QList<TabletInformation> &getTablets() const;
 
     /**
      * Scans for available devices.
@@ -64,16 +61,14 @@ public:
     /**
      * @see X11InputVisitor::visit(X11InputDevice&)
      */
-    bool visit (X11InputDevice& device) override;
-
+    bool visit(X11InputDevice &device) override;
 
 private:
-
     /**
      * Adds the given device information to the internal tablet map.
      * If no tablet exists with the serial number of the device, a new one is created.
      */
-    void addDeviceInformation (Wacom::DeviceInformation& deviceInformation);
+    void addDeviceInformation(Wacom::DeviceInformation &deviceInformation);
 
     /**
      * Gather all information about the given x11 device and write the data
@@ -82,21 +77,21 @@ private:
      * @param device The device to gather information about.
      * @param deviceInformation The device information structure which will contain all data.
      */
-    void gatherDeviceInformation (X11InputDevice& device, DeviceInformation& deviceInformation) const;
+    void gatherDeviceInformation(X11InputDevice &device, DeviceInformation &deviceInformation) const;
 
     /**
      * Gets the device node of the given device.
      *
      * @return The device node or an empty string if not set.
      */
-    const QString getDeviceNode (Wacom::X11InputDevice& device) const;
+    const QString getDeviceNode(Wacom::X11InputDevice &device) const;
 
     /**
      * Determines the device type base on the given toolTyple.
      *
      * @return A pointer to the device type if it could be determined, else NULL.
      */
-    const DeviceType* getDeviceType (const QString& toolType) const;
+    const DeviceType *getDeviceType(const QString &toolType) const;
 
     /**
      * Gets the product and vendor id if set. These are usually the company and
@@ -109,28 +104,26 @@ private:
      *
      * @return True if it least one value was set, else false.
      */
-    bool getProductId (X11InputDevice& device, long& vendorId, long& productId) const;
+    bool getProductId(X11InputDevice &device, long &vendorId, long &productId) const;
 
     /**
      * Gets the tablet id of this device.
      *
      * @return The tablet id or 0 on error.
      */
-    long getTabletSerial (X11InputDevice& device) const;
+    long getTabletSerial(X11InputDevice &device) const;
 
     /**
      * Gets the tool type name from the wacom tool type property.
      *
      * @return The tool type name on success, an empty string on error.
      */
-    const QString getToolType (X11InputDevice& device) const;
-
+    const QString getToolType(X11InputDevice &device) const;
 
 private:
-
     Q_DECLARE_PRIVATE(X11TabletFinder)
     X11TabletFinderPrivate *const d_ptr;
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

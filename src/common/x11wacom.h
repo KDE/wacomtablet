@@ -36,7 +36,6 @@ namespace Wacom
 class X11Wacom
 {
 public:
-
     /**
      * Returns the maximum size of the given tablet device.
      *
@@ -44,7 +43,7 @@ public:
      *
      * @return The maximum size of the tablet area.
      */
-    static const TabletArea getMaximumTabletArea(const QString& deviceName);
+    static const TabletArea getMaximumTabletArea(const QString &deviceName);
 
     /**
      * Checks if the current scroll direction is inverted.
@@ -53,14 +52,14 @@ public:
      *
      * @return True if it is inverted, else false.
      */
-    static bool isScrollDirectionInverted(const QString& deviceName);
+    static bool isScrollDirectionInverted(const QString &deviceName);
 
     /**
      * Sets the coordinate transformation property on the given device.
      *
      * @return True on success, false on error.
      */
-    static bool setCoordinateTransformationMatrix(const QString& deviceName, qreal offsetX, qreal offsetY, qreal width, qreal height);
+    static bool setCoordinateTransformationMatrix(const QString &deviceName, qreal offsetX, qreal offsetY, qreal width, qreal height);
 
     /**
      * Sets the scroll direction on a device.
@@ -70,9 +69,8 @@ public:
      *
      * @return True on success, false on error.
      */
-    static bool setScrollDirection(const QString& deviceName, bool inverted = false);
-
+    static bool setScrollDirection(const QString &deviceName, bool inverted = false);
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

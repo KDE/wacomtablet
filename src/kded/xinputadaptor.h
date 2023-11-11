@@ -20,12 +20,13 @@
 #ifndef XINPUTADAPTOR_H
 #define XINPUTADAPTOR_H
 
-#include <QString>
 #include <QList>
+#include <QString>
 
 #include "propertyadaptor.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 // Forward Declarations
 class XinputProperty;
@@ -36,10 +37,9 @@ class XinputAdaptorPrivate;
  */
 class XinputAdaptor : public PropertyAdaptor
 {
-
 public:
     //! Default constructor.
-    explicit XinputAdaptor(const QString& deviceName);
+    explicit XinputAdaptor(const QString &deviceName);
 
     //! Destructor
     ~XinputAdaptor() override;
@@ -52,37 +52,35 @@ public:
     /**
      * @sa PropertyAdaptor::getProperty(const Property&)
      */
-    const QString getProperty(const Property& property) const override;
+    const QString getProperty(const Property &property) const override;
 
     /**
      * @sa PropertyAdaptor::setProperty(const Property&, const QString&)
      */
-    bool setProperty(const Wacom::Property& property, const QString& value) override;
+    bool setProperty(const Wacom::Property &property, const QString &value) override;
 
     /**
      * @sa PropertyAdaptor::supportsProperty(const Property&)
      */
-    bool supportsProperty(const Property& property) const override;
-
+    bool supportsProperty(const Property &property) const override;
 
 private:
+    const QString getProperty(const XinputProperty &property) const;
 
-    const QString getProperty(const XinputProperty& property) const;
+    const QString getFloatProperty(const XinputProperty &property, long nelements = 1) const;
 
-    const QString getFloatProperty(const XinputProperty& property, long nelements = 1) const;
+    const QString getLongProperty(const XinputProperty &property, long nelements = 1) const;
 
-    const QString getLongProperty(const XinputProperty& property, long nelements = 1) const;
-
-    bool mapTabletToScreen(const QString& screenArea) const;
+    bool mapTabletToScreen(const QString &screenArea) const;
 
     template<typename T>
-    const QString numbersToString(const QList<T>& values) const;
+    const QString numbersToString(const QList<T> &values) const;
 
-    bool setProperty(const XinputProperty& property, const QString& value) const;
+    bool setProperty(const XinputProperty &property, const QString &value) const;
 
-    Q_DECLARE_PRIVATE( XinputAdaptor )
+    Q_DECLARE_PRIVATE(XinputAdaptor)
     XinputAdaptorPrivate *const d_ptr; /**< d-pointer for this class */
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

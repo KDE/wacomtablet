@@ -20,20 +20,17 @@
 #include "pressurecurvedialog.h"
 #include "ui_pressurecurvedialog.h"
 
+#include "dbustabletinterface.h"
 #include "logging.h"
 #include "pressurecurvewidget.h"
-#include "dbustabletinterface.h"
 
-//Qt includes
+// Qt includes
 #include <QDBusInterface>
 #include <QDBusReply>
 
 using namespace Wacom;
 
-PressureCurveDialog::PressureCurveDialog(const QString &initialValue,
-                                         const QString &tabletId,
-                                         const DeviceType& deviceType,
-                                         QWidget *parent)
+PressureCurveDialog::PressureCurveDialog(const QString &initialValue, const QString &tabletId, const DeviceType &deviceType, QWidget *parent)
     : QDialog(parent)
     , m_ui(new Ui::PressureCurveDialog)
     , _initialValue(initialValue)
@@ -52,9 +49,9 @@ PressureCurveDialog::~PressureCurveDialog()
     delete m_ui;
 }
 
-void PressureCurveDialog::setControllPoints(const QString & points)
+void PressureCurveDialog::setControllPoints(const QString &points)
 {
-    QStringList splitPoints = points.split(QLatin1Char( ' ' ));
+    QStringList splitPoints = points.split(QLatin1Char(' '));
 
     if (splitPoints.count() != 4) {
         qCDebug(KCM) << "Invalid number of control points, using defaults";
@@ -77,7 +74,7 @@ QString PressureCurveDialog::getControllPoints()
     return m_ui->pc_Values->text();
 }
 
-void PressureCurveDialog::updateControlPoints(const QString & points)
+void PressureCurveDialog::updateControlPoints(const QString &points)
 {
     m_ui->pc_Values->setText(points);
     DBusTabletInterface::instance().setProperty(_tabletId, _deviceType, Property::PressureCurve.key(), points);

@@ -25,7 +25,8 @@
 #include "property.h"
 #include "propertyset.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 // forward declarations & typedefs
 class ProcSystemProperty;
@@ -36,19 +37,22 @@ typedef PropertySet<ProcSystemProperty> ProcSystemPropertyTemplateSpecialization
  */
 class ProcSystemProperty : public ProcSystemPropertyTemplateSpecialization
 {
-
 public:
     static const ProcSystemProperty StatusLEDs;
     static const ProcSystemProperty StatusLEDsBrightness;
 
 private:
-    ProcSystemProperty(const Property& id, const QString& key) : ProcSystemPropertyTemplateSpecialization(this, id, key) {}
+    ProcSystemProperty(const Property &id, const QString &key)
+        : ProcSystemPropertyTemplateSpecialization(this, id, key)
+    {
+    }
 
 }; // CLASS
 
 // instances container specialization declaration
 template<>
-ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances;
+ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container
+    ProcSystemPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances;
 
-}      // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

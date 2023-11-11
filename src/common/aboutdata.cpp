@@ -23,8 +23,11 @@
 
 using namespace Wacom;
 
-AboutData::AboutData(const QString& componentName, const QString& displayName, const QString& version,
-                     const QString& shortDescription, const QString& otherText)
+AboutData::AboutData(const QString &componentName,
+                     const QString &displayName,
+                     const QString &version,
+                     const QString &shortDescription,
+                     const QString &otherText)
     : KAboutData(componentName,
                  displayName,
                  version,
@@ -34,6 +37,6 @@ AboutData::AboutData(const QString& componentName, const QString& displayName, c
                  otherText,
                  QLatin1String("https://kde.org/applications/system/org.kde.wacomtablet"))
 {
-    addAuthor( i18n( "Jörg Ehrichs" ), i18n( "Maintainer" ) , QLatin1String("joerg.ehrichs@gmx.de") );
-    addAuthor( i18n( "Alexander Maret-Huskinson" ), i18n( "Developer" ) , QLatin1String("alex@maret.de") );
+    addAuthor(i18n("Jörg Ehrichs"), i18n("Maintainer"), QLatin1String("joerg.ehrichs@gmx.de"));
+    addAuthor(i18n("Alexander Maret-Huskinson"), i18n("Developer"), QLatin1String("alex@maret.de"));
 }

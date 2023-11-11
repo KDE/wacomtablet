@@ -21,8 +21,8 @@
 #include "common/deviceprofile.h"
 #include "common/deviceprofileconfigadaptor.h"
 
-#include <KSharedConfig>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <QDir>
 #include <QString>
@@ -37,7 +37,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the device profiles config adaptor
  */
-class TestDeviceProfileConfigAdaptor: public QObject
+class TestDeviceProfileConfigAdaptor : public QObject
 {
     Q_OBJECT
 
@@ -54,10 +54,10 @@ void TestDeviceProfileConfigAdaptor::testConfig()
     tempFile.close();
     tempFile.setAutoRemove(true);
 
-    KSharedConfig::Ptr config = KSharedConfig::openConfig(tempFile.fileName(), KConfig::SimpleConfig );
+    KSharedConfig::Ptr config = KSharedConfig::openConfig(tempFile.fileName(), KConfig::SimpleConfig);
     QVERIFY(config);
 
-    KConfigGroup configGroup = KConfigGroup( config, QLatin1String("DEVICE") );
+    KConfigGroup configGroup = KConfigGroup(config, QLatin1String("DEVICE"));
 
     DeviceProfile writeProfile;
     CommonTestUtils::setValues(writeProfile);
@@ -68,12 +68,11 @@ void TestDeviceProfileConfigAdaptor::testConfig()
     config->sync();
 
     DeviceProfile readProfile;
-    readProfile.setDeviceType(DeviceType::Pad);; // we have to set the type manually as only properties are copied atm
+    readProfile.setDeviceType(DeviceType::Pad); // we have to set the type manually as only properties are copied atm
     DeviceProfileConfigAdaptor readAdaptor(readProfile);
     readAdaptor.loadConfig(configGroup);
 
     CommonTestUtils::assertValues(readProfile);
 }
-
 
 #include "testdeviceprofileconfigadaptor.moc"

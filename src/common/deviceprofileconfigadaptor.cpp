@@ -23,25 +23,28 @@
 
 #include "deviceproperty.h"
 
-#include <QtGlobal>
 #include <QString>
 #include <QStringList>
+#include <QtGlobal>
 
 using namespace Wacom;
 
-DeviceProfileConfigAdaptor::DeviceProfileConfigAdaptor(DeviceProfile& profile) : ConfigAdaptor(&profile) {}
+DeviceProfileConfigAdaptor::DeviceProfileConfigAdaptor(DeviceProfile &profile)
+    : ConfigAdaptor(&profile)
+{
+}
 
-DeviceProfileConfigAdaptor::~DeviceProfileConfigAdaptor() {}
+DeviceProfileConfigAdaptor::~DeviceProfileConfigAdaptor()
+{
+}
 
-
-bool DeviceProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
+bool DeviceProfileConfigAdaptor::loadConfig(const KConfigGroup &config)
 {
     const DeviceProperty *deviceProperty = nullptr;
 
     QStringList keys = config.keyList();
 
-    foreach(const QString& key, keys) {
-
+    foreach (const QString &key, keys) {
         QString lookupKey = key.toLower();
 
         // handle old configuration format - this should be removed in the future as
@@ -67,15 +70,13 @@ bool DeviceProfileConfigAdaptor::loadConfig(const KConfigGroup& config)
     return true;
 }
 
-
-bool DeviceProfileConfigAdaptor::saveConfig(KConfigGroup& config) const
+bool DeviceProfileConfigAdaptor::saveConfig(KConfigGroup &config) const
 {
     const DeviceProperty *deviceProperty = nullptr;
     QList<Property> properties = getProperties();
     QString value;
 
-    foreach(const Property& property, properties) {
-        
+    foreach (const Property &property, properties) {
         deviceProperty = DeviceProperty::map(property);
 
         if (deviceProperty == nullptr) {

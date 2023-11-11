@@ -26,14 +26,14 @@
 
 using namespace Wacom;
 
-TabletBackendInterface* TabletBackendFactory::m_tabletBackendMock = nullptr;
+TabletBackendInterface *TabletBackendFactory::m_tabletBackendMock = nullptr;
 bool TabletBackendFactory::m_isUnitTest = false;
 
+TabletBackendFactory::TabletBackendFactory()
+{
+}
 
-
-TabletBackendFactory::TabletBackendFactory() {}
-
-TabletBackendInterface* TabletBackendFactory::createBackend(const TabletInformation& info)
+TabletBackendInterface *TabletBackendFactory::createBackend(const TabletInformation &info)
 {
     static TabletBackendFactory factory;
 
@@ -41,7 +41,7 @@ TabletBackendInterface* TabletBackendFactory::createBackend(const TabletInformat
     if (m_tabletBackendMock || m_isUnitTest) {
         // reset tablet backend mock as it will get deleted by the caller
         // therefore we can not return it more than once
-        TabletBackendInterface* mock = m_tabletBackendMock;
+        TabletBackendInterface *mock = m_tabletBackendMock;
         m_tabletBackendMock = nullptr;
         return mock;
     }
@@ -50,29 +50,22 @@ TabletBackendInterface* TabletBackendFactory::createBackend(const TabletInformat
     return factory.createInstance(info);
 }
 
-
-
-
-void TabletBackendFactory::setTabletBackendMock(TabletBackendInterface* mock)
+void TabletBackendFactory::setTabletBackendMock(TabletBackendInterface *mock)
 {
     m_tabletBackendMock = mock;
 }
-
-
 
 void TabletBackendFactory::setUnitTest(bool isUnitTest)
 {
     m_isUnitTest = isUnitTest;
 }
 
-
-TabletBackendInterface* TabletBackendFactory::createInstance(const TabletInformation& info)
+TabletBackendInterface *TabletBackendFactory::createInstance(const TabletInformation &info)
 {
-    QString        deviceName;
-    TabletBackend* backend = new TabletBackend(info);
+    QString deviceName;
+    TabletBackend *backend = new TabletBackend(info);
 
-    foreach (const DeviceType& type, DeviceType::list()) {
-
+    foreach (const DeviceType &type, DeviceType::list()) {
         if (!info.hasDevice(type)) {
             continue;
         }
@@ -93,4 +86,3 @@ TabletBackendInterface* TabletBackendFactory::createInstance(const TabletInforma
 
     return backend;
 }
-

@@ -22,7 +22,8 @@
 
 #include <QDialog>
 
-namespace Wacom {
+namespace Wacom
+{
 
 class ButtonShortcut;
 class ButtonActionSelectionDialogPrivate;
@@ -35,7 +36,7 @@ class ButtonActionSelectionDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ButtonActionSelectionDialog(QWidget* parent = nullptr);
+    explicit ButtonActionSelectionDialog(QWidget *parent = nullptr);
 
     ~ButtonActionSelectionDialog() override;
 
@@ -46,15 +47,14 @@ public:
      *
      * @return The selected button shortcut.
      */
-    const ButtonShortcut& getShortcut() const;
+    const ButtonShortcut &getShortcut() const;
 
     /**
      * Sets a button shortcut.
      *
      * @param shortcut The shortcut to set.
      */
-    void setShortcut(const ButtonShortcut& shortcut);
-
+    void setShortcut(const ButtonShortcut &shortcut);
 
 private slots:
 
@@ -64,10 +64,9 @@ private slots:
     void onOkClicked();
 
 private:
-
     Q_DECLARE_PRIVATE(ButtonActionSelectionDialog)
     ButtonActionSelectionDialogPrivate *const d_ptr; //!< D-Pointer for this class.
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

@@ -20,11 +20,12 @@
 #ifndef BUTTONSHORTCUT_H
 #define BUTTONSHORTCUT_H
 
+#include <QMap>
 #include <QString>
 #include <QStringList>
-#include <QMap>
 
-namespace Wacom {
+namespace Wacom
+{
 
 class ButtonShortcutPrivate;
 
@@ -33,23 +34,22 @@ class ButtonShortcutPrivate;
  * able to convert shortcut sequences between xsetwacom- and QKeySequence-
  * format.
  */
-class ButtonShortcut {
-
+class ButtonShortcut
+{
 public:
-
     //! The shortcut types supported by this class.
     enum class ShortcutType {
-        NONE          = 0,
-        BUTTON        = 1,
-        KEYSTROKE     = 2,
-        MODIFIER      = 3
+        NONE = 0,
+        BUTTON = 1,
+        KEYSTROKE = 2,
+        MODIFIER = 3,
     };
 
     //! Default Constructor
     ButtonShortcut();
 
     //! Copy Constructor
-    explicit ButtonShortcut(const ButtonShortcut& that);
+    explicit ButtonShortcut(const ButtonShortcut &that);
 
     /**
      * @brief Shortcut assignment constructor.
@@ -58,7 +58,7 @@ public:
      *
      * @param shortcut The shortcut to assign.
      */
-    explicit ButtonShortcut(const QString& shortcut);
+    explicit ButtonShortcut(const QString &shortcut);
 
     /**
      * @brief Button assignment constructor.
@@ -73,7 +73,7 @@ public:
     virtual ~ButtonShortcut();
 
     //! Copy operator.
-    ButtonShortcut& operator= (const ButtonShortcut& that);
+    ButtonShortcut &operator=(const ButtonShortcut &that);
 
     /**
      * @brief Shortcut assignment operator.
@@ -82,13 +82,13 @@ public:
      *
      * @param shortcut The shortcut to assign.
      */
-    ButtonShortcut& operator= (const QString& shortcut);
+    ButtonShortcut &operator=(const QString &shortcut);
 
     //! Equals operator.
-    bool operator== (const ButtonShortcut& that) const;
+    bool operator==(const ButtonShortcut &that) const;
 
     //! Not-Equals operator.
-    bool operator!= (const ButtonShortcut& that) const;
+    bool operator!=(const ButtonShortcut &that) const;
 
     /**
      * Clears the current shortcut.
@@ -162,7 +162,7 @@ public:
      *
      * @return True if the shortcut is valid, else false.
      */
-    bool set(const QString& sequence);
+    bool set(const QString &sequence);
 
     /**
      * Converts the shortcut to a translated, human readable string.
@@ -196,7 +196,6 @@ public:
     const QString toString() const;
 
 private:
-
     /**
      * A two dimensional array which contains key conversions. The first value
      * is the key in storage format, the second value is the key in QKeySequence
@@ -208,7 +207,7 @@ private:
      * @sa getConvertFromStorageMap()
      * @sa getConvertToStorageMap()
      */
-    static const char* CONVERT_KEY_MAP_DATA[][2];
+    static const char *CONVERT_KEY_MAP_DATA[][2];
 
     /**
      * Converts a key from storage format to QKeySequence format or vice versa.
@@ -220,7 +219,7 @@ private:
      *
      * @return True if the key was converted, false if it was not touched.
      */
-    bool convertKey(QString& key, bool fromStorage) const;
+    bool convertKey(QString &key, bool fromStorage) const;
 
     /**
      * Normalizes the key sequence and converts all keys.
@@ -230,7 +229,7 @@ private:
      * @param fromStorage True to convert from xsetwacom to QKeySequence format, False to convert
      *                    from QKeySequence to xsetwacom format.
      */
-    void convertToNormalizedKeySequence(QString& sequence, bool fromStorage) const;
+    void convertToNormalizedKeySequence(QString &sequence, bool fromStorage) const;
 
     /**
      * Normalizes the key sequence and converts it to storage format.
@@ -238,8 +237,7 @@ private:
      *
      * @param sequence The sequence to convert. This parameter will also hold the result of the conversion.
      */
-    void convertKeySequenceToStorageFormat (QString& sequence) const;
-
+    void convertKeySequenceToStorageFormat(QString &sequence) const;
 
     /**
      * Normalizes the key sequence and converts it to QKeySequence format.
@@ -247,19 +245,19 @@ private:
      *
      * @param sequence The sequence to convert. This parameter will also hold the result of the conversion.
      */
-    void convertKeySequenceToQKeySequenceFormat (QString& sequence) const;
+    void convertKeySequenceToQKeySequenceFormat(QString &sequence) const;
 
     /**
      * Returns the map which is used to convert keys from storage format to
      * the QKeySequence format.
      */
-    static const QMap<QString, QString>& getConvertFromStorageMap();
+    static const QMap<QString, QString> &getConvertFromStorageMap();
 
     /**
      * Returns the map which is used to convert keys from QKeySequence format to
      * the storage format.
      */
-    static const QMap<QString, QString>& getConvertToStorageMap();
+    static const QMap<QString, QString> &getConvertToStorageMap();
 
     /**
      * This is just a helper method to initialize the static conversion maps.
@@ -280,14 +278,14 @@ private:
      *
      * @param sequence The sequence to normalize.
      */
-    void normalizeKeySequence(QString& sequence) const;
+    void normalizeKeySequence(QString &sequence) const;
 
     /**
      * Prettifies a key by converting the first character to uppercase.
      *
      * @param key The key to prettify, this will also contain the result.
      */
-    void prettifyKey (QString& key) const;
+    void prettifyKey(QString &key) const;
 
     /**
      * Sets a button sequence. This method expects that the given sequence is
@@ -298,7 +296,7 @@ private:
      *
      * @return True if the button is valid and was set, else false.
      */
-    bool setButtonSequence(const QString& buttonSequence);
+    bool setButtonSequence(const QString &buttonSequence);
 
     /**
      * Set a keystroke sequence. This methods expects that the given sequence
@@ -322,9 +320,9 @@ private:
      */
     bool setModifierSequence(QString sequence);
 
-    Q_DECLARE_PRIVATE( ButtonShortcut )
+    Q_DECLARE_PRIVATE(ButtonShortcut)
     ButtonShortcutPrivate *const d_ptr; /**< d-pointer for this class */
 
-};     // CLASS
-}      // NAMESPACE
+}; // CLASS
+} // NAMESPACE
 #endif // HEADER PROTECTION

@@ -25,11 +25,13 @@
 class QCheckBox;
 class QKeySequence;
 
-namespace Ui {
-    class ButtonActionSelectionWidget;
+namespace Ui
+{
+class ButtonActionSelectionWidget;
 }
 
-namespace Wacom {
+namespace Wacom
+{
 
 class ButtonShortcut;
 class ButtonActionSelectionWidgetPrivate;
@@ -39,34 +41,33 @@ class ButtonActionSelectionWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ButtonActionSelectionWidget(QWidget* parent = nullptr);
+    explicit ButtonActionSelectionWidget(QWidget *parent = nullptr);
 
     ~ButtonActionSelectionWidget() override;
 
     /**
      * @return The currently selected shortcut.
      */
-    const ButtonShortcut& getShortcut() const;
+    const ButtonShortcut &getShortcut() const;
 
     /**
      * Sets a shortcut.
      *
      * @param shortcut The shortcut to set.
      */
-    void setShortcut (const ButtonShortcut& shortcut);
-
+    void setShortcut(const ButtonShortcut &shortcut);
 
 private slots:
 
     /**
      * Called when one of the clear buttons is clicked.
      */
-    void onClearButtonClicked (bool checked);
+    void onClearButtonClicked(bool checked);
 
     /**
      * Called when the keyboard shortcut sequence is modified.
      */
-    void onShortcutChanged (QKeySequence sequence);
+    void onShortcutChanged(QKeySequence sequence);
 
     /**
      * Called when the user tries to select the action text.
@@ -76,17 +77,14 @@ private slots:
     /**
      * Called when the state of a modifier checkbox changes.
      */
-    void onModifierChanged (int state);
+    void onModifierChanged(int state);
 
     /**
      * Called when the mouse button selection was changed.
      */
-    void onMouseSelectionChanged (int index);
-
-
+    void onMouseSelectionChanged(int index);
 
 private:
-
     /**
      * Sets up the user interface. This should only be called once by the constructor.
      */
@@ -98,7 +96,7 @@ private:
      *
      * @param shortcut The current shortcut.
      */
-    void updateCurrentActionName (const ButtonShortcut& shortcut);
+    void updateCurrentActionName(const ButtonShortcut &shortcut);
 
     /**
      * Updates the modifier selection widgets for the current shortcut.
@@ -106,7 +104,7 @@ private:
      *
      * @param shortcut The current shortcut.
      */
-    void updateModifierWidgets (const ButtonShortcut& shortcut);
+    void updateModifierWidgets(const ButtonShortcut &shortcut);
 
     /**
      * Updates the mouse button selection for the current shortcut.
@@ -114,7 +112,7 @@ private:
      *
      * @param shortcut The current shortcut.
      */
-    void updateMouseButtonSeletion (const ButtonShortcut& shortcut);
+    void updateMouseButtonSeletion(const ButtonShortcut &shortcut);
 
     /**
      * Updates the checked state of a  QCheckBox. While the
@@ -123,7 +121,7 @@ private:
      * @param checkbox The checkbox to update.
      * @param isChecked A flag to signal if the checkbox is checked.
      */
-    void updateQCheckBox (QCheckBox& checkbox, bool isChecked) const;
+    void updateQCheckBox(QCheckBox &checkbox, bool isChecked) const;
 
     /**
      * Updates the keyboard shortcut widget according to the current shortcut.
@@ -131,12 +129,11 @@ private:
      *
      * @param shortcut The current shortcut.
      */
-    void updateShortcutWidgets (const ButtonShortcut& shortcut);
-
+    void updateShortcutWidgets(const ButtonShortcut &shortcut);
 
     Q_DECLARE_PRIVATE(ButtonActionSelectionWidget)
     ButtonActionSelectionWidgetPrivate *const d_ptr; //!< D-Pointer for this class.
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

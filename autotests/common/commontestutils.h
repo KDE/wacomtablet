@@ -27,7 +27,8 @@
 
 #include <QString>
 
-namespace Wacom {
+namespace Wacom
+{
 
 class CommonTestUtils
 {
@@ -36,52 +37,51 @@ public:
      * Expected Values
      */
 
-    static const long       DEVICEINFORMATION_DEVICE_ID;
-    static const QString    DEVICEINFORMATION_DEVICE_NODE;
-    static const long       DEVICEINFORMATION_PRODUCT_ID;
-    static const long       DEVICEINFORMATION_TABLET_SERIAL;
-    static const long       DEVICEINFORMATION_VENDOR_ID;
+    static const long DEVICEINFORMATION_DEVICE_ID;
+    static const QString DEVICEINFORMATION_DEVICE_NODE;
+    static const long DEVICEINFORMATION_PRODUCT_ID;
+    static const long DEVICEINFORMATION_TABLET_SERIAL;
+    static const long DEVICEINFORMATION_VENDOR_ID;
 
-    static const QString    TABLETINFORMATION_COMPANY_ID;
-    static const QString    TABLETINFORMATION_COMPANY_NAME;
-    static const QString    TABLETINFORMATION_TABLET_MODEL;
-    static const QString    TABLETINFORMATION_TABLET_NAME;
-    static const QString    TABLETINFORMATION_TABLET_SERIAL;
-    static const QString    TABLETINFORMATION_TABLET_ID;
-    static const bool       TABLETINFORMATION_HAS_BUTTONS;
-    static const bool       TABLETINFORMATION_HAS_WHEEL;
-    static const bool       TABLETINFORMATION_HAS_TOUCHRING;
-    static const bool       TABLETINFORMATION_HAS_TOUCHSTRIPLEFT;
-    static const bool       TABLETINFORMATION_HAS_TOUCHSTRIPRIGHT;
-    static const bool       TABLETINFORMATION_IS_AVAILABLE;
-    static const QString    TABLETINFORMATION_NUM_PAD_BUTTONS;
+    static const QString TABLETINFORMATION_COMPANY_ID;
+    static const QString TABLETINFORMATION_COMPANY_NAME;
+    static const QString TABLETINFORMATION_TABLET_MODEL;
+    static const QString TABLETINFORMATION_TABLET_NAME;
+    static const QString TABLETINFORMATION_TABLET_SERIAL;
+    static const QString TABLETINFORMATION_TABLET_ID;
+    static const bool TABLETINFORMATION_HAS_BUTTONS;
+    static const bool TABLETINFORMATION_HAS_WHEEL;
+    static const bool TABLETINFORMATION_HAS_TOUCHRING;
+    static const bool TABLETINFORMATION_HAS_TOUCHSTRIPLEFT;
+    static const bool TABLETINFORMATION_HAS_TOUCHSTRIPRIGHT;
+    static const bool TABLETINFORMATION_IS_AVAILABLE;
+    static const QString TABLETINFORMATION_NUM_PAD_BUTTONS;
 
-    static const QString    TABLETINFORMATION_DEV1_NAME;
-    static const QString    TABLETINFORMATION_DEV1_TYPE;
+    static const QString TABLETINFORMATION_DEV1_NAME;
+    static const QString TABLETINFORMATION_DEV1_TYPE;
 
-    static const QString    TABLETINFORMATION_DEV2_NAME;
-    static const QString    TABLETINFORMATION_DEV2_TYPE;
+    static const QString TABLETINFORMATION_DEV2_NAME;
+    static const QString TABLETINFORMATION_DEV2_TYPE;
 
-    static const QString    TABLETINFORMATION_DEV3_NAME;
-    static const QString    TABLETINFORMATION_DEV3_TYPE;
-
+    static const QString TABLETINFORMATION_DEV3_NAME;
+    static const QString TABLETINFORMATION_DEV3_TYPE;
 
     /*
      * Helper Methods
      */
 
-    static void assertValues (const DeviceInformation& info, const DeviceType& expectedType, const QString& expectedName);
+    static void assertValues(const DeviceInformation &info, const DeviceType &expectedType, const QString &expectedName);
 
-    static void assertValues (DeviceProfile& profile, const char *name = nullptr);
+    static void assertValues(DeviceProfile &profile, const char *name = nullptr);
 
-    static void assertValues (const TabletInformation& info);
+    static void assertValues(const TabletInformation &info);
 
-    static void setValues (DeviceInformation& info);
+    static void setValues(DeviceInformation &info);
 
-    static void setValues (DeviceProfile& profile);
+    static void setValues(DeviceProfile &profile);
 
-    static void setValues (TabletInformation& info);
+    static void setValues(TabletInformation &info);
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

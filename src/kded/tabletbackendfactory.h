@@ -30,7 +30,6 @@ namespace Wacom
 class TabletBackendFactory
 {
 public:
-
     /**
      * Creates a new instance of the tablet backend. The tablet information
      * parameter already needs to contain some basic tablet information which
@@ -44,8 +43,7 @@ public:
      *
      * @return A new tablet backend instance.
      */
-    static TabletBackendInterface* createBackend (const TabletInformation& info);
-
+    static TabletBackendInterface *createBackend(const TabletInformation &info);
 
     /**
      * Helper method for unit testing.
@@ -56,8 +54,7 @@ public:
      *
      * @param mock The mock object returned by this factory, possible null.
      */
-    static void setTabletBackendMock(TabletBackendInterface* mock);
-
+    static void setTabletBackendMock(TabletBackendInterface *mock);
 
     /**
      * Sets unit testing mode.
@@ -68,7 +65,6 @@ public:
     static void setUnitTest(bool isUnitTest);
 
 protected:
-
     /**
      * Creates a tablet backend instance.
      *
@@ -76,25 +72,22 @@ protected:
      *
      * @return A new instance of a tablet backend.
      */
-    TabletBackendInterface* createInstance (const Wacom::TabletInformation& info);
-
+    TabletBackendInterface *createInstance(const Wacom::TabletInformation &info);
 
 private:
-
     //! Private default constructor as this is a static class.
     TabletBackendFactory();
 
     //! Copy constructor which does nothing.
-    TabletBackendFactory(const TabletBackendFactory& factory) = delete;
+    TabletBackendFactory(const TabletBackendFactory &factory) = delete;
 
     //! Copy operator which does nothing.
-    TabletBackendFactory& operator= (const TabletBackendFactory& factory) = delete;
-
+    TabletBackendFactory &operator=(const TabletBackendFactory &factory) = delete;
 
     //! The mock object returned by this factory if it is set.
-    static TabletBackendInterface* m_tabletBackendMock;
-    static bool                    m_isUnitTest;
+    static TabletBackendInterface *m_tabletBackendMock;
+    static bool m_isUnitTest;
 
-}; // CLASS 
-}  // NAMESPACE
+}; // CLASS
+} // NAMESPACE
 #endif // HEADER PROTECTION

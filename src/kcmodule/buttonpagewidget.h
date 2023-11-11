@@ -20,12 +20,12 @@
 #ifndef BUTTONPAGEWIDGET_H
 #define BUTTONPAGEWIDGET_H
 
-//Qt includes
+// Qt includes
 #include <QWidget>
 
 namespace Ui
 {
-    class ButtonPageWidget;
+class ButtonPageWidget;
 }
 
 class KComboBox;
@@ -38,53 +38,53 @@ class ButtonShortcut;
 class ProfileManagementInterface;
 
 /**
-  * The PadButton widget contains all settings to assign the buttons on the tablet pad
-  *
-  * The available number of buttons as well as the availability of vertical/horizontal strip
-  * or TouchRing is defined by the wacom_devicelist settings file in the data folder.
-  */
+ * The PadButton widget contains all settings to assign the buttons on the tablet pad
+ *
+ * The available number of buttons as well as the availability of vertical/horizontal strip
+ * or TouchRing is defined by the wacom_devicelist settings file in the data folder.
+ */
 class ButtonPageWidget : public QWidget
 {
     Q_OBJECT
 
 public:
     /**
-      * default constructor
-      *
-      * @param parent parent Widget
-      */
+     * default constructor
+     *
+     * @param parent parent Widget
+     */
     explicit ButtonPageWidget(QWidget *parent = nullptr);
 
     /**
-      * default destructor
-      */
+     * default destructor
+     */
     ~ButtonPageWidget() override;
 
     void setTabletId(const QString &tabletId);
 
     /**
-      * Saves all values to the current profile
-      */
+     * Saves all values to the current profile
+     */
     void saveToProfile(ProfileManagementInterface &profileManagement);
 
     /**
-      * Reloads the widget when the status of the tablet device changes (connects/disconnects)
-      *
-      */
+     * Reloads the widget when the status of the tablet device changes (connects/disconnects)
+     *
+     */
     void reloadWidget();
 
 public slots:
     /**
-      * Called whenever the profile is switched or the widget needs to be reinitialized.
-      *
-      * Updates all values on the widget to the values from the profile.
-      */
+     * Called whenever the profile is switched or the widget needs to be reinitialized.
+     *
+     * Updates all values on the widget to the values from the profile.
+     */
     void loadFromProfile(ProfileManagementInterface &profileManagement);
 
 signals:
     /**
-      * Used to inform the main widget that unsaved changes in the current profile are available
-      */
+     * Used to inform the main widget that unsaved changes in the current profile are available
+     */
     void changed();
 
 private slots:
@@ -94,9 +94,7 @@ private slots:
      */
     void onButtonActionChanged();
 
-
 private:
-
     /**
      * Sets up the UI. Should only be called once by the constructor.
      */
@@ -104,7 +102,7 @@ private:
 
 private:
     Ui::ButtonPageWidget *ui = nullptr;
-    QString               _tabletId;
+    QString _tabletId;
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif /*BUTTONPAGEWIDGET_H*/

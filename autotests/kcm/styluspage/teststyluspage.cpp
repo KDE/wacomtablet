@@ -17,14 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#include "kcmodule/styluspagewidget.h"
 #include "../profilemanagementmocks.h"
+#include "kcmodule/styluspagewidget.h"
 
 #include "deviceprofile.h"
+#include "deviceprofiledefaults.h"
 #include "deviceproperty.h"
 #include "screenrotation.h"
-#include "deviceprofiledefaults.h"
 
 #include "ui_styluspagewidget.h"
 
@@ -34,7 +33,7 @@
 
 using namespace Wacom;
 
-class TestStylusPageWidget: public QObject
+class TestStylusPageWidget : public QObject
 {
     Q_OBJECT
 
@@ -46,10 +45,8 @@ private slots:
 
 private:
     ProfileManagementIntegrityChecker p;
-    StylusPageWidget * _testObject;
+    StylusPageWidget *_testObject;
 };
-
-
 
 void TestStylusPageWidget::initTestCase()
 {
@@ -81,8 +78,8 @@ void TestStylusPageWidget::testStylusSettingsPersistency()
     _testObject->loadFromProfile(p);
     _testObject->saveToProfile(p);
 
-    for(const DeviceProperty& property : DeviceProperty::list()) {
-        //qDebug() << "Comparing" << property.key();
+    for (const DeviceProperty &property : DeviceProperty::list()) {
+        // qDebug() << "Comparing" << property.key();
         QCOMPARE(p._savedProfiles[DeviceType::Stylus].getProperty(property.id()), p._presetProfiles[DeviceType::Stylus].getProperty(property.id()));
         QCOMPARE(p._savedProfiles[DeviceType::Eraser].getProperty(property.id()), p._presetProfiles[DeviceType::Eraser].getProperty(property.id()));
     }
@@ -99,17 +96,15 @@ void TestStylusPageWidget::testSettingsStylus()
 
     _testObject->loadFromProfile(p);
 
-    _testObject->findChild<QSlider*>(QLatin1String("horizontalSliderRawSample"))->setValue(15);
+    _testObject->findChild<QSlider *>(QLatin1String("horizontalSliderRawSample"))->setValue(15);
 
     _testObject->saveToProfile(p);
-    for(const DeviceProperty& property : DeviceProperty::list()) {
-        //qDebug() << "Comparing" << property.key();
+    for (const DeviceProperty &property : DeviceProperty::list()) {
+        // qDebug() << "Comparing" << property.key();
         QCOMPARE(p._savedProfiles[DeviceType::Stylus].getProperty(property.id()), p._presetProfiles[DeviceType::Stylus].getProperty(property.id()));
     }
 }
 
 QTEST_MAIN(TestStylusPageWidget)
-
-
 
 #include "teststyluspage.moc"

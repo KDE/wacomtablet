@@ -17,17 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #include "x11tabletfinder.h"
 
-#include "logging.h"
 #include "deviceinformation.h"
+#include "logging.h"
 #include "x11input.h"
 
 #include <xcb/xcb.h>
 
-#include <QString>
 #include <QMap>
+#include <QString>
 
 #include "private/qtx11extras_p.h"
 
@@ -36,43 +35,38 @@ using namespace Wacom;
 /**
  * Class for private members.
  */
-namespace Wacom {
-    class X11TabletFinderPrivate
-    {
-        public:
-            typedef QMap<long,TabletInformation> TabletMap;
+namespace Wacom
+{
+class X11TabletFinderPrivate
+{
+public:
+    typedef QMap<long, TabletInformation> TabletMap;
 
-            TabletMap                tabletMap;   //!< A map which is used while visiting devices.
-            QList<TabletInformation> scannedList; //!< A list which is build after scanning all devices.
-    };
+    TabletMap tabletMap; //!< A map which is used while visiting devices.
+    QList<TabletInformation> scannedList; //!< A list which is build after scanning all devices.
+};
 }
 
-
-X11TabletFinder::X11TabletFinder() : d_ptr(new X11TabletFinderPrivate)
+X11TabletFinder::X11TabletFinder()
+    : d_ptr(new X11TabletFinderPrivate)
 {
 }
-
 
 X11TabletFinder::~X11TabletFinder()
 {
     delete d_ptr;
 }
 
-
-
-const QList< TabletInformation >& X11TabletFinder::getTablets() const
+const QList<TabletInformation> &X11TabletFinder::getTablets() const
 {
-    Q_D (const X11TabletFinder);
+    Q_D(const X11TabletFinder);
 
     return d->scannedList;
 }
 
-
-
-
 bool X11TabletFinder::scanDevices()
 {
-    Q_D (X11TabletFinder);
+    Q_D(X11TabletFinder);
 
     d->tabletMap.clear();
     d->scannedList.clear();
@@ -81,24 +75,22 @@ bool X11TabletFinder::scanDevices()
 
     X11TabletFinderPrivate::TabletMap::ConstIterator iter;
 
-    for (iter = d->tabletMap.constBegin() ; iter != d->tabletMap.constEnd() ; ++iter) {
+    for (iter = d->tabletMap.constBegin(); iter != d->tabletMap.constEnd(); ++iter) {
         d->scannedList.append(iter.value());
     }
 
     return (d->tabletMap.size() > 0);
 }
 
-
-
-bool X11TabletFinder::visit (X11InputDevice& x11device)
+bool X11TabletFinder::visit(X11InputDevice &x11device)
 {
     if (!x11device.isTabletDevice()) {
         return false;
     }
 
     // gather basic device information which we need to create a device information structure
-    QString           deviceName = x11device.getName();
-    const DeviceType* deviceType = getDeviceType (getToolType (x11device));
+    QString deviceName = x11device.getName();
+    const DeviceType *deviceType = getDeviceType(getToolType(x11device));
 
     if (deviceName.isEmpty() || deviceType == nullptr) {
         qCWarning(KDED) << QString::fromLatin1("Unsupported device '%1' detected!").arg(deviceName);
@@ -106,7 +98,7 @@ bool X11TabletFinder::visit (X11InputDevice& x11device)
     }
 
     // create device information and gather all information we can
-    DeviceInformation deviceInfo (*deviceType, x11device.getName());
+    DeviceInformation deviceInfo(*deviceType, x11device.getName());
 
     gatherDeviceInformation(x11device, deviceInfo);
 
@@ -117,9 +109,7 @@ bool X11TabletFinder::visit (X11InputDevice& x11device)
     return false;
 }
 
-
-
-void X11TabletFinder::addDeviceInformation (DeviceInformation& deviceInformation)
+void X11TabletFinder::addDeviceInformation(DeviceInformation &deviceInformation)
 {
     Q_D(X11TabletFinder);
 
@@ -129,7 +119,7 @@ void X11TabletFinder::addDeviceInformation (DeviceInformation& deviceInformation
         qCDebug(KDED) << QString::fromLatin1("Device '%1' has an invalid serial number '%2'!").arg(deviceInformation.getName()).arg(serial);
     }
 
-    X11TabletFinderPrivate::TabletMap::iterator mapIter = d->tabletMap.find (serial);
+    X11TabletFinderPrivate::TabletMap::iterator mapIter = d->tabletMap.find(serial);
 
     if (mapIter == d->tabletMap.end()) {
         auto newTabletInformation = TabletInformation(serial);
@@ -141,9 +131,7 @@ void X11TabletFinder::addDeviceInformation (DeviceInformation& deviceInformation
     mapIter.value().setDevice(deviceInformation);
 }
 
-
-
-void X11TabletFinder::gatherDeviceInformation(X11InputDevice& device, DeviceInformation& deviceInformation) const
+void X11TabletFinder::gatherDeviceInformation(X11InputDevice &device, DeviceInformation &deviceInformation) const
 {
     // get X11 device id
     deviceInformation.setDeviceId(device.getDeviceId());
@@ -163,9 +151,7 @@ void X11TabletFinder::gatherDeviceInformation(X11InputDevice& device, DeviceInfo
     deviceInformation.setDeviceNode(getDeviceNode(device));
 }
 
-
-
-const QString X11TabletFinder::getDeviceNode(X11InputDevice& device) const
+const QString X11TabletFinder::getDeviceNode(X11InputDevice &device) const
 {
     QList<QString> values;
 
@@ -177,32 +163,28 @@ const QString X11TabletFinder::getDeviceNode(X11InputDevice& device) const
     return values.at(0);
 }
 
-
-
-const DeviceType* X11TabletFinder::getDeviceType (const QString& toolType) const
+const DeviceType *X11TabletFinder::getDeviceType(const QString &toolType) const
 {
-    if (toolType.contains (QLatin1String ("pad"), Qt::CaseInsensitive)) {
+    if (toolType.contains(QLatin1String("pad"), Qt::CaseInsensitive)) {
         return &(DeviceType::Pad);
 
-    } else if (toolType.contains(QLatin1String ("eraser"), Qt::CaseInsensitive)) {
+    } else if (toolType.contains(QLatin1String("eraser"), Qt::CaseInsensitive)) {
         return &(DeviceType::Eraser);
 
-    } else if (toolType.contains(QLatin1String ("cursor"), Qt::CaseInsensitive)) {
+    } else if (toolType.contains(QLatin1String("cursor"), Qt::CaseInsensitive)) {
         return &(DeviceType::Cursor);
 
-    } else if (toolType.contains(QLatin1String ("touch"),  Qt::CaseInsensitive)) {
+    } else if (toolType.contains(QLatin1String("touch"), Qt::CaseInsensitive)) {
         return &(DeviceType::Touch);
 
-    } else if (toolType.contains(QLatin1String ("stylus"), Qt::CaseInsensitive)) {
+    } else if (toolType.contains(QLatin1String("stylus"), Qt::CaseInsensitive)) {
         return &(DeviceType::Stylus);
     }
 
     return nullptr;
 }
 
-
-
-bool X11TabletFinder::getProductId(X11InputDevice& device, long int& vendorId, long int& productId) const
+bool X11TabletFinder::getProductId(X11InputDevice &device, long int &vendorId, long int &productId) const
 {
     QList<long> values;
 
@@ -228,11 +210,9 @@ bool X11TabletFinder::getProductId(X11InputDevice& device, long int& vendorId, l
     return true;
 }
 
-
-
-long int X11TabletFinder::getTabletSerial (X11InputDevice& device) const
+long int X11TabletFinder::getTabletSerial(X11InputDevice &device) const
 {
-    long        tabletId = 0;
+    long tabletId = 0;
     QList<long> serialIdValues;
 
     if (!device.getLongProperty(X11Input::PROPERTY_WACOM_SERIAL_IDS, serialIdValues, 1000)) {
@@ -251,9 +231,7 @@ long int X11TabletFinder::getTabletSerial (X11InputDevice& device) const
     return tabletId;
 }
 
-
-
-const QString X11TabletFinder::getToolType (X11InputDevice& device) const
+const QString X11TabletFinder::getToolType(X11InputDevice &device) const
 {
     QList<long> toolTypeAtoms;
 
@@ -265,7 +243,7 @@ const QString X11TabletFinder::getToolType (X11InputDevice& device) const
 
     if (toolTypeAtoms.size() == 1) {
         xcb_get_atom_name_cookie_t cookie = xcb_get_atom_name(QX11Info::connection(), toolTypeAtoms.at(0));
-        xcb_get_atom_name_reply_t* reply = xcb_get_atom_name_reply(QX11Info::connection(), cookie, nullptr);
+        xcb_get_atom_name_reply_t *reply = xcb_get_atom_name_reply(QX11Info::connection(), cookie, nullptr);
         if (reply) {
             toolTypeName = QString::fromLatin1(QByteArray(xcb_get_atom_name_name(reply), xcb_get_atom_name_name_length(reply)));
             free(reply);
@@ -274,4 +252,3 @@ const QString X11TabletFinder::getToolType (X11InputDevice& device) const
 
     return toolTypeName;
 }
-

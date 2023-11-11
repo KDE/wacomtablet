@@ -23,26 +23,26 @@
 
 using namespace Wacom;
 
-void KdedTestUtils::assertTabletInformation(const TabletInformation& expectedInformation, const TabletInformation& actualInformation)
+void KdedTestUtils::assertTabletInformation(const TabletInformation &expectedInformation, const TabletInformation &actualInformation)
 {
     // make sure the device list is equal
     QStringList expectedDeviceList = expectedInformation.getDeviceList();
-    QStringList actualDeviceList   = actualInformation.getDeviceList();
+    QStringList actualDeviceList = actualInformation.getDeviceList();
     QVERIFY(expectedDeviceList.size() == actualDeviceList.size());
 
-    for (int i = 0 ; i < expectedDeviceList.size() ; ++i) {
+    for (int i = 0; i < expectedDeviceList.size(); ++i) {
         QCOMPARE(expectedDeviceList.at(i), actualDeviceList.at(i));
     }
 
     // make sure the devices are equal
-    foreach(const DeviceType& type, DeviceType::list()) {
+    foreach (const DeviceType &type, DeviceType::list()) {
         QCOMPARE(expectedInformation.getDeviceName(type), actualInformation.getDeviceName(type));
     }
 
     // compare tablet information
     QVERIFY(expectedInformation == actualInformation);
 
-    foreach(const TabletInfo& info, TabletInfo::list()) {
+    foreach (const TabletInfo &info, TabletInfo::list()) {
         QCOMPARE(expectedInformation.get(info), actualInformation.get(info));
     }
 
@@ -53,9 +53,7 @@ void KdedTestUtils::assertTabletInformation(const TabletInformation& expectedInf
     QVERIFY(expectedInformation.isAvailable() == actualInformation.isAvailable());
 }
 
-
-
-const QString KdedTestUtils::getAbsoluteDir(const QString& fileName)
+const QString KdedTestUtils::getAbsoluteDir(const QString &fileName)
 {
     if (fileName.isEmpty()) {
         return QString();
@@ -75,8 +73,7 @@ const QString KdedTestUtils::getAbsoluteDir(const QString& fileName)
     return absoluteDir;
 }
 
-
-const QString KdedTestUtils::getAbsolutePath(const QString& fileName)
+const QString KdedTestUtils::getAbsolutePath(const QString &fileName)
 {
     if (fileName.isEmpty()) {
         return QString();

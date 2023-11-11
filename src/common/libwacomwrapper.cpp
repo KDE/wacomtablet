@@ -27,9 +27,11 @@ extern "C" {
 #include <libwacom/libwacom.h>
 }
 
-namespace Wacom {
+namespace Wacom
+{
 
-static int skipWheelButtons(int button) {
+static int skipWheelButtons(int button)
+{
     // skip buttons 4-7, which correspond to vertical/horizontal wheel up/down events
     if (button > 3) {
         return button + 4;
@@ -60,11 +62,11 @@ libWacomWrapper::~libWacomWrapper()
 bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInformation &tabletInfo)
 {
     qCDebug(COMMON) << "LibWacom lookup for" << tabletId << vendorId;
-    auto errorDeleter = [](WacomError *e){libwacom_error_free(&e);};
-    std::unique_ptr<WacomError, decltype(errorDeleter)>
-            error(libwacom_error_new(), errorDeleter);
-    std::unique_ptr<WacomDevice, decltype(&libwacom_destroy)>
-            device(libwacom_new_from_usbid(db, vendorId, tabletId, error.get()), &libwacom_destroy);
+    auto errorDeleter = [](WacomError *e) {
+        libwacom_error_free(&e);
+    };
+    std::unique_ptr<WacomError, decltype(errorDeleter)> error(libwacom_error_new(), errorDeleter);
+    std::unique_ptr<WacomDevice, decltype(&libwacom_destroy)> device(libwacom_new_from_usbid(db, vendorId, tabletId, error.get()), &libwacom_destroy);
 
     if (!device) {
         qCInfo(COMMON) << "LibWacom lookup failed:" << libwacom_error_get_message(error.get());
@@ -80,11 +82,11 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
 
     // Seems like there is no model or vendor names in libwacom
     // TODO: are these properties even used anywhere?
-    tabletInfo.set(TabletInfo::CompanyName,   QString());
-    tabletInfo.set(TabletInfo::TabletModel,   QString());
+    tabletInfo.set(TabletInfo::CompanyName, QString());
+    tabletInfo.set(TabletInfo::TabletModel, QString());
     // TODO: Seems like there's no info about the pad wheel in libwacom
     // Only a couple of tablets have the wheel anyway, so it probably can be hacked around
-    tabletInfo.set(TabletInfo::HasWheel,      false);
+    tabletInfo.set(TabletInfo::HasWheel, false);
     // TODO: Returns more detailed information than we expect,
     // current LED code is broken anyway so this should be untangled later
     int numStatusLeds = 0;
@@ -97,26 +99,26 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
     for (int i = 0; i < numLedGroups; i++) {
         int groupModes = 0;
         switch (ledGroups[i]) {
-            case WACOM_STATUS_LED_RING:
-                groupModes = libwacom_get_ring_num_modes(device.get());
-                break;
-            case WACOM_STATUS_LED_RING2:
-                groupModes = libwacom_get_ring2_num_modes(device.get());
-                break;
-            case WACOM_STATUS_LED_TOUCHSTRIP:
-                groupModes = libwacom_get_strips_num_modes(device.get());
-                break;
-            case WACOM_STATUS_LED_TOUCHSTRIP2:
-                groupModes = libwacom_get_strips_num_modes(device.get());
-                break;
-            case WACOM_STATUS_LED_UNAVAILABLE:
-                break;
+        case WACOM_STATUS_LED_RING:
+            groupModes = libwacom_get_ring_num_modes(device.get());
+            break;
+        case WACOM_STATUS_LED_RING2:
+            groupModes = libwacom_get_ring2_num_modes(device.get());
+            break;
+        case WACOM_STATUS_LED_TOUCHSTRIP:
+            groupModes = libwacom_get_strips_num_modes(device.get());
+            break;
+        case WACOM_STATUS_LED_TOUCHSTRIP2:
+            groupModes = libwacom_get_strips_num_modes(device.get());
+            break;
+        case WACOM_STATUS_LED_UNAVAILABLE:
+            break;
         }
         numStatusLeds += groupModes;
     }
-    tabletInfo.set(TabletInfo::StatusLEDs,    numStatusLeds);
+    tabletInfo.set(TabletInfo::StatusLEDs, numStatusLeds);
 
-    tabletInfo.set(TabletInfo::TabletName,    QString::fromLatin1(libwacom_get_name(device.get())));
+    tabletInfo.set(TabletInfo::TabletName, QString::fromLatin1(libwacom_get_name(device.get())));
 
     const int padButtonNumber = libwacom_get_num_buttons(device.get());
     tabletInfo.set(TabletInfo::NumPadButtons, padButtonNumber);
@@ -140,8 +142,7 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
 
             if (buttonIndex < 1) {
                 qCWarning(COMMON) << "Unrecognized evdev code. "
-                                  << "Device:" << tabletId << "Vendor:" << vendorId
-                                  << "Button:" << buttonChar << "EvdevCode:" << buttonEvdevCode;
+                                  << "Device:" << tabletId << "Vendor:" << vendorId << "Button:" << buttonChar << "EvdevCode:" << buttonEvdevCode;
                 return false;
             }
 #endif
@@ -150,7 +151,7 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
     }
 
 #ifndef LIBWACOM_EVDEV_MISSING
-    const WacomMatch* paired_device_match = libwacom_get_paired_device(device.get());
+    const WacomMatch *paired_device_match = libwacom_get_paired_device(device.get());
     if (paired_device_match) {
         const std::uint32_t pairedTabletId = libwacom_match_get_product_id(paired_device_match);
         const std::uint32_t pairedVendorId = libwacom_match_get_vendor_id(paired_device_match);
@@ -166,15 +167,16 @@ bool libWacomWrapper::lookupTabletInfo(int tabletId, int vendorId, TabletInforma
     const bool hasRightStrip = numStrips > 1;
     const bool hasRing = libwacom_has_ring(device.get()) != 0;
 
-    tabletInfo.set(TabletInfo::HasLeftTouchStrip,  hasLeftStrip);
+    tabletInfo.set(TabletInfo::HasLeftTouchStrip, hasLeftStrip);
     tabletInfo.set(TabletInfo::HasRightTouchStrip, hasRightStrip);
-    tabletInfo.set(TabletInfo::HasTouchRing,       hasRing);
+    tabletInfo.set(TabletInfo::HasTouchRing, hasRing);
     return true;
 }
 
 #ifndef LIBWACOM_EVDEV_MISSING
 
-static int convertMouseEvdevToXsetwacomButton(int evdevCode) {
+static int convertMouseEvdevToXsetwacomButton(int evdevCode)
+{
     // some quirky consumer tablets, e.g. Bamboo/Graphire, use mouse button events
     // instead of just numbered express keys. Translate them back to numbers
     constexpr int BTN_LEFT = 0x110;
@@ -200,7 +202,8 @@ static int convertMouseEvdevToXsetwacomButton(int evdevCode) {
     }
 }
 
-static int convertEvdevToXsetwacomButton(int evdevCode) {
+static int convertEvdevToXsetwacomButton(int evdevCode)
+{
     // based on set_button_codes_from_heuristics from libwacom/libwacom-database.c
     // FIXME: this code might actually be wrong, see "Wacom Intuos BT M" (usb id 888 1386) for example:
     // It's actually 1 2 3 8
@@ -228,4 +231,3 @@ static int convertEvdevToXsetwacomButton(int evdevCode) {
 #endif // LIBWACOM_EVDEV_MISSING
 
 } // namespace ends
-

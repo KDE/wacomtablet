@@ -30,7 +30,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the profile manager
  */
-class TestTabletProfile: public QObject
+class TestTabletProfile : public QObject
 {
     Q_OBJECT
 
@@ -46,7 +46,7 @@ QTEST_MAIN(TestTabletProfile)
 void TestTabletProfile::testConstructor()
 {
     TabletProfile profile1;
-    QVERIFY( profile1.getName().isEmpty());
+    QVERIFY(profile1.getName().isEmpty());
 
     QLatin1String name("TEST");
     TabletProfile profile2(name);
@@ -55,7 +55,7 @@ void TestTabletProfile::testConstructor()
 
 void TestTabletProfile::testClearDevices()
 {
-    DeviceType    deviceType = DeviceType::Touch;
+    DeviceType deviceType = DeviceType::Touch;
     DeviceProfile deviceProfile(deviceType);
     TabletProfile tabletProfile(QLatin1String("TABLET"));
     tabletProfile.setDevice(deviceProfile);
@@ -71,15 +71,16 @@ void TestTabletProfile::testClearDevices()
 void TestTabletProfile::testCopy()
 {
     DeviceProfile profile1;
-    DeviceType    profile1Type = DeviceType::Stylus;
+    DeviceType profile1Type = DeviceType::Stylus;
     DeviceProfile profile2;
-    DeviceType    profile2Type = DeviceType::Eraser;
+    DeviceType profile2Type = DeviceType::Eraser;
     CommonTestUtils::setValues(profile1);
     CommonTestUtils::setValues(profile2);
 
     // names have to be set AFTER CommonTestUtils::setValues()
     profile1.setDeviceType(profile1Type);
-    profile2.setDeviceType(profile2Type);;
+    profile2.setDeviceType(profile2Type);
+    ;
 
     TabletProfile tabletProfile(QLatin1String("TABLET"));
     tabletProfile.setDevice(profile1);
@@ -102,7 +103,7 @@ void TestTabletProfile::testCopy()
 
 void TestTabletProfile::testSetDevice()
 {
-    DeviceType    deviceType = DeviceType::Cursor;
+    DeviceType deviceType = DeviceType::Cursor;
     DeviceProfile deviceProfile;
     CommonTestUtils::setValues(deviceProfile);
     deviceProfile.setDeviceType(deviceType);
@@ -116,7 +117,5 @@ void TestTabletProfile::testSetDevice()
     DeviceProfile getProfile = tabletProfile.getDevice(deviceType);
     CommonTestUtils::assertValues(getProfile, deviceType.key().toLatin1().constData());
 }
-
-
 
 #include "testtabletprofile.moc"

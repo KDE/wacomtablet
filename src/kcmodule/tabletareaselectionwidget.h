@@ -21,8 +21,8 @@
 #define TABLETAREASELECTIONWIDGET_H
 
 #include "screenmap.h"
-#include "screenspace.h"
 #include "screenrotation.h"
+#include "screenspace.h"
 
 #include <QObject>
 #include <QWidget>
@@ -37,26 +37,23 @@ class TabletAreaSelectionWidget : public QWidget
     Q_OBJECT
 
 public:
-
-    explicit TabletAreaSelectionWidget(QWidget* parent = nullptr);
+    explicit TabletAreaSelectionWidget(QWidget *parent = nullptr);
     ~TabletAreaSelectionWidget() override;
 
-    const ScreenMap& getScreenMap();
+    const ScreenMap &getScreenMap();
 
     const ScreenSpace getScreenSpace() const;
 
-    void select(const ScreenSpace& screenSpace);
+    void select(const ScreenSpace &screenSpace);
 
-    void setupWidget( const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation );
-
+    void setupWidget(const ScreenMap &mappings, const QString &deviceName, const ScreenRotation &rotation);
 
 private:
-
     void setupUi();
 
     Q_DECLARE_PRIVATE(TabletAreaSelectionWidget)
     TabletAreaSelectionWidgetPrivate *const d_ptr; //!< D-Pointer for this class.
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

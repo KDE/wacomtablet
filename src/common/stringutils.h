@@ -36,8 +36,7 @@ public:
      *
      * @return True if the input string is one of "1/true/on/yes", else false.
      */
-    static bool asBool (const QString& value);
-
+    static bool asBool(const QString &value);
 
     /**
      * Converts a QRect to string in the format "x y width height" or "x1 y1 x2 y2".
@@ -47,7 +46,7 @@ public:
      *
      * @return The rectangle as string.
      */
-    static const QString fromQRect(const QRect& rect, bool returnCoordinates = false);
+    static const QString fromQRect(const QRect &rect, bool returnCoordinates = false);
 
     /**
      * Converts a string to a rectangle. If the conversion fails an empty
@@ -59,8 +58,7 @@ public:
      *
      * @return The string as rectangle.
      */
-    static const QRect toQRect(const QString& value, bool allowOnlyPositiveValues = false);
-
+    static const QRect toQRect(const QString &value, bool allowOnlyPositiveValues = false);
 
     /**
      * Converts a string to a rectangle. If the conversion fails and empty
@@ -72,9 +70,8 @@ public:
      *
      * @return The string as rectangle.
      */
-    static const QRect toQRectByCoordinates(const QString& value, bool allowOnlyPositiveValues = false);
+    static const QRect toQRectByCoordinates(const QString &value, bool allowOnlyPositiveValues = false);
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION
-

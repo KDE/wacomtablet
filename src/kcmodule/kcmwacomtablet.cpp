@@ -18,19 +18,19 @@
  */
 
 #include "kcmwacomtablet.h"
-#include "kcmwacomtabletwidget.h"
 #include "../wacomtablet-version.h"
+#include "kcmwacomtabletwidget.h"
 
 #include "aboutdata.h"
-#include "profilemanagement.h"
 #include "dbustabletinterface.h"
+#include "profilemanagement.h"
 
 // KDE includes
-#include <KPluginFactory>
 #include <KAboutData>
 #include <KLocalizedString>
+#include <KPluginFactory>
 
-//Qt includes
+// Qt includes
 #include <QVBoxLayout>
 
 using namespace Wacom;
@@ -38,12 +38,11 @@ using namespace Wacom;
 K_PLUGIN_CLASS_WITH_JSON(KCMWacomTablet, "kcm_wacomtablet.json")
 
 KCMWacomTablet::KCMWacomTablet(QObject *parent, const KPluginMetaData &md)
-        : KCModule(parent, md)
-        , m_changed(false)
+    : KCModule(parent, md)
+    , m_changed(false)
 {
     initUi();
 }
-
 
 KCMWacomTablet::~KCMWacomTablet()
 {
@@ -59,11 +58,9 @@ KCMWacomTablet::~KCMWacomTablet()
     // Unfortunately KAction disables all global shortcuts on destruction.
     // There is no way to stop it from doing that so we have to use this
     // workaround and reload the current profile here.
-    //BUG restore global shortcuts on exit
-    //DBusTabletInterface::instance().setProfile( d->tabletId, , ProfileManagement::instance().profileName() );
+    // BUG restore global shortcuts on exit
+    // DBusTabletInterface::instance().setProfile( d->tabletId, , ProfileManagement::instance().profileName() );
 }
-
-
 
 void KCMWacomTablet::initUi()
 {

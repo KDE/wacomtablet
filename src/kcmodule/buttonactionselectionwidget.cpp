@@ -26,42 +26,46 @@
 
 using namespace Wacom;
 
-namespace Wacom {
-    class ButtonActionSelectionWidgetPrivate {
-        public:
-            ButtonActionSelectionWidgetPrivate()  : ui( new Ui::ButtonActionSelectionWidget ) {}
-            ~ButtonActionSelectionWidgetPrivate() {
-                delete ui;
-            }
+namespace Wacom
+{
+class ButtonActionSelectionWidgetPrivate
+{
+public:
+    ButtonActionSelectionWidgetPrivate()
+        : ui(new Ui::ButtonActionSelectionWidget)
+    {
+    }
+    ~ButtonActionSelectionWidgetPrivate()
+    {
+        delete ui;
+    }
 
-            Ui::ButtonActionSelectionWidget* ui;
-            ButtonShortcut                   shortcut;
-    };
+    Ui::ButtonActionSelectionWidget *ui;
+    ButtonShortcut shortcut;
+};
 }
 
-ButtonActionSelectionWidget::ButtonActionSelectionWidget(QWidget* parent)
-    : QWidget(parent), d_ptr(new ButtonActionSelectionWidgetPrivate)
+ButtonActionSelectionWidget::ButtonActionSelectionWidget(QWidget *parent)
+    : QWidget(parent)
+    , d_ptr(new ButtonActionSelectionWidgetPrivate)
 {
     setupUi();
 }
-
 
 ButtonActionSelectionWidget::~ButtonActionSelectionWidget()
 {
     delete this->d_ptr;
 }
 
-
-const ButtonShortcut& ButtonActionSelectionWidget::getShortcut() const
+const ButtonShortcut &ButtonActionSelectionWidget::getShortcut() const
 {
-    Q_D (const ButtonActionSelectionWidget);
+    Q_D(const ButtonActionSelectionWidget);
     return d->shortcut;
 }
 
-
-void ButtonActionSelectionWidget::setShortcut(const ButtonShortcut& shortcut)
+void ButtonActionSelectionWidget::setShortcut(const ButtonShortcut &shortcut)
 {
-    Q_D (ButtonActionSelectionWidget);
+    Q_D(ButtonActionSelectionWidget);
 
     d->shortcut = shortcut;
 
@@ -71,7 +75,6 @@ void ButtonActionSelectionWidget::setShortcut(const ButtonShortcut& shortcut)
     updateCurrentActionName(shortcut);
 }
 
-
 void ButtonActionSelectionWidget::onClearButtonClicked(bool checked)
 {
     Q_UNUSED(checked);
@@ -79,17 +82,15 @@ void ButtonActionSelectionWidget::onClearButtonClicked(bool checked)
     setShortcut(ButtonShortcut());
 }
 
-
 void ButtonActionSelectionWidget::onActionLineEditSelectionChanged()
 {
-    Q_D (ButtonActionSelectionWidget);
+    Q_D(ButtonActionSelectionWidget);
     d->ui->actionNameLineEdit->deselect();
 }
 
-
 void ButtonActionSelectionWidget::onModifierChanged(int state)
 {
-    Q_D (const ButtonActionSelectionWidget);
+    Q_D(const ButtonActionSelectionWidget);
 
     Q_UNUSED(state);
 
@@ -115,16 +116,13 @@ void ButtonActionSelectionWidget::onModifierChanged(int state)
     setShortcut(ButtonShortcut(shortcutString));
 }
 
-
 void ButtonActionSelectionWidget::onMouseSelectionChanged(int index)
 {
-    Q_D (const ButtonActionSelectionWidget);
+    Q_D(const ButtonActionSelectionWidget);
 
     int button = d->ui->mouseComboBox->itemData(index).toInt();
     setShortcut(ButtonShortcut(button));
 }
-
-
 
 void ButtonActionSelectionWidget::onShortcutChanged(QKeySequence sequence)
 {
@@ -133,24 +131,22 @@ void ButtonActionSelectionWidget::onShortcutChanged(QKeySequence sequence)
     setShortcut(ButtonShortcut(QString::fromLatin1("key %1").arg(sequence.toString())));
 }
 
-
-
 void ButtonActionSelectionWidget::setupUi()
 {
-    Q_D (ButtonActionSelectionWidget);
+    Q_D(ButtonActionSelectionWidget);
 
     // setup main widget
-    d->ui->setupUi( this );
+    d->ui->setupUi(this);
 
     // set mouse and keyboard label icons
-    d->ui->mouseIconLabel->setPixmap(QIcon::fromTheme(QLatin1String("input-mouse")).pixmap(QSize(48,48)));
-    d->ui->keyboardIconLabel->setPixmap(QIcon::fromTheme(QLatin1String("input-keyboard")).pixmap(QSize(48,48)));
+    d->ui->mouseIconLabel->setPixmap(QIcon::fromTheme(QLatin1String("input-mouse")).pixmap(QSize(48, 48)));
+    d->ui->keyboardIconLabel->setPixmap(QIcon::fromTheme(QLatin1String("input-keyboard")).pixmap(QSize(48, 48)));
 
     // add mouse buttons to dropdown menu
     d->ui->mouseComboBox->addItem(i18nc("Select a mouse button from a dropwdown.", "Click to select..."), 0);
 
     ButtonShortcut shortcut;
-    for (int i = 1 ; i < 33 ; ++i) {
+    for (int i = 1; i < 33; ++i) {
         shortcut.setButton(i);
         d->ui->mouseComboBox->addItem(shortcut.toDisplayString(), i);
     }
@@ -162,24 +158,23 @@ void ButtonActionSelectionWidget::setupUi()
     d->ui->mouseClearButton->setIcon(QIcon::fromTheme(clearIconStr));
     d->ui->modifierClearButton->setIcon(QIcon::fromTheme(clearIconStr));
 
-    connect( d->ui->mouseComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onMouseSelectionChanged(int)) );
-    connect (d->ui->mouseClearButton, SIGNAL(clicked(bool)), this, SLOT(onClearButtonClicked(bool)) );
+    connect(d->ui->mouseComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onMouseSelectionChanged(int)));
+    connect(d->ui->mouseClearButton, SIGNAL(clicked(bool)), this, SLOT(onClearButtonClicked(bool)));
 
-    connect( d->ui->ctrlModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)) );
-    connect( d->ui->altModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)) );
-    connect( d->ui->metaModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)) );
-    connect( d->ui->shiftModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)) );
-    connect( d->ui->modifierClearButton, SIGNAL(clicked(bool)), this, SLOT(onClearButtonClicked(bool)) );
+    connect(d->ui->ctrlModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)));
+    connect(d->ui->altModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)));
+    connect(d->ui->metaModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)));
+    connect(d->ui->shiftModifierCheckBox, SIGNAL(stateChanged(int)), this, SLOT(onModifierChanged(int)));
+    connect(d->ui->modifierClearButton, SIGNAL(clicked(bool)), this, SLOT(onClearButtonClicked(bool)));
 
-    connect( d->ui->shortcutSelectorWidget, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(onShortcutChanged(QKeySequence)) );
+    connect(d->ui->shortcutSelectorWidget, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(onShortcutChanged(QKeySequence)));
 
-    connect( d->ui->actionNameLineEdit, SIGNAL(selectionChanged()), this, SLOT(onActionLineEditSelectionChanged()) );
+    connect(d->ui->actionNameLineEdit, SIGNAL(selectionChanged()), this, SLOT(onActionLineEditSelectionChanged()));
 
     setShortcut(ButtonShortcut());
 }
 
-
-void ButtonActionSelectionWidget::updateCurrentActionName(const ButtonShortcut& shortcut)
+void ButtonActionSelectionWidget::updateCurrentActionName(const ButtonShortcut &shortcut)
 {
     Q_D(ButtonActionSelectionWidget);
 
@@ -187,39 +182,38 @@ void ButtonActionSelectionWidget::updateCurrentActionName(const ButtonShortcut& 
     d->ui->actionNameLineEdit->setText(shortcut.toDisplayString());
 }
 
-
-void ButtonActionSelectionWidget::updateModifierWidgets(const ButtonShortcut& shortcut)
+void ButtonActionSelectionWidget::updateModifierWidgets(const ButtonShortcut &shortcut)
 {
     Q_D(ButtonActionSelectionWidget);
 
     if (shortcut.isModifier()) {
         // shortcut is a modifier sequence - set checkboxes accordingly
         QString shortcutString = shortcut.toString();
-        bool    isChecked      = false;
+        bool isChecked = false;
 
         isChecked = shortcutString.contains(QLatin1String("ctrl"), Qt::CaseInsensitive);
-        updateQCheckBox(*(d->ui->ctrlModifierCheckBox),  isChecked);
+        updateQCheckBox(*(d->ui->ctrlModifierCheckBox), isChecked);
 
         isChecked = shortcutString.contains(QLatin1String("alt"), Qt::CaseInsensitive);
-        updateQCheckBox(*(d->ui->altModifierCheckBox),   isChecked);
+        updateQCheckBox(*(d->ui->altModifierCheckBox), isChecked);
 
-        isChecked = (shortcutString.contains(QLatin1String("super"), Qt::CaseInsensitive) || shortcutString.contains(QLatin1String("meta"), Qt::CaseInsensitive));
-        updateQCheckBox(*(d->ui->metaModifierCheckBox),  isChecked);
+        isChecked =
+            (shortcutString.contains(QLatin1String("super"), Qt::CaseInsensitive) || shortcutString.contains(QLatin1String("meta"), Qt::CaseInsensitive));
+        updateQCheckBox(*(d->ui->metaModifierCheckBox), isChecked);
 
         isChecked = shortcutString.contains(QLatin1String("shift"), Qt::CaseInsensitive);
         updateQCheckBox(*(d->ui->shiftModifierCheckBox), isChecked);
 
     } else {
         // not a modifier shortcut
-        updateQCheckBox(*(d->ui->ctrlModifierCheckBox),  false);
-        updateQCheckBox(*(d->ui->altModifierCheckBox),   false);
-        updateQCheckBox(*(d->ui->metaModifierCheckBox),  false);
+        updateQCheckBox(*(d->ui->ctrlModifierCheckBox), false);
+        updateQCheckBox(*(d->ui->altModifierCheckBox), false);
+        updateQCheckBox(*(d->ui->metaModifierCheckBox), false);
         updateQCheckBox(*(d->ui->shiftModifierCheckBox), false);
     }
 }
 
-
-void ButtonActionSelectionWidget::updateMouseButtonSeletion(const ButtonShortcut& shortcut)
+void ButtonActionSelectionWidget::updateMouseButtonSeletion(const ButtonShortcut &shortcut)
 {
     Q_D(ButtonActionSelectionWidget);
 
@@ -234,8 +228,7 @@ void ButtonActionSelectionWidget::updateMouseButtonSeletion(const ButtonShortcut
     }
 }
 
-
-void ButtonActionSelectionWidget::updateQCheckBox(QCheckBox& checkbox, bool isChecked) const
+void ButtonActionSelectionWidget::updateQCheckBox(QCheckBox &checkbox, bool isChecked) const
 {
     if (checkbox.isChecked() != isChecked) {
         checkbox.blockSignals(true);
@@ -244,8 +237,7 @@ void ButtonActionSelectionWidget::updateQCheckBox(QCheckBox& checkbox, bool isCh
     }
 }
 
-
-void ButtonActionSelectionWidget::updateShortcutWidgets(const ButtonShortcut& shortcut)
+void ButtonActionSelectionWidget::updateShortcutWidgets(const ButtonShortcut &shortcut)
 {
     Q_D(ButtonActionSelectionWidget);
 

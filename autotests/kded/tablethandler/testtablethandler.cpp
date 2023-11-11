@@ -17,13 +17,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "../tabletbackendmock.h"
 #include "../kdedtestutils.h"
+#include "../tabletbackendmock.h"
 
-#include "kded/tablethandler.h"
-#include "kded/tabletbackendfactory.h"
-#include "common/tabletinformation.h"
 #include "common/screensinfo.h"
+#include "common/tabletinformation.h"
+#include "kded/tabletbackendfactory.h"
+#include "kded/tablethandler.h"
 
 #include <QtTest>
 
@@ -35,23 +35,20 @@ using namespace Wacom;
  * @test UnitTest for ...
  * @todo use QSignalSpy?
  */
-class TestTabletHandler: public QObject
+class TestTabletHandler : public QObject
 {
     Q_OBJECT
 
-
 public Q_SLOTS:
-    void onNotify (const QString& eventId, const QString& title, const QString& message, bool suggestConfigure);
-    void onProfileChanged (const QString &tabletID, const QString& profile);
-    void onTabletAdded (const TabletInformation& info);
+    void onNotify(const QString &eventId, const QString &title, const QString &message, bool suggestConfigure);
+    void onProfileChanged(const QString &tabletID, const QString &profile);
+    void onTabletAdded(const TabletInformation &info);
     void onTabletRemoved(const QString &tabletID);
-
 
 private slots:
     void initTestCase();
     void test();
     void cleanupTestCase();
-
 
 private:
     void testListProfiles();
@@ -63,73 +60,63 @@ private:
     void testSetProfile();
     void testSetProperty();
 
-    QString            m_notifyEventId;
-    QString            m_notifyTitle;
-    QString            m_notifyMessage;
+    QString m_notifyEventId;
+    QString m_notifyTitle;
+    QString m_notifyMessage;
 
-    QString            m_profileChanged;
+    QString m_profileChanged;
 
-    TabletInformation  m_tabletAddedInformation;
-    bool               m_tabletAdded;
-    bool               m_tabletRemoved;
+    TabletInformation m_tabletAddedInformation;
+    bool m_tabletAdded;
+    bool m_tabletRemoved;
 
-    TabletHandler*     m_tabletHandler;
-    TabletBackendMock* m_backendMock;
+    TabletHandler *m_tabletHandler;
+    TabletBackendMock *m_backendMock;
 };
 
 QTEST_MAIN(TestTabletHandler)
 
-
-
-void TestTabletHandler::onNotify(const QString& eventId, const QString& title, const QString& message, bool suggestConfigure)
+void TestTabletHandler::onNotify(const QString &eventId, const QString &title, const QString &message, bool suggestConfigure)
 {
     Q_UNUSED(suggestConfigure)
 
     m_notifyEventId = eventId;
-    m_notifyTitle   = title;
+    m_notifyTitle = title;
     m_notifyMessage = message;
 }
 
-
-
-void TestTabletHandler::onProfileChanged(const QString& tabletID, const QString& profile)
+void TestTabletHandler::onProfileChanged(const QString &tabletID, const QString &profile)
 {
     Q_UNUSED(tabletID)
 
     m_profileChanged = profile;
 }
 
-
-
-void TestTabletHandler::onTabletAdded(const TabletInformation& info)
+void TestTabletHandler::onTabletAdded(const TabletInformation &info)
 {
-    m_tabletRemoved          = false;
-    m_tabletAdded            = true;
+    m_tabletRemoved = false;
+    m_tabletAdded = true;
     m_tabletAddedInformation = info;
 }
-
-
 
 void TestTabletHandler::onTabletRemoved(const QString &tabletID)
 {
     Q_UNUSED(tabletID)
 
-    m_tabletAdded   = false;
+    m_tabletAdded = false;
     m_tabletRemoved = true;
 }
 
-
-
 void TestTabletHandler::initTestCase()
 {
-    m_tabletAdded   = false;
+    m_tabletAdded = false;
     m_tabletRemoved = false;
-    m_backendMock   = nullptr;
+    m_backendMock = nullptr;
 
     TabletBackendFactory::setUnitTest(true);
 
     QString profilePath = KdedTestUtils::getAbsolutePath(QLatin1String("testtablethandler.profilesrc"));
-    QString configPath  = KdedTestUtils::getAbsolutePath(QLatin1String("testtablethandler.configrc"));
+    QString configPath = KdedTestUtils::getAbsolutePath(QLatin1String("testtablethandler.configrc"));
     m_tabletHandler = new TabletHandler(profilePath, configPath);
 
     connect(m_tabletHandler, &TabletHandler::notify, this, &TestTabletHandler::onNotify);
@@ -138,13 +125,10 @@ void TestTabletHandler::initTestCase()
     connect(m_tabletHandler, &TabletHandler::tabletRemoved, this, &TestTabletHandler::onTabletRemoved);
 }
 
-
 void TestTabletHandler::cleanupTestCase()
 {
     delete m_tabletHandler;
 }
-
-
 
 void TestTabletHandler::test()
 {
@@ -166,8 +150,6 @@ void TestTabletHandler::test()
     testOnTabletRemoved();
 }
 
-
-
 void TestTabletHandler::testListProfiles()
 {
     QStringList profiles = m_tabletHandler->listProfiles(QLatin1String("4321"));
@@ -178,7 +160,6 @@ void TestTabletHandler::testListProfiles()
 
     QWARN("testListProfiles(): PASSED!");
 }
-
 
 void TestTabletHandler::testOnScreenRotated()
 {
@@ -202,7 +183,7 @@ void TestTabletHandler::testOnScreenRotated()
     // validate result
     QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Eraser, Property::Rotate), ScreenRotation::HALF.key());
     QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Stylus, Property::Rotate), ScreenRotation::HALF.key());
-    QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Touch, Property::Rotate) , ScreenRotation::HALF.key());
+    QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Touch, Property::Rotate), ScreenRotation::HALF.key());
 
     QWARN("testOnScreenRotated(): PASSED!");
 }
@@ -218,7 +199,6 @@ void TestTabletHandler::testOnTabletAdded()
     m_notifyMessage.clear();
     m_notifyTitle.clear();
 
-
     // if the tablet backend factory returns NULL adding a tablet should fail
     TabletBackendFactory::setUnitTest(true);
     TabletBackendFactory::setTabletBackendMock(NULL);
@@ -232,22 +212,21 @@ void TestTabletHandler::testOnTabletAdded()
     QVERIFY(m_notifyTitle.isEmpty());
     QVERIFY(m_profileChanged.isEmpty());
 
-
     // create a valid backend for the factory to return
     m_backendMock = new TabletBackendMock();
 
     m_backendMock->m_tabletInformation.set(TabletInfo::TabletSerial, QLatin1String("123"));
-    m_backendMock->m_tabletInformation.set(TabletInfo::CompanyId,    QLatin1String("1234"));
-    m_backendMock->m_tabletInformation.set(TabletInfo::CompanyName,  QLatin1String("Company"));
-    m_backendMock->m_tabletInformation.set(TabletInfo::TabletId,     QLatin1String("4321"));
-    m_backendMock->m_tabletInformation.set(TabletInfo::TabletModel,  QLatin1String("Tablet Model"));
-    m_backendMock->m_tabletInformation.set(TabletInfo::TabletName,   QLatin1String("Bamboo Create"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::CompanyId, QLatin1String("1234"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::CompanyName, QLatin1String("Company"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::TabletId, QLatin1String("4321"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::TabletModel, QLatin1String("Tablet Model"));
+    m_backendMock->m_tabletInformation.set(TabletInfo::TabletName, QLatin1String("Bamboo Create"));
     m_backendMock->m_tabletInformation.set(TabletInfo::NumPadButtons, QLatin1String("4"));
     m_backendMock->m_tabletInformation.setAvailable(true);
 
-    DeviceInformation devInfoEraser (DeviceType::Eraser, QLatin1String("Eraser Device"));
-    DeviceInformation devInfoStylus (DeviceType::Stylus, QLatin1String("Stylus Device"));
-    DeviceInformation devInfoTouch  (DeviceType::Touch,  QLatin1String ("Touch Device"));
+    DeviceInformation devInfoEraser(DeviceType::Eraser, QLatin1String("Eraser Device"));
+    DeviceInformation devInfoStylus(DeviceType::Stylus, QLatin1String("Stylus Device"));
+    DeviceInformation devInfoTouch(DeviceType::Touch, QLatin1String("Touch Device"));
 
     m_backendMock->m_tabletInformation.setDevice(devInfoEraser);
     m_backendMock->m_tabletInformation.setDevice(devInfoStylus);
@@ -288,8 +267,6 @@ void TestTabletHandler::testOnTabletAdded()
     // prepare for the next test
     m_tabletAdded = true;
 }
-
-
 
 void TestTabletHandler::testOnTabletRemoved()
 {
@@ -343,8 +320,6 @@ void TestTabletHandler::testOnTabletRemoved()
     QWARN("testOnTabletRemoved(): PASSED!");
 }
 
-
-
 void TestTabletHandler::testOnTogglePenMode()
 {
     m_backendMock->setProperty(DeviceType::Stylus, Property::Mode, QLatin1String("Absolute"));
@@ -366,8 +341,6 @@ void TestTabletHandler::testOnTogglePenMode()
     QWARN("testOnTogglePenMode(): PASSED!");
 }
 
-
-
 void TestTabletHandler::testOnToggleTouch()
 {
     m_tabletHandler->setProperty(QLatin1String("4321"), DeviceType::Touch, Property::Touch, QLatin1String("off"));
@@ -385,8 +358,6 @@ void TestTabletHandler::testOnToggleTouch()
 
     QWARN("testOnToggleTouch(): PASSED!");
 }
-
-
 
 void TestTabletHandler::testSetProfile()
 {
@@ -417,7 +388,6 @@ void TestTabletHandler::testSetProfile()
     QCOMPARE(m_profileChanged, QLatin1String("default"));
     QCOMPARE(m_backendMock->m_tabletProfile.getName(), QLatin1String("default"));
 
-
     // set the profile back to "test" so we can run this tests
     // multiple times in a row. Otherwise the test will fail as
     // cmake copies our test data only once.
@@ -425,8 +395,6 @@ void TestTabletHandler::testSetProfile()
 
     QWARN("testSetProfile(): PASSED!");
 }
-
-
 
 void TestTabletHandler::testSetProperty()
 {
@@ -438,6 +406,5 @@ void TestTabletHandler::testSetProperty()
 
     QWARN("testSetProperty(): PASSED!");
 }
-
 
 #include "testtablethandler.moc"

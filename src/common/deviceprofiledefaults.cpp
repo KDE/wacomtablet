@@ -23,12 +23,14 @@
 
 using namespace Wacom;
 
-void setupDefaultPad(DeviceProfile &pad) {
+void setupDefaultPad(DeviceProfile &pad)
+{
     pad.setProperty(Property::AbsWheelUp, QLatin1String("4"));
     pad.setProperty(Property::AbsWheelDown, QLatin1String("5"));
 }
 
-void setupDefaultStylus(DeviceProfile &stylus) {
+void setupDefaultStylus(DeviceProfile &stylus)
+{
     stylus.setProperty(Property::Button1, QLatin1String("1"));
     stylus.setProperty(Property::Button2, QLatin1String("2"));
     stylus.setProperty(Property::Button3, QLatin1String("3"));
@@ -43,7 +45,8 @@ void setupDefaultStylus(DeviceProfile &stylus) {
     stylus.setProperty(Property::Rotate, ScreenRotation::AUTO.key());
 }
 
-void setupDefaultTouch(DeviceProfile &touch) {
+void setupDefaultTouch(DeviceProfile &touch)
+{
     touch.setProperty(Property::Gesture, QLatin1String("off"));
     touch.setProperty(Property::InvertScroll, QLatin1String("off"));
     touch.setProperty(Property::Mode, QLatin1String("absolute"));

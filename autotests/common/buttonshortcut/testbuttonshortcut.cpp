@@ -28,7 +28,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the button shortcut testing
  */
-class TestButtonShortcut: public QObject
+class TestButtonShortcut : public QObject
 {
     Q_OBJECT
 
@@ -49,17 +49,17 @@ private slots:
     void testEmpty();
 
 private:
-    void assertButton (const ButtonShortcut& shortcut, int buttonNumber) const;
-    void assertEquals (const ButtonShortcut& shortcut1, const ButtonShortcut& shortcut2) const;
-    void assertKeySequence (const ButtonShortcut& shortcut, const QString& sequence, bool sequenceIsQKeySeq, bool isModifier) const;
-    void assertKeyStroke (const Wacom::ButtonShortcut& shortcut, const QString& sequence, bool isQKeySequence) const;
-    void assertModifier (const ButtonShortcut& shortcut, const QString& sequence) const;
-    void assertUnset (const ButtonShortcut& shortcut) const;
+    void assertButton(const ButtonShortcut &shortcut, int buttonNumber) const;
+    void assertEquals(const ButtonShortcut &shortcut1, const ButtonShortcut &shortcut2) const;
+    void assertKeySequence(const ButtonShortcut &shortcut, const QString &sequence, bool sequenceIsQKeySeq, bool isModifier) const;
+    void assertKeyStroke(const Wacom::ButtonShortcut &shortcut, const QString &sequence, bool isQKeySequence) const;
+    void assertModifier(const ButtonShortcut &shortcut, const QString &sequence) const;
+    void assertUnset(const ButtonShortcut &shortcut) const;
 };
 
 QTEST_MAIN(TestButtonShortcut)
 
-void TestButtonShortcut::assertButton(const ButtonShortcut& shortcut, int buttonNumber) const
+void TestButtonShortcut::assertButton(const ButtonShortcut &shortcut, int buttonNumber) const
 {
     QVERIFY(shortcut.isSet());
     QVERIFY(shortcut.isButton());
@@ -73,7 +73,7 @@ void TestButtonShortcut::assertButton(const ButtonShortcut& shortcut, int button
     QVERIFY(shortcut.toQKeySequenceString().isEmpty());
 }
 
-void TestButtonShortcut::assertEquals(const ButtonShortcut& shortcut1, const ButtonShortcut& shortcut2) const
+void TestButtonShortcut::assertEquals(const ButtonShortcut &shortcut1, const ButtonShortcut &shortcut2) const
 {
     QVERIFY(shortcut1 == shortcut2);
     QVERIFY(!(shortcut1 != shortcut2));
@@ -87,7 +87,7 @@ void TestButtonShortcut::assertEquals(const ButtonShortcut& shortcut1, const But
     QCOMPARE(shortcut2.toQKeySequenceString(), shortcut2.toQKeySequenceString());
 }
 
-void TestButtonShortcut::assertKeySequence(const ButtonShortcut& shortcut, const QString& sequence, bool sequenceIsQKeySeq, bool isModifier) const
+void TestButtonShortcut::assertKeySequence(const ButtonShortcut &shortcut, const QString &sequence, bool sequenceIsQKeySeq, bool isModifier) const
 {
     QVERIFY(shortcut.isSet());
 
@@ -110,17 +110,17 @@ void TestButtonShortcut::assertKeySequence(const ButtonShortcut& shortcut, const
     }
 }
 
-void TestButtonShortcut::assertKeyStroke(const ButtonShortcut& shortcut, const QString& sequence, bool isQKeySequence) const
+void TestButtonShortcut::assertKeyStroke(const ButtonShortcut &shortcut, const QString &sequence, bool isQKeySequence) const
 {
     assertKeySequence(shortcut, sequence, isQKeySequence, false);
 }
 
-void TestButtonShortcut::assertModifier(const ButtonShortcut& shortcut, const QString& sequence) const
+void TestButtonShortcut::assertModifier(const ButtonShortcut &shortcut, const QString &sequence) const
 {
     assertKeySequence(shortcut, sequence, false, true);
 }
 
-void TestButtonShortcut::assertUnset(const ButtonShortcut& shortcut) const
+void TestButtonShortcut::assertUnset(const ButtonShortcut &shortcut) const
 {
     QVERIFY(!shortcut.isSet());
     QVERIFY(!shortcut.isButton());
@@ -147,11 +147,11 @@ void TestButtonShortcut::testAssignment()
     assertEquals(copyShortcut, buttonShortcut);
     assertButton(copyShortcut, buttonShortcut.getButton());
 
-    ButtonShortcut copyShortcut2 (modifierShortcut.toString());
+    ButtonShortcut copyShortcut2(modifierShortcut.toString());
     assertEquals(copyShortcut2, modifierShortcut);
     assertModifier(copyShortcut2, modifierShortcut.toString());
 
-    ButtonShortcut copyShortcut3 (buttonShortcut.getButton());
+    ButtonShortcut copyShortcut3(buttonShortcut.getButton());
     assertEquals(copyShortcut3, buttonShortcut);
     assertButton(copyShortcut3, buttonShortcut.getButton());
 
@@ -180,7 +180,6 @@ void TestButtonShortcut::testAssignment()
     assertEquals(copyShortcut, buttonShortcut);
     assertButton(copyShortcut, buttonShortcut.getButton());
 }
-
 
 void TestButtonShortcut::testButton()
 {
@@ -222,19 +221,17 @@ void TestButtonShortcut::testButton()
     assertButton(shortcut, 4);
 }
 
-
-void TestButtonShortcut::testEmpty() {
-
+void TestButtonShortcut::testEmpty()
+{
     ButtonShortcut shortcut1;
     ButtonShortcut shortcut2;
 
     // make sure the shortcuts are equal in every aspect
-    assertEquals (shortcut1, shortcut2);
+    assertEquals(shortcut1, shortcut2);
 
     // make sure the shortcut is not set to anything
-    assertUnset (shortcut1);
+    assertUnset(shortcut1);
 }
-
 
 void TestButtonShortcut::testInvalidKeyStrokes()
 {
@@ -245,12 +242,11 @@ void TestButtonShortcut::testInvalidKeyStrokes()
 
     ButtonShortcut shortcut;
 
-    for (QList<QString>::iterator inputIter = inputList.begin() ; inputIter != inputList.end() ; ++inputIter) {
+    for (QList<QString>::iterator inputIter = inputList.begin(); inputIter != inputList.end(); ++inputIter) {
         shortcut.set(*inputIter);
         assertUnset(shortcut);
     }
 }
-
 
 void TestButtonShortcut::testKeyStrokes()
 {
@@ -273,39 +269,65 @@ void TestButtonShortcut::testKeyStrokes_data()
     QTest::addColumn<QString>("input");
     QTest::addColumn<QString>("expected_output");
 
-    QTest::addRow("A") << "A" << "key a";
-    QTest::addRow("key A") << "key A" << "key a";
-    QTest::addRow("key +A") << "key +A" << "key a";
+    QTest::addRow("A") << "A"
+                       << "key a";
+    QTest::addRow("key A") << "key A"
+                           << "key a";
+    QTest::addRow("key +A") << "key +A"
+                            << "key a";
 
-    QTest::addRow("Ctrl+X") << "Ctrl+X" << "key ctrl x";
-    QTest::addRow("Ctrl X") << "Ctrl X" << "key ctrl x";
-    QTest::addRow("key Ctrl+X") << "key Ctrl+X" << "key ctrl x";
-    QTest::addRow("key +Ctrl +X") << "key +Ctrl +X" << "key ctrl x";
-    QTest::addRow("key Ctrl X") << "key Ctrl X" << "key ctrl x";
-    QTest::addRow("key +Ctrl +X -X") << "key +Ctrl +X -X" << "key ctrl x";
-    QTest::addRow("key +Ctrl +X -x -a") << "key +Ctrl +X -x -a" << "key ctrl x";
+    QTest::addRow("Ctrl+X") << "Ctrl+X"
+                            << "key ctrl x";
+    QTest::addRow("Ctrl X") << "Ctrl X"
+                            << "key ctrl x";
+    QTest::addRow("key Ctrl+X") << "key Ctrl+X"
+                                << "key ctrl x";
+    QTest::addRow("key +Ctrl +X") << "key +Ctrl +X"
+                                  << "key ctrl x";
+    QTest::addRow("key Ctrl X") << "key Ctrl X"
+                                << "key ctrl x";
+    QTest::addRow("key +Ctrl +X -X") << "key +Ctrl +X -X"
+                                     << "key ctrl x";
+    QTest::addRow("key +Ctrl +X -x -a") << "key +Ctrl +X -x -a"
+                                        << "key ctrl x";
 
-    QTest::addRow("Meta+X") << "Meta+X" << "key super x";
-    QTest::addRow("Meta X") << "Meta X" << "key super x";
-    QTest::addRow("key Meta+X") << "key Meta+X" << "key super x";
-    QTest::addRow("key +Meta +X") << "key +Meta +X" << "key super x";
-    QTest::addRow("key Meta X") << "key Meta X" << "key super x";
+    QTest::addRow("Meta+X") << "Meta+X"
+                            << "key super x";
+    QTest::addRow("Meta X") << "Meta X"
+                            << "key super x";
+    QTest::addRow("key Meta+X") << "key Meta+X"
+                                << "key super x";
+    QTest::addRow("key +Meta +X") << "key +Meta +X"
+                                  << "key super x";
+    QTest::addRow("key Meta X") << "key Meta X"
+                                << "key super x";
 
-    QTest::addRow("+") << "+" << "key plus";
-    QTest::addRow("Ctrl++") << "Ctrl++" << "key ctrl plus";
-    QTest::addRow("key +") << "key +" << "key plus";
-    QTest::addRow("key ++") << "key ++" << "key plus";
-    QTest::addRow("key Ctrl +") << "key Ctrl +" << "key ctrl plus";
-    QTest::addRow("key +Ctrl ++") << "key +Ctrl ++" << "key ctrl plus";
+    QTest::addRow("+") << "+"
+                       << "key plus";
+    QTest::addRow("Ctrl++") << "Ctrl++"
+                            << "key ctrl plus";
+    QTest::addRow("key +") << "key +"
+                           << "key plus";
+    QTest::addRow("key ++") << "key ++"
+                            << "key plus";
+    QTest::addRow("key Ctrl +") << "key Ctrl +"
+                                << "key ctrl plus";
+    QTest::addRow("key +Ctrl ++") << "key +Ctrl ++"
+                                  << "key ctrl plus";
 
-    QTest::addRow("-") << "-" << "key minus";
-    QTest::addRow("Ctrl+-") << "Ctrl+-" << "key ctrl minus";
-    QTest::addRow("key -") << "key -" << "key minus";
-    QTest::addRow("key +-") << "key +-" << "key minus";
-    QTest::addRow("key Ctrl -") << "key Ctrl -" << "key ctrl minus";
-    QTest::addRow("key +Ctrl +-") << "key +Ctrl +-" << "key ctrl minus";
+    QTest::addRow("-") << "-"
+                       << "key minus";
+    QTest::addRow("Ctrl+-") << "Ctrl+-"
+                            << "key ctrl minus";
+    QTest::addRow("key -") << "key -"
+                           << "key minus";
+    QTest::addRow("key +-") << "key +-"
+                            << "key minus";
+    QTest::addRow("key Ctrl -") << "key Ctrl -"
+                                << "key ctrl minus";
+    QTest::addRow("key +Ctrl +-") << "key +Ctrl +-"
+                                  << "key ctrl minus";
 }
-
 
 void TestButtonShortcut::testModifier()
 {
@@ -328,37 +350,65 @@ void TestButtonShortcut::testModifier_data()
     QTest::addColumn<QString>("input");
     QTest::addColumn<QString>("expected_output");
 
-    QTest::addRow("Ctrl+Alt+Shift+Super") << "Ctrl+Alt+Shift+Super" << "key ctrl alt shift super";
-    QTest::addRow("Ctrl+Alt+Shift+Meta") << "Ctrl+Alt+Shift+Meta" << "key ctrl alt shift super";
-    QTest::addRow("Shift+Meta+Ctrl") << "Shift+Meta+Ctrl" << "key shift super ctrl";
-    QTest::addRow("Alt+Ctrl") << "Alt+Ctrl" << "key alt ctrl";
-    QTest::addRow("Shift") << "Shift" << "key shift";
-    QTest::addRow("Meta") << "Meta" << "key super";
-    QTest::addRow("Super") << "Super" << "key super";
+    QTest::addRow("Ctrl+Alt+Shift+Super") << "Ctrl+Alt+Shift+Super"
+                                          << "key ctrl alt shift super";
+    QTest::addRow("Ctrl+Alt+Shift+Meta") << "Ctrl+Alt+Shift+Meta"
+                                         << "key ctrl alt shift super";
+    QTest::addRow("Shift+Meta+Ctrl") << "Shift+Meta+Ctrl"
+                                     << "key shift super ctrl";
+    QTest::addRow("Alt+Ctrl") << "Alt+Ctrl"
+                              << "key alt ctrl";
+    QTest::addRow("Shift") << "Shift"
+                           << "key shift";
+    QTest::addRow("Meta") << "Meta"
+                          << "key super";
+    QTest::addRow("Super") << "Super"
+                           << "key super";
 
-    QTest::addRow("key Ctrl+Alt+Shift+Super") << "key Ctrl+Alt+Shift+Super" << "key ctrl alt shift super";
-    QTest::addRow("key Ctrl+Alt+Shift+Meta") << "key Ctrl+Alt+Shift+Meta" << "key ctrl alt shift super";
-    QTest::addRow("key Shift+Meta+Ctrl") << "key Shift+Meta+Ctrl" << "key shift super ctrl";
-    QTest::addRow("key Alt+Ctrl") << "key Alt+Ctrl" << "key alt ctrl";
-    QTest::addRow("key Shift") << "key Shift" << "key shift";
-    QTest::addRow("key Meta") << "key Meta" << "key super";
-    QTest::addRow("key Super") << "key Super" << "key super";
+    QTest::addRow("key Ctrl+Alt+Shift+Super") << "key Ctrl+Alt+Shift+Super"
+                                              << "key ctrl alt shift super";
+    QTest::addRow("key Ctrl+Alt+Shift+Meta") << "key Ctrl+Alt+Shift+Meta"
+                                             << "key ctrl alt shift super";
+    QTest::addRow("key Shift+Meta+Ctrl") << "key Shift+Meta+Ctrl"
+                                         << "key shift super ctrl";
+    QTest::addRow("key Alt+Ctrl") << "key Alt+Ctrl"
+                                  << "key alt ctrl";
+    QTest::addRow("key Shift") << "key Shift"
+                               << "key shift";
+    QTest::addRow("key Meta") << "key Meta"
+                              << "key super";
+    QTest::addRow("key Super") << "key Super"
+                               << "key super";
 
-    QTest::addRow("key +Ctrl +Alt +Shift +Super") << "key +Ctrl +Alt +Shift +Super" << "key ctrl alt shift super";
-    QTest::addRow("key +Ctrl +Alt +Shift +Meta") << "key +Ctrl +Alt +Shift +Meta" << "key ctrl alt shift super";
-    QTest::addRow("key +Shift +Meta +Ctrl") << "key +Shift +Meta +Ctrl" << "key shift super ctrl";
-    QTest::addRow("key +Alt +Ctrl") << "key +Alt +Ctrl" << "key alt ctrl";
-    QTest::addRow("key +Shift") << "key +Shift" << "key shift";
-    QTest::addRow("key +Meta") << "key +Meta" << "key super";
-    QTest::addRow("key +Super") << "key +Super" << "key super";
+    QTest::addRow("key +Ctrl +Alt +Shift +Super") << "key +Ctrl +Alt +Shift +Super"
+                                                  << "key ctrl alt shift super";
+    QTest::addRow("key +Ctrl +Alt +Shift +Meta") << "key +Ctrl +Alt +Shift +Meta"
+                                                 << "key ctrl alt shift super";
+    QTest::addRow("key +Shift +Meta +Ctrl") << "key +Shift +Meta +Ctrl"
+                                            << "key shift super ctrl";
+    QTest::addRow("key +Alt +Ctrl") << "key +Alt +Ctrl"
+                                    << "key alt ctrl";
+    QTest::addRow("key +Shift") << "key +Shift"
+                                << "key shift";
+    QTest::addRow("key +Meta") << "key +Meta"
+                               << "key super";
+    QTest::addRow("key +Super") << "key +Super"
+                                << "key super";
 
-    QTest::addRow("Ctrl Alt Shift Super") << "Ctrl Alt Shift Super" << "key ctrl alt shift super";
-    QTest::addRow("Ctrl Alt Shift Meta") << "Ctrl Alt Shift Meta" << "key ctrl alt shift super";
-    QTest::addRow("Shift Meta Ctrl") << "Shift Meta Ctrl" << "key shift super ctrl";
-    QTest::addRow("Alt Ctrl") << "Alt Ctrl" << "key alt ctrl";
-    QTest::addRow("Shift") << "Shift" << "key shift";
-    QTest::addRow("Meta") << "Meta" << "key super";
-    QTest::addRow("Super") << "Super" << "key super";
+    QTest::addRow("Ctrl Alt Shift Super") << "Ctrl Alt Shift Super"
+                                          << "key ctrl alt shift super";
+    QTest::addRow("Ctrl Alt Shift Meta") << "Ctrl Alt Shift Meta"
+                                         << "key ctrl alt shift super";
+    QTest::addRow("Shift Meta Ctrl") << "Shift Meta Ctrl"
+                                     << "key shift super ctrl";
+    QTest::addRow("Alt Ctrl") << "Alt Ctrl"
+                              << "key alt ctrl";
+    QTest::addRow("Shift") << "Shift"
+                           << "key shift";
+    QTest::addRow("Meta") << "Meta"
+                          << "key super";
+    QTest::addRow("Super") << "Super"
+                           << "key super";
 }
 
 void TestButtonShortcut::testQKeySequences()
@@ -382,21 +432,34 @@ void TestButtonShortcut::testQKeySequences_data()
     QTest::addColumn<QString>("input");
     QTest::addColumn<QString>("expected_output");
 
-    QTest::addRow("A") << "A" << "A";
-    QTest::addRow("key A") << "key A" << "A";
-    QTest::addRow("key +A") << "key +A" << "A";
+    QTest::addRow("A") << "A"
+                       << "A";
+    QTest::addRow("key A") << "key A"
+                           << "A";
+    QTest::addRow("key +A") << "key +A"
+                            << "A";
 
-    QTest::addRow("Ctrl+X") << "Ctrl+X" << "Ctrl+X";
-    QTest::addRow("Ctrl X") << "Ctrl X" << "Ctrl+X";
-    QTest::addRow("key Ctrl+X") << "key Ctrl+X" << "Ctrl+X";
-    QTest::addRow("key +Ctrl +X") << "key +Ctrl +X" << "Ctrl+X";
-    QTest::addRow("key Ctrl X") << "key Ctrl X" << "Ctrl+X";
+    QTest::addRow("Ctrl+X") << "Ctrl+X"
+                            << "Ctrl+X";
+    QTest::addRow("Ctrl X") << "Ctrl X"
+                            << "Ctrl+X";
+    QTest::addRow("key Ctrl+X") << "key Ctrl+X"
+                                << "Ctrl+X";
+    QTest::addRow("key +Ctrl +X") << "key +Ctrl +X"
+                                  << "Ctrl+X";
+    QTest::addRow("key Ctrl X") << "key Ctrl X"
+                                << "Ctrl+X";
 
-    QTest::addRow("Meta+X") << "Meta+X" << "Meta+X";
-    QTest::addRow("Meta X") << "Meta X" << "Meta+X";
-    QTest::addRow("key Meta+X") << "key Meta+X" << "Meta+X";
-    QTest::addRow("key +Meta +X") << "key +Meta +X" << "Meta+X";
-    QTest::addRow("key Meta X") << "key Meta X" << "Meta+X";
+    QTest::addRow("Meta+X") << "Meta+X"
+                            << "Meta+X";
+    QTest::addRow("Meta X") << "Meta X"
+                            << "Meta+X";
+    QTest::addRow("key Meta+X") << "key Meta+X"
+                                << "Meta+X";
+    QTest::addRow("key +Meta +X") << "key +Meta +X"
+                                  << "Meta+X";
+    QTest::addRow("key Meta X") << "key Meta X"
+                                << "Meta+X";
 }
 
 #include "testbuttonshortcut.moc"

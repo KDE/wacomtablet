@@ -33,23 +33,23 @@ namespace Wacom
  */
 namespace ScreensInfo
 {
-    /**
-     * @return All screens united as one rectangle.
-     */
-    const QRect getUnifiedDisplayGeometry();
+/**
+ * @return All screens united as one rectangle.
+ */
+const QRect getUnifiedDisplayGeometry();
 
-    const QMap<QString, QRect> getScreenGeometries();
+const QMap<QString, QRect> getScreenGeometries();
 
-    /**
-     * Gets the current rotation of the screen. This is based on the monitor
-     * rotation and not the rotation of the canvas. If the monitor is e.g.
-     * rotated to the right, then the canvas is rotated to the left.
-     *
-     * @return The current rotation as seen by the monitor.
-     */
-    const ScreenRotation getScreenRotation(QString output = QString());
+/**
+ * Gets the current rotation of the screen. This is based on the monitor
+ * rotation and not the rotation of the canvas. If the monitor is e.g.
+ * rotated to the right, then the canvas is rotated to the left.
+ *
+ * @return The current rotation as seen by the monitor.
+ */
+const ScreenRotation getScreenRotation(QString output = QString());
 
-    const QString getPrimaryScreenName();
-    const QString getNextScreenName(QString output);
+const QString getPrimaryScreenName();
+const QString getNextScreenName(QString output);
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE

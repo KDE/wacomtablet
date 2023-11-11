@@ -27,31 +27,33 @@ using namespace Wacom;
 
 namespace Wacom
 {
-    class TabletAreaSelectionViewPrivate
+class TabletAreaSelectionViewPrivate
+{
+public:
+    TabletAreaSelectionViewPrivate()
+        : ui(new Ui::TabletAreaSelectionView)
     {
-        public:
-            TabletAreaSelectionViewPrivate() : ui(new Ui::TabletAreaSelectionView) {}
-            ~TabletAreaSelectionViewPrivate() {
-                delete ui;
-            }
+    }
+    ~TabletAreaSelectionViewPrivate()
+    {
+        delete ui;
+    }
 
-            Ui::TabletAreaSelectionView *ui = nullptr;
-    }; // PRIVATE CLASS
+    Ui::TabletAreaSelectionView *ui = nullptr;
+}; // PRIVATE CLASS
 } // NAMESPACE
 
-
-TabletAreaSelectionView::TabletAreaSelectionView(QWidget* parent)
-        : QWidget(parent), d_ptr(new TabletAreaSelectionViewPrivate)
+TabletAreaSelectionView::TabletAreaSelectionView(QWidget *parent)
+    : QWidget(parent)
+    , d_ptr(new TabletAreaSelectionViewPrivate)
 {
     setupUi();
 }
-
 
 TabletAreaSelectionView::~TabletAreaSelectionView()
 {
     delete this->d_ptr;
 }
-
 
 const TabletArea TabletAreaSelectionView::getSelection() const
 {
@@ -67,7 +69,6 @@ void TabletAreaSelectionView::selectFullTablet()
     d->ui->areaWidget->clearSelection();
 }
 
-
 void TabletAreaSelectionView::selectPartOfTablet(const TabletArea &selection)
 {
     Q_D(TabletAreaSelectionView);
@@ -75,7 +76,6 @@ void TabletAreaSelectionView::selectPartOfTablet(const TabletArea &selection)
     setTabletAreaType(TabletAreaSelectionView::PartialTabletArea);
     d->ui->areaWidget->setSelection(selection, true);
 }
-
 
 void TabletAreaSelectionView::select(QString output, bool isDesktop, const TabletArea &tabletSelection)
 {
@@ -89,7 +89,7 @@ void TabletAreaSelectionView::select(QString output, bool isDesktop, const Table
         d->ui->screenArea->setSelection(output);
     }
 
-    if(isFullAreaSelection(tabletSelection)) {
+    if (isFullAreaSelection(tabletSelection)) {
         // full tablet selection
         selectFullTablet();
     } else {
@@ -98,7 +98,6 @@ void TabletAreaSelectionView::select(QString output, bool isDesktop, const Table
     }
 }
 
-
 void TabletAreaSelectionView::setTrackingModeWarning(bool doShow)
 {
     Q_D(TabletAreaSelectionView);
@@ -106,7 +105,6 @@ void TabletAreaSelectionView::setTrackingModeWarning(bool doShow)
     d->ui->warningIcon->setVisible(doShow);
     d->ui->warningLabel->setVisible(doShow);
 }
-
 
 void TabletAreaSelectionView::setupScreens(const QMap<QString, QRect> &screenGeometries, const QSize &widgetTargetSize)
 {
@@ -122,7 +120,6 @@ void TabletAreaSelectionView::setupScreens(const QMap<QString, QRect> &screenGeo
     d->ui->screenArea->paintBelow = true;
 
     if (screenGeometries.count() > 0) {
-
         d->ui->screenArea->setDrawAreaCaptions(true);
         d->ui->screenArea->setDrawSelectionCaption(true);
         d->ui->screenArea->setAreas(screenGeometries, screenGeometries.keys());
@@ -136,7 +133,7 @@ void TabletAreaSelectionView::setupScreens(const QMap<QString, QRect> &screenGeo
         // no valid parameters passed, draw error box
         d->ui->screenArea->setDrawAreaCaptions(true);
         d->ui->screenArea->setDrawSelectionCaption(false);
-        d->ui->screenArea->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
+        d->ui->screenArea->setArea(QRect(0, 0, 1920, 1200), i18n("Internal Error"));
         // We call this intentionally with no screens from setupUI()
         qCWarning(KCM) << "Call to TabletAreaSelectionView::setupScreens made with no valid screens.";
     }
@@ -145,9 +142,7 @@ void TabletAreaSelectionView::setupScreens(const QMap<QString, QRect> &screenGeo
     d->ui->screenArea->clearSelection();
 }
 
-
-
-void TabletAreaSelectionView::setupTablet(const TabletArea &geometry, const QSize& widgetTargetSize)
+void TabletAreaSelectionView::setupTablet(const TabletArea &geometry, const QSize &widgetTargetSize)
 {
     Q_D(TabletAreaSelectionView);
 
@@ -165,7 +160,7 @@ void TabletAreaSelectionView::setupTablet(const TabletArea &geometry, const QSiz
         // draw error message
         d->ui->areaWidget->setDrawAreaCaptions(true);
         d->ui->areaWidget->setDrawSelectionCaption(false);
-        d->ui->areaWidget->setArea(QRect(0,0,1920,1200), i18n("Internal Error"));
+        d->ui->areaWidget->setArea(QRect(0, 0, 1920, 1200), i18n("Internal Error"));
         qCWarning(KCM) << "Internal error, invalid tablet geometry -" << geometry.toString();
     }
 
@@ -173,20 +168,15 @@ void TabletAreaSelectionView::setupTablet(const TabletArea &geometry, const QSiz
     setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
 }
 
-
-
-
 void TabletAreaSelectionView::onCalibrateClicked()
 {
     emit signalCalibrateClicked();
 }
 
-
 void TabletAreaSelectionView::onForceProportionsClicked()
 {
     emit signalSetScreenProportions();
 }
-
 
 void TabletAreaSelectionView::onFullTabletSelected(bool checked)
 {
@@ -196,12 +186,10 @@ void TabletAreaSelectionView::onFullTabletSelected(bool checked)
     setTabletAreaType(TabletAreaSelectionView::FullTabletArea);
 }
 
-
 void TabletAreaSelectionView::onScreenToggle()
 {
     emit signalScreenToggle();
 }
-
 
 void TabletAreaSelectionView::onTabletAreaSelected(bool checked)
 {
@@ -218,7 +206,6 @@ void TabletAreaSelectionView::onLockProportionsToggled(bool enabled)
     d->ui->areaWidget->lockProportions(enabled);
 }
 
-
 void TabletAreaSelectionView::setSelection(const TabletArea &selection)
 {
     if (selection.isValid()) {
@@ -231,7 +218,6 @@ void TabletAreaSelectionView::setSelection(const TabletArea &selection)
         selectFullTablet();
     }
 }
-
 
 void TabletAreaSelectionView::setTabletAreaType(TabletAreaSelectionView::TabletAreaType type)
 {
@@ -288,8 +274,7 @@ void TabletAreaSelectionView::onFineTuneValuesChanged(QString)
                              d->ui->lineEditWidth->text().toInt(&wvalid),
                              d->ui->lineEditHeight->text().toInt(&hvalid));
 
-    if (newSelection.isEmpty() || !newSelection.isValid()
-            || !xvalid || !yvalid || !wvalid || !hvalid) {
+    if (newSelection.isEmpty() || !newSelection.isValid() || !xvalid || !yvalid || !wvalid || !hvalid) {
         return;
     }
 
@@ -298,20 +283,19 @@ void TabletAreaSelectionView::onFineTuneValuesChanged(QString)
 
 bool TabletAreaSelectionView::isFullAreaSelection(const TabletArea &selection) const
 {
-    Q_D (const TabletAreaSelectionView);
+    Q_D(const TabletAreaSelectionView);
 
-    return ( selection.isEmpty() || selection == d->ui->areaWidget->getVirtualArea() );
+    return (selection.isEmpty() || selection == d->ui->areaWidget->getVirtualArea());
 }
-
 
 void TabletAreaSelectionView::setupUi()
 {
     Q_D(TabletAreaSelectionView);
 
     d->ui->setupUi(this);
-    d->ui->iconLabel->setPixmap(QIcon::fromTheme(QLatin1String("help-about")).pixmap(QSize(16,16)));
+    d->ui->iconLabel->setPixmap(QIcon::fromTheme(QLatin1String("help-about")).pixmap(QSize(16, 16)));
 
-    d->ui->warningIcon->setPixmap(QIcon::fromTheme(QLatin1String("dialog-warning")).pixmap(QSize(16,16)));
+    d->ui->warningIcon->setPixmap(QIcon::fromTheme(QLatin1String("dialog-warning")).pixmap(QSize(16, 16)));
     d->ui->warningIcon->setVisible(true);
     d->ui->warningLabel->setVisible(false);
 
@@ -325,8 +309,8 @@ void TabletAreaSelectionView::setupUi()
     connect(d->ui->lineEditWidth, &QLineEdit::textChanged, this, &TabletAreaSelectionView::onFineTuneValuesChanged);
 
     // Is this next call, like, fake?
-    setupScreens(QMap<QString, QRect>(), QSize(200,200));
-    setupTablet(TabletArea(), QSize(400,400));
+    setupScreens(QMap<QString, QRect>(), QSize(200, 200));
+    setupTablet(TabletArea(), QSize(400, 400));
 }
 
 #include "moc_tabletareaselectionview.cpp"

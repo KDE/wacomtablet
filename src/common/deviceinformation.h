@@ -24,10 +24,10 @@
 
 #include <QString>
 
-namespace Wacom {
+namespace Wacom
+{
 
 class DeviceInformationPrivate;
-
 
 /**
  * Device information structure which stores all information about a tablet
@@ -35,29 +35,28 @@ class DeviceInformationPrivate;
  */
 class DeviceInformation
 {
-
 public:
-    DeviceInformation(const DeviceType& deviceType, const QString& deviceName);
-    DeviceInformation(const DeviceInformation& that);
+    DeviceInformation(const DeviceType &deviceType, const QString &deviceName);
+    DeviceInformation(const DeviceInformation &that);
     virtual ~DeviceInformation();
 
-    DeviceInformation& operator= (const DeviceInformation& that);
+    DeviceInformation &operator=(const DeviceInformation &that);
 
-    bool operator!= (const DeviceInformation& that) const;
+    bool operator!=(const DeviceInformation &that) const;
 
-    bool operator== (const DeviceInformation& that) const;
+    bool operator==(const DeviceInformation &that) const;
 
     long getDeviceId() const;
 
-    const QString& getDeviceNode() const;
+    const QString &getDeviceNode() const;
 
-    const QString& getName() const;
+    const QString &getName() const;
 
     long getProductId() const;
 
     long getTabletSerial() const;
 
-    const DeviceType& getType() const;
+    const DeviceType &getType() const;
 
     long getVendorId() const;
 
@@ -69,21 +68,20 @@ public:
      * TODO CHECK THIS!
      */
 
-    void setDeviceId (long deviceId);
+    void setDeviceId(long deviceId);
 
-    void setDeviceNode (const QString& deviceNode);
+    void setDeviceNode(const QString &deviceNode);
 
-    void setProductId (long productId);
+    void setProductId(long productId);
 
-    void setTabletSerial (long tabletId);
+    void setTabletSerial(long tabletId);
 
-    void setVendorId (long vendorId);
-
+    void setVendorId(long vendorId);
 
 private:
-    Q_DECLARE_PRIVATE (DeviceInformation)
+    Q_DECLARE_PRIVATE(DeviceInformation)
     DeviceInformationPrivate *const d_ptr;
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

@@ -25,28 +25,33 @@
 
 using namespace Wacom;
 
-namespace Wacom {
+namespace Wacom
+{
 /**
-  * Private class of the TabletProfile for the d-pointer
-  *
-  */
-class TabletProfilePrivate {
+ * Private class of the TabletProfile for the d-pointer
+ *
+ */
+class TabletProfilePrivate
+{
 public:
     QHash<QString, DeviceProfile> devices;
-    QString                       name;
+    QString name;
 };
 }
 
-TabletProfile::TabletProfile() : d_ptr(new TabletProfilePrivate) {}
-
-TabletProfile::TabletProfile(const QString& name)
+TabletProfile::TabletProfile()
     : d_ptr(new TabletProfilePrivate)
 {
-    Q_D( TabletProfile );
+}
+
+TabletProfile::TabletProfile(const QString &name)
+    : d_ptr(new TabletProfilePrivate)
+{
+    Q_D(TabletProfile);
     d->name = name;
 }
 
-TabletProfile::TabletProfile(const TabletProfile& profile)
+TabletProfile::TabletProfile(const TabletProfile &profile)
     : d_ptr(new TabletProfilePrivate)
 {
     operator=(profile);
@@ -57,27 +62,24 @@ TabletProfile::~TabletProfile()
     delete this->d_ptr;
 }
 
-
-TabletProfile& TabletProfile::operator=(const TabletProfile& that)
+TabletProfile &TabletProfile::operator=(const TabletProfile &that)
 {
-    Q_D( TabletProfile );
+    Q_D(TabletProfile);
     d->devices = that.d_ptr->devices;
-    d->name    = that.d_ptr->name;
-    
+    d->name = that.d_ptr->name;
+
     return *this;
 }
 
-
 void TabletProfile::clearDevices()
 {
-    Q_D( TabletProfile );
+    Q_D(TabletProfile);
     d->devices.clear();
 }
 
-
-const DeviceProfile TabletProfile::getDevice ( const DeviceType& device ) const
+const DeviceProfile TabletProfile::getDevice(const DeviceType &device) const
 {
-    Q_D( const TabletProfile );
+    Q_D(const TabletProfile);
 
     if (!hasDevice(device)) {
         return DeviceProfile(device);
@@ -86,26 +88,23 @@ const DeviceProfile TabletProfile::getDevice ( const DeviceType& device ) const
     return d->devices.value(device.key());
 }
 
-
-QString TabletProfile::getName() const 
+QString TabletProfile::getName() const
 {
-    Q_D( const TabletProfile );
+    Q_D(const TabletProfile);
 
     return d->name;
 }
 
-
-bool TabletProfile::hasDevice(const DeviceType& device) const
+bool TabletProfile::hasDevice(const DeviceType &device) const
 {
-    Q_D( const TabletProfile );
+    Q_D(const TabletProfile);
 
     return d->devices.contains(device.key());
 }
 
-
-bool TabletProfile::hasDevice(const QString& device) const
+bool TabletProfile::hasDevice(const QString &device) const
 {
-    const DeviceType* deviceType = DeviceType::find(device);
+    const DeviceType *deviceType = DeviceType::find(device);
 
     if (!deviceType) {
         return false;
@@ -114,10 +113,9 @@ bool TabletProfile::hasDevice(const QString& device) const
     return hasDevice(*deviceType);
 }
 
-
-QStringList TabletProfile::listDevices() const 
+QStringList TabletProfile::listDevices() const
 {
-    Q_D( const TabletProfile );
+    Q_D(const TabletProfile);
 
     QStringList result;
 
@@ -134,10 +132,9 @@ QStringList TabletProfile::listDevices() const
     return result;
 }
 
-
-bool TabletProfile::setDevice ( const DeviceProfile& profile )
+bool TabletProfile::setDevice(const DeviceProfile &profile)
 {
-    Q_D( TabletProfile );
+    Q_D(TabletProfile);
 
     if (profile.getName().isEmpty()) {
         return false;
@@ -148,11 +145,9 @@ bool TabletProfile::setDevice ( const DeviceProfile& profile )
     return true;
 }
 
-
-void TabletProfile::setName(const QString& name)
+void TabletProfile::setName(const QString &name)
 {
-    Q_D( TabletProfile );
+    Q_D(TabletProfile);
 
     d->name = name;
 }
-

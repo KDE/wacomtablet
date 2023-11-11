@@ -20,9 +20,9 @@
 #ifndef KEYSEQUENCEINPUTBUTTON_H
 #define KEYSEQUENCEINPUTBUTTON_H
 
-#include <QtGlobal>
-#include <QScopedPointer>
 #include <QPushButton>
+#include <QScopedPointer>
+#include <QtGlobal>
 
 // forward declarations
 class QKeySequence;
@@ -32,7 +32,6 @@ namespace Wacom
 
 // forward declarations
 class KeySequenceInputButtonPrivate;
-
 
 /**
  * @class KeySequenceInputButton
@@ -51,7 +50,6 @@ class KeySequenceInputButton : public QPushButton
     Q_OBJECT
 
 public:
-
     //! Default Constructor
     KeySequenceInputButton(QWidget *parent = nullptr);
 
@@ -62,31 +60,28 @@ public:
     void clearSequence();
 
     //! Gets the current sequence.
-    const QKeySequence& getSequence() const;
+    const QKeySequence &getSequence() const;
 
     //! Sets the current sequence.
-    void setSequence(const QKeySequence& sequence);
-
+    void setSequence(const QKeySequence &sequence);
 
 Q_SIGNALS:
 
     //! Emitted when the key sequences changes.
-    void keySequenceChanged(const QKeySequence& sequence);
-
+    void keySequenceChanged(const QKeySequence &sequence);
 
 protected:
-
     //! Cancels shortcut recording.
     void cancelRecording();
 
     // overloaded from QPushButton
-    bool event (QEvent *event) override;
+    bool event(QEvent *event) override;
 
     // overloaded from QPushButton
-    void keyPressEvent (QKeyEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
 
     // overloaded from QPushButton
-    void keyReleaseEvent (QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
 
     //! Starts shortcut recording.
     void startRecording();
@@ -94,19 +89,16 @@ protected:
     //! Finish shortcut recording.
     void stopRecording();
 
-
 private Q_SLOTS:
 
     void onButtonClicked();
 
-
 private:
-
     //! Hidden Copy Constructor
-    KeySequenceInputButton(const KeySequenceInputButton& other) = delete;
+    KeySequenceInputButton(const KeySequenceInputButton &other) = delete;
 
     //! Hidden Copy Operator
-    KeySequenceInputButton& operator= (const KeySequenceInputButton& other) = delete;
+    KeySequenceInputButton &operator=(const KeySequenceInputButton &other) = delete;
 
     void recordKey(uint modifierKeys, int keyQt);
 
@@ -118,6 +110,5 @@ private:
     const QScopedPointer<KeySequenceInputButtonPrivate> d_ptr; //!< D-Pointer to private members.
 
 }; // CLASS KeySequenceInputButton
-}  // NAMESPACE Wacom
+} // NAMESPACE Wacom
 #endif // KEYSEQUENCEINPUTBUTTON_H
-

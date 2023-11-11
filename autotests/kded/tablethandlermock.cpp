@@ -21,7 +21,8 @@
 
 using namespace Wacom;
 
-TabletHandlerMock::TabletHandlerMock() : TabletHandlerInterface(nullptr)
+TabletHandlerMock::TabletHandlerMock()
+    : TabletHandlerInterface(nullptr)
 {
     m_profile = QLatin1String("default");
 
@@ -29,31 +30,26 @@ TabletHandlerMock::TabletHandlerMock() : TabletHandlerInterface(nullptr)
     m_profiles.append(QLatin1String("myprofile"));
 }
 
-TabletHandlerMock::~TabletHandlerMock() {}
+TabletHandlerMock::~TabletHandlerMock()
+{
+}
 
-
-void TabletHandlerMock::emitProfileChanged(const QString &tabletId, const QString& profile)
+void TabletHandlerMock::emitProfileChanged(const QString &tabletId, const QString &profile)
 {
     emit profileChanged(tabletId, profile);
 }
 
-
-
-void TabletHandlerMock::emitTabletAdded(const TabletInformation& info)
+void TabletHandlerMock::emitTabletAdded(const TabletInformation &info)
 {
     emit tabletAdded(info);
 }
-
-
 
 void TabletHandlerMock::emitTabletRemoved(const QString &tabletId)
 {
     emit tabletRemoved(tabletId);
 }
 
-
-
-QString TabletHandlerMock::getProperty(const QString& tabletId, const DeviceType& deviceType, const Property& property) const
+QString TabletHandlerMock::getProperty(const QString &tabletId, const DeviceType &deviceType, const Property &property) const
 {
     Q_UNUSED(tabletId)
     QString prop = property.key();
@@ -69,40 +65,33 @@ QString TabletHandlerMock::getProperty(const QString& tabletId, const DeviceType
     return m_propertyValue;
 }
 
-
-
-QStringList TabletHandlerMock::listProfiles(const QString& tabletId)
+QStringList TabletHandlerMock::listProfiles(const QString &tabletId)
 {
     Q_UNUSED(tabletId)
     return m_profiles;
 }
 
-
-
-void TabletHandlerMock::setProfile(const QString& tabletId, const QString& profile)
+void TabletHandlerMock::setProfile(const QString &tabletId, const QString &profile)
 {
     m_profile = profile;
     emitProfileChanged(tabletId, profile);
 }
 
-
-
-void TabletHandlerMock::setProperty(const QString& tabletId, const DeviceType& deviceType, const Property& property, const QString& value)
+void TabletHandlerMock::setProperty(const QString &tabletId, const DeviceType &deviceType, const Property &property, const QString &value)
 {
     Q_UNUSED(tabletId)
-    m_deviceType      = deviceType.key();
-    m_property        = property.key();
-    m_propertyValue   = value;
+    m_deviceType = deviceType.key();
+    m_property = property.key();
+    m_propertyValue = value;
 }
 
-
-QStringList TabletHandlerMock::getProfileRotationList(const QString& tabletId)
+QStringList TabletHandlerMock::getProfileRotationList(const QString &tabletId)
 {
     Q_UNUSED(tabletId)
     return m_rotationList;
 }
 
-void TabletHandlerMock::setProfileRotationList(const QString& tabletId, const QStringList &rotationList)
+void TabletHandlerMock::setProfileRotationList(const QString &tabletId, const QStringList &rotationList)
 {
     Q_UNUSED(tabletId)
     m_rotationList = rotationList;

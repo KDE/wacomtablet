@@ -21,14 +21,15 @@
 #define TABLETPAGEWIDGET_H
 
 #include "screenmap.h"
-#include "screenspace.h"
 #include "screenrotation.h"
+#include "screenspace.h"
 
-#include <QWidget>
 #include <QString>
+#include <QWidget>
 
-namespace Ui {
-    class TabletPageWidget;
+namespace Ui
+{
+class TabletPageWidget;
 }
 
 namespace Wacom
@@ -44,8 +45,7 @@ class TabletPageWidget : public QWidget
     Q_OBJECT
 
 public:
-
-    explicit TabletPageWidget( QWidget *parent = nullptr );
+    explicit TabletPageWidget(QWidget *parent = nullptr);
 
     ~TabletPageWidget() override;
 
@@ -66,13 +66,12 @@ public:
      */
     void saveToProfile(ProfileManagementInterface &profileManagement);
 
-
 public slots:
 
     /**
      * Called when the user enables/disables the auto-rotation checkbox.
      */
-    void onAutoRotateChanged (int state);
+    void onAutoRotateChanged(int state);
 
     /**
      * Called when any profile property value changes.
@@ -99,7 +98,6 @@ public slots:
      */
     void onTrackingModeRelative(bool activated);
 
-
 signals:
 
     /**
@@ -110,10 +108,9 @@ signals:
     /**
      * Emitted when the rotation changes to inform our other widgets about it.
      */
-    void rotationChanged(const ScreenRotation& rotation);
+    void rotationChanged(const ScreenRotation &rotation);
 
 protected:
-
     /**
      * Gets the current rotation in profile format.
      * These are the values returned by ScreenRotation.key().
@@ -125,7 +122,7 @@ protected:
     /**
      * @return The current tablet to screen mapping.
      */
-    const ScreenMap& getScreenMap() const;
+    const ScreenMap &getScreenMap() const;
 
     /**
      * Gets the current tablet area mapping in profile format as
@@ -138,7 +135,7 @@ protected:
     /**
      * @return The current screen space selection.
      */
-    const ScreenSpace& getScreenSpace() const;
+    const ScreenSpace &getScreenSpace() const;
 
     /**
      * Gets the current screen area mapping in profile format.
@@ -173,7 +170,7 @@ protected:
      *
      * @param value True to enable auto-rotation, false to disable it.
      */
-    void setAutoRotationEnabled (bool value);
+    void setAutoRotationEnabled(bool value);
 
     /**
      * Changes the inverted-auto rotation configuration. This will not
@@ -190,14 +187,14 @@ protected:
      *
      * @param value The new rotation in profile format.
      */
-    void setRotation(const QString& value);
+    void setRotation(const QString &value);
 
     /**
      * Sets a new tablet area mapping and updates all widgets accordingly.
      *
      * @param screenMap The new tablet to screen mapping.
      */
-    void setScreenMap(const ScreenMap& screenMap);
+    void setScreenMap(const ScreenMap &screenMap);
 
     /**
      * Sets a new tablet area mapping and updates all widgets accordingly.
@@ -205,14 +202,14 @@ protected:
      *
      * @param value The new tablet area mapping in profile format.
      */
-    void setScreenMap(const QString& value);
+    void setScreenMap(const QString &value);
 
     /**
      * Sets a new screen area mapping and updates all widgets accordingly.
      *
      * @param screenSpace The new screen space mapping selection.
      */
-    void setScreenSpace(const ScreenSpace& screenSpace);
+    void setScreenSpace(const ScreenSpace &screenSpace);
 
     /**
      * Sets a new screen area mapping and updates all widgets accordingly.
@@ -220,18 +217,16 @@ protected:
      *
      * @param value The new screen area mapping selection.
      */
-    void setScreenSpace(const QString& value);
+    void setScreenSpace(const QString &value);
 
     /**
      * Sets the tracking mode and updates all widgets accordingly.
      *
      * @param value Either "absolute" or "relative"
      */
-    void setTrackingMode(const QString& value);
-
+    void setTrackingMode(const QString &value);
 
 private:
-
     /**
      * Checks if the current tablet mapping is available for the currently selected
      * tracking mode. If it is not available, a warning is displayed to the user.
@@ -246,13 +241,13 @@ private:
 private:
     Ui::TabletPageWidget *ui;
     QString _tabletId;
-    TabletArea            _tabletGeometry;    // The full tablet area as rectangle.
-    ScreenMap             _screenMap;         // The current tablet to screen mapping of the pad.
-    ScreenSpace           _screenSpace;       // The current screen mapping of the pad.
+    TabletArea _tabletGeometry; // The full tablet area as rectangle.
+    ScreenMap _screenMap; // The current tablet to screen mapping of the pad.
+    ScreenSpace _screenSpace; // The current screen mapping of the pad.
 
-    QString               _deviceNameStylus;  // The Xinput name of the stylus device of the current tablet.
-    QString               _deviceNameTouch;   // The Xinput name of the touch device of the current tablet.
+    QString _deviceNameStylus; // The Xinput name of the stylus device of the current tablet.
+    QString _deviceNameTouch; // The Xinput name of the touch device of the current tablet.
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

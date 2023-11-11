@@ -28,89 +28,79 @@ using namespace Wacom;
 
 namespace Wacom
 {
-    class ScreenMapPrivate
-    {
-        public:
-            static const QString SCREENAREA_SEPERATOR;
-            static const QString SCREEN_SEPERATOR;
+class ScreenMapPrivate
+{
+public:
+    static const QString SCREENAREA_SEPERATOR;
+    static const QString SCREEN_SEPERATOR;
 
-            TabletArea             tabletGeometry;
-            QHash<QString, TabletArea> mappings;
-    };
+    TabletArea tabletGeometry;
+    QHash<QString, TabletArea> mappings;
+};
 
-    const QString ScreenMapPrivate::SCREENAREA_SEPERATOR = QLatin1String(":");
-    const QString ScreenMapPrivate::SCREEN_SEPERATOR     = QLatin1String("|");
+const QString ScreenMapPrivate::SCREENAREA_SEPERATOR = QLatin1String(":");
+const QString ScreenMapPrivate::SCREEN_SEPERATOR = QLatin1String("|");
 }
 
 ScreenMap::ScreenMap(const TabletArea &tabletGeometry)
-        : d_ptr(new ScreenMapPrivate)
+    : d_ptr(new ScreenMapPrivate)
 {
     Q_D(ScreenMap);
 
     d->tabletGeometry = tabletGeometry;
 }
 
-
-ScreenMap::ScreenMap(const QString& mapping)
-        : d_ptr(new ScreenMapPrivate)
+ScreenMap::ScreenMap(const QString &mapping)
+    : d_ptr(new ScreenMapPrivate)
 {
     fromString(mapping);
 }
 
-
-
-ScreenMap::ScreenMap(const ScreenMap& screenMap)
-        : d_ptr(new ScreenMapPrivate)
+ScreenMap::ScreenMap(const ScreenMap &screenMap)
+    : d_ptr(new ScreenMapPrivate)
 {
     operator=(screenMap);
 }
-
-
 
 ScreenMap::~ScreenMap()
 {
     delete this->d_ptr;
 }
 
-
-ScreenMap& ScreenMap::operator=(const ScreenMap& screenMap)
+ScreenMap &ScreenMap::operator=(const ScreenMap &screenMap)
 {
     *(this->d_ptr) = *(screenMap.d_ptr);
 
     return (*this);
 }
 
-
-void ScreenMap::fromString(const QString& mappings)
+void ScreenMap::fromString(const QString &mappings)
 {
     Q_D(ScreenMap);
 
     QStringList screenMappings = mappings.split(QLatin1String("|"), Qt::SkipEmptyParts);
-    QString     separator(QLatin1String(":"));
+    QString separator(QLatin1String(":"));
     QStringList mapping;
     ScreenSpace screen;
-    TabletArea  tabletArea;
+    TabletArea tabletArea;
 
     d->mappings.clear();
 
-    foreach(QString screenMapping, screenMappings) {
-
+    foreach (QString screenMapping, screenMappings) {
         mapping = screenMapping.split(separator, Qt::SkipEmptyParts);
 
         if (mapping.count() != 2) {
             continue;
         }
 
-        screen     = ScreenSpace(mapping.at(0).trimmed());
+        screen = ScreenSpace(mapping.at(0).trimmed());
         tabletArea = TabletArea(mapping.at(1).trimmed());
 
         setMapping(screen, tabletArea);
     }
 }
 
-
-
-const TabletArea ScreenMap::getMapping(const ScreenSpace& screen) const
+const TabletArea ScreenMap::getMapping(const ScreenSpace &screen) const
 {
     Q_D(const ScreenMap);
 
@@ -128,15 +118,12 @@ const TabletArea ScreenMap::getMapping(const ScreenSpace& screen) const
     return area;
 }
 
-
-const QString ScreenMap::getMappingAsString(const ScreenSpace& screen) const
+const QString ScreenMap::getMappingAsString(const ScreenSpace &screen) const
 {
     return getMapping(screen).toString();
 }
 
-
-
-void ScreenMap::setMapping(const ScreenSpace& screen, const TabletArea &mapping)
+void ScreenMap::setMapping(const ScreenSpace &screen, const TabletArea &mapping)
 {
     Q_D(ScreenMap);
 
@@ -147,8 +134,6 @@ void ScreenMap::setMapping(const ScreenSpace& screen, const TabletArea &mapping)
     }
 }
 
-
-
 const QString ScreenMap::toString() const
 {
     Q_D(const ScreenMap);
@@ -156,19 +141,17 @@ const QString ScreenMap::toString() const
     // create mapping string
     auto mapping = d->mappings.constBegin();
 
-    QString     mappings;
-    TabletArea  area;
+    QString mappings;
+    TabletArea area;
 
-    for ( ; mapping != d->mappings.constEnd() ; ++mapping) {
+    for (; mapping != d->mappings.constEnd(); ++mapping) {
         area = mapping.value();
 
         if (!mappings.isEmpty()) {
             mappings.append(ScreenMapPrivate::SCREEN_SEPERATOR);
         }
 
-        mappings.append(QString::fromLatin1("%1%2%3").arg(mapping.key())
-                                                     .arg(ScreenMapPrivate::SCREENAREA_SEPERATOR)
-                                                     .arg(area.toString()));
+        mappings.append(QString::fromLatin1("%1%2%3").arg(mapping.key()).arg(ScreenMapPrivate::SCREENAREA_SEPERATOR).arg(area.toString()));
     }
 
     return mappings;

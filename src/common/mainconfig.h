@@ -26,24 +26,24 @@ namespace Wacom
 {
 
 class MainConfigPrivate;
-    
+
 class MainConfig
 {
 public:
     MainConfig();
-    explicit MainConfig(const QString& fileName);
+    explicit MainConfig(const QString &fileName);
     ~MainConfig();
 
     QString getLastProfile(const QString &deviceName);
 
-    void open (const QString& fileName);
+    void open(const QString &fileName);
 
-    void setLastProfile(const QString &deviceName, const QString& profile);
-    
+    void setLastProfile(const QString &deviceName, const QString &profile);
+
 private:
-    Q_DECLARE_PRIVATE( MainConfig )
+    Q_DECLARE_PRIVATE(MainConfig)
     MainConfigPrivate *const d_ptr; /**< d-pointer for this class */
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

@@ -26,47 +26,48 @@
 
 #include "tabletprofile.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 class ProfileManagerPrivate;
 
 /**
-  * A tablet profile manager.
-  *
-  * All profiles of a tablet are stored under one unique identifier for that tablet.
-  * Each tablet profile can have multiple device profiles for the different components
-  * of its tablet (stylus/eraser/pad/touch/...). The profile manager works by loading
-  * all tablet profiles of a tablet device. Only tablet profiles of one tablet device
-  * can be loaded at a time.
-  *
-  * Profile hierarchy in configuration file:
-  *
-  * + TABLET IDENTIFIER -> TABLET PROFILE -> DEVICE PROFILE
-  *                                       -> DEVICE PROFILE
-  *                                       -> ...
-  *                     -> TABLET PROFILE -> DEVICE PROFILE
-  *                                       -> ...
-  *                     -> ...
-  * + ...
-  */
-class ProfileManager {
+ * A tablet profile manager.
+ *
+ * All profiles of a tablet are stored under one unique identifier for that tablet.
+ * Each tablet profile can have multiple device profiles for the different components
+ * of its tablet (stylus/eraser/pad/touch/...). The profile manager works by loading
+ * all tablet profiles of a tablet device. Only tablet profiles of one tablet device
+ * can be loaded at a time.
+ *
+ * Profile hierarchy in configuration file:
+ *
+ * + TABLET IDENTIFIER -> TABLET PROFILE -> DEVICE PROFILE
+ *                                       -> DEVICE PROFILE
+ *                                       -> ...
+ *                     -> TABLET PROFILE -> DEVICE PROFILE
+ *                                       -> ...
+ *                     -> ...
+ * + ...
+ */
+class ProfileManager
+{
 public:
     /**
-      * Default constructor
-      */
+     * Default constructor
+     */
     ProfileManager();
 
-     /**
-      * @param filename The filename to load the configuration from. It can either be
-      *                 a filename only or a full path. When using a filename only, the
-      *                 full path is determined by KSharedConfig.
-      */
-    explicit ProfileManager( const QString& filename );
-
+    /**
+     * @param filename The filename to load the configuration from. It can either be
+     *                 a filename only or a full path. When using a filename only, the
+     *                 full path is determined by KSharedConfig.
+     */
+    explicit ProfileManager(const QString &filename);
 
     /**
-      * Default destructor
-      */
+     * Default destructor
+     */
     ~ProfileManager();
 
     /**
@@ -77,7 +78,7 @@ public:
     /**
      * Deletes the given profile from the currently loaded tablet.
      */
-    bool deleteProfile(const QString& profile);
+    bool deleteProfile(const QString &profile);
 
     /**
      * Checks if the given tablet device identifier exists in the configuration file.
@@ -86,7 +87,7 @@ public:
      *
      * @return True if the identifier has profiles, else false.
      */
-    bool hasIdentifier(const QString& identifier) const;
+    bool hasIdentifier(const QString &identifier) const;
 
     /**
      * Save the ordered list of profiles that can be used in rotation
@@ -147,8 +148,7 @@ public:
      *
      * @see ProfileManager::loadProfiles(const QString&)
      */
-    bool hasProfile(const QString& profileName) const;
-
+    bool hasProfile(const QString &profileName) const;
 
     /**
      * Checks if a configuration file has been opened.
@@ -174,15 +174,13 @@ public:
      */
     const QStringList listProfiles() const;
 
-
     /**
      * Gets the given profile for the currently loaded tablet identifier. If the tablet
      * profile does not exist yet, an empty one will be created.
      *
      * @param profile The profile name of the tablet profile to get.
      */
-    const TabletProfile loadProfile(const QString& profile) const;
-
+    const TabletProfile loadProfile(const QString &profile) const;
 
     /**
      * Loads all tablet profiles for a given tablet device identifier from the
@@ -192,14 +190,12 @@ public:
      * @param tabletIdentifier The tablet identifier to load the profiles for.
      * @param tabletName Old tablet identifier for compatibility with old configs.
      */
-    bool readProfiles(const QString& tabletIdentifier, const QString &tabletName = QString());
-
+    bool readProfiles(const QString &tabletIdentifier, const QString &tabletName = QString());
 
     /**
      * Opens the given configuration file.
      */
-    void open (const QString& filename);
-
+    void open(const QString &filename);
 
     /**
      * Reloads the current configuration file.
@@ -214,14 +210,13 @@ public:
      *
      * @param tabletProfile The tablet profile to save.
      */
-    bool saveProfile(Wacom::TabletProfile& tabletProfile);
-
+    bool saveProfile(Wacom::TabletProfile &tabletProfile);
 
 private:
-    Q_DECLARE_PRIVATE( ProfileManager )
+    Q_DECLARE_PRIVATE(ProfileManager)
 
     ProfileManagerPrivate *const d_ptr; /**< d-pointer for this class */
 
-};     // CLASS
-}      // NAMESPACE
+}; // CLASS
+} // NAMESPACE
 #endif // HEADER PROTECTION

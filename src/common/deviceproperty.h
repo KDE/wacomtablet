@@ -25,7 +25,8 @@
 #include "property.h"
 #include "propertyset.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 // forward declarations & typedefs
 class DeviceProperty;
@@ -37,7 +38,6 @@ typedef PropertySet<DeviceProperty> DevicePropertyTemplateSpecialization;
  */
 class DeviceProperty : public DevicePropertyTemplateSpecialization
 {
-
 public:
     static const DeviceProperty AbsWheel2Down;
     static const DeviceProperty AbsWheel2Up;
@@ -91,13 +91,17 @@ public:
     static const DeviceProperty ZoomDistance;
 
 private:
-    DeviceProperty(const Property& id, const QString& key) : DevicePropertyTemplateSpecialization(this, id, key) {}
+    DeviceProperty(const Property &id, const QString &key)
+        : DevicePropertyTemplateSpecialization(this, id, key)
+    {
+    }
 
 }; // CLASS
 
 // instances container specialization declaration
 template<>
-DevicePropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container DevicePropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances;
+DevicePropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container
+    DevicePropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances;
 
-}      // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

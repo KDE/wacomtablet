@@ -41,39 +41,36 @@ class TabletFinder : public QObject
 public:
     ~TabletFinder() override;
 
-    static TabletFinder& instance();
+    static TabletFinder &instance();
 
     /**
      * Scan for devices and emit a signal for each tablet found.
      */
     bool scan();
 
-
 public Q_SLOTS:
 
     /**
      * This slot has to be connected to the event notifier.
      */
-    void onX11TabletAdded (int deviceId);
+    void onX11TabletAdded(int deviceId);
 
     /**
      * This slot has to be connected to the event notifier.
      */
-    void onX11TabletRemoved (int deviceId);
-
+    void onX11TabletRemoved(int deviceId);
 
 Q_SIGNALS:
 
     /**
      * Emitted when a tablet is add.
      */
-    void tabletAdded (TabletInformation tabletInformation);
+    void tabletAdded(TabletInformation tabletInformation);
 
     /**
      * Emitted when a tablet is removed.
      */
-    void tabletRemoved (TabletInformation tabletInformation);
-
+    void tabletRemoved(TabletInformation tabletInformation);
 
 protected:
     /**
@@ -88,24 +85,22 @@ protected:
      *
      * @return True on success, false on error.
      */
-    bool lookupInformation (TabletInformation& info);
-
+    bool lookupInformation(TabletInformation &info);
 
 private:
     /**
      * Copy constructor which does nothing as this class is a singleton.
      */
-    explicit TabletFinder(const TabletFinder& finder) = delete;
+    explicit TabletFinder(const TabletFinder &finder) = delete;
 
     /**
      * Copy operator which does nothing as this class is a singleton.
      */
-    TabletFinder& operator= (const TabletFinder& finder) = delete;
-
+    TabletFinder &operator=(const TabletFinder &finder) = delete;
 
     Q_DECLARE_PRIVATE(TabletFinder)
     TabletFinderPrivate *const d_ptr;
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

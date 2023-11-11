@@ -25,46 +25,48 @@
 
 #include "deviceprofile.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 class TabletProfilePrivate;
 
 /**
-  * This class implements the profile of a single device (stylus/eraser/cursor/pad/touch)
-  */
-class TabletProfile {
+ * This class implements the profile of a single device (stylus/eraser/cursor/pad/touch)
+ */
+class TabletProfile
+{
 public:
     /**
-      * Default constructor
-      */
+     * Default constructor
+     */
     TabletProfile();
-    
+
     /**
      * Initializes new instance with name.
-     * 
+     *
      * @param name The name of this profile.
      */
-    explicit TabletProfile(const QString& name);
+    explicit TabletProfile(const QString &name);
 
     /**
      * Copy Constructor
      *
      * @param profile The profile to copy.
      */
-    TabletProfile(const TabletProfile& profile);
+    TabletProfile(const TabletProfile &profile);
 
     /**
-      * Default destructor
-      */
+     * Default destructor
+     */
     ~TabletProfile();
 
     /**
      * Copy operator.
-     * 
+     *
      * @param that The instance to copy.
      */
-    TabletProfile& operator=(const TabletProfile& that);
-    
+    TabletProfile &operator=(const TabletProfile &that);
+
     /**
      * Clears all devices from the current profile.
      */
@@ -72,7 +74,7 @@ public:
 
     /**
      * Gets the name of this tablet configuration.
-     * 
+     *
      * @return The name of this tablet configuration.
      */
     QString getName() const;
@@ -80,21 +82,21 @@ public:
     /**
      * Gets the profile of a device. If the device does not exist within this
      * tablet configuration and empty device profile is returned.
-     * 
+     *
      * @param device The name of the device profile to get.
-     * 
+     *
      * @return The requested device profile or an empty one if the requested one does not exist.
      */
-    const DeviceProfile getDevice( const DeviceType& device ) const;
+    const DeviceProfile getDevice(const DeviceType &device) const;
 
     /**
      * Checks if this tablet has a configuration for the given device (stylus/eraser/touch/pad/...)
-     * 
+     *
      * @param device The device type (stylus/eraser/touch/pad/...).
-     * 
+     *
      * @return True if a configuration is present, else false.
      */
-    bool hasDevice(const DeviceType& device) const;
+    bool hasDevice(const DeviceType &device) const;
 
     /**
      * Checks if the tablet has configuration for the given device.
@@ -104,36 +106,36 @@ public:
      *
      * @return True if a configuration is present, else false.
      */
-    bool hasDevice(const QString& device) const;
+    bool hasDevice(const QString &device) const;
 
     /**
      * Lists all device profile names of this tablet configuration.
-     * 
+     *
      * @return A list of device profile names.
      */
     QStringList listDevices() const;
 
     /**
      * Sets a device profile. For this to work, the profile has to have a name set.
-     * 
+     *
      * @param profile The profile to add.
-     * 
+     *
      * @return True if the profile was added, else false.
      */
-    bool setDevice(const DeviceProfile& profile);
+    bool setDevice(const DeviceProfile &profile);
 
     /**
      * Sets the name of this profile.
-     * 
+     *
      * @param name The new name of this profile.
      */
-    void setName(const QString& name);
+    void setName(const QString &name);
 
 private:
-    Q_DECLARE_PRIVATE( TabletProfile )
+    Q_DECLARE_PRIVATE(TabletProfile)
 
     TabletProfilePrivate *const d_ptr; /**< d-pointer for this class */
 };
 
-}      // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

@@ -20,9 +20,9 @@
 #ifndef KEYSEQUENCEINPUTWIDGET_H
 #define KEYSEQUENCEINPUTWIDGET_H
 
-#include <QtGlobal>
 #include <QScopedPointer>
 #include <QWidget>
+#include <QtGlobal>
 
 // forward declarations
 class QKeySequence;
@@ -32,7 +32,6 @@ namespace Wacom
 
 // forward declarations
 class KeySequenceInputWidgetPrivate;
-
 
 /**
  * @class KeySequenceInputWidget
@@ -50,17 +49,14 @@ class KeySequenceInputWidget : public QWidget
     Q_OBJECT
 
 public:
-
     //! Default Constructor
-    KeySequenceInputWidget( QWidget *parent = nullptr );
+    KeySequenceInputWidget(QWidget *parent = nullptr);
 
     //! Destructor
     ~KeySequenceInputWidget() override;
 
-
     //! Returns the current key sequence.
-    const QKeySequence& keySequence() const;
-
+    const QKeySequence &keySequence() const;
 
 public Q_SLOTS:
 
@@ -68,33 +64,27 @@ public Q_SLOTS:
     void clearKeySequence();
 
     //! Sets the key sequence.
-    void setKeySequence(const QKeySequence& sequence);
-
+    void setKeySequence(const QKeySequence &sequence);
 
 Q_SIGNALS:
 
     //! Emitted when the key sequence changes.
-    void keySequenceChanged(const QKeySequence& sequence);
-
-
+    void keySequenceChanged(const QKeySequence &sequence);
 
 private Q_SLOTS:
 
-    void onKeySequenceChanged(const QKeySequence& sequence);
-
+    void onKeySequenceChanged(const QKeySequence &sequence);
 
 private:
     //! Copy Constructor
-    KeySequenceInputWidget(const KeySequenceInputWidget& other) = delete;
+    KeySequenceInputWidget(const KeySequenceInputWidget &other) = delete;
 
     //! Copy Operator
-    KeySequenceInputWidget& operator= (const KeySequenceInputWidget& other) = delete;
-
+    KeySequenceInputWidget &operator=(const KeySequenceInputWidget &other) = delete;
 
     Q_DECLARE_PRIVATE(KeySequenceInputWidget)
     const QScopedPointer<KeySequenceInputWidgetPrivate> d_ptr; //!< D-Pointer to private members.
 
 }; // CLASS KeySequenceInputWidget
-}  // NAMESPACE Wacom
+} // NAMESPACE Wacom
 #endif // KEYSEQUENCEINPUTWIDGET_H
-

@@ -24,25 +24,27 @@
 
 using namespace Wacom;
 
-namespace Wacom {
-    /**
-      * Private class for the d-pointer
-      */
-    class PropertyAdaptorPrivate {
-        public:
-            PropertyAdaptor *adaptee = nullptr;
-    };
+namespace Wacom
+{
+/**
+ * Private class for the d-pointer
+ */
+class PropertyAdaptorPrivate
+{
+public:
+    PropertyAdaptor *adaptee = nullptr;
+};
 }
 
-PropertyAdaptor::PropertyAdaptor() : d_ptr(new PropertyAdaptorPrivate)
+PropertyAdaptor::PropertyAdaptor()
+    : d_ptr(new PropertyAdaptorPrivate)
 {
-
 }
 
-
-PropertyAdaptor::PropertyAdaptor(PropertyAdaptor* adaptee) : d_ptr(new PropertyAdaptorPrivate)
+PropertyAdaptor::PropertyAdaptor(PropertyAdaptor *adaptee)
+    : d_ptr(new PropertyAdaptorPrivate)
 {
-    Q_D( PropertyAdaptor );
+    Q_D(PropertyAdaptor);
     d->adaptee = adaptee;
 }
 
@@ -51,10 +53,9 @@ PropertyAdaptor::~PropertyAdaptor()
     delete this->d_ptr;
 }
 
-
 const QList<Property> PropertyAdaptor::getProperties() const
 {
-    Q_D( const PropertyAdaptor );
+    Q_D(const PropertyAdaptor);
 
     if (d->adaptee) {
         return d->adaptee->getProperties();
@@ -64,40 +65,41 @@ const QList<Property> PropertyAdaptor::getProperties() const
     return QList<Property>();
 }
 
-const QString PropertyAdaptor::getProperty ( const Property& property ) const
+const QString PropertyAdaptor::getProperty(const Property &property) const
 {
-    Q_D( const PropertyAdaptor );
+    Q_D(const PropertyAdaptor);
 
     if (d->adaptee) {
         return d->adaptee->getProperty(property);
     }
 
-    qCWarning(COMMON) << QString::fromLatin1("Someone is trying to get property '%1', but no one implemented PropertyAdaptor::getProperty()!").arg(property.key());
+    qCWarning(COMMON)
+        << QString::fromLatin1("Someone is trying to get property '%1', but no one implemented PropertyAdaptor::getProperty()!").arg(property.key());
     return QString();
 }
 
-
-bool PropertyAdaptor::getPropertyAsBool(const Property& property) const
+bool PropertyAdaptor::getPropertyAsBool(const Property &property) const
 {
     return StringUtils::asBool(getProperty(property));
 }
 
-
-bool PropertyAdaptor::setProperty ( const Property& property, const QString& value )
+bool PropertyAdaptor::setProperty(const Property &property, const QString &value)
 {
-    Q_D( PropertyAdaptor );
+    Q_D(PropertyAdaptor);
 
     if (d->adaptee) {
         return d->adaptee->setProperty(property, value);
     }
 
-    qCWarning(COMMON) << QString::fromLatin1("Someone is trying to set property '%1' to '%2', but no one implemented PropertyAdaptor::setProperty()!").arg(property.key()).arg(value);
+    qCWarning(COMMON) << QString::fromLatin1("Someone is trying to set property '%1' to '%2', but no one implemented PropertyAdaptor::setProperty()!")
+                             .arg(property.key())
+                             .arg(value);
     return false;
 }
 
-bool PropertyAdaptor::supportsProperty ( const Property& property ) const
+bool PropertyAdaptor::supportsProperty(const Property &property) const
 {
-    Q_D( const PropertyAdaptor );
+    Q_D(const PropertyAdaptor);
 
     if (d->adaptee) {
         return d->adaptee->supportsProperty(property);
@@ -105,8 +107,8 @@ bool PropertyAdaptor::supportsProperty ( const Property& property ) const
 
     QList<Property> props = getProperties();
 
-    foreach(const Property& prop, props) {
-        if(property == prop) {
+    foreach (const Property &prop, props) {
+        if (property == prop) {
             return true;
         }
     }
@@ -114,14 +116,14 @@ bool PropertyAdaptor::supportsProperty ( const Property& property ) const
     return false;
 }
 
-PropertyAdaptor* PropertyAdaptor::getAdaptee()
+PropertyAdaptor *PropertyAdaptor::getAdaptee()
 {
-    Q_D( PropertyAdaptor );
+    Q_D(PropertyAdaptor);
     return d->adaptee;
 }
 
-const PropertyAdaptor* PropertyAdaptor::getAdaptee() const
+const PropertyAdaptor *PropertyAdaptor::getAdaptee() const
 {
-    Q_D( const PropertyAdaptor );
+    Q_D(const PropertyAdaptor);
     return d->adaptee;
 }

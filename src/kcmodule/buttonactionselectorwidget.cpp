@@ -26,52 +26,55 @@
 
 using namespace Wacom;
 
-namespace Wacom {
-    class ButtonActionSelectorWidgetPrivate {
-        public:
-            ButtonActionSelectorWidgetPrivate() :ui( new Ui::ButtonActionSelectorWidget ) {}
-            ~ButtonActionSelectorWidgetPrivate() {
-                delete ui;
-            }
+namespace Wacom
+{
+class ButtonActionSelectorWidgetPrivate
+{
+public:
+    ButtonActionSelectorWidgetPrivate()
+        : ui(new Ui::ButtonActionSelectorWidget)
+    {
+    }
+    ~ButtonActionSelectorWidgetPrivate()
+    {
+        delete ui;
+    }
 
-            ButtonShortcut                  shortcut;
-            Ui::ButtonActionSelectorWidget* ui;
-    };
+    ButtonShortcut shortcut;
+    Ui::ButtonActionSelectorWidget *ui;
+};
 }
 
-ButtonActionSelectorWidget::ButtonActionSelectorWidget(QWidget* parent)
-        : QWidget(parent), d_ptr(new ButtonActionSelectorWidgetPrivate)
+ButtonActionSelectorWidget::ButtonActionSelectorWidget(QWidget *parent)
+    : QWidget(parent)
+    , d_ptr(new ButtonActionSelectorWidgetPrivate)
 {
     setupUi();
 }
-
 
 ButtonActionSelectorWidget::~ButtonActionSelectorWidget()
 {
     delete this->d_ptr;
 }
 
-
-const ButtonShortcut& ButtonActionSelectorWidget::getShortcut() const
+const ButtonShortcut &ButtonActionSelectorWidget::getShortcut() const
 {
-    Q_D (const ButtonActionSelectorWidget);
+    Q_D(const ButtonActionSelectorWidget);
     return d->shortcut;
 }
 
-
-void ButtonActionSelectorWidget::setShortcut(const ButtonShortcut& shortcut)
+void ButtonActionSelectorWidget::setShortcut(const ButtonShortcut &shortcut)
 {
-    Q_D (ButtonActionSelectorWidget);
+    Q_D(ButtonActionSelectorWidget);
     d->shortcut = shortcut;
 
     updateSelectorButton(shortcut);
     updateActionName(shortcut);
 }
 
-
 void ButtonActionSelectorWidget::onButtonActionSelectorClicked()
 {
-    Q_D (ButtonActionSelectorWidget);
+    Q_D(ButtonActionSelectorWidget);
 
     ButtonActionSelectionDialog selectorDialog;
 
@@ -81,36 +84,33 @@ void ButtonActionSelectorWidget::onButtonActionSelectorClicked()
     ButtonShortcut selectedShortcut(selectorDialog.getShortcut());
 
     if (d->shortcut != selectedShortcut) {
-        setShortcut (selectedShortcut);
-        emit buttonActionChanged (d->shortcut);
+        setShortcut(selectedShortcut);
+        emit buttonActionChanged(d->shortcut);
     }
 }
 
-
 void ButtonActionSelectorWidget::onLineEditSelectionChanged()
 {
-    Q_D (ButtonActionSelectorWidget);
+    Q_D(ButtonActionSelectorWidget);
     d->ui->actionNameDisplayWidget->deselect();
 }
 
-
 void ButtonActionSelectorWidget::setupUi()
 {
-    Q_D (ButtonActionSelectorWidget);
+    Q_D(ButtonActionSelectorWidget);
 
-    d->ui->setupUi( this );
+    d->ui->setupUi(this);
 
-    connect ( d->ui->actionSelectionButton,   SIGNAL (clicked(bool)),      this, SLOT (onButtonActionSelectorClicked()) );
-    connect ( d->ui->actionNameDisplayWidget, SIGNAL (selectionChanged()), this, SLOT (onLineEditSelectionChanged()) );
-    connect ( d->ui->actionNameDisplayWidget, SIGNAL (mousePressed()),     this, SLOT (onButtonActionSelectorClicked()) );
+    connect(d->ui->actionSelectionButton, SIGNAL(clicked(bool)), this, SLOT(onButtonActionSelectorClicked()));
+    connect(d->ui->actionNameDisplayWidget, SIGNAL(selectionChanged()), this, SLOT(onLineEditSelectionChanged()));
+    connect(d->ui->actionNameDisplayWidget, SIGNAL(mousePressed()), this, SLOT(onButtonActionSelectorClicked()));
 
     setShortcut(ButtonShortcut());
 }
 
-
-void ButtonActionSelectorWidget::updateActionName(const ButtonShortcut& shortcut)
+void ButtonActionSelectorWidget::updateActionName(const ButtonShortcut &shortcut)
 {
-    Q_D (ButtonActionSelectorWidget);
+    Q_D(ButtonActionSelectorWidget);
 
     QString displayName = shortcut.toDisplayString();
 
@@ -119,10 +119,9 @@ void ButtonActionSelectorWidget::updateActionName(const ButtonShortcut& shortcut
     d->ui->actionNameDisplayWidget->blockSignals(false);
 }
 
-
-void ButtonActionSelectorWidget::updateSelectorButton(const ButtonShortcut& shortcut)
+void ButtonActionSelectorWidget::updateSelectorButton(const ButtonShortcut &shortcut)
 {
-    Q_D (ButtonActionSelectorWidget);
+    Q_D(ButtonActionSelectorWidget);
 
     if (shortcut.isButton()) {
         // shortcut is a mouse button click

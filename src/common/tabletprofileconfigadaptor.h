@@ -23,7 +23,8 @@
 #include "configadaptor.h"
 #include "tabletprofile.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 class TabletProfileConfigAdaptorPrivate;
 
@@ -34,15 +35,14 @@ class TabletProfileConfigAdaptor : public ConfigAdaptor
 {
 public:
     /**
-      * Default constructor
-      */
-    explicit TabletProfileConfigAdaptor(TabletProfile& profile);
+     * Default constructor
+     */
+    explicit TabletProfileConfigAdaptor(TabletProfile &profile);
 
     /**
-      * Default destructor
-      */
+     * Default destructor
+     */
     ~TabletProfileConfigAdaptor() override;
-
 
     /**
      * Loads a tablet profile from the given config group into the tablet
@@ -56,8 +56,7 @@ public:
      *
      * @return True on success, false on error.
      */
-    bool loadConfig (const KConfigGroup& config) override;
-
+    bool loadConfig(const KConfigGroup &config) override;
 
     /**
      * Saves the configuration of the managed tablet profile to the given
@@ -68,13 +67,12 @@ public:
      *
      * @return True on success, false on error.
      */
-    bool saveConfig (KConfigGroup& config) const override;
-
+    bool saveConfig(KConfigGroup &config) const override;
 
 private:
-    Q_DECLARE_PRIVATE( TabletProfileConfigAdaptor )
+    Q_DECLARE_PRIVATE(TabletProfileConfigAdaptor)
     TabletProfileConfigAdaptorPrivate *const d_ptr; /**< d-pointer for this class */
-    
-};     // CLASS
-}      // NAMESPACE
+
+}; // CLASS
+} // NAMESPACE
 #endif // HEADER PROTECTION

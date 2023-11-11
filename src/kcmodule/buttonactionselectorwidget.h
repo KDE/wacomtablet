@@ -24,7 +24,8 @@
 
 #include "buttonshortcut.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 class ButtonActionSelectorWidgetPrivate;
 
@@ -33,21 +34,17 @@ class ButtonActionSelectorWidget : public QWidget
     Q_OBJECT
 
 public:
-
-    explicit ButtonActionSelectorWidget( QWidget *parent = nullptr );
+    explicit ButtonActionSelectorWidget(QWidget *parent = nullptr);
 
     ~ButtonActionSelectorWidget() override;
 
+    const ButtonShortcut &getShortcut() const;
 
-    const ButtonShortcut& getShortcut() const;
-
-    void setShortcut (const ButtonShortcut& shortcut);
-
+    void setShortcut(const ButtonShortcut &shortcut);
 
 signals:
 
-    void buttonActionChanged (const ButtonShortcut& shortcut);
-
+    void buttonActionChanged(const ButtonShortcut &shortcut);
 
 private slots:
 
@@ -55,19 +52,16 @@ private slots:
 
     void onLineEditSelectionChanged();
 
-
 private:
-
     void setupUi();
 
-    void updateActionName (const ButtonShortcut& shortcut);
+    void updateActionName(const ButtonShortcut &shortcut);
 
-    void updateSelectorButton (const ButtonShortcut& shortcut);
+    void updateSelectorButton(const ButtonShortcut &shortcut);
 
-
-    Q_DECLARE_PRIVATE( ButtonActionSelectorWidget )
-    ButtonActionSelectorWidgetPrivate  *const d_ptr; //!< The D-Pointer of this class.
+    Q_DECLARE_PRIVATE(ButtonActionSelectorWidget)
+    ButtonActionSelectorWidgetPrivate *const d_ptr; //!< The D-Pointer of this class.
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

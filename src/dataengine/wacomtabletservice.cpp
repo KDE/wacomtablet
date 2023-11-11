@@ -18,8 +18,8 @@
 #include "wacomtabletservice.h"
 #include "dbustabletinterface.h"
 #include "screenrotation.h"
-#include <QProcess>
 #include <Plasma5Support/ServiceJob>
+#include <QProcess>
 
 using namespace Wacom;
 
@@ -27,10 +27,13 @@ class WacomTabletJob : public Plasma::ServiceJob
 {
     Q_OBJECT
 public:
-    WacomTabletJob(const QString& destination, const QString& operation, const QMap< QString, QVariant >& parameters, QObject* parent = nullptr) : ServiceJob(destination, operation, parameters, parent) {
+    WacomTabletJob(const QString &destination, const QString &operation, const QMap<QString, QVariant> &parameters, QObject *parent = nullptr)
+        : ServiceJob(destination, operation, parameters, parent)
+    {
     }
 
-    virtual void start() override {
+    virtual void start() override
+    {
         if (!DBusTabletInterface::instance().isValid()) {
             return;
         }
@@ -62,7 +65,7 @@ public:
             if (param.contains(QLatin1String("rotation"))) {
                 const auto rotationName = param[QLatin1String("rotation")].toString();
 
-                const ScreenRotation* rotation = nullptr;
+                const ScreenRotation *rotation = nullptr;
                 if (rotationName == QLatin1String("none")) {
                     rotation = &ScreenRotation::NONE;
                 } else if (rotationName == QLatin1String("cw")) {
@@ -81,13 +84,17 @@ public:
             }
         } else if (op == QLatin1String("SetTouchMode")) {
             if (param.contains(QLatin1String("enable"))) {
-                DBusTabletInterface::instance().setProperty(tabletId, DeviceType::Touch.key(), Property::Touch.key(), param[QLatin1String("enable")].toBool() ? QLatin1String( "on" ) : QLatin1String( "off" ));
+                DBusTabletInterface::instance().setProperty(tabletId,
+                                                            DeviceType::Touch.key(),
+                                                            Property::Touch.key(),
+                                                            param[QLatin1String("enable")].toBool() ? QLatin1String("on") : QLatin1String("off"));
             }
         }
     }
 };
 
-WacomTabletService::WacomTabletService(const QString& destination, QObject* parent): Service(parent)
+WacomTabletService::WacomTabletService(const QString &destination, QObject *parent)
+    : Service(parent)
 {
     setName(QLatin1String("wacomtablet"));
     setObjectName(destination);
@@ -100,10 +107,9 @@ WacomTabletService::WacomTabletService(const QString& destination, QObject* pare
 
 WacomTabletService::~WacomTabletService()
 {
-
 }
 
-Plasma::ServiceJob* WacomTabletService::createJob(const QString& operation, QMap< QString, QVariant >& parameters)
+Plasma::ServiceJob *WacomTabletService::createJob(const QString &operation, QMap<QString, QVariant> &parameters)
 {
     return new WacomTabletJob(destination(), operation, parameters, this);
 }

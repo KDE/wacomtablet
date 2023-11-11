@@ -36,66 +36,63 @@ namespace Wacom
 class PressureCurveWidget;
 
 /**
-  * This dialog shows the PressureCurveWidget and lets the uses change it on the fly
-  * The pressure is animated when the suer uses his pen inside the widget
-  */
+ * This dialog shows the PressureCurveWidget and lets the uses change it on the fly
+ * The pressure is animated when the suer uses his pen inside the widget
+ */
 class PressureCurveDialog : public QDialog
 {
     Q_OBJECT
 public:
     /**
-      * default constructor
-      *
-      * @param initialValue initial value of the pressure
-      * @param tabletId tablet identifier
-      * @param deviceType device type, @see DeviceType
-      * @param parent parent widget
-      */
-    PressureCurveDialog(const QString &initialValue,
-                        const QString &tabletId,
-                        const DeviceType& deviceType,
-                        QWidget *parent = nullptr);
+     * default constructor
+     *
+     * @param initialValue initial value of the pressure
+     * @param tabletId tablet identifier
+     * @param deviceType device type, @see DeviceType
+     * @param parent parent widget
+     */
+    PressureCurveDialog(const QString &initialValue, const QString &tabletId, const DeviceType &deviceType, QWidget *parent = nullptr);
 
     /**
-      * default destructor
-      */
+     * default destructor
+     */
     ~PressureCurveDialog() override;
 
     /**
-      * Returns the changed presscurve control points in the format needed by the xsetwacom settings
-      *
-      * @return string version of both control points separated by spaces
-      */
+     * Returns the changed presscurve control points in the format needed by the xsetwacom settings
+     *
+     * @return string version of both control points separated by spaces
+     */
     QString getControllPoints();
 
 public slots:
     /**
-      * Updates the pen presscurve via the xsetwacom settings and shows the values in the dialog
-      *
-      * @param points string version of both control points separated by spaces
-      */
-    void updateControlPoints(const QString & points);
+     * Updates the pen presscurve via the xsetwacom settings and shows the values in the dialog
+     *
+     * @param points string version of both control points separated by spaces
+     */
+    void updateControlPoints(const QString &points);
 
     /**
-      * called when the user accept his changes
-      */
+     * called when the user accept his changes
+     */
     void accept() override;
 
     /**
-      * called when the user discards his changes
-      */
+     * called when the user discards his changes
+     */
     void reject() override;
 
 private:
     /**
-      * Sets the controllpoints to some starting values
-      *
-      * @param points starting values in the format as expected by the xssetwacom settings
-      */
-    void setControllPoints(const QString & points);
+     * Sets the controllpoints to some starting values
+     *
+     * @param points starting values in the format as expected by the xssetwacom settings
+     */
+    void setControllPoints(const QString &points);
 
 private:
-    Ui::PressureCurveDialog *m_ui = nullptr;                   /**< Handler to the presscurvedialog.ui file */
+    Ui::PressureCurveDialog *m_ui = nullptr; /**< Handler to the presscurvedialog.ui file */
     PressureCurveWidget *m_pressCurve = nullptr; /**< Widget that shows the presscurve and lets him change it */
 
     QString _initialValue;

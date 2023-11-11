@@ -34,15 +34,17 @@ template<class T>
 class PropertyAdaptorMock : public PropertyAdaptor
 {
 public:
-
-    PropertyAdaptorMock() : PropertyAdaptor() {}
+    PropertyAdaptorMock()
+        : PropertyAdaptor()
+    {
+    }
 
     const QList<Property> getProperties() const override
     {
         return T::ids();
     }
 
-    const QString getProperty(const Property& property) const override
+    const QString getProperty(const Property &property) const override
     {
         if (!supportsProperty(property)) {
             return QString();
@@ -51,7 +53,7 @@ public:
         return m_properties.value(property.key());
     }
 
-    bool setProperty(const Wacom::Property& property, const QString& value) override
+    bool setProperty(const Wacom::Property &property, const QString &value) override
     {
         if (!supportsProperty(property)) {
             return false;
@@ -61,13 +63,12 @@ public:
         return true;
     }
 
-    bool supportsProperty(const Property& property) const override
+    bool supportsProperty(const Property &property) const override
     {
         return (T::map(property) != NULL);
     }
 
-
-    QMap<QString,QString> m_properties;
+    QMap<QString, QString> m_properties;
 };
 }
 #endif

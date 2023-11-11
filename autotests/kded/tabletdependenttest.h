@@ -36,34 +36,30 @@ class TabletDependentTest : public QObject
     Q_OBJECT
 
 public:
-    TabletDependentTest(QObject* parent = NULL);
+    TabletDependentTest(QObject *parent = NULL);
 
     void findTablet();
 
     //! Returns tablet information about the tablet which was detected.
-    const TabletInformation& getTabletInformation() const;
+    const TabletInformation &getTabletInformation() const;
 
     //! Returns if a tablet is available.
     bool isTabletAvailable() const;
 
     //! Prints the tablet information to stdout.
-    void printTabletInformation(const TabletInformation& info) const;
+    void printTabletInformation(const TabletInformation &info) const;
 
 protected:
-
     virtual void initTestCaseDependent() = 0;
-
 
 private slots:
 
     void initTestCase();
 
-
 private:
-
     TabletInformation m_tabletInformation;
-    bool              m_isTabletAvailable;
+    bool m_isTabletAvailable;
 
 }; // CLASS
-}  // NAMEPSPACE
+} // NAMEPSPACE
 #endif // HEADER PROTECTION

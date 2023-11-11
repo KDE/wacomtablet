@@ -19,8 +19,8 @@
 
 #include "mainconfig.h"
 
-#include <KSharedConfig>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 using namespace Wacom;
 
@@ -28,29 +28,27 @@ namespace Wacom
 {
 class MainConfigPrivate
 {
-    public:
-        KSharedConfig::Ptr config;
-        KConfigGroup       general;
+public:
+    KSharedConfig::Ptr config;
+    KConfigGroup general;
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 
-
-MainConfig::MainConfig() : d_ptr( new MainConfigPrivate )
+MainConfig::MainConfig()
+    : d_ptr(new MainConfigPrivate)
 {
     open(QLatin1String("wacomtablet-kderc"));
 }
 
-
-MainConfig::MainConfig(const QString& fileName) : d_ptr( new MainConfigPrivate )
+MainConfig::MainConfig(const QString &fileName)
+    : d_ptr(new MainConfigPrivate)
 {
     open(fileName);
 }
 
-
-
 MainConfig::~MainConfig()
 {
-    Q_D( MainConfig );
+    Q_D(MainConfig);
     if (d->config) {
         d->config->sync();
     }
@@ -58,18 +56,16 @@ MainConfig::~MainConfig()
     delete this->d_ptr;
 }
 
-
-void MainConfig::open(const QString& fileName)
+void MainConfig::open(const QString &fileName)
 {
-    Q_D( MainConfig );
-    d->config  = KSharedConfig::openConfig( fileName );
+    Q_D(MainConfig);
+    d->config = KSharedConfig::openConfig(fileName);
     d->general = KConfigGroup(d->config, QStringLiteral("LastProfile"));
 }
 
-
 QString MainConfig::getLastProfile(const QString &deviceName)
 {
-    Q_D( MainConfig );
+    Q_D(MainConfig);
     QString profile;
 
     if (d->config) {
@@ -80,10 +76,9 @@ QString MainConfig::getLastProfile(const QString &deviceName)
     return profile;
 }
 
-
-void MainConfig::setLastProfile(const QString &deviceName, const QString& profile)
+void MainConfig::setLastProfile(const QString &deviceName, const QString &profile)
 {
-    Q_D( MainConfig );
+    Q_D(MainConfig);
     if (d->config) {
         d->config->reparseConfiguration();
         d->general.writeEntry(deviceName, profile);

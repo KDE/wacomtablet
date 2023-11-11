@@ -33,18 +33,17 @@ using namespace Wacom;
  *
  * @test UnitTest for ...
  */
-class TestDBusTabletService: public QObject
+class TestDBusTabletService : public QObject
 {
     Q_OBJECT
 
 public:
-    void assertTabletInformation(const TabletInformation& expectedInformation) const;
+    void assertTabletInformation(const TabletInformation &expectedInformation) const;
 
 public slots:
-    void onProfileChanged(const QString &TabletId, const QString& profile);
+    void onProfileChanged(const QString &TabletId, const QString &profile);
     void onTabletAdded(const QString &TabletId);
     void onTabletRemoved(const QString &TabletId);
-
 
 private slots:
     //! Run once before all tests.
@@ -59,43 +58,40 @@ private slots:
     //! Run once after all tests.
     void cleanupTestCase();
 
-
 private:
+    TabletHandlerMock m_tabletHandlerMock;
+    DBusTabletService *m_tabletService;
 
-    TabletHandlerMock  m_tabletHandlerMock;
-    DBusTabletService* m_tabletService;
-
-    QString            m_profileWasChangedTo;
-    bool               m_tabletWasAdded;
-    bool               m_tabletWasRemoved;
+    QString m_profileWasChangedTo;
+    bool m_tabletWasAdded;
+    bool m_tabletWasRemoved;
 };
 
 QTEST_MAIN(TestDBusTabletService)
 
-
-void TestDBusTabletService::assertTabletInformation(const TabletInformation& expectedInformation) const
+void TestDBusTabletService::assertTabletInformation(const TabletInformation &expectedInformation) const
 {
     QDBusReply<QString> actualString;
     QDBusReply<bool> actualBool;
 
     // make sure the device list is equal
-    QStringList             expectedDeviceList = expectedInformation.getDeviceList();
-    QDBusReply<QStringList> actualDeviceList   = DBusTabletInterface::instance().getDeviceList(QLatin1String("TabletId"));
+    QStringList expectedDeviceList = expectedInformation.getDeviceList();
+    QDBusReply<QStringList> actualDeviceList = DBusTabletInterface::instance().getDeviceList(QLatin1String("TabletId"));
     QVERIFY(actualDeviceList.isValid());
 
-    for (int i = 0 ; i < expectedDeviceList.size() ; ++i) {
+    for (int i = 0; i < expectedDeviceList.size(); ++i) {
         QCOMPARE(actualDeviceList.value().at(i), expectedDeviceList.at(i));
     }
 
     // make sure the devices are equal
-    foreach(const DeviceType& type, DeviceType::list()) {
+    foreach (const DeviceType &type, DeviceType::list()) {
         actualString = DBusTabletInterface::instance().getDeviceName(QLatin1String("TabletId"), type.key());
         QVERIFY(actualString.isValid());
         QCOMPARE(actualString.value(), expectedInformation.getDeviceName(type));
     }
 
     // compare tablet information
-    foreach(const TabletInfo& info, TabletInfo::list()) {
+    foreach (const TabletInfo &info, TabletInfo::list()) {
         actualString = DBusTabletInterface::instance().getInformation(QLatin1String("TabletId"), info.key());
         QVERIFY(actualString.isValid());
         QCOMPARE(actualString.value(), expectedInformation.get(info));
@@ -112,15 +108,11 @@ void TestDBusTabletService::assertTabletInformation(const TabletInformation& exp
     QVERIFY(expectedInformation.isAvailable() == actualBool.value());
 }
 
-
-
-void TestDBusTabletService::onProfileChanged(const QString &TabletId, const QString& profile)
+void TestDBusTabletService::onProfileChanged(const QString &TabletId, const QString &profile)
 {
     Q_UNUSED(TabletId)
     m_profileWasChangedTo = profile;
 }
-
-
 
 void TestDBusTabletService::onTabletAdded(const QString &TabletId)
 {
@@ -128,22 +120,18 @@ void TestDBusTabletService::onTabletAdded(const QString &TabletId)
     m_tabletWasAdded = true;
 }
 
-
-
 void TestDBusTabletService::onTabletRemoved(const QString &TabletId)
 {
     Q_UNUSED(TabletId)
     m_tabletWasRemoved = true;
 }
 
-
-
 void TestDBusTabletService::initTestCase()
 {
-    m_tabletService       = nullptr;
+    m_tabletService = nullptr;
     m_profileWasChangedTo.clear();
-    m_tabletWasAdded      = false;
-    m_tabletWasRemoved    = false;
+    m_tabletWasAdded = false;
+    m_tabletWasRemoved = false;
 
     // make sure the D-Bus service is not already registered
     DBusTabletInterface::instance().resetInterface();
@@ -157,20 +145,19 @@ void TestDBusTabletService::initTestCase()
     m_tabletService = new DBusTabletService(m_tabletHandlerMock);
 
     // reset D-Bus client
-    DBusTabletInterface::instance().resetInterface();;
+    DBusTabletInterface::instance().resetInterface();
+    ;
 
     // connect tablet service to us
     connect(m_tabletService, &DBusTabletService::profileChanged, this, &TestDBusTabletService::onProfileChanged);
-    connect(m_tabletService, &DBusTabletService::tabletAdded,    this, &TestDBusTabletService::onTabletAdded);
-    connect(m_tabletService, &DBusTabletService::tabletRemoved,  this, &TestDBusTabletService::onTabletRemoved);
+    connect(m_tabletService, &DBusTabletService::tabletAdded, this, &TestDBusTabletService::onTabletAdded);
+    connect(m_tabletService, &DBusTabletService::tabletRemoved, this, &TestDBusTabletService::onTabletRemoved);
 
     // connect tablet handler to tablet service
     connect(&m_tabletHandlerMock, &TabletHandlerMock::profileChanged, m_tabletService, &DBusTabletService::onProfileChanged);
-    connect(&m_tabletHandlerMock, &TabletHandlerMock::tabletAdded,    m_tabletService, &DBusTabletService::onTabletAdded);
-    connect(&m_tabletHandlerMock, &TabletHandlerMock::tabletRemoved,  m_tabletService, &DBusTabletService::onTabletRemoved);
+    connect(&m_tabletHandlerMock, &TabletHandlerMock::tabletAdded, m_tabletService, &DBusTabletService::onTabletAdded);
+    connect(&m_tabletHandlerMock, &TabletHandlerMock::tabletRemoved, m_tabletService, &DBusTabletService::onTabletRemoved);
 }
-
-
 
 void TestDBusTabletService::cleanupTestCase()
 {
@@ -179,8 +166,6 @@ void TestDBusTabletService::cleanupTestCase()
         m_tabletService = nullptr;
     }
 }
-
-
 
 void TestDBusTabletService::testListProfiles()
 {
@@ -200,13 +185,11 @@ void TestDBusTabletService::testListProfiles()
     QCOMPARE(QLatin1String("Test Profile 2"), profileList.value().at(1));
 }
 
-
-
 void TestDBusTabletService::testOnTabletAdded()
 {
     TabletInformation expectedInformation;
 
-    foreach(const TabletInfo& tabletInfo, TabletInfo::list()) {
+    foreach (const TabletInfo &tabletInfo, TabletInfo::list()) {
         expectedInformation.set(tabletInfo, tabletInfo.key());
     }
 
@@ -225,8 +208,6 @@ void TestDBusTabletService::testOnTabletAdded()
     QVERIFY(isAvail.value());
 }
 
-
-
 void TestDBusTabletService::testOnTabletRemoved()
 {
     TabletInformation expectedInformation;
@@ -238,11 +219,9 @@ void TestDBusTabletService::testOnTabletRemoved()
     QVERIFY(m_tabletWasRemoved);
 }
 
-
-
 void TestDBusTabletService::testSetProfile()
 {
-    QString             expectedProfile;
+    QString expectedProfile;
     QDBusReply<QString> actualProfile;
 
     // set new profile and make sure a signal was emitted by D-Bus
@@ -288,13 +267,11 @@ void TestDBusTabletService::testSetProfile()
     QCOMPARE(actualProfile.value(), expectedProfile);
 }
 
-
-
 void TestDBusTabletService::testSetProperty()
 {
-    DeviceType expectedDevice   = DeviceType::Stylus;
-    Property   expectedProperty = Property::Button1;
-    QString    expectedValue    = QLatin1String("My Value");
+    DeviceType expectedDevice = DeviceType::Stylus;
+    Property expectedProperty = Property::Button1;
+    QString expectedValue = QLatin1String("My Value");
 
     // set the property
     DBusTabletInterface::instance().setProperty(QLatin1String("TabletId"), expectedDevice.key(), expectedProperty.key(), expectedValue);
@@ -309,7 +286,5 @@ void TestDBusTabletService::testSetProperty()
     QVERIFY(actualValue.isValid());
     QCOMPARE(actualValue.value(), expectedValue);
 }
-
-
 
 #include "testdbustabletservice.moc"

@@ -21,14 +21,15 @@
 #define TOUCHPAGEWIDGET_H
 
 #include "screenmap.h"
-#include "screenspace.h"
 #include "screenrotation.h"
+#include "screenspace.h"
 
-#include <QWidget>
 #include <QString>
+#include <QWidget>
 
-namespace Ui {
-    class TouchPageWidget;
+namespace Ui
+{
+class TouchPageWidget;
 }
 
 namespace Wacom
@@ -44,8 +45,7 @@ class TouchPageWidget : public QWidget
     Q_OBJECT
 
 public:
-
-    explicit TouchPageWidget(QWidget* parent = nullptr);
+    explicit TouchPageWidget(QWidget *parent = nullptr);
     ~TouchPageWidget() override;
 
     void setTabletId(const QString &tabletId);
@@ -65,7 +65,6 @@ public:
      */
     void saveToProfile(ProfileManagementInterface &profileManagement);
 
-
 public slots:
 
     /**
@@ -81,7 +80,7 @@ public slots:
     /**
      * Called by our TabletPageWidget to inform us that the user changed the rotation settings.
      */
-    void onRotationChanged(const ScreenRotation& rotation);
+    void onRotationChanged(const ScreenRotation &rotation);
 
     /**
      * Called when the user presses the touch tablet mapping button.
@@ -103,8 +102,6 @@ public slots:
      */
     void onTrackingModeRelative(bool activated);
 
-
-
 signals:
 
     /**
@@ -112,9 +109,7 @@ signals:
      */
     void changed();
 
-
 protected:
-
     /**
      * Gets the current value for the gesture support configuration.
      *
@@ -122,11 +117,10 @@ protected:
      */
     const QString getGestureSupportEnabled() const;
 
-
     /**
      * @return The current screen mapping of the touch device.
      */
-    const ScreenMap& getScreenMap() const;
+    const ScreenMap &getScreenMap() const;
 
     /**
      * Gets the current tablet area mapping in profile format as
@@ -139,7 +133,7 @@ protected:
     /**
      * @return The current screen space mapping.
      */
-    const ScreenSpace& getScreenSpace() const;
+    const ScreenSpace &getScreenSpace() const;
 
     /**
      * Gets the current screen space mapping in profile format.
@@ -211,8 +205,7 @@ protected:
      */
     void setGesturesSupportEnabled(bool value);
 
-
-    void setScreenMap(const ScreenMap& screenMap);
+    void setScreenMap(const ScreenMap &screenMap);
 
     /**
      * Sets a new tablet area mapping and updates all widgets accordingly.
@@ -220,14 +213,14 @@ protected:
      *
      * @param value The new tablet area mapping in profile format.
      */
-    void setScreenMap(const QString& value);
+    void setScreenMap(const QString &value);
 
     /**
      * Sets a new screen space mapping and updates all widgets accordingly.
      *
      * @param screenSpace The new screen space mapping selection.
      */
-    void setScreenSpace(const ScreenSpace& screenSpace);
+    void setScreenSpace(const ScreenSpace &screenSpace);
 
     /**
      * Sets a new screen space mapping and updates all widgets accordingly.
@@ -235,7 +228,7 @@ protected:
      *
      * @param value The new screen area mapping selection.
      */
-    void setScreenSpace(const QString& value);
+    void setScreenSpace(const QString &value);
 
     /**
      * Sets the minimum motion before sending a scroll gesture and updates
@@ -243,14 +236,14 @@ protected:
      *
      * @param value A value >= 0 as string.
      */
-    void setScrollDistance(const QString& value);
+    void setScrollDistance(const QString &value);
 
     /**
      * Sets the value of the scroll inversion checkbox.
      *
      * @param value Either "on" or "off" or empty string.
      */
-    void setScrollInversion(const QString& value);
+    void setScrollInversion(const QString &value);
 
     /**
      * Sets the minimum time between taps for a right click and updates
@@ -258,14 +251,14 @@ protected:
      *
      * @param value A value >= 0 as string.
      */
-    void setTapTime(const QString& value);
+    void setTapTime(const QString &value);
 
     /**
      * Sets the tracking mode and updates all widgets accordingly.
      *
      * @param value Either "absolute" or "relative"
      */
-    void setTrackingMode(const QString& value);
+    void setTrackingMode(const QString &value);
 
     /**
      * Sets a new value for touch support and updates all widgets accordingly.
@@ -279,11 +272,9 @@ protected:
      *
      * @param value A value >= 0 as string.
      */
-    void setZoomDistance(const QString& value);
-
+    void setZoomDistance(const QString &value);
 
 private:
-
     /**
      * Checks if the current tablet mapping is available for the currently selected
      * tracking mode. If it is not available, a warning is displayed to the user.
@@ -298,12 +289,12 @@ private:
 private:
     Ui::TouchPageWidget *ui = nullptr;
 
-    ScreenRotation _tabletRotation = ScreenRotation::NONE;     // The currently selected tablet rotation.
-    TabletArea     _tabletGeometry;     // The full touch area as rectangle.
-    ScreenMap      _screenMap;          // The current tablet to screen mapping of the touch device.
-    ScreenSpace    _screenSpace;        // The current screen mapping of the touch device.
-    QString        _touchDeviceName;    // The Xinput name of the touch device of the current tablet.
-    QString        _tabletId;
+    ScreenRotation _tabletRotation = ScreenRotation::NONE; // The currently selected tablet rotation.
+    TabletArea _tabletGeometry; // The full touch area as rectangle.
+    ScreenMap _screenMap; // The current tablet to screen mapping of the touch device.
+    ScreenSpace _screenSpace; // The current screen mapping of the touch device.
+    QString _touchDeviceName; // The Xinput name of the touch device of the current tablet.
+    QString _tabletId;
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

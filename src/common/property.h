@@ -25,10 +25,11 @@
 #include "enum.h"
 #include "logging.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 // forward declaration
-class  Property;
+class Property;
 struct PropertyTemplateSpecializationLessFunctor;
 struct PropertyKeyEqualsFunctor;
 
@@ -39,21 +40,18 @@ struct PropertyKeyEqualsFunctor;
  */
 typedef Enum<Property, QString, PropertyTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> PropertyTemplateSpecialization;
 
-
 /**
  * Do not use this functor!
  *
  * It is required by the Property class and can only be used to sort instances
  * of type PropertyTemplateSpecialization.
  */
-struct PropertyTemplateSpecializationLessFunctor
-{
-    bool operator()(const PropertyTemplateSpecialization* p1, const PropertyTemplateSpecialization* p2)
+struct PropertyTemplateSpecializationLessFunctor {
+    bool operator()(const PropertyTemplateSpecialization *p1, const PropertyTemplateSpecialization *p2)
     {
         return (p1->key() < p2->key());
     }
 };
-
 
 /**
  * A functor which is used to compare two Property keys from type QString.
@@ -62,14 +60,12 @@ struct PropertyTemplateSpecializationLessFunctor
  *
  * @return True if both keys are equal, else false;
  */
-struct PropertyKeyEqualsFunctor
-{
-    bool operator()(const QString& k1, const QString& k2)
+struct PropertyKeyEqualsFunctor {
+    bool operator()(const QString &k1, const QString &k2)
     {
         return (k1.compare(k2, Qt::CaseInsensitive) == 0);
     }
 };
-
 
 /**
  * An enum of all supported properties.
@@ -79,10 +75,9 @@ struct PropertyKeyEqualsFunctor
  * global list of supported properties to allow property mapping
  * between subsystems.
  */
-class Property : public PropertyTemplateSpecialization {
-
+class Property : public PropertyTemplateSpecialization
+{
 public:
-
     /**
      * The action to which absolute wheel up/down should be mapped.
      * See any button property for the list of valid values.
@@ -197,7 +192,6 @@ public:
      */
     static const Property RawSample;
 
-
     /**
      * The action to which relative wheel up/down should be mapped.
      * See any button property for the list of valid values.
@@ -226,7 +220,6 @@ public:
      */
     static const Property Rotate;
 
-
     /**
      * Maps the screen spaces to the tablet.
      *
@@ -243,7 +236,6 @@ public:
      * Valid values are screen space strings returned by ScreenSpace::toString().
      */
     static const Property ScreenSpace;
-
 
     /**
      * Minimum motion before sending a scroll gesture.
@@ -311,10 +303,11 @@ public:
      */
     static const Property ZoomDistance;
 
-
 private:
-
-    Property(const QString& key) : PropertyTemplateSpecialization(this, key) {}
+    Property(const QString &key)
+        : PropertyTemplateSpecialization(this, key)
+    {
+    }
 
 }; // CLASS
 
@@ -324,5 +317,5 @@ private:
 template<>
 PropertyTemplateSpecialization::Container PropertyTemplateSpecialization::instances;
 
-}      // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

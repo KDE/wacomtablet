@@ -24,7 +24,8 @@
 
 #include <KConfigGroup>
 
-namespace Wacom {
+namespace Wacom
+{
 
 /**
  * The interface for configuration adapters.
@@ -34,21 +35,25 @@ namespace Wacom {
  * system properties. In case of a general adapter, an adaptee can be provided
  * where all configuration properties will be read from.
  */
-class ConfigAdaptor : public PropertyAdaptor {
-
+class ConfigAdaptor : public PropertyAdaptor
+{
 public:
+    /**
+     * Default constructor.
+     *
+     * @param adaptee The property adapter where all properties are read from (possibly NULL).
+     */
+    explicit ConfigAdaptor(PropertyAdaptor *adaptee)
+        : PropertyAdaptor(adaptee)
+    {
+    }
 
     /**
-      * Default constructor.
-      *
-      * @param adaptee The property adapter where all properties are read from (possibly NULL).
-      */
-    explicit ConfigAdaptor(PropertyAdaptor* adaptee) : PropertyAdaptor(adaptee) {}
-
-    /**
-      * Default destructor
-      */
-    ~ConfigAdaptor() override {}
+     * Default destructor
+     */
+    ~ConfigAdaptor() override
+    {
+    }
 
     /**
      * Loads a config from the given config group. The default implementation
@@ -58,8 +63,7 @@ public:
      *
      * @return True on success, false on error.
      */
-    virtual bool loadConfig( const KConfigGroup& config ) = 0;
-
+    virtual bool loadConfig(const KConfigGroup &config) = 0;
 
     /**
      * Save the configuration to a config group. The default implementation
@@ -69,9 +73,8 @@ public:
      *
      * @return True on success, false on error.
      */
-    virtual bool saveConfig( KConfigGroup& config ) const = 0;
+    virtual bool saveConfig(KConfigGroup &config) const = 0;
 
-
-};     // CLASS
-}      // NAMESPACE
+}; // CLASS
+} // NAMESPACE
 #endif // HEADER PROTECTION

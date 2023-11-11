@@ -31,11 +31,11 @@
 
 namespace Wacom
 {
-    class X11EventNotifierPrivate
-    {
-        public:
-            bool isStarted = false;
-    };
+class X11EventNotifierPrivate
+{
+public:
+    bool isStarted = false;
+};
 }
 
 using namespace Wacom;
@@ -45,7 +45,6 @@ X11EventNotifier::X11EventNotifier()
     , QAbstractNativeEventFilter()
     , d_ptr(new X11EventNotifierPrivate)
 {
-
 }
 
 X11EventNotifier::~X11EventNotifier()
@@ -53,42 +52,36 @@ X11EventNotifier::~X11EventNotifier()
     delete d_ptr;
 }
 
-X11EventNotifier& X11EventNotifier::instance()
+X11EventNotifier &X11EventNotifier::instance()
 {
     static X11EventNotifier instance;
     return instance;
 }
 
-
-
-
 void X11EventNotifier::start()
 {
-    Q_D (X11EventNotifier);
+    Q_D(X11EventNotifier);
 
     if (d->isStarted) {
         return;
     }
 
-    if( QCoreApplication::instance() != nullptr ) {
+    if (QCoreApplication::instance() != nullptr) {
         registerForNewDeviceEvent(QX11Info::connection());
         QCoreApplication::instance()->installNativeEventFilter(this);
         d->isStarted = true;
     }
 }
 
-
-
 void X11EventNotifier::stop()
 {
-    Q_D (X11EventNotifier);
+    Q_D(X11EventNotifier);
 
-    if( QCoreApplication::instance() != nullptr ) {
+    if (QCoreApplication::instance() != nullptr) {
         QCoreApplication::instance()->removeNativeEventFilter(this);
         d->isStarted = false;
     }
 }
-
 
 bool X11EventNotifier::nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)
 {
@@ -105,16 +98,14 @@ bool X11EventNotifier::nativeEventFilter(const QByteArray &eventType, void *mess
     return false;
 }
 
-
-
-void X11EventNotifier::handleX11InputEvent(xcb_ge_generic_event_t* event)
+void X11EventNotifier::handleX11InputEvent(xcb_ge_generic_event_t *event)
 {
-    xcb_input_hierarchy_event_t *hev  = (xcb_input_hierarchy_event_t *) event;
+    xcb_input_hierarchy_event_t *hev = (xcb_input_hierarchy_event_t *)event;
 
     xcb_input_hierarchy_info_iterator_t iter;
-    iter.data = reinterpret_cast<xcb_input_hierarchy_info_t*>(hev + 1);
+    iter.data = reinterpret_cast<xcb_input_hierarchy_info_t *>(hev + 1);
     iter.rem = hev->num_infos;
-    iter.index = reinterpret_cast<char*>(iter.data) - reinterpret_cast<char*>(hev);
+    iter.index = reinterpret_cast<char *>(iter.data) - reinterpret_cast<char *>(hev);
 
     for (; iter.rem; xcb_input_hierarchy_info_next(&iter)) {
         if (iter.data->flags & XCB_INPUT_HIERARCHY_MASK_SLAVE_REMOVED) {
@@ -124,7 +115,7 @@ void X11EventNotifier::handleX11InputEvent(xcb_ge_generic_event_t* event)
         } else if (iter.data->flags & XCB_INPUT_HIERARCHY_MASK_SLAVE_ADDED) {
             qCDebug(KDED) << QString::fromLatin1("X11 device with id '%1' added.").arg(iter.data->deviceid);
 
-            X11InputDevice device (iter.data->deviceid, QLatin1String("Unknown X11 Device"));
+            X11InputDevice device(iter.data->deviceid, QLatin1String("Unknown X11 Device"));
 
             if (device.isOpen() && device.isTabletDevice()) {
                 qCDebug(KDED) << QString::fromLatin1("Wacom tablet device with X11 id '%1' added.").arg(iter.data->deviceid);
@@ -134,17 +125,15 @@ void X11EventNotifier::handleX11InputEvent(xcb_ge_generic_event_t* event)
     }
 }
 
-
-
-int X11EventNotifier::registerForNewDeviceEvent(xcb_connection_t* conn)
+int X11EventNotifier::registerForNewDeviceEvent(xcb_connection_t *conn)
 {
     char buf[sizeof(xcb_input_event_mask_t) + sizeof(uint32_t)];
 
-    xcb_input_event_mask_t* evmask = reinterpret_cast<xcb_input_event_mask_t*>(buf);
+    xcb_input_event_mask_t *evmask = reinterpret_cast<xcb_input_event_mask_t *>(buf);
     evmask->deviceid = 0;
     evmask->mask_len = 1;
 
-    uint32_t* mask_buf = xcb_input_event_mask_mask( evmask );
+    uint32_t *mask_buf = xcb_input_event_mask_mask(evmask);
     mask_buf[0] = XCB_INPUT_XI_EVENT_MASK_HIERARCHY;
 
     xcb_input_xi_select_events(conn, QX11Info::appRootWindow(), 1, evmask);

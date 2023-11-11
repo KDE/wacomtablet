@@ -32,13 +32,12 @@
 
 using namespace Wacom;
 
-TouchPageWidget::TouchPageWidget(QWidget* parent)
-        : QWidget(parent)
-        , ui(new Ui::TouchPageWidget)
+TouchPageWidget::TouchPageWidget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::TouchPageWidget)
 {
     setupUi();
 }
-
 
 TouchPageWidget::~TouchPageWidget()
 {
@@ -52,42 +51,40 @@ void TouchPageWidget::setTabletId(const QString &tabletId)
 
 void TouchPageWidget::loadFromProfile(ProfileManagementInterface &profileManagement)
 {
-    DeviceProfile touchProfile = profileManagement.loadDeviceProfile( DeviceType::Touch );
+    DeviceProfile touchProfile = profileManagement.loadDeviceProfile(DeviceType::Touch);
 
     // set all properties no matter if the tablet supports that device
     // to get all widgets properly initialized.
 
-    setTouchSupportEnabled( touchProfile.getPropertyAsBool( Property::Touch ) );
-    setTrackingMode( touchProfile.getProperty( Property::Mode ) );
-    setScreenSpace( touchProfile.getProperty( Property::ScreenSpace ) );
-    setScreenMap( touchProfile.getProperty( Property::ScreenMap ) );
-    setGesturesSupportEnabled( touchProfile.getPropertyAsBool( Property::Gesture ) );
-    setScrollDistance( touchProfile.getProperty( Property::ScrollDistance ) );
-    setScrollInversion( touchProfile.getProperty( Property::InvertScroll) );
-    setZoomDistance( touchProfile.getProperty( Property::ZoomDistance ) );
-    setTapTime( touchProfile.getProperty( Property::TapTime ) );
+    setTouchSupportEnabled(touchProfile.getPropertyAsBool(Property::Touch));
+    setTrackingMode(touchProfile.getProperty(Property::Mode));
+    setScreenSpace(touchProfile.getProperty(Property::ScreenSpace));
+    setScreenMap(touchProfile.getProperty(Property::ScreenMap));
+    setGesturesSupportEnabled(touchProfile.getPropertyAsBool(Property::Gesture));
+    setScrollDistance(touchProfile.getProperty(Property::ScrollDistance));
+    setScrollInversion(touchProfile.getProperty(Property::InvertScroll));
+    setZoomDistance(touchProfile.getProperty(Property::ZoomDistance));
+    setTapTime(touchProfile.getProperty(Property::TapTime));
 }
-
 
 void TouchPageWidget::reloadWidget()
 {
     // get all tablet device names we need
-    QDBusReply<QString> touchDeviceNameReply  = DBusTabletInterface::instance().getDeviceName(_tabletId, DeviceType::Touch.key());
+    QDBusReply<QString> touchDeviceNameReply = DBusTabletInterface::instance().getDeviceName(_tabletId, DeviceType::Touch.key());
 
     // update name and maximum tablet area for all devices
     _touchDeviceName.clear();
     _tabletGeometry = TabletArea();
-    _screenMap      = ScreenMap();
+    _screenMap = ScreenMap();
 
     if (touchDeviceNameReply.isValid()) {
         _touchDeviceName = touchDeviceNameReply.value();
         if (!_touchDeviceName.isEmpty()) { // touch device available
-            _tabletGeometry  = X11Wacom::getMaximumTabletArea(touchDeviceNameReply.value());
-            _screenMap       = ScreenMap(_tabletGeometry);
+            _tabletGeometry = X11Wacom::getMaximumTabletArea(touchDeviceNameReply.value());
+            _screenMap = ScreenMap(_tabletGeometry);
         }
     }
 }
-
 
 void TouchPageWidget::saveToProfile(ProfileManagementInterface &profileManagement)
 {
@@ -95,22 +92,21 @@ void TouchPageWidget::saveToProfile(ProfileManagementInterface &profileManagemen
         return; // no touch device available
     }
 
-    DeviceProfile touchProfile = profileManagement.loadDeviceProfile( DeviceType::Touch );
+    DeviceProfile touchProfile = profileManagement.loadDeviceProfile(DeviceType::Touch);
 
-    touchProfile.setProperty  ( Property::Touch,            getTouchSupportEnabled() );
-    touchProfile.setProperty  ( Property::Mode,             getTrackingMode() );
-    touchProfile.setProperty  ( Property::ScreenSpace,      getScreenSpaceAsString() );
-    touchProfile.setProperty  ( Property::ScreenMap,        getScreenMapAsString() );
-    touchProfile.setProperty  ( Property::Gesture,          getGestureSupportEnabled() );
-    touchProfile.setProperty  ( Property::ScrollDistance,   getScrollDistance() );
-    touchProfile.setProperty  ( Property::InvertScroll,     getScrollInversion() );
-    touchProfile.setProperty  ( Property::ZoomDistance,     getZoomDistance() );
-    touchProfile.setProperty  ( Property::TapTime,          getTapTime() );
-    touchProfile.setProperty  ( Property::Rotate,           _tabletRotation.key() );
+    touchProfile.setProperty(Property::Touch, getTouchSupportEnabled());
+    touchProfile.setProperty(Property::Mode, getTrackingMode());
+    touchProfile.setProperty(Property::ScreenSpace, getScreenSpaceAsString());
+    touchProfile.setProperty(Property::ScreenMap, getScreenMapAsString());
+    touchProfile.setProperty(Property::Gesture, getGestureSupportEnabled());
+    touchProfile.setProperty(Property::ScrollDistance, getScrollDistance());
+    touchProfile.setProperty(Property::InvertScroll, getScrollInversion());
+    touchProfile.setProperty(Property::ZoomDistance, getZoomDistance());
+    touchProfile.setProperty(Property::TapTime, getTapTime());
+    touchProfile.setProperty(Property::Rotate, _tabletRotation.key());
 
     profileManagement.saveDeviceProfile(touchProfile);
 }
-
 
 void TouchPageWidget::onGesturesModeChanged(int state)
 {
@@ -124,24 +120,21 @@ void TouchPageWidget::onGesturesModeChanged(int state)
     onProfileChanged();
 }
 
-
 void TouchPageWidget::onProfileChanged()
 {
     emit changed();
 }
 
-
-void TouchPageWidget::onRotationChanged(const ScreenRotation& rotation)
+void TouchPageWidget::onRotationChanged(const ScreenRotation &rotation)
 {
     _tabletRotation = rotation;
 }
 
-
 void TouchPageWidget::onTabletMappingClicked()
 {
     TabletAreaSelectionDialog selectionDialog;
-    selectionDialog.setupWidget( getScreenMap(), _touchDeviceName, _tabletRotation);
-    selectionDialog.select( getScreenSpace() );
+    selectionDialog.setupWidget(getScreenMap(), _touchDeviceName, _tabletRotation);
+    selectionDialog.select(getScreenSpace());
 
     if (selectionDialog.exec() == QDialog::Accepted) {
         setScreenMap(selectionDialog.getScreenMap());
@@ -149,7 +142,6 @@ void TouchPageWidget::onTabletMappingClicked()
         onProfileChanged();
     }
 }
-
 
 void TouchPageWidget::onTouchModeChanged(int state)
 {
@@ -175,7 +167,6 @@ void TouchPageWidget::onTrackingModeAbsolute(bool activated)
     onProfileChanged();
 }
 
-
 void TouchPageWidget::onTrackingModeRelative(bool activated)
 {
     if (!activated) {
@@ -186,26 +177,22 @@ void TouchPageWidget::onTrackingModeRelative(bool activated)
     onProfileChanged();
 }
 
-
 const QString TouchPageWidget::getGestureSupportEnabled() const
 {
     return (isGesturesSupportEnabled() ? QLatin1String("on") : QLatin1String("off"));
 }
 
-
-const ScreenMap& TouchPageWidget::getScreenMap() const
+const ScreenMap &TouchPageWidget::getScreenMap() const
 {
     return _screenMap;
 }
-
 
 const QString TouchPageWidget::getScreenMapAsString() const
 {
     return getScreenMap().toString();
 }
 
-
-const ScreenSpace& TouchPageWidget::getScreenSpace() const
+const ScreenSpace &TouchPageWidget::getScreenSpace() const
 {
     return _screenSpace;
 }
@@ -215,30 +202,25 @@ const QString TouchPageWidget::getScreenSpaceAsString() const
     return getScreenSpace().toString();
 }
 
-
 const QString TouchPageWidget::getScrollDistance() const
 {
     return QString::number(ui->scrollDistanceSpinBox->value());
 }
-
 
 const QString TouchPageWidget::getScrollInversion() const
 {
     return (ui->scrollInversionCheckBox->isChecked() ? QLatin1String("on") : QLatin1String("off"));
 }
 
-
 const QString TouchPageWidget::getTapTime() const
 {
     return QString::number(ui->tapTimeSpinBox->value());
 }
 
-
 const QString TouchPageWidget::getTouchSupportEnabled() const
 {
     return (isTouchSupportEnabled() ? QLatin1String("on") : QLatin1String("off"));
 }
-
 
 const QString TouchPageWidget::getTrackingMode() const
 {
@@ -249,12 +231,10 @@ const QString TouchPageWidget::getTrackingMode() const
     return QLatin1String("relative");
 }
 
-
 const QString TouchPageWidget::getZoomDistance() const
 {
     return QString::number(ui->zoomDistanceSpinBox->value());
 }
-
 
 bool TouchPageWidget::isGesturesSupportEnabled() const
 {
@@ -266,7 +246,6 @@ bool TouchPageWidget::isTouchSupportEnabled() const
     return ui->touchCheckBox->isChecked();
 }
 
-
 void TouchPageWidget::setGesturesSupportEnabled(bool value)
 {
     ui->gesturesGroupBox->setEnabled(value);
@@ -276,7 +255,6 @@ void TouchPageWidget::setGesturesSupportEnabled(bool value)
     ui->gesturesCheckBox->blockSignals(false);
 }
 
-
 void TouchPageWidget::setScreenMap(const ScreenMap &screenMap)
 {
     _screenMap = screenMap;
@@ -284,41 +262,36 @@ void TouchPageWidget::setScreenMap(const ScreenMap &screenMap)
     assertValidTabletMapping();
 }
 
-
-void TouchPageWidget::setScreenMap(const QString& value)
+void TouchPageWidget::setScreenMap(const QString &value)
 {
     setScreenMap(ScreenMap(value));
 }
 
-
-void TouchPageWidget::setScreenSpace(const ScreenSpace& screenSpace)
+void TouchPageWidget::setScreenSpace(const ScreenSpace &screenSpace)
 {
     _screenSpace = screenSpace;
 
     assertValidTabletMapping();
 }
 
-void TouchPageWidget::setScreenSpace(const QString& value)
+void TouchPageWidget::setScreenSpace(const QString &value)
 {
     setScreenSpace(ScreenSpace(value));
 }
 
-
-void TouchPageWidget::setScrollDistance(const QString& value)
+void TouchPageWidget::setScrollDistance(const QString &value)
 {
     ui->scrollDistanceSpinBox->blockSignals(true);
     ui->scrollDistanceSpinBox->setValue(value.toInt());
     ui->scrollDistanceSpinBox->blockSignals(false);
 }
 
-
-void TouchPageWidget::setScrollInversion(const QString& value)
+void TouchPageWidget::setScrollInversion(const QString &value)
 {
     ui->scrollInversionCheckBox->blockSignals(true);
     ui->scrollInversionCheckBox->setChecked(StringUtils::asBool(value));
     ui->scrollInversionCheckBox->blockSignals(false);
 }
-
 
 void TouchPageWidget::setTouchSupportEnabled(bool value)
 {
@@ -335,16 +308,14 @@ void TouchPageWidget::setTouchSupportEnabled(bool value)
     ui->touchCheckBox->blockSignals(false);
 }
 
-
-void TouchPageWidget::setTapTime(const QString& value)
+void TouchPageWidget::setTapTime(const QString &value)
 {
     ui->tapTimeSpinBox->blockSignals(true);
     ui->tapTimeSpinBox->setValue(value.toInt());
     ui->tapTimeSpinBox->blockSignals(false);
 }
 
-
-void TouchPageWidget::setTrackingMode(const QString& value)
+void TouchPageWidget::setTrackingMode(const QString &value)
 {
     ui->trackAbsoluteRadioButton->blockSignals(true);
     ui->trackRelativeRadioButton->blockSignals(true);
@@ -363,14 +334,12 @@ void TouchPageWidget::setTrackingMode(const QString& value)
     assertValidTabletMapping();
 }
 
-
-void TouchPageWidget::setZoomDistance(const QString& value)
+void TouchPageWidget::setZoomDistance(const QString &value)
 {
     ui->zoomDistanceSpinBox->blockSignals(true);
     ui->zoomDistanceSpinBox->setValue(value.toInt());
     ui->zoomDistanceSpinBox->blockSignals(false);
 }
-
 
 void TouchPageWidget::assertValidTabletMapping()
 {
@@ -390,13 +359,12 @@ void TouchPageWidget::assertValidTabletMapping()
     ui->trackingWarningLabel->setVisible(isWarningVisible);
 }
 
-
 void TouchPageWidget::setupUi()
 {
     ui->setupUi(this);
 
     // init screen mapping warning
-    ui->trackingWarningIcon->setPixmap(QIcon::fromTheme(QLatin1String("dialog-warning")).pixmap(QSize(16,16)));
+    ui->trackingWarningIcon->setPixmap(QIcon::fromTheme(QLatin1String("dialog-warning")).pixmap(QSize(16, 16)));
     ui->trackingWarningIcon->setVisible(false);
     ui->trackingWarningLabel->setVisible(false);
 }

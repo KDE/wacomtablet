@@ -37,8 +37,11 @@ public:
      *
      * @see KAboutData
      */
-    AboutData(const QString& componentName, const QString& displayName, const QString& version,
-              const QString& shortDescription, const QString& otherText = QString());
+    AboutData(const QString &componentName,
+              const QString &displayName,
+              const QString &version,
+              const QString &shortDescription,
+              const QString &otherText = QString());
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

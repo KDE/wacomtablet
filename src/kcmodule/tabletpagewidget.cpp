@@ -24,22 +24,21 @@
 #include "deviceprofile.h"
 #include "profilemanagement.h"
 #include "property.h"
+#include "screensinfo.h"
 #include "stringutils.h"
 #include "tabletareaselectiondialog.h"
-#include "screensinfo.h"
 #include "x11wacom.h"
 
 #include <QStringList>
 
 using namespace Wacom;
 
-TabletPageWidget::TabletPageWidget(QWidget* parent)
-        : QWidget(parent)
-        , ui(new Ui::TabletPageWidget)
+TabletPageWidget::TabletPageWidget(QWidget *parent)
+    : QWidget(parent)
+    , ui(new Ui::TabletPageWidget)
 {
     setupUi();
 }
-
 
 TabletPageWidget::~TabletPageWidget()
 {
@@ -53,31 +52,30 @@ void TabletPageWidget::setTabletId(const QString &tabletId)
 
 void TabletPageWidget::loadFromProfile(ProfileManagementInterface &profileManagement)
 {
-    DeviceProfile stylusProfile = profileManagement.loadDeviceProfile( DeviceType::Stylus );
+    DeviceProfile stylusProfile = profileManagement.loadDeviceProfile(DeviceType::Stylus);
 
-    setRotation( stylusProfile.getProperty( Property::Rotate ) );
-    setScreenSpace( stylusProfile.getProperty( Property::ScreenSpace ) );
-    setScreenMap( stylusProfile.getProperty( Property::ScreenMap ) );
-    setTrackingMode(stylusProfile.getProperty( Property::Mode ));
+    setRotation(stylusProfile.getProperty(Property::Rotate));
+    setScreenSpace(stylusProfile.getProperty(Property::ScreenSpace));
+    setScreenMap(stylusProfile.getProperty(Property::ScreenMap));
+    setTrackingMode(stylusProfile.getProperty(Property::Mode));
 }
-
 
 void TabletPageWidget::reloadWidget()
 {
     // get all tablet device names we need
     QDBusReply<QString> stylusDeviceNameReply = DBusTabletInterface::instance().getDeviceName(_tabletId, DeviceType::Stylus.key());
-    QDBusReply<QString> touchDeviceNameReply  = DBusTabletInterface::instance().getDeviceName(_tabletId, DeviceType::Touch.key());
+    QDBusReply<QString> touchDeviceNameReply = DBusTabletInterface::instance().getDeviceName(_tabletId, DeviceType::Touch.key());
 
     // update name and maximum tablet area for all devices
     _deviceNameStylus.clear();
     _deviceNameTouch.clear();
     _tabletGeometry = TabletArea();
-    _screenMap      = ScreenMap();
+    _screenMap = ScreenMap();
 
     if (stylusDeviceNameReply.isValid()) {
         _deviceNameStylus = stylusDeviceNameReply.value();
-        _tabletGeometry   = X11Wacom::getMaximumTabletArea(stylusDeviceNameReply.value());
-        _screenMap        = ScreenMap(_tabletGeometry);
+        _tabletGeometry = X11Wacom::getMaximumTabletArea(stylusDeviceNameReply.value());
+        _screenMap = ScreenMap(_tabletGeometry);
     }
 
     if (touchDeviceNameReply.isValid()) {
@@ -85,30 +83,29 @@ void TabletPageWidget::reloadWidget()
     }
 }
 
-
 void TabletPageWidget::saveToProfile(ProfileManagementInterface &profileManagement)
 {
-    DeviceProfile padProfile    = profileManagement.loadDeviceProfile( DeviceType::Pad );
-    DeviceProfile stylusProfile = profileManagement.loadDeviceProfile( DeviceType::Stylus );
-    DeviceProfile eraserProfile = profileManagement.loadDeviceProfile( DeviceType::Eraser );
-    DeviceProfile touchProfile  = profileManagement.loadDeviceProfile( DeviceType::Touch );
+    DeviceProfile padProfile = profileManagement.loadDeviceProfile(DeviceType::Pad);
+    DeviceProfile stylusProfile = profileManagement.loadDeviceProfile(DeviceType::Stylus);
+    DeviceProfile eraserProfile = profileManagement.loadDeviceProfile(DeviceType::Eraser);
+    DeviceProfile touchProfile = profileManagement.loadDeviceProfile(DeviceType::Touch);
 
-    stylusProfile.setProperty ( Property::Rotate,      getRotation() );
-    eraserProfile.setProperty ( Property::Rotate,      getRotation() );
-    touchProfile.setProperty  ( Property::Rotate,      getRotation() );
-    padProfile.setProperty    ( Property::Rotate,      QString()); // make sure it is not set on the pad - will mess up touch
+    stylusProfile.setProperty(Property::Rotate, getRotation());
+    eraserProfile.setProperty(Property::Rotate, getRotation());
+    touchProfile.setProperty(Property::Rotate, getRotation());
+    padProfile.setProperty(Property::Rotate, QString()); // make sure it is not set on the pad - will mess up touch
 
-    stylusProfile.setProperty ( Property::ScreenSpace, getScreenSpaceAsString() );
-    eraserProfile.setProperty ( Property::ScreenSpace, getScreenSpaceAsString() );
-    padProfile.setProperty    ( Property::ScreenSpace, QString()); // should not be set on the pad, causes trouble
-    padProfile.setProperty    ( Property::Area,        QString()); // should not be set on the pad, causes trouble
+    stylusProfile.setProperty(Property::ScreenSpace, getScreenSpaceAsString());
+    eraserProfile.setProperty(Property::ScreenSpace, getScreenSpaceAsString());
+    padProfile.setProperty(Property::ScreenSpace, QString()); // should not be set on the pad, causes trouble
+    padProfile.setProperty(Property::Area, QString()); // should not be set on the pad, causes trouble
 
-    stylusProfile.setProperty ( Property::ScreenMap,   getScreenMapAsString() );
-    eraserProfile.setProperty ( Property::ScreenMap,   getScreenMapAsString() );
-    padProfile.setProperty    ( Property::ScreenMap,   QString() ); // make sure it is not set on the pad
+    stylusProfile.setProperty(Property::ScreenMap, getScreenMapAsString());
+    eraserProfile.setProperty(Property::ScreenMap, getScreenMapAsString());
+    padProfile.setProperty(Property::ScreenMap, QString()); // make sure it is not set on the pad
 
-    stylusProfile.setProperty ( Property::Mode,        getTrackingMode());
-    eraserProfile.setProperty ( Property::Mode,        getTrackingMode());
+    stylusProfile.setProperty(Property::Mode, getTrackingMode());
+    eraserProfile.setProperty(Property::Mode, getTrackingMode());
 
     profileManagement.saveDeviceProfile(padProfile);
     profileManagement.saveDeviceProfile(stylusProfile);
@@ -119,30 +116,27 @@ void TabletPageWidget::saveToProfile(ProfileManagementInterface &profileManageme
     }
 }
 
-
 void TabletPageWidget::onAutoRotateChanged(int state)
 {
     setAutoRotationEnabled(state == Qt::Checked);
     onProfileChanged();
 }
 
-
 void TabletPageWidget::onProfileChanged()
 {
     emit changed();
 }
 
-
 void TabletPageWidget::onTabletMappingClicked()
 {
     // get current rotation settings
     // we need to invert it as our rotation settings in this widget have a canvas viewpoint
-    const ScreenRotation* lookupRotation = ScreenRotation::find(getRotation());
-    ScreenRotation        rotation       = lookupRotation ? lookupRotation->invert() : ScreenRotation::NONE;
+    const ScreenRotation *lookupRotation = ScreenRotation::find(getRotation());
+    ScreenRotation rotation = lookupRotation ? lookupRotation->invert() : ScreenRotation::NONE;
 
     TabletAreaSelectionDialog selectionDialog;
-    selectionDialog.setupWidget( getScreenMap(), _deviceNameStylus, rotation);
-    selectionDialog.select( getScreenSpace() );
+    selectionDialog.setupWidget(getScreenMap(), _deviceNameStylus, rotation);
+    selectionDialog.select(getScreenSpace());
 
     if (selectionDialog.exec() == QDialog::Accepted) {
         setScreenMap(selectionDialog.getScreenMap());
@@ -151,17 +145,15 @@ void TabletPageWidget::onTabletMappingClicked()
     }
 }
 
-
 void TabletPageWidget::onRotationChanged()
 {
     // determine rotation
-    const ScreenRotation* lookupRotation = ScreenRotation::find(getRotation());
+    const ScreenRotation *lookupRotation = ScreenRotation::find(getRotation());
 
     // we need to invert it as our rotation settings in this widget have a canvas viewpoint
     // and our private member variable has a tablet viewpoint
     emit rotationChanged(lookupRotation ? lookupRotation->invert() : ScreenRotation::NONE);
 }
-
 
 void TabletPageWidget::onTrackingModeAbsolute(bool activated)
 {
@@ -173,7 +165,6 @@ void TabletPageWidget::onTrackingModeAbsolute(bool activated)
     onProfileChanged();
 }
 
-
 void TabletPageWidget::onTrackingModeRelative(bool activated)
 {
     if (!activated) {
@@ -183,7 +174,6 @@ void TabletPageWidget::onTrackingModeRelative(bool activated)
     setTrackingMode(QLatin1String("relative"));
     onProfileChanged();
 }
-
 
 const QString TabletPageWidget::getRotation() const
 {
@@ -197,36 +187,31 @@ const QString TabletPageWidget::getRotation() const
         }
     } else {
         int index = ui->rotatationSelectionComboBox->currentIndex();
-        rotation  = ui->rotatationSelectionComboBox->itemData(index).toString();
+        rotation = ui->rotatationSelectionComboBox->itemData(index).toString();
     }
 
     return rotation;
 }
 
-
-const ScreenMap& TabletPageWidget::getScreenMap() const
+const ScreenMap &TabletPageWidget::getScreenMap() const
 {
     return _screenMap;
 }
-
 
 const QString TabletPageWidget::getScreenMapAsString() const
 {
     return getScreenMap().toString();
 }
 
-
-const ScreenSpace& TabletPageWidget::getScreenSpace() const
+const ScreenSpace &TabletPageWidget::getScreenSpace() const
 {
     return _screenSpace;
 }
-
 
 const QString TabletPageWidget::getScreenSpaceAsString() const
 {
     return getScreenSpace().toString();
 }
-
 
 const QString TabletPageWidget::getTrackingMode() const
 {
@@ -237,18 +222,15 @@ const QString TabletPageWidget::getTrackingMode() const
     return QLatin1String("relative");
 }
 
-
 bool TabletPageWidget::isAutoRotateInversionEnabled() const
 {
     return ui->rotateWithScreenInvertCheckBox->isChecked();
 }
 
-
 bool TabletPageWidget::isAutoRotationEnabled() const
 {
     return ui->rotateWithScreenCheckBox->isChecked();
 }
-
 
 void TabletPageWidget::setAutoRotateInversionEnabled(bool value)
 {
@@ -256,7 +238,6 @@ void TabletPageWidget::setAutoRotateInversionEnabled(bool value)
     ui->rotateWithScreenInvertCheckBox->setChecked(value);
     ui->rotateWithScreenInvertCheckBox->blockSignals(false);
 }
-
 
 void TabletPageWidget::setAutoRotationEnabled(bool value)
 {
@@ -274,12 +255,11 @@ void TabletPageWidget::setAutoRotationEnabled(bool value)
     ui->rotateWithScreenCheckBox->blockSignals(false);
 }
 
-
-void TabletPageWidget::setRotation(const QString& value)
+void TabletPageWidget::setRotation(const QString &value)
 {
-    const ScreenRotation* lookup        = ScreenRotation::find(value);
-    ScreenRotation        rotation      = lookup ? *lookup : ScreenRotation::NONE;
-    QString               rotationValue = rotation.key();
+    const ScreenRotation *lookup = ScreenRotation::find(value);
+    ScreenRotation rotation = lookup ? *lookup : ScreenRotation::NONE;
+    QString rotationValue = rotation.key();
 
     if (rotation == ScreenRotation::AUTO) {
         setAutoRotationEnabled(true);
@@ -300,7 +280,6 @@ void TabletPageWidget::setRotation(const QString& value)
     onRotationChanged();
 }
 
-
 void TabletPageWidget::setScreenMap(const ScreenMap &screenMap)
 {
     _screenMap = screenMap;
@@ -308,28 +287,24 @@ void TabletPageWidget::setScreenMap(const ScreenMap &screenMap)
     assertValidTabletMapping();
 }
 
-
-void TabletPageWidget::setScreenMap(const QString& value)
+void TabletPageWidget::setScreenMap(const QString &value)
 {
     setScreenMap(ScreenMap(value));
 }
 
-
-void TabletPageWidget::setScreenSpace(const ScreenSpace& screenSpace)
+void TabletPageWidget::setScreenSpace(const ScreenSpace &screenSpace)
 {
     _screenSpace = screenSpace;
 
     assertValidTabletMapping();
 }
 
-
-void TabletPageWidget::setScreenSpace(const QString& value)
+void TabletPageWidget::setScreenSpace(const QString &value)
 {
     setScreenSpace(ScreenSpace(value));
 }
 
-
-void TabletPageWidget::setTrackingMode(const QString& value)
+void TabletPageWidget::setTrackingMode(const QString &value)
 {
     ui->trackAbsoluteRadioButton->blockSignals(true);
     ui->trackRelativeRadioButton->blockSignals(true);
@@ -347,7 +322,6 @@ void TabletPageWidget::setTrackingMode(const QString& value)
 
     assertValidTabletMapping();
 }
-
 
 void TabletPageWidget::assertValidTabletMapping()
 {
@@ -367,20 +341,20 @@ void TabletPageWidget::assertValidTabletMapping()
     ui->trackingWarningLabel->setVisible(isWarningVisible);
 }
 
-
 void TabletPageWidget::setupUi()
 {
     ui->setupUi(this);
 
     // init screen mapping warning
-    ui->trackingWarningIcon->setPixmap(QIcon::fromTheme(QLatin1String("dialog-warning")).pixmap(QSize(16,16)));
+    ui->trackingWarningIcon->setPixmap(QIcon::fromTheme(QLatin1String("dialog-warning")).pixmap(QSize(16, 16)));
     ui->trackingWarningIcon->setVisible(false);
     ui->trackingWarningLabel->setVisible(false);
 
     // fill rotation combo box
     // xsetwacom's rotation is based on coordinate rotation, but we are asking the user for a tablet rotation.
     // Therefore we have to swap the values for clockwise and counterclockwise rotation.
-    ui->rotatationSelectionComboBox->addItem(i18nc("Either no orientation or the current screen orientation is applied to the tablet.", "Default Orientation"), ScreenRotation::NONE.key());
+    ui->rotatationSelectionComboBox->addItem(i18nc("Either no orientation or the current screen orientation is applied to the tablet.", "Default Orientation"),
+                                             ScreenRotation::NONE.key());
     ui->rotatationSelectionComboBox->addItem(i18nc("The tablet will be rotated clockwise.", "Rotate Tablet Clockwise"), ScreenRotation::CCW.key());
     ui->rotatationSelectionComboBox->addItem(i18nc("The tablet will be rotated counterclockwise.", "Rotate Tablet Counterclockwise"), ScreenRotation::CW.key());
     ui->rotatationSelectionComboBox->addItem(i18nc("The tablet will be rotated up side down.", "Rotate Tablet Upside-Down"), ScreenRotation::HALF.key());

@@ -19,20 +19,20 @@
 #ifndef MULTIDBUSPENDINGCALLWATCHER_H
 #define MULTIDBUSPENDINGCALLWATCHER_H
 
-#include <QObject>
 #include <QDBusPendingCallWatcher>
+#include <QObject>
 
 class MultiDBusPendingCallWatcher : public QObject
 {
     Q_OBJECT
 public:
-    explicit MultiDBusPendingCallWatcher(const QList<QDBusPendingCall>& calls, QObject* parent = 0);
+    explicit MultiDBusPendingCallWatcher(const QList<QDBusPendingCall> &calls, QObject *parent = 0);
 
 signals:
-    void finished(const QList<QDBusPendingCallWatcher*>& watchers);
+    void finished(const QList<QDBusPendingCallWatcher *> &watchers);
 
 private:
-    QList<QDBusPendingCallWatcher*> m_watchers;
+    QList<QDBusPendingCallWatcher *> m_watchers;
     int m_unfinished;
 };
 

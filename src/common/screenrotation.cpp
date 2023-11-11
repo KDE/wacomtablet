@@ -28,20 +28,18 @@ using namespace Wacom;
 template<>
 ScreenRotationTemplateSpecialization::Container ScreenRotationTemplateSpecialization::instances = ScreenRotationTemplateSpecialization::Container();
 
-
 /*
  * Instantiate Device Types.
  */
-const ScreenRotation ScreenRotation::NONE ( QLatin1String("none") );
-const ScreenRotation ScreenRotation::CCW ( QLatin1String("ccw") );
-const ScreenRotation ScreenRotation::HALF    ( QLatin1String("half") );
-const ScreenRotation ScreenRotation::CW ( QLatin1String("cw") );
+const ScreenRotation ScreenRotation::NONE(QLatin1String("none"));
+const ScreenRotation ScreenRotation::CCW(QLatin1String("ccw"));
+const ScreenRotation ScreenRotation::HALF(QLatin1String("half"));
+const ScreenRotation ScreenRotation::CW(QLatin1String("cw"));
 
-const ScreenRotation ScreenRotation::AUTO ( QLatin1String("auto") );
-const ScreenRotation ScreenRotation::AUTO_INVERTED ( QLatin1String("auto-inverted") );
+const ScreenRotation ScreenRotation::AUTO(QLatin1String("auto"));
+const ScreenRotation ScreenRotation::AUTO_INVERTED(QLatin1String("auto-inverted"));
 
-
-const ScreenRotation& ScreenRotation::invert() const
+const ScreenRotation &ScreenRotation::invert() const
 {
     if (*this == ScreenRotation::CW) {
         return ScreenRotation::CCW;
@@ -49,6 +47,6 @@ const ScreenRotation& ScreenRotation::invert() const
     } else if (*this == ScreenRotation::CCW) {
         return ScreenRotation::CW;
     }
-    
+
     return *this;
 }

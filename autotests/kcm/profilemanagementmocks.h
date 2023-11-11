@@ -23,12 +23,11 @@
 
 #include "deviceprofile.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 class ProfileManagementIntegrityChecker : public ProfileManagementInterface
 {
-
-
     // ProfileManagementInterface interface
 public:
     void setTabletId(const QString &tabletId) override;
@@ -47,4 +46,3 @@ public:
 };
 
 }
-

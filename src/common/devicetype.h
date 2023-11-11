@@ -25,7 +25,8 @@
 #include "enum.h"
 #include "property.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 // forward declaration
 class DeviceType;
@@ -38,20 +39,17 @@ struct DeviceTypeTemplateSpecializationLessFunctor;
  */
 typedef Enum<DeviceType, QString, DeviceTypeTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> DeviceTypeTemplateSpecialization;
 
-
 /**
  * @brief Helper Class! Do not use!
  *
  * This functor is required by the DeviceType class to sort its instances.
  */
-struct DeviceTypeTemplateSpecializationLessFunctor
-{
-    bool operator()(const DeviceTypeTemplateSpecialization* p1, const DeviceTypeTemplateSpecialization* p2)
+struct DeviceTypeTemplateSpecializationLessFunctor {
+    bool operator()(const DeviceTypeTemplateSpecialization *p1, const DeviceTypeTemplateSpecialization *p2)
     {
         return (p1->key() < p2->key());
     }
 };
-
 
 /**
  * @brief An enum of all device types.
@@ -66,12 +64,11 @@ struct DeviceTypeTemplateSpecializationLessFunctor
  * longer possible to have method/d-bus calls fail because of typos in the device type
  * identifier. Also refactoring is much easier.
  */
-class DeviceType : public DeviceTypeTemplateSpecialization {
-
+class DeviceType : public DeviceTypeTemplateSpecialization
+{
 public:
-
     //! Compare operator which compares the keys case-insensitive.
-    bool operator< (const DeviceType& other) const;
+    bool operator<(const DeviceType &other) const;
 
     static const DeviceType Cursor;
     static const DeviceType Eraser;
@@ -88,7 +85,10 @@ private:
     /**
      * Private constructor to initialize the static instances of this class.
      */
-    DeviceType(const QString& key) : DeviceTypeTemplateSpecialization(this, key) {}
+    DeviceType(const QString &key)
+        : DeviceTypeTemplateSpecialization(this, key)
+    {
+    }
 
 }; // CLASS
 
@@ -98,5 +98,5 @@ private:
 template<>
 DeviceTypeTemplateSpecialization::Container DeviceTypeTemplateSpecialization::instances;
 
-}      // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

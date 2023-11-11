@@ -20,12 +20,13 @@
 #ifndef PROCSYSTEMADAPTOR_H
 #define PROCSYSTEMADAPTOR_H
 
-#include <QString>
 #include <QList>
+#include <QString>
 
 #include "propertyadaptor.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 // Forward Declarations
 class ProcSystemProperty;
@@ -38,7 +39,7 @@ class ProcSystemAdaptor : public PropertyAdaptor
 {
 public:
     //! Default constructor.
-    explicit ProcSystemAdaptor(const QString& deviceName);
+    explicit ProcSystemAdaptor(const QString &deviceName);
 
     //! Destructor
     ~ProcSystemAdaptor() override;
@@ -51,23 +52,22 @@ public:
     /**
      * @sa PropertyAdaptor::getProperty(const Property&)
      */
-    const QString getProperty(const Property& property) const override;
+    const QString getProperty(const Property &property) const override;
 
     /**
      * @sa PropertyAdaptor::setProperty(const Property&, const QString&)
      */
-    bool setProperty(const Wacom::Property& property, const QString& value) override;
+    bool setProperty(const Wacom::Property &property, const QString &value) override;
 
     /**
      * @sa PropertyAdaptor::supportsProperty(const Property&)
      */
-    bool supportsProperty(const Property& property) const override;
+    bool supportsProperty(const Property &property) const override;
 
 private:
-
-    Q_DECLARE_PRIVATE( ProcSystemAdaptor )
+    Q_DECLARE_PRIVATE(ProcSystemAdaptor)
     ProcSystemAdaptorPrivate *const d_ptr; /**< d-pointer for this class */
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

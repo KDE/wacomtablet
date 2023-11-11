@@ -33,14 +33,16 @@ namespace Wacom
 class X11InputVisitor
 {
 public:
-    virtual ~X11InputVisitor() {}
+    virtual ~X11InputVisitor()
+    {
+    }
 
     /**
      * Called by X11Input when iterating the X11 input devices.
      *
      * @return True to end the current iteration, else false.
      */
-    virtual bool visit(X11InputDevice& device) = 0;
+    virtual bool visit(X11InputDevice &device) = 0;
 };
 }
 #endif

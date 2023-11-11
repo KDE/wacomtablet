@@ -25,12 +25,14 @@
 struct _WacomDeviceDatabase;
 typedef struct _WacomDeviceDatabase WacomDeviceDatabase;
 
-namespace Wacom {
+namespace Wacom
+{
 
 /**
  * @brief Singleton that provides interface for libwacom tablet definition lookups
  */
-class libWacomWrapper {
+class libWacomWrapper
+{
 private:
     libWacomWrapper();
     ~libWacomWrapper();
@@ -38,7 +40,7 @@ private:
 public:
     static libWacomWrapper &instance();
 
-    bool lookupTabletInfo(int tabletId, int vendorId, TabletInformation& tabletInfo);
+    bool lookupTabletInfo(int tabletId, int vendorId, TabletInformation &tabletInfo);
 
 private:
     WacomDeviceDatabase *db = nullptr;

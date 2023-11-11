@@ -24,7 +24,7 @@
 
 namespace Ui
 {
-    class GeneralPageWidget;
+class GeneralPageWidget;
 }
 
 class QDBusInterface;
@@ -32,63 +32,63 @@ class KShortcutsEditor;
 
 namespace Wacom
 {
-    class ProfileManagement;
-    class GlobalActions;
+class ProfileManagement;
+class GlobalActions;
 
 /**
-  * This class shows some general information about the detected tablet device.
-  *
-  * Shows an image and the name plus all detected input devices (pad/stylus/eraser and so on).
-  * Mainly used as debug output and to help the user to realize that his tablet
-  * was detected correctly.
-  */
+ * This class shows some general information about the detected tablet device.
+ *
+ * Shows an image and the name plus all detected input devices (pad/stylus/eraser and so on).
+ * Mainly used as debug output and to help the user to realize that his tablet
+ * was detected correctly.
+ */
 class GeneralPageWidget : public QWidget
 {
     Q_OBJECT
 
 public:
     /**
-      * Default constructor
-      *
-      * @param parent the parent widget
-      */
-    explicit GeneralPageWidget(QWidget* parent = nullptr);
+     * Default constructor
+     *
+     * @param parent the parent widget
+     */
+    explicit GeneralPageWidget(QWidget *parent = nullptr);
 
     /**
-      * default destructor
-      */
+     * default destructor
+     */
     ~GeneralPageWidget() override;
 
     void setTabletId(const QString &tabletId);
 
     /**
-      * Saves all values to the current profile
-      */
+     * Saves all values to the current profile
+     */
     void saveToProfile();
 
 public slots:
     /**
-      * When called the widget information will be refreshed
-      */
+     * When called the widget information will be refreshed
+     */
     void reloadWidget();
 
     /**
-      * Called whenever the profile is switched or the widget needs to be reinitialized.
-      *
-      * Updates all values on the widget to the values from the profile.
-      */
+     * Called whenever the profile is switched or the widget needs to be reinitialized.
+     *
+     * Updates all values on the widget to the values from the profile.
+     */
     void loadFromProfile();
 
     /**
-      * Called whenever a value is changed.
-      * Fires the changed() signal afterwards to inform the main widget that unsaved changes are available.
-      */
+     * Called whenever a value is changed.
+     * Fires the changed() signal afterwards to inform the main widget that unsaved changes are available.
+     */
     void profileChanged();
 
 signals:
     /**
-      * Used to inform the main widget that unsaved changes in the current profile are available.
-      */
+     * Used to inform the main widget that unsaved changes in the current profile are available.
+     */
     void changed();
 
 private slots:
@@ -104,5 +104,5 @@ private:
     QString _tabletId;
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // GENERALPAGEWIDGET_H

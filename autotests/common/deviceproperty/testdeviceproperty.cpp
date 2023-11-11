@@ -28,7 +28,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the device properties
  */
-class TestDeviceProperty: public QObject
+class TestDeviceProperty : public QObject
 {
     Q_OBJECT
 

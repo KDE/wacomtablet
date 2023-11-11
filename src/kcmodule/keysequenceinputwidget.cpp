@@ -27,28 +27,25 @@
 #include <QPushButton>
 #include <QToolButton>
 
-
 using namespace Wacom;
 
 namespace Wacom
 {
-    class KeySequenceInputWidgetPrivate
-    {
-        public:
-            KeySequenceInputWidgetPrivate(KeySequenceInputWidget *q);
-            ~KeySequenceInputWidgetPrivate();
+class KeySequenceInputWidgetPrivate
+{
+public:
+    KeySequenceInputWidgetPrivate(KeySequenceInputWidget *q);
+    ~KeySequenceInputWidgetPrivate();
 
-            void setupUi();
+    void setupUi();
 
-            KeySequenceInputWidget *const q;
+    KeySequenceInputWidget *const q;
 
-            QHBoxLayout            *layout;
-            KeySequenceInputButton *keyButton;
-            QToolButton            *clearButton;
-
-    };
+    QHBoxLayout *layout;
+    KeySequenceInputButton *keyButton;
+    QToolButton *clearButton;
+};
 }
-
 
 KeySequenceInputWidgetPrivate::KeySequenceInputWidgetPrivate(KeySequenceInputWidget *q)
     : q(q)
@@ -59,12 +56,10 @@ KeySequenceInputWidgetPrivate::KeySequenceInputWidgetPrivate(KeySequenceInputWid
     setupUi();
 }
 
-
 KeySequenceInputWidgetPrivate::~KeySequenceInputWidgetPrivate()
 {
     // must exist, even if not used.
 }
-
 
 void KeySequenceInputWidgetPrivate::setupUi()
 {
@@ -84,10 +79,9 @@ void KeySequenceInputWidgetPrivate::setupUi()
     }
 }
 
-
-
 KeySequenceInputWidget::KeySequenceInputWidget(QWidget *parent)
-    : QWidget(parent), d_ptr(new KeySequenceInputWidgetPrivate(this))
+    : QWidget(parent)
+    , d_ptr(new KeySequenceInputWidgetPrivate(this))
 {
     Q_D(KeySequenceInputWidget);
 
@@ -96,20 +90,17 @@ KeySequenceInputWidget::KeySequenceInputWidget(QWidget *parent)
     connect(d->keyButton, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(onKeySequenceChanged(QKeySequence)));
 }
 
-
 KeySequenceInputWidget::~KeySequenceInputWidget()
 {
     // destructor must exist in cpp file, even if not used!
 }
 
-
-const QKeySequence& KeySequenceInputWidget::keySequence() const
+const QKeySequence &KeySequenceInputWidget::keySequence() const
 {
     Q_D(const KeySequenceInputWidget);
 
     return d->keyButton->getSequence();
 }
-
 
 void KeySequenceInputWidget::clearKeySequence()
 {
@@ -118,7 +109,6 @@ void KeySequenceInputWidget::clearKeySequence()
     onKeySequenceChanged(d->keyButton->getSequence());
 }
 
-
 void KeySequenceInputWidget::setKeySequence(const QKeySequence &sequence)
 {
     Q_D(KeySequenceInputWidget);
@@ -126,11 +116,9 @@ void KeySequenceInputWidget::setKeySequence(const QKeySequence &sequence)
     onKeySequenceChanged(d->keyButton->getSequence());
 }
 
-
 void KeySequenceInputWidget::onKeySequenceChanged(const QKeySequence &sequence)
 {
     emit keySequenceChanged(sequence);
 }
-
 
 #include "moc_keysequenceinputwidget.cpp"

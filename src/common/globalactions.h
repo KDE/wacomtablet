@@ -22,13 +22,14 @@
 
 #include <KActionCollection>
 
-namespace Wacom {
+namespace Wacom
+{
 
 class GlobalActions : public KActionCollection
 {
     Q_OBJECT
 public:
-    explicit GlobalActions(bool isConfiguration, QObject* parent);
+    explicit GlobalActions(bool isConfiguration, QObject *parent);
 
 signals:
     void toggleTouchTriggered();
@@ -39,6 +40,6 @@ signals:
     void mapToScreen2Triggered();
     void nextProfileTriggered();
     void previousProfileTriggered();
-};     // CLASS
-}      // NAMESPACE
+}; // CLASS
+} // NAMESPACE
 #endif // HEADER PROTECTION

@@ -23,147 +23,132 @@
 
 namespace Wacom
 {
-    class TabletInformationPrivate
+class TabletInformationPrivate
+{
+public:
+    /*
+     * Declarations
+     */
+    typedef QMap<QString, DeviceInformation> DeviceInformationMap;
+    typedef QMap<QString, QString> TabletInfoMap;
+
+    /*
+     * Members
+     */
+    QString unknown; //!< An empty string which allows us to return a const reference.
+
+    QMap<QString, QString> buttonMap;
+    DeviceInformationMap deviceMap;
+    TabletInfoMap infoMap;
+    bool isAvailable = false;
+    bool hasButtons = false;
+
+    TabletInformationPrivate &operator=(const TabletInformationPrivate &that)
     {
-        public:
-            /*
-             * Declarations
-             */
-            typedef QMap<QString,DeviceInformation> DeviceInformationMap;
-            typedef QMap<QString,QString>           TabletInfoMap;
+        buttonMap = that.buttonMap;
+        deviceMap = that.deviceMap;
+        infoMap = that.infoMap;
+        isAvailable = that.isAvailable;
+        hasButtons = that.hasButtons;
 
-            /*
-             * Members
-             */
-            QString unknown;   //!< An empty string which allows us to return a const reference.
+        return *this;
+    }
 
-            QMap<QString,QString> buttonMap;
-            DeviceInformationMap  deviceMap;
-            TabletInfoMap         infoMap;
-            bool                  isAvailable = false;
-            bool                  hasButtons = false;
+    bool operator==(const TabletInformationPrivate &that) const
+    {
+        // we don't care if the device is available or not
+        // we also don't care about the button map
+        if (hasButtons != that.hasButtons || infoMap.size() != that.infoMap.size() || deviceMap.size() != that.deviceMap.size()) {
+            return false;
+        }
 
-            TabletInformationPrivate& operator= (const TabletInformationPrivate& that)
-            {
-                buttonMap    = that.buttonMap;
-                deviceMap    = that.deviceMap;
-                infoMap      = that.infoMap;
-                isAvailable  = that.isAvailable;
-                hasButtons   = that.hasButtons;
+        // QMap is always ordered by key so we can just iterate over it and compare keys directly
+        TabletInfoMap::const_iterator thisInfoIter = infoMap.constBegin();
+        TabletInfoMap::const_iterator thatInfoIter = that.infoMap.constBegin();
 
-                return *this;
+        while (thatInfoIter != infoMap.constEnd() && thatInfoIter != that.infoMap.constEnd()) {
+            if (thisInfoIter.key().compare(thatInfoIter.key(), Qt::CaseInsensitive) != 0) {
+                return false;
             }
 
-            bool operator== (const TabletInformationPrivate& that) const
-            {
-                // we don't care if the device is available or not
-                // we also don't care about the button map
-                if (hasButtons       != that.hasButtons     ||
-                    infoMap.size()   != that.infoMap.size() ||
-                    deviceMap.size() != that.deviceMap.size()
-                   )
-                {
-                    return false;
-                }
-
-
-                // QMap is always ordered by key so we can just iterate over it and compare keys directly
-                TabletInfoMap::const_iterator thisInfoIter = infoMap.constBegin();
-                TabletInfoMap::const_iterator thatInfoIter = that.infoMap.constBegin();
-
-                while (thatInfoIter != infoMap.constEnd() && thatInfoIter != that.infoMap.constEnd()) {
-
-                    if (thisInfoIter.key().compare(thatInfoIter.key(), Qt::CaseInsensitive) != 0) {
-                        return false;
-                    }
-
-                    if (thisInfoIter.value().compare(thatInfoIter.value(), Qt::CaseInsensitive) != 0) {
-                        return false;
-                    }
-
-                    ++thisInfoIter;
-                    ++thatInfoIter;
-                }
-
-                DeviceInformationMap::const_iterator thisDevIter = deviceMap.constBegin();
-                DeviceInformationMap::const_iterator thatDevIter = that.deviceMap.constBegin();
-
-                while (thisDevIter != deviceMap.constEnd() && thatDevIter != that.deviceMap.constEnd()) {
-
-                    if (thisDevIter.key().compare(thatDevIter.key(), Qt::CaseInsensitive) != 0) {
-                        return false;
-                    }
-
-                    if (thisDevIter.value() != thatDevIter.value()) {
-                        return false;
-                    }
-
-                    ++thisDevIter;
-                    ++thatDevIter;
-                }
-
-                return true;
+            if (thisInfoIter.value().compare(thatInfoIter.value(), Qt::CaseInsensitive) != 0) {
+                return false;
             }
-    }; // CLASS TabletInformationPrivate
+
+            ++thisInfoIter;
+            ++thatInfoIter;
+        }
+
+        DeviceInformationMap::const_iterator thisDevIter = deviceMap.constBegin();
+        DeviceInformationMap::const_iterator thatDevIter = that.deviceMap.constBegin();
+
+        while (thisDevIter != deviceMap.constEnd() && thatDevIter != that.deviceMap.constEnd()) {
+            if (thisDevIter.key().compare(thatDevIter.key(), Qt::CaseInsensitive) != 0) {
+                return false;
+            }
+
+            if (thisDevIter.value() != thatDevIter.value()) {
+                return false;
+            }
+
+            ++thisDevIter;
+            ++thatDevIter;
+        }
+
+        return true;
+    }
+}; // CLASS TabletInformationPrivate
 } // NAMESPACE Wacom
 
 using namespace Wacom;
 
-TabletInformation::TabletInformation() : d_ptr(new TabletInformationPrivate)
+TabletInformation::TabletInformation()
+    : d_ptr(new TabletInformationPrivate)
 {
     d_ptr->unknown.clear();
 }
 
-
-TabletInformation::TabletInformation(long tabletSerial) : d_ptr(new TabletInformationPrivate)
+TabletInformation::TabletInformation(long tabletSerial)
+    : d_ptr(new TabletInformationPrivate)
 {
     set(TabletInfo::TabletSerial, QString::number(tabletSerial));
     d_ptr->unknown.clear();
 }
 
-
-TabletInformation::TabletInformation(const TabletInformation& that) : d_ptr(new TabletInformationPrivate)
+TabletInformation::TabletInformation(const TabletInformation &that)
+    : d_ptr(new TabletInformationPrivate)
 {
     operator=(that);
 }
-
 
 TabletInformation::~TabletInformation()
 {
     delete d_ptr;
 }
 
-
-
-TabletInformation& TabletInformation::operator=(const TabletInformation& that)
+TabletInformation &TabletInformation::operator=(const TabletInformation &that)
 {
     Q_D(TabletInformation);
 
-    d->operator= (*(that.d_ptr));
+    d->operator=(*(that.d_ptr));
 
     return *this;
 }
 
-
-
-bool TabletInformation::operator!= (const TabletInformation& other) const
+bool TabletInformation::operator!=(const TabletInformation &other) const
 {
-    return !operator== (other);
+    return !operator==(other);
 }
 
-
-
-bool TabletInformation::operator== (const TabletInformation& other) const
+bool TabletInformation::operator==(const TabletInformation &other) const
 {
-    Q_D (const TabletInformation);
-    return other.d_ptr != nullptr && d->operator== (*(other.d_ptr));
+    Q_D(const TabletInformation);
+    return other.d_ptr != nullptr && d->operator==(*(other.d_ptr));
 }
 
-
-
-const QString& TabletInformation::get (const TabletInfo& info) const
+const QString &TabletInformation::get(const TabletInfo &info) const
 {
-    Q_D (const TabletInformation);
+    Q_D(const TabletInformation);
 
     TabletInformationPrivate::TabletInfoMap::const_iterator iter = d->infoMap.constFind(info.key());
 
@@ -174,31 +159,25 @@ const QString& TabletInformation::get (const TabletInfo& info) const
     return iter.value();
 }
 
-
-
-bool TabletInformation::getBool(const TabletInfo& info) const
+bool TabletInformation::getBool(const TabletInfo &info) const
 {
-    return (StringUtils::asBool (get (info)));
+    return (StringUtils::asBool(get(info)));
 }
 
-
-int TabletInformation::getInt(const TabletInfo& info) const
+int TabletInformation::getInt(const TabletInfo &info) const
 {
     return (get(info).toInt());
 }
 
-
-const QMap< QString, QString >& TabletInformation::getButtonMap() const
+const QMap<QString, QString> &TabletInformation::getButtonMap() const
 {
-    Q_D (const TabletInformation);
+    Q_D(const TabletInformation);
     return d->buttonMap;
 }
 
-
-
-const DeviceInformation* TabletInformation::getDevice (const DeviceType& deviceType) const
+const DeviceInformation *TabletInformation::getDevice(const DeviceType &deviceType) const
 {
-    Q_D (const TabletInformation);
+    Q_D(const TabletInformation);
 
     TabletInformationPrivate::DeviceInformationMap::ConstIterator iter = d->deviceMap.constFind(deviceType.key());
 
@@ -209,14 +188,12 @@ const DeviceInformation* TabletInformation::getDevice (const DeviceType& deviceT
     return &(iter.value());
 }
 
-
-
 const QStringList TabletInformation::getDeviceList() const
 {
-    QString     device;
+    QString device;
     QStringList deviceList;
 
-    foreach (const DeviceType& type, DeviceType::list()) {
+    foreach (const DeviceType &type, DeviceType::list()) {
         device = getDeviceName(type);
 
         if (!device.isEmpty()) {
@@ -227,9 +204,7 @@ const QStringList TabletInformation::getDeviceList() const
     return deviceList;
 }
 
-
-
-const QString& TabletInformation::getDeviceName (const DeviceType& device) const
+const QString &TabletInformation::getDeviceName(const DeviceType &device) const
 {
     Q_D(const TabletInformation);
 
@@ -242,43 +217,31 @@ const QString& TabletInformation::getDeviceName (const DeviceType& device) const
     return iter->getName();
 }
 
-
-
 long int TabletInformation::getTabletSerial() const
 {
-    return get (TabletInfo::TabletSerial).toLong();
+    return get(TabletInfo::TabletSerial).toLong();
 }
-
-
 
 bool TabletInformation::hasButtons() const
 {
-    if (getBool (TabletInfo::HasLeftTouchStrip)  ||
-        getBool (TabletInfo::HasRightTouchStrip) ||
-        getBool (TabletInfo::HasTouchRing) ||
-        getBool (TabletInfo::HasWheel) ||
-        getInt  (TabletInfo::NumPadButtons) > 0)
-    {
+    if (getBool(TabletInfo::HasLeftTouchStrip) || getBool(TabletInfo::HasRightTouchStrip) || getBool(TabletInfo::HasTouchRing) || getBool(TabletInfo::HasWheel)
+        || getInt(TabletInfo::NumPadButtons) > 0) {
         return true;
     }
 
     return false;
 }
 
-
-
 bool TabletInformation::hasButtonMap() const
 {
-    Q_D (const TabletInformation);
+    Q_D(const TabletInformation);
     return (d->buttonMap.size() > 0);
 }
 
-
-
 bool TabletInformation::hasDevice(int deviceId) const
 {
-    foreach (const DeviceType& type, DeviceType::list()) {
-        const DeviceInformation* device = getDevice(type);
+    foreach (const DeviceType &type, DeviceType::list()) {
+        const DeviceInformation *device = getDevice(type);
 
         if (device && device->getDeviceId() == deviceId) {
             return true;
@@ -288,9 +251,7 @@ bool TabletInformation::hasDevice(int deviceId) const
     return false;
 }
 
-
-
-bool TabletInformation::hasDevice (const DeviceType& device) const
+bool TabletInformation::hasDevice(const DeviceType &device) const
 {
     Q_D(const TabletInformation);
     return d->deviceMap.contains(device.key());
@@ -307,18 +268,16 @@ bool TabletInformation::isAvailable() const
     return d->isAvailable;
 }
 
-
-
-void TabletInformation::set (const TabletInfo& info, const QString& value)
+void TabletInformation::set(const TabletInfo &info, const QString &value)
 {
-    Q_D (TabletInformation);
+    Q_D(TabletInformation);
 
     // setting the tablet serial requires updating the id for now
     if (info == TabletInfo::TabletSerial) {
         long serial = value.toLong();
 
         if (serial > 0) {
-            set (TabletInfo::TabletId, QString::fromLatin1("%1").arg(serial, 4, 16, QLatin1Char('0')).toUpper());
+            set(TabletInfo::TabletId, QString::fromLatin1("%1").arg(serial, 4, 16, QLatin1Char('0')).toUpper());
         }
     }
 
@@ -326,24 +285,21 @@ void TabletInformation::set (const TabletInfo& info, const QString& value)
 
     // make sure only keys exist which actually have a value
     if (iter != d->infoMap.end()) {
-
         if (value.isEmpty()) {
             d->infoMap.erase(iter);
         } else {
             iter.value() = value;
         }
 
-    } else if (!value.isEmpty()){
+    } else if (!value.isEmpty()) {
         d->infoMap.insert(info.key(), value);
     }
 }
 
-
-
-void TabletInformation::set(const TabletInfo&info, bool value)
+void TabletInformation::set(const TabletInfo &info, bool value)
 {
     QString strValue = value ? QLatin1String("true") : QLatin1String("false");
-    set (info, strValue);
+    set(info, strValue);
 }
 
 void TabletInformation::set(const TabletInfo &info, int value)
@@ -351,50 +307,36 @@ void TabletInformation::set(const TabletInfo &info, int value)
     set(info, QString::number(value));
 }
 
-
-
-
 void TabletInformation::setAvailable(bool value)
 {
     Q_D(TabletInformation);
     d->isAvailable = value;
 }
 
-
-
-void TabletInformation::setBool(const TabletInfo& info, const QString& value)
+void TabletInformation::setBool(const TabletInfo &info, const QString &value)
 {
-    if (StringUtils::asBool(value))
-    {
-        set (info, QLatin1String("true"));
+    if (StringUtils::asBool(value)) {
+        set(info, QLatin1String("true"));
     } else {
-        set (info, QLatin1String("false"));
+        set(info, QLatin1String("false"));
     }
-
-
 }
 
-
-
-void TabletInformation::setButtonMap(const QMap< QString, QString >& buttonMap)
+void TabletInformation::setButtonMap(const QMap<QString, QString> &buttonMap)
 {
     Q_D(TabletInformation);
     d->buttonMap = buttonMap;
 }
 
-
-
-void TabletInformation::setDevice (const DeviceInformation& device)
+void TabletInformation::setDevice(const DeviceInformation &device)
 {
     Q_D(TabletInformation);
-    d->deviceMap.insert (device.getType().key(), device);
+    d->deviceMap.insert(device.getType().key(), device);
 }
 
 QString TabletInformation::getUniqueDeviceId() const
 {
-    return QString::fromLatin1("%1:%2")
-            .arg(get(TabletInfo::CompanyId))
-            .arg(get(TabletInfo::TabletId));
+    return QString::fromLatin1("%1:%2").arg(get(TabletInfo::CompanyId)).arg(get(TabletInfo::TabletId));
 }
 
 QString TabletInformation::getLegacyUniqueDeviceId() const

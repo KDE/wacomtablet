@@ -26,14 +26,13 @@ TabletBackendMock::TabletBackendMock()
     m_propertyAdaptor = nullptr;
 }
 
-
 TabletBackendMock::~TabletBackendMock()
 {
     if (m_propertyAdaptor) {
         delete m_propertyAdaptor;
     }
 
-    QMap< QString,PropertyAdaptorMock<DeviceProperty>* >::iterator it = m_properties.begin();
+    QMap<QString, PropertyAdaptorMock<DeviceProperty> *>::iterator it = m_properties.begin();
 
     while (it != m_properties.end()) {
         delete it.value();
@@ -41,30 +40,24 @@ TabletBackendMock::~TabletBackendMock()
     }
 }
 
-
-
-void TabletBackendMock::addAdaptor(const DeviceType& deviceType, PropertyAdaptor* adaptor)
+void TabletBackendMock::addAdaptor(const DeviceType &deviceType, PropertyAdaptor *adaptor)
 {
     if (m_propertyAdaptor) {
         delete m_propertyAdaptor;
     }
 
-    m_propertyAdaptor     = adaptor;
+    m_propertyAdaptor = adaptor;
     m_propertyAdaptorType = deviceType.key();
 }
 
-
-
-const TabletInformation& TabletBackendMock::getInformation() const
+const TabletInformation &TabletBackendMock::getInformation() const
 {
     return m_tabletInformation;
 }
 
-
-
-const QString TabletBackendMock::getProperty(const DeviceType& type, const Property& property) const
+const QString TabletBackendMock::getProperty(const DeviceType &type, const Property &property) const
 {
-    QMap< QString,PropertyAdaptorMock<DeviceProperty>* >::const_iterator it = m_properties.find(type.key());
+    QMap<QString, PropertyAdaptorMock<DeviceProperty> *>::const_iterator it = m_properties.find(type.key());
 
     if (it == m_properties.end()) {
         return QString();
@@ -73,34 +66,32 @@ const QString TabletBackendMock::getProperty(const DeviceType& type, const Prope
     return it.value()->getProperty(property);
 }
 
-
-
-void TabletBackendMock::setProfile(const TabletProfile& profile)
+void TabletBackendMock::setProfile(const TabletProfile &profile)
 {
     m_tabletProfile = profile;
 }
 
-
-
-void TabletBackendMock::setProfile(const DeviceType& deviceType, const DeviceProfile& profile)
+void TabletBackendMock::setProfile(const DeviceType &deviceType, const DeviceProfile &profile)
 {
     m_deviceProfile = profile;
     m_deviceProfileType = deviceType.key();
 }
 
-void TabletBackendMock::setStatusLED(int led) {
+void TabletBackendMock::setStatusLED(int led)
+{
     // doing nothing right now
     Q_UNUSED(led)
 }
 
-void TabletBackendMock::setStatusLEDBrightness(int brightness) {
+void TabletBackendMock::setStatusLEDBrightness(int brightness)
+{
     // doing nothing right now
     Q_UNUSED(brightness)
 }
 
-bool TabletBackendMock::setProperty(const DeviceType& type, const Property& property, const QString& value)
+bool TabletBackendMock::setProperty(const DeviceType &type, const Property &property, const QString &value)
 {
-    QMap< QString,PropertyAdaptorMock<DeviceProperty>* >::iterator it = m_properties.find(type.key());
+    QMap<QString, PropertyAdaptorMock<DeviceProperty> *>::iterator it = m_properties.find(type.key());
 
     if (it == m_properties.end()) {
         m_properties.insert(type.key(), new PropertyAdaptorMock<DeviceProperty>());
@@ -109,5 +100,3 @@ bool TabletBackendMock::setProperty(const DeviceType& type, const Property& prop
 
     return it.value()->setProperty(property, value);
 }
-
-

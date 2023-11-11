@@ -26,15 +26,13 @@ using namespace Wacom;
 
 namespace Wacom
 {
-    static const QString DESKTOP_STRING = QLatin1String("desktop");
-    static const QString AREA_STRING    = QLatin1String("area");
-    static const QString SPEED_STRING   = QLatin1String("speed");
+static const QString DESKTOP_STRING = QLatin1String("desktop");
+static const QString AREA_STRING = QLatin1String("area");
+static const QString SPEED_STRING = QLatin1String("speed");
 }
-
 
 ScreenSpace::ScreenSpace()
 {
-
 }
 
 ScreenSpace::ScreenSpace(const QString &screenSpaceString)
@@ -48,21 +46,13 @@ ScreenSpace::ScreenSpace(const QString &screenSpaceString)
 
     if (tokens.size() == 5 && tokens.at(0) == AREA_STRING) {
         _type = ScreenSpaceType::Area;
-        _area = QRect(
-                    tokens.at(1).toInt(),
-                    tokens.at(2).toInt(),
-                    tokens.at(3).toInt(),
-                    tokens.at(4).toInt()
-                    );
+        _area = QRect(tokens.at(1).toInt(), tokens.at(2).toInt(), tokens.at(3).toInt(), tokens.at(4).toInt());
         return;
     }
 
     if (tokens.size() == 3 && tokens.at(0) == SPEED_STRING) {
         _type = ScreenSpaceType::ArbitraryTranslationMatrix;
-        _speed = QPointF(
-                    tokens.at(1).toDouble(),
-                    tokens.at(2).toDouble()
-                    );
+        _speed = QPointF(tokens.at(1).toDouble(), tokens.at(2).toDouble());
         return;
     }
 
@@ -72,10 +62,9 @@ ScreenSpace::ScreenSpace(const QString &screenSpaceString)
 
 ScreenSpace::~ScreenSpace()
 {
-
 }
 
-bool ScreenSpace::operator==(const ScreenSpace& screenSpace) const
+bool ScreenSpace::operator==(const ScreenSpace &screenSpace) const
 {
     if (getType() != screenSpace.getType())
         return false;
@@ -98,7 +87,6 @@ const ScreenSpace ScreenSpace::desktop()
     return ScreenSpace(DESKTOP_STRING);
 }
 
-
 bool ScreenSpace::isDesktop() const
 {
     return _type == ScreenSpaceType::Desktop;
@@ -116,16 +104,13 @@ const ScreenSpace ScreenSpace::monitor(QString output)
 
 const ScreenSpace ScreenSpace::matrix(qreal x, qreal y)
 {
-    return ScreenSpace(QString::fromLatin1("%1x%2x%3")
-                       .arg(SPEED_STRING).arg(x).arg(y));
+    return ScreenSpace(QString::fromLatin1("%1x%2x%3").arg(SPEED_STRING).arg(x).arg(y));
 }
 
 const ScreenSpace ScreenSpace::area(QRect area)
 {
-    return ScreenSpace(QString::fromLatin1("%1x%2x%3x%4x%5")
-                       .arg(AREA_STRING).arg(area.left()).arg(area.top()).arg(area.width()).arg(area.height()));
+    return ScreenSpace(QString::fromLatin1("%1x%2x%3x%4x%5").arg(AREA_STRING).arg(area.left()).arg(area.top()).arg(area.width()).arg(area.height()));
 }
-
 
 const QString ScreenSpace::toString() const
 {
@@ -135,11 +120,9 @@ const QString ScreenSpace::toString() const
     case ScreenSpaceType::Output:
         return _output;
     case ScreenSpaceType::Area:
-        return QString::fromLatin1("%1x%2x%3x%4x%5")
-                .arg(AREA_STRING).arg(_area.left()).arg(_area.top()).arg(_area.width()).arg(_area.height());
+        return QString::fromLatin1("%1x%2x%3x%4x%5").arg(AREA_STRING).arg(_area.left()).arg(_area.top()).arg(_area.width()).arg(_area.height());
     case ScreenSpaceType::ArbitraryTranslationMatrix:
-        return QString::fromLatin1("%1x%2x%3")
-                .arg(SPEED_STRING).arg(_speed.x()).arg(_speed.y());
+        return QString::fromLatin1("%1x%2x%3").arg(SPEED_STRING).arg(_speed.x()).arg(_speed.y());
     default:
         qCDebug(COMMON) << "Broken ScreenSpace serialized";
         return DESKTOP_STRING;
@@ -149,8 +132,7 @@ const QString ScreenSpace::toString() const
 QRect ScreenSpace::toScreenGeometry() const
 {
     switch (getType()) {
-    case ScreenSpaceType::Output:
-    {
+    case ScreenSpaceType::Output: {
         const auto screenList = ScreensInfo::getScreenGeometries();
         return screenList.contains(toString()) ? screenList.value(toString()) : QRect();
     }

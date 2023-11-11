@@ -19,7 +19,6 @@
 
 #include "x11input.h"
 
-
 #include <QList>
 
 #include "private/qtx11extras_p.h"
@@ -30,59 +29,56 @@
 
 using namespace Wacom;
 
-const QString X11Input::PROPERTY_DEVICE_PRODUCT_ID = QLatin1String ("Device Product ID");
-const QString X11Input::PROPERTY_DEVICE_NODE       = QLatin1String ("Device Node");
-const QString X11Input::PROPERTY_TRANSFORM_MATRIX  = QLatin1String ("Coordinate Transformation Matrix");
-const QString X11Input::PROPERTY_WACOM_SERIAL_IDS  = QLatin1String (WACOM_PROP_SERIALIDS);
-const QString X11Input::PROPERTY_WACOM_TABLET_AREA = QLatin1String (WACOM_PROP_TABLET_AREA);
-const QString X11Input::PROPERTY_WACOM_TOOL_TYPE   = QLatin1String (WACOM_PROP_TOOL_TYPE);
+const QString X11Input::PROPERTY_DEVICE_PRODUCT_ID = QLatin1String("Device Product ID");
+const QString X11Input::PROPERTY_DEVICE_NODE = QLatin1String("Device Node");
+const QString X11Input::PROPERTY_TRANSFORM_MATRIX = QLatin1String("Coordinate Transformation Matrix");
+const QString X11Input::PROPERTY_WACOM_SERIAL_IDS = QLatin1String(WACOM_PROP_SERIALIDS);
+const QString X11Input::PROPERTY_WACOM_TABLET_AREA = QLatin1String(WACOM_PROP_TABLET_AREA);
+const QString X11Input::PROPERTY_WACOM_TOOL_TYPE = QLatin1String(WACOM_PROP_TOOL_TYPE);
 
-bool X11Input::findDevice(const QString& deviceName, X11InputDevice& device)
+bool X11Input::findDevice(const QString &deviceName, X11InputDevice &device)
 {
     if (deviceName.isEmpty()) {
         return false;
     }
 
-    bool     found    = false;
-    int      ndevices = 0;
-    Display *display  = QX11Info::display();
+    bool found = false;
+    int ndevices = 0;
+    Display *display = QX11Info::display();
 
     // Don't port this to xcb, not supported yet.
-    XDeviceInfo *info = XListInputDevices (display, &ndevices);
+    XDeviceInfo *info = XListInputDevices(display, &ndevices);
 
-    for( int i = 0; i < ndevices; ++i ) {
-        if (deviceName.compare (QLatin1String (info[i].name), Qt::CaseInsensitive) == 0) {
-            found = device.open (info[i].id, QLatin1String(info[i].name));
+    for (int i = 0; i < ndevices; ++i) {
+        if (deviceName.compare(QLatin1String(info[i].name), Qt::CaseInsensitive) == 0) {
+            found = device.open(info[i].id, QLatin1String(info[i].name));
             break;
         }
     }
 
     if (info) {
-        XFreeDeviceList (info);
+        XFreeDeviceList(info);
     }
 
     return found;
 }
 
-
-void X11Input::scanDevices(X11InputVisitor& visitor)
+void X11Input::scanDevices(X11InputVisitor &visitor)
 {
-    int      ndevices = 0;
-    Display *dpy      = QX11Info::display();
+    int ndevices = 0;
+    Display *dpy = QX11Info::display();
 
-    XDeviceInfo *info = XListInputDevices (dpy, &ndevices);
+    XDeviceInfo *info = XListInputDevices(dpy, &ndevices);
 
-    for( int i = 0; i < ndevices; ++i ) {
+    for (int i = 0; i < ndevices; ++i) {
+        X11InputDevice device(info[i].id, QLatin1String(info[i].name));
 
-        X11InputDevice device (info[i].id, QLatin1String(info[i].name));
-
-        if (visitor.visit (device)) {
+        if (visitor.visit(device)) {
             break;
         }
     }
 
     if (info) {
-        XFreeDeviceList (info);
+        XFreeDeviceList(info);
     }
 }
-

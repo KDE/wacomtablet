@@ -22,8 +22,9 @@
 
 #include <QWidget>
 
-namespace Ui {
-    class StylusPageWidget;
+namespace Ui
+{
+class StylusPageWidget;
 }
 
 namespace Wacom
@@ -52,75 +53,70 @@ public:
     void setTabletId(const QString &tabletId);
 
     /**
-      * Called whenever the profile is switched or the widget needs to be reinitialized.
-      *
-      * Updates all values on the widget to the values from the profile.
-      */
+     * Called whenever the profile is switched or the widget needs to be reinitialized.
+     *
+     * Updates all values on the widget to the values from the profile.
+     */
     void loadFromProfile(ProfileManagementInterface &profileManagement);
 
     /**
-      * Reloads the widget when the status of the tablet device changes (connects/disconnects)
-      */
+     * Reloads the widget when the status of the tablet device changes (connects/disconnects)
+     */
     void reloadWidget();
 
     /**
-      * Saves all values to the current profile
-      */
+     * Saves all values to the current profile
+     */
     void saveToProfile(ProfileManagementInterface &profileManagement);
-
 
 public slots:
     /**
-      * Opens a dialogue that allows the visual selection of the presscurve
-      * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
-      * directly in the dialogue as well
-      */
+     * Opens a dialogue that allows the visual selection of the presscurve
+     * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
+     * directly in the dialogue as well
+     */
     void onChangeEraserPressureCurve();
 
     /**
-      * Opens a dialogue that allows the visual selection of the presscurve
-      * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
-      * directly in the dialogue as well
-      */
+     * Opens a dialogue that allows the visual selection of the presscurve
+     * If Qt detects the tablet (through the xorg.conf file) the changes can be tested
+     * directly in the dialogue as well
+     */
     void onChangeTipPressureCurve();
 
     /**
-      * Called whenever a value other than the pen buttons is changed.
-      * Fires the changed() signal afterwards to inform the main widget that unsaved changes are available
-      */
+     * Called whenever a value other than the pen buttons is changed.
+     * Fires the changed() signal afterwards to inform the main widget that unsaved changes are available
+     */
     void onProfileChanged();
-
 
 signals:
     /**
-      * Used to inform the main widget that unsaved changes in the current profile are available
-      */
+     * Used to inform the main widget that unsaved changes in the current profile are available
+     */
     void changed();
 
-
 protected:
+    const QString getButtonShortcut(const Property &button) const;
 
-    const QString getButtonShortcut (const Property& button) const;
+    const QString getPressureCurve(const DeviceType &device) const;
 
-    const QString getPressureCurve ( const DeviceType& device ) const;
-
-    const QString getPressureFeel ( const DeviceType& device ) const;
+    const QString getPressureFeel(const DeviceType &device) const;
 
     const QString getTabletPcButton() const;
 
-    void setButtonShortcut (const Property& button, const QString& shortcut);
+    void setButtonShortcut(const Property &button, const QString &shortcut);
 
-    void setPressureCurve (const DeviceType& device, const QString& value);
+    void setPressureCurve(const DeviceType &device, const QString &value);
 
-    void setPressureFeel (const DeviceType& device, const QString& value);
+    void setPressureFeel(const DeviceType &device, const QString &value);
 
-    void setTabletPcButton (const QString& value);
-
+    void setTabletPcButton(const QString &value);
 
 private:
     void savePropertiesToDeviceProfile(DeviceProfile &profile) const;
 
-    void openPressureCurveDialog (const DeviceType& deviceType);
+    void openPressureCurveDialog(const DeviceType &deviceType);
 
     /**
      * Sets up the user interface widgets. Should only be called once by a constructor.
@@ -131,5 +127,5 @@ private:
     QString _tabletId;
     Ui::StylusPageWidget *ui = nullptr;
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif /*STYLUSPAGEWIDGET_H*/

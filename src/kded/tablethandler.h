@@ -21,9 +21,9 @@
 #define TABLETHANDLER_H
 
 #include "property.h"
+#include "screenrotation.h"
 #include "tablethandlerinterface.h"
 #include "tabletinformation.h"
-#include "screenrotation.h"
 
 #include <QObject>
 #include <QString>
@@ -42,7 +42,6 @@ class TabletHandler : public TabletHandlerInterface
     Q_OBJECT
 
 public:
-
     TabletHandler();
 
     /**
@@ -51,82 +50,76 @@ public:
      * @param profileFile The full path to the profiles configuration file.
      * @param configFile  The full path to the main configuration file.
      */
-    TabletHandler(const QString& profileFile, const QString configFile);
+    TabletHandler(const QString &profileFile, const QString configFile);
 
     ~TabletHandler() override;
 
     /**
-      * returns the current value for a specific tablet setting
-      * This is forwarded to the right backend specified by m_curDevice
-      *
-      * @param tabletId The id of the tablet where the property should be fetched from
-      * @param deviceType name of the tablet device we set. Internal name of the pad/stylus/eraser/cursor
-      * @param property the property we are looking for
-      *
-      * @return the value as string
-      */
-    QString getProperty(const QString &tabletId, const DeviceType& deviceType, const Property& property) const override;
-
-
+     * returns the current value for a specific tablet setting
+     * This is forwarded to the right backend specified by m_curDevice
+     *
+     * @param tabletId The id of the tablet where the property should be fetched from
+     * @param deviceType name of the tablet device we set. Internal name of the pad/stylus/eraser/cursor
+     * @param property the property we are looking for
+     *
+     * @return the value as string
+     */
+    QString getProperty(const QString &tabletId, const DeviceType &deviceType, const Property &property) const override;
 
     /**
-      * @brief Reads a list of all available profiles from the profile manager.
-      *
-      * @param tabletId The id of the tablet which shall be queried
-      * @return the list of all available profiles
-      */
+     * @brief Reads a list of all available profiles from the profile manager.
+     *
+     * @param tabletId The id of the tablet which shall be queried
+     * @return the list of all available profiles
+     */
     QStringList listProfiles(const QString &tabletId) override;
 
+    /**
+     * @brief Applies a profile to the tablet device
+     *
+     * The profile must be known to the profile manager, otherwise a
+     * notification error is displayed.
+     *
+     * @param tabletId The id of the tablet for which the profile shall be set
+     * @param profile The name of the profile to apply.
+     */
+    void setProfile(const QString &tabletId, const QString &profile) override;
 
     /**
-      * @brief Applies a profile to the tablet device
-      *
-      * The profile must be known to the profile manager, otherwise a
-      * notification error is displayed.
-      *
-      * @param tabletId The id of the tablet for which the profile shall be set
-      * @param profile The name of the profile to apply.
-      */
-    void setProfile(const QString &tabletId, const QString& profile) override;
-
-
-    /**
-      * Sets the configuration of @p param from @p device with @p value
-      * This is forwarded to the right backend specified by m_curDevice
-      *
-      * @param tabletId The identifier of the device to set the property on.
-      * @param deviceType The type of the device to set the property on.
-      * @param property The property to set.
-      * @param value    New value of the parameter
-      */
-    void setProperty(const QString &tabletId, const DeviceType& deviceType, const Property & property, const QString& value) override;
-
+     * Sets the configuration of @p param from @p device with @p value
+     * This is forwarded to the right backend specified by m_curDevice
+     *
+     * @param tabletId The identifier of the device to set the property on.
+     * @param deviceType The type of the device to set the property on.
+     * @param property The property to set.
+     * @param value    New value of the parameter
+     */
+    void setProperty(const QString &tabletId, const DeviceType &deviceType, const Property &property, const QString &value) override;
 
     QStringList getProfileRotationList(const QString &tabletId) override;
 
     void setProfileRotationList(const QString &tabletId, const QStringList &rotationList) override;
 
-
 public Q_SLOTS:
     /**
-      * @brief Handles the connection of a new tablet device.
-      *
-      * This slot has to be connected to the X device event notifier and
-      * executed when a new tablet device is plugged in.
-      *
-      * @param info The device info as reported by X11.
-      */
-    void onTabletAdded(const TabletInformation& info);
+     * @brief Handles the connection of a new tablet device.
+     *
+     * This slot has to be connected to the X device event notifier and
+     * executed when a new tablet device is plugged in.
+     *
+     * @param info The device info as reported by X11.
+     */
+    void onTabletAdded(const TabletInformation &info);
 
     /**
-      * @brief Handles the removal of a tablet device.
-      *
-      * This slot has to be connected to the X device event notifier and
-      * executed when a tablet is disconnected from the system.
-      *
-      * @param info The device info as reported by X11.
-      */
-    void onTabletRemoved(const TabletInformation& info);
+     * @brief Handles the removal of a tablet device.
+     *
+     * This slot has to be connected to the X device event notifier and
+     * executed when a tablet is disconnected from the system.
+     *
+     * @param info The device info as reported by X11.
+     */
+    void onTabletRemoved(const TabletInformation &info);
 
     /**
      * @brief Handles rotating the tablet.
@@ -151,13 +144,13 @@ public Q_SLOTS:
     void onScreenGeometryChanged();
 
     /**
-      * Toggles the stylus/eraser to absolute/relative mode
-      */
+     * Toggles the stylus/eraser to absolute/relative mode
+     */
     void onTogglePenMode();
 
     /**
-      * Toggles the touch tool on/off
-      */
+     * Toggles the touch tool on/off
+     */
     void onToggleTouch();
 
     /**
@@ -170,7 +163,6 @@ public Q_SLOTS:
      */
     void onToggleScreenMapping();
 
-
     /**
      * @brief Maps stylus/eraser/touch to the full available screen space
      *
@@ -179,7 +171,6 @@ public Q_SLOTS:
      *  @li sets ScreenSpace=full
      */
     void onMapToFullScreen();
-
 
     /**
      * @brief Maps stylus/eraser/touch to the second screen
@@ -211,37 +202,31 @@ public Q_SLOTS:
      */
     void onPreviousProfile();
 
-
 Q_SIGNALS:
     /**
      * Emitted if the user should be notified.
      */
     void notify(const QString &eventId, const QString &title, const QString &message, bool suggestConfigure);
 
+    /**
+     * Emitted when the profile of the current tablet is changed.
+     *
+     * @param tabletId The identifier of the tablet.
+     * @param profile The name of the new active profile.
+     */
+    void profileChanged(const QString &tabletId, const QString &profile);
 
     /**
-      * Emitted when the profile of the current tablet is changed.
-      *
-      * @param tabletId The identifier of the tablet.
-      * @param profile The name of the new active profile.
-      */
-    void profileChanged(const QString &tabletId, const QString& profile);
-
+     * Emitted when a new tablet is connected or if the currently active tablet changes.
+     */
+    void tabletAdded(const TabletInformation &info);
 
     /**
-      * Emitted when a new tablet is connected or if the currently active tablet changes.
-      */
-    void tabletAdded(const TabletInformation& info);
-
-
-    /**
-      * Emitted when the currently active tablet is removed.
-      */
+     * Emitted when the currently active tablet is removed.
+     */
     void tabletRemoved(const QString &tabletId);
 
-
 private:
-
     /**
      * Auto rotates the tablet if auto-rotation is enabled. If auto-rotation
      * is disabled, the tablet's rotation settings will be left untouched.
@@ -251,7 +236,8 @@ private:
      * @param output Name of the screen that has been rotated. Empty string means scan all devices.
      * @param screenRotation Rotation of the screen specified by screenIndex.
      */
-    void autoRotateTablet(const QString &tabletId, const TabletProfile& tabletProfile,
+    void autoRotateTablet(const QString &tabletId,
+                          const TabletProfile &tabletProfile,
                           QString output = QString(),
                           ScreenRotation screenRotations = ScreenRotation::NONE);
 
@@ -263,8 +249,7 @@ private:
      *
      * @return True if the tablet supports the given device, else false.
      */
-    bool hasDevice( const QString &tabletId, const DeviceType& type) const;
-
+    bool hasDevice(const QString &tabletId, const DeviceType &type) const;
 
     /**
      * Checks if there currently is a tablet available.
@@ -273,7 +258,6 @@ private:
      * @return True if a tablet is available, else false.
      */
     bool hasTablet(const QString &tabletId) const;
-
 
     /**
      * Maps a tablet device to a screen and updated its profile.
@@ -286,9 +270,11 @@ private:
      * @param trackingMode The tracking mode to apply.
      * @param tabletProfile The profile to update.
      */
-    void mapDeviceToOutput(const QString &tabletId, const Wacom::DeviceType& device,
-                           const ScreenSpace& screenSpace, const QString& trackingMode,
-                           TabletProfile& tabletProfile);
+    void mapDeviceToOutput(const QString &tabletId,
+                           const Wacom::DeviceType &device,
+                           const ScreenSpace &screenSpace,
+                           const QString &trackingMode,
+                           TabletProfile &tabletProfile);
 
     /**
      * Maps the stylus, eraser and touch device to the given output and
@@ -298,9 +284,7 @@ private:
      * @param tabletId The id of the Tablet that will be altered
      * @param output A string returned by ScreenSpace::toString()
      */
-    void mapPenToScreenSpace(const QString &tabletId, const ScreenSpace& screenSpace,
-                             const QString& trackingMode = QLatin1String("absolute"));
-
+    void mapPenToScreenSpace(const QString &tabletId, const ScreenSpace &screenSpace, const QString &trackingMode = QLatin1String("absolute"));
 
     /**
      * Maps stylus/eraser/touch to their current screen space.
@@ -309,12 +293,11 @@ private:
      * @param tabletId The id of the Tablet that will be altered
      * @param tabletProfile The tablet profile to use.
      */
-    void mapTabletToCurrentScreenSpace(const QString &tabletId, TabletProfile& tabletProfile);
-
+    void mapTabletToCurrentScreenSpace(const QString &tabletId, TabletProfile &tabletProfile);
 
     Q_DECLARE_PRIVATE(TabletHandler)
     TabletHandlerPrivate *const d_ptr; /**< d-pointer for this class */
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

@@ -27,34 +27,31 @@ using namespace Wacom;
 
 namespace Wacom
 {
-    class TabletAreaSelectionWidgetPrivate
-    {
-        public:
-            TabletAreaSelectionController controller;
-    };
+class TabletAreaSelectionWidgetPrivate
+{
+public:
+    TabletAreaSelectionController controller;
+};
 }
 
-
-TabletAreaSelectionWidget::TabletAreaSelectionWidget(QWidget* parent)
-        : QWidget(parent), d_ptr(new TabletAreaSelectionWidgetPrivate)
+TabletAreaSelectionWidget::TabletAreaSelectionWidget(QWidget *parent)
+    : QWidget(parent)
+    , d_ptr(new TabletAreaSelectionWidgetPrivate)
 {
     setupUi();
 }
-
 
 TabletAreaSelectionWidget::~TabletAreaSelectionWidget()
 {
     delete this->d_ptr;
 }
 
-
-const ScreenMap& TabletAreaSelectionWidget::getScreenMap()
+const ScreenMap &TabletAreaSelectionWidget::getScreenMap()
 {
     Q_D(TabletAreaSelectionWidget);
 
     return d->controller.getScreenMap();
 }
-
 
 const ScreenSpace TabletAreaSelectionWidget::getScreenSpace() const
 {
@@ -63,32 +60,28 @@ const ScreenSpace TabletAreaSelectionWidget::getScreenSpace() const
     return d->controller.getScreenSpace();
 }
 
-
-
-void TabletAreaSelectionWidget::select(const ScreenSpace& screenSpace)
+void TabletAreaSelectionWidget::select(const ScreenSpace &screenSpace)
 {
     Q_D(TabletAreaSelectionWidget);
 
     d->controller.select(screenSpace);
 }
 
-
-void TabletAreaSelectionWidget::setupWidget(const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation)
+void TabletAreaSelectionWidget::setupWidget(const ScreenMap &mappings, const QString &deviceName, const ScreenRotation &rotation)
 {
     Q_D(TabletAreaSelectionWidget);
 
     d->controller.setupController(mappings, deviceName, rotation);
 }
 
-
 void TabletAreaSelectionWidget::setupUi()
 {
     Q_D(TabletAreaSelectionWidget);
 
     // setup view
-    TabletAreaSelectionView* view = new TabletAreaSelectionView(this);
+    TabletAreaSelectionView *view = new TabletAreaSelectionView(this);
 
-    QHBoxLayout* layout = new QHBoxLayout(this);
+    QHBoxLayout *layout = new QHBoxLayout(this);
     layout->addWidget(view);
 
     QWidget::setLayout(layout);

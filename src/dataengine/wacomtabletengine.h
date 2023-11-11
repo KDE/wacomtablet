@@ -22,8 +22,7 @@
 #include <Plasma5Support/DataEngine>
 namespace Plasma = Plasma5Support;
 
-struct TabletData
-{
+struct TabletData {
     QString name;
     QStringList profiles;
     int currentProfile;
@@ -44,9 +43,9 @@ public:
 private slots:
     void onDBusConnected();
     void onDBusDisconnected();
-    void onTabletAdded(const QString& tabletId);
-    void onTabletRemoved(const QString& tabletId);
-    void setProfile(const QString& tabletId, const QString& profile);
+    void onTabletAdded(const QString &tabletId);
+    void onTabletRemoved(const QString &tabletId);
+    void setProfile(const QString &tabletId, const QString &profile);
 
 private:
     QMap<QString, TabletData> m_tablets;

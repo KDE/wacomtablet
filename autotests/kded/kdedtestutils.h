@@ -28,15 +28,13 @@ namespace Wacom
 {
 class KdedTestUtils
 {
-
 public:
+    static void assertTabletInformation(const TabletInformation &expectedInformation, const TabletInformation &actualInformation);
 
-    static void assertTabletInformation (const TabletInformation& expectedInformation, const TabletInformation& actualInformation);
+    static const QString getAbsoluteDir(const QString &fileName);
 
-    static const QString getAbsoluteDir (const QString& fileName);
-
-    static const QString getAbsolutePath (const QString& fileName);
+    static const QString getAbsolutePath(const QString &fileName);
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

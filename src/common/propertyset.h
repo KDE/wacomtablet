@@ -27,12 +27,12 @@
 #include <QList>
 #include <QString>
 
-namespace Wacom {
+namespace Wacom
+{
 
 template<class D>
-struct PropertySetTemplateSpecializationLessFunctor
-{
-    bool operator()(const D* d1, const D* d2)
+struct PropertySetTemplateSpecializationLessFunctor {
+    bool operator()(const D *d1, const D *d2)
     {
         Q_UNUSED(d1);
         Q_UNUSED(d2);
@@ -47,7 +47,6 @@ struct PropertySetTemplateSpecializationLessFunctor
         return false;
     }
 };
-
 
 /**
  * A typesafe property enumeration template class. It manages property keys,
@@ -65,12 +64,12 @@ struct PropertySetTemplateSpecializationLessFunctor
  */
 
 template<class D, class L = PropertySetTemplateSpecializationLessFunctor<D>, class E = PropertyKeyEqualsFunctor>
-class PropertySet : public Enum<D,QString,L,E> {
-
+class PropertySet : public Enum<D, QString, L, E>
+{
 public:
     // typedef for easy maintenance
     // this has to be the same as the specialization of our base class
-    typedef Enum<D,QString,L,E> PropertySetTemplateSpecialization;
+    typedef Enum<D, QString, L, E> PropertySetTemplateSpecialization;
 
     /**
      * Maps the given property to an instance of this property set.
@@ -79,11 +78,11 @@ public:
      *
      * @return A constant pointer to the property or nullptr if the property is not supported by this set.
      */
-    static const D* map (const Property& property)
+    static const D *map(const Property &property)
     {
         typename PropertySetTemplateSpecialization::const_iterator i = PropertySetTemplateSpecialization::begin();
 
-        for ( ; i != PropertySetTemplateSpecialization::end() ; ++i) {
+        for (; i != PropertySetTemplateSpecialization::end(); ++i) {
             if (i->id() == property) {
                 return &(*i);
             }
@@ -95,7 +94,7 @@ public:
     /**
      * @return The property identifier of this property instance.
      */
-    const Property& id() const
+    const Property &id() const
     {
         return *m_id;
     }
@@ -106,15 +105,15 @@ public:
     static QList<Property> ids()
     {
         QList<Property> ids;
-        for (typename PropertySetTemplateSpecialization::const_iterator i = PropertySetTemplateSpecialization::begin() ; i != PropertySetTemplateSpecialization::end() ; ++i) {
+        for (typename PropertySetTemplateSpecialization::const_iterator i = PropertySetTemplateSpecialization::begin();
+             i != PropertySetTemplateSpecialization::end();
+             ++i) {
             ids.push_back(i->id());
         }
         return ids;
     }
 
-
 protected:
-
     /**
      * Initialization constructor.
      * Used to initialize class-static members. Never make this constructor
@@ -125,16 +124,15 @@ protected:
      * @param id The property identifier.
      * @param key The key of this class-static PropertySet instance.
      */
-    explicit PropertySet( const D* super, const Property& id, const QString& key ) : PropertySetTemplateSpecialization(super, key)
+    explicit PropertySet(const D *super, const Property &id, const QString &key)
+        : PropertySetTemplateSpecialization(super, key)
     {
         m_id = &id;
     }
 
-
 private:
+    const Property *m_id = nullptr; /**< The property identifier used to map between different property sets */
 
-    const Property *m_id = nullptr;       /**< The property identifier used to map between different property sets */
-
-};     // CLASS
-}      // NAMESPACE
+}; // CLASS
+} // NAMESPACE
 #endif // HEADER PROTECTION

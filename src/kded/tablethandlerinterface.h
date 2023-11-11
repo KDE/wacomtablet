@@ -20,8 +20,8 @@
 #ifndef TABLETHANDLERINTERFACE_H
 #define TABLETHANDLERINTERFACE_H
 
-#include "property.h"
 #include "devicetype.h"
+#include "property.h"
 
 #include <QObject>
 #include <QString>
@@ -39,20 +39,23 @@ namespace Wacom
 class TabletHandlerInterface : public QObject
 {
 public:
-    explicit TabletHandlerInterface(QObject* parent = 0) : QObject(parent) {}
+    explicit TabletHandlerInterface(QObject *parent = 0)
+        : QObject(parent)
+    {
+    }
 
-    virtual QString getProperty(const QString& tabletId, const DeviceType& deviceType, const Property& property) const = 0;
+    virtual QString getProperty(const QString &tabletId, const DeviceType &deviceType, const Property &property) const = 0;
 
-    virtual QStringList listProfiles(const QString& tabletId) = 0;
+    virtual QStringList listProfiles(const QString &tabletId) = 0;
 
-    virtual void setProfile(const QString& tabletId, const QString& profile) = 0;
+    virtual void setProfile(const QString &tabletId, const QString &profile) = 0;
 
-    virtual void setProperty(const QString& tabletId, const DeviceType& deviceType, const Property & property, const QString& value) = 0;
+    virtual void setProperty(const QString &tabletId, const DeviceType &deviceType, const Property &property, const QString &value) = 0;
 
-    virtual QStringList getProfileRotationList(const QString& tabletId) = 0;
+    virtual QStringList getProfileRotationList(const QString &tabletId) = 0;
 
-    virtual void setProfileRotationList(const QString& tabletId, const QStringList &rotationList) = 0;
+    virtual void setProfileRotationList(const QString &tabletId, const QStringList &rotationList) = 0;
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

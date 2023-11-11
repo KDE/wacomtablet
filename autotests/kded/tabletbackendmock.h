@@ -33,39 +33,37 @@ namespace Wacom
 class TabletBackendMock : public TabletBackendInterface
 {
 public:
-
     TabletBackendMock();
 
     ~TabletBackendMock() override;
 
-    void addAdaptor(const DeviceType& deviceType, PropertyAdaptor* adaptor) override;
+    void addAdaptor(const DeviceType &deviceType, PropertyAdaptor *adaptor) override;
 
-    const TabletInformation& getInformation() const override;
+    const TabletInformation &getInformation() const override;
 
-    const QString getProperty(const DeviceType& type, const Property& property) const override;
+    const QString getProperty(const DeviceType &type, const Property &property) const override;
 
-    void setProfile(const TabletProfile& profile) override;
+    void setProfile(const TabletProfile &profile) override;
 
-    void setProfile(const DeviceType& deviceType, const DeviceProfile& profile) override;
+    void setProfile(const DeviceType &deviceType, const DeviceProfile &profile) override;
 
     void setStatusLED(int led) override;
 
     void setStatusLEDBrightness(int brightness) override;
 
-    bool setProperty(const DeviceType& type, const Property& property, const QString& value) override;
+    bool setProperty(const DeviceType &type, const Property &property, const QString &value) override;
 
+    QString m_propertyAdaptorType; //!< The device type of the property adaptor.
+    PropertyAdaptor *m_propertyAdaptor; //!< The property adaptor which was set by addAdaptor()
 
-    QString           m_propertyAdaptorType; //!< The device type of the property adaptor.
-    PropertyAdaptor*  m_propertyAdaptor;     //!< The property adaptor which was set by addAdaptor()
+    TabletInformation m_tabletInformation; //!< The information returned by getInformation()
 
-    TabletInformation m_tabletInformation;   //!< The information returned by getInformation()
+    TabletProfile m_tabletProfile; //!< The last tablet profile which was set.
+    DeviceProfile m_deviceProfile; //!< The last device profile which was set.
+    QString m_deviceProfileType; //!< The last device profile type which was set.
 
-    TabletProfile     m_tabletProfile;       //!< The last tablet profile which was set.
-    DeviceProfile     m_deviceProfile;       //!< The last device profile which was set.
-    QString           m_deviceProfileType;   //!< The last device profile type which was set.
-
-    QMap<QString, PropertyAdaptorMock<DeviceProperty>* > m_properties; //!< Properties which were set.
+    QMap<QString, PropertyAdaptorMock<DeviceProperty> *> m_properties; //!< Properties which were set.
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

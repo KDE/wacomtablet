@@ -21,15 +21,15 @@
 #include "common/tabletdatabase.h"
 #include "common/tabletinformation.h"
 
-//#include <QtTest>
-#include <QString>
+// #include <QtTest>
 #include <QDebug>
+#include <QString>
 
 #include <algorithm>
 
 using namespace Wacom;
 
-class TestLibwacomData: public QObject
+class TestLibwacomData : public QObject
 {
     Q_OBJECT
 
@@ -37,12 +37,12 @@ public:
     void testData();
 };
 
-static bool compare(TabletInformation &left, TabletInformation &right, const TabletInfo &info) {
-
+static bool compare(TabletInformation &left, TabletInformation &right, const TabletInfo &info)
+{
     if (info == TabletInfo::NumPadButtons) {
         if (left.getInt(info) != right.getInt(info)) {
-            qWarning() << "MISMATCH: Property" << info.key() << "mismatch for device" << left.get(TabletInfo::TabletName)
-                       << "DB:" << left.getInt(info) << "vs LIB:" << right.getInt(info);
+            qWarning() << "MISMATCH: Property" << info.key() << "mismatch for device" << left.get(TabletInfo::TabletName) << "DB:" << left.getInt(info)
+                       << "vs LIB:" << right.getInt(info);
             return false;
         }
 
@@ -50,8 +50,8 @@ static bool compare(TabletInformation &left, TabletInformation &right, const Tab
     }
 
     if (left.get(info) != right.get(info)) {
-        qWarning() << "MISMATCH: Property" << info.key() << "mismatch for device" << left.get(TabletInfo::TabletName)
-                   << "DB:" << left.get(info) << "vs LIB:" << right.get(info);
+        qWarning() << "MISMATCH: Property" << info.key() << "mismatch for device" << left.get(TabletInfo::TabletName) << "DB:" << left.get(info)
+                   << "vs LIB:" << right.get(info);
         return false;
     }
 
@@ -79,7 +79,7 @@ void TestLibwacomData::testData()
         bool inLocal = false;
         bool inLibWacom = false;
 
-        if (TabletDatabase::instance().lookupTablet(localInfo.get (TabletInfo::TabletId), localInfo.get (TabletInfo::CompanyId), localInfo)) {
+        if (TabletDatabase::instance().lookupTablet(localInfo.get(TabletInfo::TabletId), localInfo.get(TabletInfo::CompanyId), localInfo)) {
             inLocal = true;
         }
 
@@ -91,7 +91,7 @@ void TestLibwacomData::testData()
         }
 
         if (inLocal && inLibWacom) {
-            //qDebug() << "Comparing" << deviceId << inLocal << inLibWacom;
+            // qDebug() << "Comparing" << deviceId << inLocal << inLibWacom;
             bool identical = true;
             identical &= compare(localInfo, libwacomInfo, TabletInfo::HasLeftTouchStrip);
             identical &= compare(localInfo, libwacomInfo, TabletInfo::HasRightTouchStrip);
@@ -107,8 +107,7 @@ void TestLibwacomData::testData()
             std::sort(localMap.begin(), localMap.end());
             std::sort(libwacomMap.begin(), libwacomMap.end());
 
-            bool identicalmapping = localMap.size() == libwacomMap.size()
-                    && std::equal(localMap.begin(), localMap.end(), libwacomMap.begin());
+            bool identicalmapping = localMap.size() == libwacomMap.size() && std::equal(localMap.begin(), localMap.end(), libwacomMap.begin());
 
             if (!identicalmapping) {
                 qWarning() << "MISMATCH: Mapping for device" << localInfo.get(TabletInfo::TabletName) << "differs."
@@ -123,10 +122,10 @@ void TestLibwacomData::testData()
             } else {
                 mismatch++;
             }
-        } else if(inLocal) {
+        } else if (inLocal) {
             qDebug() << "Device" << localInfo.get(TabletInfo::TabletName) << "is missing from LibWacom";
             missingLibwacom++;
-        } else if(inLibWacom) {
+        } else if (inLibWacom) {
             missingLocal++;
         }
     }
@@ -134,7 +133,8 @@ void TestLibwacomData::testData()
     qDebug() << "OK:" << okay << "MISMATCH:" << mismatch << "ONLYLOCAL" << missingLibwacom << "ONLYWACOM" << missingLocal;
 }
 
-int main() {
+int main()
+{
     TestLibwacomData test;
     test.testData();
 }

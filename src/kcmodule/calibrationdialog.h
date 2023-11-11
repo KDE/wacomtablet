@@ -22,13 +22,15 @@
 
 #include <QDialog>
 
-namespace Wacom {
+namespace Wacom
+{
 
 /**
  * @brief
  *
-*/
-class CalibrationDialog : public QDialog {
+ */
+class CalibrationDialog : public QDialog
+{
     Q_OBJECT
 public:
     /**
@@ -36,14 +38,14 @@ public:
      *
      * @param toolname name of the tool to calibrate (stylus or touch name)
      * @param targetScreen screen which is going to be used for calibration
-    */
+     */
     CalibrationDialog(const QString &toolname, const QString &targetScreen);
 
     /**
      * @brief Returns the new tablet area
      *
      * @return Tablet area after calibration
-    */
+     */
     QRect calibratedArea();
 
 protected:
@@ -53,8 +55,8 @@ protected:
      * The user has to hit the center of the cross for the calibration
      *
      * @param event some additional event details
-    */
-    void paintEvent( QPaintEvent *event ) override;
+     */
+    void paintEvent(QPaintEvent *event) override;
 
     /**
      * @brief Catch mousepress events
@@ -62,26 +64,26 @@ protected:
      * Only events inside the calibration cross are recognized. All other are ignored.
      *
      * @param event mouse press details
-    */
-    void mousePressEvent( QMouseEvent *event ) override;
+     */
+    void mousePressEvent(QMouseEvent *event) override;
 
 private:
     /**
      * @brief calculates the new tablet area from all 4 calibration points
-    */
+     */
     void calculateNewArea();
 
-    int m_drawCross;             /**< Which cross should be drawn? 0=topleft, 1=bottomleft, and so on */
-    int m_shiftLeft;             /**< Where to start the cross from the left */
-    int m_shiftTop;              /**< Where to start the cross from the top */
+    int m_drawCross; /**< Which cross should be drawn? 0=topleft, 1=bottomleft, and so on */
+    int m_shiftLeft; /**< Where to start the cross from the left */
+    int m_shiftTop; /**< Where to start the cross from the top */
 
-    QString m_toolName;          /**< Name of the tool to calibrate (stylus name or touch name) */
+    QString m_toolName; /**< Name of the tool to calibrate (stylus name or touch name) */
     QRectF m_originaltabletArea; /**< Original tablet area before calibration */
-    QRectF m_newtabletArea;      /**< Calibrated tablet area */
-    QPointF m_topLeft;           /**< Top left clicked point for calibration */
-    QPointF m_bottomLeft;        /**< Bottom left clicked point for calibration  */
-    QPointF m_topRight;          /**< Top right clicked point for calibration  */
-    QPointF m_bottomRight;       /**< Bottom right clicked point for calibration  */
+    QRectF m_newtabletArea; /**< Calibrated tablet area */
+    QPointF m_topLeft; /**< Top left clicked point for calibration */
+    QPointF m_bottomLeft; /**< Bottom left clicked point for calibration  */
+    QPointF m_topRight; /**< Top right clicked point for calibration  */
+    QPointF m_bottomRight; /**< Bottom right clicked point for calibration  */
 };
 }
 #endif // CALIBRATIONDIALOG_H

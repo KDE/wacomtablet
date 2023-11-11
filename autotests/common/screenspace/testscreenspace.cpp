@@ -23,7 +23,6 @@
 
 using namespace Wacom;
 
-
 /**
  * @file testtabletarea.cpp
  *
@@ -40,7 +39,8 @@ private slots:
 
 QTEST_MAIN(TestScreenSpace)
 
-void TestScreenSpace::testDesktop() {
+void TestScreenSpace::testDesktop()
+{
     QString input = QLatin1String("desktop");
 
     ScreenSpace space(input);

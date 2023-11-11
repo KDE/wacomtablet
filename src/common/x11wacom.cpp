@@ -25,8 +25,7 @@
 
 using namespace Wacom;
 
-
-const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
+const TabletArea X11Wacom::getMaximumTabletArea(const QString &deviceName)
 {
     TabletArea maximumAreaRect;
 
@@ -45,7 +44,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
 
     // get the current property value as backup
     static const QString areaProperty = X11Input::PROPERTY_WACOM_TABLET_AREA;
-    QList<long>          previousArea;
+    QList<long> previousArea;
 
     if (!x11Device.getLongProperty(areaProperty, previousArea, 4)) {
         qCWarning(COMMON) << QString::fromLatin1("Failed to get tablet area property from X11 input device '%1'!").arg(deviceName);
@@ -84,8 +83,7 @@ const TabletArea X11Wacom::getMaximumTabletArea(const QString& deviceName)
     return maximumAreaRect;
 }
 
-
-bool X11Wacom::isScrollDirectionInverted(const QString& deviceName)
+bool X11Wacom::isScrollDirectionInverted(const QString &deviceName)
 {
     X11InputDevice device;
 
@@ -102,8 +100,7 @@ bool X11Wacom::isScrollDirectionInverted(const QString& deviceName)
     return (buttonMap.at(3) == 5 && buttonMap.at(4) == 4);
 }
 
-
-bool X11Wacom::setCoordinateTransformationMatrix(const QString& deviceName, qreal offsetX, qreal offsetY, qreal width, qreal height)
+bool X11Wacom::setCoordinateTransformationMatrix(const QString &deviceName, qreal offsetX, qreal offsetY, qreal width, qreal height)
 {
     X11InputDevice device;
 
@@ -130,8 +127,7 @@ bool X11Wacom::setCoordinateTransformationMatrix(const QString& deviceName, qrea
     return device.setFloatProperty(X11Input::PROPERTY_TRANSFORM_MATRIX, matrix);
 }
 
-
-bool X11Wacom::setScrollDirection(const QString& deviceName, bool inverted)
+bool X11Wacom::setScrollDirection(const QString &deviceName, bool inverted)
 {
     X11InputDevice device;
 

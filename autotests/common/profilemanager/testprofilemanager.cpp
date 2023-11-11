@@ -19,8 +19,8 @@
 
 #include "../commontestutils.h"
 #include "common/deviceprofile.h"
-#include "common/tabletprofile.h"
 #include "common/profilemanager.h"
+#include "common/tabletprofile.h"
 
 #include <QDir>
 #include <QString>
@@ -35,7 +35,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the profile manager
  */
-class TestProfileManager: public QObject
+class TestProfileManager : public QObject
 {
     Q_OBJECT
 
@@ -53,14 +53,16 @@ void TestProfileManager::testConfig()
     tempFile.setAutoRemove(true);
 
     DeviceProfile writeDeviceProfile1;
-    DeviceType    writeDeviceProfile1Type = DeviceType::Stylus;
+    DeviceType writeDeviceProfile1Type = DeviceType::Stylus;
     DeviceProfile writeDeviceProfile2;
-    DeviceType    writeDeviceProfile2Type = DeviceType::Eraser;
+    DeviceType writeDeviceProfile2Type = DeviceType::Eraser;
 
     CommonTestUtils::setValues(writeDeviceProfile1);
     CommonTestUtils::setValues(writeDeviceProfile2);
-    writeDeviceProfile1.setDeviceType(writeDeviceProfile1Type);;
-    writeDeviceProfile2.setDeviceType(writeDeviceProfile2Type);;
+    writeDeviceProfile1.setDeviceType(writeDeviceProfile1Type);
+    ;
+    writeDeviceProfile2.setDeviceType(writeDeviceProfile2Type);
+    ;
 
     TabletProfile writeTabletProfile(QLatin1String("Test Tablet Profile"));
     writeTabletProfile.setDevice(writeDeviceProfile1);

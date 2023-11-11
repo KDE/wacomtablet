@@ -23,13 +23,11 @@
 
 using namespace Wacom;
 
-
 TabletArea::TabletArea()
     : QRect()
 {
     // nothing to do
 }
-
 
 TabletArea::TabletArea(const QRect &area)
     : QRect()
@@ -37,14 +35,12 @@ TabletArea::TabletArea(const QRect &area)
     operator=(area);
 }
 
-
 TabletArea::TabletArea(const QString &area, const QRect &defaultValue)
 {
     fromString(area, defaultValue);
 }
 
-
-TabletArea& TabletArea::operator=(const QRect& rect)
+TabletArea &TabletArea::operator=(const QRect &rect)
 {
     if (rect.x() <= 0 && rect.y() <= 0 && rect.width() <= 0 && rect.height() <= 0) {
         setTopLeft(QPoint(0, 0));
@@ -57,8 +53,7 @@ TabletArea& TabletArea::operator=(const QRect& rect)
     return *this;
 }
 
-
-bool TabletArea::fromString(const QString &area, const QRect& defaultValue)
+bool TabletArea::fromString(const QString &area, const QRect &defaultValue)
 {
     // set given default value
     *this = defaultValue;
@@ -77,7 +72,7 @@ bool TabletArea::fromString(const QString &area, const QRect& defaultValue)
     int x2 = areaValues.at(2).toInt(&x2Ok);
     int y2 = areaValues.at(3).toInt(&y2Ok);
 
-    if ( !x1Ok || !y1Ok || !x2Ok || !y2Ok ) {
+    if (!x1Ok || !y1Ok || !x2Ok || !y2Ok) {
         return false;
     }
 
@@ -95,11 +90,7 @@ bool TabletArea::fromString(const QString &area, const QRect& defaultValue)
     return true;
 }
 
-
 const QString TabletArea::toString() const
 {
-    return QString::fromLatin1("%1 %2 %3 %4").arg(x())
-                                             .arg(y())
-                                             .arg(x() + width())
-                                             .arg(y() + height());
+    return QString::fromLatin1("%1 %2 %3 %4").arg(x()).arg(y()).arg(x() + width()).arg(y() + height());
 }

@@ -23,7 +23,6 @@
 
 using namespace Wacom;
 
-
 /**
  * @file testtabletarea.cpp
  *
@@ -42,9 +41,7 @@ private slots:
     void testToString();
 
 private:
-
-    void assertArea(const TabletArea& area, int x, int y, int width, int height, bool assertEmpty = false);
-
+    void assertArea(const TabletArea &area, int x, int y, int width, int height, bool assertEmpty = false);
 };
 
 QTEST_MAIN(TestTabletArea)
@@ -81,8 +78,6 @@ void TestTabletArea::testAssignment()
     TabletArea area7(QRect(-5, -5, 20, 20));
     assertArea(area7, -5, -5, 20, 20);
 }
-
-
 
 void TestTabletArea::testFromString()
 {
@@ -140,8 +135,6 @@ void TestTabletArea::testFromString()
     assertArea(area10, 0, 0, 0, 0, true);
 }
 
-
-
 void TestTabletArea::testToString()
 {
     TabletArea area1(QRect(0, 0, 100, 200));
@@ -157,8 +150,6 @@ void TestTabletArea::testToString()
     QCOMPARE(area3String, QLatin1String("-10 -20 490 380"));
 }
 
-
-
 void TestTabletArea::assertArea(const TabletArea &area, int x, int y, int width, int height, bool assertEmpty)
 {
     if (assertEmpty) {
@@ -172,6 +163,5 @@ void TestTabletArea::assertArea(const TabletArea &area, int x, int y, int width,
     QCOMPARE(area.width(), width);
     QCOMPARE(area.height(), height);
 }
-
 
 #include "testtabletarea.moc"

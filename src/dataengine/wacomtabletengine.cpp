@@ -16,22 +16,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 #include "wacomtabletengine.h"
-#include "wacomtabletservice.h"
 #include "multidbuspendingcallwatcher.h"
+#include "wacomtabletservice.h"
 
 using namespace Wacom;
 
-WacomTabletEngine::WacomTabletEngine(QObject* parent, const QVariantList& args):
-    DataEngine(parent)
-   ,m_source(QLatin1String("wacomtablet"))
+WacomTabletEngine::WacomTabletEngine(QObject *parent, const QVariantList &args)
+    : DataEngine(parent)
+    , m_source(QLatin1String("wacomtablet"))
 {
     // init dbus service watcher
-    QDBusServiceWatcher* dbusServiceWatcher = new QDBusServiceWatcher(this);
-    dbusServiceWatcher->setWatchedServices (QStringList(QLatin1String("org.kde.Wacom")));
-    dbusServiceWatcher->setWatchMode (QDBusServiceWatcher::WatchForRegistration | QDBusServiceWatcher::WatchForUnregistration);
-    dbusServiceWatcher->setConnection (QDBusConnection::sessionBus());
+    QDBusServiceWatcher *dbusServiceWatcher = new QDBusServiceWatcher(this);
+    dbusServiceWatcher->setWatchedServices(QStringList(QLatin1String("org.kde.Wacom")));
+    dbusServiceWatcher->setWatchMode(QDBusServiceWatcher::WatchForRegistration | QDBusServiceWatcher::WatchForUnregistration);
+    dbusServiceWatcher->setConnection(QDBusConnection::sessionBus());
 
-    connect(dbusServiceWatcher, SIGNAL(serviceRegistered(QString)),   this, SLOT(onDBusConnected()));
+    connect(dbusServiceWatcher, SIGNAL(serviceRegistered(QString)), this, SLOT(onDBusConnected()));
     connect(dbusServiceWatcher, SIGNAL(serviceUnregistered(QString)), this, SLOT(onDBusDisconnected()));
 
     onDBusConnected();
@@ -39,28 +39,27 @@ WacomTabletEngine::WacomTabletEngine(QObject* parent, const QVariantList& args):
 
 WacomTabletEngine::~WacomTabletEngine()
 {
-
 }
 
 void WacomTabletEngine::onDBusConnected()
 {
     DBusTabletInterface::resetInterface();
 
-    if( !DBusTabletInterface::instance().isValid() ) {
+    if (!DBusTabletInterface::instance().isValid()) {
         onDBusDisconnected();
         return;
     }
 
     setData(m_source, QLatin1String("serviceAvailable"), true);
 
-    connect( &DBusTabletInterface::instance(), SIGNAL(tabletAdded(QString)),    this, SLOT(onTabletAdded(QString)) );
-    connect( &DBusTabletInterface::instance(), SIGNAL(tabletRemoved(QString)),  this, SLOT(onTabletRemoved(QString)) );
-    connect( &DBusTabletInterface::instance(), SIGNAL(profileChanged(QString,QString)), this, SLOT(setProfile(QString,QString)) );
+    connect(&DBusTabletInterface::instance(), SIGNAL(tabletAdded(QString)), this, SLOT(onTabletAdded(QString)));
+    connect(&DBusTabletInterface::instance(), SIGNAL(tabletRemoved(QString)), this, SLOT(onTabletRemoved(QString)));
+    connect(&DBusTabletInterface::instance(), SIGNAL(profileChanged(QString, QString)), this, SLOT(setProfile(QString, QString)));
 
     // get list of connected tablets
     QDBusReply<QStringList> connectedTablets = DBusTabletInterface::instance().getTabletList();
 
-    foreach(const QString &tabletId, connectedTablets.value()) {
+    foreach (const QString &tabletId, connectedTablets.value()) {
         onTabletAdded(tabletId);
     }
 }
@@ -75,7 +74,7 @@ void WacomTabletEngine::onDBusDisconnected()
     m_tablets.clear();
 }
 
-void WacomTabletEngine::onTabletAdded(const QString& tabletId)
+void WacomTabletEngine::onTabletAdded(const QString &tabletId)
 {
     if (m_tablets.contains(tabletId)) {
         return;
@@ -88,17 +87,16 @@ void WacomTabletEngine::onTabletAdded(const QString& tabletId)
 
     QList<QDBusPendingCall> callList;
 
-    callList << DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key())
-             << DBusTabletInterface::instance().listProfiles(tabletId)
+    callList << DBusTabletInterface::instance().getInformation(tabletId, TabletInfo::TabletName.key()) << DBusTabletInterface::instance().listProfiles(tabletId)
              << DBusTabletInterface::instance().getProfile(tabletId)
              << DBusTabletInterface::instance().getProperty(tabletId, DeviceType::Stylus.key(), Property::Mode.key())
              << DBusTabletInterface::instance().getDeviceName(tabletId, DeviceType::Touch.key())
              << DBusTabletInterface::instance().getProperty(tabletId, DeviceType::Touch.key(), Property::Touch.key());
 
     MultiDBusPendingCallWatcher *watcher = new MultiDBusPendingCallWatcher(callList, this);
-    connect(watcher, &MultiDBusPendingCallWatcher::finished, [this, watcher, tabletId](const QList<QDBusPendingCallWatcher*>& watchers) {
+    connect(watcher, &MultiDBusPendingCallWatcher::finished, [this, watcher, tabletId](const QList<QDBusPendingCallWatcher *> &watchers) {
         watcher->deleteLater();
-        Q_FOREACH(auto watcher, watchers) {
+        Q_FOREACH (auto watcher, watchers) {
             if (watcher->isError()) {
                 return;
             }
@@ -112,15 +110,15 @@ void WacomTabletEngine::onTabletAdded(const QString& tabletId)
         QDBusPendingReply<QString> touchMode = *watchers[5];
 
         const QString sourceName = QString(QLatin1String("Tablet%1")).arg(tabletId);
-        auto& tabletData = m_tablets[tabletId];
+        auto &tabletData = m_tablets[tabletId];
         tabletData.name = deviceName.value();
         const auto profileList = profileListReply.value();
         tabletData.profiles = profileList;
         int item = profileList.indexOf(profileName.value());
         tabletData.currentProfile = item;
         tabletData.hasTouch = (hasTouch.isValid() && !hasTouch.value().isEmpty());
-        tabletData.touch = tabletData.hasTouch ? QString( touchMode ).contains( QLatin1String( "on" )) : false;
-        tabletData.stylusMode = ( QString( stylusMode ).contains( QLatin1String( "absolute" )) || QString( stylusMode ).contains( QLatin1String( "Absolute" )) );
+        tabletData.touch = tabletData.hasTouch ? QString(touchMode).contains(QLatin1String("on")) : false;
+        tabletData.stylusMode = (QString(stylusMode).contains(QLatin1String("absolute")) || QString(stylusMode).contains(QLatin1String("Absolute")));
 
         setData(sourceName, QLatin1String("currentProfile"), tabletData.currentProfile);
         setData(sourceName, QLatin1String("hasTouch"), tabletData.hasTouch);
@@ -132,14 +130,14 @@ void WacomTabletEngine::onTabletAdded(const QString& tabletId)
     });
 }
 
-void WacomTabletEngine::onTabletRemoved(const QString& tabletId)
+void WacomTabletEngine::onTabletRemoved(const QString &tabletId)
 {
     const QString sourceName = QString(QLatin1String("Tablet%1")).arg(tabletId);
     m_tablets.remove(tabletId);
     removeSource(sourceName);
 }
 
-void WacomTabletEngine::setProfile(const QString& tabletId, const QString& profile)
+void WacomTabletEngine::setProfile(const QString &tabletId, const QString &profile)
 {
     if (!m_tablets.contains(tabletId)) {
         return;
@@ -149,7 +147,7 @@ void WacomTabletEngine::setProfile(const QString& tabletId, const QString& profi
     setData(sourceName, QLatin1String("currentProfile"), item);
 }
 
-Plasma::Service* WacomTabletEngine::serviceForSource(const QString& source)
+Plasma::Service *WacomTabletEngine::serviceForSource(const QString &source)
 {
     if (source == m_source) {
         return new WacomTabletService(source, this);

@@ -19,12 +19,11 @@
 
 #include "buttonshortcut.h"
 
-#include <QRegularExpression>
 #include <QKeySequence>
+#include <QRegularExpression>
 
-#include <KLocalizedString>
 #include <KGlobalAccel>
-
+#include <KLocalizedString>
 
 using namespace Wacom;
 
@@ -39,7 +38,8 @@ using namespace Wacom;
  * super   = meta  <-- default entry when searching for "meta"
  *
  */
-const char* ButtonShortcut::CONVERT_KEY_MAP_DATA[][2] = {
+const char *ButtonShortcut::CONVERT_KEY_MAP_DATA[][2] = {
+    // clang-format off
     {"alt_l",        "alt"},
     {"alt_r",        "alt"},
     {"alt",          "alt"},  // "alt" default
@@ -82,10 +82,12 @@ const char* ButtonShortcut::CONVERT_KEY_MAP_DATA[][2] = {
     {"super_r",      "meta"},
     {"super",        "meta"}, // "super" default
     {"underscore",   "_"},
-    {nullptr, nullptr}
+    {nullptr, nullptr},
+    // clang-format on
 };
 
-QString buttonNumberToDescription(int buttonNr) {
+QString buttonNumberToDescription(int buttonNr)
+{
     switch (buttonNr) {
     case 1:
         return i18nc("Tablet button triggers a left mouse button click.", "Left Mouse Button Click");
@@ -106,148 +108,138 @@ QString buttonNumberToDescription(int buttonNr) {
     }
 }
 
-namespace Wacom {
-    class ButtonShortcutPrivate {
-        public:
-            ButtonShortcutPrivate() {
-                type   = ButtonShortcut::ShortcutType::NONE;
-                button = 0;
-            }
+namespace Wacom
+{
+class ButtonShortcutPrivate
+{
+public:
+    ButtonShortcutPrivate()
+    {
+        type = ButtonShortcut::ShortcutType::NONE;
+        button = 0;
+    }
 
-            ButtonShortcut::ShortcutType type;
-            QString                      sequence; //!< The key or modifier sequence.
-            int                          button;   //!< The button number.
-    };
+    ButtonShortcut::ShortcutType type;
+    QString sequence; //!< The key or modifier sequence.
+    int button; //!< The button number.
+};
 }
 
-
-ButtonShortcut::ButtonShortcut() : d_ptr(new ButtonShortcutPrivate)
+ButtonShortcut::ButtonShortcut()
+    : d_ptr(new ButtonShortcutPrivate)
 {
 }
 
-
-ButtonShortcut::ButtonShortcut(const ButtonShortcut& that) : d_ptr(new ButtonShortcutPrivate)
+ButtonShortcut::ButtonShortcut(const ButtonShortcut &that)
+    : d_ptr(new ButtonShortcutPrivate)
 {
     operator=(that);
 }
 
-
-ButtonShortcut::ButtonShortcut(const QString& shortcut) : d_ptr(new ButtonShortcutPrivate)
+ButtonShortcut::ButtonShortcut(const QString &shortcut)
+    : d_ptr(new ButtonShortcutPrivate)
 {
     set(shortcut);
 }
 
-
-ButtonShortcut::ButtonShortcut(int buttonNumber) : d_ptr(new ButtonShortcutPrivate)
+ButtonShortcut::ButtonShortcut(int buttonNumber)
+    : d_ptr(new ButtonShortcutPrivate)
 {
     setButton(buttonNumber);
 }
-
 
 ButtonShortcut::~ButtonShortcut()
 {
     delete this->d_ptr;
 }
 
-
-ButtonShortcut& ButtonShortcut::operator=(const ButtonShortcut& that)
+ButtonShortcut &ButtonShortcut::operator=(const ButtonShortcut &that)
 {
-    Q_D ( ButtonShortcut );
+    Q_D(ButtonShortcut);
 
     *d = *(that.d_ptr);
     return *this;
 }
 
-
-ButtonShortcut& ButtonShortcut::operator=(const QString& shortcut)
+ButtonShortcut &ButtonShortcut::operator=(const QString &shortcut)
 {
     set(shortcut);
     return *this;
 }
 
-
-bool ButtonShortcut::operator==(const ButtonShortcut& that) const
+bool ButtonShortcut::operator==(const ButtonShortcut &that) const
 {
-    Q_D ( const ButtonShortcut );
+    Q_D(const ButtonShortcut);
 
-    if ( d->type != that.d_ptr->type ) {
+    if (d->type != that.d_ptr->type) {
         return false;
     }
 
-    if ( d->button != that.d_ptr->button ) {
+    if (d->button != that.d_ptr->button) {
         return false;
     }
 
-    if ( d->sequence.compare(that.d_ptr->sequence, Qt::CaseInsensitive) != 0 ) {
+    if (d->sequence.compare(that.d_ptr->sequence, Qt::CaseInsensitive) != 0) {
         return false;
     }
 
     return true;
 }
 
-
-bool ButtonShortcut::operator!=(const ButtonShortcut& that) const
+bool ButtonShortcut::operator!=(const ButtonShortcut &that) const
 {
     return (!operator==(that));
 }
 
-
 void ButtonShortcut::clear()
 {
-    Q_D ( ButtonShortcut );
+    Q_D(ButtonShortcut);
 
-    d->type   = ShortcutType::NONE;
+    d->type = ShortcutType::NONE;
     d->button = 0;
     d->sequence.clear();
 }
 
-
 int ButtonShortcut::getButton() const
 {
-    Q_D (const ButtonShortcut);
+    Q_D(const ButtonShortcut);
     return d->button;
 }
 
-
 ButtonShortcut::ShortcutType ButtonShortcut::getType() const
 {
-    Q_D( const ButtonShortcut );
+    Q_D(const ButtonShortcut);
     return d->type;
 }
-
 
 bool ButtonShortcut::isButton() const
 {
     return (getType() == ShortcutType::BUTTON);
 }
 
-
 bool ButtonShortcut::isKeystroke() const
 {
     return (getType() == ShortcutType::KEYSTROKE);
 }
-
 
 bool ButtonShortcut::isModifier() const
 {
     return (getType() == ShortcutType::MODIFIER);
 }
 
-
 bool ButtonShortcut::isSet() const
 {
     return (getType() != ShortcutType::NONE);
 }
 
-
 bool ButtonShortcut::setButton(int buttonNumber)
 {
-    Q_D ( ButtonShortcut );
+    Q_D(ButtonShortcut);
 
     clear();
 
     if (buttonNumber > 0 && buttonNumber <= 32) {
-        d->type   = ShortcutType::BUTTON;
+        d->type = ShortcutType::BUTTON;
         d->button = buttonNumber;
         return true;
     }
@@ -255,8 +247,7 @@ bool ButtonShortcut::setButton(int buttonNumber)
     return false;
 }
 
-
-bool ButtonShortcut::set(const QString& sequence)
+bool ButtonShortcut::set(const QString &sequence)
 {
     clear();
 
@@ -266,8 +257,9 @@ bool ButtonShortcut::set(const QString& sequence)
         return true;
     }
 
-    static const QRegularExpression modifierRx (QLatin1String("^(?:key )?(?:\\s*\\+?(?:alt|ctrl|meta|shift|super))+$"), QRegularExpression::CaseInsensitiveOption);
-    static const QRegularExpression buttonRx (QLatin1String ("^(?:button\\s+)?\\+?\\d+$"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression modifierRx(QLatin1String("^(?:key )?(?:\\s*\\+?(?:alt|ctrl|meta|shift|super))+$"),
+                                               QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression buttonRx(QLatin1String("^(?:button\\s+)?\\+?\\d+$"), QRegularExpression::CaseInsensitiveOption);
 
     if (seq.contains(buttonRx)) {
         // this is a button
@@ -282,14 +274,13 @@ bool ButtonShortcut::set(const QString& sequence)
     return setKeySequence(seq);
 }
 
-
 const QString ButtonShortcut::toDisplayString() const
 {
-    Q_D (const ButtonShortcut);
+    Q_D(const ButtonShortcut);
 
-    QList< KGlobalShortcutInfo > globalShortcutList;
-    QString                      displayString;
-    int                          buttonNr = getButton();
+    QList<KGlobalShortcutInfo> globalShortcutList;
+    QString displayString;
+    int buttonNr = getButton();
 
     switch (d->type) {
     case ShortcutType::BUTTON:
@@ -308,7 +299,7 @@ const QString ButtonShortcut::toDisplayString() const
         // check if a global shortcut is assigned to this sequence
         globalShortcutList = KGlobalAccel::globalShortcutsByKey(QKeySequence(displayString));
 
-        if(!globalShortcutList.isEmpty()) {
+        if (!globalShortcutList.isEmpty()) {
             displayString = globalShortcutList.at(0).uniqueName();
         }
         break;
@@ -320,10 +311,9 @@ const QString ButtonShortcut::toDisplayString() const
     return displayString;
 }
 
-
 const QString ButtonShortcut::toQKeySequenceString() const
 {
-    Q_D (const ButtonShortcut);
+    Q_D(const ButtonShortcut);
 
     QString keySequence;
 
@@ -335,42 +325,39 @@ const QString ButtonShortcut::toQKeySequenceString() const
     return keySequence;
 }
 
-
 const QString ButtonShortcut::toString() const
 {
-    Q_D (const ButtonShortcut);
+    Q_D(const ButtonShortcut);
 
     QString shortcutString = QLatin1String("0");
 
     switch (d->type) {
+    case ShortcutType::BUTTON:
+        shortcutString = QString::number(d->button);
+        break;
 
-        case ShortcutType::BUTTON:
-            shortcutString = QString::number(d->button);
-            break;
+    case ShortcutType::MODIFIER:
+    case ShortcutType::KEYSTROKE:
+        shortcutString = QString::fromLatin1("key %2").arg(d->sequence);
+        break;
 
-        case ShortcutType::MODIFIER:
-        case ShortcutType::KEYSTROKE:
-            shortcutString = QString::fromLatin1("key %2").arg(d->sequence);
-            break;
-
-        case ShortcutType::NONE:
-            break;
+    case ShortcutType::NONE:
+        break;
     }
 
     return shortcutString.toLower();
 }
 
-
-bool ButtonShortcut::convertKey(QString& key, bool fromStorage) const
+bool ButtonShortcut::convertKey(QString &key, bool fromStorage) const
 {
-    QMap<QString,QString>::ConstIterator iter;
-    QMap<QString,QString>::ConstIterator iterEnd;
+    QMap<QString, QString>::ConstIterator iter;
+    QMap<QString, QString>::ConstIterator iterEnd;
 
     if (fromStorage) {
-        iter    = getConvertFromStorageMap().find(key.toLower());
+        iter = getConvertFromStorageMap().find(key.toLower());
         iterEnd = getConvertFromStorageMap().constEnd();
     } else {
-        iter    = getConvertToStorageMap().find(key.toLower());
+        iter = getConvertToStorageMap().find(key.toLower());
         iterEnd = getConvertToStorageMap().constEnd();
     }
 
@@ -383,21 +370,19 @@ bool ButtonShortcut::convertKey(QString& key, bool fromStorage) const
     return true;
 }
 
-
-void ButtonShortcut::convertToNormalizedKeySequence(QString& sequence, bool fromStorage) const
+void ButtonShortcut::convertToNormalizedKeySequence(QString &sequence, bool fromStorage) const
 {
     normalizeKeySequence(sequence);
 
     static const QRegularExpression rx(QStringLiteral("\\s+"));
-    QStringList keyList    = sequence.split (rx, Qt::SkipEmptyParts);
-    bool        isFirstKey = true;
+    QStringList keyList = sequence.split(rx, Qt::SkipEmptyParts);
+    bool isFirstKey = true;
 
     sequence.clear();
 
-    for (QStringList::iterator iter = keyList.begin() ; iter != keyList.end() ; ++iter) {
-
-        convertKey (*iter, fromStorage);
-        prettifyKey (*iter);
+    for (QStringList::iterator iter = keyList.begin(); iter != keyList.end(); ++iter) {
+        convertKey(*iter, fromStorage);
+        prettifyKey(*iter);
 
         if (isFirstKey) {
             sequence.append(*iter);
@@ -408,40 +393,34 @@ void ButtonShortcut::convertToNormalizedKeySequence(QString& sequence, bool from
     }
 }
 
-
-void ButtonShortcut::convertKeySequenceToStorageFormat(QString& sequence) const
+void ButtonShortcut::convertKeySequenceToStorageFormat(QString &sequence) const
 {
     convertToNormalizedKeySequence(sequence, false);
 }
 
-
-void ButtonShortcut::convertKeySequenceToQKeySequenceFormat(QString& sequence) const
+void ButtonShortcut::convertKeySequenceToQKeySequenceFormat(QString &sequence) const
 {
     convertToNormalizedKeySequence(sequence, true);
     sequence.replace(QLatin1String(" "), QLatin1String("+"));
 }
 
-
-
-const QMap< QString, QString >& ButtonShortcut::getConvertFromStorageMap()
+const QMap<QString, QString> &ButtonShortcut::getConvertFromStorageMap()
 {
     static QMap<QString, QString> map = initConversionMap(true);
     return map;
 }
 
-
-const QMap< QString, QString >& ButtonShortcut::getConvertToStorageMap()
+const QMap<QString, QString> &ButtonShortcut::getConvertToStorageMap()
 {
     static QMap<QString, QString> map = initConversionMap(false);
     return map;
 }
 
-
-QMap< QString, QString > ButtonShortcut::initConversionMap(bool fromStorageMap)
+QMap<QString, QString> ButtonShortcut::initConversionMap(bool fromStorageMap)
 {
     QMap<QString, QString> map;
 
-    for (int i = 0 ; ; ++i) {
+    for (int i = 0;; ++i) {
         if (CONVERT_KEY_MAP_DATA[i][0] == nullptr || CONVERT_KEY_MAP_DATA[i][1] == nullptr) {
             return map;
         }
@@ -456,12 +435,11 @@ QMap< QString, QString > ButtonShortcut::initConversionMap(bool fromStorageMap)
     return map;
 }
 
-
-void ButtonShortcut::normalizeKeySequence(QString& sequence) const
+void ButtonShortcut::normalizeKeySequence(QString &sequence) const
 {
     // When setting a shortcut like "ctrl+x", xsetwacom will convert it to "key +ctrl +x -x"
     // therefore we just truncate the string on the first "-key" we find.
-    static const QRegularExpression minusKeyRx (QLatin1String ("(^|\\s)-\\S"));
+    static const QRegularExpression minusKeyRx(QLatin1String("(^|\\s)-\\S"));
 
     const QRegularExpressionMatch minusKeyRxMatch = minusKeyRx.match(sequence);
 
@@ -478,23 +456,22 @@ void ButtonShortcut::normalizeKeySequence(QString& sequence) const
     // shortcuts like "ctrl +" which is required to keep compatibility to older
     // (buggy) configuration files.
     static const QRegularExpression plusPrefixes(QStringLiteral("(^|\\s)\\+(\\S)"), QRegularExpression::CaseInsensitiveOption);
-    sequence.replace(plusPrefixes, QLatin1String ("\\1\\2"));
+    sequence.replace(plusPrefixes, QLatin1String("\\1\\2"));
 
     // Cleanup plus signs between keys.
     // This will convert shortcuts like "ctrl+alt+shift" or "Ctrl++" to "ctrl alt shift" or "Ctrl +".
     static const QRegularExpression cleanupPlus(QStringLiteral("(\\S)\\+(\\S)"), QRegularExpression::CaseInsensitiveOption);
-    sequence.replace (cleanupPlus, QLatin1String ("\\1 \\2"));
+    sequence.replace(cleanupPlus, QLatin1String("\\1 \\2"));
 
     // replace multiple whitespaces with one
     static const QRegularExpression whitespaces(QStringLiteral("\\s{2,}"), QRegularExpression::CaseInsensitiveOption);
-    sequence.replace (whitespaces, QLatin1String (" "));
+    sequence.replace(whitespaces, QLatin1String(" "));
 
     // trim the string
     sequence = sequence.trimmed();
 }
 
-
-void ButtonShortcut::prettifyKey(QString& key) const
+void ButtonShortcut::prettifyKey(QString &key) const
 {
     if (!key.isEmpty()) {
         key = key.toLower();
@@ -502,15 +479,14 @@ void ButtonShortcut::prettifyKey(QString& key) const
     }
 }
 
-
-bool ButtonShortcut::setButtonSequence(const QString& buttonSequence)
+bool ButtonShortcut::setButtonSequence(const QString &buttonSequence)
 {
     QString buttonNumber = buttonSequence;
     static const QRegularExpression rx(QStringLiteral("^\\s*button\\s+"), QRegularExpression::CaseInsensitiveOption);
     buttonNumber.remove(rx);
 
-    bool ok     = false;
-    int  button = buttonNumber.toInt(&ok);
+    bool ok = false;
+    int button = buttonNumber.toInt(&ok);
 
     if (!ok) {
         return false;
@@ -519,10 +495,9 @@ bool ButtonShortcut::setButtonSequence(const QString& buttonSequence)
     return setButton(button);
 }
 
-
 bool ButtonShortcut::setKeySequence(QString sequence)
 {
-    Q_D (ButtonShortcut);
+    Q_D(ButtonShortcut);
 
     clear();
 
@@ -546,21 +521,20 @@ bool ButtonShortcut::setKeySequence(QString sequence)
         return false;
     }
 
-    d->type     = ShortcutType::KEYSTROKE;
+    d->type = ShortcutType::KEYSTROKE;
     d->sequence = sequence;
 
     return true;
 }
 
-
 bool ButtonShortcut::setModifierSequence(QString sequence)
 {
-    Q_D (ButtonShortcut);
+    Q_D(ButtonShortcut);
 
     clear();
     convertKeySequenceToStorageFormat(sequence);
 
-    d->type     = ShortcutType::MODIFIER;
+    d->type = ShortcutType::MODIFIER;
     d->sequence = sequence;
 
     return true;

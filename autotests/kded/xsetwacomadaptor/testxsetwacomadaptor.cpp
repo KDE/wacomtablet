@@ -31,7 +31,7 @@ using namespace Wacom;
  *
  * @test UnitTest for ...
  */
-class TestXsetWacomAdaptor: public TabletDependentTest
+class TestXsetWacomAdaptor : public TabletDependentTest
 {
     Q_OBJECT
 
@@ -40,7 +40,6 @@ protected:
 
 private slots:
     void testSetProperty();
-
 };
 
 QTEST_MAIN(TestXsetWacomAdaptor)

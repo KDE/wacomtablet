@@ -22,15 +22,15 @@
 #include "logging.h"
 
 // common
-#include "deviceprofiledefaults.h"
 #include "dbustabletinterface.h"
-#include "tabletinfo.h"
+#include "deviceprofiledefaults.h"
 #include "devicetype.h"
-#include "tabletprofile.h"
 #include "property.h"
 #include "screenrotation.h"
+#include "tabletinfo.h"
+#include "tabletprofile.h"
 
-//Qt includes
+// Qt includes
 #include <QDBusInterface>
 #include <QDBusReply>
 
@@ -49,14 +49,13 @@ ProfileManagement::ProfileManagement(const QString &deviceName, bool hasTouch)
     qCDebug(COMMON) << "Create instance for :: " << deviceName << "Touch?" << hasTouch;
 }
 
-ProfileManagement& ProfileManagement::instance()
+ProfileManagement &ProfileManagement::instance()
 {
     static ProfileManagement instance;
     return instance;
 }
 
-
-ProfileManagement& ProfileManagement::instance(const QString &deviceName, bool hasTouch)
+ProfileManagement &ProfileManagement::instance(const QString &deviceName, bool hasTouch)
 {
     static ProfileManagement instance(deviceName, hasTouch);
     return instance;
@@ -67,16 +66,16 @@ void ProfileManagement::setTabletId(const QString &tabletId)
     m_tabletId = tabletId;
 }
 
-void ProfileManagement::createNewProfile( const QString &profilename )
+void ProfileManagement::createNewProfile(const QString &profilename)
 {
     if (profilename.isEmpty()) {
         qCWarning(COMMON) << "Can not create a profile with no name!";
     }
 
-    //get information via DBus
+    // get information via DBus
     m_profileName = profilename;
 
-    if(m_deviceName.isEmpty()) {
+    if (m_deviceName.isEmpty()) {
         qCWarning(COMMON) << "No device information is found. Can't create a new profile";
         return;
     }
@@ -86,7 +85,7 @@ void ProfileManagement::createNewProfile( const QString &profilename )
     m_profileManager.readProfiles(m_deviceName);
     TabletProfile tabletProfile = m_profileManager.loadProfile(profilename);
 
-    DeviceProfile padDevice    = tabletProfile.getDevice(DeviceType::Pad);
+    DeviceProfile padDevice = tabletProfile.getDevice(DeviceType::Pad);
     DeviceProfile stylusDevice = tabletProfile.getDevice(DeviceType::Stylus);
     DeviceProfile eraserDevice = tabletProfile.getDevice(DeviceType::Eraser);
 
@@ -146,7 +145,7 @@ void ProfileManagement::deleteProfile()
     }
 }
 
-DeviceProfile ProfileManagement::loadDeviceProfile(const DeviceType& device)
+DeviceProfile ProfileManagement::loadDeviceProfile(const DeviceType &device)
 {
     if (m_sensorId.isEmpty() || device != DeviceType::Touch) {
         m_profileManager.readProfiles(m_deviceName);
@@ -157,8 +156,7 @@ DeviceProfile ProfileManagement::loadDeviceProfile(const DeviceType& device)
     return m_profileManager.loadProfile(m_profileName).getDevice(device);
 }
 
-
-bool ProfileManagement::saveDeviceProfile(const DeviceProfile& profile)
+bool ProfileManagement::saveDeviceProfile(const DeviceProfile &profile)
 {
     if (m_sensorId.isEmpty() || profile.getDeviceType() != DeviceType::Touch) {
         m_profileManager.readProfiles(m_deviceName);
@@ -171,9 +169,7 @@ bool ProfileManagement::saveDeviceProfile(const DeviceProfile& profile)
     return m_profileManager.saveProfile(tabletProfile);
 }
 
-
-
-void ProfileManagement::setProfileName( const QString &name )
+void ProfileManagement::setProfileName(const QString &name)
 {
     m_profileName = name;
 }
@@ -182,7 +178,6 @@ QString ProfileManagement::profileName() const
 {
     return m_profileName;
 }
-
 
 void ProfileManagement::reload()
 {
@@ -209,8 +204,7 @@ void ProfileManagement::reload()
     if (touchName.isValid()) {
         qCDebug(COMMON) << "touchName for" << m_tabletId << "is" << touchName.value();
         m_hasTouch = !QString(touchName.value()).isEmpty();
-    }
-    else {
+    } else {
         m_hasTouch = false;
     }
 }

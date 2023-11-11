@@ -42,7 +42,7 @@ public:
     /**
      * Returns an instance of this class.
      */
-    static X11EventNotifier& instance();
+    static X11EventNotifier &instance();
 
     /**
      * @see EventNotifier::start()
@@ -54,35 +54,32 @@ public:
      */
     void stop() final override;
 
-
 protected:
-
     /**
-      * Called by Qt when a new X11 event is detected.
-      */
+     * Called by Qt when a new X11 event is detected.
+     */
     bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result) override;
 
 private:
     X11EventNotifier();
-    explicit X11EventNotifier(const X11EventNotifier& notifier) = delete;
-    X11EventNotifier& operator= (const X11EventNotifier& notifier) = delete;
+    explicit X11EventNotifier(const X11EventNotifier &notifier) = delete;
+    X11EventNotifier &operator=(const X11EventNotifier &notifier) = delete;
 
     /**
      * Handles X11 input events which signal adding or removal of a device.
      * This method should not be called directly, but only by our X11 event
      * handler method.
      */
-    void handleX11InputEvent(xcb_ge_generic_event_t* event);
+    void handleX11InputEvent(xcb_ge_generic_event_t *event);
 
     /**
-      * Register the eventhandler with the X11 system
-      */
-    int registerForNewDeviceEvent(xcb_connection_t* display);
+     * Register the eventhandler with the X11 system
+     */
+    int registerForNewDeviceEvent(xcb_connection_t *display);
 
-
-    Q_DECLARE_PRIVATE( X11EventNotifier )
+    Q_DECLARE_PRIVATE(X11EventNotifier)
     X11EventNotifierPrivate *const d_ptr;
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

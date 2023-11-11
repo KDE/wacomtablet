@@ -19,43 +19,46 @@
 
 #include "buttonactionselectiondialog.h"
 
-#include "buttonshortcut.h"
 #include "buttonactionselectionwidget.h"
+#include "buttonshortcut.h"
 
+#include <KLocalizedString>
+#include <QAbstractButton>
+#include <QDialogButtonBox>
 #include <QIcon>
 #include <QVBoxLayout>
-#include <QDialogButtonBox>
-#include <QAbstractButton>
-#include <KLocalizedString>
 
 using namespace Wacom;
 
-namespace Wacom {
-    class ButtonActionSelectionDialogPrivate {
-        public:
-            ButtonShortcut               shortcut;
-            ButtonActionSelectionWidget* selectionWidget; // no need to delete this widget as it is properly parented.
-    };
+namespace Wacom
+{
+class ButtonActionSelectionDialogPrivate
+{
+public:
+    ButtonShortcut shortcut;
+    ButtonActionSelectionWidget *selectionWidget; // no need to delete this widget as it is properly parented.
+};
 }
 
-ButtonActionSelectionDialog::ButtonActionSelectionDialog(QWidget* parent)
-    : QDialog(parent), d_ptr(new ButtonActionSelectionDialogPrivate)
+ButtonActionSelectionDialog::ButtonActionSelectionDialog(QWidget *parent)
+    : QDialog(parent)
+    , d_ptr(new ButtonActionSelectionDialogPrivate)
 {
-    Q_D (ButtonActionSelectionDialog);
+    Q_D(ButtonActionSelectionDialog);
 
     d->selectionWidget = new ButtonActionSelectionWidget(this);
 
-    QVBoxLayout* layout = new QVBoxLayout;
+    QVBoxLayout *layout = new QVBoxLayout;
     setLayout(layout);
 
-    QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     layout->addWidget(d->selectionWidget);
     layout->addWidget(buttonBox);
 
-    setWindowTitle( i18nc( "The action that will be assigned to a tablet button.", "Select Button Action" ) );
-    setWindowIcon( QIcon::fromTheme( QLatin1String("preferences-desktop-tablet") ) );
+    setWindowTitle(i18nc("The action that will be assigned to a tablet button.", "Select Button Action"));
+    setWindowIcon(QIcon::fromTheme(QLatin1String("preferences-desktop-tablet")));
 
-    connect( buttonBox, &QDialogButtonBox::clicked, [this, buttonBox](QAbstractButton* button){
+    connect(buttonBox, &QDialogButtonBox::clicked, [this, buttonBox](QAbstractButton *button) {
         if (QDialogButtonBox::Ok == buttonBox->standardButton(button)) {
             onOkClicked();
             accept();
@@ -63,34 +66,30 @@ ButtonActionSelectionDialog::ButtonActionSelectionDialog(QWidget* parent)
             // Cancel
             reject();
         }
-    } );
+    });
 }
-
 
 ButtonActionSelectionDialog::~ButtonActionSelectionDialog()
 {
     delete this->d_ptr;
 }
 
-
-const ButtonShortcut& ButtonActionSelectionDialog::getShortcut() const
+const ButtonShortcut &ButtonActionSelectionDialog::getShortcut() const
 {
-    Q_D (const ButtonActionSelectionDialog);
+    Q_D(const ButtonActionSelectionDialog);
     return d->shortcut;
 }
 
-
-void ButtonActionSelectionDialog::setShortcut(const ButtonShortcut& shortcut)
+void ButtonActionSelectionDialog::setShortcut(const ButtonShortcut &shortcut)
 {
-    Q_D (ButtonActionSelectionDialog);
+    Q_D(ButtonActionSelectionDialog);
     d->shortcut = shortcut;
     d->selectionWidget->setShortcut(shortcut);
 }
 
-
 void ButtonActionSelectionDialog::onOkClicked()
 {
-    Q_D (ButtonActionSelectionDialog);
+    Q_D(ButtonActionSelectionDialog);
     d->shortcut = d->selectionWidget->getShortcut();
 }
 

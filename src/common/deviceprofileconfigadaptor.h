@@ -25,23 +25,24 @@
 
 #include <KConfigGroup>
 
-namespace Wacom {
+namespace Wacom
+{
 
 /**
  * A configuration adapter which can read and write device profiles.
  */
-class DeviceProfileConfigAdaptor : public ConfigAdaptor{
+class DeviceProfileConfigAdaptor : public ConfigAdaptor
+{
 public:
     /**
-      * Default constructor
-      */
-    explicit DeviceProfileConfigAdaptor(DeviceProfile& profile);
+     * Default constructor
+     */
+    explicit DeviceProfileConfigAdaptor(DeviceProfile &profile);
 
     /**
-      * Default destructor
-      */
+     * Default destructor
+     */
     ~DeviceProfileConfigAdaptor() override;
-
 
     /**
      * Loads the device configuration from the given config group and sets
@@ -53,7 +54,7 @@ public:
      *
      * @return True on success, false on error.
      */
-    bool loadConfig( const KConfigGroup& config ) override;
+    bool loadConfig(const KConfigGroup &config) override;
 
     /**
      * Saves the device configuration of the currently managed device profile
@@ -64,7 +65,7 @@ public:
      *
      * @return True on success, false on error.
      */
-    bool saveConfig( KConfigGroup& config ) const override;
+    bool saveConfig(KConfigGroup &config) const override;
 };
 
 }

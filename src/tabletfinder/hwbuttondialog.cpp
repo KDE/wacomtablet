@@ -23,7 +23,8 @@
 #include <QMouseEvent>
 #include <QPushButton>
 
-static unsigned int QtButton2X11Button(Qt::MouseButton qtbutton) {
+static unsigned int QtButton2X11Button(Qt::MouseButton qtbutton)
+{
     // We could probably just use log2 here, but I don't know if this can backfire
     // Qt seems to offer no function for getting index of a set flag
     unsigned int button = qtbutton;
@@ -61,7 +62,7 @@ HWButtonDialog::~HWButtonDialog()
 
 void HWButtonDialog::nextButton()
 {
-    if(m_nextButton <= m_maxButtons) {
+    if (m_nextButton <= m_maxButtons) {
         QString text = i18n("Please press Button %1 on the tablet now.", m_nextButton);
         text.prepend(QLatin1String("<b>"));
         text.append(QLatin1String("</b>"));
@@ -85,7 +86,7 @@ void HWButtonDialog::mousePressEvent(QMouseEvent *event)
 
 void HWButtonDialog::hwKey(unsigned int button)
 {
-    if(m_nextButton <= m_maxButtons) {
+    if (m_nextButton <= m_maxButtons) {
         QString text = i18n("Hardware button %1 detected.", button);
         ui->textEdit->insertHtml(text);
         ui->textEdit->insertHtml(QLatin1String("<br><br>"));
@@ -97,7 +98,7 @@ void HWButtonDialog::hwKey(unsigned int button)
         m_nextButton++;
     }
 
-    if(m_nextButton > m_maxButtons) {
+    if (m_nextButton > m_maxButtons) {
         ui->textEdit->insertHtml(i18n("All buttons detected. Please close dialog"));
         ui->textEdit->insertHtml(QLatin1String("<br>"));
 
@@ -106,8 +107,7 @@ void HWButtonDialog::hwKey(unsigned int button)
         ui->textEdit->setTextCursor(cursor);
 
         ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-    }
-    else {
+    } else {
         nextButton();
     }
 }

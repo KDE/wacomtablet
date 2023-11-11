@@ -29,7 +29,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the properties
  */
-class TestPropertySet: public QObject
+class TestPropertySet : public QObject
 {
     Q_OBJECT
 
@@ -50,7 +50,6 @@ private slots:
 
 QTEST_MAIN(TestPropertySet)
 
-
 // forward declarations & typedefs
 class PropertySetTest;
 typedef PropertySet<PropertySetTest> PropertySetTestTemplateSpecialization;
@@ -61,7 +60,10 @@ typedef PropertySet<PropertySetTest> PropertySetTestTemplateSpecialization;
 class PropertySetTest : public PropertySetTestTemplateSpecialization
 {
 private:
-    explicit PropertySetTest(const Property& id, const QString& key) : PropertySetTestTemplateSpecialization(this, id, key) {}
+    explicit PropertySetTest(const Property &id, const QString &key)
+        : PropertySetTestTemplateSpecialization(this, id, key)
+    {
+    }
 
 public:
     static const PropertySetTest VAL01_PRIO10;
@@ -74,16 +76,17 @@ public:
 
 // template specialization
 template<>
-PropertySetTestTemplateSpecialization::PropertySetTemplateSpecialization::Container PropertySetTestTemplateSpecialization::PropertySetTemplateSpecialization::instances = PropertySetTestTemplateSpecialization::PropertySetTemplateSpecialization::Container();
+PropertySetTestTemplateSpecialization::PropertySetTemplateSpecialization::Container
+    PropertySetTestTemplateSpecialization::PropertySetTemplateSpecialization::instances =
+        PropertySetTestTemplateSpecialization::PropertySetTemplateSpecialization::Container();
 
 // PropertySetTest instances - the order defined here should be kept by the comparator
-const PropertySetTest PropertySetTest::VAL01_PRIO50(Property::Touch,         QLatin1String("VAL01_PRIO50"));
-const PropertySetTest PropertySetTest::VAL03_PRIO10(Property::Gesture,       QLatin1String("VAL03_PRIO10"));
-const PropertySetTest PropertySetTest::VAL02_PRIO10(Property::AbsWheelUp,    QLatin1String("VAL02_PRIO10"));
-const PropertySetTest PropertySetTest::VAL01_PRIO10(Property::AbsWheelDown,  QLatin1String("VAL01_PRIO10"));
+const PropertySetTest PropertySetTest::VAL01_PRIO50(Property::Touch, QLatin1String("VAL01_PRIO50"));
+const PropertySetTest PropertySetTest::VAL03_PRIO10(Property::Gesture, QLatin1String("VAL03_PRIO10"));
+const PropertySetTest PropertySetTest::VAL02_PRIO10(Property::AbsWheelUp, QLatin1String("VAL02_PRIO10"));
+const PropertySetTest PropertySetTest::VAL01_PRIO10(Property::AbsWheelDown, QLatin1String("VAL01_PRIO10"));
 const PropertySetTest PropertySetTest::VAL01_PRIO99(Property::StripLeftDown, QLatin1String("VAL01_PRIO99"));
-const PropertySetTest PropertySetTest::VAL02_PRIO99(Property::StripLeftUp,   QLatin1String("VAL02_PRIO99"));
-
+const PropertySetTest PropertySetTest::VAL02_PRIO99(Property::StripLeftUp, QLatin1String("VAL02_PRIO99"));
 
 /*
  * UNIT TESTS
@@ -101,7 +104,6 @@ void TestPropertySet::testCompare()
     QCOMPARE(iter++->key(), QLatin1String("VAL02_PRIO99"));
 }
 
-
 void TestPropertySet::testConstructor()
 {
     // copy constructor
@@ -109,21 +111,19 @@ void TestPropertySet::testConstructor()
     QVERIFY(test == PropertySetTest::VAL01_PRIO10);
 }
 
-
 void TestPropertySet::testFind()
 {
     // find by key
     QVERIFY(PropertySetTest::find(QLatin1String("NON_EXISTANT")) == NULL);
 
-    const PropertySetTest* findKey = PropertySetTest::find(QLatin1String("VAL01_PRIO50"));
+    const PropertySetTest *findKey = PropertySetTest::find(QLatin1String("VAL01_PRIO50"));
     QVERIFY(findKey != NULL);
     QVERIFY(*findKey == PropertySetTest::VAL01_PRIO50);
 
-    const PropertySetTest* findKeyIgnoreCase = PropertySetTest::find(QLatin1String("vAl01_PriO50"));
+    const PropertySetTest *findKeyIgnoreCase = PropertySetTest::find(QLatin1String("vAl01_PriO50"));
     QVERIFY(findKeyIgnoreCase != NULL);
     QVERIFY(*findKeyIgnoreCase == PropertySetTest::VAL01_PRIO50);
 }
-
 
 void TestPropertySet::testId()
 {
@@ -148,33 +148,32 @@ void TestPropertySet::testIds()
     QVERIFY(*(iter++) == Property::StripLeftUp);
 }
 
-
 void TestPropertySet::testIterator()
 {
     PropertySetTest::const_iterator begin = PropertySetTest::begin();
-    PropertySetTest::const_iterator end   = PropertySetTest::end();
+    PropertySetTest::const_iterator end = PropertySetTest::end();
 
     PropertySetTest::const_iterator iter, second;
 
     // begin(), operator*, operator->
     QCOMPARE(begin->key(), QLatin1String("VAL01_PRIO50"));
     QCOMPARE((*begin).key(), PropertySetTest::VAL01_PRIO50.key());
-    QVERIFY(*begin    == PropertySetTest::VAL01_PRIO50);
+    QVERIFY(*begin == PropertySetTest::VAL01_PRIO50);
     QVERIFY(&(*begin) == &PropertySetTest::VAL01_PRIO50);
 
     // operator==
     QVERIFY(begin == PropertySetTest::begin());
-    QVERIFY(end   == PropertySetTest::end());
+    QVERIFY(end == PropertySetTest::end());
 
     // operator!=
     QVERIFY(begin != PropertySetTest::end());
-    QVERIFY(end   != PropertySetTest::begin());
+    QVERIFY(end != PropertySetTest::begin());
 
     // operator=
     iter = begin;
-    QVERIFY(iter  == iter);
-    QVERIFY(iter  == begin);
-    QVERIFY(iter  == PropertySetTest::begin());
+    QVERIFY(iter == iter);
+    QVERIFY(iter == begin);
+    QVERIFY(iter == PropertySetTest::begin());
 
     // operator++
     second = begin;
@@ -183,7 +182,7 @@ void TestPropertySet::testIterator()
 
     iter = begin;
     QVERIFY(iter++ == begin);
-    QVERIFY(iter   == second);
+    QVERIFY(iter == second);
 
     // operator++(int)
     iter = begin;
@@ -192,7 +191,7 @@ void TestPropertySet::testIterator()
     // operator--
     iter = second;
     QVERIFY(iter-- == second);
-    QVERIFY(iter   == begin);
+    QVERIFY(iter == begin);
 
     // operator--(int)
     iter = second;
@@ -204,7 +203,6 @@ void TestPropertySet::testIterator()
     QCOMPARE(iter->key(), QLatin1String("VAL02_PRIO99"));
 }
 
-
 void TestPropertySet::testKey()
 {
     QCOMPARE(PropertySetTest::VAL01_PRIO50.key(), QLatin1String("VAL01_PRIO50"));
@@ -214,7 +212,6 @@ void TestPropertySet::testKey()
     QCOMPARE(PropertySetTest::VAL01_PRIO99.key(), QLatin1String("VAL01_PRIO99"));
     QCOMPARE(PropertySetTest::VAL02_PRIO99.key(), QLatin1String("VAL02_PRIO99"));
 }
-
 
 void TestPropertySet::testKeys()
 {
@@ -228,7 +225,6 @@ void TestPropertySet::testKeys()
     QCOMPARE(*(iter++), QLatin1String("VAL01_PRIO99"));
     QCOMPARE(*(iter++), QLatin1String("VAL02_PRIO99"));
 }
-
 
 void TestPropertySet::testList()
 {
@@ -246,7 +242,7 @@ void TestPropertySet::testList()
 void TestPropertySet::testMap()
 {
     QVERIFY(PropertySetTest::map(Property::Button6) == NULL);
-    const PropertySetTest* findId = PropertySetTest::map(Property::Touch);
+    const PropertySetTest *findId = PropertySetTest::map(Property::Touch);
     QVERIFY(findId != NULL);
     QVERIFY(*findId == PropertySetTest::VAL01_PRIO50);
 }
@@ -265,7 +261,6 @@ void TestPropertySet::testOperator()
     QVERIFY(test == PropertySetTest::VAL01_PRIO10);
 }
 
-
 void TestPropertySet::testSize()
 {
     int count = 6;
@@ -273,6 +268,5 @@ void TestPropertySet::testSize()
     QCOMPARE(PropertySetTest::keys().size(), count);
     QCOMPARE(PropertySetTest::list().size(), count);
 }
-
 
 #include "testpropertyset.moc"

@@ -21,12 +21,12 @@
 #define TABLETAREASELECTIONDIALOG_H
 
 #include "screenmap.h"
-#include "screenspace.h"
 #include "screenrotation.h"
+#include "screenspace.h"
 
 #include <QDialog>
-#include <QRect>
 #include <QList>
+#include <QRect>
 
 namespace Wacom
 {
@@ -42,11 +42,9 @@ class TabletAreaSelectionDialog : public QDialog
     Q_OBJECT
 
 public:
-
     explicit TabletAreaSelectionDialog();
 
     ~TabletAreaSelectionDialog() override;
-
 
     /**
      * Gets the current selection in profile format.
@@ -54,18 +52,17 @@ public:
      *
      * @return The current selection in profile format.
      */
-    const ScreenMap& getScreenMap();
+    const ScreenMap &getScreenMap();
 
     const ScreenSpace getScreenSpace() const;
 
     void select(QString output);
 
-    void select(const ScreenSpace& screenSpace);
+    void select(const ScreenSpace &screenSpace);
 
-    void setupWidget( const ScreenMap& mappings, const QString& deviceName, const ScreenRotation& rotation );
+    void setupWidget(const ScreenMap &mappings, const QString &deviceName, const ScreenRotation &rotation);
 
 private:
-
     /**
      * Sets up the dialog. Must only be called once by a constructor.
      */

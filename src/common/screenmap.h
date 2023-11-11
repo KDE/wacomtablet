@@ -20,8 +20,8 @@
 #ifndef SCREENMAP_H
 #define SCREENMAP_H
 
-#include "screenspace.h"
 #include "screenrotation.h"
+#include "screenspace.h"
 #include "tabletarea.h"
 
 #include <QString>
@@ -39,30 +39,28 @@ class ScreenMapPrivate;
 class ScreenMap
 {
 public:
-
-    explicit ScreenMap(const TabletArea& tabletGeometry = TabletArea());
-    explicit ScreenMap(const QString& mapping);
-    explicit ScreenMap(const ScreenMap& screenMap);
+    explicit ScreenMap(const TabletArea &tabletGeometry = TabletArea());
+    explicit ScreenMap(const QString &mapping);
+    explicit ScreenMap(const ScreenMap &screenMap);
 
     virtual ~ScreenMap();
 
-    ScreenMap& operator= (const ScreenMap& screenMap);
+    ScreenMap &operator=(const ScreenMap &screenMap);
 
-    void fromString(const QString& mappings);
+    void fromString(const QString &mappings);
 
-    const TabletArea getMapping(const ScreenSpace& screen) const;
+    const TabletArea getMapping(const ScreenSpace &screen) const;
 
-    const QString getMappingAsString(const ScreenSpace& screen) const;
+    const QString getMappingAsString(const ScreenSpace &screen) const;
 
-    void setMapping(const ScreenSpace& screen, const TabletArea& mapping);
+    void setMapping(const ScreenSpace &screen, const TabletArea &mapping);
 
     const QString toString() const;
 
 private:
-
     Q_DECLARE_PRIVATE(ScreenMap)
     ScreenMapPrivate *const d_ptr = nullptr;
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

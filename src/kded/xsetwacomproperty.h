@@ -25,7 +25,8 @@
 #include "property.h"
 #include "propertyset.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 // forward declarations & typedefs
 class XsetwacomProperty;
@@ -36,7 +37,6 @@ typedef PropertySet<XsetwacomProperty> XsetwacomPropertyTemplateSpecialization;
  */
 class XsetwacomProperty : public XsetwacomPropertyTemplateSpecialization
 {
-
 public:
     static const XsetwacomProperty AbsWheel2Down;
     static const XsetwacomProperty AbsWheel2Up;
@@ -84,13 +84,17 @@ public:
     static const XsetwacomProperty ZoomDistance;
 
 private:
-    XsetwacomProperty(const Property& id, const QString& key) : XsetwacomPropertyTemplateSpecialization(this, id, key) {}
+    XsetwacomProperty(const Property &id, const QString &key)
+        : XsetwacomPropertyTemplateSpecialization(this, id, key)
+    {
+    }
 
 }; // CLASS
 
 // instances container specialization declaration
 template<>
-XsetwacomPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container XsetwacomPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances;
+XsetwacomPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container
+    XsetwacomPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances;
 
-}      // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

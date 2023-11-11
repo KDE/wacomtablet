@@ -23,17 +23,18 @@
 
 #include "deviceprofile.h"
 
-namespace Wacom {
+namespace Wacom
+{
 class ProfileManagementInterface
 {
 public:
     virtual void setTabletId(const QString &tabletId) = 0;
-    virtual void createNewProfile(const QString & profilename) = 0;
+    virtual void createNewProfile(const QString &profilename) = 0;
     virtual const QStringList availableProfiles() = 0;
     virtual void deleteProfile() = 0;
-    virtual DeviceProfile loadDeviceProfile(const DeviceType& device) = 0;
-    virtual bool saveDeviceProfile (const DeviceProfile& profile) = 0;
-    virtual void setProfileName(const QString & name) = 0;
+    virtual DeviceProfile loadDeviceProfile(const DeviceType &device) = 0;
+    virtual bool saveDeviceProfile(const DeviceProfile &profile) = 0;
+    virtual void setProfileName(const QString &name) = 0;
     virtual QString profileName() const = 0;
     virtual void reload() = 0;
 

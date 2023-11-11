@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include<QString>
+#include <QString>
 
 #include "devicetype.h"
 
@@ -30,17 +30,17 @@ using namespace Wacom;
 template<>
 DeviceTypeTemplateSpecialization::Container DeviceTypeTemplateSpecialization::instances = DeviceTypeTemplateSpecialization::Container();
 
-bool DeviceType::operator<(const DeviceType& other) const
+bool DeviceType::operator<(const DeviceType &other) const
 {
-    return(key().compare(other.key(), Qt::CaseInsensitive) < 0);
+    return (key().compare(other.key(), Qt::CaseInsensitive) < 0);
 }
 
 /*
  * Instantiate Device Types.
  */
-const DeviceType DeviceType::Cursor ( QLatin1String("cursor") );
-const DeviceType DeviceType::Eraser ( QLatin1String("eraser") );
-const DeviceType DeviceType::Pad    ( QLatin1String("pad") );
-const DeviceType DeviceType::Stylus ( QLatin1String("stylus") );
-const DeviceType DeviceType::Touch  ( QLatin1String("touch") );
-const DeviceType DeviceType::Unknown( QLatin1String("unknown") );
+const DeviceType DeviceType::Cursor(QLatin1String("cursor"));
+const DeviceType DeviceType::Eraser(QLatin1String("eraser"));
+const DeviceType DeviceType::Pad(QLatin1String("pad"));
+const DeviceType DeviceType::Stylus(QLatin1String("stylus"));
+const DeviceType DeviceType::Touch(QLatin1String("touch"));
+const DeviceType DeviceType::Unknown(QLatin1String("unknown"));

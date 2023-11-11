@@ -29,7 +29,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the device profiles
  */
-class TestDeviceProfile: public QObject
+class TestDeviceProfile : public QObject
 {
     Q_OBJECT
 
@@ -44,11 +44,11 @@ QTEST_MAIN(TestDeviceProfile)
 void TestDeviceProfile::testConstructor()
 {
     DeviceProfile profile1;
-    QVERIFY (profile1.getName().isEmpty());
+    QVERIFY(profile1.getName().isEmpty());
 
     DeviceProfile profile2(DeviceType::Stylus);
-    QCOMPARE (profile2.getDeviceType(), DeviceType::Stylus);
-    QCOMPARE (profile2.getName(),       DeviceType::Stylus.key());
+    QCOMPARE(profile2.getDeviceType(), DeviceType::Stylus);
+    QCOMPARE(profile2.getName(), DeviceType::Stylus.key());
 }
 
 void TestDeviceProfile::testCopy()
@@ -71,6 +71,5 @@ void TestDeviceProfile::testSetter()
     CommonTestUtils::setValues(profile);
     CommonTestUtils::assertValues(profile);
 }
-
 
 #include "testdeviceprofile.moc"

@@ -26,8 +26,8 @@
 #include <QString>
 #include <QTemporaryFile>
 
-#include <KSharedConfig>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <QtTest>
 
@@ -38,7 +38,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the profile config adaptor
  */
-class TestTabletProfileConfigAdaptor: public QObject
+class TestTabletProfileConfigAdaptor : public QObject
 {
     Q_OBJECT
 
@@ -55,19 +55,20 @@ void TestTabletProfileConfigAdaptor::testConfig()
     tempFile.close();
     tempFile.setAutoRemove(true);
 
-    KSharedConfig::Ptr config = KSharedConfig::openConfig( tempFile.fileName(), KConfig::SimpleConfig );
+    KSharedConfig::Ptr config = KSharedConfig::openConfig(tempFile.fileName(), KConfig::SimpleConfig);
     QVERIFY(config);
 
     TabletProfile writeTabletProfile(QLatin1String("TABLET"));
-    KConfigGroup configGroup = KConfigGroup( config, writeTabletProfile.getName() );
+    KConfigGroup configGroup = KConfigGroup(config, writeTabletProfile.getName());
 
     DeviceProfile writeDeviceProfile1;
-    DeviceType    writeDeviceProfile1Type = DeviceType::Eraser;
+    DeviceType writeDeviceProfile1Type = DeviceType::Eraser;
     DeviceProfile writeDeviceProfile2;
-    DeviceType    writeDeviceProfile2Type = DeviceType::Stylus;
+    DeviceType writeDeviceProfile2Type = DeviceType::Stylus;
     CommonTestUtils::setValues(writeDeviceProfile1);
     CommonTestUtils::setValues(writeDeviceProfile2);
-    writeDeviceProfile1.setDeviceType(writeDeviceProfile1Type);;
+    writeDeviceProfile1.setDeviceType(writeDeviceProfile1Type);
+    ;
     writeDeviceProfile2.setDeviceType(writeDeviceProfile2Type);
 
     writeTabletProfile.setDevice(writeDeviceProfile1);
@@ -93,6 +94,5 @@ void TestTabletProfileConfigAdaptor::testConfig()
     CommonTestUtils::assertValues(readDeviceProfile1, writeDeviceProfile1Type.key().toLatin1().constData());
     CommonTestUtils::assertValues(readDeviceProfile2, writeDeviceProfile2Type.key().toLatin1().constData());
 }
-
 
 #include "testtabletprofileconfigadaptor.moc"

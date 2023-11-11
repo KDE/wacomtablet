@@ -22,8 +22,8 @@
 
 #include "tabletbackendinterface.h"
 
-#include <QMap>
 #include <QList>
+#include <QMap>
 
 namespace Wacom
 {
@@ -39,34 +39,33 @@ class TabletBackendPrivate;
 class TabletBackend : public TabletBackendInterface
 {
 public:
-
-    explicit TabletBackend(const TabletInformation& tabletInformation);
+    explicit TabletBackend(const TabletInformation &tabletInformation);
     ~TabletBackend() override;
 
     /**
      * @see TabletBackendInterface::addAdaptor(const DeviceType&, PropertyAdaptor*)
      */
-    void addAdaptor(const DeviceType& deviceType, PropertyAdaptor* adaptor) override;
+    void addAdaptor(const DeviceType &deviceType, PropertyAdaptor *adaptor) override;
 
     /**
      * @see TabletBackendInterface::getInformation() const;
      */
-    const TabletInformation& getInformation() const override;
+    const TabletInformation &getInformation() const override;
 
     /**
      * @see TabletBackendInterface::getProperty(const DeviceType&, const Property&) const
      */
-    const QString getProperty(const DeviceType& type, const Property& property) const override;
+    const QString getProperty(const DeviceType &type, const Property &property) const override;
 
     /**
      * @see TabletBackendInterface::setProfile(const TabletProfile&)
      */
-    void setProfile(const TabletProfile& profile) override;
+    void setProfile(const TabletProfile &profile) override;
 
     /**
      * @see TabletBackendInterface::setProfile(const DeviceType&, const DeviceProfile&)
      */
-    void setProfile(const DeviceType& deviceType, const DeviceProfile& profile) override;
+    void setProfile(const DeviceType &deviceType, const DeviceProfile &profile) override;
 
     /**
      * @see TabletBackendInterface::setStatusLED(int led)
@@ -81,16 +80,15 @@ public:
     /**
      * @see TabletBackendInterface::setProperty(const DeviceType&, const Property&, const QString&)
      */
-    bool setProperty(const DeviceType& type, const Property& property, const QString& value) override;
-
+    bool setProperty(const DeviceType &type, const Property &property, const QString &value) override;
 
 private:
-    typedef QList<PropertyAdaptor*>       AdaptorList;
+    typedef QList<PropertyAdaptor *> AdaptorList;
     typedef QMap<DeviceType, AdaptorList> DeviceMap;
 
     Q_DECLARE_PRIVATE(TabletBackend);
     TabletBackendPrivate *const d_ptr; //!< D-Pointer which gives access to private members.
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

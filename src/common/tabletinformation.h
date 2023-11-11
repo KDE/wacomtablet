@@ -20,9 +20,9 @@
 #ifndef TABLETINFORMATION_H
 #define TABLETINFORMATION_H
 
-#include "tabletinfo.h"
-#include "devicetype.h"
 #include "deviceinformation.h"
+#include "devicetype.h"
+#include "tabletinfo.h"
 
 #include <QMap>
 #include <QString>
@@ -47,7 +47,6 @@ class TabletInformationPrivate;
 class TabletInformation
 {
 public:
-
     /**
      * Default Constructor
      *
@@ -56,22 +55,20 @@ public:
     TabletInformation();
 
     TabletInformation(long tabletSerial);
-    TabletInformation(const TabletInformation& that);
+    TabletInformation(const TabletInformation &that);
     virtual ~TabletInformation();
 
-    TabletInformation& operator= (const TabletInformation& that);
+    TabletInformation &operator=(const TabletInformation &that);
 
     /**
      * Equals operator.
      */
-    bool operator== (const TabletInformation& other) const;
+    bool operator==(const TabletInformation &other) const;
 
     /**
      * Not-Equals operator.
      */
-    bool operator!= (const TabletInformation& other) const;
-
-
+    bool operator!=(const TabletInformation &other) const;
 
     /**
      * Gets tablet information.
@@ -82,8 +79,7 @@ public:
      *
      * @sa get(const QString&) const
      */
-    const QString& get (const TabletInfo& info) const;
-
+    const QString &get(const TabletInfo &info) const;
 
     /**
      * Gets a property as bool value.
@@ -92,8 +88,7 @@ public:
      *
      * @return True if the property is set to true, else false.
      */
-    bool getBool (const TabletInfo& info) const;
-
+    bool getBool(const TabletInfo &info) const;
 
     /**
      * Gets a property as int value.
@@ -102,14 +97,12 @@ public:
      *
      * @return The property value as int or 0.
      */
-    int getInt (const TabletInfo& info) const;
-
+    int getInt(const TabletInfo &info) const;
 
     /**
      * Returns the possibly empty button map of this tablet.
      */
-    const QMap<QString,QString>& getButtonMap() const;
-
+    const QMap<QString, QString> &getButtonMap() const;
 
     /**
      * Gets device information if set.
@@ -118,8 +111,7 @@ public:
      *
      * @return A pointer to the requested information or NULL if the device is not set.
      */
-    const DeviceInformation* getDevice (const DeviceType& deviceType) const;
-
+    const DeviceInformation *getDevice(const DeviceType &deviceType) const;
 
     /**
      * Returns a list of Xinput device names this tablet supports.
@@ -127,7 +119,6 @@ public:
      * @return A list of Xinput device names.
      */
     const QStringList getDeviceList() const;
-
 
     /**
      * Gets a Xinput device name of this tablet.
@@ -138,14 +129,12 @@ public:
      *
      * @sa getDeviceName(const QString&) const
      */
-    const QString& getDeviceName (const DeviceType& device) const;
-
+    const QString &getDeviceName(const DeviceType &device) const;
 
     /**
      * Returns the tablet serial id or 0 if not set.
      */
     long getTabletSerial() const;
-
 
     /**
      * Flag which signals if the pad has hardware buttons.
@@ -154,27 +143,24 @@ public:
      */
     bool hasButtons() const;
 
-
     /**
      * Checks if this tablet has a button map.
      */
     bool hasButtonMap() const;
-
 
     /**
      * Checks if this tablet has a device with the given device id.
      *
      * @return True if a device exists, else false.
      */
-    bool hasDevice (int deviceId) const;
-
+    bool hasDevice(int deviceId) const;
 
     /**
      * Checks if the tablet has a given device.
      *
      * @param device The device to check for.
      */
-    bool hasDevice (const DeviceType& device) const;
+    bool hasDevice(const DeviceType &device) const;
 
     /**
      * Returns the number of available LEDs to show the current mode
@@ -192,15 +178,13 @@ public:
      */
     bool isAvailable() const;
 
-
     /**
      * Sets tablet information based on the given tablet information identifier.
      *
      * @param info  The tablet information identifier.
      * @param value The new value.
      */
-    void set(const TabletInfo& info, const QString& value);
-
+    void set(const TabletInfo &info, const QString &value);
 
     /**
      * Sets a tablet information bool value.
@@ -208,7 +192,7 @@ public:
      * @param info  The tablet information to set.
      * @param value The value to set.
      */
-    void set(const TabletInfo& info, bool value);
+    void set(const TabletInfo &info, bool value);
 
     /**
      * Sets a tablet information integer value.
@@ -218,7 +202,6 @@ public:
      */
     void set(const TabletInfo &info, int value);
 
-
     /**
      * Sets a tablet information as bool value from a string.
      * Valid values are true/on/yes. Values are compared case insensitive.
@@ -226,14 +209,12 @@ public:
      * @param info  The tablet identifier.
      * @param value The bool value as string.
      */
-    void setBool (const TabletInfo& info, const QString& value);
-
+    void setBool(const TabletInfo &info, const QString &value);
 
     /**
      * Sets a button map for this tablet.
      */
-    void setButtonMap (const QMap<QString,QString>& buttonMap);
-
+    void setButtonMap(const QMap<QString, QString> &buttonMap);
 
     /**
      * @deprecated Do no longer use the available flag!
@@ -242,8 +223,7 @@ public:
      *
      * @param value The new value.
      */
-    void setAvailable (bool value);
-
+    void setAvailable(bool value);
 
     /**
      * Sets a device of this tablet.
@@ -254,7 +234,7 @@ public:
      *
      * @param device The device to add.
      */
-    void setDevice (const DeviceInformation& device);
+    void setDevice(const DeviceInformation &device);
 
     /**
      * @brief getUniqueDeviceId
@@ -269,10 +249,9 @@ public:
     QString getLegacyUniqueDeviceId() const;
 
 private:
-
-    Q_DECLARE_PRIVATE (TabletInformation)
+    Q_DECLARE_PRIVATE(TabletInformation)
     TabletInformationPrivate *const d_ptr = nullptr;
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

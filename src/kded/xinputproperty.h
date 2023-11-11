@@ -25,7 +25,8 @@
 #include "property.h"
 #include "propertyset.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 // forward declarations & typedefs
 class XinputProperty;
@@ -36,7 +37,6 @@ typedef PropertySet<XinputProperty> XinputPropertyTemplateSpecialization;
  */
 class XinputProperty : public XinputPropertyTemplateSpecialization
 {
-
 public:
     static const XinputProperty CursorAccelProfile;
     static const XinputProperty CursorAccelConstantDeceleration;
@@ -46,13 +46,17 @@ public:
     static const XinputProperty ScreenSpace;
 
 private:
-    XinputProperty(const Property& id, const QString& key) : XinputPropertyTemplateSpecialization(this, id, key) {}
+    XinputProperty(const Property &id, const QString &key)
+        : XinputPropertyTemplateSpecialization(this, id, key)
+    {
+    }
 
 }; // CLASS
 
 // instances container specialization declaration
 template<>
-XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances;
+XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container
+    XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances;
 
-}      // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

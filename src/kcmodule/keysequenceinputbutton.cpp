@@ -19,46 +19,48 @@
 
 #include "keysequenceinputbutton.h"
 
-#include <KLocalizedString>
 #include <KKeyServer>
+#include <KLocalizedString>
 
 #include <QEvent>
-#include <QString>
 #include <QKeyEvent>
 #include <QKeySequence>
+#include <QString>
 
 using namespace Wacom;
 
 namespace Wacom
 {
-    class KeySequenceInputButtonPrivate
+class KeySequenceInputButtonPrivate
+{
+public:
+    KeySequenceInputButtonPrivate()
+        : isRecording(false)
+        , modifierKeys(0)
     {
-        public:
-            KeySequenceInputButtonPrivate()
-                : isRecording(false), modifierKeys(0) {}
-            ~KeySequenceInputButtonPrivate() {}
+    }
+    ~KeySequenceInputButtonPrivate()
+    {
+    }
 
-            bool         isRecording;
-            QKeySequence keySequence;
-            QKeySequence oldSequence;
-            uint         modifierKeys;
-    };
+    bool isRecording;
+    QKeySequence keySequence;
+    QKeySequence oldSequence;
+    uint modifierKeys;
+};
 }
 
-
-
 KeySequenceInputButton::KeySequenceInputButton(QWidget *parent)
-    : QPushButton(parent), d_ptr(new KeySequenceInputButtonPrivate)
+    : QPushButton(parent)
+    , d_ptr(new KeySequenceInputButtonPrivate)
 {
     setupUi();
 }
-
 
 KeySequenceInputButton::~KeySequenceInputButton()
 {
     // destructor must exist in cpp file, even if not used!
 }
-
 
 void KeySequenceInputButton::clearSequence()
 {
@@ -72,14 +74,12 @@ void KeySequenceInputButton::clearSequence()
     updateShortcutDisplay();
 }
 
-
-const QKeySequence& KeySequenceInputButton::getSequence() const
+const QKeySequence &KeySequenceInputButton::getSequence() const
 {
     Q_D(const KeySequenceInputButton);
 
     return d->isRecording ? d->oldSequence : d->keySequence;
 }
-
 
 void KeySequenceInputButton::setSequence(const QKeySequence &sequence)
 {
@@ -93,7 +93,6 @@ void KeySequenceInputButton::setSequence(const QKeySequence &sequence)
     updateShortcutDisplay();
 }
 
-
 void KeySequenceInputButton::cancelRecording()
 {
     Q_D(KeySequenceInputButton);
@@ -102,13 +101,12 @@ void KeySequenceInputButton::cancelRecording()
     stopRecording();
 }
 
-
 bool KeySequenceInputButton::event(QEvent *event)
 {
     Q_D(KeySequenceInputButton);
 
     if (d->isRecording && event->type() == QEvent::KeyPress) {
-        keyPressEvent(static_cast<QKeyEvent*>(event));
+        keyPressEvent(static_cast<QKeyEvent *>(event));
         return true;
     }
 
@@ -120,8 +118,6 @@ bool KeySequenceInputButton::event(QEvent *event)
 
     return QPushButton::event(event);
 }
-
-
 
 void KeySequenceInputButton::keyPressEvent(QKeyEvent *event)
 {
@@ -157,7 +153,6 @@ void KeySequenceInputButton::keyPressEvent(QKeyEvent *event)
     updateShortcutDisplay();
 }
 
-
 void KeySequenceInputButton::keyReleaseEvent(QKeyEvent *event)
 {
     Q_D(KeySequenceInputButton);
@@ -184,7 +179,6 @@ void KeySequenceInputButton::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
-
 void KeySequenceInputButton::startRecording()
 {
     Q_D(KeySequenceInputButton);
@@ -194,16 +188,15 @@ void KeySequenceInputButton::startRecording()
     }
 
     d->modifierKeys = 0;
-    d->oldSequence  = d->keySequence;
-    d->keySequence  = QKeySequence();
-    d->isRecording  = true;
+    d->oldSequence = d->keySequence;
+    d->keySequence = QKeySequence();
+    d->isRecording = true;
 
     this->grabKeyboard();
     this->setDown(true);
 
     updateShortcutDisplay();
 }
-
 
 void KeySequenceInputButton::stopRecording()
 {
@@ -227,7 +220,6 @@ void KeySequenceInputButton::stopRecording()
     emit keySequenceChanged(d->keySequence);
 }
 
-
 void KeySequenceInputButton::onButtonClicked()
 {
     Q_D(KeySequenceInputButton);
@@ -238,7 +230,6 @@ void KeySequenceInputButton::onButtonClicked()
 
     startRecording();
 }
-
 
 void KeySequenceInputButton::recordKey(uint modifierKeys, int keyQt)
 {
@@ -253,32 +244,31 @@ void KeySequenceInputButton::recordKey(uint modifierKeys, int keyQt)
     keyQt &= ~Qt::KeyboardModifierMask;
 
     switch (keyQt) {
-        case Qt::Key_AltGr: // TODO check if xsetwacom supports this
-            break;
+    case Qt::Key_AltGr: // TODO check if xsetwacom supports this
+        break;
 
-        case Qt::Key_Shift:
-        case Qt::Key_Control:
-        case Qt::Key_Alt:
-        case Qt::Key_Meta:
-            // TODO control timeout
-            break;
+    case Qt::Key_Shift:
+    case Qt::Key_Control:
+    case Qt::Key_Alt:
+    case Qt::Key_Meta:
+        // TODO control timeout
+        break;
 
-        default:
-            if (keyQt) {
-                if ((keyQt == Qt::Key_Backtab) && (d->modifierKeys & Qt::SHIFT)) {
-                    keyQt = Qt::Key_Tab | d->modifierKeys;
-                } else {
-                    keyQt |= d->modifierKeys;
-                }
-
-                d->keySequence = QKeySequence(keyQt);
-
-                stopRecording();
-                // TODO control timeout
+    default:
+        if (keyQt) {
+            if ((keyQt == Qt::Key_Backtab) && (d->modifierKeys & Qt::SHIFT)) {
+                keyQt = Qt::Key_Tab | d->modifierKeys;
+            } else {
+                keyQt |= d->modifierKeys;
             }
+
+            d->keySequence = QKeySequence(keyQt);
+
+            stopRecording();
+            // TODO control timeout
+        }
     }
 }
-
 
 void KeySequenceInputButton::setupUi()
 {
@@ -290,7 +280,6 @@ void KeySequenceInputButton::setupUi()
 
     updateShortcutDisplay();
 }
-
 
 void KeySequenceInputButton::updateShortcutDisplay()
 {

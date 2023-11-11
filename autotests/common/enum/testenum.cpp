@@ -28,7 +28,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the device properties
  */
-class TestEnum: public QObject
+class TestEnum : public QObject
 {
     Q_OBJECT
 
@@ -49,23 +49,21 @@ QTEST_MAIN(TestEnum)
 /*
  * Forward Declarations, Typedefs & Helper classes.
  */
-class  EnumTest;
+class EnumTest;
 struct EnumTestTemplateSpecializationLessFunctor;
 struct EnumTestTemplateSpecializationEqualFunctor;
 
 typedef Enum<EnumTest, QString, EnumTestTemplateSpecializationLessFunctor, EnumTestTemplateSpecializationEqualFunctor> EnumTestTemplateSpecialization;
 
-struct EnumTestTemplateSpecializationLessFunctor
-{
-    bool operator()(const EnumTestTemplateSpecialization* v1, const EnumTestTemplateSpecialization* v2)
+struct EnumTestTemplateSpecializationLessFunctor {
+    bool operator()(const EnumTestTemplateSpecialization *v1, const EnumTestTemplateSpecialization *v2)
     {
         return (v1->key() < v2->key());
     }
 };
 
-struct EnumTestTemplateSpecializationEqualFunctor
-{
-    bool operator()(const QString& v1, const QString& v2)
+struct EnumTestTemplateSpecializationEqualFunctor {
+    bool operator()(const QString &v1, const QString &v2)
     {
         return (v1.compare(v2, Qt::CaseInsensitive) == 0);
     }
@@ -75,14 +73,16 @@ struct EnumTestTemplateSpecializationEqualFunctor
 template<>
 EnumTestTemplateSpecialization::Container EnumTestTemplateSpecialization::instances = EnumTestTemplateSpecialization::Container();
 
-
 /*
  * A helper class required for this unit test.
  */
 class EnumTest : public EnumTestTemplateSpecialization
 {
 private:
-    explicit EnumTest(const QString& value) : EnumTestTemplateSpecialization(this, value) {}
+    explicit EnumTest(const QString &value)
+        : EnumTestTemplateSpecialization(this, value)
+    {
+    }
 
 public:
     static const EnumTest VAL01_PRIO10;
@@ -100,9 +100,6 @@ const EnumTest EnumTest::VAL02_PRIO10(QLatin1String("VAL02_PRIO10"));
 const EnumTest EnumTest::VAL02_PRIO99(QLatin1String("VAL02_PRIO99"));
 const EnumTest EnumTest::VAL01_PRIO99(QLatin1String("VAL01_PRIO99"));
 const EnumTest EnumTest::VAL01_PRIO50(QLatin1String("VAL01_PRIO50"));
-
-
-
 
 void TestEnum::testCompare()
 {
@@ -127,7 +124,7 @@ void TestEnum::testFind()
 {
     QCOMPARE(EnumTest::find(QLatin1String("NON_EXISTANT")), nullptr);
 
-    const EnumTest* find = EnumTest::find(QLatin1String("VAL01_PRIO50"));
+    const EnumTest *find = EnumTest::find(QLatin1String("VAL01_PRIO50"));
     QVERIFY(find != nullptr);
     QCOMPARE(*find, EnumTest::VAL01_PRIO50);
 }
@@ -135,29 +132,29 @@ void TestEnum::testFind()
 void TestEnum::testIterator()
 {
     EnumTest::const_iterator begin = EnumTest::begin();
-    EnumTest::const_iterator end   = EnumTest::end();
+    EnumTest::const_iterator end = EnumTest::end();
 
     EnumTest::const_iterator iter, second;
 
     // begin(), operator*, operator->
     QCOMPARE(begin->key(), QLatin1String("VAL01_PRIO10"));
     QCOMPARE((*begin).key(), EnumTest::VAL01_PRIO10.key());
-    QVERIFY(*begin    == EnumTest::VAL01_PRIO10);
+    QVERIFY(*begin == EnumTest::VAL01_PRIO10);
     QVERIFY(&(*begin) == &EnumTest::VAL01_PRIO10);
 
     // operator==
     QVERIFY(begin == EnumTest::begin());
-    QVERIFY(end   == EnumTest::end());
+    QVERIFY(end == EnumTest::end());
 
     // operator!=
     QVERIFY(begin != EnumTest::end());
-    QVERIFY(end   != EnumTest::begin());
+    QVERIFY(end != EnumTest::begin());
 
     // operator=
     iter = begin;
-    QVERIFY(iter  == iter);
-    QVERIFY(iter  == begin);
-    QVERIFY(iter  == EnumTest::begin());
+    QVERIFY(iter == iter);
+    QVERIFY(iter == begin);
+    QVERIFY(iter == EnumTest::begin());
 
     // operator++
     second = begin;
@@ -166,7 +163,7 @@ void TestEnum::testIterator()
 
     iter = begin;
     QVERIFY(iter++ == begin);
-    QVERIFY(iter   == second);
+    QVERIFY(iter == second);
 
     // operator++(int)
     iter = begin;
@@ -175,7 +172,7 @@ void TestEnum::testIterator()
     // operator--
     iter = second;
     QVERIFY(iter-- == second);
-    QVERIFY(iter   == begin);
+    QVERIFY(iter == begin);
 
     // operator--(int)
     iter = second;
@@ -187,8 +184,6 @@ void TestEnum::testIterator()
     QCOMPARE(iter->key(), QLatin1String("VAL03_PRIO10"));
 }
 
-
-
 void TestEnum::testKey()
 {
     QCOMPARE(EnumTest::VAL01_PRIO10.key(), QLatin1String("VAL01_PRIO10"));
@@ -198,7 +193,6 @@ void TestEnum::testKey()
     QCOMPARE(EnumTest::VAL02_PRIO99.key(), QLatin1String("VAL02_PRIO99"));
     QCOMPARE(EnumTest::VAL03_PRIO10.key(), QLatin1String("VAL03_PRIO10"));
 }
-
 
 void TestEnum::testKeys()
 {
@@ -212,7 +206,6 @@ void TestEnum::testKeys()
     QCOMPARE(*(iter++), QLatin1String("VAL02_PRIO99"));
     QCOMPARE(*(iter++), QLatin1String("VAL03_PRIO10"));
 }
-
 
 void TestEnum::testList()
 {
@@ -240,7 +233,6 @@ void TestEnum::testOperator()
     EnumTest test = EnumTest::VAL01_PRIO10;
     QVERIFY(test == EnumTest::VAL01_PRIO10);
 }
-
 
 void TestEnum::testSize()
 {

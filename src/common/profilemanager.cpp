@@ -25,27 +25,30 @@
 #include <KSharedConfig>
 #include <QtGlobal>
 
-
 using namespace Wacom;
 
-namespace Wacom {
+namespace Wacom
+{
 /**
-  * Private class of the ProfileManager for the d-pointer
-  *
-  */
-class ProfileManagerPrivate {
+ * Private class of the ProfileManager for the d-pointer
+ *
+ */
+class ProfileManagerPrivate
+{
 public:
-    QString             fileName;
-    QString             tabletId;
-    KConfigGroup        tabletGroup;
-    KSharedConfig::Ptr  config;
+    QString fileName;
+    QString tabletId;
+    KConfigGroup tabletGroup;
+    KSharedConfig::Ptr config;
 };
 }
 
-ProfileManager::ProfileManager() : d_ptr(new ProfileManagerPrivate) {}
+ProfileManager::ProfileManager()
+    : d_ptr(new ProfileManagerPrivate)
+{
+}
 
-
-ProfileManager::ProfileManager( const QString& filename )
+ProfileManager::ProfileManager(const QString &filename)
     : d_ptr(new ProfileManagerPrivate)
 {
     open(filename);
@@ -56,10 +59,9 @@ ProfileManager::~ProfileManager()
     delete this->d_ptr;
 }
 
-
 void ProfileManager::close()
 {
-    Q_D( ProfileManager );
+    Q_D(ProfileManager);
 
     d->tabletId.clear();
     d->tabletGroup = KConfigGroup();
@@ -67,9 +69,9 @@ void ProfileManager::close()
     d->config.reset();
 }
 
-bool ProfileManager::deleteProfile(const QString& profile)
+bool ProfileManager::deleteProfile(const QString &profile)
 {
-    Q_D( ProfileManager );
+    Q_D(ProfileManager);
 
     if (!isLoaded()) {
         return false;
@@ -82,7 +84,7 @@ bool ProfileManager::deleteProfile(const QString& profile)
     }
 
     QStringList profileList = d->tabletGroup.readEntry(QLatin1String("ProfileRotationList"), QStringList());
-    if(profileList.contains(profile)) {
+    if (profileList.contains(profile)) {
         profileList.removeAll(profile);
         d->tabletGroup.writeEntry(QLatin1String("ProfileRotationList"), profileList);
     }
@@ -91,11 +93,9 @@ bool ProfileManager::deleteProfile(const QString& profile)
     return true;
 }
 
-
-
-bool ProfileManager::hasIdentifier(const QString& identifier) const
+bool ProfileManager::hasIdentifier(const QString &identifier) const
 {
-    Q_D( const ProfileManager );
+    Q_D(const ProfileManager);
 
     if (!isOpen()) {
         return false;
@@ -106,7 +106,7 @@ bool ProfileManager::hasIdentifier(const QString& identifier) const
 
 void ProfileManager::setProfileRotationList(const QStringList &rotationList)
 {
-    Q_D( ProfileManager );
+    Q_D(ProfileManager);
 
     if (!isOpen()) {
         return;
@@ -117,7 +117,7 @@ void ProfileManager::setProfileRotationList(const QStringList &rotationList)
 
 QStringList ProfileManager::profileRotationList() const
 {
-    Q_D( const ProfileManager );
+    Q_D(const ProfileManager);
 
     if (!isOpen()) {
         return QStringList();
@@ -128,13 +128,13 @@ QStringList ProfileManager::profileRotationList() const
 
 int ProfileManager::currentProfileNumber() const
 {
-    Q_D( const ProfileManager );
+    Q_D(const ProfileManager);
 
     if (!isOpen()) {
         return -1;
     }
 
-    return d->tabletGroup.readEntry(QLatin1String("CurrentProfileEntry"),-1);
+    return d->tabletGroup.readEntry(QLatin1String("CurrentProfileEntry"), -1);
 }
 
 int ProfileManager::profileNumber(const QString &profile) const
@@ -148,69 +148,69 @@ int ProfileManager::profileNumber(const QString &profile) const
 
 void ProfileManager::updateCurrentProfileNumber(const QString &profile)
 {
-    Q_D( ProfileManager );
+    Q_D(ProfileManager);
 
     if (!isOpen()) {
         return;
     }
 
-    d->tabletGroup.writeEntry(QLatin1String("CurrentProfileEntry"),profileNumber(profile));
+    d->tabletGroup.writeEntry(QLatin1String("CurrentProfileEntry"), profileNumber(profile));
     d->tabletGroup.sync();
 }
 
 QString ProfileManager::nextProfile()
 {
-    Q_D( ProfileManager );
+    Q_D(ProfileManager);
 
     if (!isOpen()) {
         return QString();
     }
 
     QStringList profileList = profileRotationList();
-    if(profileList.isEmpty()) {
+    if (profileList.isEmpty()) {
         return QString();
     }
 
-    int curProfileEntry = d->tabletGroup.readEntry(QLatin1String("CurrentProfileEntry"),-1);
+    int curProfileEntry = d->tabletGroup.readEntry(QLatin1String("CurrentProfileEntry"), -1);
     curProfileEntry++;
 
-    if(profileList.size() <= curProfileEntry) {
+    if (profileList.size() <= curProfileEntry) {
         curProfileEntry = 0;
     }
 
-    d->tabletGroup.writeEntry(QLatin1String("CurrentProfileEntry"),curProfileEntry);
+    d->tabletGroup.writeEntry(QLatin1String("CurrentProfileEntry"), curProfileEntry);
     d->tabletGroup.sync();
     return profileList.at(curProfileEntry);
 }
 
 QString ProfileManager::previousProfile()
 {
-    Q_D( ProfileManager );
+    Q_D(ProfileManager);
 
     if (!isOpen()) {
         return QString();
     }
 
     QStringList profileList = profileRotationList();
-    if(profileList.isEmpty()) {
+    if (profileList.isEmpty()) {
         return QString();
     }
 
-    int curProfileEntry = d->tabletGroup.readEntry(QLatin1String("CurrentProfileEntry"),-1);
+    int curProfileEntry = d->tabletGroup.readEntry(QLatin1String("CurrentProfileEntry"), -1);
     curProfileEntry--;
 
-    if(curProfileEntry < 0) {
-        curProfileEntry = profileList.size()-1;
+    if (curProfileEntry < 0) {
+        curProfileEntry = profileList.size() - 1;
     }
 
-    d->tabletGroup.writeEntry(QLatin1String("CurrentProfileEntry"),curProfileEntry);
+    d->tabletGroup.writeEntry(QLatin1String("CurrentProfileEntry"), curProfileEntry);
     d->tabletGroup.sync();
     return profileList.at(curProfileEntry);
 }
 
-bool ProfileManager::hasProfile(const QString& profileName) const
+bool ProfileManager::hasProfile(const QString &profileName) const
 {
-    Q_D( const ProfileManager );
+    Q_D(const ProfileManager);
 
     if (!isLoaded() || profileName.isEmpty()) {
         return false;
@@ -219,25 +219,21 @@ bool ProfileManager::hasProfile(const QString& profileName) const
     return KConfigGroup(&(d->tabletGroup), profileName).exists();
 }
 
-
 bool ProfileManager::isLoaded() const
 {
-    Q_D( const ProfileManager );
+    Q_D(const ProfileManager);
     return (isOpen() && !d->tabletId.isEmpty());
 }
 
-
 bool ProfileManager::isOpen() const
 {
-    Q_D( const ProfileManager );
+    Q_D(const ProfileManager);
     return (!d->fileName.isEmpty() && d->config);
 }
 
-
-
 const QStringList ProfileManager::listIdentifiers() const
 {
-    Q_D( const ProfileManager );
+    Q_D(const ProfileManager);
 
     if (!isOpen()) {
         return QStringList();
@@ -246,10 +242,9 @@ const QStringList ProfileManager::listIdentifiers() const
     return d->config->groupList();
 }
 
-
 const QStringList ProfileManager::listProfiles() const
 {
-    Q_D( const ProfileManager );
+    Q_D(const ProfileManager);
 
     if (!isLoaded()) {
         return QStringList();
@@ -258,11 +253,9 @@ const QStringList ProfileManager::listProfiles() const
     return d->tabletGroup.groupList();
 }
 
-
-
-bool ProfileManager::readProfiles(const QString& tabletIdentifier, const QString &legacyTabletId)
+bool ProfileManager::readProfiles(const QString &tabletIdentifier, const QString &legacyTabletId)
 {
-    Q_D( ProfileManager );
+    Q_D(ProfileManager);
 
     if (!isOpen() || tabletIdentifier.isEmpty()) {
         d->tabletId = QString();
@@ -270,8 +263,8 @@ bool ProfileManager::readProfiles(const QString& tabletIdentifier, const QString
     }
 
     d->config->reparseConfiguration();
-    d->tabletId    = tabletIdentifier;
-    d->tabletGroup = KConfigGroup( d->config, d->tabletId );
+    d->tabletId = tabletIdentifier;
+    d->tabletGroup = KConfigGroup(d->config, d->tabletId);
 
     if (!d->tabletGroup.exists() && !legacyTabletId.isEmpty()) {
         // Check for old configuration group
@@ -285,10 +278,9 @@ bool ProfileManager::readProfiles(const QString& tabletIdentifier, const QString
     return true;
 }
 
-
-const TabletProfile ProfileManager::loadProfile(const QString& profile) const
+const TabletProfile ProfileManager::loadProfile(const QString &profile) const
 {
-    Q_D( const ProfileManager );
+    Q_D(const ProfileManager);
     TabletProfile tabletProfile(profile);
 
     if (!isLoaded() || profile.isEmpty()) {
@@ -304,43 +296,39 @@ const TabletProfile ProfileManager::loadProfile(const QString& profile) const
     TabletProfileConfigAdaptor configAdaptor(tabletProfile);
     configAdaptor.loadConfig(configGroup);
 
-
     return tabletProfile;
 }
 
-
-void ProfileManager::open(const QString& filename)
+void ProfileManager::open(const QString &filename)
 {
-    Q_D( ProfileManager );
+    Q_D(ProfileManager);
 
     close();
 
     if (!filename.isEmpty()) {
         d->fileName = filename;
-        d->config   = KSharedConfig::openConfig( filename, KConfig::SimpleConfig );
+        d->config = KSharedConfig::openConfig(filename, KConfig::SimpleConfig);
     }
 }
 
-
 void ProfileManager::reload()
 {
-    Q_D( ProfileManager );
+    Q_D(ProfileManager);
 
     if (isOpen()) {
         d->config->reparseConfiguration();
     }
 }
 
-
-
-bool ProfileManager::saveProfile(TabletProfile& tabletProfile)
+bool ProfileManager::saveProfile(TabletProfile &tabletProfile)
 {
-    Q_D( ProfileManager );
+    Q_D(ProfileManager);
 
     QString profileName = tabletProfile.getName();
 
     if (!isLoaded() || profileName.isEmpty()) {
-        qCWarning(COMMON) << QString::fromLatin1("Can not save profile '%1' as it either does not have a name or no configuration file was opened!").arg(profileName);
+        qCWarning(COMMON)
+            << QString::fromLatin1("Can not save profile '%1' as it either does not have a name or no configuration file was opened!").arg(profileName);
         return false;
     }
 

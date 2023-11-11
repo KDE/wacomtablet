@@ -20,8 +20,8 @@
 #ifndef SCREENSPACE_H
 #define SCREENSPACE_H
 
-#include <QString>
 #include <QRect>
+#include <QString>
 
 namespace Wacom
 {
@@ -36,7 +36,6 @@ namespace Wacom
 
 class ScreenSpace
 {
-
 public:
     enum class ScreenSpaceType {
         Desktop,
@@ -46,10 +45,10 @@ public:
     };
 
     ScreenSpace();
-    ScreenSpace(const QString& screenSpaceString);
+    ScreenSpace(const QString &screenSpaceString);
     virtual ~ScreenSpace();
 
-    bool operator== (const ScreenSpace& screenSpace) const;
+    bool operator==(const ScreenSpace &screenSpace) const;
 
     static const ScreenSpace desktop();
 
@@ -95,5 +94,5 @@ private:
     QRect _area;
     QPointF _speed;
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

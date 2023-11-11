@@ -28,49 +28,48 @@ namespace Wacom
 class KCMWacomTabletWidgetPrivate;
 
 /**
-  * This class implements the tabletwidget.ui designer file
-  * It is the skeleton for the tablet settings widget and able to show the used tablet
-  * as image as well as some basic information. Furthermore this widget holds the KConfig profile
-  * selector and handles all profiles.
-  * The subgroup setting widgets for the pad/stylus/eraser are grouped together in an KTabWidget
-  */
+ * This class implements the tabletwidget.ui designer file
+ * It is the skeleton for the tablet settings widget and able to show the used tablet
+ * as image as well as some basic information. Furthermore this widget holds the KConfig profile
+ * selector and handles all profiles.
+ * The subgroup setting widgets for the pad/stylus/eraser are grouped together in an KTabWidget
+ */
 class KCMWacomTabletWidget : public QWidget
 {
     Q_OBJECT
 
 public:
     /**
-      * default constructor
-      *
-      * @param parent Parent widget
-      */
+     * default constructor
+     *
+     * @param parent Parent widget
+     */
     explicit KCMWacomTabletWidget(QWidget *parent = nullptr);
 
     /**
-      * default destructor
-      */
+     * default destructor
+     */
     ~KCMWacomTabletWidget() override;
 
     /**
-      * Reloads the profile to its saved values from the config file
-      * Resets all made changes so far
-      */
+     * Reloads the profile to its saved values from the config file
+     * Resets all made changes so far
+     */
     void reloadProfile();
 
     /**
-      * Saves the current active profile
-      * Takes the values from each widget and saves them
-      */
+     * Saves the current active profile
+     * Takes the values from each widget and saves them
+     */
     void saveProfile();
 
 signals:
     /**
-      * Will be emitted whenever the status of the widget changes to inform the KCModule about it
-      *
-      * @param change @c true if config changed @c false if not
-      */
+     * Will be emitted whenever the status of the widget changes to inform the KCModule about it
+     *
+     * @param change @c true if config changed @c false if not
+     */
     void changed(bool change);
-
 
 public slots:
     /**
@@ -85,46 +84,45 @@ public slots:
     void onTabletSelectionChanged();
 
     /**
-      * Slot that opens up a dialogue to create a new profile for the connected tablet.
-      * Starting parameter of the profile will be the default params as detected by xsetwacom.
-      */
+     * Slot that opens up a dialogue to create a new profile for the connected tablet.
+     * Starting parameter of the profile will be the default params as detected by xsetwacom.
+     */
     void addProfile();
 
     /**
-      * Deletes the currently selected profile.
-      * If the last profile was deleted a new default profile will automatically created.
-      */
+     * Deletes the currently selected profile.
+     * If the last profile was deleted a new default profile will automatically created.
+     */
     void delProfile();
 
     /**
-      * Switch from one profile to another and updates all other widgets.
-      * This slot will be called from the profile selector combobox.
-      *
-      * @param profile The profile name the widget should switch to as written in the KConfig file
-      */
+     * Switch from one profile to another and updates all other widgets.
+     * This slot will be called from the profile selector combobox.
+     *
+     * @param profile The profile name the widget should switch to as written in the KConfig file
+     */
     void switchProfile(const QString &profile);
 
     /**
-      * Will be called whenever a parameter of the currently selected profile changed.
-      * This ensures that changes in the profile will be saved back to the configuration file before
-      * the program is closed or the profile switched.
-      * The user is asked if the changes should be saved or thrown away.
-      */
+     * Will be called whenever a parameter of the currently selected profile changed.
+     * This ensures that changes in the profile will be saved back to the configuration file before
+     * the program is closed or the profile switched.
+     * The user is asked if the changes should be saved or thrown away.
+     */
     void profileChanged();
-
 
 private:
     /**
-      * Load all connected tablets on startup
-      *
-      * Later on use ontanletAdded and onTabletRemoved
-      */
+     * Load all connected tablets on startup
+     *
+     * Later on use ontanletAdded and onTabletRemoved
+     */
     void loadTabletInformation();
 
     /**
-      * Activates the current profile for all connected devices (pen/stylus/eraser)
-      * Happens when the profile is saved/switched/loaded
-      */
+     * Activates the current profile for all connected devices (pen/stylus/eraser)
+     * Happens when the profile is saved/switched/loaded
+     */
     void applyProfile();
 
     /**
@@ -139,9 +137,9 @@ private:
     void hideError();
 
     /**
-      * Initialize the widget
-      * creates all necessary setting widgets and connects their signals
-      */
+     * Initialize the widget
+     * creates all necessary setting widgets and connects their signals
+     */
     void setupUi();
 
     /**
@@ -153,7 +151,7 @@ private:
      *
      * @return True if a profile was given and it could be set, else false.
      */
-    bool refreshProfileSelector(const QString& profile = QString());
+    bool refreshProfileSelector(const QString &profile = QString());
 
     /**
      * Activates the profile selector and show all configuration tabs depending
@@ -163,12 +161,12 @@ private:
     void showConfig();
 
     /**
-      * If an error occurs a widget with some additional text is shown instead of the config widget.
-      * Happens if no tablet device can be found or the kded daemon is not working.
-      *
-      * @param errMsg the message that describes the error in more detail
-      */
-    void showError(const QString& errorTitle, const QString & errorMsg, bool showTabletFinderButton = false);
+     * If an error occurs a widget with some additional text is shown instead of the config widget.
+     * Happens if no tablet device can be found or the kded daemon is not working.
+     *
+     * @param errMsg the message that describes the error in more detail
+     */
+    void showError(const QString &errorTitle, const QString &errorMsg, bool showTabletFinderButton = false);
 
     /**
      * Shows a dialog which allows the user to save his changes if the currently
@@ -180,9 +178,9 @@ private:
 
     void addTabletToSelector(const QString &tabletId);
 
-    Q_DECLARE_PRIVATE( KCMWacomTabletWidget )
+    Q_DECLARE_PRIVATE(KCMWacomTabletWidget)
     KCMWacomTabletWidgetPrivate *const d_ptr; /**< d-pointer for this class */
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif /*KCMWACOMTABLETWIDGET_H*/

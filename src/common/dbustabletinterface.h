@@ -20,13 +20,13 @@
 #ifndef DBUSTABLETINTERFACE_H
 #define DBUSTABLETINTERFACE_H
 
-#include "tabletinfo.h"
 #include "devicetype.h"
 #include "property.h"
+#include "tabletinfo.h"
 #include "wacominterface.h"
 
 // D-Bus interface metatypes
-//Q_DECLARE_METATYPE(Wacom::TabletInformation)
+// Q_DECLARE_METATYPE(Wacom::TabletInformation)
 
 namespace Wacom
 {
@@ -36,13 +36,11 @@ namespace Wacom
  */
 class DBusTabletInterface : public ::OrgKdeWacomInterface
 {
-
 public:
-
     /**
      * Returns a reference to the only instance of this class.
      */
-    static DBusTabletInterface& instance();
+    static DBusTabletInterface &instance();
 
     /**
      * Resets the D-Bus interface connection.
@@ -62,24 +60,21 @@ public:
     static void registerMetaTypes();
 
 protected:
-
     /**
      * Protected default constructor.
      * Use \a instance to get an instance of this class.
      */
     DBusTabletInterface();
 
-
 private:
-
     /**
      * Singleton, no copying allowed
      */
-    DBusTabletInterface(const DBusTabletInterface&) = delete;
-    DBusTabletInterface& operator= (const DBusTabletInterface&) = delete;
+    DBusTabletInterface(const DBusTabletInterface &) = delete;
+    DBusTabletInterface &operator=(const DBusTabletInterface &) = delete;
 
-    static DBusTabletInterface* m_instance;
+    static DBusTabletInterface *m_instance;
 
-};     // CLASS
-}      // NAMESPACE
+}; // CLASS
+} // NAMESPACE
 #endif // HEADER PROTECTION

@@ -23,13 +23,13 @@
 #include "hwbuttondialog.h"
 #include "tabletdatabase.h"
 
-#include <KSharedConfig>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
-#include <QProcess>
+#include <QAbstractButton>
 #include <QMap>
 #include <QMapIterator>
-#include <QAbstractButton>
+#include <QProcess>
 
 using namespace Wacom;
 
@@ -40,38 +40,26 @@ Dialog::Dialog(QWidget *parent)
 {
     m_ui->setupUi(this);
 
-    connect(m_ui->refreshButton, SIGNAL(clicked()),
-            SLOT(refreshTabletList()));
-    connect(m_ui->listTablets, SIGNAL(currentIndexChanged(int)),
-            SLOT(changeTabletSelection(int)));
+    connect(m_ui->refreshButton, SIGNAL(clicked()), SLOT(refreshTabletList()));
+    connect(m_ui->listTablets, SIGNAL(currentIndexChanged(int)), SLOT(changeTabletSelection(int)));
 
-    connect(m_ui->hasStatusLEDsLeft, SIGNAL(toggled(bool)),
-            SLOT(onHasStatusLEDsLeftChanged(bool)));
-    connect(m_ui->hasStatusLEDsRight, SIGNAL(toggled(bool)),
-            SLOT(onhasStatusLEDsRightChanged(bool)));
-    connect(m_ui->hasTouchRing, SIGNAL(toggled(bool)),
-            SLOT(onhasTouchRingChanged(bool)));
-    connect(m_ui->hasTouchStripLeft, SIGNAL(toggled(bool)),
-            SLOT(onhasTouchStripLeftChanged(bool)));
-    connect(m_ui->hasTouchStripRight, SIGNAL(toggled(bool)),
-            SLOT(onhasTouchStripRightChanged(bool)));
-    connect(m_ui->hasWheel, SIGNAL(toggled(bool)),
-            SLOT(onhasWheelChanged(bool)));
+    connect(m_ui->hasStatusLEDsLeft, SIGNAL(toggled(bool)), SLOT(onHasStatusLEDsLeftChanged(bool)));
+    connect(m_ui->hasStatusLEDsRight, SIGNAL(toggled(bool)), SLOT(onhasStatusLEDsRightChanged(bool)));
+    connect(m_ui->hasTouchRing, SIGNAL(toggled(bool)), SLOT(onhasTouchRingChanged(bool)));
+    connect(m_ui->hasTouchStripLeft, SIGNAL(toggled(bool)), SLOT(onhasTouchStripLeftChanged(bool)));
+    connect(m_ui->hasTouchStripRight, SIGNAL(toggled(bool)), SLOT(onhasTouchStripRightChanged(bool)));
+    connect(m_ui->hasWheel, SIGNAL(toggled(bool)), SLOT(onhasWheelChanged(bool)));
 
-    connect(m_ui->expressKeyNumbers, SIGNAL(valueChanged(int)),
-            SLOT(onExpressKeyNumbersChanged(int)));
+    connect(m_ui->expressKeyNumbers, SIGNAL(valueChanged(int)), SLOT(onExpressKeyNumbersChanged(int)));
 
-    connect(m_ui->buttonBox, SIGNAL(clicked(QAbstractButton*)),
-            SLOT(buttonBoxClicked(QAbstractButton*)));
+    connect(m_ui->buttonBox, SIGNAL(clicked(QAbstractButton *)), SLOT(buttonBoxClicked(QAbstractButton *)));
 
-    connect(m_ui->mapButtons, SIGNAL(clicked()),
-            SLOT(onMapButtons()));
+    connect(m_ui->mapButtons, SIGNAL(clicked()), SLOT(onMapButtons()));
 
-    connect(m_ui->comboTouchSensor, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this, &Dialog::onPairedIdChanged);
+    connect(m_ui->comboTouchSensor, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &Dialog::onPairedIdChanged);
     connect(m_ui->radioNormalTablet, &QRadioButton::toggled, this, &Dialog::onNormalTabletSet);
     connect(m_ui->radioParentTablet, &QRadioButton::toggled, this, &Dialog::onParentTabletSet);
-    connect(m_ui->radioTouchSensor,  &QRadioButton::toggled, this, &Dialog::onTouchSensorSet);
+    connect(m_ui->radioTouchSensor, &QRadioButton::toggled, this, &Dialog::onTouchSensorSet);
 
     m_ui->mapButtons->setEnabled(false);
 
@@ -107,11 +95,11 @@ void Dialog::refreshTabletList()
 
     // for each tablet device fetch the device id
     QMap<QString, QStringList> tabletList;
-    foreach(const QString &s, listDevicesStringList) {
+    foreach (const QString &s, listDevicesStringList) {
         QString device = s.split(QLatin1String("\t")).first();
         device = device.trimmed();
 
-        if(device.isEmpty()) {
+        if (device.isEmpty()) {
             continue;
         }
 
@@ -142,17 +130,17 @@ void Dialog::refreshTabletList()
         QString firstDevice = deviceList.takeFirst();
         bool end = false;
 
-        for(int j=0; j < firstDevice.length(); j++) {
+        for (int j = 0; j < firstDevice.length(); j++) {
             QChar c = firstDevice.at(j);
 
-            foreach(const QString &s, deviceList) {
-                if(s.at(j) != c) {
+            foreach (const QString &s, deviceList) {
+                if (s.at(j) != c) {
                     end = true;
                     break;
                 }
             }
 
-            if(end) {
+            if (end) {
                 break;
             }
 
@@ -166,8 +154,8 @@ void Dialog::refreshTabletList()
         t.name = name.trimmed();
         t.devices = i.value();
 
-        QString hexNumber = QString::number( t.serialID, 16 );
-        while(hexNumber.length() < 4) {
+        QString hexNumber = QString::number(t.serialID, 16);
+        while (hexNumber.length() < 4) {
             hexNumber.prepend(QLatin1String("0"));
         }
 
@@ -189,7 +177,7 @@ void Dialog::refreshTabletList()
             t.layout = ti.get(TabletInfo::ButtonLayout);
 
             // set default button map
-            for(int i=1; i <= t.buttonNumber;i++) {
+            for (int i = 1; i <= t.buttonNumber; i++) {
                 t.hwMapping << i;
             }
 
@@ -232,21 +220,19 @@ bool Dialog::validIndex()
 
 void Dialog::changeTabletSelection(int index)
 {
-    if(!validIndex()) {
+    if (!validIndex()) {
         return;
     }
 
     Tablet t = m_tabletList.at(index);
 
-    QString hexNumber = QString::number( t.serialID, 16 );
+    QString hexNumber = QString::number(t.serialID, 16);
 
-    while(hexNumber.length() < 4) {
+    while (hexNumber.length() < 4) {
         hexNumber.prepend(QLatin1String("0"));
     }
 
-    m_ui->listSerialId->setText(QString::fromLatin1("%1 [%2]")
-                                .arg(t.serialID)
-                                .arg(hexNumber.toUpper()));
+    m_ui->listSerialId->setText(QString::fromLatin1("%1 [%2]").arg(t.serialID).arg(hexNumber.toUpper()));
 
     m_ui->listDevices->setText(t.devices.join(QLatin1String("\n")));
     m_ui->hasStatusLEDsLeft->setChecked(t.hasStatusLEDsLeft);
@@ -275,7 +261,7 @@ void Dialog::changeTabletSelection(int index)
 
 void Dialog::onHasStatusLEDsLeftChanged(bool toggled)
 {
-    if(!validIndex()) {
+    if (!validIndex()) {
         return;
     }
 
@@ -286,7 +272,7 @@ void Dialog::onHasStatusLEDsLeftChanged(bool toggled)
 
 void Dialog::onhasStatusLEDsRightChanged(bool toggled)
 {
-    if(!validIndex()) {
+    if (!validIndex()) {
         return;
     }
 
@@ -297,7 +283,7 @@ void Dialog::onhasStatusLEDsRightChanged(bool toggled)
 
 void Dialog::onhasTouchRingChanged(bool toggled)
 {
-    if(!validIndex()) {
+    if (!validIndex()) {
         return;
     }
 
@@ -308,7 +294,7 @@ void Dialog::onhasTouchRingChanged(bool toggled)
 
 void Dialog::onhasTouchStripLeftChanged(bool toggled)
 {
-    if(!validIndex()) {
+    if (!validIndex()) {
         return;
     }
 
@@ -319,7 +305,7 @@ void Dialog::onhasTouchStripLeftChanged(bool toggled)
 
 void Dialog::onhasTouchStripRightChanged(bool toggled)
 {
-    if(!validIndex()) {
+    if (!validIndex()) {
         return;
     }
 
@@ -330,7 +316,7 @@ void Dialog::onhasTouchStripRightChanged(bool toggled)
 
 void Dialog::onhasWheelChanged(bool toggled)
 {
-    if(!validIndex()) {
+    if (!validIndex()) {
         return;
     }
 
@@ -341,7 +327,7 @@ void Dialog::onhasWheelChanged(bool toggled)
 
 void Dialog::onExpressKeyNumbersChanged(int buttons)
 {
-    if(!validIndex()) {
+    if (!validIndex()) {
         return;
     }
 
@@ -349,8 +335,7 @@ void Dialog::onExpressKeyNumbersChanged(int buttons)
     t.buttonNumber = buttons;
     m_tabletList.replace(m_ui->listTablets->currentIndex(), t);
 
-    m_ui->mapButtons->setEnabled( m_ui->expressKeyNumbers->value() > 0 );
-
+    m_ui->mapButtons->setEnabled(m_ui->expressKeyNumbers->value() > 0);
 
     showHWButtonMap();
 }
@@ -363,9 +348,8 @@ void Dialog::buttonBoxClicked(QAbstractButton *button)
         qApp->quit();
         break;
 
-    case QDialogButtonBox::Save:
-    {
-        if(!validIndex()) {
+    case QDialogButtonBox::Save: {
+        if (!validIndex()) {
             return;
         }
 
@@ -373,9 +357,8 @@ void Dialog::buttonBoxClicked(QAbstractButton *button)
         saveTabletInfo(t);
         break;
     }
-    case QDialogButtonBox::SaveAll:
-    {
-        foreach(const Tablet &t, m_tabletList) {
+    case QDialogButtonBox::SaveAll: {
+        foreach (const Tablet &t, m_tabletList) {
             saveTabletInfo(t);
         }
         break;
@@ -455,7 +438,7 @@ void Dialog::showHWButtonMap()
 
     QString text;
     for (int i = 0; i < t.hwMapping.size(); ++i) {
-        text.append(i18n("Button %1 maps to Button %2", (i+1), t.hwMapping.at(i)));
+        text.append(i18n("Button %1 maps to Button %2", (i + 1), t.hwMapping.at(i)));
         text.append(QLatin1String("\n"));
     }
 
@@ -466,36 +449,35 @@ void Dialog::saveTabletInfo(const Tablet &t)
 {
     KConfig config(QLatin1String("tabletdblocalrc"));
 
-    QString hexNumber = QString::number( t.serialID, 16 );
+    QString hexNumber = QString::number(t.serialID, 16);
 
-    while(hexNumber.length() < 4) {
+    while (hexNumber.length() < 4) {
         hexNumber.prepend(QLatin1String("0"));
     }
-    KConfigGroup tabletGroup( &config, hexNumber.toUpper() );
+    KConfigGroup tabletGroup(&config, hexNumber.toUpper());
     tabletGroup.deleteGroup();
     tabletGroup.config()->sync();
 
-    tabletGroup.writeEntry( "model", t.model );
-    tabletGroup.writeEntry( "layout", t.layout );
-    tabletGroup.writeEntry( "name", t.name );
+    tabletGroup.writeEntry("model", t.model);
+    tabletGroup.writeEntry("layout", t.layout);
+    tabletGroup.writeEntry("name", t.name);
 
     int leds = 0;
-    if(t.hasStatusLEDsLeft && t.hasStatusLEDsRight) {
+    if (t.hasStatusLEDsLeft && t.hasStatusLEDsRight) {
         leds = 8;
-    }
-    else if(t.hasStatusLEDsLeft || t.hasStatusLEDsRight) {
+    } else if (t.hasStatusLEDsLeft || t.hasStatusLEDsRight) {
         leds = 4;
     }
 
-    tabletGroup.writeEntry( "statusleds", leds );
-    tabletGroup.writeEntry( "wheel", t.hasWheel );
-    tabletGroup.writeEntry( "touchring", t.hasTouchRing );
-    tabletGroup.writeEntry( "touchstripl", t.hasTouchStripLeft );
-    tabletGroup.writeEntry( "touchstripr", t.hasTouchStripRight );
+    tabletGroup.writeEntry("statusleds", leds);
+    tabletGroup.writeEntry("wheel", t.hasWheel);
+    tabletGroup.writeEntry("touchring", t.hasTouchRing);
+    tabletGroup.writeEntry("touchstripl", t.hasTouchStripLeft);
+    tabletGroup.writeEntry("touchstripr", t.hasTouchStripRight);
 
-    tabletGroup.writeEntry( "padbuttons", t.buttonNumber );
-    for(int i=0; i < t.hwMapping.size(); i++) {
-        tabletGroup.writeEntry( QString::fromLatin1("hwbutton%1").arg(i+1), t.hwMapping.at(i) );
+    tabletGroup.writeEntry("padbuttons", t.buttonNumber);
+    for (int i = 0; i < t.hwMapping.size(); i++) {
+        tabletGroup.writeEntry(QString::fromLatin1("hwbutton%1").arg(i + 1), t.hwMapping.at(i));
     }
 
     if (t.isTouchSensor) {

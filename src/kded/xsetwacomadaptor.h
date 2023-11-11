@@ -25,7 +25,8 @@
 
 #include "propertyadaptor.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 // Forward Declarations
 class XsetwacomProperty;
@@ -36,12 +37,11 @@ class XsetwacomAdaptorPrivate;
  */
 class XsetwacomAdaptor : public PropertyAdaptor
 {
-
 public:
     //! Default constructor.
-    explicit XsetwacomAdaptor(const QString& deviceName);
+    explicit XsetwacomAdaptor(const QString &deviceName);
 
-    XsetwacomAdaptor(const QString& deviceName, const QMap<QString,QString>& buttonMap);
+    XsetwacomAdaptor(const QString &deviceName, const QMap<QString, QString> &buttonMap);
 
     //! Destructor
     ~XsetwacomAdaptor() override;
@@ -54,21 +54,19 @@ public:
     /**
      * @sa PropertyAdaptor::getProperty(const Property&)
      */
-    const QString getProperty(const Property& property) const override;
+    const QString getProperty(const Property &property) const override;
 
     /**
      * @sa PropertyAdaptor::setProperty(const Property&, const QString&)
      */
-    bool setProperty(const Wacom::Property& property, const QString& value) override;
+    bool setProperty(const Wacom::Property &property, const QString &value) override;
 
     /**
      * @sa PropertyAdaptor::supportsProperty(const Property&)
      */
-    bool supportsProperty(const Property& property) const override;
-
+    bool supportsProperty(const Property &property) const override;
 
 private:
-
     /**
      * Does any necessary conversion of the xsetwacom parameter.
      *
@@ -76,7 +74,7 @@ private:
      *
      * @return The converted parameter.
      */
-    const QString convertParameter (const XsetwacomProperty& param) const;
+    const QString convertParameter(const XsetwacomProperty &param) const;
 
     /**
      * Makes sure a button shortcut is in the correct format. The result of the
@@ -85,7 +83,7 @@ private:
      *
      * @param value The shortcut to validate.
      */
-    void convertButtonShortcut (const XsetwacomProperty& property, QString& value) const;
+    void convertButtonShortcut(const XsetwacomProperty &property, QString &value) const;
 
     /**
      * Converts a value from xsetwacom format to internal format.
@@ -93,7 +91,7 @@ private:
      * @param property The property this value belongs to.
      * @param value    The value of the property. This will also contain the result of the conversion.
      */
-    void convertFromXsetwacomValue (const XsetwacomProperty& property, QString& value) const;
+    void convertFromXsetwacomValue(const XsetwacomProperty &property, QString &value) const;
 
     /**
      * Converts a value from internal format to xsetwacom format.
@@ -101,7 +99,7 @@ private:
      * @param property The property the value belongs to.
      * @param value    The value of the property. This will also contain the result of the conversion.
      */
-    void convertToXsetwacomValue (const XsetwacomProperty& property, QString& value) const;
+    void convertToXsetwacomValue(const XsetwacomProperty &property, QString &value) const;
 
     /**
      * Gets a parameter using the xsetwacom command line tool. All parameters to this
@@ -111,17 +109,17 @@ private:
      * @param device The device to get the parameter from.
      * @param param  The parameter to get.
      */
-    const QString getParameter(const QString& device, const QString& param) const;
+    const QString getParameter(const QString &device, const QString &param) const;
 
     /**
      * Sets the usable tablet area.
      */
-    bool setArea(const QString& value);
+    bool setArea(const QString &value);
 
     /**
      * Sets the tablet rotation.
      */
-    bool setRotation(const QString& value);
+    bool setRotation(const QString &value);
 
     /**
      * Sets a parameter using the xsetwacom command line tool. All parameters, values and
@@ -132,11 +130,11 @@ private:
      * @param param  The parameter to set.
      * @param value  The new value of the parameter.
      */
-    bool setParameter(const QString& device, const QString& param, const QString& value) const;
+    bool setParameter(const QString &device, const QString &param, const QString &value) const;
 
-    Q_DECLARE_PRIVATE( XsetwacomAdaptor )
+    Q_DECLARE_PRIVATE(XsetwacomAdaptor)
     XsetwacomAdaptorPrivate *const d_ptr; /**< d-pointer for this class */
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

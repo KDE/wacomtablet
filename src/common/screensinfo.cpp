@@ -22,9 +22,11 @@
 #include <QApplication>
 #include <QScreen>
 
-namespace Wacom {
+namespace Wacom
+{
 
-namespace ScreensInfo {
+namespace ScreensInfo
+{
 
 const QRect getUnifiedDisplayGeometry()
 {
@@ -41,8 +43,7 @@ const QMap<QString, QRect> getScreenGeometries()
     QMap<QString, QRect> screenGeometries;
     for (auto screen : QGuiApplication::screens()) {
         QRect geometry = screen->geometry();
-        screenGeometries[screen->name()] =
-                QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio());
+        screenGeometries[screen->name()] = QRect(geometry.topLeft(), geometry.size() * screen->devicePixelRatio());
     }
 
     return screenGeometries;

@@ -26,37 +26,34 @@
 
 using namespace Wacom;
 
-namespace Wacom {
+namespace Wacom
+{
 class ProcSystemAdaptorPrivate
 {
-    public:
-        QString        deviceName;
+public:
+    QString deviceName;
 }; // CLASS
 } // NAMESPACE
 
-
-ProcSystemAdaptor::ProcSystemAdaptor(const QString& deviceName)
-    : PropertyAdaptor(nullptr), d_ptr(new ProcSystemAdaptorPrivate)
+ProcSystemAdaptor::ProcSystemAdaptor(const QString &deviceName)
+    : PropertyAdaptor(nullptr)
+    , d_ptr(new ProcSystemAdaptorPrivate)
 {
     Q_D(ProcSystemAdaptor);
     d->deviceName = deviceName;
 }
-
 
 ProcSystemAdaptor::~ProcSystemAdaptor()
 {
     delete this->d_ptr;
 }
 
-
-const QList< Property > ProcSystemAdaptor::getProperties() const
+const QList<Property> ProcSystemAdaptor::getProperties() const
 {
     return ProcSystemProperty::ids();
 }
 
-
-
-const QString ProcSystemAdaptor::getProperty(const Property& property) const
+const QString ProcSystemAdaptor::getProperty(const Property &property) const
 {
     Q_D(const ProcSystemAdaptor);
 
@@ -65,8 +62,7 @@ const QString ProcSystemAdaptor::getProperty(const Property& property) const
     return QString();
 }
 
-
-bool ProcSystemAdaptor::setProperty(const Property& property, const QString& value)
+bool ProcSystemAdaptor::setProperty(const Property &property, const QString &value)
 {
     qCDebug(KDED) << QString::fromLatin1("Setting property '%1' to '%2'.").arg(property.key()).arg(value);
 
@@ -89,26 +85,22 @@ bool ProcSystemAdaptor::setProperty(const Property& property, const QString& val
     QString cmd;
     if (property == Property::StatusLEDs) {
         int statusLed = value.toInt();
-        if(statusLed < 4 && statusLed >= 0) {
+        if (statusLed < 4 && statusLed >= 0) {
             cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status_led0_select\"").arg(statusLed);
-        }
-        else if(statusLed < 8 && statusLed >= 4) {
+        } else if (statusLed < 8 && statusLed >= 4) {
             statusLed -= 4;
             cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status_led1_select\"").arg(statusLed);
-        }
-        else {
+        } else {
             return false;
         }
     } else if (property == Property::StatusLEDsBrightness) {
         int statusLedBrightness = value.toInt();
-        if(statusLedBrightness < 128 && statusLedBrightness >= 0) {
+        if (statusLedBrightness < 128 && statusLedBrightness >= 0) {
             cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status0_luminance\"").arg(statusLedBrightness);
-        }
-        else if(statusLedBrightness < 256 && statusLedBrightness >= 128) {
+        } else if (statusLedBrightness < 256 && statusLedBrightness >= 128) {
             statusLedBrightness -= 128;
             cmd = QString::fromLatin1("bash -c \"echo %1 > /sys/bus/hid/devices/*/wacom_led/status1_luminance\"").arg(statusLedBrightness);
-        }
-        else {
+        } else {
             return false;
         }
     } else {
@@ -118,9 +110,7 @@ bool ProcSystemAdaptor::setProperty(const Property& property, const QString& val
     return QProcess::execute(cmd, {}) == 0;
 }
 
-
-bool ProcSystemAdaptor::supportsProperty(const Property& property) const
+bool ProcSystemAdaptor::supportsProperty(const Property &property) const
 {
     return (ProcSystemProperty::map(property));
 }
-

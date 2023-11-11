@@ -18,8 +18,8 @@
  */
 
 #include "../kdedtestutils.h"
-#include "common/tabletinformation.h"
 #include "common/tabletdatabase.h"
+#include "common/tabletinformation.h"
 
 #include <QList>
 #include <QMap>
@@ -33,7 +33,7 @@ using namespace Wacom;
  *
  * @test UnitTest for ...
  */
-class TestTabletDatabase: public QObject
+class TestTabletDatabase : public QObject
 {
     Q_OBJECT
 
@@ -44,17 +44,15 @@ private slots:
     void testLookupDevice();
 };
 
-
 QTEST_MAIN(TestTabletDatabase)
 
 void TestTabletDatabase::initTestCase()
 {
-    QString companyFile   = QLatin1String("testtabletdatabase.companylist");
+    QString companyFile = QLatin1String("testtabletdatabase.companylist");
     QString dataDirectory = KdedTestUtils::getAbsoluteDir(companyFile);
 
     TabletDatabase::instance().setDatabase(dataDirectory, companyFile);
 }
-
 
 void TestTabletDatabase::testLookupBackend()
 {
@@ -62,34 +60,29 @@ void TestTabletDatabase::testLookupBackend()
     QCOMPARE(TabletDatabase::instance().lookupBackend(QLatin1String("08ca")), QLatin1String("aiptek"));
 }
 
-
-
 void TestTabletDatabase::testLookupDevice()
 {
     TabletInformation info;
 
     QVERIFY(TabletDatabase::instance().lookupTablet(QLatin1String("00df"), info));
 
-    QCOMPARE(info.get(TabletInfo::CompanyId),   QLatin1String("056A"));
+    QCOMPARE(info.get(TabletInfo::CompanyId), QLatin1String("056A"));
     QCOMPARE(info.get(TabletInfo::CompanyName), QLatin1String("Wacom Co., Ltd"));
 
-    QCOMPARE(info.get(TabletInfo::TabletId),    QLatin1String("00DF"));
+    QCOMPARE(info.get(TabletInfo::TabletId), QLatin1String("00DF"));
     QCOMPARE(info.get(TabletInfo::TabletModel), QLatin1String("CTH-670/K"));
-    QCOMPARE(info.get(TabletInfo::TabletName),  QLatin1String("Bamboo Create"));
+    QCOMPARE(info.get(TabletInfo::TabletName), QLatin1String("Bamboo Create"));
 
     QVERIFY(info.hasButtons());
 
-
-    QMap<QString,QString> buttonMap = info.getButtonMap();
+    QMap<QString, QString> buttonMap = info.getButtonMap();
 
     QVERIFY(buttonMap.size() == 4);
 
     QList<QString> keys = buttonMap.keys();
-    foreach (const QString& key, keys) {
+    foreach (const QString &key, keys) {
         QVERIFY(!buttonMap.value(key).isEmpty());
     }
 }
-
-
 
 #include "testtabletdatabase.moc"

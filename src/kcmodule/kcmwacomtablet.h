@@ -21,10 +21,10 @@
 #define KCMWACOMTABLET_H
 
 // KDE includes
-#include <KCModule>
 #include "kcoreaddons_version.h"
+#include <KCModule>
 
-//Qt includes
+// Qt includes
 #include <QMap>
 #include <QPointer>
 
@@ -36,43 +36,43 @@ class AboutData;
 class KCMWacomTabletWidget;
 
 /**
-  * This class is the starting point for the tablet KCModule
-  * Here everything is initialized and set up in the right way
-  */
+ * This class is the starting point for the tablet KCModule
+ * Here everything is initialized and set up in the right way
+ */
 class KCMWacomTablet : public KCModule
 {
     Q_OBJECT
 
 public:
     /**
-      * default constructor
-      *
-      * @param parent parent widget
-      * @param args arguments
-      */
+     * default constructor
+     *
+     * @param parent parent widget
+     * @param args arguments
+     */
     KCMWacomTablet(QObject *parent, const KPluginMetaData &md);
     ~KCMWacomTablet() override;
 
     /**
-      * Called when the user hits the default button to reload the saved values from the config file
-      */
+     * Called when the user hits the default button to reload the saved values from the config file
+     */
     void load() override;
 
     /**
-      * Called when the user hits apply/ok to save the current profile changes
-      */
+     * Called when the user hits apply/ok to save the current profile changes
+     */
     void save() override;
 
 private slots:
     /**
-      * Initializes the module's user interface.
-      */
+     * Initializes the module's user interface.
+     */
     void initUi();
 
 private:
-    QPointer<QVBoxLayout>          m_layout;        /**< Basic layout for the module */
-    QPointer<KCMWacomTabletWidget> m_tabletWidget;  /**< Main widget that holds all other tabs */
-    bool                           m_changed;       /**< Saves if the profiles are changed or not */
+    QPointer<QVBoxLayout> m_layout; /**< Basic layout for the module */
+    QPointer<KCMWacomTabletWidget> m_tabletWidget; /**< Main widget that holds all other tabs */
+    bool m_changed; /**< Saves if the profiles are changed or not */
 };
 }
 #endif // KCMWACOMTABLET_H

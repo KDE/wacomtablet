@@ -19,15 +19,15 @@
 
 #include <iostream>
 
+#include "common/property.h"
+#include "common/screenspace.h"
 #include "kded/xinputadaptor.h"
 #include "kded/xsetwacomadaptor.h"
-#include "common/screenspace.h"
-#include "common/property.h"
 
 #include <QApplication>
 #include <QObject>
-#include <QTimer>
 #include <QThread>
+#include <QTimer>
 
 using namespace Wacom;
 
@@ -35,7 +35,10 @@ class Task : public QObject
 {
     Q_OBJECT
 public:
-    Task(QObject *parent = nullptr) : QObject(parent) {}
+    Task(QObject *parent = nullptr)
+        : QObject(parent)
+    {
+    }
 
 public slots:
     void run()
@@ -46,7 +49,7 @@ public slots:
         XsetwacomAdaptor xsetwacom(device);
 
         auto defmode = xsetwacom.getProperty(Property::Mode);
-        //auto defmapping = xi.getProperty(Property::ScreenSpace);
+        // auto defmapping = xi.getProperty(Property::ScreenSpace);
 
         Wacom::ScreenSpace space(QLatin1String("speedx0.5x0.5"));
 
@@ -67,7 +70,7 @@ signals:
     void finished();
 };
 
-int main( int argc, char **argv )
+int main(int argc, char **argv)
 {
     QApplication a(argc, argv);
 

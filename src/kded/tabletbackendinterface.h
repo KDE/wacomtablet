@@ -24,8 +24,8 @@
 #include "devicetype.h"
 #include "property.h"
 #include "propertyadaptor.h"
-#include "tabletprofile.h"
 #include "tabletinformation.h"
+#include "tabletprofile.h"
 
 #include <QString>
 
@@ -37,8 +37,9 @@ namespace Wacom
 class TabletBackendInterface
 {
 public:
-
-    virtual ~TabletBackendInterface() {}
+    virtual ~TabletBackendInterface()
+    {
+    }
 
     /**
      * Adds a property adaptor for the given device type. The property adaptor
@@ -47,16 +48,14 @@ public:
      * @param deviceType The device type to add the property adaptor for.
      * @param adaptor    The property adaptor to add.
      */
-    virtual void addAdaptor(const DeviceType& deviceType, PropertyAdaptor* adaptor) = 0;
+    virtual void addAdaptor(const DeviceType &deviceType, PropertyAdaptor *adaptor) = 0;
 
-    
     /**
      * Returns tablet information about the tablet handled by this backend.
      *
      * @return TabletInformation
      */
-    virtual const TabletInformation& getInformation() const = 0;
-
+    virtual const TabletInformation &getInformation() const = 0;
 
     /**
      * Gets a tablet property. If the property is not supported by any of the
@@ -67,16 +66,14 @@ public:
      *
      * @return The property value or an empty string.
      */
-    virtual const QString getProperty(const DeviceType& type, const Property& property) const = 0;
-
+    virtual const QString getProperty(const DeviceType &type, const Property &property) const = 0;
 
     /**
      * Applies a profile to the tablet managed by this backend.
      *
      * @param profile The profile to apply.
      */
-    virtual void setProfile(const TabletProfile& profile) = 0;
-
+    virtual void setProfile(const TabletProfile &profile) = 0;
 
     /**
      * Applies a profile to a device.
@@ -84,7 +81,7 @@ public:
      * @param deviceType The device to apply the profile to.
      * @param profile    The profile to apply.
      */
-    virtual void setProfile(const DeviceType& deviceType, const DeviceProfile& profile) = 0;
+    virtual void setProfile(const DeviceType &deviceType, const DeviceProfile &profile) = 0;
 
     /**
      * Set the status LEDs for the Intuos4/5 and Cintiq tablets
@@ -107,8 +104,8 @@ public:
      * @param property The property to set on the device.
      * @param value    The property value to set.
      */
-    virtual bool setProperty(const DeviceType& type, const Property& property, const QString& value) = 0;
+    virtual bool setProperty(const DeviceType &type, const Property &property, const QString &value) = 0;
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

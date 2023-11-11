@@ -58,11 +58,10 @@ void Wacom::ProfileManagementIntegrityChecker::setProfileName(const QString &nam
 
 QString Wacom::ProfileManagementIntegrityChecker::profileName() const
 {
-    //return QString();
+    // return QString();
     return QString::fromLatin1("Default");
 }
 
 void Wacom::ProfileManagementIntegrityChecker::reload()
 {
-
 }

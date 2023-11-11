@@ -23,14 +23,18 @@ using namespace Wacom;
 
 // instances container specialization instantiation
 template<>
-XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances = XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container();
+XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container
+    XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::instances =
+        XinputPropertyTemplateSpecialization::PropertySetTemplateSpecialization::Container();
 
 // KEEP THIS LIST IN AN ORDER WHICH CAN BE SET DIRECTLY!
 // SOME PROPERTIES NEED TO BE SET BEFORE OTHERS!
 //
-const XinputProperty XinputProperty::CursorAccelProfile              ( Property::CursorAccelProfile,              QLatin1String("Device Accel Profile") );
-const XinputProperty XinputProperty::CursorAccelConstantDeceleration ( Property::CursorAccelConstantDeceleration, QLatin1String("Device Accel Constant Deceleration") );
-const XinputProperty XinputProperty::CursorAccelAdaptiveDeceleration ( Property::CursorAccelAdaptiveDeceleration, QLatin1String("Device Accel Adaptive Deceleration") );
-const XinputProperty XinputProperty::CursorAccelVelocityScaling      ( Property::CursorAccelVelocityScaling,      QLatin1String("Device Accel Velocity Scaling") );
-const XinputProperty XinputProperty::InvertScroll                    ( Property::InvertScroll,                    QLatin1String("Invert Scroll") );
-const XinputProperty XinputProperty::ScreenSpace                     ( Property::ScreenSpace,                     QLatin1String("Coordinate Transformation Matrix") );
+const XinputProperty XinputProperty::CursorAccelProfile(Property::CursorAccelProfile, QLatin1String("Device Accel Profile"));
+const XinputProperty XinputProperty::CursorAccelConstantDeceleration(Property::CursorAccelConstantDeceleration,
+                                                                     QLatin1String("Device Accel Constant Deceleration"));
+const XinputProperty XinputProperty::CursorAccelAdaptiveDeceleration(Property::CursorAccelAdaptiveDeceleration,
+                                                                     QLatin1String("Device Accel Adaptive Deceleration"));
+const XinputProperty XinputProperty::CursorAccelVelocityScaling(Property::CursorAccelVelocityScaling, QLatin1String("Device Accel Velocity Scaling"));
+const XinputProperty XinputProperty::InvertScroll(Property::InvertScroll, QLatin1String("Invert Scroll"));
+const XinputProperty XinputProperty::ScreenSpace(Property::ScreenSpace, QLatin1String("Coordinate Transformation Matrix"));

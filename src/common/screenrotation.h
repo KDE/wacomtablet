@@ -38,21 +38,17 @@ struct ScreenRotationTemplateSpecializationLessFunctor;
  */
 typedef Enum<ScreenRotation, QString, ScreenRotationTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> ScreenRotationTemplateSpecialization;
 
-
-
 /**
  * @brief Helper Class! Do not use!
  *
  * This functor is required by the ScreenRotation class to sort its instances.
  */
-struct ScreenRotationTemplateSpecializationLessFunctor
-{
-    bool operator()(const ScreenRotationTemplateSpecialization* p1, const ScreenRotationTemplateSpecialization* p2)
+struct ScreenRotationTemplateSpecializationLessFunctor {
+    bool operator()(const ScreenRotationTemplateSpecialization *p1, const ScreenRotationTemplateSpecialization *p2)
     {
         return (p1->key() < p2->key());
     }
 };
-
 
 class ScreenRotation : public ScreenRotationTemplateSpecialization
 {
@@ -65,12 +61,13 @@ public:
     static const ScreenRotation AUTO;
     static const ScreenRotation AUTO_INVERTED;
 
-
-    const ScreenRotation& invert() const;
+    const ScreenRotation &invert() const;
 
 private:
-
-    ScreenRotation (const QString& key) : ScreenRotationTemplateSpecialization(this, key) {}
+    ScreenRotation(const QString &key)
+        : ScreenRotationTemplateSpecialization(this, key)
+    {
+    }
 
 }; // CLASS
 
@@ -80,5 +77,5 @@ private:
 template<>
 ScreenRotationTemplateSpecialization::Container ScreenRotationTemplateSpecialization::instances;
 
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

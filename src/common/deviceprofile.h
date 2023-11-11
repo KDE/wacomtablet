@@ -20,50 +20,52 @@
 #ifndef DEVICEPROFILE_H
 #define DEVICEPROFILE_H
 
-#include <QString>
 #include <QList>
+#include <QString>
 
 #include "devicetype.h"
 #include "property.h"
 #include "propertyadaptor.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 class DeviceProfilePrivate;
 
 /**
-  * This class implements the profile of a single device (stylus/eraser/cursor/pad/touch)
-  */
-class DeviceProfile : public PropertyAdaptor {
+ * This class implements the profile of a single device (stylus/eraser/cursor/pad/touch)
+ */
+class DeviceProfile : public PropertyAdaptor
+{
 public:
     /**
-      * Default constructor
-      */
+     * Default constructor
+     */
     DeviceProfile();
 
     /**
      * @param type The type of the device.
      */
-    explicit DeviceProfile( const DeviceType& type );
+    explicit DeviceProfile(const DeviceType &type);
 
     /**
      * Copy constructor.
      */
-    DeviceProfile( const DeviceProfile& profile );
+    DeviceProfile(const DeviceProfile &profile);
 
     /**
-      * Default destructor
-      */
+     * Default destructor
+     */
     ~DeviceProfile() override;
 
     /**
      * Copy operator.
-     * 
+     *
      * @param that The instance to copy.
-     * 
+     *
      * @return A reference to this instance.
      */
-    DeviceProfile& operator=(const DeviceProfile& that);
+    DeviceProfile &operator=(const DeviceProfile &that);
 
     /**
      * @return X11 event to which the given button should be mapped.
@@ -71,19 +73,19 @@ public:
     const QString getButton(int number) const;
 
     Wacom::DeviceType getDeviceType() const;
-    
+
     /**
      * Gets the name of this device profile.
      * This is the same as getDeviceType().
-     * 
+     *
      * @return The name of this profile.
      */
-    const QString& getName() const;
+    const QString &getName() const;
 
     /**
      * @return The value of the given property or an empty string.
      */
-    const QString getProperty(const Property& key) const override;
+    const QString getProperty(const Property &key) const override;
 
     /**
      * @return A list of properties supported by this profile.
@@ -96,14 +98,14 @@ public:
      * @param number   The button number.
      * @param shortcut The new button shortcut.
      */
-    bool setButton(int number, const QString& shortcut);
+    bool setButton(int number, const QString &shortcut);
 
     /**
      * Sets the device type of this profile.
      *
      * @param type The new device type.
      */
-    void setDeviceType(const DeviceType& type);
+    void setDeviceType(const DeviceType &type);
 
     /**
      * Sets a property.
@@ -111,7 +113,7 @@ public:
      * @param key   The property to set.
      * @param value The property's value.
      */
-    bool setProperty(const Property& key, const QString& value) override;
+    bool setProperty(const Property &key, const QString &value) override;
 
     /**
      * Checks if the given property is supported.
@@ -119,14 +121,13 @@ public:
      *
      * @param property The property to check for.
      */
-    bool supportsProperty(const Property& property) const override;
-
+    bool supportsProperty(const Property &property) const override;
 
 private:
-    Q_DECLARE_PRIVATE( DeviceProfile )
+    Q_DECLARE_PRIVATE(DeviceProfile)
 
     DeviceProfilePrivate *const d_ptr; /**< d-pointer for this class */
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

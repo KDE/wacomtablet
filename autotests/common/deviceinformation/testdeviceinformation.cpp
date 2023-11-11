@@ -29,7 +29,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the device information
  */
-class TestDeviceInformation: public QObject
+class TestDeviceInformation : public QObject
 {
     Q_OBJECT
 
@@ -45,114 +45,112 @@ QTEST_MAIN(TestDeviceInformation)
 void TestDeviceInformation::testCompare()
 {
     DeviceType expectedType = DeviceType::Pad;
-    QString    expectedName = QLatin1String ("Test Device");
+    QString expectedName = QLatin1String("Test Device");
 
     DeviceType notExpectedType = DeviceType::Touch;
-    QString    notExpectedName = QLatin1String ("A device name we would not expect.");
+    QString notExpectedName = QLatin1String("A device name we would not expect.");
 
     // same type and name
-    DeviceInformation expectedDevice (expectedType, expectedName);
-    DeviceInformation actualDevice   (expectedType, expectedName);
-    QVERIFY (actualDevice == expectedDevice);
-    QVERIFY (!(actualDevice != expectedDevice));
+    DeviceInformation expectedDevice(expectedType, expectedName);
+    DeviceInformation actualDevice(expectedType, expectedName);
+    QVERIFY(actualDevice == expectedDevice);
+    QVERIFY(!(actualDevice != expectedDevice));
 
     // same type, different name
-    actualDevice = DeviceInformation (expectedType, notExpectedName);
-    QVERIFY (!(actualDevice == expectedDevice));
-    QVERIFY (actualDevice != expectedDevice);
+    actualDevice = DeviceInformation(expectedType, notExpectedName);
+    QVERIFY(!(actualDevice == expectedDevice));
+    QVERIFY(actualDevice != expectedDevice);
 
     // same name, different type
-    actualDevice = DeviceInformation (notExpectedType, expectedName);
-    QVERIFY (!(actualDevice == expectedDevice));
-    QVERIFY (actualDevice != expectedDevice);
+    actualDevice = DeviceInformation(notExpectedType, expectedName);
+    QVERIFY(!(actualDevice == expectedDevice));
+    QVERIFY(actualDevice != expectedDevice);
 
     // same values
     actualDevice = expectedDevice;
     CommonTestUtils::setValues(actualDevice);
     CommonTestUtils::setValues(expectedDevice);
-    QVERIFY (actualDevice == expectedDevice);
-    QVERIFY (!(actualDevice != expectedDevice));
+    QVERIFY(actualDevice == expectedDevice);
+    QVERIFY(!(actualDevice != expectedDevice));
 
     // different device id
     actualDevice = expectedDevice;
     actualDevice.setDeviceId(9999);
-    QVERIFY (!(actualDevice == expectedDevice));
-    QVERIFY (actualDevice != expectedDevice);
+    QVERIFY(!(actualDevice == expectedDevice));
+    QVERIFY(actualDevice != expectedDevice);
 
     // different device node
     actualDevice = expectedDevice;
     actualDevice.setDeviceNode(QLatin1String("/test/path/to/device"));
-    QVERIFY (!(actualDevice == expectedDevice));
-    QVERIFY (actualDevice != expectedDevice);
+    QVERIFY(!(actualDevice == expectedDevice));
+    QVERIFY(actualDevice != expectedDevice);
 
     // different product id
     actualDevice = expectedDevice;
     actualDevice.setProductId(9999);
-    QVERIFY (!(actualDevice == expectedDevice));
-    QVERIFY (actualDevice != expectedDevice);
+    QVERIFY(!(actualDevice == expectedDevice));
+    QVERIFY(actualDevice != expectedDevice);
 
     // different tablet serial
     actualDevice = expectedDevice;
     actualDevice.setTabletSerial(9999);
-    QVERIFY (!(actualDevice == expectedDevice));
-    QVERIFY (actualDevice != expectedDevice);
+    QVERIFY(!(actualDevice == expectedDevice));
+    QVERIFY(actualDevice != expectedDevice);
 
     // different vendor id
     actualDevice = expectedDevice;
     actualDevice.setVendorId(9999);
-    QVERIFY (!(actualDevice == expectedDevice));
-    QVERIFY (actualDevice != expectedDevice);
+    QVERIFY(!(actualDevice == expectedDevice));
+    QVERIFY(actualDevice != expectedDevice);
 }
 
 void TestDeviceInformation::testConstructor()
 {
     DeviceType expectedType = DeviceType::Pad;
-    QString    expectedName = QLatin1String("Test Device");
+    QString expectedName = QLatin1String("Test Device");
 
     DeviceInformation deviceInfo(expectedType, expectedName);
 
-    QVERIFY  (deviceInfo.getType() == expectedType);
-    QCOMPARE (deviceInfo.getName(), expectedName);
+    QVERIFY(deviceInfo.getType() == expectedType);
+    QCOMPARE(deviceInfo.getName(), expectedName);
 
-    QVERIFY  (deviceInfo.getDeviceId() == 0);
-    QCOMPARE (deviceInfo.getDeviceNode(), QString());
-    QVERIFY  (deviceInfo.getProductId() == 0);
-    QVERIFY  (deviceInfo.getTabletSerial() == 0);
-    QVERIFY  (deviceInfo.getVendorId() == 0);
+    QVERIFY(deviceInfo.getDeviceId() == 0);
+    QCOMPARE(deviceInfo.getDeviceNode(), QString());
+    QVERIFY(deviceInfo.getProductId() == 0);
+    QVERIFY(deviceInfo.getTabletSerial() == 0);
+    QVERIFY(deviceInfo.getVendorId() == 0);
 }
 
 void TestDeviceInformation::testCopy()
 {
     DeviceType expectedType = DeviceType::Pad;
-    QString    expectedName = QLatin1String ("Test Device");
+    QString expectedName = QLatin1String("Test Device");
 
     DeviceType notExpectedType = DeviceType::Touch;
-    QString    notExpectedName = QLatin1String ("A device name we would not expect.");
+    QString notExpectedName = QLatin1String("A device name we would not expect.");
 
     DeviceInformation expectedInfo(expectedType, expectedName);
     CommonTestUtils::setValues(expectedInfo);
 
     // test copy constructor
-    DeviceInformation actual1Info (expectedInfo);
-    CommonTestUtils::assertValues (actual1Info, expectedType, expectedName);
+    DeviceInformation actual1Info(expectedInfo);
+    CommonTestUtils::assertValues(actual1Info, expectedType, expectedName);
 
     // test copy operator
-    DeviceInformation actual2Info (notExpectedType, notExpectedName);
+    DeviceInformation actual2Info(notExpectedType, notExpectedName);
     actual2Info = expectedInfo;
-    CommonTestUtils::assertValues (actual2Info, expectedType, expectedName);
+    CommonTestUtils::assertValues(actual2Info, expectedType, expectedName);
 }
 
 void TestDeviceInformation::testSetter()
 {
     DeviceType expectedType = DeviceType::Stylus;
-    QString    expectedName = QLatin1String("Test Device");
+    QString expectedName = QLatin1String("Test Device");
 
     DeviceInformation deviceInfo(expectedType, expectedName);
 
     CommonTestUtils::setValues(deviceInfo);
     CommonTestUtils::assertValues(deviceInfo, expectedType, expectedName);
 }
-
-
 
 #include "testdeviceinformation.moc"

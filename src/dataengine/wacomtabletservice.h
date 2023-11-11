@@ -27,13 +27,11 @@ class WacomTabletService : public Plasma::Service
 {
     Q_OBJECT
 public:
-    WacomTabletService(const QString &destination,
-                       QObject *parent = nullptr);
+    WacomTabletService(const QString &destination, QObject *parent = nullptr);
     ~WacomTabletService() override;
 
 protected:
-    Plasma::ServiceJob *createJob(const QString &operation,
-                                  QMap<QString, QVariant> &parameters) Q_DECL_OVERRIDE;
+    Plasma::ServiceJob *createJob(const QString &operation, QMap<QString, QVariant> &parameters) Q_DECL_OVERRIDE;
 };
 
 #endif // WACOMTABLETSERVICE_H

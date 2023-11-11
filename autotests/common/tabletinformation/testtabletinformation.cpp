@@ -32,7 +32,7 @@ using namespace Wacom;
  *
  * @test UnitTest for the profile manager
  */
-class TestTabletInformation: public QObject
+class TestTabletInformation : public QObject
 {
     Q_OBJECT
 
@@ -52,50 +52,46 @@ void TestTabletInformation::testCompare()
 
     CommonTestUtils::setValues(tabletInfo1);
     CommonTestUtils::assertValues(tabletInfo1);
-    QVERIFY (tabletInfo1 != tabletInfo2);
+    QVERIFY(tabletInfo1 != tabletInfo2);
 
     CommonTestUtils::setValues(tabletInfo2);
     CommonTestUtils::assertValues(tabletInfo2);
-    QVERIFY (tabletInfo1 == tabletInfo2);
+    QVERIFY(tabletInfo1 == tabletInfo2);
 
     // changing the available flag shouldn't change anything
     tabletInfo2.setAvailable(!CommonTestUtils::TABLETINFORMATION_IS_AVAILABLE);
-    QVERIFY (tabletInfo1 == tabletInfo2);
+    QVERIFY(tabletInfo1 == tabletInfo2);
 }
-
-
 
 void TestTabletInformation::testConstructor()
 {
     // default constructor
     TabletInformation tabletInfo1;
 
-    QVERIFY (tabletInfo1.getTabletSerial() == 0);
+    QVERIFY(tabletInfo1.getTabletSerial() == 0);
 
-    foreach (const TabletInfo& info, TabletInfo::list()) {
-        QVERIFY (tabletInfo1.get(info).isEmpty());
+    foreach (const TabletInfo &info, TabletInfo::list()) {
+        QVERIFY(tabletInfo1.get(info).isEmpty());
     }
 
     // serial constructor
     long expectedSerial = 1234;
     TabletInformation tabletInfo2(expectedSerial);
 
-    QVERIFY (tabletInfo2.getTabletSerial() == expectedSerial);
+    QVERIFY(tabletInfo2.getTabletSerial() == expectedSerial);
 
-    foreach (const TabletInfo& info, TabletInfo::list()) {
+    foreach (const TabletInfo &info, TabletInfo::list()) {
         QString value = tabletInfo2.get(info);
 
         if (info == TabletInfo::TabletSerial) {
-            QVERIFY (value == QString::number(expectedSerial));
+            QVERIFY(value == QString::number(expectedSerial));
         } else if (info == TabletInfo::TabletId) {
-            QVERIFY (value == QString::fromLatin1("%1").arg(expectedSerial, 4, 16, QLatin1Char('0')).toUpper());
+            QVERIFY(value == QString::fromLatin1("%1").arg(expectedSerial, 4, 16, QLatin1Char('0')).toUpper());
         } else {
-            QVERIFY (value.isEmpty());
+            QVERIFY(value.isEmpty());
         }
     }
 }
-
-
 
 void TestTabletInformation::testCopy()
 {
@@ -114,8 +110,6 @@ void TestTabletInformation::testCopy()
     CommonTestUtils::assertValues(tabletInfo3);
 }
 
-
-
 void TestTabletInformation::testSetter()
 {
     TabletInformation info;
@@ -128,30 +122,28 @@ void TestTabletInformation::testSetter()
     DeviceType dev3Type = *DeviceType::find(CommonTestUtils::TABLETINFORMATION_DEV3_TYPE);
 
     // getDevice()
-    const DeviceInformation* dev1Info = info.getDevice(dev1Type);
-    const DeviceInformation* dev2Info = info.getDevice(dev2Type);
-    const DeviceInformation* dev3Info = info.getDevice(dev3Type);
-    QVERIFY (dev1Info != NULL);
-    QVERIFY (dev2Info != NULL);
-    QVERIFY (dev3Info != NULL);
+    const DeviceInformation *dev1Info = info.getDevice(dev1Type);
+    const DeviceInformation *dev2Info = info.getDevice(dev2Type);
+    const DeviceInformation *dev3Info = info.getDevice(dev3Type);
+    QVERIFY(dev1Info != NULL);
+    QVERIFY(dev2Info != NULL);
+    QVERIFY(dev3Info != NULL);
 
     // hasDevice()
-    QVERIFY (info.hasDevice(dev1Type));
-    QVERIFY (info.hasDevice(dev1Info->getDeviceId()));
-    QVERIFY (info.hasDevice(dev2Type));
-    QVERIFY (info.hasDevice(dev2Info->getDeviceId()));
-    QVERIFY (info.hasDevice(dev3Type));
-    QVERIFY (info.hasDevice(dev3Info->getDeviceId()));
+    QVERIFY(info.hasDevice(dev1Type));
+    QVERIFY(info.hasDevice(dev1Info->getDeviceId()));
+    QVERIFY(info.hasDevice(dev2Type));
+    QVERIFY(info.hasDevice(dev2Info->getDeviceId()));
+    QVERIFY(info.hasDevice(dev3Type));
+    QVERIFY(info.hasDevice(dev3Info->getDeviceId()));
 
     // getDeviceName()
-    QCOMPARE (info.getDeviceName(dev1Type),       CommonTestUtils::TABLETINFORMATION_DEV1_NAME);
-    QCOMPARE (info.getDeviceName(dev2Type),       CommonTestUtils::TABLETINFORMATION_DEV2_NAME);
-    QCOMPARE (info.getDeviceName(dev3Type),       CommonTestUtils::TABLETINFORMATION_DEV3_NAME);
+    QCOMPARE(info.getDeviceName(dev1Type), CommonTestUtils::TABLETINFORMATION_DEV1_NAME);
+    QCOMPARE(info.getDeviceName(dev2Type), CommonTestUtils::TABLETINFORMATION_DEV2_NAME);
+    QCOMPARE(info.getDeviceName(dev3Type), CommonTestUtils::TABLETINFORMATION_DEV3_NAME);
 
     // getTabletSerial()
-    QVERIFY (info.getTabletSerial() == CommonTestUtils::TABLETINFORMATION_TABLET_SERIAL.toLong());
+    QVERIFY(info.getTabletSerial() == CommonTestUtils::TABLETINFORMATION_TABLET_SERIAL.toLong());
 }
-
-
 
 #include "testtabletinformation.moc"

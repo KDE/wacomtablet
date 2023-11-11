@@ -25,7 +25,8 @@
 #include "enum.h"
 #include "property.h"
 
-namespace Wacom {
+namespace Wacom
+{
 
 // forward declaration
 class TabletInfo;
@@ -38,20 +39,17 @@ struct TabletInfoTemplateSpecializationLessFunctor;
  */
 typedef Enum<TabletInfo, QString, TabletInfoTemplateSpecializationLessFunctor, PropertyKeyEqualsFunctor> TabletInfoTemplateSpecialization;
 
-
 /**
  * @brief Helper Class! Do not use!
  *
  * This functor is required by the TabletInfo class to sort its instances.
  */
-struct TabletInfoTemplateSpecializationLessFunctor
-{
-    bool operator()(const TabletInfoTemplateSpecialization* p1, const TabletInfoTemplateSpecialization* p2)
+struct TabletInfoTemplateSpecializationLessFunctor {
+    bool operator()(const TabletInfoTemplateSpecialization *p1, const TabletInfoTemplateSpecialization *p2)
     {
         return (p1->key() < p2->key());
     }
 };
-
 
 /**
  * @brief An enum of all supported device information properties.
@@ -65,32 +63,33 @@ struct TabletInfoTemplateSpecializationLessFunctor
  * longer possible to have method/d-bus calls fail because of typos in the tablet info
  * identifier. Also refactoring is much easier.
  */
-class TabletInfo : public TabletInfoTemplateSpecialization {
-
+class TabletInfo : public TabletInfoTemplateSpecialization
+{
 public:
-
-    static const TabletInfo ButtonLayout;       //!< The button layout.
-    static const TabletInfo CompanyId;          //!< The vendor identifier.
-    static const TabletInfo CompanyName;        //!< The vendor name.
-    static const TabletInfo HasLeftTouchStrip;  //!< Flag if this tablet has a left touch strip.
+    static const TabletInfo ButtonLayout; //!< The button layout.
+    static const TabletInfo CompanyId; //!< The vendor identifier.
+    static const TabletInfo CompanyName; //!< The vendor name.
+    static const TabletInfo HasLeftTouchStrip; //!< Flag if this tablet has a left touch strip.
     static const TabletInfo HasRightTouchStrip; //!< Flag if this tablet has a right touch strip.
-    static const TabletInfo HasTouchRing;       //!< Flag if this tablet has a touch ring.
-    static const TabletInfo HasWheel;           //!< Flag if this tablet has a wheel.
-    static const TabletInfo NumPadButtons;      //!< Number of pad buttons.
-    static const TabletInfo StatusLEDs;         //!< Number of LED's that can display tablet modes (for Intuos)
-    static const TabletInfo TabletId;           //!< The tablet identifier as a four digit hex code.
-    static const TabletInfo TabletModel;        //!< The tablet model.
-    static const TabletInfo TabletName;         //!< The name of the tablet.
-    static const TabletInfo TabletSerial;       //!< The tablet serial id as reported by the wacom driver.
-    static const TabletInfo TouchSensorId;      // parent device stores touch sensor id here
-    static const TabletInfo IsTouchSensor;      // slave touch device is marked by this and is hidden from the KCM
-
+    static const TabletInfo HasTouchRing; //!< Flag if this tablet has a touch ring.
+    static const TabletInfo HasWheel; //!< Flag if this tablet has a wheel.
+    static const TabletInfo NumPadButtons; //!< Number of pad buttons.
+    static const TabletInfo StatusLEDs; //!< Number of LED's that can display tablet modes (for Intuos)
+    static const TabletInfo TabletId; //!< The tablet identifier as a four digit hex code.
+    static const TabletInfo TabletModel; //!< The tablet model.
+    static const TabletInfo TabletName; //!< The name of the tablet.
+    static const TabletInfo TabletSerial; //!< The tablet serial id as reported by the wacom driver.
+    static const TabletInfo TouchSensorId; // parent device stores touch sensor id here
+    static const TabletInfo IsTouchSensor; // slave touch device is marked by this and is hidden from the KCM
 
 private:
     /**
      * Private constructor for the static members of this class.
      */
-    TabletInfo(const QString& key) : TabletInfoTemplateSpecialization(this, key) {}
+    TabletInfo(const QString &key)
+        : TabletInfoTemplateSpecialization(this, key)
+    {
+    }
 
 }; // CLASS
 
@@ -100,5 +99,5 @@ private:
 template<>
 TabletInfoTemplateSpecialization::Container TabletInfoTemplateSpecialization::instances;
 
-}      // NAMESPACE
+} // NAMESPACE
 #endif // HEADER PROTECTION

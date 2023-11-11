@@ -19,14 +19,14 @@
 
 #include "tabletdaemon.h"
 
-#include "logging.h"
+#include "../wacomtablet-version.h"
 #include "dbustabletservice.h"
+#include "globalactions.h"
+#include "logging.h"
 #include "tabletfinder.h"
 #include "tablethandler.h"
 #include "wacomadaptor.h"
 #include "x11eventnotifier.h"
-#include "globalactions.h"
-#include "../wacomtablet-version.h"
 
 // common includes
 #include "aboutdata.h"
@@ -35,10 +35,10 @@
 #include <memory>
 
 // KDE includes
-#include <KPluginFactory>
-#include <KNotification>
-#include <KLocalizedString>
 #include <KIO/ApplicationLauncherJob>
+#include <KLocalizedString>
+#include <KNotification>
+#include <KPluginFactory>
 
 #include <QGuiApplication>
 #include <QScreen>
@@ -47,33 +47,35 @@
 
 using namespace Wacom;
 
-K_PLUGIN_FACTORY_WITH_JSON(WacomTabletFactory,
-                           "wacomtablet.json",
-                           registerPlugin<TabletDaemon>();)
+K_PLUGIN_FACTORY_WITH_JSON(WacomTabletFactory, "wacomtablet.json", registerPlugin<TabletDaemon>();)
 
-namespace Wacom {
+namespace Wacom
+{
 /**
-  * Private class of the TabletDaemon for the d-pointer
-  */
-class TabletDaemonPrivate {
+ * Private class of the TabletDaemon for the d-pointer
+ */
+class TabletDaemonPrivate
+{
 public:
     TabletDaemonPrivate()
-        : tabletHandler(), dbusTabletService(tabletHandler) {}
+        : tabletHandler()
+        , dbusTabletService(tabletHandler)
+    {
+    }
 
-    TabletHandler                     tabletHandler;    /**< tablet handler */
-    DBusTabletService                 dbusTabletService;
-    std::shared_ptr<GlobalActions>  actionCollection; /**< Collection of all global actions */
+    TabletHandler tabletHandler; /**< tablet handler */
+    DBusTabletService dbusTabletService;
+    std::shared_ptr<GlobalActions> actionCollection; /**< Collection of all global actions */
 
 }; // CLASS
-}  // NAMESPACE
+} // NAMESPACE
 
-
-
-TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
-    : KDEDModule( parent ), d_ptr( new TabletDaemonPrivate )
+TabletDaemon::TabletDaemon(QObject *parent, const QVariantList &args)
+    : KDEDModule(parent)
+    , d_ptr(new TabletDaemonPrivate)
 {
-    Q_UNUSED( args );
-    Q_D( TabletDaemon );
+    Q_UNUSED(args);
+    Q_D(TabletDaemon);
 
     setupApplication();
     setupDBus();
@@ -87,10 +89,8 @@ TabletDaemon::TabletDaemon( QObject *parent, const QVariantList &args )
     connect(&(d->tabletHandler), &TabletHandler::profileChanged, this, &TabletDaemon::onProfileChanged);
 
     // Connecting this after the device has been set up ensures that no notification is send on startup.
-    connect( &(d->tabletHandler), &TabletHandler::notify, this, &TabletDaemon::onNotify);
+    connect(&(d->tabletHandler), &TabletHandler::notify, this, &TabletDaemon::onNotify);
 }
-
-
 
 TabletDaemon::~TabletDaemon()
 {
@@ -98,22 +98,18 @@ TabletDaemon::~TabletDaemon()
     delete this->d_ptr;
 }
 
-
-
-void TabletDaemon::onNotify(const QString& eventId, const QString& title, const QString& message, bool suggestConfigure) const
+void TabletDaemon::onNotify(const QString &eventId, const QString &title, const QString &message, bool suggestConfigure) const
 {
-    KNotification* notification = new KNotification(eventId);
-    notification->setComponentName( QStringLiteral("wacomtablet") );
+    KNotification *notification = new KNotification(eventId);
+    notification->setComponentName(QStringLiteral("wacomtablet"));
     notification->setTitle(title);
     notification->setText(message);
-    notification->setIconName( QLatin1String( "preferences-desktop-tablet" ) );
+    notification->setIconName(QLatin1String("preferences-desktop-tablet"));
 
     if (suggestConfigure) {
 #if QT_VERSION_MAJOR == 5
-        notification->setActions(QStringList{
-                                     i18nc("Button that shows up in notification of a new tablet being connected", "Configure")
-                                 });
-        connect(notification, &KNotification::action1Activated, this, [notification]{
+        notification->setActions(QStringList{i18nc("Button that shows up in notification of a new tablet being connected", "Configure")});
+        connect(notification, &KNotification::action1Activated, this, [notification] {
 #else
         KNotificationAction *configureAction =
             notification->addAction(i18nc("Button that shows up in notification "
@@ -130,9 +126,7 @@ void TabletDaemon::onNotify(const QString& eventId, const QString& title, const 
     notification->sendEvent();
 }
 
-
-
-void TabletDaemon::onProfileChanged(const QString &tabletId, const QString& profile)
+void TabletDaemon::onProfileChanged(const QString &tabletId, const QString &profile)
 {
     Q_UNUSED(tabletId);
     Q_UNUSED(profile);
@@ -146,9 +140,9 @@ void TabletDaemon::onProfileChanged(const QString &tabletId, const QString& prof
 
 void TabletDaemon::setupActions()
 {
-    Q_D( TabletDaemon );
+    Q_D(TabletDaemon);
 
-    //if someone adds another action also add it to kcmodule/generalwidget.cpp
+    // if someone adds another action also add it to kcmodule/generalwidget.cpp
 
     // This method is called multiple times - make sure the action collection is only created once.
     if (!d->actionCollection) {
@@ -158,7 +152,11 @@ void TabletDaemon::setupActions()
 
     connect(d->actionCollection.get(), &GlobalActions::toggleTouchTriggered, &(d->tabletHandler), &TabletHandler::onToggleTouch, Qt::UniqueConnection);
     connect(d->actionCollection.get(), &GlobalActions::toggleStylusTriggered, &(d->tabletHandler), &TabletHandler::onTogglePenMode, Qt::UniqueConnection);
-    connect(d->actionCollection.get(), &GlobalActions::toggleScreenMapTriggered, &(d->tabletHandler), &TabletHandler::onToggleScreenMapping, Qt::UniqueConnection);
+    connect(d->actionCollection.get(),
+            &GlobalActions::toggleScreenMapTriggered,
+            &(d->tabletHandler),
+            &TabletHandler::onToggleScreenMapping,
+            Qt::UniqueConnection);
     connect(d->actionCollection.get(), &GlobalActions::mapToFullScreenTriggered, &(d->tabletHandler), &TabletHandler::onMapToFullScreen, Qt::UniqueConnection);
     connect(d->actionCollection.get(), &GlobalActions::mapToScreen1Triggered, &(d->tabletHandler), &TabletHandler::onMapToScreen1, Qt::UniqueConnection);
     connect(d->actionCollection.get(), &GlobalActions::mapToScreen2Triggered, &(d->tabletHandler), &TabletHandler::onMapToScreen2, Qt::UniqueConnection);
@@ -166,33 +164,28 @@ void TabletDaemon::setupActions()
     connect(d->actionCollection.get(), &GlobalActions::previousProfileTriggered, &(d->tabletHandler), &TabletHandler::onPreviousProfile, Qt::UniqueConnection);
 }
 
-
-
 void TabletDaemon::setupApplication()
 {
     static AboutData about(QLatin1String("wacomtablet"),
-                           i18n( "Graphic Tablet Configuration daemon"),
-                           QLatin1String(WACOMTABLET_VERSION_STRING), i18n( "A Wacom tablet control daemon" ));
+                           i18n("Graphic Tablet Configuration daemon"),
+                           QLatin1String(WACOMTABLET_VERSION_STRING),
+                           i18n("A Wacom tablet control daemon"));
 }
-
-
 
 void TabletDaemon::setupDBus()
 {
-    Q_D( TabletDaemon );
+    Q_D(TabletDaemon);
 
     // connect tablet handler events to D-Bus
     // this is done here and not in the D-Bus tablet service to facilitate unit testing
     connect(&(d->tabletHandler), &TabletHandler::profileChanged, &(d->dbusTabletService), &DBusTabletService::onProfileChanged);
-    connect(&(d->tabletHandler), &TabletHandler::tabletAdded,    &(d->dbusTabletService), &DBusTabletService::onTabletAdded);
-    connect(&(d->tabletHandler), &TabletHandler::tabletRemoved,  &(d->dbusTabletService), &DBusTabletService::onTabletRemoved);
+    connect(&(d->tabletHandler), &TabletHandler::tabletAdded, &(d->dbusTabletService), &DBusTabletService::onTabletAdded);
+    connect(&(d->tabletHandler), &TabletHandler::tabletRemoved, &(d->dbusTabletService), &DBusTabletService::onTabletRemoved);
 }
-
-
 
 void TabletDaemon::setupEventNotifier()
 {
-    Q_D( TabletDaemon );
+    Q_D(TabletDaemon);
 
     // Set up monitoring for individual screen geometry changes
     monitorAllScreensGeometry();
@@ -203,11 +196,11 @@ void TabletDaemon::setupEventNotifier()
     connect(qApp, &QGuiApplication::screenRemoved, &(d->tabletHandler), &TabletHandler::onScreenAddedRemoved);
 
     // Set up tablet connected/disconnected signals
-    connect( &X11EventNotifier::instance(), &X11EventNotifier::tabletAdded,   &TabletFinder::instance(), &TabletFinder::onX11TabletAdded);
-    connect( &X11EventNotifier::instance(), &X11EventNotifier::tabletRemoved, &TabletFinder::instance(), &TabletFinder::onX11TabletRemoved);
+    connect(&X11EventNotifier::instance(), &X11EventNotifier::tabletAdded, &TabletFinder::instance(), &TabletFinder::onX11TabletAdded);
+    connect(&X11EventNotifier::instance(), &X11EventNotifier::tabletRemoved, &TabletFinder::instance(), &TabletFinder::onX11TabletRemoved);
 
-    connect( &TabletFinder::instance(),     &TabletFinder::tabletAdded,       &(d->tabletHandler),       &TabletHandler::onTabletAdded);
-    connect( &TabletFinder::instance(),     &TabletFinder::tabletRemoved,     &(d->tabletHandler),       &TabletHandler::onTabletRemoved);
+    connect(&TabletFinder::instance(), &TabletFinder::tabletAdded, &(d->tabletHandler), &TabletHandler::onTabletAdded);
+    connect(&TabletFinder::instance(), &TabletFinder::tabletRemoved, &(d->tabletHandler), &TabletHandler::onTabletRemoved);
 
     if (QX11Info::isPlatformX11()) {
         X11EventNotifier::instance().start();
@@ -217,8 +210,7 @@ void TabletDaemon::setupEventNotifier()
 void TabletDaemon::monitorAllScreensGeometry()
 {
     // Add existing screens
-    for (const auto &screen : QGuiApplication::screens())
-    {
+    for (const auto &screen : QGuiApplication::screens()) {
         monitorScreenGeometry(screen);
     }
 
@@ -228,12 +220,11 @@ void TabletDaemon::monitorAllScreensGeometry()
 
 void TabletDaemon::monitorScreenGeometry(QScreen *screen)
 {
-    Q_D( TabletDaemon );
+    Q_D(TabletDaemon);
 
     const auto &tabletHandler = &(d->tabletHandler);
 
-    connect(screen, &QScreen::orientationChanged,
-            [=](const Qt::ScreenOrientation &newScreenRotation){
+    connect(screen, &QScreen::orientationChanged, [=](const Qt::ScreenOrientation &newScreenRotation) {
         tabletHandler->onScreenRotated(screen->name(), newScreenRotation);
     });
 

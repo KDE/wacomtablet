@@ -24,40 +24,30 @@
 
 using namespace Wacom;
 
-bool StringUtils::asBool (const QString& value)
+bool StringUtils::asBool(const QString &value)
 {
     QString trimmedValue = value.trimmed();
 
-    return (trimmedValue.compare(QLatin1String("1")) == 0 ||
-            trimmedValue.compare(QLatin1String("true"), Qt::CaseInsensitive) == 0 ||
-            trimmedValue.compare(QLatin1String("on"),   Qt::CaseInsensitive) == 0 ||
-            trimmedValue.compare(QLatin1String("yes"),  Qt::CaseInsensitive) == 0);
+    return (trimmedValue.compare(QLatin1String("1")) == 0 || trimmedValue.compare(QLatin1String("true"), Qt::CaseInsensitive) == 0
+            || trimmedValue.compare(QLatin1String("on"), Qt::CaseInsensitive) == 0 || trimmedValue.compare(QLatin1String("yes"), Qt::CaseInsensitive) == 0);
 }
 
-
-const QString StringUtils::fromQRect(const QRect& rect, bool returnCoordinates)
+const QString StringUtils::fromQRect(const QRect &rect, bool returnCoordinates)
 {
     QString area;
 
     if (returnCoordinates) {
-        area = QString::fromLatin1("%1 %2 %3 %4").arg(rect.x())
-                                                 .arg(rect.y())
-                                                 .arg(rect.x() + rect.width())
-                                                 .arg(rect.y() + rect.height());
+        area = QString::fromLatin1("%1 %2 %3 %4").arg(rect.x()).arg(rect.y()).arg(rect.x() + rect.width()).arg(rect.y() + rect.height());
     } else {
-        area = QString::fromLatin1("%1 %2 %3 %4").arg(rect.x())
-                                                 .arg(rect.y())
-                                                 .arg(rect.width())
-                                                 .arg(rect.height());
+        area = QString::fromLatin1("%1 %2 %3 %4").arg(rect.x()).arg(rect.y()).arg(rect.width()).arg(rect.height());
     }
 
     return area;
 }
 
-
-const QRect StringUtils::toQRect(const QString& value, bool allowOnlyPositiveValues)
+const QRect StringUtils::toQRect(const QString &value, bool allowOnlyPositiveValues)
 {
-    QRect       rect;
+    QRect rect;
     QStringList rectValues = value.split(QLatin1String(" "), Qt::SkipEmptyParts);
 
     if (rectValues.count() != 4) {
@@ -65,12 +55,12 @@ const QRect StringUtils::toQRect(const QString& value, bool allowOnlyPositiveVal
     }
 
     bool xOk, yOk, widthOk, heightOk;
-    int x      = rectValues.at(0).toInt(&xOk);
-    int y      = rectValues.at(1).toInt(&yOk);
-    int width  = rectValues.at(2).toInt(&widthOk);
+    int x = rectValues.at(0).toInt(&xOk);
+    int y = rectValues.at(1).toInt(&yOk);
+    int width = rectValues.at(2).toInt(&widthOk);
     int height = rectValues.at(3).toInt(&heightOk);
 
-    if ( !xOk || !yOk || !widthOk || !heightOk ) {
+    if (!xOk || !yOk || !widthOk || !heightOk) {
         return rect;
     }
 
@@ -86,11 +76,9 @@ const QRect StringUtils::toQRect(const QString& value, bool allowOnlyPositiveVal
     return rect;
 }
 
-
-
-const QRect StringUtils::toQRectByCoordinates(const QString& value, bool allowOnlyPositiveValues)
+const QRect StringUtils::toQRectByCoordinates(const QString &value, bool allowOnlyPositiveValues)
 {
-    QRect       rect;
+    QRect rect;
     QStringList rectValues = value.split(QLatin1String(" "), Qt::SkipEmptyParts);
 
     if (rectValues.count() != 4) {
@@ -103,7 +91,7 @@ const QRect StringUtils::toQRectByCoordinates(const QString& value, bool allowOn
     int x2 = rectValues.at(2).toInt(&x2Ok);
     int y2 = rectValues.at(3).toInt(&y2Ok);
 
-    if ( !x1Ok || !y1Ok || !x2Ok || !y2Ok ) {
+    if (!x1Ok || !y1Ok || !x2Ok || !y2Ok) {
         return rect;
     }
 
