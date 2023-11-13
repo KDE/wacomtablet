@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:36+0000\n"
+"POT-Creation-Date: 2023-11-13 00:43+0000\n"
 "PO-Revision-Date: 2022-12-27 02:53+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -28,103 +28,103 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "Temuri.doghonadze@gmail.com"
 
-#: src/common/aboutdata.cpp:33
+#: src/common/aboutdata.cpp:36
 #, kde-format
 msgid "(c), 2009,2010 Jörg Ehrichs"
 msgstr "(c), 2009,2010 Jörg Ehrichs"
 
-#: src/common/aboutdata.cpp:37
+#: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Jörg Ehrichs"
 msgstr "Jörg Ehrichs"
 
-#: src/common/aboutdata.cpp:37
+#: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Maintainer"
 msgstr "წამყვანი პროგრამისტი"
 
-#: src/common/aboutdata.cpp:38
+#: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Alexander Maret-Huskinson"
 msgstr "Alexander Maret-Huskinson"
 
-#: src/common/aboutdata.cpp:38
+#: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Developer"
 msgstr "პროგრამისტი"
 
-#: src/common/buttonshortcut.cpp:91
+#: src/common/buttonshortcut.cpp:93
 #, kde-format
 msgctxt "Tablet button triggers a left mouse button click."
 msgid "Left Mouse Button Click"
 msgstr "თაგუნას მარცხენა წკაპი"
 
-#: src/common/buttonshortcut.cpp:93
+#: src/common/buttonshortcut.cpp:95
 #, kde-format
 msgctxt "Tablet button triggers a middle mouse button click."
 msgid "Middle Mouse Button Click"
 msgstr "თაგუნას შუა წკაპი"
 
-#: src/common/buttonshortcut.cpp:95
+#: src/common/buttonshortcut.cpp:97
 #, kde-format
 msgctxt "Tablet button triggers a right mouse button click."
 msgid "Right Mouse Button Click"
 msgstr "თაგუნას მარჯვენა წკაპი"
 
-#: src/common/buttonshortcut.cpp:97
+#: src/common/buttonshortcut.cpp:99
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel up."
 msgid "Mouse Wheel Up"
 msgstr "თაგუნას რგოლი მაღლა"
 
-#: src/common/buttonshortcut.cpp:99
+#: src/common/buttonshortcut.cpp:101
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel down."
 msgid "Mouse Wheel Down"
 msgstr "თაგუნას რგოლი დალა"
 
-#: src/common/buttonshortcut.cpp:101
+#: src/common/buttonshortcut.cpp:103
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel left."
 msgid "Mouse Wheel Left"
 msgstr "თაგუნას რგოლი მარცხნივ"
 
-#: src/common/buttonshortcut.cpp:103
+#: src/common/buttonshortcut.cpp:105
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel right."
 msgid "Mouse Wheel Right"
 msgstr "თაგუნას რგოლი მარჯვნივ"
 
-#: src/common/buttonshortcut.cpp:105
+#: src/common/buttonshortcut.cpp:107
 #, kde-format
 msgctxt "Tablet button triggers a click of mouse button with number #"
 msgid "Mouse Button %1 Click"
 msgstr "თაგუნას ღილაკი %1 წკაპი"
 
-#: src/common/globalactions.cpp:30
+#: src/common/globalactions.cpp:31
 #, kde-format
 msgid "Wacom Tablet"
 msgstr "Wacom -ის ტაბლეტი"
 
-#: src/common/globalactions.cpp:34
+#: src/common/globalactions.cpp:35
 #, kde-format
 msgctxt "@action"
 msgid "Enable/Disable the Touch Tool"
 msgstr "შეხების ხელსაწყოს ჩართვა/გამორთვა"
 
-#: src/common/globalactions.cpp:40
+#: src/common/globalactions.cpp:41
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
 msgstr "სტილუსის რეჟიმის გადართვა (შედარებითი/აბსოლუტური)"
 
-#: src/common/globalactions.cpp:46
+#: src/common/globalactions.cpp:47
 #, kde-format
 msgctxt "@action"
 msgid "Toggle between all screens"
 msgstr "ეკრანებს შორის გადართვა"
 
-#: src/common/globalactions.cpp:52
+#: src/common/globalactions.cpp:53
 #, kde-format
 msgctxt ""
 "@action Maps the area of the tablet to all available screen space (space "
@@ -132,37 +132,37 @@ msgctxt ""
 msgid "Map to fullscreen"
 msgstr "მთელ ეკრანზე პროექცია"
 
-#: src/common/globalactions.cpp:58
+#: src/common/globalactions.cpp:59
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 1"
 msgstr "პირველ ეკრანზე პროექცია"
 
-#: src/common/globalactions.cpp:64
+#: src/common/globalactions.cpp:65
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 2"
 msgstr "მეორე ეკრანზე პროექცია"
 
-#: src/common/globalactions.cpp:70
+#: src/common/globalactions.cpp:71
 #, kde-format
 msgctxt "@action Switch to the next profile in the rotation"
 msgid "Next profile"
 msgstr "შემდეგი პროფილი"
 
-#: src/common/globalactions.cpp:76
+#: src/common/globalactions.cpp:77
 #, kde-format
 msgctxt "@action Switch to the previous profile in the rotation"
 msgid "Previous Profile"
 msgstr "წინა პროფილი"
 
-#: src/kcmodule/buttonactionselectiondialog.cpp:55
+#: src/kcmodule/buttonactionselectiondialog.cpp:58
 #, kde-format
 msgctxt "The action that will be assigned to a tablet button."
 msgid "Select Button Action"
 msgstr "აირჩიეთ ღილაკის მოქმედება"
 
-#: src/kcmodule/buttonactionselectionwidget.cpp:150
+#: src/kcmodule/buttonactionselectionwidget.cpp:146
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
@@ -226,7 +226,7 @@ msgstr "გამოყენებითი ღილაკები"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:444
+#: src/kcmodule/kcmwacomtabletwidget.cpp:431
 #, kde-format
 msgid "Express Buttons"
 msgstr "სწრაფი ღილაკები"
@@ -444,12 +444,12 @@ msgstr ""
 msgid "Wacom Tablet Settings"
 msgstr "Wacom -ის ტაბლეტის მორგება"
 
-#: src/kcmodule/generalpagewidget.cpp:149
+#: src/kcmodule/generalpagewidget.cpp:146
 #, kde-format
 msgid "Profile List"
 msgstr "პროფილების სია"
 
-#: src/kcmodule/generalpagewidget.cpp:150
+#: src/kcmodule/generalpagewidget.cpp:147
 #, kde-format
 msgid "Select the Profile you want to add:"
 msgstr "აირჩიეთ დასამატებელი პროფილი:"
@@ -496,12 +496,12 @@ msgstr "მაღლა"
 msgid "Shortcuts"
 msgstr "მალსახმობები"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:166
+#: src/kcmodule/kcmwacomtabletwidget.cpp:168
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr "KDE -ის ტაბლეტის სერვისი ვერ ვიპოვე"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:167
+#: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
@@ -510,12 +510,12 @@ msgstr ""
 "ამ ფანჯრის გამოსაყენებლად გაუშვით KDE -ის Wacom ტაბლეტის სერვისი.\n"
 "სერვისი აუცილებელია ტაბლეტის აღმოსაჩენად და პროფილის მხარდასაჭერად."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:171
+#: src/kcmodule/kcmwacomtabletwidget.cpp:174
 #, kde-format
 msgid "No tablet device detected"
 msgstr "ტაბლეტის მოწყობილობა ვერ ვიპოვე"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:172
+#: src/kcmodule/kcmwacomtabletwidget.cpp:176
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -525,56 +525,56 @@ msgstr ""
 "გასაგრძელებლად შეაერთეთ ტაბლეტის მოწყობილობა.\n"
 "თუ მოწყობილობა უკვე მიერთებულია, ის ამჟამად მოწყობილობების ბაზაში არაა."
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:217
+#: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Add new profile"
 msgstr "ახალი პროფილის დამატება"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:218
+#: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Profile name:"
 msgstr "პროფილის სახელი:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:428
+#: src/kcmodule/kcmwacomtabletwidget.cpp:417
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr "ნაგულისხმები"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:437
+#: src/kcmodule/kcmwacomtabletwidget.cpp:425
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "მთავარი"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:438
+#: src/kcmodule/kcmwacomtabletwidget.cpp:426
 #, kde-format
 msgid "Stylus"
 msgstr "სტილუსი"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:447
+#: src/kcmodule/kcmwacomtabletwidget.cpp:434
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "ტაბლეტი"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:450
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgid "Touch"
 msgstr "შეხება"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:462
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "შეინახეთ ცვლილებები მიმდინარე პროფილში?"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:463
 #, kde-format
 msgid "Save Profile"
 msgstr "პროფილის შენახვა"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:486
+#: src/kcmodule/kcmwacomtabletwidget.cpp:476
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
@@ -611,7 +611,7 @@ msgstr "ახალი ნაგულისხმები პროფილ�
 msgid "Deletes the current profile"
 msgstr "მიმდინარე პროფილის წაშლა"
 
-#: src/kcmodule/keysequenceinputbutton.cpp:287
+#: src/kcmodule/keysequenceinputbutton.cpp:277
 #, kde-format
 msgid ""
 "Click on the button, then enter the shortcut like you would in the program.\n"
@@ -620,13 +620,13 @@ msgstr ""
 "დააჭირეთ ღილაკს და და შეიყვანეთ მალსახმობი, როგორც პროგრამაში.\n"
 "მაგალითად Ctrl+A: დააჭირეთ Ctrl-ს და A-ს."
 
-#: src/kcmodule/keysequenceinputbutton.cpp:321
+#: src/kcmodule/keysequenceinputbutton.cpp:310
 #, kde-format
 msgctxt "What the user inputs now will be taken as the new shortcut"
 msgid "Input"
 msgstr "შეყვანა"
 
-#: src/kcmodule/keysequenceinputbutton.cpp:328
+#: src/kcmodule/keysequenceinputbutton.cpp:317
 #, kde-format
 msgctxt "No shortcut defined"
 msgid "None"
@@ -809,7 +809,7 @@ msgstr "ჩახშობის სიხშირე"
 msgid "0"
 msgstr "0"
 
-#: src/kcmodule/tabletareaselectiondialog.cpp:113
+#: src/kcmodule/tabletareaselectiondialog.cpp:106
 #, kde-format
 msgctxt ""
 "Dialog title from a dialog which lets the user select an area of the tablet "
@@ -817,8 +817,8 @@ msgctxt ""
 msgid "Select a Tablet Area"
 msgstr "აირჩიეთ ტაბლეტის რეგიონი"
 
-#: src/kcmodule/tabletareaselectionview.cpp:139
-#: src/kcmodule/tabletareaselectionview.cpp:168
+#: src/kcmodule/tabletareaselectionview.cpp:136
+#: src/kcmodule/tabletareaselectionview.cpp:163
 #, kde-format
 msgid "Internal Error"
 msgstr "შიდა შეცდომა"
@@ -947,7 +947,7 @@ msgstr "ზედა ველი"
 msgid "Height"
 msgstr "სიმაღლე"
 
-#: src/kcmodule/tabletpagewidget.cpp:383
+#: src/kcmodule/tabletpagewidget.cpp:356
 #, kde-format
 msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
@@ -955,19 +955,19 @@ msgctxt ""
 msgid "Default Orientation"
 msgstr "ნაგულისხმები ორიენტაცია"
 
-#: src/kcmodule/tabletpagewidget.cpp:384
+#: src/kcmodule/tabletpagewidget.cpp:358
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
 msgstr "ტაბლეტის საათის ისრის მიმართულებით მოტრიალება"
 
-#: src/kcmodule/tabletpagewidget.cpp:385
+#: src/kcmodule/tabletpagewidget.cpp:359
 #, kde-format
 msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
 msgstr "ტაბლეტის საათის ისრის საწინააღმდეგო მიმართულებით მოტრიალება"
 
-#: src/kcmodule/tabletpagewidget.cpp:386
+#: src/kcmodule/tabletpagewidget.cpp:360
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
@@ -1188,59 +1188,59 @@ msgstr "ჩოჩიის მიმართულების ინვერ�
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr "თუ ჩართულია, აქაჩვის ჟესტის მიმართულება შებრუნდება."
 
-#: src/kded/tabletdaemon.cpp:114 src/kded/tabletdaemon.cpp:121
+#: src/kded/tabletdaemon.cpp:111 src/kded/tabletdaemon.cpp:117
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "მორგება"
 
-#: src/kded/tabletdaemon.cpp:174
+#: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "გრაფიკული ტაბლეტის მორგების დემონი"
 
-#: src/kded/tabletdaemon.cpp:175
+#: src/kded/tabletdaemon.cpp:172
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Wacom -ის ტაბლეტის კონტროლის დემონი"
 
-#: src/kded/tablethandler.cpp:142
+#: src/kded/tablethandler.cpp:134
 #, kde-format
 msgid "Tablet Connected"
 msgstr "ტაბლეტი დაკავშირებულია"
 
-#: src/kded/tablethandler.cpp:143
+#: src/kded/tablethandler.cpp:134
 #, kde-format
 msgid "New tablet '%1' connected."
 msgstr "მიერთებულია ახალი ტაბლეტი: '%1'."
 
-#: src/kded/tablethandler.cpp:173
+#: src/kded/tablethandler.cpp:160
 #, kde-format
 msgid "Tablet removed"
 msgstr "ტაბლეტი გამოერთდა"
 
-#: src/kded/tablethandler.cpp:174
+#: src/kded/tablethandler.cpp:160
 #, kde-format
 msgid "Tablet %1 removed"
 msgstr "ტაბლეტი %1 ამოღებულია"
 
-#: src/kded/tablethandler.cpp:461
+#: src/kded/tablethandler.cpp:427
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exists."
 msgid "Default"
 msgstr "ნაგულისხმები"
 
-#: src/kded/tablethandler.cpp:473
+#: src/kded/tablethandler.cpp:437
 #, kde-format
 msgid "Graphic Tablet error"
 msgstr "გრაფიკული ტაბლეტის შეცდომა"
 
-#: src/kded/tablethandler.cpp:474
+#: src/kded/tablethandler.cpp:438
 #, kde-format
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr "პროფილი <b>%1</b> არ არსებობს. <b>%2</b> -ის გამოყენება"
 
-#: src/tabletfinder/dialog.cpp:458
+#: src/tabletfinder/dialog.cpp:441
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr "ღილაკი %1 მიბმულია ღილაკზე %2"
@@ -1371,17 +1371,17 @@ msgstr "&მრავალმოწყობილობიანი ტაბ�
 msgid "Multi-&device tablet, touch sensor"
 msgstr "მრავალმოწყობილობიანი &ტაბლეტი, შეხების სენსორი"
 
-#: src/tabletfinder/hwbuttondialog.cpp:65
+#: src/tabletfinder/hwbuttondialog.cpp:66
 #, kde-format
 msgid "Please press Button %1 on the tablet now."
 msgstr "დააწექით ტაბლეტის ღილაკს %1."
 
-#: src/tabletfinder/hwbuttondialog.cpp:89
+#: src/tabletfinder/hwbuttondialog.cpp:90
 #, kde-format
 msgid "Hardware button %1 detected."
 msgstr "ფიზიკური ღილაკი %1 აღმოჩენილია."
 
-#: src/tabletfinder/hwbuttondialog.cpp:101
+#: src/tabletfinder/hwbuttondialog.cpp:102
 #, kde-format
 msgid "All buttons detected. Please close dialog"
 msgstr "ყველა ღილაკი ნაპოვნია. დახურეთ ფანჯარა"

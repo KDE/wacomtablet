@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: desktop_extragear-multimedia_amarok\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:36+0000\n"
+"POT-Creation-Date: 2023-11-13 00:43+0000\n"
 "PO-Revision-Date: 2012-06-08 14:50+0700\n"
 "Last-Translator: Sophea <sophea@khmeros.info>\n"
 "Language-Team: Khmer <>\n"
@@ -31,32 +31,32 @@ msgstr ""
 "khoemsokhem@khmeros.info,​​mornmet@khmeros.info,sutha@khmeros.info,"
 "ratanak@khmeros.info,sophea@khmeros.info"
 
-#: src/common/aboutdata.cpp:33
+#: src/common/aboutdata.cpp:36
 #, kde-format
 msgid "(c), 2009,2010 Jörg Ehrichs"
 msgstr "រក្សាសិទ្ធិ ឆ្នាំ ២០០៩ ២០១០ ដោយ Jörg Ehrichs"
 
-#: src/common/aboutdata.cpp:37
+#: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Jörg Ehrichs"
 msgstr "Jörg Ehrichs"
 
-#: src/common/aboutdata.cpp:37
+#: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Maintainer"
 msgstr "អ្នក​ថែទាំ"
 
-#: src/common/aboutdata.cpp:38
+#: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Alexander Maret-Huskinson"
 msgstr ""
 
-#: src/common/aboutdata.cpp:38
+#: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Developer"
 msgstr ""
 
-#: src/common/buttonshortcut.cpp:91
+#: src/common/buttonshortcut.cpp:93
 #, fuzzy, kde-format
 #| msgctxt "Pad Button action"
 #| msgid "Button %1"
@@ -64,7 +64,7 @@ msgctxt "Tablet button triggers a left mouse button click."
 msgid "Left Mouse Button Click"
 msgstr "ប៊ូតុង %1"
 
-#: src/common/buttonshortcut.cpp:93
+#: src/common/buttonshortcut.cpp:95
 #, fuzzy, kde-format
 #| msgctxt "Pad Button action"
 #| msgid "Button %1"
@@ -72,7 +72,7 @@ msgctxt "Tablet button triggers a middle mouse button click."
 msgid "Middle Mouse Button Click"
 msgstr "ប៊ូតុង %1"
 
-#: src/common/buttonshortcut.cpp:95
+#: src/common/buttonshortcut.cpp:97
 #, fuzzy, kde-format
 #| msgctxt "Pad Button action"
 #| msgid "Button %1"
@@ -80,31 +80,31 @@ msgctxt "Tablet button triggers a right mouse button click."
 msgid "Right Mouse Button Click"
 msgstr "ប៊ូតុង %1"
 
-#: src/common/buttonshortcut.cpp:97
+#: src/common/buttonshortcut.cpp:99
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel up."
 msgid "Mouse Wheel Up"
 msgstr ""
 
-#: src/common/buttonshortcut.cpp:99
+#: src/common/buttonshortcut.cpp:101
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel down."
 msgid "Mouse Wheel Down"
 msgstr ""
 
-#: src/common/buttonshortcut.cpp:101
+#: src/common/buttonshortcut.cpp:103
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel left."
 msgid "Mouse Wheel Left"
 msgstr ""
 
-#: src/common/buttonshortcut.cpp:103
+#: src/common/buttonshortcut.cpp:105
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel right."
 msgid "Mouse Wheel Right"
 msgstr ""
 
-#: src/common/buttonshortcut.cpp:105
+#: src/common/buttonshortcut.cpp:107
 #, fuzzy, kde-format
 #| msgctxt "Pad Button action"
 #| msgid "Button %1"
@@ -112,32 +112,32 @@ msgctxt "Tablet button triggers a click of mouse button with number #"
 msgid "Mouse Button %1 Click"
 msgstr "ប៊ូតុង %1"
 
-#: src/common/globalactions.cpp:30
+#: src/common/globalactions.cpp:31
 #, fuzzy, kde-format
 #| msgid "Wacom Tablet Settings"
 msgid "Wacom Tablet"
 msgstr "ការ​កំណត់ Wacom Tablet"
 
-#: src/common/globalactions.cpp:34
+#: src/common/globalactions.cpp:35
 #, kde-format
 msgctxt "@action"
 msgid "Enable/Disable the Touch Tool"
 msgstr "បិទ/បើក​ឧបករណ៍​ប៉ះ"
 
-#: src/common/globalactions.cpp:40
+#: src/common/globalactions.cpp:41
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
 msgstr "បិទ/បើក​ឧបករណ៍​ចារ ដាច់ខាត/ដែល​ទាក់ទង"
 
-#: src/common/globalactions.cpp:46
+#: src/common/globalactions.cpp:47
 #, fuzzy, kde-format
 #| msgid "Full screen"
 msgctxt "@action"
 msgid "Toggle between all screens"
 msgstr "ពេញ​អេក្រង់"
 
-#: src/common/globalactions.cpp:52
+#: src/common/globalactions.cpp:53
 #, fuzzy, kde-format
 #| msgid "Map to screen"
 msgctxt ""
@@ -146,41 +146,41 @@ msgctxt ""
 msgid "Map to fullscreen"
 msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់"
 
-#: src/common/globalactions.cpp:58
+#: src/common/globalactions.cpp:59
 #, fuzzy, kde-format
 #| msgid "Map to screen"
 msgctxt "@action"
 msgid "Map to screen 1"
 msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់"
 
-#: src/common/globalactions.cpp:64
+#: src/common/globalactions.cpp:65
 #, fuzzy, kde-format
 #| msgid "Map to screen"
 msgctxt "@action"
 msgid "Map to screen 2"
 msgstr "ផ្គូផ្គង​ទៅកាន់​អេក្រង់"
 
-#: src/common/globalactions.cpp:70
+#: src/common/globalactions.cpp:71
 #, fuzzy, kde-format
 #| msgid "Add new profile"
 msgctxt "@action Switch to the next profile in the rotation"
 msgid "Next profile"
 msgstr "បន្ថែម​ទម្រង់​ថ្មី"
 
-#: src/common/globalactions.cpp:76
+#: src/common/globalactions.cpp:77
 #, kde-format
 msgctxt "@action Switch to the previous profile in the rotation"
 msgid "Previous Profile"
 msgstr ""
 
-#: src/kcmodule/buttonactionselectiondialog.cpp:55
+#: src/kcmodule/buttonactionselectiondialog.cpp:58
 #, fuzzy, kde-format
 #| msgid "Select Button:"
 msgctxt "The action that will be assigned to a tablet button."
 msgid "Select Button Action"
 msgstr "ជ្រើស​ប៊ូតុង ៖"
 
-#: src/kcmodule/buttonactionselectionwidget.cpp:150
+#: src/kcmodule/buttonactionselectionwidget.cpp:146
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
@@ -245,7 +245,7 @@ msgstr "ប៊ូតុង Pad"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:444
+#: src/kcmodule/kcmwacomtabletwidget.cpp:431
 #, fuzzy, kde-format
 #| msgid "Express Keys"
 msgid "Express Buttons"
@@ -489,13 +489,13 @@ msgstr ""
 msgid "Wacom Tablet Settings"
 msgstr "ការ​កំណត់ Wacom Tablet"
 
-#: src/kcmodule/generalpagewidget.cpp:149
+#: src/kcmodule/generalpagewidget.cpp:146
 #, fuzzy, kde-format
 #| msgid "Profile name:"
 msgid "Profile List"
 msgstr "ឈ្មោះ​ទម្រង់ ៖"
 
-#: src/kcmodule/generalpagewidget.cpp:150
+#: src/kcmodule/generalpagewidget.cpp:147
 #, fuzzy, kde-format
 #| msgid "Select Profile:"
 msgid "Select the Profile you want to add:"
@@ -549,12 +549,12 @@ msgstr "ឡើង ៖"
 msgid "Shortcuts"
 msgstr "ផ្លូវកាត់"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:166
+#: src/kcmodule/kcmwacomtabletwidget.cpp:168
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:167
+#: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, fuzzy, kde-format
 #| msgid ""
 #| "D-Bus connection to the kded daemon not available.\n"
@@ -570,7 +570,7 @@ msgstr ""
 "សូម​ចាប់ផ្ដើម​ដេមិន Wacom tablet រួច​សាកល្បង​ម្ដងទៀត ។\n"
 "ដេមិន​គឺ​មាន​ភារកិច្ច​ក្នុង​ការ​រកមើល tablet និង​គាំទ្រ​ទម្រង់ ។"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:171
+#: src/kcmodule/kcmwacomtabletwidget.cpp:174
 #, fuzzy, kde-format
 #| msgid ""
 #| "No tablet device was found.\n"
@@ -582,7 +582,7 @@ msgstr ""
 "\n"
 "សូម​តភ្ជាប់​ឧបករណ៍ ។"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:172
+#: src/kcmodule/kcmwacomtabletwidget.cpp:176
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -590,58 +590,58 @@ msgid ""
 "database."
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:217
+#: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Add new profile"
 msgstr "បន្ថែម​ទម្រង់​ថ្មី"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:218
+#: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Profile name:"
 msgstr "ឈ្មោះ​ទម្រង់ ៖"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:428
+#: src/kcmodule/kcmwacomtabletwidget.cpp:417
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:437
+#: src/kcmodule/kcmwacomtabletwidget.cpp:425
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "ទូទៅ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:438
+#: src/kcmodule/kcmwacomtabletwidget.cpp:426
 #, kde-format
 msgid "Stylus"
 msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:447
+#: src/kcmodule/kcmwacomtabletwidget.cpp:434
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, fuzzy, kde-format
 #| msgid "Tablet:"
 msgid "Tablet"
 msgstr "Tablet ៖"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:450
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgid "Touch"
 msgstr "ប៉ះ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:462
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "រក្សាទុក​ការ​ផ្លាស់ប្ដូរ​ទៅកាន់​ទម្រង់​បច្ចុប្បន្ន​ដែរ​ឬទេ ?"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:463
 #, fuzzy, kde-format
 #| msgid "Select Profile:"
 msgid "Save Profile"
 msgstr "ជ្រើស​ទម្រង់ ៖"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:486
+#: src/kcmodule/kcmwacomtabletwidget.cpp:476
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
@@ -678,20 +678,20 @@ msgstr "បង្កើត​ទម្រង់​លំនាំដើម​ថ
 msgid "Deletes the current profile"
 msgstr "លុប​ទម្រង់​បច្ចុប្បន្ន"
 
-#: src/kcmodule/keysequenceinputbutton.cpp:287
+#: src/kcmodule/keysequenceinputbutton.cpp:277
 #, kde-format
 msgid ""
 "Click on the button, then enter the shortcut like you would in the program.\n"
 "Example for Ctrl+A: hold the Ctrl key and press A."
 msgstr ""
 
-#: src/kcmodule/keysequenceinputbutton.cpp:321
+#: src/kcmodule/keysequenceinputbutton.cpp:310
 #, kde-format
 msgctxt "What the user inputs now will be taken as the new shortcut"
 msgid "Input"
 msgstr ""
 
-#: src/kcmodule/keysequenceinputbutton.cpp:328
+#: src/kcmodule/keysequenceinputbutton.cpp:317
 #, kde-format
 msgctxt "No shortcut defined"
 msgid "None"
@@ -879,7 +879,7 @@ msgstr ""
 msgid "0"
 msgstr ""
 
-#: src/kcmodule/tabletareaselectiondialog.cpp:113
+#: src/kcmodule/tabletareaselectiondialog.cpp:106
 #, fuzzy, kde-format
 #| msgid "Screen Area"
 msgctxt ""
@@ -888,8 +888,8 @@ msgctxt ""
 msgid "Select a Tablet Area"
 msgstr "ផ្ទៃ​អេក្រង់"
 
-#: src/kcmodule/tabletareaselectionview.cpp:139
-#: src/kcmodule/tabletareaselectionview.cpp:168
+#: src/kcmodule/tabletareaselectionview.cpp:136
+#: src/kcmodule/tabletareaselectionview.cpp:163
 #, fuzzy, kde-format
 #| msgctxt "Title of the applet when an error shows up"
 #| msgid "Tablet Error"
@@ -1033,7 +1033,7 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-#: src/kcmodule/tabletpagewidget.cpp:383
+#: src/kcmodule/tabletpagewidget.cpp:356
 #, fuzzy, kde-format
 #| msgid "Orientation"
 msgctxt ""
@@ -1042,13 +1042,13 @@ msgctxt ""
 msgid "Default Orientation"
 msgstr "ទិស"
 
-#: src/kcmodule/tabletpagewidget.cpp:384
+#: src/kcmodule/tabletpagewidget.cpp:358
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
 msgstr ""
 
-#: src/kcmodule/tabletpagewidget.cpp:385
+#: src/kcmodule/tabletpagewidget.cpp:359
 #, fuzzy, kde-format
 #| msgctxt "rotate the pad counter clock wise"
 #| msgid "counter clockwise"
@@ -1056,7 +1056,7 @@ msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
 msgstr "ច្រាស​ទ្រនិច​នាឡិកា"
 
-#: src/kcmodule/tabletpagewidget.cpp:386
+#: src/kcmodule/tabletpagewidget.cpp:360
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
@@ -1300,61 +1300,61 @@ msgstr "បញ្ច្រាស​ទិសដៅ​រមូរ"
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr ""
 
-#: src/kded/tabletdaemon.cpp:114 src/kded/tabletdaemon.cpp:121
+#: src/kded/tabletdaemon.cpp:111 src/kded/tabletdaemon.cpp:117
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr ""
 
-#: src/kded/tabletdaemon.cpp:174
+#: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "ដេមិន​ការ​កំណត់​រចនាសម្ព័ន្ធ​ក្រាហ្វិក Tablet"
 
-#: src/kded/tabletdaemon.cpp:175
+#: src/kded/tabletdaemon.cpp:172
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "ដេមិន​ការ​ត្រួតពិនិត្យ Wacom tablet"
 
-#: src/kded/tablethandler.cpp:142
+#: src/kded/tablethandler.cpp:134
 #, fuzzy, kde-format
 #| msgid "Tablet removed"
 msgid "Tablet Connected"
 msgstr "បាន​យក tablet ចេញ"
 
-#: src/kded/tablethandler.cpp:143
+#: src/kded/tablethandler.cpp:134
 #, kde-format
 msgid "New tablet '%1' connected."
 msgstr ""
 
-#: src/kded/tablethandler.cpp:173
+#: src/kded/tablethandler.cpp:160
 #, kde-format
 msgid "Tablet removed"
 msgstr "បាន​យក tablet ចេញ"
 
-#: src/kded/tablethandler.cpp:174
+#: src/kded/tablethandler.cpp:160
 #, kde-format
 msgid "Tablet %1 removed"
 msgstr "បាន​យក Tablet %1 ចេញ"
 
-#: src/kded/tablethandler.cpp:461
+#: src/kded/tablethandler.cpp:427
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exists."
 msgid "Default"
 msgstr ""
 
-#: src/kded/tablethandler.cpp:473
+#: src/kded/tablethandler.cpp:437
 #, kde-format
 msgid "Graphic Tablet error"
 msgstr "កំហុស​ក្រាហ្វិក Tablet"
 
-#: src/kded/tablethandler.cpp:474
+#: src/kded/tablethandler.cpp:438
 #, fuzzy, kde-format
 #| msgid "Profile <b>%1</b> does not exist"
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr "ទម្រង់ <b>%1</b> មិន​មាន​ទេ"
 
-#: src/tabletfinder/dialog.cpp:458
+#: src/tabletfinder/dialog.cpp:441
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr ""
@@ -1498,18 +1498,18 @@ msgstr ""
 msgid "Multi-&device tablet, touch sensor"
 msgstr ""
 
-#: src/tabletfinder/hwbuttondialog.cpp:65
+#: src/tabletfinder/hwbuttondialog.cpp:66
 #, fuzzy, kde-format
 #| msgid "Select the rotation of the tablet device."
 msgid "Please press Button %1 on the tablet now."
 msgstr "ជ្រើស​ការ​បង្វិល​សម្រាប់​ឧបករណ៍ tablet ។"
 
-#: src/tabletfinder/hwbuttondialog.cpp:89
+#: src/tabletfinder/hwbuttondialog.cpp:90
 #, kde-format
 msgid "Hardware button %1 detected."
 msgstr ""
 
-#: src/tabletfinder/hwbuttondialog.cpp:101
+#: src/tabletfinder/hwbuttondialog.cpp:102
 #, kde-format
 msgid "All buttons detected. Please close dialog"
 msgstr ""

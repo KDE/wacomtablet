@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:36+0000\n"
+"POT-Creation-Date: 2023-11-13 00:43+0000\n"
 "PO-Revision-Date: 2012-03-07 22:27+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
@@ -27,32 +27,32 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "aalam@users.sf.net"
 
-#: src/common/aboutdata.cpp:33
+#: src/common/aboutdata.cpp:36
 #, kde-format
 msgid "(c), 2009,2010 Jörg Ehrichs"
 msgstr "(c), 2009,2010 Jörg Ehrichs"
 
-#: src/common/aboutdata.cpp:37
+#: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Jörg Ehrichs"
 msgstr ""
 
-#: src/common/aboutdata.cpp:37
+#: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Maintainer"
 msgstr ""
 
-#: src/common/aboutdata.cpp:38
+#: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Alexander Maret-Huskinson"
 msgstr ""
 
-#: src/common/aboutdata.cpp:38
+#: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Developer"
 msgstr ""
 
-#: src/common/buttonshortcut.cpp:91
+#: src/common/buttonshortcut.cpp:93
 #, fuzzy, kde-format
 #| msgctxt "Pad Button action"
 #| msgid "Button %1"
@@ -60,7 +60,7 @@ msgctxt "Tablet button triggers a left mouse button click."
 msgid "Left Mouse Button Click"
 msgstr "ਬਟਨ %1"
 
-#: src/common/buttonshortcut.cpp:93
+#: src/common/buttonshortcut.cpp:95
 #, fuzzy, kde-format
 #| msgctxt "Pad Button action"
 #| msgid "Button %1"
@@ -68,7 +68,7 @@ msgctxt "Tablet button triggers a middle mouse button click."
 msgid "Middle Mouse Button Click"
 msgstr "ਬਟਨ %1"
 
-#: src/common/buttonshortcut.cpp:95
+#: src/common/buttonshortcut.cpp:97
 #, fuzzy, kde-format
 #| msgctxt "Pad Button action"
 #| msgid "Button %1"
@@ -76,31 +76,31 @@ msgctxt "Tablet button triggers a right mouse button click."
 msgid "Right Mouse Button Click"
 msgstr "ਬਟਨ %1"
 
-#: src/common/buttonshortcut.cpp:97
+#: src/common/buttonshortcut.cpp:99
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel up."
 msgid "Mouse Wheel Up"
 msgstr ""
 
-#: src/common/buttonshortcut.cpp:99
+#: src/common/buttonshortcut.cpp:101
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel down."
 msgid "Mouse Wheel Down"
 msgstr ""
 
-#: src/common/buttonshortcut.cpp:101
+#: src/common/buttonshortcut.cpp:103
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel left."
 msgid "Mouse Wheel Left"
 msgstr ""
 
-#: src/common/buttonshortcut.cpp:103
+#: src/common/buttonshortcut.cpp:105
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel right."
 msgid "Mouse Wheel Right"
 msgstr ""
 
-#: src/common/buttonshortcut.cpp:105
+#: src/common/buttonshortcut.cpp:107
 #, fuzzy, kde-format
 #| msgctxt "Pad Button action"
 #| msgid "Button %1"
@@ -108,32 +108,32 @@ msgctxt "Tablet button triggers a click of mouse button with number #"
 msgid "Mouse Button %1 Click"
 msgstr "ਬਟਨ %1"
 
-#: src/common/globalactions.cpp:30
+#: src/common/globalactions.cpp:31
 #, fuzzy, kde-format
 #| msgid "Wacom Tablet Settings"
 msgid "Wacom Tablet"
 msgstr "ਵਕੋਮ ਟੈਬਲੇਟ ਸੈਟਿੰਗ"
 
-#: src/common/globalactions.cpp:34
+#: src/common/globalactions.cpp:35
 #, kde-format
 msgctxt "@action"
 msgid "Enable/Disable the Touch Tool"
 msgstr ""
 
-#: src/common/globalactions.cpp:40
+#: src/common/globalactions.cpp:41
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
 msgstr ""
 
-#: src/common/globalactions.cpp:46
+#: src/common/globalactions.cpp:47
 #, fuzzy, kde-format
 #| msgid "Full screen"
 msgctxt "@action"
 msgid "Toggle between all screens"
 msgstr "ਪੂਰੀ ਸਕਰੀਨ"
 
-#: src/common/globalactions.cpp:52
+#: src/common/globalactions.cpp:53
 #, fuzzy, kde-format
 #| msgid "Full screen"
 msgctxt ""
@@ -142,39 +142,39 @@ msgctxt ""
 msgid "Map to fullscreen"
 msgstr "ਪੂਰੀ ਸਕਰੀਨ"
 
-#: src/common/globalactions.cpp:58
+#: src/common/globalactions.cpp:59
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 1"
 msgstr ""
 
-#: src/common/globalactions.cpp:64
+#: src/common/globalactions.cpp:65
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 2"
 msgstr ""
 
-#: src/common/globalactions.cpp:70
+#: src/common/globalactions.cpp:71
 #, fuzzy, kde-format
 #| msgid "Add new profile"
 msgctxt "@action Switch to the next profile in the rotation"
 msgid "Next profile"
 msgstr "ਨਵਾਂ ਪਰੋਫਾਇਲ ਸ਼ਾਮਲ"
 
-#: src/common/globalactions.cpp:76
+#: src/common/globalactions.cpp:77
 #, kde-format
 msgctxt "@action Switch to the previous profile in the rotation"
 msgid "Previous Profile"
 msgstr ""
 
-#: src/kcmodule/buttonactionselectiondialog.cpp:55
+#: src/kcmodule/buttonactionselectiondialog.cpp:58
 #, fuzzy, kde-format
 #| msgid "Select Button:"
 msgctxt "The action that will be assigned to a tablet button."
 msgid "Select Button Action"
 msgstr "ਬਟਨ ਚੁਣੋ:"
 
-#: src/kcmodule/buttonactionselectionwidget.cpp:150
+#: src/kcmodule/buttonactionselectionwidget.cpp:146
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
@@ -239,7 +239,7 @@ msgstr "ਪੈਡ ਬਟਨ"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:444
+#: src/kcmodule/kcmwacomtabletwidget.cpp:431
 #, fuzzy, kde-format
 #| msgid "Pad Buttons"
 msgid "Express Buttons"
@@ -498,13 +498,13 @@ msgstr ""
 msgid "Wacom Tablet Settings"
 msgstr "ਵਕੋਮ ਟੈਬਲੇਟ ਸੈਟਿੰਗ"
 
-#: src/kcmodule/generalpagewidget.cpp:149
+#: src/kcmodule/generalpagewidget.cpp:146
 #, fuzzy, kde-format
 #| msgid "Profile name:"
 msgid "Profile List"
 msgstr "ਪਰੋਫਾਇਲ ਨਾਂ:"
 
-#: src/kcmodule/generalpagewidget.cpp:150
+#: src/kcmodule/generalpagewidget.cpp:147
 #, fuzzy, kde-format
 #| msgid "Select Profile:"
 msgid "Select the Profile you want to add:"
@@ -558,19 +558,19 @@ msgstr "ਉੱਤੇ:"
 msgid "Shortcuts"
 msgstr "ਸ਼ਾਰਟਕੱਟ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:166
+#: src/kcmodule/kcmwacomtabletwidget.cpp:168
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:167
+#: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
 "The service is required for tablet detection and profile support."
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:171
+#: src/kcmodule/kcmwacomtabletwidget.cpp:174
 #, fuzzy, kde-format
 #| msgid ""
 #| "No tablet device was found.\n"
@@ -582,7 +582,7 @@ msgstr ""
 "\n"
 "ਜੰਤਰ ਕੁਨੈਕਟ ਕਰੋ ਜੀ।"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:172
+#: src/kcmodule/kcmwacomtabletwidget.cpp:176
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -590,59 +590,59 @@ msgid ""
 "database."
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:217
+#: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Add new profile"
 msgstr "ਨਵਾਂ ਪਰੋਫਾਇਲ ਸ਼ਾਮਲ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:218
+#: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Profile name:"
 msgstr "ਪਰੋਫਾਇਲ ਨਾਂ:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:428
+#: src/kcmodule/kcmwacomtabletwidget.cpp:417
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:437
+#: src/kcmodule/kcmwacomtabletwidget.cpp:425
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "ਆਮ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:438
+#: src/kcmodule/kcmwacomtabletwidget.cpp:426
 #, kde-format
 msgid "Stylus"
 msgstr "ਸਟਾਇਲ"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:447
+#: src/kcmodule/kcmwacomtabletwidget.cpp:434
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, fuzzy, kde-format
 #| msgid "Tablet:"
 msgid "Tablet"
 msgstr "ਟੇਬਲੇਟ:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:450
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgid "Touch"
 msgstr ""
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:462
 #, fuzzy, kde-format
 #| msgid "Deletes the current profile"
 msgid "Save changes to the current profile?"
 msgstr "ਮੌਜੂਦਾ ਪਰੋਫਾਇਲ ਹਟਾਓ"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:463
 #, fuzzy, kde-format
 #| msgid "Select Profile:"
 msgid "Save Profile"
 msgstr "ਪਰੋਫਾਇਲ ਚੁਣੋ:"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:486
+#: src/kcmodule/kcmwacomtabletwidget.cpp:476
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
@@ -680,20 +680,20 @@ msgstr "ਮੌਜੂਦਾ ਪਰੋਫਾਇਲ ਹਟਾਓ"
 msgid "Deletes the current profile"
 msgstr "ਮੌਜੂਦਾ ਪਰੋਫਾਇਲ ਹਟਾਓ"
 
-#: src/kcmodule/keysequenceinputbutton.cpp:287
+#: src/kcmodule/keysequenceinputbutton.cpp:277
 #, kde-format
 msgid ""
 "Click on the button, then enter the shortcut like you would in the program.\n"
 "Example for Ctrl+A: hold the Ctrl key and press A."
 msgstr ""
 
-#: src/kcmodule/keysequenceinputbutton.cpp:321
+#: src/kcmodule/keysequenceinputbutton.cpp:310
 #, kde-format
 msgctxt "What the user inputs now will be taken as the new shortcut"
 msgid "Input"
 msgstr ""
 
-#: src/kcmodule/keysequenceinputbutton.cpp:328
+#: src/kcmodule/keysequenceinputbutton.cpp:317
 #, kde-format
 msgctxt "No shortcut defined"
 msgid "None"
@@ -866,7 +866,7 @@ msgstr ""
 msgid "0"
 msgstr ""
 
-#: src/kcmodule/tabletareaselectiondialog.cpp:113
+#: src/kcmodule/tabletareaselectiondialog.cpp:106
 #, fuzzy, kde-format
 #| msgid "Screen Area"
 msgctxt ""
@@ -875,8 +875,8 @@ msgctxt ""
 msgid "Select a Tablet Area"
 msgstr "ਸਕਰੀਨ ਖੇਤਰ"
 
-#: src/kcmodule/tabletareaselectionview.cpp:139
-#: src/kcmodule/tabletareaselectionview.cpp:168
+#: src/kcmodule/tabletareaselectionview.cpp:136
+#: src/kcmodule/tabletareaselectionview.cpp:163
 #, fuzzy, kde-format
 #| msgctxt "Title of the applet when an error shows up"
 #| msgid "Tablet Error"
@@ -1011,7 +1011,7 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-#: src/kcmodule/tabletpagewidget.cpp:383
+#: src/kcmodule/tabletpagewidget.cpp:356
 #, kde-format
 msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
@@ -1019,13 +1019,13 @@ msgctxt ""
 msgid "Default Orientation"
 msgstr ""
 
-#: src/kcmodule/tabletpagewidget.cpp:384
+#: src/kcmodule/tabletpagewidget.cpp:358
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
 msgstr ""
 
-#: src/kcmodule/tabletpagewidget.cpp:385
+#: src/kcmodule/tabletpagewidget.cpp:359
 #, fuzzy, kde-format
 #| msgctxt "rotate the pad counter clock wise"
 #| msgid "counter clockwise"
@@ -1033,7 +1033,7 @@ msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
 msgstr "ਖੱਬੇ ਦਾਅ"
 
-#: src/kcmodule/tabletpagewidget.cpp:386
+#: src/kcmodule/tabletpagewidget.cpp:360
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
@@ -1258,60 +1258,60 @@ msgstr ""
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr ""
 
-#: src/kded/tabletdaemon.cpp:114 src/kded/tabletdaemon.cpp:121
+#: src/kded/tabletdaemon.cpp:111 src/kded/tabletdaemon.cpp:117
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr ""
 
-#: src/kded/tabletdaemon.cpp:174
+#: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr ""
 
-#: src/kded/tabletdaemon.cpp:175
+#: src/kded/tabletdaemon.cpp:172
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "ਵਕੋਮ ਟੈਬਲੇਟ ਕੰਟਰੋਲ ਡੈਮਨ"
 
-#: src/kded/tablethandler.cpp:142
+#: src/kded/tablethandler.cpp:134
 #, fuzzy, kde-format
 #| msgid "Tablet removed"
 msgid "Tablet Connected"
 msgstr "ਟੈਬਲੇਟ ਹਟਾਇਆ"
 
-#: src/kded/tablethandler.cpp:143
+#: src/kded/tablethandler.cpp:134
 #, kde-format
 msgid "New tablet '%1' connected."
 msgstr ""
 
-#: src/kded/tablethandler.cpp:173
+#: src/kded/tablethandler.cpp:160
 #, kde-format
 msgid "Tablet removed"
 msgstr "ਟੈਬਲੇਟ ਹਟਾਇਆ"
 
-#: src/kded/tablethandler.cpp:174
+#: src/kded/tablethandler.cpp:160
 #, kde-format
 msgid "Tablet %1 removed"
 msgstr "%1 ਟੈਬਲੇਟ ਹਟਾਇਆ"
 
-#: src/kded/tablethandler.cpp:461
+#: src/kded/tablethandler.cpp:427
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exists."
 msgid "Default"
 msgstr ""
 
-#: src/kded/tablethandler.cpp:473
+#: src/kded/tablethandler.cpp:437
 #, kde-format
 msgid "Graphic Tablet error"
 msgstr "ਗਰਾਫਿਕਸ ਟੈਬਲੇਟ ਗਲਤੀ"
 
-#: src/kded/tablethandler.cpp:474
+#: src/kded/tablethandler.cpp:438
 #, kde-format
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr ""
 
-#: src/tabletfinder/dialog.cpp:458
+#: src/tabletfinder/dialog.cpp:441
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr ""
@@ -1455,17 +1455,17 @@ msgstr ""
 msgid "Multi-&device tablet, touch sensor"
 msgstr ""
 
-#: src/tabletfinder/hwbuttondialog.cpp:65
+#: src/tabletfinder/hwbuttondialog.cpp:66
 #, kde-format
 msgid "Please press Button %1 on the tablet now."
 msgstr ""
 
-#: src/tabletfinder/hwbuttondialog.cpp:89
+#: src/tabletfinder/hwbuttondialog.cpp:90
 #, kde-format
 msgid "Hardware button %1 detected."
 msgstr ""
 
-#: src/tabletfinder/hwbuttondialog.cpp:101
+#: src/tabletfinder/hwbuttondialog.cpp:102
 #, kde-format
 msgid "All buttons detected. Please close dialog"
 msgstr ""

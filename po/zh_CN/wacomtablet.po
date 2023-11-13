@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:36+0000\n"
+"POT-Creation-Date: 2023-11-13 00:43+0000\n"
 "PO-Revision-Date: 2023-10-21 13:55\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -27,103 +27,103 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde-china@kde.org,tysontan@mail.com"
 
-#: src/common/aboutdata.cpp:33
+#: src/common/aboutdata.cpp:36
 #, kde-format
 msgid "(c), 2009,2010 Jörg Ehrichs"
 msgstr "(c), 2009,2010 Jörg Ehrichs"
 
-#: src/common/aboutdata.cpp:37
+#: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Jörg Ehrichs"
 msgstr "Jörg Ehrichs"
 
-#: src/common/aboutdata.cpp:37
+#: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Maintainer"
 msgstr "项目负责人"
 
-#: src/common/aboutdata.cpp:38
+#: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Alexander Maret-Huskinson"
 msgstr "Alexander Maret-Huskinson"
 
-#: src/common/aboutdata.cpp:38
+#: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Developer"
 msgstr "开发人员"
 
-#: src/common/buttonshortcut.cpp:91
+#: src/common/buttonshortcut.cpp:93
 #, kde-format
 msgctxt "Tablet button triggers a left mouse button click."
 msgid "Left Mouse Button Click"
 msgstr "鼠标左键点击"
 
-#: src/common/buttonshortcut.cpp:93
+#: src/common/buttonshortcut.cpp:95
 #, kde-format
 msgctxt "Tablet button triggers a middle mouse button click."
 msgid "Middle Mouse Button Click"
 msgstr "鼠标中键点击"
 
-#: src/common/buttonshortcut.cpp:95
+#: src/common/buttonshortcut.cpp:97
 #, kde-format
 msgctxt "Tablet button triggers a right mouse button click."
 msgid "Right Mouse Button Click"
 msgstr "鼠标右键点击"
 
-#: src/common/buttonshortcut.cpp:97
+#: src/common/buttonshortcut.cpp:99
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel up."
 msgid "Mouse Wheel Up"
 msgstr "鼠标滚轮向上"
 
-#: src/common/buttonshortcut.cpp:99
+#: src/common/buttonshortcut.cpp:101
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel down."
 msgid "Mouse Wheel Down"
 msgstr "鼠标滚轮向下"
 
-#: src/common/buttonshortcut.cpp:101
+#: src/common/buttonshortcut.cpp:103
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel left."
 msgid "Mouse Wheel Left"
 msgstr "鼠标滚轮向左"
 
-#: src/common/buttonshortcut.cpp:103
+#: src/common/buttonshortcut.cpp:105
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel right."
 msgid "Mouse Wheel Right"
 msgstr "鼠标滚轮向右"
 
-#: src/common/buttonshortcut.cpp:105
+#: src/common/buttonshortcut.cpp:107
 #, kde-format
 msgctxt "Tablet button triggers a click of mouse button with number #"
 msgid "Mouse Button %1 Click"
 msgstr "鼠标按键 %1 点击"
 
-#: src/common/globalactions.cpp:30
+#: src/common/globalactions.cpp:31
 #, kde-format
 msgid "Wacom Tablet"
 msgstr "Wacom 数位板"
 
-#: src/common/globalactions.cpp:34
+#: src/common/globalactions.cpp:35
 #, kde-format
 msgctxt "@action"
 msgid "Enable/Disable the Touch Tool"
 msgstr "启用/禁用触控工具"
 
-#: src/common/globalactions.cpp:40
+#: src/common/globalactions.cpp:41
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
 msgstr "切换压感笔工具的相对/绝对定位模式"
 
-#: src/common/globalactions.cpp:46
+#: src/common/globalactions.cpp:47
 #, kde-format
 msgctxt "@action"
 msgid "Toggle between all screens"
 msgstr "在所有屏幕之间切换"
 
-#: src/common/globalactions.cpp:52
+#: src/common/globalactions.cpp:53
 #, kde-format
 msgctxt ""
 "@action Maps the area of the tablet to all available screen space (space "
@@ -131,37 +131,37 @@ msgctxt ""
 msgid "Map to fullscreen"
 msgstr "映射到全屏"
 
-#: src/common/globalactions.cpp:58
+#: src/common/globalactions.cpp:59
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 1"
 msgstr "映射到屏幕 1"
 
-#: src/common/globalactions.cpp:64
+#: src/common/globalactions.cpp:65
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 2"
 msgstr "映射到屏幕 2"
 
-#: src/common/globalactions.cpp:70
+#: src/common/globalactions.cpp:71
 #, kde-format
 msgctxt "@action Switch to the next profile in the rotation"
 msgid "Next profile"
 msgstr "下一个配置方案"
 
-#: src/common/globalactions.cpp:76
+#: src/common/globalactions.cpp:77
 #, kde-format
 msgctxt "@action Switch to the previous profile in the rotation"
 msgid "Previous Profile"
 msgstr "上一个配置方案"
 
-#: src/kcmodule/buttonactionselectiondialog.cpp:55
+#: src/kcmodule/buttonactionselectiondialog.cpp:58
 #, kde-format
 msgctxt "The action that will be assigned to a tablet button."
 msgid "Select Button Action"
 msgstr "选择按钮操作"
 
-#: src/kcmodule/buttonactionselectionwidget.cpp:150
+#: src/kcmodule/buttonactionselectionwidget.cpp:146
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
@@ -225,7 +225,7 @@ msgstr "数位板按钮"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:444
+#: src/kcmodule/kcmwacomtabletwidget.cpp:431
 #, kde-format
 msgid "Express Buttons"
 msgstr "快捷按钮"
@@ -442,12 +442,12 @@ msgstr ""
 msgid "Wacom Tablet Settings"
 msgstr "Wacom 数位板设置"
 
-#: src/kcmodule/generalpagewidget.cpp:149
+#: src/kcmodule/generalpagewidget.cpp:146
 #, kde-format
 msgid "Profile List"
 msgstr "配置方案列表"
 
-#: src/kcmodule/generalpagewidget.cpp:150
+#: src/kcmodule/generalpagewidget.cpp:147
 #, kde-format
 msgid "Select the Profile you want to add:"
 msgstr "选择要添加的配置方案："
@@ -494,12 +494,12 @@ msgstr "上移"
 msgid "Shortcuts"
 msgstr "快捷键"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:166
+#: src/kcmodule/kcmwacomtabletwidget.cpp:168
 #, kde-format
 msgid "KDE tablet service not found"
 msgstr "没有找到 KDE 数位板服务"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:167
+#: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
 msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
@@ -508,12 +508,12 @@ msgstr ""
 "需要启动 KDE Wacom 数位板服务才能使用此配置对话框。\n"
 "此服务用于检测数位板设备和应用配置文件。"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:171
+#: src/kcmodule/kcmwacomtabletwidget.cpp:174
 #, kde-format
 msgid "No tablet device detected"
 msgstr "没有检测到数位板设备"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:172
+#: src/kcmodule/kcmwacomtabletwidget.cpp:176
 #, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
@@ -523,56 +523,56 @@ msgstr ""
 "请连接一个数位板设备以继续。\n"
 "如果设备已连接，则它未被包含在设备数据库中。"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:217
+#: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Add new profile"
 msgstr "添加新配置方案"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:218
+#: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Profile name:"
 msgstr "配置方案名称："
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:428
+#: src/kcmodule/kcmwacomtabletwidget.cpp:417
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
 msgstr "默认"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:437
+#: src/kcmodule/kcmwacomtabletwidget.cpp:425
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
 msgstr "常规"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:438
+#: src/kcmodule/kcmwacomtabletwidget.cpp:426
 #, kde-format
 msgid "Stylus"
 msgstr "压感笔"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
-#: src/kcmodule/kcmwacomtabletwidget.cpp:447
+#: src/kcmodule/kcmwacomtabletwidget.cpp:434
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "数位板"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:450
+#: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgid "Touch"
 msgstr "触控"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:462
 #, kde-format
 msgid "Save changes to the current profile?"
 msgstr "是否保存更改到当前配置文件？"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:475
+#: src/kcmodule/kcmwacomtabletwidget.cpp:463
 #, kde-format
 msgid "Save Profile"
 msgstr "保存配置方案"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:486
+#: src/kcmodule/kcmwacomtabletwidget.cpp:476
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr "无法启动 Wacom 数位板扫描工具。请检查系统配置。"
@@ -607,7 +607,7 @@ msgstr "新建默认配置方案"
 msgid "Deletes the current profile"
 msgstr "删除当前配置方案"
 
-#: src/kcmodule/keysequenceinputbutton.cpp:287
+#: src/kcmodule/keysequenceinputbutton.cpp:277
 #, kde-format
 msgid ""
 "Click on the button, then enter the shortcut like you would in the program.\n"
@@ -616,13 +616,13 @@ msgstr ""
 "单击此按钮，然后按下与在该程序内操作时同样的快捷键。\n"
 "例如 Ctrl+A 就是按住 Ctrl 键再按下 A。"
 
-#: src/kcmodule/keysequenceinputbutton.cpp:321
+#: src/kcmodule/keysequenceinputbutton.cpp:310
 #, kde-format
 msgctxt "What the user inputs now will be taken as the new shortcut"
 msgid "Input"
 msgstr "输入"
 
-#: src/kcmodule/keysequenceinputbutton.cpp:328
+#: src/kcmodule/keysequenceinputbutton.cpp:317
 #, kde-format
 msgctxt "No shortcut defined"
 msgid "None"
@@ -801,7 +801,7 @@ msgstr "抑制率"
 msgid "0"
 msgstr "0"
 
-#: src/kcmodule/tabletareaselectiondialog.cpp:113
+#: src/kcmodule/tabletareaselectiondialog.cpp:106
 #, kde-format
 msgctxt ""
 "Dialog title from a dialog which lets the user select an area of the tablet "
@@ -809,8 +809,8 @@ msgctxt ""
 msgid "Select a Tablet Area"
 msgstr "选择数位板区域"
 
-#: src/kcmodule/tabletareaselectionview.cpp:139
-#: src/kcmodule/tabletareaselectionview.cpp:168
+#: src/kcmodule/tabletareaselectionview.cpp:136
+#: src/kcmodule/tabletareaselectionview.cpp:163
 #, kde-format
 msgid "Internal Error"
 msgstr "内部错误"
@@ -938,7 +938,7 @@ msgstr "上边距"
 msgid "Height"
 msgstr "高度"
 
-#: src/kcmodule/tabletpagewidget.cpp:383
+#: src/kcmodule/tabletpagewidget.cpp:356
 #, kde-format
 msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
@@ -946,19 +946,19 @@ msgctxt ""
 msgid "Default Orientation"
 msgstr "默认朝向"
 
-#: src/kcmodule/tabletpagewidget.cpp:384
+#: src/kcmodule/tabletpagewidget.cpp:358
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
 msgstr "顺时针旋转数位板"
 
-#: src/kcmodule/tabletpagewidget.cpp:385
+#: src/kcmodule/tabletpagewidget.cpp:359
 #, kde-format
 msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
 msgstr "逆时针旋转数位板"
 
-#: src/kcmodule/tabletpagewidget.cpp:386
+#: src/kcmodule/tabletpagewidget.cpp:360
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
@@ -1175,59 +1175,59 @@ msgstr "反转滚动方向"
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr "如果选中，滚动手势的滚动方向将被反转。"
 
-#: src/kded/tabletdaemon.cpp:114 src/kded/tabletdaemon.cpp:121
+#: src/kded/tabletdaemon.cpp:111 src/kded/tabletdaemon.cpp:117
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "配置"
 
-#: src/kded/tabletdaemon.cpp:174
+#: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "数位板配置守护进程"
 
-#: src/kded/tabletdaemon.cpp:175
+#: src/kded/tabletdaemon.cpp:172
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Wacom 数位板控制守护进程"
 
-#: src/kded/tablethandler.cpp:142
+#: src/kded/tablethandler.cpp:134
 #, kde-format
 msgid "Tablet Connected"
 msgstr "数位板已连接"
 
-#: src/kded/tablethandler.cpp:143
+#: src/kded/tablethandler.cpp:134
 #, kde-format
 msgid "New tablet '%1' connected."
 msgstr "新数位板“%1”已连接。"
 
-#: src/kded/tablethandler.cpp:173
+#: src/kded/tablethandler.cpp:160
 #, kde-format
 msgid "Tablet removed"
 msgstr "数位板已移除"
 
-#: src/kded/tablethandler.cpp:174
+#: src/kded/tablethandler.cpp:160
 #, kde-format
 msgid "Tablet %1 removed"
 msgstr "数位板“%1”已移除"
 
-#: src/kded/tablethandler.cpp:461
+#: src/kded/tablethandler.cpp:427
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exists."
 msgid "Default"
 msgstr "默认"
 
-#: src/kded/tablethandler.cpp:473
+#: src/kded/tablethandler.cpp:437
 #, kde-format
 msgid "Graphic Tablet error"
 msgstr "数位板错误"
 
-#: src/kded/tablethandler.cpp:474
+#: src/kded/tablethandler.cpp:438
 #, kde-format
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
 msgstr "配置方案 <b>%1</b> 不存在。改为应用 <b>%2</b> 方案。"
 
-#: src/tabletfinder/dialog.cpp:458
+#: src/tabletfinder/dialog.cpp:441
 #, kde-format
 msgid "Button %1 maps to Button %2"
 msgstr "按钮 %1 映射到按钮 %2"
@@ -1358,17 +1358,17 @@ msgstr "多设备数位板，压感笔传感器。触摸传感器为(&M)："
 msgid "Multi-&device tablet, touch sensor"
 msgstr "多设备数位板(&D)，触摸传感器"
 
-#: src/tabletfinder/hwbuttondialog.cpp:65
+#: src/tabletfinder/hwbuttondialog.cpp:66
 #, kde-format
 msgid "Please press Button %1 on the tablet now."
 msgstr "请按下数位板的 %1 按钮。"
 
-#: src/tabletfinder/hwbuttondialog.cpp:89
+#: src/tabletfinder/hwbuttondialog.cpp:90
 #, kde-format
 msgid "Hardware button %1 detected."
 msgstr "检测到硬件按钮 %1 。"
 
-#: src/tabletfinder/hwbuttondialog.cpp:101
+#: src/tabletfinder/hwbuttondialog.cpp:102
 #, kde-format
 msgid "All buttons detected. Please close dialog"
 msgstr "已检测完所有按钮，请关闭对话框"
