@@ -113,7 +113,7 @@ msgstr "Tauleta Wacom"
 #, kde-format
 msgctxt "@action"
 msgid "Enable/Disable the Touch Tool"
-msgstr "Activa/Desactiva l'eina tàctil"
+msgstr "Activa o desactiva l'eina tàctil"
 
 #: src/common/globalactions.cpp:40
 #, kde-format
@@ -1079,7 +1079,7 @@ msgstr "Orientació"
 #: src/kcmodule/tabletpagewidget.ui:181
 #, kde-format
 msgid "If enabled, the tablet rotates together with the screen."
-msgstr "Si està activada, la tauleta girarà juntament amb la pantalla."
+msgstr "Si se selecciona, la tauleta girarà juntament amb la pantalla."
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:184
@@ -1094,7 +1094,7 @@ msgid ""
 "If enabled the automatic tablet rotation for clockwise and counterclockwise "
 "rotations will be inverted."
 msgstr ""
-"Si està activada, s'invertirà el gir automàtic de la tauleta en sentit "
+"Si se selecciona, s'invertirà el gir automàtic de la tauleta en sentit "
 "horari i antihorari."
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenInvertCheckBox)
@@ -1107,7 +1107,7 @@ msgstr "Invertix el gir automàtic"
 #: src/kcmodule/touchpagewidget.ui:17
 #, kde-format
 msgid "If enabled the tablet will emit touch events."
-msgstr "Si està activada, la tauleta emetrà esdeveniments tàctils."
+msgstr "Si se selecciona, la tauleta emetrà esdeveniments tàctils."
 
 #. i18n: ectx: property (text), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:20
@@ -1137,7 +1137,7 @@ msgstr "Associa una àrea tàctil a la pantalla"
 #: src/kcmodule/touchpagewidget.ui:183
 #, kde-format
 msgid "If enabled the touch events can recognize gestures."
-msgstr "Si està activada, els esdeveniments tàctils podran reconéixer gestos."
+msgstr "Si se selecciona, els esdeveniments tàctils podran reconéixer gestos."
 
 #. i18n: ectx: property (text), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:186
