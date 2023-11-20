@@ -123,6 +123,7 @@
         "Version": "3.3.0",
         "Website": "https://invent.kde.org/system/wacomtablet"
     },
+    "X-Plasma-API-Minimum-Version": "6.0",
     "Keywords": "Wacom",
     "Keywords[ar]": "واكُم",
     "Keywords[ca@valencia]": "Wacom",
