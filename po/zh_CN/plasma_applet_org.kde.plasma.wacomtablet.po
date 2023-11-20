@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-08-30 07:38+0200\n"
-"PO-Revision-Date: 2023-11-11 07:24\n"
+"PO-Revision-Date: 2023-11-19 03:43\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -84,19 +84,19 @@ msgstr "默认朝向"
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
-msgstr "顺时针旋转数位板"
+msgstr "旋转数位板 (顺时针)"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:245
 #, kde-format
 msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
-msgstr "逆时针旋转数位板"
+msgstr "旋转数位板 (逆时针)"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:250
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
-msgstr "上下翻转数位板"
+msgstr "旋转数位板 (垂直翻转)"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:254
 #, kde-format
