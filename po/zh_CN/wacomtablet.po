@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2023-10-21 13:55\n"
+"PO-Revision-Date: 2023-11-19 03:41\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -950,19 +950,19 @@ msgstr "默认朝向"
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
-msgstr "顺时针旋转数位板"
+msgstr "旋转数位板 (顺时针)"
 
 #: src/kcmodule/tabletpagewidget.cpp:359
 #, kde-format
 msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
-msgstr "逆时针旋转数位板"
+msgstr "旋转数位板 (逆时针)"
 
 #: src/kcmodule/tabletpagewidget.cpp:360
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
-msgstr "上下翻转数位板"
+msgstr "旋转数位板 (垂直翻转)"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:25 src/kcmodule/touchpagewidget.ui:57
@@ -1386,12 +1386,3 @@ msgid ""
 "Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
 "the mouse."
 msgstr "在对话框中移动鼠标光标，但是<b>不要</b>在里面点击鼠标按钮。"
-
-#~ msgid "Graphic Tablet Configuration"
-#~ msgstr "数位板配置"
-
-#~ msgid "A configurator for graphic tablets"
-#~ msgstr "数位板配置工具"
-
-#~ msgid "In this module you can configure your Wacom tablet profiles"
-#~ msgstr "你可以在此模块中配置 Wacom 数位板的配置方案"
