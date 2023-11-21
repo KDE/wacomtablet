@@ -123,7 +123,6 @@
         "Version": "3.3.0",
         "Website": "https://invent.kde.org/system/wacomtablet"
     },
-    "X-Plasma-API-Minimum-Version": "6.0",
     "Keywords": "Wacom",
     "Keywords[ar]": "واكُم",
     "Keywords[ca@valencia]": "Wacom",
@@ -162,6 +161,7 @@
     "Keywords[zh_TW]": "Wacom",
     "X-KDE-ParentApp": "",
     "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-API-Minimum-Version": "6.0",
     "X-Plasma-DBusActivationService": "org.kde.Wacom",
     "X-Plasma-DefaultSize": "32,32",
     "X-Plasma-MainScript": "ui/main.qml",
