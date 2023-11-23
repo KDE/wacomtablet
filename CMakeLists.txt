@@ -30,10 +30,11 @@ ecm_setup_version(${PROJECT_VERSION}
 )
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets DBus Qml)
-find_package(KF6 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons Plasma DocTools KCMUtils KIO)
+find_package(KF6 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui WidgetsAddons WindowSystem Notifications DBusAddons DocTools KCMUtils KIO)
 find_package(XCB REQUIRED COMPONENTS XINPUT)
 find_package(X11 REQUIRED)
 
+find_package(Plasma ${PROJECT_VERSION} REQUIRED)
 find_package(KF6Plasma5Support REQUIRED)
 
 find_package(PkgConfig REQUIRED)
