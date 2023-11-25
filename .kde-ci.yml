@@ -14,7 +14,7 @@ Dependencies:
     'frameworks/kdoctools': '@latest-kf6'
     'frameworks/kcmutils': '@latest-kf6'
     'frameworks/kio': '@latest-kf6'
-    'plasma/plasma-framework': '@same'
+    'plasma/libplasma': '@same'
     'plasma/plasma5support': '@same'
 
 Options:
