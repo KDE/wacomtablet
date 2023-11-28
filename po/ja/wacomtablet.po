@@ -1395,6 +1395,3 @@ msgid ""
 "Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
 "the mouse."
 msgstr ""
-
-#~ msgid "Graphic Tablet Configuration"
-#~ msgstr "グラフィックタブレットの環境設定"
