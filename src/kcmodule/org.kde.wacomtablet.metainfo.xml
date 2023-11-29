@@ -12,6 +12,7 @@
   <name xml:lang="de">KDE-Modul für Wacom-Tablett</name>
   <name xml:lang="el">Άρθρωμα πινακίου Wacom του KDE</name>
   <name xml:lang="en-GB">KDE Wacom tablet module</name>
+  <name xml:lang="eo">Wacom-tabuletmodulo de KDE</name>
   <name xml:lang="es">Módulo de KDE para tabletas Wacom</name>
   <name xml:lang="et">KDE Wacomi graafikalaua moodul</name>
   <name xml:lang="eu">KDE  Wacom tableta modulua</name>
@@ -46,6 +47,7 @@
   <summary xml:lang="de">Oberfläche zum Einrichten von Grafiktabletts</summary>
   <summary xml:lang="el">Γραφικό περιβάλλον διαμόρφωσης για πινάκια με γραφικά</summary>
   <summary xml:lang="en-GB">Configuration GUI for graphical tablets</summary>
+  <summary xml:lang="eo">Agorda GUI por grafikaj tabuletoj</summary>
   <summary xml:lang="es">Interfaz gráfica de configuración para tabletas gráficas</summary>
   <summary xml:lang="et">Graafikalaua seadistamine</summary>
   <summary xml:lang="eu">Grafikoetarako tabletak konfiguratzeko GUI</summary>
@@ -121,6 +123,7 @@
       <caption xml:lang="de">Einrichtungsfenster.</caption>
       <caption xml:lang="el">Παράθυρο ρυθμίσεων.</caption>
       <caption xml:lang="en-GB">Settings window.</caption>
+      <caption xml:lang="eo">Fenestro de agordoj.</caption>
       <caption xml:lang="es">Ventana de preferencias.</caption>
       <caption xml:lang="et">Seadistusaken.</caption>
       <caption xml:lang="eu">Ezarpenen leihoa.</caption>
