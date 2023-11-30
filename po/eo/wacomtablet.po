@@ -125,11 +125,7 @@ msgid "Toggle between all screens"
 msgstr "Ŝanĝi inter ĉiuj ekranoj"
 
 #: src/common/globalactions.cpp:52
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "@action Maps the area of the tablet to all available screen space (space "
-#| "¦depends on connected monitors)"
-#| msgid "Map to fullscreen"
+#, kde-format
 msgctxt ""
 "@action Maps the area of the tablet to all available screen space (space "
 "depends on connected monitors)"
@@ -835,11 +831,7 @@ msgid "0"
 msgstr "0"
 
 #: src/kcmodule/tabletareaselectiondialog.cpp:114
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "Dialog title from a dialog which lets the user select an area of the "
-#| "tablet ¦where the screen space will be mapped to."
-#| msgid "Select a Tablet Area"
+#, kde-format
 msgctxt ""
 "Dialog title from a dialog which lets the user select an area of the tablet "
 "where the screen space will be mapped to."
@@ -977,11 +969,7 @@ msgid "Height"
 msgstr "Alteco"
 
 #: src/kcmodule/tabletpagewidget.cpp:384
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "Either no orientation or the current screen orientation is applied to the "
-#| "¦tablet."
-#| msgid "Default Orientation"
+#, kde-format
 msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
