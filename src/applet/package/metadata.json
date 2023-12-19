@@ -1,5 +1,4 @@
 {
-    "KPackageStructure": "Plasma/Applet",
     "KPlugin": {
         "Authors": [
             {
@@ -119,9 +118,6 @@
         "Name[x-test]": "xxWacom Tabletxx",
         "Name[zh_CN]": "Wacom 数位板",
         "Name[zh_TW]": "Wacom 平板裝置",
-        "ServiceTypes": [
-            "Plasma/Applet"
-        ],
         "Version": "3.3.0",
         "Website": "https://invent.kde.org/system/wacomtablet"
     },
@@ -161,11 +157,11 @@
     "Keywords[x-test]": "xxWacomxx",
     "Keywords[zh_CN]": "Wacom",
     "Keywords[zh_TW]": "Wacom",
-    "X-KDE-ParentApp": "",
-    "X-Plasma-API": "declarativeappletscript",
     "X-Plasma-API-Minimum-Version": "6.0",
     "X-Plasma-DBusActivationService": "org.kde.Wacom",
     "X-Plasma-DefaultSize": "32,32",
     "X-Plasma-MainScript": "ui/main.qml",
-    "X-Plasma-NotificationArea": "true"
+    "X-Plasma-NotificationArea": true,
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-NotificationAreaCategory": "Hardware"
 }

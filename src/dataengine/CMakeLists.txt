@@ -20,8 +20,8 @@ target_link_libraries(plasma_engine_wacomtablet
 target_link_libraries(plasma_engine_wacomtablet KF6::Plasma5Support)
 
 install(TARGETS plasma_engine_wacomtablet
-        DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma/dataengine
+        DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma5support/dataengine
 )
 install(FILES wacomtablet.operations
-        DESTINATION ${PLASMA_DATA_INSTALL_DIR}/services
+        DESTINATION ${KDE_INSTALL_DATADIR}/plasma5support/services
 )

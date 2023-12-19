@@ -18,12 +18,16 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import QtQuick
+import QtQuick.Layouts
+import org.kde.plasma.plasmoid
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.plasma5support as P5Support
+import org.kde.ksvg as KSvg
+import org.kde.kcmutils as KCMUtils
+import org.kde.config as KConfig
 
-Item {
+PlasmoidItem {
     id: root
 
     function action_wacomtabletkcm() {
@@ -32,31 +36,38 @@ Item {
         service.startOperationCall(operation);
     }
 
+    PlasmaCore.Action {
+        id: configureAction
+        text: i18n("&Configure Graphics Tablet...")
+        icon.name: "configure"
+        visible: KConfig.KAuthorized.authorizeControlModule("kcm_wacomtablet");
+        onTriggered: KCMUtils.KCMLauncher.openSystemSettings("kcm_wacomtablet");
+    }
+
     Component.onCompleted: {
-        plasmoid.removeAction("configure");
-        plasmoid.setAction("wacomtabletkcm", i18n("&Configure Graphics Tablet..."), "input-tablet");
+        Plasmoid.setInternalAction("configure", configureAction)
     }
 
     property bool active: dataSource.data["wacomtablet"]["serviceAvailable"] && dataModel.count != 0
 
-    Plasmoid.toolTipMainText: i18n("Wacom Tablet")
+    toolTipMainText: i18n("Wacom Tablet")
     Plasmoid.status: active ? PlasmaCore.Types.ActiveStatus : PlasmaCore.Types.PassiveStatus
     Plasmoid.icon: "input-tablet"
-    PlasmaCore.Svg {
+    KSvg.Svg {
         id: lineSvg
         imagePath: "widgets/line"
     }
 
-    PlasmaCore.DataSource {
+    P5Support.DataSource {
         id: dataSource
         engine: "wacomtablet"
         connectedSources: dataSource.sources
     }
-    PlasmaCore.DataModel {
+    P5Support.DataModel {
         id: dataModel
         dataSource: dataSource
         sourceFilter: "Tablet.*"
     }
 
-    Plasmoid.fullRepresentation: FullRepresentation { }
+    fullRepresentation: FullRepresentation { }
 }

@@ -18,12 +18,12 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 1.0 as QtControls
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
+import QtQuick
+import QtQuick.Layouts
+import org.kde.plasma.plasmoid
+import org.kde.plasma.components as PC3
+import org.kde.ksvg as KSvg
+import org.kde.kirigami as Kirigami
 
 Item {
     function defaultValue(value, d) {
@@ -52,15 +52,15 @@ Item {
             left: parent.left
             right: parent.right
         }
-        spacing: units.smallSpacing
+        spacing: Kirigami.Units.smallSpacing
         
-        PlasmaCore.IconItem {
+        Kirigami.Icon {
             id: titleIcon
             source: "input-tablet"
-            width: units.iconSizes.Medium
+            width: Kirigami.Units.iconSizes.medium
             height: width
         }
-        PlasmaComponents.Label {
+        PC3.Label {
             id: deviceNameLabel
             anchors.verticalCenter: parent.verticalCenter
             width: parent.width - titleIcon.width - parent.spacing
@@ -69,7 +69,7 @@ Item {
         }
     }
 
-    PlasmaCore.SvgItem {
+    KSvg.SvgItem {
         id: separator
         anchors {
             top: title.bottom
@@ -87,19 +87,19 @@ Item {
             bottom: parent.bottom
             left: parent.left
             right: parent.right
-            topMargin: units.smallSpacing
-            leftMargin: units.smallSpacing
+            topMargin: Kirigami.Units.smallSpacing
+            leftMargin: Kirigami.Units.smallSpacing
         }
         visible: !root.active
-        spacing: units.smallSpacing * 2
+        spacing: Kirigami.Units.smallSpacing * 2
         
-        PlasmaCore.IconItem {
+        Kirigami.Icon {
             id: errorIcon
-            width: units.iconSizes.medium
+            width: Kirigami.Units.iconSizes.medium
             height: width
             source: "dialog-warning"
         }
-        PlasmaComponents.Label {
+        PC3.Label {
             id: errorLabel
             width: parent.width - errorIcon.width - parent.spacing
             text: dataSource.data["wacomtablet"]["serviceAvailable"] ?
@@ -119,15 +119,15 @@ Item {
             left: parent.left
             right: parent.right
             top: separator.bottom
-            topMargin: units.smallSpacing
+            topMargin: Kirigami.Units.smallSpacing
         }
         visible: root.active
         columns: 2
-        PlasmaComponents.Label {
+        PC3.Label {
             text: i18n("Select Tablet:")
         }
 
-        QtControls.ComboBox {
+        PC3.ComboBox {
             id: tabletComboBox
             Layout.fillWidth: true
             model: dataModel
@@ -151,7 +151,7 @@ Item {
             }
         }
 
-        PlasmaComponents.Label {
+        PC3.Label {
             text: i18n("Select Profile:")
         }
 
@@ -159,7 +159,7 @@ Item {
             id: profileModel
         }
 
-        QtControls.ComboBox {
+        PC3.ComboBox {
             id: profileComboBox
             Layout.fillWidth: true
             model: profileModel
@@ -199,63 +199,69 @@ Item {
         }
     }
 
-    QtControls.GroupBox {
+    PC3.GroupBox {
         visible: root.active
         anchors {
             left: parent.left
             right: parent.right
             top: selector.bottom
             bottom: parent.bottom
-            topMargin: units.smallSpacing
+            topMargin: Kirigami.Units.smallSpacing
         }
         title: i18nc( "Groupbox Settings for the applet to change some values on the fly", "Settings" )
         GridLayout {
             columns: 2
-            PlasmaComponents.Label {
+            PC3.Label {
                 visible: defaultValue(dataModel.get(tabletComboBox.currentIndex).hasTouch, false)
                 text: i18nc( "Toggle between touch on/off", "Touch:" )
             }
 
-            QtControls.CheckBox {
+            PC3.CheckBox {
                 visible: defaultValue(dataModel.get(tabletComboBox.currentIndex).hasTouch, false);
                 checked: defaultValue(dataModel.get(tabletComboBox.currentIndex).touch, false);
             }
 
 
-            PlasmaComponents.Label {
+            PC3.Label {
                 text: i18nc( "Rotation of the tablet pad", "Rotation:" )
             }
 
             RowLayout {
                 RotationButton {
                     rotation: "none"
-                    iconSource: "input-tablet"
-                    tooltip: i18nc("Either no orientation or the current screen orientation is applied to the tablet.", "Default Orientation");
+                    icon.name: "input-tablet"
+                    PC3.ToolTip.text: i18nc("Either no orientation or the current screen orientation is applied to the tablet.", "Default Orientation");
+                    PC3.ToolTip.delay: Kirigami.Units.toolTipDelay
+                    PC3.ToolTip.visible: hovered
                 }
                 RotationButton {
                     rotation: "cw"
-                    iconSource: "object-rotate-left"
-                    tooltip: i18nc("The tablet will be rotated clockwise.", "Rotate Tablet Clockwise")
+                    icon.name: "object-rotate-left"
+                    PC3.ToolTip.text: i18nc("The tablet will be rotated clockwise.", "Rotate Tablet Clockwise")
+                    PC3.ToolTip.delay: Kirigami.Units.toolTipDelay
+                    PC3.ToolTip.visible: hovered
                 }
                 RotationButton {
                     rotation: "ccw"
-                    iconSource: "object-rotate-right"
-                    tooltip: i18nc("The tablet will be rotated counterclockwise.", "Rotate Tablet Counterclockwise")
+                    icon.name: "object-rotate-right"
+                    PC3.ToolTip.text: i18nc("The tablet will be rotated counterclockwise.", "Rotate Tablet Counterclockwise")
+                    PC3.ToolTip.delay: Kirigami.Units.toolTipDelay
+                    PC3.ToolTip.visible: hovered
                 }
                 RotationButton {
                     rotation: "half"
-                    iconSource: "object-flip-vertical"
-                    tooltip: i18nc("The tablet will be rotated up side down.", "Rotate Tablet Upside-Down")
+                    icon.name: "object-flip-vertical"
+                    PC3.ToolTip.text: i18nc("The tablet will be rotated up side down.", "Rotate Tablet Upside-Down")
+                    PC3.ToolTip.delay: Kirigami.Units.toolTipDelay
+                    PC3.ToolTip.visible: hovered
                 }
             }
-            PlasmaComponents.Label {
+            PC3.Label {
                 text: i18nc( "Toggle between absolute/relative penmode", "Mode:" )
             }
             RowLayout {
-                QtControls.ExclusiveGroup { id: modeGroup }
-                QtControls.RadioButton {
+                PC3.RadioButton {
                     text: i18nc( "absolute pen movement (pen mode)", "Absolute" )
-                    exclusiveGroup: modeGroup
                     checked: defaultValue(dataModel.get(tabletComboBox.currentIndex).stylusMode, true);
                     onClicked : {
                         if (tabletComboBox.currentIndex < 0) {
@@ -268,9 +274,8 @@ Item {
                         service.startOperationCall(operation);
                     }
                 }
-                QtControls.RadioButton {
+                PC3.RadioButton {
                     text: i18nc( "relative pen movement (mouse mode)", "Relative" )
-                    exclusiveGroup: modeGroup
                     onClicked : {
                         if (tabletComboBox.currentIndex < 0) {
                             return;
