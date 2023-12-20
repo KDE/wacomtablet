@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:36+0000\n"
+"POT-Creation-Date: 2023-12-20 01:35+0000\n"
 "PO-Revision-Date: 2023-12-17 11:26\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -80,48 +80,48 @@ msgctxt ""
 msgid "Default Orientation"
 msgstr "默认朝向"
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:238
+#: src/applet/package/contents/ui/FullRepresentation.qml:240
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
 msgstr "旋转数位板 (顺时针)"
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:243
+#: src/applet/package/contents/ui/FullRepresentation.qml:247
 #, kde-format
 msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
 msgstr "旋转数位板 (逆时针)"
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:248
+#: src/applet/package/contents/ui/FullRepresentation.qml:254
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
 msgstr "旋转数位板 (垂直翻转)"
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:252
+#: src/applet/package/contents/ui/FullRepresentation.qml:260
 #, kde-format
 msgctxt "Toggle between absolute/relative penmode"
 msgid "Mode:"
 msgstr "模式："
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:257
+#: src/applet/package/contents/ui/FullRepresentation.qml:264
 #, kde-format
 msgctxt "absolute pen movement (pen mode)"
 msgid "Absolute"
 msgstr "绝对定位"
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:272
+#: src/applet/package/contents/ui/FullRepresentation.qml:278
 #, kde-format
 msgctxt "relative pen movement (mouse mode)"
 msgid "Relative"
 msgstr "相对定位"
 
-#: src/applet/package/contents/ui/main.qml:37
+#: src/applet/package/contents/ui/main.qml:41
 #, kde-format
 msgid "&Configure Graphics Tablet..."
 msgstr "配置数位板(&C)..."
 
-#: src/applet/package/contents/ui/main.qml:42
+#: src/applet/package/contents/ui/main.qml:53
 #, kde-format
 msgid "Wacom Tablet"
 msgstr "Wacom 数位板"

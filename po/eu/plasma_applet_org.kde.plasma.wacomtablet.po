@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:36+0000\n"
+"POT-Creation-Date: 2023-12-20 01:35+0000\n"
 "PO-Revision-Date: 2020-01-19 23:23+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@euskalnet.net>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -84,48 +84,48 @@ msgctxt ""
 msgid "Default Orientation"
 msgstr "Orientazio lehenetsia"
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:238
+#: src/applet/package/contents/ui/FullRepresentation.qml:240
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
 msgstr "Biratu tableta erloju-orratzen noranzkoan"
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:243
+#: src/applet/package/contents/ui/FullRepresentation.qml:247
 #, kde-format
 msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
 msgstr "Biratu tableta erloju-orratzen aurkako noranzkoan"
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:248
+#: src/applet/package/contents/ui/FullRepresentation.qml:254
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
 msgstr "Biratu tableta buruz behera"
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:252
+#: src/applet/package/contents/ui/FullRepresentation.qml:260
 #, kde-format
 msgctxt "Toggle between absolute/relative penmode"
 msgid "Mode:"
 msgstr "Modua:"
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:257
+#: src/applet/package/contents/ui/FullRepresentation.qml:264
 #, kde-format
 msgctxt "absolute pen movement (pen mode)"
 msgid "Absolute"
 msgstr "Absolutua"
 
-#: src/applet/package/contents/ui/FullRepresentation.qml:272
+#: src/applet/package/contents/ui/FullRepresentation.qml:278
 #, kde-format
 msgctxt "relative pen movement (mouse mode)"
 msgid "Relative"
 msgstr "Erlatiboa"
 
-#: src/applet/package/contents/ui/main.qml:37
+#: src/applet/package/contents/ui/main.qml:41
 #, kde-format
 msgid "&Configure Graphics Tablet..."
 msgstr "&Konfiguratu grafikoen tableta..."
 
-#: src/applet/package/contents/ui/main.qml:42
+#: src/applet/package/contents/ui/main.qml:53
 #, kde-format
 msgid "Wacom Tablet"
 msgstr "Wacom tableta"
