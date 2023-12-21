@@ -35,7 +35,7 @@ find_package(XCB REQUIRED COMPONENTS XINPUT)
 find_package(X11 REQUIRED)
 
 find_package(Plasma ${PROJECT_VERSION} REQUIRED)
-find_package(KF6Plasma5Support REQUIRED)
+find_package(Plasma5Support REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBWACOM libwacom REQUIRED IMPORTED_TARGET)
