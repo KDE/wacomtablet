@@ -180,14 +180,14 @@ Item {
 
     Connections {
         target: dataSource
-        onConnectedSourcesChanged : {
+        function onConnectedSourcesChanged() {
             tabletComboBox.currentIndex = -1;
             if (dataModel.count > 0) {
                 tabletComboBox.currentIndex = 0;
             }
         }
 
-        onNewData: {
+        function onNewData() {
             if (tabletComboBox.currentIndex < 0) {
                 return;
             }
