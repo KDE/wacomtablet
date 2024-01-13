@@ -3,14 +3,14 @@
 #
 # Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>, 2010, 2011.
 # Kira J. Fernandez <kirajfdez@gmail.com>, 2010.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2011, 2012, 2013, 2014, 2015, 2018, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2018, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
 # Rocio Gallego <traducciones@rociogallego.com>, 2013, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2023-02-21 14:03+0100\n"
+"PO-Revision-Date: 2024-01-11 01:59+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.08.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -500,7 +500,7 @@ msgstr "Arriba"
 #: src/kcmodule/generalpagewidget.ui:140
 #, kde-format
 msgid "Shortcuts"
-msgstr "Accesos rápidos"
+msgstr "Atajos de teclado"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:168
 #, kde-format
@@ -625,9 +625,9 @@ msgid ""
 "Click on the button, then enter the shortcut like you would in the program.\n"
 "Example for Ctrl+A: hold the Ctrl key and press A."
 msgstr ""
-"Haga clic en el botón y después introduzca el acceso rápido que desee "
-"asignar al programa.\n"
-"Por ejemplo, para Ctrl+A: mantenga pulsada la tecla Ctrl y pulse A."
+"Pulse sobre el botón e introduzca a continuación el atajo de teclado que "
+"desee para el programa.\n"
+"Ejemplo para «Ctrl+A»: mantenga pulsada la tecla «Ctrl» y luego pulse «A»."
 
 #: src/kcmodule/keysequenceinputbutton.cpp:310
 #, kde-format

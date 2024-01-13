@@ -163,7 +163,7 @@
         </note>
 
         <para
->Además de la información de la tableta, la pestaña «General» permite establecer varios accesos rápidos globales. Cada acceso rápido permite cambiar de manera dinámica las opciones de la tableta conectada actualmente. </para>
+>Además de la información de la tableta, la pestaña «General» permite establecer varios atajos de teclado globales. Cada atajo de teclado permite cambiar de manera dinámica las opciones de la tableta conectada actualmente. </para>
 
     </sect1>
 
@@ -284,7 +284,7 @@
 >Toque</guilabel
 > permite establecer más propiedades para la parte táctil de la tableta (si está disponible. Se puede desactivar la funcionalidad táctil mediante la casilla de verificación <guilabel
 >Activar toque</guilabel
->. También existe un acceso rápido global que permite activar o desactivar la funcionalidad táctil. </para>
+>. También existe un atajo de teclado global que permite activar o desactivar la funcionalidad táctil. </para>
 
        <sect2 id="touch-tracking">
            <title
@@ -406,7 +406,7 @@
         <para
 >Utilice el botón <guilabel
 >Conmutar pantalla</guilabel
-> para cambiar entre la pantalla completa (todos los monitores conectados) y cada monitor individual. Las preferencias se guardarán para cada configuración de pantalla y se aplicarán a la tableta cada vez que se cambie la selección de la pantalla mediante el acceso rápido global. </para>
+> para cambiar entre la pantalla completa (todos los monitores conectados) y cada monitor individual. Las preferencias se guardarán para cada configuración de pantalla y se aplicarán a la tableta cada vez que se cambie la selección de la pantalla mediante el atajo de teclado global. </para>
         <para
 >Se puede mapear el área de la pantalla con la <guimenuitem
 >Tableta completa</guimenuitem
@@ -427,7 +427,7 @@
 > para calibrar la tableta con la ayuda de cuatro puntos en la pantalla. </para>
         <para
 >Cuando se cierre el diálogo, se utilizará la pantalla seleccionada. Si quiere cambiar la pantalla más adelante, puede utilizar el <link linkend="tablet-general"
->acceso rápido global</link
+>atajo de teclado global</link
 >. </para>
         <note>
             <para
