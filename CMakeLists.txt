@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 set(PROJECT_VERSION "6.0.80")
 project(wacomtablet VERSION ${PROJECT_VERSION})
 
+set(PROJECT_DEP_VERSION "6.0.80")
 set(QT_MIN_VERSION "6.6.0")
 set(KF6_MIN_VERSION "5.240.0")
 set(KDE_COMPILERSETTINGS_LEVEL "5.82")
@@ -34,7 +35,7 @@ find_package(KF6 REQUIRED COMPONENTS CoreAddons I18n GlobalAccel Config XmlGui W
 find_package(XCB REQUIRED COMPONENTS XINPUT)
 find_package(X11 REQUIRED)
 
-find_package(Plasma ${PROJECT_VERSION} REQUIRED)
+find_package(Plasma ${PROJECT_DEP_VERSION} REQUIRED)
 find_package(Plasma5Support REQUIRED)
 
 find_package(PkgConfig REQUIRED)
