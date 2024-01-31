@@ -162,4 +162,7 @@
     <category>System</category>
   </categories>
   <icon type="stock">input-tablet</icon>
+  <releases>
+    <release version="5.93.0" date="2024-01-31"/>
+  </releases>
 </component>
