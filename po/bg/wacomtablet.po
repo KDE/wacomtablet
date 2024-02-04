@@ -1370,12 +1370,3 @@ msgid ""
 "Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
 "the mouse."
 msgstr ""
-
-#~ msgid "Graphic Tablet Configuration"
-#~ msgstr "Настройка на графичен таблет"
-
-#~ msgid "A configurator for graphic tablets"
-#~ msgstr "Настройване на графични таблети"
-
-#~ msgid "In this module you can configure your Wacom tablet profiles"
-#~ msgstr "В този модул можете да настройвате профили за вашия таблет Wacom"
