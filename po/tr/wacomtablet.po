@@ -4,13 +4,13 @@
 # Translators:
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
 # Volkan Gezer <volkangezer@gmail.com>, 2017.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: extragear-base-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2023-10-23 12:47+0300\n"
+"PO-Revision-Date: 2024-02-09 18:58+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 24.01.95\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -118,13 +118,13 @@ msgstr "Dokunma Aracını Etkinleştir/Kapat"
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
-msgstr "Stylus Aracını Göreceli/Mutlak Değiştir"
+msgstr "Kalemin Göreceli/Mutlak Ayarını Aç/Kapat"
 
 #: src/common/globalactions.cpp:47
 #, kde-format
 msgctxt "@action"
 msgid "Toggle between all screens"
-msgstr "Tüm ekranlar arası geçiş"
+msgstr "Tüm Ekranlar Arasında Geçiş Yap"
 
 #: src/common/globalactions.cpp:53
 #, kde-format
@@ -132,25 +132,25 @@ msgctxt ""
 "@action Maps the area of the tablet to all available screen space (space "
 "depends on connected monitors)"
 msgid "Map to fullscreen"
-msgstr "Tam ekrana eşlemle"
+msgstr "Tam Ekrana Eşlemle"
 
 #: src/common/globalactions.cpp:59
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 1"
-msgstr "Ekran 1'e eşlemle"
+msgstr "Ekran 1’e Eşlemle"
 
 #: src/common/globalactions.cpp:65
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 2"
-msgstr "Ekran 2'ye eşlemle"
+msgstr "Ekran 2’ye Eşlemle"
 
 #: src/common/globalactions.cpp:71
 #, kde-format
 msgctxt "@action Switch to the next profile in the rotation"
 msgid "Next profile"
-msgstr "Sonraki profil"
+msgstr "Sonraki Profil"
 
 #: src/common/globalactions.cpp:77
 #, kde-format
@@ -168,7 +168,7 @@ msgstr "Seçim Düğmesi Eylemi"
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
-msgstr "Seçmek için tıklayın..."
+msgstr "Seçmek için tıklayın…"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
 #: src/kcmodule/buttonactionselectionwidget.ui:14
@@ -417,7 +417,7 @@ msgid ""
 "Press escape to cancel the process."
 msgstr ""
 "Lütfen tableti ayarlamak için dört köşesine dokunun.\n"
-"İşlemi iptal etmek için Vazgeç'e basın."
+"İşlemi iptal etmek için Vazgeç’e basın."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ErrorWidget)
 #: src/kcmodule/errorwidget.ui:14
@@ -454,7 +454,7 @@ msgstr "Profil Listesi"
 #: src/kcmodule/generalpagewidget.cpp:147
 #, kde-format
 msgid "Select the Profile you want to add:"
-msgstr "Eklemek istediğiniz Profili Seçiniz:"
+msgstr "Eklenecek profili seçin:"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, GeneralPageWidget)
 #: src/kcmodule/generalpagewidget.ui:14
@@ -553,7 +553,7 @@ msgstr "Genel"
 #: src/kcmodule/kcmwacomtabletwidget.cpp:426
 #, kde-format
 msgid "Stylus"
-msgstr "Stylus"
+msgstr "Kalem"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
 #: src/kcmodule/kcmwacomtabletwidget.cpp:434
@@ -592,13 +592,13 @@ msgstr "Grafik Tablet Ayarları"
 #: src/kcmodule/kcmwacomtabletwidget.ui:25
 #, kde-format
 msgid "&Select Tablet:"
-msgstr "&Tablet Seç:"
+msgstr "&Tablet seç:"
 
 #. i18n: ectx: property (text), widget (QLabel, profileLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:45
 #, kde-format
 msgid "Select &Profile:"
-msgstr "&Profil Seç:"
+msgstr "&Profil seç:"
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:67
@@ -649,13 +649,13 @@ msgid ""
 msgstr ""
 "Basınç eğrisi kalem basıncının nasıl ele alınacağını tanımlar.\n"
 "Noktalar arasında sürükleyerek davranışı değiştirin\n"
-"Basınç değişikliklerini görmek için stylus'u Pencere içinde kullanın."
+"Basınç değişikliklerini görmek için kalemi pencere içinde kullanın."
 
 #. i18n: ectx: property (text), widget (QLabel, pc_Label)
 #: src/kcmodule/pressurecurvedialog.ui:104
 #, kde-format
 msgid "Current Presscurve:"
-msgstr "Mevcut Basınçeğrisi:"
+msgstr "Şu anki basınç eğrisi:"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, StylusPageWidget)
 #: src/kcmodule/styluspagewidget.ui:14
@@ -684,9 +684,9 @@ msgid ""
 "If deselected, stylus buttons will work once the stylus is in proximity of "
 "the tablet."
 msgstr ""
-"Seçiliyse, stylus yan düğmesinin çalışması için stylus'un tablete dokunuyor "
+"Seçiliyse kalemin yan düğmesinin çalışması için kalemin tablete dokunuyor "
 "olması gerekir.\n"
-"Seçili değilse, stylus düğmeleri tablet yakınındaysa çalışır."
+"Seçili değilse kalem düğmeleri tablet yakınındaysa çalışır."
 
 #. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:116
@@ -757,7 +757,7 @@ msgstr "Basınç Eğrisini DÜzenle..."
 #: src/kcmodule/styluspagewidget.ui:272
 #, kde-format
 msgid "Sets stylus pressure threshold."
-msgstr "Stylus basınç eşiğini ayarla."
+msgstr "Kalem basınç eşiğini ayarlayın."
 
 #. i18n: ectx: property (title), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:275
@@ -897,7 +897,7 @@ msgstr "Kalibre et"
 #: src/kcmodule/tabletareaselectionview.ui:204
 #, kde-format
 msgid "This mapping can only be applied in absolute tracking mode."
-msgstr "Bu eşlemleme yalnızca mutlak iz kipinde uygulanabilir."
+msgstr "Bu eşlemleme yalnızca mutlak izleme kipinde uygulanabilir."
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
 #: src/kcmodule/tabletareaselectionview.ui:219
@@ -983,7 +983,7 @@ msgstr "İmleç hareket kipinin nasıl kullanılacağını tanımlar."
 #: src/kcmodule/tabletpagewidget.ui:28
 #, kde-format
 msgid "Stylus Tracking Mode"
-msgstr "Stylus İz Kipi"
+msgstr "Kalem İzleme Kipi"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:72
@@ -1218,7 +1218,7 @@ msgstr "Tablet Bağlandı"
 #: src/kded/tablethandler.cpp:134
 #, kde-format
 msgid "New tablet '%1' connected."
-msgstr "Yeni tablet '%1' bağlandı."
+msgstr "Yeni ‘%1’ tableti bağlandı."
 
 #: src/kded/tablethandler.cpp:160
 #, kde-format
@@ -1261,7 +1261,7 @@ msgstr "Wacom Tablet tanıma"
 #: src/tabletfinder/dialog.ui:20
 #, kde-format
 msgid "Connect your Tablet and click on Refresh to detect it."
-msgstr "Tabletinizi bağlayın ve tanımlamak için Yenile'ye tıklayın."
+msgstr "Tabletinizi bağlayın ve tanımlamak için Yenile’ye tıklayın."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tabletfinder/dialog.ui:27
@@ -1273,7 +1273,7 @@ msgstr "Tablet Seçimi"
 #: src/tabletfinder/dialog.ui:39
 #, kde-format
 msgid "Detected Tablets:"
-msgstr "Algılanan Tabletler:"
+msgstr "Algılanan tabletler:"
 
 #. i18n: ectx: property (text), widget (QPushButton, refreshButton)
 #: src/tabletfinder/dialog.ui:51
@@ -1285,7 +1285,7 @@ msgstr "Yenile"
 #: src/tabletfinder/dialog.ui:66
 #, kde-format
 msgid "Serial No.:"
-msgstr "Seri Numarası:"
+msgstr "Seri numarası:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tabletfinder/dialog.ui:86
@@ -1309,7 +1309,7 @@ msgstr "Dokunma halkası var"
 #: src/tabletfinder/dialog.ui:118
 #, kde-format
 msgid "has Status LEDs right"
-msgstr "Durum LED'leri sağda"
+msgstr "Durum LED’leri sağda"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripLeft)
 #: src/tabletfinder/dialog.ui:125
@@ -1327,7 +1327,7 @@ msgstr "Dokunma şeridi sağda"
 #: src/tabletfinder/dialog.ui:139
 #, kde-format
 msgid "has Status LEDs left"
-msgstr "Durum LED'leri solda"
+msgstr "Durum LED’leri solda"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasWheel)
 #: src/tabletfinder/dialog.ui:146
@@ -1345,7 +1345,7 @@ msgstr "Düğme eşlemleme"
 #: src/tabletfinder/dialog.ui:177
 #, kde-format
 msgid "Number of available Express Keys:"
-msgstr "Kullanılabilir Ekspres düğme sayısı:"
+msgstr "Kullanılabilir ekspres düğme sayısı:"
 
 #. i18n: ectx: property (text), widget (QPushButton, mapButtons)
 #: src/tabletfinder/dialog.ui:189
