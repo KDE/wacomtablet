@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Wacom tablet control daemon",
+        "Description[ar]": "عفريت التّحكّم بلوحيّات واكُم",
         "Description[ca@valencia]": "Dimoni de control de les tauletes Wacom",
         "Description[ca]": "Dimoni de control de les tauletes Wacom",
         "Description[cs]": "Ovládací démon tabletu Wacom",
