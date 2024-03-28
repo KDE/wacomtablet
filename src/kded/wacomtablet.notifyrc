@@ -294,6 +294,7 @@ Action=Popup
 [Event/tabletError]
 Name=A tablet error
 Name[ar]=عطل في اللوحيّ
+Name[ast]=Un error de la tableta
 Name[bs]=Greška tableta
 Name[ca]=Un error a la tauleta
 Name[ca@valencia]=Un error a la tauleta
