@@ -7,14 +7,15 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-04-25 15:07+0300\n"
+"PO-Revision-Date: 2024-04-26 11:18+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
@@ -465,25 +466,25 @@ msgstr ""
 #: src/kcmodule/generalpagewidget.ui:80
 #, kde-format
 msgid "Down"
-msgstr ""
+msgstr "למטה"
 
 #. i18n: ectx: property (text), widget (QPushButton, pbRemoveFromRotationList)
 #: src/kcmodule/generalpagewidget.ui:87
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "הסרה"
 
 #. i18n: ectx: property (text), widget (QPushButton, pbAddToRotationList)
 #: src/kcmodule/generalpagewidget.ui:94
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "הוספה"
 
 #. i18n: ectx: property (text), widget (QPushButton, pbUp)
 #: src/kcmodule/generalpagewidget.ui:101
 #, kde-format
 msgid "Up"
-msgstr ""
+msgstr "למעלה"
 
 #. i18n: ectx: property (title), widget (QGroupBox, shortcutGroupBox)
 #: src/kcmodule/generalpagewidget.ui:140
@@ -524,7 +525,7 @@ msgstr ""
 #: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Profile name:"
-msgstr ""
+msgstr "שם הפרופיל:"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:417
 #, kde-format
@@ -563,7 +564,7 @@ msgstr ""
 #: src/kcmodule/kcmwacomtabletwidget.cpp:463
 #, kde-format
 msgid "Save Profile"
-msgstr ""
+msgstr "שמירת פרופיל"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:476
 #, kde-format
@@ -611,13 +612,13 @@ msgstr ""
 #, kde-format
 msgctxt "What the user inputs now will be taken as the new shortcut"
 msgid "Input"
-msgstr ""
+msgstr "קלט"
 
 #: src/kcmodule/keysequenceinputbutton.cpp:317
 #, kde-format
 msgctxt "No shortcut defined"
 msgid "None"
-msgstr ""
+msgstr "ללא"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PressureCurveDialog)
 #: src/kcmodule/pressurecurvedialog.ui:23
@@ -796,7 +797,7 @@ msgstr ""
 #: src/kcmodule/tabletareaselectionview.cpp:163
 #, kde-format
 msgid "Internal Error"
-msgstr ""
+msgstr "שגיאה פנימית"
 
 #. i18n: ectx: property (text), widget (QLabel, infoLabel)
 #: src/kcmodule/tabletareaselectionview.ui:41
@@ -1008,7 +1009,7 @@ msgstr ""
 #: src/kcmodule/tabletpagewidget.ui:172
 #, kde-format
 msgid "Orientation"
-msgstr ""
+msgstr "כיוון"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:181
@@ -1020,7 +1021,7 @@ msgstr ""
 #: src/kcmodule/tabletpagewidget.ui:184
 #, kde-format
 msgid "Auto-Rotate with Screen"
-msgstr ""
+msgstr "הטייה אוטומטית עם המסך"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenInvertCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:194
@@ -1100,7 +1101,7 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:238
 #, kde-format
 msgid "Scroll Distance"
-msgstr ""
+msgstr "מרחק גלילה"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, scrollDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:254
@@ -1118,7 +1119,7 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:276
 #, kde-format
 msgid "Zoom Distance"
-msgstr ""
+msgstr "מרחק תקריב"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, zoomDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:292
@@ -1254,13 +1255,13 @@ msgstr ""
 #: src/tabletfinder/dialog.ui:86
 #, kde-format
 msgid "Devices: "
-msgstr ""
+msgstr "התקנים:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/tabletfinder/dialog.ui:105
 #, kde-format
 msgid "Tablet Features"
-msgstr ""
+msgstr "יכולות לוח"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchRing)
 #: src/tabletfinder/dialog.ui:111
@@ -1296,37 +1297,37 @@ msgstr ""
 #: src/tabletfinder/dialog.ui:146
 #, kde-format
 msgid "has Wheel"
-msgstr ""
+msgstr "יש גלגלת"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: src/tabletfinder/dialog.ui:169
 #, kde-format
 msgid "Button mapping"
-msgstr ""
+msgstr "מיפוי כפתורים"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tabletfinder/dialog.ui:177
 #, kde-format
 msgid "Number of available Express Keys:"
-msgstr ""
+msgstr "מספר המקשים המהירים הזמינים:"
 
 #. i18n: ectx: property (text), widget (QPushButton, mapButtons)
 #: src/tabletfinder/dialog.ui:189
 #, kde-format
 msgid "Map Hardware Buttons"
-msgstr ""
+msgstr "מיפוי כפתורי חומרה"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
 #: src/tabletfinder/dialog.ui:221
 #, kde-format
 msgid "Touch sensor"
-msgstr ""
+msgstr "חיישן מגע"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
 #: src/tabletfinder/dialog.ui:227
 #, kde-format
 msgid "&Normal tablet"
-msgstr ""
+msgstr "לוח &רגיל"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioParentTablet)
 #: src/tabletfinder/dialog.ui:239
@@ -1343,17 +1344,17 @@ msgstr ""
 #: src/tabletfinder/hwbuttondialog.cpp:66
 #, kde-format
 msgid "Please press Button %1 on the tablet now."
-msgstr ""
+msgstr "נא ללחוץ על הכפתור %1 בלוח עכשיו."
 
 #: src/tabletfinder/hwbuttondialog.cpp:90
 #, kde-format
 msgid "Hardware button %1 detected."
-msgstr ""
+msgstr "כפתור החומרה %1 זוהה."
 
 #: src/tabletfinder/hwbuttondialog.cpp:102
 #, kde-format
 msgid "All buttons detected. Please close dialog"
-msgstr ""
+msgstr "כל הכפתורים זוהו. נא לסגור את החלונית."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, HWButtonDialog)
 #: src/tabletfinder/hwbuttondialog.ui:14
@@ -1367,4 +1368,4 @@ msgstr "חלונית"
 msgid ""
 "Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
 "the mouse."
-msgstr ""
+msgstr "להעביר את הסמן לתוך החלונית אבל <b>לא ללחוץ</b> עליו עם העכבר."
