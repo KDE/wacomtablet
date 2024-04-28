@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-04-26 11:18+0300\n"
+"PO-Revision-Date: 2024-04-27 06:44+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -877,49 +877,49 @@ msgstr ""
 #: src/kcmodule/tabletareaselectionview.ui:219
 #, kde-format
 msgid "Lock proportions"
-msgstr ""
+msgstr "נעילת יחסים"
 
 #. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:232
 #, kde-format
 msgid "Tablet area fine tuning"
-msgstr ""
+msgstr "כיוון מדויק של אזור בלוח"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
 #: src/kcmodule/tabletareaselectionview.ui:244
 #, kde-format
 msgid "Width"
-msgstr ""
+msgstr "רוחב"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
 #: src/kcmodule/tabletareaselectionview.ui:254
 #, kde-format
 msgid "Horizontal"
-msgstr ""
+msgstr "אופקי"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
 #: src/kcmodule/tabletareaselectionview.ui:267
 #, kde-format
 msgid "Left margin"
-msgstr ""
+msgstr "שול שמאלי"
 
 #. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
 #: src/kcmodule/tabletareaselectionview.ui:277
 #, kde-format
 msgid "Vertical"
-msgstr ""
+msgstr "אנכי"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
 #: src/kcmodule/tabletareaselectionview.ui:290
 #, kde-format
 msgid "Top margin"
-msgstr ""
+msgstr "שול עליון"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
 #: src/kcmodule/tabletareaselectionview.ui:306
 #, kde-format
 msgid "Height"
-msgstr ""
+msgstr "גובה"
 
 #: src/kcmodule/tabletpagewidget.cpp:356
 #, kde-format
@@ -927,37 +927,37 @@ msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
 msgid "Default Orientation"
-msgstr ""
+msgstr "כיוון ברירת מחדל"
 
 #: src/kcmodule/tabletpagewidget.cpp:358
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
-msgstr ""
+msgstr "הטיית הלוח עם כיוון השעון"
 
 #: src/kcmodule/tabletpagewidget.cpp:359
 #, kde-format
 msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
-msgstr ""
+msgstr "הטיית הלוח נגדר כיוון השעון"
 
 #: src/kcmodule/tabletpagewidget.cpp:360
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
-msgstr ""
+msgstr "הפיכת הלוח"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:25 src/kcmodule/touchpagewidget.ui:57
 #, kde-format
 msgid "Defines how the cursor movement mode will be used."
-msgstr ""
+msgstr "הגדרת אופן השימוש במצב תנועת סמן."
 
 #. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:28
 #, kde-format
 msgid "Stylus Tracking Mode"
-msgstr ""
+msgstr "מצב מעקב עט"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:72
@@ -1053,49 +1053,49 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:39
 #, kde-format
 msgid "Enable Touch"
-msgstr ""
+msgstr "הפעלת מגע"
 
 #. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/touchpagewidget.ui:60
 #, kde-format
 msgid "Touch Tracking Mode"
-msgstr ""
+msgstr "מצב מעקב מגע"
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchMappingGroupBox)
 #: src/kcmodule/touchpagewidget.ui:123
 #, kde-format
 msgid "Touch Mapping"
-msgstr ""
+msgstr "מיפוי מגע"
 
 #. i18n: ectx: property (text), widget (QPushButton, touchMappingTabletButton)
 #: src/kcmodule/touchpagewidget.ui:138
 #, kde-format
 msgid "Map Touch Area to Screen"
-msgstr ""
+msgstr "מיפוי אזור במשטח המגע למסך"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:202
 #, kde-format
 msgid "If enabled the touch events can recognize gestures."
-msgstr ""
+msgstr "אם האפשרות פעילה אירועי מגע יכולים לזהות מחוות."
 
 #. i18n: ectx: property (text), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:205
 #, kde-format
 msgid "Enable Gestures"
-msgstr ""
+msgstr "הפעלת מחוות"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gesturesGroupBox)
 #: src/kcmodule/touchpagewidget.ui:223
 #, kde-format
 msgid "Gestures"
-msgstr ""
+msgstr "מחוות"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, scrollDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:235
 #, kde-format
 msgid "Minimum motion before sending a scroll gesture."
-msgstr ""
+msgstr "תנועה מזערית בטרם שליחת מחוות גלילה."
 
 #. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:238
