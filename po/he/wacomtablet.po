@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-05-01 08:45+0300\n"
+"PO-Revision-Date: 2024-05-03 17:29+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -229,184 +229,184 @@ msgstr ""
 #: src/kcmodule/kcmwacomtabletwidget.cpp:431
 #, kde-format
 msgid "Express Buttons"
-msgstr ""
+msgstr "כפתורים זריזים"
 
 #. i18n: ectx: property (text), widget (QLabel, button1Label)
 #. i18n: ectx: property (text), widget (QLabel, labelButton1)
 #: src/kcmodule/buttonpagewidget.ui:43 src/kcmodule/styluspagewidget.ui:81
 #, kde-format
 msgid "Button 1"
-msgstr ""
+msgstr "כפתור 1"
 
 #. i18n: ectx: property (text), widget (QLabel, button2Label)
 #. i18n: ectx: property (text), widget (QLabel, labelButton2)
 #: src/kcmodule/buttonpagewidget.ui:56 src/kcmodule/styluspagewidget.ui:62
 #, kde-format
 msgid "Button 2"
-msgstr ""
+msgstr "כפתור 2"
 
 #. i18n: ectx: property (text), widget (QLabel, button3Label)
 #. i18n: ectx: property (text), widget (QLabel, labelButton3)
 #: src/kcmodule/buttonpagewidget.ui:69 src/kcmodule/styluspagewidget.ui:43
 #, kde-format
 msgid "Button 3"
-msgstr ""
+msgstr "כפתור 3"
 
 #. i18n: ectx: property (text), widget (QLabel, button4Label)
 #: src/kcmodule/buttonpagewidget.ui:82
 #, kde-format
 msgid "Button 4"
-msgstr ""
+msgstr "כפתור 4"
 
 #. i18n: ectx: property (text), widget (QLabel, button5Label)
 #: src/kcmodule/buttonpagewidget.ui:95
 #, kde-format
 msgid "Button 5"
-msgstr ""
+msgstr "כפתור 5"
 
 #. i18n: ectx: property (text), widget (QLabel, button6Label)
 #: src/kcmodule/buttonpagewidget.ui:108
 #, kde-format
 msgid "Button 6"
-msgstr ""
+msgstr "כפתור 6"
 
 #. i18n: ectx: property (text), widget (QLabel, button7Label)
 #: src/kcmodule/buttonpagewidget.ui:121
 #, kde-format
 msgid "Button 7"
-msgstr ""
+msgstr "כפתור 7"
 
 #. i18n: ectx: property (text), widget (QLabel, button8Label)
 #: src/kcmodule/buttonpagewidget.ui:134
 #, kde-format
 msgid "Button 8"
-msgstr ""
+msgstr "כפתור 8"
 
 #. i18n: ectx: property (text), widget (QLabel, button9Label)
 #: src/kcmodule/buttonpagewidget.ui:147
 #, kde-format
 msgid "Button 9"
-msgstr ""
+msgstr "כפתור 9"
 
 #. i18n: ectx: property (text), widget (QLabel, button10Label)
 #: src/kcmodule/buttonpagewidget.ui:315
 #, kde-format
 msgid "Button 10"
-msgstr ""
+msgstr "כפתור 10"
 
 #. i18n: ectx: property (text), widget (QLabel, button11Label)
 #: src/kcmodule/buttonpagewidget.ui:328
 #, kde-format
 msgid "Button 11"
-msgstr ""
+msgstr "כפתור 11"
 
 #. i18n: ectx: property (text), widget (QLabel, button12Label)
 #: src/kcmodule/buttonpagewidget.ui:341
 #, kde-format
 msgid "Button 12"
-msgstr ""
+msgstr "כפתור 12"
 
 #. i18n: ectx: property (text), widget (QLabel, button13Label)
 #: src/kcmodule/buttonpagewidget.ui:354
 #, kde-format
 msgid "Button 13"
-msgstr ""
+msgstr "כפתור 13"
 
 #. i18n: ectx: property (text), widget (QLabel, button14Label)
 #: src/kcmodule/buttonpagewidget.ui:367
 #, kde-format
 msgid "Button 14"
-msgstr ""
+msgstr "כפתור 14"
 
 #. i18n: ectx: property (text), widget (QLabel, button15Label)
 #: src/kcmodule/buttonpagewidget.ui:380
 #, kde-format
 msgid "Button 15"
-msgstr ""
+msgstr "כפתור 15"
 
 #. i18n: ectx: property (text), widget (QLabel, button16Label)
 #: src/kcmodule/buttonpagewidget.ui:393
 #, kde-format
 msgid "Button 16"
-msgstr ""
+msgstr "כפתור 16"
 
 #. i18n: ectx: property (text), widget (QLabel, button17Label)
 #: src/kcmodule/buttonpagewidget.ui:406
 #, kde-format
 msgid "Button 17"
-msgstr ""
+msgstr "כפתור 17"
 
 #. i18n: ectx: property (text), widget (QLabel, button18Label)
 #: src/kcmodule/buttonpagewidget.ui:419
 #, kde-format
 msgid "Button 18"
-msgstr ""
+msgstr "כפתור 18"
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchStripGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:537
 #, kde-format
 msgid "Touch Strip"
-msgstr ""
+msgstr "פס מגע"
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:555
 #, kde-format
 msgid "Left Strip Up"
-msgstr ""
+msgstr "פס שמאלי למעלה"
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:572
 #, kde-format
 msgid "Left Strip Down"
-msgstr ""
+msgstr "פס שמאלי למטה"
 
 #. i18n: ectx: property (text), widget (QLabel, rightStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:620
 #, kde-format
 msgid "Right Strip Up"
-msgstr ""
+msgstr "פס ימני למעלה"
 
 #. i18n: ectx: property (text), widget (QLabel, rightStripDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:637
 #, kde-format
 msgid "Right Strip Down"
-msgstr ""
+msgstr "פס ימני למטה"
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchRingGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:660
 #, kde-format
 msgid "Touch Ring"
-msgstr ""
+msgstr "טבעת מגע"
 
 #. i18n: ectx: property (text), widget (QLabel, ringUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:671
 #, kde-format
 msgid "Ring Up"
-msgstr ""
+msgstr "טבעת למעלה"
 
 #. i18n: ectx: property (text), widget (QLabel, ringDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:711
 #, kde-format
 msgid "Ring Down"
-msgstr ""
+msgstr "טבעת למטה"
 
 #. i18n: ectx: property (title), widget (QGroupBox, wheelGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:733
 #, kde-format
 msgid "Wheel"
-msgstr ""
+msgstr "גלגלת"
 
 #. i18n: ectx: property (text), widget (QLabel, wheelUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:741
 #, kde-format
 msgid "Wheel Up"
-msgstr ""
+msgstr "גלגלת למעלה"
 
 #. i18n: ectx: property (text), widget (QLabel, wheelDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:778
 #, kde-format
 msgid "Wheel Down"
-msgstr ""
+msgstr "גלגלת למטה"
 
 #: src/kcmodule/calibrationdialog.cpp:62
 #, kde-format
@@ -414,18 +414,20 @@ msgid ""
 "Please tap into all four corners to calibrate the tablet.\n"
 "Press escape to cancel the process."
 msgstr ""
+"נא לגעת בכל אחת מארבע הפינות כדי לכייל את הלוח.\n"
+"נא ללחוץ על escape כדי לבטל את התהליך."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ErrorWidget)
 #: src/kcmodule/errorwidget.ui:14
 #, kde-format
 msgid "No Tablet Found"
-msgstr ""
+msgstr "לא נמצא לוח"
 
 #. i18n: ectx: property (text), widget (QCommandLinkButton, buttonRunTabletFinder)
 #: src/kcmodule/errorwidget.ui:107
 #, kde-format
 msgid "Manually register a tablet device"
-msgstr ""
+msgstr "רישום התקן לוח ידנית"
 
 #. i18n: ectx: property (description), widget (QCommandLinkButton, buttonRunTabletFinder)
 #: src/kcmodule/errorwidget.ui:110
@@ -434,33 +436,35 @@ msgid ""
 "This will open another window, prompting you to describe your tablet device. "
 "After you're done, please restart your desktop session."
 msgstr ""
+"האפשרות הזאת תפתח חלון נוסף, בו תוצג בקשה לתאר את התקן הלוח שלך. לאחר הסיום, "
+"נא לצאת מחשבון המשתמש בשולחן העבודה שלך ולהיכנס שוב."
 
 #: src/kcmodule/generalpagewidget.cpp:56
 #, kde-format
 msgid "Wacom Tablet Settings"
-msgstr ""
+msgstr "הגדרות לוח Wacom"
 
 #: src/kcmodule/generalpagewidget.cpp:146
 #, kde-format
 msgid "Profile List"
-msgstr ""
+msgstr "רשימת פרופילים"
 
 #: src/kcmodule/generalpagewidget.cpp:147
 #, kde-format
 msgid "Select the Profile you want to add:"
-msgstr ""
+msgstr "בחירת הפרופיל להוספה:"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, GeneralPageWidget)
 #: src/kcmodule/generalpagewidget.ui:14
 #, kde-format
 msgid "General Hardware Overview"
-msgstr ""
+msgstr "סקירת חומרה כללית"
 
 #. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
 #: src/kcmodule/generalpagewidget.ui:35
 #, kde-format
 msgid "Profile rotation"
-msgstr ""
+msgstr "סיבוב פרופיל"
 
 #. i18n: ectx: property (text), widget (QPushButton, pbDown)
 #: src/kcmodule/generalpagewidget.ui:80
@@ -490,12 +494,12 @@ msgstr "למעלה"
 #: src/kcmodule/generalpagewidget.ui:140
 #, kde-format
 msgid "Shortcuts"
-msgstr ""
+msgstr "קיצורים"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:168
 #, kde-format
 msgid "KDE tablet service not found"
-msgstr ""
+msgstr "שירות לוחות של KDE לא נמצא"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
@@ -503,11 +507,13 @@ msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
 "The service is required for tablet detection and profile support."
 msgstr ""
+"נא להפעיל את שירות לוחות ה־Wacom של KDE כדי להשתמש בחלונית ההגדרות הזאת.\n"
+"השירות נחוץ לאיתור לוחות ולתמיכה בפרופילים."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:174
 #, kde-format
 msgid "No tablet device detected"
-msgstr ""
+msgstr "לא זוהה התקן לוח"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:176
 #, kde-format
@@ -516,11 +522,13 @@ msgid ""
 "If your device is already connected, it is currently not in the device "
 "database."
 msgstr ""
+"נא לחבר התקן לוח כדי להמשיך.\n"
+"אם הלוח שלך כבר מחובר, הוא לא במסד נתוני ההתקנים כרגע."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Add new profile"
-msgstr ""
+msgstr "הוספת פרופיל חדש"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
@@ -531,35 +539,35 @@ msgstr "שם הפרופיל:"
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
-msgstr ""
+msgstr "ברירת מחדל"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:425
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
-msgstr ""
+msgstr "כללי"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:426
 #, kde-format
 msgid "Stylus"
-msgstr ""
+msgstr "עט"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
 #: src/kcmodule/kcmwacomtabletwidget.cpp:434
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
-msgstr ""
+msgstr "לוח"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgid "Touch"
-msgstr ""
+msgstr "מגע"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:462
 #, kde-format
 msgid "Save changes to the current profile?"
-msgstr ""
+msgstr "לשמור את השינויים לפרופיל הנוכחי?"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:463
 #, kde-format
@@ -569,37 +577,37 @@ msgstr "שמירת פרופיל"
 #: src/kcmodule/kcmwacomtabletwidget.cpp:476
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
-msgstr ""
+msgstr "טעינת כלי איתור לוחות ה־Wacom נכשלה. נא לבדוק את ההתחלה שלך."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
 #: src/kcmodule/kcmwacomtabletwidget.ui:14
 #, kde-format
 msgid "Graphic Tablet Settings"
-msgstr ""
+msgstr "הגדרות לוח ציור"
 
 #. i18n: ectx: property (text), widget (QLabel, tabletListLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:25
 #, kde-format
 msgid "&Select Tablet:"
-msgstr ""
+msgstr "&בחירת לוח:"
 
 #. i18n: ectx: property (text), widget (QLabel, profileLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:45
 #, kde-format
 msgid "Select &Profile:"
-msgstr ""
+msgstr "בחירת &פרופיל:"
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:67
 #, kde-format
 msgid "Creates a new default profile"
-msgstr ""
+msgstr "יצירת פרופיל ברירת מחדל חדש"
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, delProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:83
 #, kde-format
 msgid "Deletes the current profile"
-msgstr ""
+msgstr "מחיקת הפרופיל הנוכחי"
 
 #: src/kcmodule/keysequenceinputbutton.cpp:277
 #, kde-format
@@ -645,7 +653,7 @@ msgstr ""
 #: src/kcmodule/styluspagewidget.ui:14
 #, kde-format
 msgid "Pen Settings"
-msgstr ""
+msgstr "הגדרות עט"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:28
@@ -657,7 +665,7 @@ msgstr ""
 #: src/kcmodule/styluspagewidget.ui:31
 #, kde-format
 msgid "Button Settings"
-msgstr ""
+msgstr "הגדרות כפתור"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:113
@@ -673,7 +681,7 @@ msgstr ""
 #: src/kcmodule/styluspagewidget.ui:116
 #, kde-format
 msgid "Tap to execute action."
-msgstr ""
+msgstr "נגיעה תפעיל פעולה."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:128
@@ -685,7 +693,7 @@ msgstr ""
 #: src/kcmodule/styluspagewidget.ui:131
 #, kde-format
 msgid "Eraser Feel"
-msgstr ""
+msgstr "תחושת מוחק"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, eraserSlider)
 #. i18n: ectx: property (toolTip), widget (QSlider, tipSlider)
@@ -811,19 +819,19 @@ msgstr ""
 #: src/kcmodule/tabletareaselectionview.ui:57
 #, kde-format
 msgid "Screen"
-msgstr ""
+msgstr "מסך"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, screenToggleButton)
 #: src/kcmodule/tabletareaselectionview.ui:83
 #, kde-format
 msgid "Toggle between fullscreen and each single screen."
-msgstr ""
+msgstr "החלפה בין מסך מלא וכל מסך בודד."
 
 #. i18n: ectx: property (text), widget (QPushButton, screenToggleButton)
 #: src/kcmodule/tabletareaselectionview.ui:86
 #, kde-format
 msgid "Toggle Screen"
-msgstr ""
+msgstr "החלפת מצב מסך"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:96
@@ -835,19 +843,19 @@ msgstr ""
 #: src/kcmodule/tabletareaselectionview.ui:99
 #, kde-format
 msgid "Map Screen To"
-msgstr ""
+msgstr "מיפוי המסך מול"
 
 #. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:105
 #, kde-format
 msgid "&Full Tablet"
-msgstr ""
+msgstr "&כל הלוח"
 
 #. i18n: ectx: property (text), widget (QRadioButton, tabletAreaRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:115
 #, kde-format
 msgid "&Tablet Area"
-msgstr ""
+msgstr "&אזור בלוח"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:122
