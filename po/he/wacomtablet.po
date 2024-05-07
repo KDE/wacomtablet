@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-05-03 17:29+0300\n"
+"PO-Revision-Date: 2024-05-05 11:49+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -184,39 +184,39 @@ msgstr ""
 #: src/kcmodule/buttonactionselectionwidget.ui:46
 #, kde-format
 msgid "Ctrl"
-msgstr ""
+msgstr "Ctrl"
 
 #. i18n: ectx: property (text), widget (QCheckBox, altModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:69
 #, kde-format
 msgid "Alt"
-msgstr ""
+msgstr "Alt"
 
 #. i18n: ectx: property (text), widget (QCheckBox, metaModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:92
 #, kde-format
 msgid "Meta"
-msgstr ""
+msgstr "מטא"
 
 #. i18n: ectx: property (text), widget (QCheckBox, shiftModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:115
 #, kde-format
 msgid "Shift"
-msgstr ""
+msgstr "Shift"
 
 #. i18n: Select an action which will be assigned to a tablet button.
 #. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameLineEdit)
 #: src/kcmodule/buttonactionselectionwidget.ui:159
 #, kde-format
 msgid "Please select an action."
-msgstr ""
+msgstr "נא לבחור פעולה."
 
 #. i18n: Click to assign an action (shortcut) to a tablet button.
 #. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameDisplayWidget)
 #: src/kcmodule/buttonactionselectorwidget.ui:51
 #, kde-format
 msgid "Click to assign an action."
-msgstr ""
+msgstr "לחיצה להקצאת פעולה."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonPageWidget)
 #: src/kcmodule/buttonpagewidget.ui:20
