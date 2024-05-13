@@ -125,7 +125,7 @@ msgstr "Relatiu"
 #: src/applet/package/contents/ui/main.qml:39
 #, kde-format
 msgid "&Configure Graphics Tablet..."
-msgstr "&Configura els gràfics de la tauleta..."
+msgstr "&Configura els gràfics de la tauleta…"
 
 #: src/applet/package/contents/ui/main.qml:44
 #, kde-format

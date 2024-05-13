@@ -169,7 +169,7 @@ msgstr "Selecciona l'acció del botó"
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
-msgstr "Feu clic per a seleccionar..."
+msgstr "Feu clic per a seleccionar…"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
 #: src/kcmodule/buttonactionselectionwidget.ui:14
@@ -779,7 +779,7 @@ msgstr "Definix la sensibilitat a la pressió amb una corba de Bézier"
 #: src/kcmodule/styluspagewidget.ui:244 src/kcmodule/styluspagewidget.ui:394
 #, kde-format
 msgid "Edit Pressure Curve..."
-msgstr "Edita la corba de pressió..."
+msgstr "Edita la corba de pressió…"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:272
@@ -1079,7 +1079,7 @@ msgstr "Orientació"
 #: src/kcmodule/tabletpagewidget.ui:181
 #, kde-format
 msgid "If enabled, the tablet rotates together with the screen."
-msgstr "Si se selecciona, la tauleta girarà juntament amb la pantalla."
+msgstr "Si està marcada, la tauleta girarà juntament amb la pantalla."
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:184
@@ -1094,8 +1094,8 @@ msgid ""
 "If enabled the automatic tablet rotation for clockwise and counterclockwise "
 "rotations will be inverted."
 msgstr ""
-"Si se selecciona, s'invertirà el gir automàtic de la tauleta en sentit "
-"horari i antihorari."
+"Si està marcada, s'invertirà el gir automàtic de la tauleta en sentit horari "
+"i antihorari."
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenInvertCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:197
@@ -1107,7 +1107,7 @@ msgstr "Invertix el gir automàtic"
 #: src/kcmodule/touchpagewidget.ui:17
 #, kde-format
 msgid "If enabled the tablet will emit touch events."
-msgstr "Si se selecciona, la tauleta emetrà esdeveniments tàctils."
+msgstr "Si està marcada, la tauleta emetrà esdeveniments tàctils."
 
 #. i18n: ectx: property (text), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:20
@@ -1137,7 +1137,7 @@ msgstr "Associa una àrea tàctil a la pantalla"
 #: src/kcmodule/touchpagewidget.ui:183
 #, kde-format
 msgid "If enabled the touch events can recognize gestures."
-msgstr "Si se selecciona, els esdeveniments tàctils podran reconéixer gestos."
+msgstr "Si està marcada, els esdeveniments tàctils podran reconéixer gestos."
 
 #. i18n: ectx: property (text), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:186
