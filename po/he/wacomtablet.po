@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-05-05 11:49+0300\n"
+"PO-Revision-Date: 2024-05-14 19:00+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -57,60 +57,60 @@ msgstr "מפתח"
 #, kde-format
 msgctxt "Tablet button triggers a left mouse button click."
 msgid "Left Mouse Button Click"
-msgstr ""
+msgstr "לחיצה על כפתור העכבר השמאלי"
 
 #: src/common/buttonshortcut.cpp:95
 #, kde-format
 msgctxt "Tablet button triggers a middle mouse button click."
 msgid "Middle Mouse Button Click"
-msgstr ""
+msgstr "לחיצה על כפתור העכבר האמצעי"
 
 #: src/common/buttonshortcut.cpp:97
 #, kde-format
 msgctxt "Tablet button triggers a right mouse button click."
 msgid "Right Mouse Button Click"
-msgstr ""
+msgstr "לחיצה על כפתור העכבר הימני"
 
 #: src/common/buttonshortcut.cpp:99
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel up."
 msgid "Mouse Wheel Up"
-msgstr ""
+msgstr "גלגלת עכבר למעלה"
 
 #: src/common/buttonshortcut.cpp:101
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel down."
 msgid "Mouse Wheel Down"
-msgstr ""
+msgstr "גלגלת עכבר למטה"
 
 #: src/common/buttonshortcut.cpp:103
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel left."
 msgid "Mouse Wheel Left"
-msgstr ""
+msgstr "גלגלת עכבר שמאלה"
 
 #: src/common/buttonshortcut.cpp:105
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel right."
 msgid "Mouse Wheel Right"
-msgstr ""
+msgstr "גלגלת עכבר ימינה"
 
 #: src/common/buttonshortcut.cpp:107
 #, kde-format
 msgctxt "Tablet button triggers a click of mouse button with number #"
 msgid "Mouse Button %1 Click"
-msgstr ""
+msgstr "לחיצה על הכפתור %1 בעכבר"
 
 #: src/common/globalactions.cpp:31
 #, kde-format
 msgid "Wacom Tablet"
-msgstr ""
+msgstr "לוח Wacom"
 
 #: src/common/globalactions.cpp:35
 #, kde-format
 msgctxt "@action"
 msgid "Enable/Disable the Touch Tool"
-msgstr ""
+msgstr "הפעלת/השבתת כלי המגע"
 
 #: src/common/globalactions.cpp:41
 #, kde-format
@@ -122,7 +122,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action"
 msgid "Toggle between all screens"
-msgstr ""
+msgstr "החלפה בין כל המסכים"
 
 #: src/common/globalactions.cpp:53
 #, kde-format
@@ -130,55 +130,55 @@ msgctxt ""
 "@action Maps the area of the tablet to all available screen space (space "
 "depends on connected monitors)"
 msgid "Map to fullscreen"
-msgstr ""
+msgstr "מיפוי למסך מלא"
 
 #: src/common/globalactions.cpp:59
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 1"
-msgstr ""
+msgstr "מיפוי למסך 1"
 
 #: src/common/globalactions.cpp:65
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 2"
-msgstr ""
+msgstr "מיפוי למסך 2"
 
 #: src/common/globalactions.cpp:71
 #, kde-format
 msgctxt "@action Switch to the next profile in the rotation"
 msgid "Next profile"
-msgstr ""
+msgstr "הפרופיל הבא"
 
 #: src/common/globalactions.cpp:77
 #, kde-format
 msgctxt "@action Switch to the previous profile in the rotation"
 msgid "Previous Profile"
-msgstr ""
+msgstr "הפרופיל הקודם"
 
 #: src/kcmodule/buttonactionselectiondialog.cpp:58
 #, kde-format
 msgctxt "The action that will be assigned to a tablet button."
 msgid "Select Button Action"
-msgstr ""
+msgstr "בחירת פעולה לכפתור"
 
 #: src/kcmodule/buttonactionselectionwidget.cpp:146
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
-msgstr ""
+msgstr "לחיצה לבחירה…"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
 #: src/kcmodule/buttonactionselectionwidget.ui:14
 #, kde-format
 msgid "Select Key Function"
-msgstr ""
+msgstr "בחירת תפקוד מקש"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:35
 #, kde-format
 msgid "Select Button Action"
-msgstr ""
+msgstr "בחירת פעולה לכפתור"
 
 #. i18n: ectx: property (text), widget (QCheckBox, ctrlModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:46
@@ -687,7 +687,7 @@ msgstr "נגיעה תפעיל פעולה."
 #: src/kcmodule/styluspagewidget.ui:128
 #, kde-format
 msgid "Sets eraser pressure threshold."
-msgstr ""
+msgstr "הגדרת סף לחץ המוחק."
 
 #. i18n: ectx: property (title), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:131
@@ -713,7 +713,7 @@ msgstr ""
 #, kde-format
 msgctxt "slow movement of the cursor (minimal value)"
 msgid "Soft"
-msgstr ""
+msgstr "רך"
 
 #. i18n: ectx: property (text), widget (QLabel, labelFast_2)
 #. i18n: ectx: property (text), widget (QLabel, labelFast_3)
@@ -721,40 +721,40 @@ msgstr ""
 #, kde-format
 msgctxt "fast movement of the cursor (maximal value)"
 msgid "Firm"
-msgstr ""
+msgstr "קשה"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, eraserPressureButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, tipPressureButton)
 #: src/kcmodule/styluspagewidget.ui:241 src/kcmodule/styluspagewidget.ui:391
 #, kde-format
 msgid "Defines the pressure sensitivity with a bezier curve"
-msgstr ""
+msgstr "הגדרת רגישות הלחץ עם עקומת בזייה"
 
 #. i18n: ectx: property (text), widget (QPushButton, eraserPressureButton)
 #. i18n: ectx: property (text), widget (QPushButton, tipPressureButton)
 #: src/kcmodule/styluspagewidget.ui:244 src/kcmodule/styluspagewidget.ui:394
 #, kde-format
 msgid "Edit Pressure Curve..."
-msgstr ""
+msgstr "עריכת עקומת לחץ…"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:272
 #, kde-format
 msgid "Sets stylus pressure threshold."
-msgstr ""
+msgstr "הגדרת סף לחץ עט המגע."
 
 #. i18n: ectx: property (title), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:275
 #, kde-format
 msgid "Tip Feel"
-msgstr ""
+msgstr "תחושת חוד"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxRawSample)
 #. i18n: ectx: property (toolTip), widget (QSlider, horizontalSliderRawSample)
 #: src/kcmodule/styluspagewidget.ui:412 src/kcmodule/styluspagewidget.ui:421
 #, kde-format
 msgid "Number of raw data used to filter the points (default is 4)"
-msgstr ""
+msgstr "מספר הנתונים הגולמיים שמשמשים לסינון הנקודות (ברירת המחדל היא 4)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxRawSample)
 #: src/kcmodule/styluspagewidget.ui:415
@@ -779,13 +779,13 @@ msgstr "20"
 #: src/kcmodule/styluspagewidget.ui:489
 #, kde-format
 msgid "Number of points trimmed (default is 2)"
-msgstr ""
+msgstr "מספר הנקודות שמנופות (ברירת המחדל היא 2)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
 #: src/kcmodule/styluspagewidget.ui:492
 #, kde-format
 msgid "Suppress Rate"
-msgstr ""
+msgstr "קצב דחייה"
 
 #. i18n: ectx: property (text), widget (QLabel, labelMinSuppress)
 #: src/kcmodule/styluspagewidget.ui:525
