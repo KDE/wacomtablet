@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-05-14 19:00+0300\n"
+"PO-Revision-Date: 2024-05-16 07:36+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -116,7 +116,7 @@ msgstr "הפעלת/השבתת כלי המגע"
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
-msgstr ""
+msgstr "החלפה בין מצב יחסי למוחלט בכלי עט המגע"
 
 #: src/common/globalactions.cpp:47
 #, kde-format
@@ -615,6 +615,8 @@ msgid ""
 "Click on the button, then enter the shortcut like you would in the program.\n"
 "Example for Ctrl+A: hold the Ctrl key and press A."
 msgstr ""
+"יש ללחוץ על הכפתור ואז להקליד את מקשי הקיצור כפי שנהוג ביישום.\n"
+"לדוגמה: Ctrl+A: להחזיק את Ctrl ואז ללחוץ על A."
 
 #: src/kcmodule/keysequenceinputbutton.cpp:310
 #, kde-format
@@ -659,7 +661,7 @@ msgstr "הגדרות עט"
 #: src/kcmodule/styluspagewidget.ui:28
 #, kde-format
 msgid "Defines the button action on the stylus."
-msgstr ""
+msgstr "הגדרת פעולת הכפתור של עט המגע."
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:31
@@ -676,6 +678,9 @@ msgid ""
 "If deselected, stylus buttons will work once the stylus is in proximity of "
 "the tablet."
 msgstr ""
+"אם האפשרות נבחרה, על עט המגע להיות בקשר עם הלוח כדי שכפתורי הצד של עט המגע "
+"יפעלו.\n"
+"אם לא נבחרה, כפתורי עט המגע יעבדו רק כשעט המגע קרוב ללוח."
 
 #. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:116
@@ -837,7 +842,7 @@ msgstr "החלפת מצב מסך"
 #: src/kcmodule/tabletareaselectionview.ui:96
 #, kde-format
 msgid "Select the valid tablet area used for the selected screen space."
-msgstr ""
+msgstr "בחירת אזור תקף בלוח שישמש למקום הנבחר במסך."
 
 #. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:99
@@ -861,7 +866,7 @@ msgstr "&אזור בלוח"
 #: src/kcmodule/tabletareaselectionview.ui:122
 #, kde-format
 msgid "Set the tablet area proportional to the selected screen area."
-msgstr ""
+msgstr "הגדרת האזור בלוח ביחס לאזור הנבחר במסך."
 
 #. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:125
@@ -965,7 +970,7 @@ msgstr "הגדרת אופן השימוש במצב תנועת סמן."
 #: src/kcmodule/tabletpagewidget.ui:28
 #, kde-format
 msgid "Stylus Tracking Mode"
-msgstr "מצב מעקב עט"
+msgstr "מצב מעקב עט מגע"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:72
