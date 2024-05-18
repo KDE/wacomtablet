@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-05-16 07:36+0300\n"
+"PO-Revision-Date: 2024-05-17 08:10+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -222,7 +222,7 @@ msgstr "לחיצה להקצאת פעולה."
 #: src/kcmodule/buttonpagewidget.ui:20
 #, kde-format
 msgid "Pad Buttons"
-msgstr ""
+msgstr "כפתורי לוח מקשים"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
@@ -634,7 +634,7 @@ msgstr "ללא"
 #: src/kcmodule/pressurecurvedialog.ui:23
 #, kde-format
 msgid "Press Curve Settings"
-msgstr ""
+msgstr "הגדרות עקומת לחיצה"
 
 #. i18n: ectx: property (text), widget (QLabel, explaining_Label)
 #: src/kcmodule/pressurecurvedialog.ui:37
@@ -644,12 +644,15 @@ msgid ""
 "Drag around the dots to change the behavior\n"
 "Use the stylus inside the Widget to see the pressure changes."
 msgstr ""
+"עקומת לחיצה מגדירה איך לטפל בלחיצה על העט.\n"
+"גרירה מסביב לנקודות משנה את ההתנהגות.\n"
+"אפשר להשתמש בעט המגע בתוך הווידג׳ט כדי לראות את שינויי הלחץ."
 
 #. i18n: ectx: property (text), widget (QLabel, pc_Label)
 #: src/kcmodule/pressurecurvedialog.ui:104
 #, kde-format
 msgid "Current Presscurve:"
-msgstr ""
+msgstr "עקומת לחיצה נוכחית:"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, StylusPageWidget)
 #: src/kcmodule/styluspagewidget.ui:14
@@ -711,6 +714,10 @@ msgid ""
 "irregardless of the actual hardware supported levels.\n"
 "This parameter is independent of the PressureCurve parameter."
 msgstr ""
+"הגדרת הלחץ המזערי שנחוץ ליצירת אירוע כפתור לעט המגע/חוד, מוחק או נגיעה.\n"
+" רמות הלחץ של כל לוחות הציור מנורמלות ל־2048 רמות ללא תלות ברמות שנתמכות על "
+"ידי החומרה.\n"
+"המשתנה הזה בלתי תלוי במשתנה עקומת הלחץ."
 
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_3)
@@ -819,6 +826,8 @@ msgid ""
 "The tablet area defines how the screen space is mapped to your tablet. For "
 "each screen a different tablet area can be selected. "
 msgstr ""
+"האזור בלוח המגע מגדיר איך השטח במסך ממופה ללוח המגע שלך. אפשר לבחור לוח מגע "
+"שונה לכל מסך."
 
 #. i18n: ectx: property (title), widget (QGroupBox, screenGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:57
