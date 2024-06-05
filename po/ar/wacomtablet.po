@@ -1,22 +1,22 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2015, 2017.
+# SPDX-FileCopyrightText: 2021, 2022, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-03-28 13:55+0000\n"
-"PO-Revision-Date: 2017-01-23 09:08+0300\n"
-"Last-Translator: Safa Alfulaij <safa1996alfulaij@gmail.com>\n"
-"Language-Team: Arabic <doc@arabeyes.org>\n"
+"PO-Revision-Date: 2024-02-23 21:50+0400\n"
+"Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
+"Language-Team: ar\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Lokalize 2.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -31,12 +31,12 @@ msgstr "safa1996alfulaij@gmail.com"
 #: src/common/aboutdata.cpp:33
 #, kde-format
 msgid "(c), 2009,2010 Jörg Ehrichs"
-msgstr ""
+msgstr "(c), 2009,2010 يورغ إريشس"
 
 #: src/common/aboutdata.cpp:37
 #, kde-format
 msgid "Jörg Ehrichs"
-msgstr ""
+msgstr "يورغ إريشس"
 
 #: src/common/aboutdata.cpp:37
 #, kde-format
@@ -46,7 +46,7 @@ msgstr "المصين"
 #: src/common/aboutdata.cpp:38
 #, kde-format
 msgid "Alexander Maret-Huskinson"
-msgstr ""
+msgstr "ألكسندر ماريت هوسكينسون"
 
 #: src/common/aboutdata.cpp:38
 #, kde-format
@@ -84,20 +84,16 @@ msgid "Mouse Wheel Down"
 msgstr "عجلة الفأرة لأسفل"
 
 #: src/common/buttonshortcut.cpp:101
-#, fuzzy, kde-format
-#| msgctxt "Tablet button triggers mouse wheel up."
-#| msgid "Mouse Wheel Up"
+#, kde-format
 msgctxt "Tablet button triggers mouse wheel left."
 msgid "Mouse Wheel Left"
-msgstr "عجلة الفأرة لأعلى"
+msgstr "عجلة الفأرة لليسار"
 
 #: src/common/buttonshortcut.cpp:103
-#, fuzzy, kde-format
-#| msgctxt "Tablet button triggers mouse wheel up."
-#| msgid "Mouse Wheel Up"
+#, kde-format
 msgctxt "Tablet button triggers mouse wheel right."
 msgid "Mouse Wheel Right"
-msgstr "عجلة الفأرة لأعلى"
+msgstr "عجلة الفأرة لليمين"
 
 #: src/common/buttonshortcut.cpp:105
 #, kde-format
@@ -464,10 +460,9 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
 #: src/kcmodule/generalpagewidget.ui:35
-#, fuzzy, kde-format
-#| msgid "Orientation"
+#, kde-format
 msgid "Profile rotation"
-msgstr "الاتّجاه"
+msgstr "تشكيلة التدوير"
 
 #. i18n: ectx: property (text), widget (QPushButton, pbDown)
 #: src/kcmodule/generalpagewidget.ui:80
@@ -544,17 +539,14 @@ msgid "No tablet device detected"
 msgstr "لم يُكتشف أيّ جهاز لوحيّ"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:175
-#, fuzzy, kde-format
-#| msgid ""
-#| "Please connect a tablet device to continue.\n"
-#| "If your device is already connected it is currently unsupported."
+#, kde-format
 msgid ""
 "Please connect a tablet device to continue.\n"
 "If your device is already connected, it is currently not in the device "
 "database."
 msgstr ""
 "رجاء أوصل جهازًا لوحيًّا للمتابعة.\n"
-"إن كان الجهاز موصل بالفعل، فهو غير مدعوم حاليًّا."
+"إن كان الجهاز موصل بالفعل، فهو غير موجود في قاعد بيانات الأجهزة حاليًّا."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
@@ -613,17 +605,15 @@ msgstr "إعدادات لوحيّ الرّسم"
 
 #. i18n: ectx: property (text), widget (QLabel, tabletListLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:25
-#, fuzzy, kde-format
-#| msgid "Select Tablet:"
+#, kde-format
 msgid "&Select Tablet:"
-msgstr "اختر لوحيًّا:"
+msgstr "&اختر لوحيًّا:"
 
 #. i18n: ectx: property (text), widget (QLabel, profileLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:45
-#, fuzzy, kde-format
-#| msgid "Select Profile:"
+#, kde-format
 msgid "Select &Profile:"
-msgstr "اختر تشكيلة:"
+msgstr "اختر &تشكيلة:"
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:67
@@ -743,7 +733,7 @@ msgstr ""
 #, kde-format
 msgctxt "slow movement of the cursor (minimal value)"
 msgid "Soft"
-msgstr ""
+msgstr "لين"
 
 #. i18n: ectx: property (text), widget (QLabel, labelFast_2)
 #. i18n: ectx: property (text), widget (QLabel, labelFast_3)
@@ -853,7 +843,7 @@ msgstr "الشّاشة"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, screenToggleButton)
 #: src/kcmodule/tabletareaselectionview.ui:83
-#, fuzzy, kde-format
+#, kde-format
 msgid "Toggle between fullscreen and each single screen."
 msgstr "بدّل بين ملء الشّاشة وكلّ شاشة منفصلة."
 
@@ -877,17 +867,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:105
-#, fuzzy, kde-format
-#| msgid "Full Tablet"
+#, kde-format
 msgid "&Full Tablet"
-msgstr "كامل اللوحيّ"
+msgstr "&اختر لوحيًّا"
 
 #. i18n: ectx: property (text), widget (QRadioButton, tabletAreaRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:115
-#, fuzzy, kde-format
-#| msgid "Tablet Area"
+#, kde-format
 msgid "&Tablet Area"
-msgstr "منطقة اللوحيّ"
+msgstr "&منطقة اللوحيّ"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:122
@@ -897,9 +885,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:125
-#, fuzzy, kde-format
+#, kde-format
 msgid "Set Screen Proportions"
-msgstr "اضبط نسب الشّاشة"
+msgstr "عين نسب الشّاشة"
 
 #. i18n: ectx: property (text), widget (QPushButton, calibrateButton)
 #: src/kcmodule/tabletareaselectionview.ui:132
@@ -915,9 +903,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
 #: src/kcmodule/tabletareaselectionview.ui:219
-#, fuzzy, kde-format
+#, kde-format
 msgid "Lock proportions"
-msgstr "اضبط نسب الشّاشة"
+msgstr "اقفل نسب الشّاشة"
 
 #. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:233
@@ -929,13 +917,13 @@ msgstr ""
 #: src/kcmodule/tabletareaselectionview.ui:245
 #, kde-format
 msgid "Width"
-msgstr ""
+msgstr "العرض"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
 #: src/kcmodule/tabletareaselectionview.ui:255
 #, kde-format
 msgid "Horizontal"
-msgstr ""
+msgstr "أفقي"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
 #: src/kcmodule/tabletareaselectionview.ui:268
@@ -947,7 +935,7 @@ msgstr ""
 #: src/kcmodule/tabletareaselectionview.ui:278
 #, kde-format
 msgid "Vertical"
-msgstr ""
+msgstr "رأسي"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
 #: src/kcmodule/tabletareaselectionview.ui:291
@@ -959,7 +947,7 @@ msgstr ""
 #: src/kcmodule/tabletareaselectionview.ui:307
 #, kde-format
 msgid "Height"
-msgstr ""
+msgstr "الارتفاع"
 
 #: src/kcmodule/tabletpagewidget.cpp:384
 #, kde-format
@@ -967,7 +955,7 @@ msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
 msgid "Default Orientation"
-msgstr ""
+msgstr "الاتّجاه الافتراضيّ"
 
 #: src/kcmodule/tabletpagewidget.cpp:385
 #, kde-format
@@ -995,7 +983,7 @@ msgstr "حدّد طريقة استخدام وضع حركة المؤشّر."
 
 #. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:28
-#, fuzzy, kde-format
+#, kde-format
 msgid "Stylus Tracking Mode"
 msgstr "وضع تعقّب قلم التّأشير"
 
@@ -1196,7 +1184,7 @@ msgstr ""
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
-msgstr ""
+msgstr "اضبط"
 
 #: src/kded/tabletdaemon.cpp:164
 #, kde-format
@@ -1232,7 +1220,7 @@ msgstr "أُزيل اللوحيّ %1"
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exists."
 msgid "Default"
-msgstr ""
+msgstr "المبدئيّ"
 
 #: src/kded/tablethandler.cpp:474
 #, kde-format
@@ -1251,7 +1239,7 @@ msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
 #: src/tabletfinder/dialog.ui:14
-#, fuzzy, kde-format
+#, kde-format
 msgid "Wacom Tablet detection"
 msgstr "اكتشاف لوحيّ واكُم"
 
@@ -1281,8 +1269,7 @@ msgstr "أنعش"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/tabletfinder/dialog.ui:66
-#, fuzzy, kde-format
-#| msgid "Serial Nr.:"
+#, kde-format
 msgid "Serial No.:"
 msgstr "الرّقم التّسلسليّ:"
 
@@ -1336,8 +1323,7 @@ msgstr "لديه عجلة"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: src/tabletfinder/dialog.ui:169
-#, fuzzy, kde-format
-#| msgid "Button Settings"
+#, kde-format
 msgid "Button mapping"
 msgstr "إعدادات الزّرّ"
 
@@ -1361,10 +1347,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
 #: src/tabletfinder/dialog.ui:227
-#, fuzzy, kde-format
-#| msgid "Wacom Tablet"
+#, kde-format
 msgid "&Normal tablet"
-msgstr "لوحيّ واكوم"
+msgstr "لوحيّ &عادي"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioParentTablet)
 #: src/tabletfinder/dialog.ui:239
