@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-set(PROJECT_VERSION "6.1.1")
+set(PROJECT_VERSION "6.1.2")
 project(wacomtablet VERSION ${PROJECT_VERSION})
 
 set(PROJECT_DEP_VERSION "6.1.1")
