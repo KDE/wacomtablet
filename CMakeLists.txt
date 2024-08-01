@@ -24,6 +24,7 @@ include(ECMOptionalAddSubdirectory)
 include(ECMInstallIcons)
 include(ECMSetupVersion)
 include(ECMQtDeclareLoggingCategory)
+include(ECMDeprecationSettings)
 
 ecm_setup_version(${PROJECT_VERSION}
     VARIABLE_PREFIX WACOMTABLET
@@ -51,6 +52,10 @@ add_definitions(-DQT_STRICT_ITERATORS)
 add_definitions(-DQT_NO_CAST_FROM_ASCII)
 add_definitions(-DQT_NO_CAST_TO_ASCII)
 add_definitions(-DQT_USE_QSTRINGBUILDER)
+
+ecm_set_disabled_deprecation_versions(QT 6.7.0
+    KF 6.4.0
+)
 
 add_subdirectory(src)
 add_subdirectory(data)
