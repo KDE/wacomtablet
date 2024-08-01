@@ -47,12 +47,12 @@ void PressureCurveWidget::setControlPoints(qreal p1, qreal p2, qreal p3, qreal p
 
 void PressureCurveWidget::mousePressEvent(QMouseEvent *event)
 {
-    setNearestPoint(event->localPos());
+    setNearestPoint(event->position());
 }
 
 void PressureCurveWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    moveControlPoint(event->localPos());
+    moveControlPoint(event->position());
     update();
 }
 
@@ -89,9 +89,9 @@ void PressureCurveWidget::tabletEvent(QTabletEvent *event)
     }
 
     if (m_activePoint > 0) {
-        moveControlPoint(event->pos());
+        moveControlPoint(event->position().toPoint());
     } else if (m_pressure > threshold) {
-        setNearestPoint(event->pos());
+        setNearestPoint(event->position().toPoint());
     }
 
     update();

@@ -158,7 +158,7 @@ void TestTabletHandler::testListProfiles()
     QVERIFY(profiles.contains(QLatin1String("default")));
     QVERIFY(profiles.contains(QLatin1String("test")));
 
-    QWARN("testListProfiles(): PASSED!");
+    qWarning("testListProfiles(): PASSED!");
 }
 
 void TestTabletHandler::testOnScreenRotated()
@@ -185,7 +185,7 @@ void TestTabletHandler::testOnScreenRotated()
     QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Stylus, Property::Rotate), ScreenRotation::HALF.key());
     QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Touch, Property::Rotate), ScreenRotation::HALF.key());
 
-    QWARN("testOnScreenRotated(): PASSED!");
+    qWarning("testOnScreenRotated(): PASSED!");
 }
 
 void TestTabletHandler::testOnTabletAdded()
@@ -262,7 +262,7 @@ void TestTabletHandler::testOnTabletAdded()
     QVERIFY(m_notifyTitle.isEmpty());
     QVERIFY(m_profileChanged.isEmpty());
 
-    QWARN("testOnTabletAdded(): PASSED!");
+    qWarning("testOnTabletAdded(): PASSED!");
 
     // prepare for the next test
     m_tabletAdded = true;
@@ -317,7 +317,7 @@ void TestTabletHandler::testOnTabletRemoved()
     QVERIFY(m_notifyMessage.isEmpty());
     QVERIFY(m_notifyTitle.isEmpty());
 
-    QWARN("testOnTabletRemoved(): PASSED!");
+    qWarning("testOnTabletRemoved(): PASSED!");
 }
 
 void TestTabletHandler::testOnTogglePenMode()
@@ -338,7 +338,7 @@ void TestTabletHandler::testOnTogglePenMode()
     QCOMPARE(m_backendMock->getProperty(DeviceType::Eraser, Property::Mode), QLatin1String("absolute"));
     QCOMPARE(m_backendMock->getProperty(DeviceType::Stylus, Property::Mode), QLatin1String("absolute"));
 
-    QWARN("testOnTogglePenMode(): PASSED!");
+    qWarning("testOnTogglePenMode(): PASSED!");
 }
 
 void TestTabletHandler::testOnToggleTouch()
@@ -356,7 +356,7 @@ void TestTabletHandler::testOnToggleTouch()
 
     QCOMPARE(m_backendMock->getProperty(DeviceType::Touch, Property::Touch), QLatin1String("off"));
 
-    QWARN("testOnToggleTouch(): PASSED!");
+    qWarning("testOnToggleTouch(): PASSED!");
 }
 
 void TestTabletHandler::testSetProfile()
@@ -393,7 +393,7 @@ void TestTabletHandler::testSetProfile()
     // cmake copies our test data only once.
     m_tabletHandler->setProfile(QLatin1String("4321"), QLatin1String("test"));
 
-    QWARN("testSetProfile(): PASSED!");
+    qWarning("testSetProfile(): PASSED!");
 }
 
 void TestTabletHandler::testSetProperty()
@@ -404,7 +404,7 @@ void TestTabletHandler::testSetProperty()
     QCOMPARE(m_backendMock->getProperty(DeviceType::Stylus, Property::Button1), Property::Button1.key());
     QCOMPARE(m_tabletHandler->getProperty(QLatin1String("4321"), DeviceType::Stylus, Property::Button1), Property::Button1.key());
 
-    QWARN("testSetProperty(): PASSED!");
+    qWarning("testSetProperty(): PASSED!");
 }
 
 #include "testtablethandler.moc"
