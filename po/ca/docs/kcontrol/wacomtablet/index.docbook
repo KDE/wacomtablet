@@ -102,7 +102,7 @@
 >Gestionar els perfils</title>
 
         <para
->Aquesta és la petita llista desplegable amb dos botons al seu costat. Podeu crear perfils nous i eliminar els ja existents. Cada perfil es desa i s'especifica per a la tauleta actualment connectada. Si creeu un perfil nou, es crearà automàticament amb les opcions de configuració predeterminades retornades pel controlador. </para>
+>Aquesta és la petita llista desplegable amb dos botons al seu costat. Podeu crear perfils nous i suprimir els ja existents. Cada perfil es desa i s'especifica per a la tauleta actualment connectada. Si creeu un perfil nou, es crearà automàticament amb les opcions de configuració predeterminades retornades pel controlador. </para>
 
         <para
 >Aquí podeu especificar diferents perfils de configuració. Per exemple, si us agrada tenir un comportament diferent del llapis quan l'utilitzeu com a un substitut del ratolí per al vostre treball diari o si l'utilitzeu com un llapis per a dibuixar quelcom. </para>
