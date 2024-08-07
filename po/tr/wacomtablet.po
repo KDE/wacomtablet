@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: extragear-base-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-04-30 00:20+0300\n"
+"PO-Revision-Date: 2024-08-06 11:37+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.07.70\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -33,7 +33,7 @@ msgstr "ibrahim@pardus.org.tr, emir_sari@icloud.com"
 #: src/common/aboutdata.cpp:36
 #, kde-format
 msgid "(c), 2009,2010 Jörg Ehrichs"
-msgstr "(c), 2009,2010 Jörg Ehrichs"
+msgstr "© 2009, 2010 Jörg Ehrichs"
 
 #: src/common/aboutdata.cpp:40
 #, kde-format
@@ -48,7 +48,7 @@ msgstr "Bakıcı"
 #: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Alexander Maret-Huskinson"
-msgstr "Alexander Maret-Huskinson"
+msgstr "Alexander Maret–Huskinson"
 
 #: src/common/aboutdata.cpp:41
 #, kde-format
@@ -971,7 +971,7 @@ msgstr "Tableti Saat Yönünün Tersine Döndür"
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
-msgstr "Tableti Baş-Aşağı Döndür"
+msgstr "Tableti Baş Aşağı Döndür"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:25 src/kcmodule/touchpagewidget.ui:57
@@ -1049,7 +1049,7 @@ msgstr "Etkinse, tablet ekranla beraber döner."
 #: src/kcmodule/tabletpagewidget.ui:184
 #, kde-format
 msgid "Auto-Rotate with Screen"
-msgstr "Ekran ile Otomatik-Döndür"
+msgstr "Ekranla Birlikte Döndür"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenInvertCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:194
@@ -1065,7 +1065,7 @@ msgstr ""
 #: src/kcmodule/tabletpagewidget.ui:197
 #, kde-format
 msgid "Invert Auto-Rotation"
-msgstr "Oto-Dönüşü Tersine Çevir"
+msgstr "Birlikte Dönüşü Tersine Çevir"
 
 #. i18n: ectx: property (text), widget (KMessageWidget, gesturesWarning)
 #: src/kcmodule/touchpagewidget.ui:17
