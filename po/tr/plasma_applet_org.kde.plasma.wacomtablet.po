@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Emir SARI <emir_sari@icloud.com>, 2023.
+# SPDX-FileCopyrightText: 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: plasma_applet_org.kde.wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-20 01:35+0000\n"
-"PO-Revision-Date: 2023-05-24 01:10+0300\n"
+"PO-Revision-Date: 2024-08-06 11:39+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -15,18 +15,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.07.70\n"
+"X-Generator: Lokalize 24.11.70\n"
 "X-POOTLE-MTIME: 1497453588.000000\n"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:36
 #, kde-format
 msgid "Graphic Tablet - Device not detected."
-msgstr "Grafik Tablet - Aygıt algılanamadı."
+msgstr "Grafik Tablet — Aygıt algılanamadı."
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:45
 #, kde-format
 msgid "Error - Tablet service not available."
-msgstr "Hata - Tablet hizmeti kullanılamıyor."
+msgstr "Hata — Tablet hizmeti kullanılamıyor."
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:106
 #, kde-format
@@ -49,12 +49,12 @@ msgstr ""
 #: src/applet/package/contents/ui/FullRepresentation.qml:127
 #, kde-format
 msgid "Select Tablet:"
-msgstr "Tablet Seç:"
+msgstr "Tablet seç:"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:155
 #, kde-format
 msgid "Select Profile:"
-msgstr "Profil Seç:"
+msgstr "Profil seç:"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:211
 #, kde-format
@@ -72,7 +72,7 @@ msgstr "Dokunma:"
 #, kde-format
 msgctxt "Rotation of the tablet pad"
 msgid "Rotation:"
-msgstr "Çevirme:"
+msgstr "Döndürme:"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:233
 #, kde-format
@@ -80,7 +80,7 @@ msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
 msgid "Default Orientation"
-msgstr "Varsayılan Yön"
+msgstr "Öntanımlı Yönelim"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:240
 #, kde-format
@@ -98,7 +98,7 @@ msgstr "Tableti Saat Yönünün Tersine Döndür"
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
-msgstr "Tableti Başaşağı Döndür"
+msgstr "Tableti Baş Aşağı Döndür"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:260
 #, kde-format
@@ -121,7 +121,7 @@ msgstr "Göreceli"
 #: src/applet/package/contents/ui/main.qml:41
 #, kde-format
 msgid "&Configure Graphics Tablet..."
-msgstr "Grafik Tabletlerini &Yapılandır..."
+msgstr "Grafik Tableti &Yapılandır…"
 
 #: src/applet/package/contents/ui/main.qml:53
 #, kde-format
