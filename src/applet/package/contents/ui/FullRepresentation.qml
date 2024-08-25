@@ -78,7 +78,7 @@ Item {
         }
         elementId: "horizontal-line"
         svg: lineSvg
-        height: lineSvg.elementSize("horizontal-line").height
+        height: lineSvg.elements.size("horizontal-line").height
     }
 
     Row {
