@@ -44,7 +44,7 @@ Item {
 
         return i18n("Error - Tablet service not available.");
     }
-    
+
     Row {
         id: title
         anchors {
@@ -53,7 +53,7 @@ Item {
             right: parent.right
         }
         spacing: Kirigami.Units.smallSpacing
-        
+
         Kirigami.Icon {
             id: titleIcon
             source: "input-tablet"
@@ -92,7 +92,7 @@ Item {
         }
         visible: !root.active
         spacing: Kirigami.Units.smallSpacing * 2
-        
+
         Kirigami.Icon {
             id: errorIcon
             width: Kirigami.Units.iconSizes.medium
