@@ -107,7 +107,7 @@ This is not intended for daily use, but for people who want to test developer bu
 
 Running KCM component:
 
-    $ QT_PLUGIN_PATH=src/kcmodule/ kcmshell5 wacomtablet
+    $ QT_PLUGIN_PATH=src/kcmodule/ kcmshell6 wacomtablet
 
 Running KDED component:
 
