@@ -1422,13 +1422,3 @@ msgid ""
 msgstr ""
 "Moveu el cursor del ratolí dins del diàleg, però <b>no</b> hi cliqueu amb el "
 "ratolí."
-
-#~ msgid "Graphic Tablet Configuration"
-#~ msgstr "Configuració de la tauleta gràfica"
-
-#~ msgid "A configurator for graphic tablets"
-#~ msgstr "Un configurador per a tauletes gràfiques"
-
-#~ msgid "In this module you can configure your Wacom tablet profiles"
-#~ msgstr ""
-#~ "En aquest mòdul podeu configurar els perfils de la vostra tauleta Wacom"
