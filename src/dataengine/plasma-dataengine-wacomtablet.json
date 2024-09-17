@@ -42,7 +42,6 @@
         "Category": "System Information",
         "EnabledByDefault": true,
         "Icon": "preferences-desktop-tablet",
-        "Id": "wacomtablet",
         "License": "GPL",
         "Name": "Wacom Tablet DataEngine",
         "Name[ar]": "محرّك بيانات لوحيّات واكُم",
