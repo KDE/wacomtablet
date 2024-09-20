@@ -5,20 +5,21 @@
 # Stelios <sstavra@gmail.com>, 2011, 2012, 2013, 2015, 2020, 2021.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014.
 # Petros Vidalis <pvidalis@gmail.com>, 2016.
+# SPDX-FileCopyrightText: 2024 Antonis Geralis <capoiosct@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2021-09-04 10:15+0300\n"
-"Last-Translator: Stelios <sstavra@gmail.com>\n"
+"PO-Revision-Date: 2024-09-19 16:06+0300\n"
+"Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -77,13 +78,13 @@ msgstr "Δεξί κλικ στο ποντίκι"
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel up."
 msgid "Mouse Wheel Up"
-msgstr "Ανάστροφη κύληση ρόδας ποντικιού"
+msgstr "Ανάστροφη κύλιση ρόδας ποντικιού"
 
 #: src/common/buttonshortcut.cpp:101
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel down."
 msgid "Mouse Wheel Down"
-msgstr "Κύληση ρόδας ποντικιού"
+msgstr "Κύλιση ρόδας ποντικιού"
 
 #: src/common/buttonshortcut.cpp:103
 #, kde-format
@@ -438,7 +439,7 @@ msgid ""
 "This will open another window, prompting you to describe your tablet device. "
 "After you're done, please restart your desktop session."
 msgstr ""
-"Αυτό θα ανοίξει ένα άλλο παράθυρο, με προτροπή να περιγράψετε το πινάκιό "
+"Αυτό θα ανοίξει ένα άλλο παράθυρο, με προτροπή να περιγράψετε το πινάκιο "
 "σας. Αφού τελειώσετε, επανεκκινήστε τη συνεδρία της επιφάνειας εργασίας."
 
 #: src/kcmodule/generalpagewidget.cpp:56
@@ -584,7 +585,7 @@ msgstr "Επιλογή &προφίλ:"
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
-"Αποτυχία εκτέλεσης του εργαλείου εύρεσης πινακίvn Wacom. Ελέγξτε την "
+"Αποτυχία εκτέλεσης του εργαλείου εύρεσης πινακίων Wacom. Ελέγξτε την "
 "εγκατάστασή σας."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
@@ -1144,20 +1145,20 @@ msgstr "Νεύματα"
 #: src/kcmodule/touchpagewidget.ui:235
 #, kde-format
 msgid "Minimum motion before sending a scroll gesture."
-msgstr "Ελάχιστη κίνηση πριν την αποστολή νεύματος κύλησης."
+msgstr "Ελάχιστη κίνηση πριν την αποστολή νεύματος κύλισης."
 
 #. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:238
 #, kde-format
 msgid "Scroll Distance"
-msgstr "Απόσταση κύλησης"
+msgstr "Απόσταση κύλισης"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, scrollDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:254
 #, kde-format
 msgid "The minimum motion in tablet units before sending a scroll event."
 msgstr ""
-"Η ελάχιστη κίνηση σε μονάδες πινακίου πριν την αποστολή γεγονότος κύλησης."
+"Η ελάχιστη κίνηση σε μονάδες πινακίου πριν την αποστολή γεγονότος κύλισης."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:273
@@ -1203,13 +1204,13 @@ msgstr ""
 #: src/kcmodule/touchpagewidget.ui:337
 #, kde-format
 msgid "Invert Scroll Direction"
-msgstr "Αντιστροφή κατεύθυνσης κύλησης"
+msgstr "Αντιστροφή κατεύθυνσης κύλισης"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, scrollInversionCheckBox)
 #: src/kcmodule/touchpagewidget.ui:344
 #, kde-format
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
-msgstr "Αν επιλεγεί, αντιστρέφεται η κατεύθυνση κύλησης στο σχετικό νεύμα."
+msgstr "Αν επιλεγεί, αντιστρέφεται η κατεύθυνση κύλισης στο σχετικό νεύμα."
 
 #: src/kded/tabletdaemon.cpp:111 src/kded/tabletdaemon.cpp:117
 #, kde-format
@@ -1302,7 +1303,7 @@ msgstr "Ανανέωση"
 #: src/tabletfinder/dialog.ui:66
 #, kde-format
 msgid "Serial No.:"
-msgstr "Σειραϊκός αρ.:"
+msgstr "Σειριακός αρ.:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tabletfinder/dialog.ui:86
@@ -1386,13 +1387,13 @@ msgstr "Κα&νονικό πινάκιο"
 #: src/tabletfinder/dialog.ui:239
 #, kde-format
 msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-msgstr "&Πινάκιο πολυ-συσκευή, ασθητήρας γραφίδας. Ο αισθητήρας αφής είναι:"
+msgstr "&Πινάκιο πολυ-συσκευή, αισθητήρας γραφίδας. Ο αισθητήρας αφής είναι:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
 #: src/tabletfinder/dialog.ui:251
 #, kde-format
 msgid "Multi-&device tablet, touch sensor"
-msgstr "Πινάκιο πολυ-&συσκευή, ασθητήρας αφής"
+msgstr "Πινάκιο πολυ-&συσκευή, αισθητήρας αφής"
 
 #: src/tabletfinder/hwbuttondialog.cpp:66
 #, kde-format
