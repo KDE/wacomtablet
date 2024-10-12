@@ -124,6 +124,7 @@
     "X-KDE-Keywords[sv]": "Ritplatta,Inmatning,Enheter,Wacom,Penna",
     "X-KDE-Keywords[tr]": "Tablet,Girdi Aygıtları,Wacom,Stylus",
     "X-KDE-Keywords[uk]": "Tablet,Input Devices,Wacom,Stylus,планшет,введення,малювання,стило,перо",
+    "X-KDE-Keywords[zh_CN]": "Tablet,Input Devices,Wacom,Stylus,shuweiban,shurushebei,yaganbi,shuweiping,heguan,huion,数位板,数位屏,输入设备,压感笔,和冠",
     "X-KDE-Keywords[zh_TW]": "Tablet,Input Devices,Wacom,Stylus",
     "X-KDE-OnlyShowOnQtPlatforms": [
         "xcb"
