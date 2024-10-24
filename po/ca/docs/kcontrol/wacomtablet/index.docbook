@@ -41,7 +41,7 @@
 >&FDLNotice;</legalnotice>
 
     <date
->17 d'octubre de 2020</date
+>2013-03-16</date
 ><!-- Date of (re)writing, or update.-->
     <releaseinfo
 >&kappversion;</releaseinfo
@@ -70,18 +70,20 @@
     <title
 >Arranjament de les tauletes Wacom</title>
     <para
->El mòdul &systemsettings; de tauleta s'encarrega de tota la configuració de la tauleta gràfica. Totes les tauletes implementades pel projecte del <ulink url="https://linuxwacom.github.io"
->controlador Wacom per a &Linux;</ulink
-> són gestionades per aquesta interfície de configuració. Assegureu-vos que la vostra tauleta és detectada ja sigui a través de «xorg.conf» o «udev» i que funciona en general. Per a obtenir més informació, vegeu la <link linkend="detection"
->detecció de la tauleta</link
->. </para>
+>The tablet &systemsettings; module handles all setting for your graphic tablet. All tablets supported by the <ulink url="http://linuxwacom.sourceforge.net"
+>&Linux; Wacom driver</ulink
+> project are handled by this settings interface. Make sure your tablet is detected either via xorg.conf or HAL and works in general. Refer to the <link linkend="detection"
+>tablet detection</link
+> section for more information. </para>
     <important>
         <para
->El controlador <application
+>The <application
+>wacom-tools</application
+> or the <application
 >xf86-input-wacom</application
-> haurà d'estar instal·lat en el vostre ordinador i <command
+> driver must be installed on your computer and <command
 >xsetwacom</command
-> haurà d'estar disponible perquè funcioni correctament aquest mòdul. </para>
+> must be available in order to make this module work correctly. </para>
     </important>
     <para
 >El mòdul es divideix en diverses pàgines de pestanya que s'encarreguen de tots els aspectes de la tauleta i del llapis: <link linkend="tablet-profiles"
@@ -102,7 +104,7 @@
 >Gestionar els perfils</title>
 
         <para
->Aquesta és la petita llista desplegable amb dos botons al seu costat. Podeu crear perfils nous i suprimir els ja existents. Cada perfil es desa i s'especifica per a la tauleta actualment connectada. Si creeu un perfil nou, es crearà automàticament amb les opcions de configuració predeterminades retornades pel controlador. </para>
+>This is the small drop down box with the two buttons next to it. You can create new profiles and delete already existing ones. Each profile is saved and specified for the currently connected tablet. If you create a new profile, it automatically creates one with the default settings as returned by the wacom-tools. </para>
 
         <para
 >Aquí podeu especificar diferents perfils de configuració. Per exemple, si us agrada tenir un comportament diferent del llapis quan l'utilitzeu com a un substitut del ratolí per al vostre treball diari o si l'utilitzeu com un llapis per a dibuixar quelcom. </para>
@@ -150,11 +152,11 @@
             <title
 >Sensibilitat de la goma d'esborrar</title>
             <para
->El control lliscant permet modificar el llindar de la goma d'esborrar. Per a un ajust més fi de la pressió, és possible alterar tota la corba de pressió al diàleg <guilabel
->Edita la corba de pressió</guilabel
->. Per a més informació, vegeu el <link linkend="presscurve"
->Diàleg corba de pressió</link
->. </para>
+>The slider allows to alter the threshold of the eraser. For a more fine grained setting of the pressure it is possible to alter the complete pressure curve in the <guilabel
+>Edit Pressure Curve</guilabel
+> dialog. See <link linkend="presscurve"
+>Presscurve Dialog</link
+> for more information. </para>
         </sect2>
 
         <sect2 id="pen-button-settings">
@@ -327,26 +329,26 @@
 
     <sect1 id="presscurve">
         <title
->Diàleg corba de pressió</title>
+>Presscurve Dialog</title>
 
         <para>
             <screenshot>
                 <screeninfo
->Aquí hi ha una captura de pantalla del diàleg, corba de pressió</screeninfo>
+>Here's a screenshot of the Presscurve Dialog</screeninfo>
                 <mediaobject>
                     <imageobject>
                         <imagedata fileref="presscurve.png" format="PNG"/>
                     </imageobject>
                     <textobject>
                         <phrase
->Canviant la corba de pressió</phrase>
+>Changing the Presscurve</phrase>
                     </textobject>
                 </mediaobject>
             </screenshot>
         </para>
 
         <para
->La corba de pressió defineix com es traduirà la pressió del llapis. La corba de pressió es defineix a través de quatre punts d'una corba de Bézier. Per a canviar aquesta corba podeu alterar els punts vermells i moure'ls al voltant de la corba. </para>
+>The Presscurve defines how the pressure of the stylus is translated. The Presscurve is defined via four points of a Bézier curve. To change this curve you can alter the red dots and move the curve around. </para>
         <note>
             <para
 >Utilitzeu el llapis dins del diàleg corba de pressió, per a veure els canvis directament en la corba de pressió. Una àrea blava sota la corba mostrarà la pressió aplicada del llapis. </para>
@@ -379,14 +381,6 @@
 >Utilitzeu el botó <guilabel
 >Commuta a pantalla</guilabel
 > per a canviar entre pantalla completa (tots els monitors connectats) i cada monitor individual. Les opcions es desen per a cada configuració de la pantalla i s'aplica a la tauleta quan la selecció de pantalla és activada per la drecera global. </para>
-        <para
->És possible fer un mapatge de la pantalla amb l'<guimenuitem
->Àrea de la tauleta</guimenuitem
-> o definir aquesta àrea a la subfinestra <guilabel
->Tauleta</guilabel
-> que hi ha a la dreta. Les proporcions de l'àrea es poden bloquejar o desbloquejar utilitzant el botó alternable <guibutton
->Bloqueja les proporcions</guibutton
->. </para>
         <para
 >Per a mantenir la relació d'aspecte de la tauleta amb la selecció actual de la pantalla, podeu prémer el botó <guilabel
 >Estableix les proporcions de la pantalla</guilabel
@@ -438,17 +432,15 @@
         <title
 >Problemes en la detecció</title>
         <para
->Si no es detecta la tauleta, comproveu la pàgina del <ulink url="https://linuxwacom.github.io"
->controlador Wacom del &Linux;</ulink
-> o del <ulink url="https://digimend.github.io"
->controlador DIGImend</ulink
-> si la tauleta està admesa. D'altra banda, comproveu a través de <command
+>If the tablet is not detected check the <ulink url="http://linuxwacom.sourceforge.net"
+>&Linux; Wacom driver</ulink
+> page if your tablet is supported. Furthermore check via <command
 >lsusb</command
-> si podeu trobar la vostra tauleta. </para>
+> if you can find your tablet. </para>
         <para
->Si «udev» no s'ocupa de la detecció, afegiu la tauleta al vostre fitxer <filename
->/etc/X11/xorg.conf.d/50-tauleta.conf</filename
-> (creeu-lo si no existeix) i torneu a iniciar el servidor X. </para>
+>If HAL does not handle the detection add the tablet to your <filename
+>/etc/X11/xorg.conf</filename
+> file and restart the x-server. </para>
         <para
 >En el cas d'un dispositiu sèrie (Tauleta PC i semblants) comproveu si <command
 >xinput --list</command
