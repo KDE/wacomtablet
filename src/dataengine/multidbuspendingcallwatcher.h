@@ -26,7 +26,7 @@ class MultiDBusPendingCallWatcher : public QObject
 {
     Q_OBJECT
 public:
-    explicit MultiDBusPendingCallWatcher(const QList<QDBusPendingCall> &calls, QObject *parent = 0);
+    explicit MultiDBusPendingCallWatcher(const QList<QDBusPendingCall> &calls, QObject *parent = nullptr);
 
 signals:
     void finished(const QList<QDBusPendingCallWatcher *> &watchers);
