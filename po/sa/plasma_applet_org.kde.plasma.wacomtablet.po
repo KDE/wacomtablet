@@ -58,19 +58,19 @@ msgstr "प्रोफाइल चयनं कुर्वन्तु:"
 #, kde-format
 msgctxt "Groupbox Settings for the applet to change some values on the fly"
 msgid "Settings"
-msgstr ""
+msgstr "सेटिंग्स्"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:216
 #, kde-format
 msgctxt "Toggle between touch on/off"
 msgid "Touch:"
-msgstr ""
+msgstr "स्पर्श:"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:226
 #, kde-format
 msgctxt "Rotation of the tablet pad"
 msgid "Rotation:"
-msgstr ""
+msgstr "परिभ्रमणम् : १."
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:233
 #, kde-format
@@ -78,43 +78,43 @@ msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
 msgid "Default Orientation"
-msgstr ""
+msgstr "पूर्वनिर्धारित अभिविन्यास"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:240
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
-msgstr ""
+msgstr "टैबलेटं घड़ीयानस्य दिशि परिभ्रमन्तु"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:247
 #, kde-format
 msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
-msgstr ""
+msgstr "टैबलेटं घड़ीयाः विपरीतदिशायां परिभ्रमन्तु"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:254
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
-msgstr ""
+msgstr "टैब्लेट् उल्टा-अधः परिभ्रमन्तु"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:260
 #, kde-format
 msgctxt "Toggle between absolute/relative penmode"
 msgid "Mode:"
-msgstr ""
+msgstr "मोडः : १."
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:264
 #, kde-format
 msgctxt "absolute pen movement (pen mode)"
 msgid "Absolute"
-msgstr ""
+msgstr "निरपेक्षः"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:278
 #, kde-format
 msgctxt "relative pen movement (mouse mode)"
 msgid "Relative"
-msgstr ""
+msgstr "संबंधी"
 
 #: src/applet/package/contents/ui/main.qml:41
 #, kde-format

@@ -19,12 +19,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "भवतः नामानि"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "भवतः ईमेलपत्राणि"
 
 #: src/common/aboutdata.cpp:36
 #, kde-format
@@ -55,49 +55,49 @@ msgstr "विकासकः"
 #, kde-format
 msgctxt "Tablet button triggers a left mouse button click."
 msgid "Left Mouse Button Click"
-msgstr ""
+msgstr "वाममूषकस्य बटनं क्लिक् कुर्वन्तु"
 
 #: src/common/buttonshortcut.cpp:95
 #, kde-format
 msgctxt "Tablet button triggers a middle mouse button click."
 msgid "Middle Mouse Button Click"
-msgstr ""
+msgstr "मध्यमूषकस्य बटनं क्लिक् कुर्वन्तु"
 
 #: src/common/buttonshortcut.cpp:97
 #, kde-format
 msgctxt "Tablet button triggers a right mouse button click."
 msgid "Right Mouse Button Click"
-msgstr ""
+msgstr "राइट् माउस बटन क्लिक् कुर्वन्तु"
 
 #: src/common/buttonshortcut.cpp:99
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel up."
 msgid "Mouse Wheel Up"
-msgstr ""
+msgstr "मूषकचक्रं उपरि"
 
 #: src/common/buttonshortcut.cpp:101
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel down."
 msgid "Mouse Wheel Down"
-msgstr ""
+msgstr "मूषकस्य चक्रं अधः"
 
 #: src/common/buttonshortcut.cpp:103
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel left."
 msgid "Mouse Wheel Left"
-msgstr ""
+msgstr "मूषकचक्रं वामम्"
 
 #: src/common/buttonshortcut.cpp:105
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel right."
 msgid "Mouse Wheel Right"
-msgstr ""
+msgstr "मूषकचक्रं दक्षिणतः"
 
 #: src/common/buttonshortcut.cpp:107
 #, kde-format
 msgctxt "Tablet button triggers a click of mouse button with number #"
 msgid "Mouse Button %1 Click"
-msgstr ""
+msgstr "मूषकस्य बटनं %1 क्लिक् कुर्वन्तु"
 
 #: src/common/globalactions.cpp:31
 #, kde-format
@@ -108,19 +108,19 @@ msgstr "वाकोम टैबलेट"
 #, kde-format
 msgctxt "@action"
 msgid "Enable/Disable the Touch Tool"
-msgstr ""
+msgstr "स्पर्शसाधनं सक्षमं/अक्षमं कुर्वन्तु"
 
 #: src/common/globalactions.cpp:41
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
-msgstr ""
+msgstr "Stylus Tool Relative/Absolute इत्येतत् Toggle कुर्वन्तु"
 
 #: src/common/globalactions.cpp:47
 #, kde-format
 msgctxt "@action"
 msgid "Toggle between all screens"
-msgstr ""
+msgstr "सर्वेषां पटलानां मध्ये टॉगलं कुर्वन्तु"
 
 #: src/common/globalactions.cpp:53
 #, kde-format
@@ -128,31 +128,31 @@ msgctxt ""
 "@action Maps the area of the tablet to all available screen space (space "
 "depends on connected monitors)"
 msgid "Map to fullscreen"
-msgstr ""
+msgstr "पूर्णपर्दे नक्शाङ्कनम्"
 
 #: src/common/globalactions.cpp:59
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 1"
-msgstr ""
+msgstr "पटलं प्रति नक्शाङ्कनं 1"
 
 #: src/common/globalactions.cpp:65
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 2"
-msgstr ""
+msgstr "पटलं प्रति नक्शाङ्कनम् 2"
 
 #: src/common/globalactions.cpp:71
 #, kde-format
 msgctxt "@action Switch to the next profile in the rotation"
 msgid "Next profile"
-msgstr ""
+msgstr "अग्रिमः प्रोफाइलः"
 
 #: src/common/globalactions.cpp:77
 #, kde-format
 msgctxt "@action Switch to the previous profile in the rotation"
 msgid "Previous Profile"
-msgstr ""
+msgstr "पूर्व प्रोफाइल"
 
 #: src/kcmodule/buttonactionselectiondialog.cpp:58
 #, kde-format
@@ -164,7 +164,7 @@ msgstr "बटन क्रिया चयनं कुर्वन्तु"
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
-msgstr ""
+msgstr "चयनार्थं क्लिक् कुर्वन्तु..."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
 #: src/kcmodule/buttonactionselectionwidget.ui:14
@@ -537,13 +537,13 @@ msgstr "प्रोफाइलनाम : १."
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
-msgstr ""
+msgstr "मूलभूतम्‌"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:425
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
-msgstr ""
+msgstr "सामान्य"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:426
 #, kde-format
@@ -620,13 +620,13 @@ msgstr ""
 #, kde-format
 msgctxt "What the user inputs now will be taken as the new shortcut"
 msgid "Input"
-msgstr ""
+msgstr "निवेशः"
 
 #: src/kcmodule/keysequenceinputbutton.cpp:317
 #, kde-format
 msgctxt "No shortcut defined"
 msgid "None"
-msgstr ""
+msgstr "न कश्चित्"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PressureCurveDialog)
 #: src/kcmodule/pressurecurvedialog.ui:23
@@ -725,7 +725,7 @@ msgstr ""
 #, kde-format
 msgctxt "slow movement of the cursor (minimal value)"
 msgid "Soft"
-msgstr ""
+msgstr "मृदु"
 
 #. i18n: ectx: property (text), widget (QLabel, labelFast_2)
 #. i18n: ectx: property (text), widget (QLabel, labelFast_3)
@@ -733,7 +733,7 @@ msgstr ""
 #, kde-format
 msgctxt "fast movement of the cursor (maximal value)"
 msgid "Firm"
-msgstr ""
+msgstr "प्रतिष्ठान"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, eraserPressureButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, tipPressureButton)
@@ -811,7 +811,7 @@ msgctxt ""
 "Dialog title from a dialog which lets the user select an area of the tablet "
 "where the screen space will be mapped to."
 msgid "Select a Tablet Area"
-msgstr ""
+msgstr "एकं Tablet Area चिनोतु"
 
 #: src/kcmodule/tabletareaselectionview.cpp:136
 #: src/kcmodule/tabletareaselectionview.cpp:163
@@ -949,25 +949,25 @@ msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
 msgid "Default Orientation"
-msgstr ""
+msgstr "पूर्वनिर्धारित अभिविन्यास"
 
 #: src/kcmodule/tabletpagewidget.cpp:358
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
-msgstr ""
+msgstr "टैबलेटं घड़ीयानस्य दिशि परिभ्रमन्तु"
 
 #: src/kcmodule/tabletpagewidget.cpp:359
 #, kde-format
 msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
-msgstr ""
+msgstr "टैबलेटं घड़ीयाः विपरीतदिशायां परिभ्रमन्तु"
 
 #: src/kcmodule/tabletpagewidget.cpp:360
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
-msgstr ""
+msgstr "टैब्लेट् उल्टा-अधः परिभ्रमन्तु"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:25 src/kcmodule/touchpagewidget.ui:57
@@ -1187,7 +1187,7 @@ msgstr "यदि चयनितम् अस्ति तर्हि स्�
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
-msgstr ""
+msgstr "विन्यस्तं कुर्वन्तु"
 
 #: src/kded/tabletdaemon.cpp:170
 #, kde-format
@@ -1223,7 +1223,7 @@ msgstr "टैब्लेट् %1 निष्कासितम्"
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exists."
 msgid "Default"
-msgstr ""
+msgstr "मूलभूतम्‌"
 
 #: src/kded/tablethandler.cpp:437
 #, kde-format
