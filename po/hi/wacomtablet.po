@@ -1,4 +1,4 @@
-# Sanskrit translations for wacomtablet package.
+# Hindi translations for wacomtablet package.
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the wacomtablet package.
 # Kali <EMAIL@ADDRESS>, 2024.
@@ -8,120 +8,119 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-12-13 19:10+0530\n"
+"PO-Revision-Date: 2024-12-15 15:59+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
-"Language-Team: Sanskrit\n"
-"Language: sa\n"
+"Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
+"Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n>2);\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "भवतः नामानि"
+msgstr ""
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "भवतः ईमेलपत्राणि"
+msgstr ""
 
 #: src/common/aboutdata.cpp:36
 #, kde-format
 msgid "(c), 2009,2010 Jörg Ehrichs"
-msgstr "(ग), 2009,2010 Jörg Ehrichs"
+msgstr ""
 
 #: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Jörg Ehrichs"
-msgstr "Jörg Ehrichs इति"
+msgstr ""
 
 #: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Maintainer"
-msgstr "परिपालकः"
+msgstr ""
 
 #: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Alexander Maret-Huskinson"
-msgstr "अलेक्जेण्डर मार्च-हस्किन्सन"
+msgstr ""
 
 #: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Developer"
-msgstr "विकासकः"
+msgstr ""
 
 #: src/common/buttonshortcut.cpp:93
 #, kde-format
 msgctxt "Tablet button triggers a left mouse button click."
 msgid "Left Mouse Button Click"
-msgstr "वाममूषकस्य बटनं क्लिक् कुर्वन्तु"
+msgstr ""
 
 #: src/common/buttonshortcut.cpp:95
 #, kde-format
 msgctxt "Tablet button triggers a middle mouse button click."
 msgid "Middle Mouse Button Click"
-msgstr "मध्यमूषकस्य बटनं क्लिक् कुर्वन्तु"
+msgstr ""
 
 #: src/common/buttonshortcut.cpp:97
 #, kde-format
 msgctxt "Tablet button triggers a right mouse button click."
 msgid "Right Mouse Button Click"
-msgstr "राइट् माउस बटन क्लिक् कुर्वन्तु"
+msgstr ""
 
 #: src/common/buttonshortcut.cpp:99
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel up."
 msgid "Mouse Wheel Up"
-msgstr "मूषकचक्रं उपरि"
+msgstr ""
 
 #: src/common/buttonshortcut.cpp:101
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel down."
 msgid "Mouse Wheel Down"
-msgstr "मूषकस्य चक्रं अधः"
+msgstr ""
 
 #: src/common/buttonshortcut.cpp:103
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel left."
 msgid "Mouse Wheel Left"
-msgstr "मूषकचक्रं वामम्"
+msgstr ""
 
 #: src/common/buttonshortcut.cpp:105
 #, kde-format
 msgctxt "Tablet button triggers mouse wheel right."
 msgid "Mouse Wheel Right"
-msgstr "मूषकचक्रं दक्षिणतः"
+msgstr ""
 
 #: src/common/buttonshortcut.cpp:107
 #, kde-format
 msgctxt "Tablet button triggers a click of mouse button with number #"
 msgid "Mouse Button %1 Click"
-msgstr "मूषकस्य बटनं %1 क्लिक् कुर्वन्तु"
+msgstr ""
 
 #: src/common/globalactions.cpp:31
 #, kde-format
 msgid "Wacom Tablet"
-msgstr "वाकोम टैबलेट"
+msgstr ""
 
 #: src/common/globalactions.cpp:35
 #, kde-format
 msgctxt "@action"
 msgid "Enable/Disable the Touch Tool"
-msgstr "स्पर्शसाधनं सक्षमं/अक्षमं कुर्वन्तु"
+msgstr ""
 
 #: src/common/globalactions.cpp:41
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
-msgstr "Stylus Tool Relative/Absolute इत्येतत् Toggle कुर्वन्तु"
+msgstr ""
 
 #: src/common/globalactions.cpp:47
 #, kde-format
 msgctxt "@action"
 msgid "Toggle between all screens"
-msgstr "सर्वेषां पटलानां मध्ये टॉगलं कुर्वन्तु"
+msgstr ""
 
 #: src/common/globalactions.cpp:53
 #, kde-format
@@ -129,283 +128,283 @@ msgctxt ""
 "@action Maps the area of the tablet to all available screen space (space "
 "depends on connected monitors)"
 msgid "Map to fullscreen"
-msgstr "पूर्णपर्दे नक्शाङ्कनम्"
+msgstr ""
 
 #: src/common/globalactions.cpp:59
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 1"
-msgstr "पटलं प्रति नक्शाङ्कनं 1"
+msgstr ""
 
 #: src/common/globalactions.cpp:65
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 2"
-msgstr "पटलं प्रति नक्शाङ्कनम् 2"
+msgstr ""
 
 #: src/common/globalactions.cpp:71
 #, kde-format
 msgctxt "@action Switch to the next profile in the rotation"
 msgid "Next profile"
-msgstr "अग्रिमः प्रोफाइलः"
+msgstr ""
 
 #: src/common/globalactions.cpp:77
 #, kde-format
 msgctxt "@action Switch to the previous profile in the rotation"
 msgid "Previous Profile"
-msgstr "पूर्व प्रोफाइल"
+msgstr ""
 
 #: src/kcmodule/buttonactionselectiondialog.cpp:58
 #, kde-format
 msgctxt "The action that will be assigned to a tablet button."
 msgid "Select Button Action"
-msgstr "बटन क्रिया चयनं कुर्वन्तु"
+msgstr ""
 
 #: src/kcmodule/buttonactionselectionwidget.cpp:146
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
-msgstr "चयनार्थं क्लिक् कुर्वन्तु..."
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
 #: src/kcmodule/buttonactionselectionwidget.ui:14
 #, kde-format
 msgid "Select Key Function"
-msgstr "Key Function इति चयनं कुर्वन्तु"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:35
 #, kde-format
 msgid "Select Button Action"
-msgstr "बटन क्रिया चयनं कुर्वन्तु"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, ctrlModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:46
 #, kde-format
 msgid "Ctrl"
-msgstr "Ctrl"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, altModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:69
 #, kde-format
 msgid "Alt"
-msgstr "सर्वे"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, metaModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:92
 #, kde-format
 msgid "Meta"
-msgstr "मेटा"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, shiftModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:115
 #, kde-format
 msgid "Shift"
-msgstr "विहरति"
+msgstr ""
 
 #. i18n: Select an action which will be assigned to a tablet button.
 #. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameLineEdit)
 #: src/kcmodule/buttonactionselectionwidget.ui:159
 #, kde-format
 msgid "Please select an action."
-msgstr "कृपया कञ्चन क्रियां चिनुत।"
+msgstr ""
 
 #. i18n: Click to assign an action (shortcut) to a tablet button.
 #. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameDisplayWidget)
 #: src/kcmodule/buttonactionselectorwidget.ui:51
 #, kde-format
 msgid "Click to assign an action."
-msgstr "क्रियां नियुक्तुं क्लिक् कुर्वन्तु ।"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonPageWidget)
 #: src/kcmodule/buttonpagewidget.ui:20
 #, kde-format
 msgid "Pad Buttons"
-msgstr "पैड बटन"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
 #: src/kcmodule/kcmwacomtabletwidget.cpp:431
 #, kde-format
 msgid "Express Buttons"
-msgstr "एक्स्प्रेस् बटन"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button1Label)
 #. i18n: ectx: property (text), widget (QLabel, labelButton1)
 #: src/kcmodule/buttonpagewidget.ui:43 src/kcmodule/styluspagewidget.ui:81
 #, kde-format
 msgid "Button 1"
-msgstr "बटनम् १"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button2Label)
 #. i18n: ectx: property (text), widget (QLabel, labelButton2)
 #: src/kcmodule/buttonpagewidget.ui:56 src/kcmodule/styluspagewidget.ui:62
 #, kde-format
 msgid "Button 2"
-msgstr "बटनम् २"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button3Label)
 #. i18n: ectx: property (text), widget (QLabel, labelButton3)
 #: src/kcmodule/buttonpagewidget.ui:69 src/kcmodule/styluspagewidget.ui:43
 #, kde-format
 msgid "Button 3"
-msgstr "बटनम् 3"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button4Label)
 #: src/kcmodule/buttonpagewidget.ui:82
 #, kde-format
 msgid "Button 4"
-msgstr "बटनम् ४"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button5Label)
 #: src/kcmodule/buttonpagewidget.ui:95
 #, kde-format
 msgid "Button 5"
-msgstr "बटनम् ५"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button6Label)
 #: src/kcmodule/buttonpagewidget.ui:108
 #, kde-format
 msgid "Button 6"
-msgstr "बटनम् ६"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button7Label)
 #: src/kcmodule/buttonpagewidget.ui:121
 #, kde-format
 msgid "Button 7"
-msgstr "बटनम् 7"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button8Label)
 #: src/kcmodule/buttonpagewidget.ui:134
 #, kde-format
 msgid "Button 8"
-msgstr "बटनम् 8"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button9Label)
 #: src/kcmodule/buttonpagewidget.ui:147
 #, kde-format
 msgid "Button 9"
-msgstr "बटनम् ९"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button10Label)
 #: src/kcmodule/buttonpagewidget.ui:315
 #, kde-format
 msgid "Button 10"
-msgstr "बटनम् १०"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button11Label)
 #: src/kcmodule/buttonpagewidget.ui:328
 #, kde-format
 msgid "Button 11"
-msgstr "बटनम् ११"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button12Label)
 #: src/kcmodule/buttonpagewidget.ui:341
 #, kde-format
 msgid "Button 12"
-msgstr "बटनम् १२"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button13Label)
 #: src/kcmodule/buttonpagewidget.ui:354
 #, kde-format
 msgid "Button 13"
-msgstr "बटनम् १३"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button14Label)
 #: src/kcmodule/buttonpagewidget.ui:367
 #, kde-format
 msgid "Button 14"
-msgstr "बटनम् १४"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button15Label)
 #: src/kcmodule/buttonpagewidget.ui:380
 #, kde-format
 msgid "Button 15"
-msgstr "बटनम् १५"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button16Label)
 #: src/kcmodule/buttonpagewidget.ui:393
 #, kde-format
 msgid "Button 16"
-msgstr "बटनम् १६"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button17Label)
 #: src/kcmodule/buttonpagewidget.ui:406
 #, kde-format
 msgid "Button 17"
-msgstr "बटनम् १७"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, button18Label)
 #: src/kcmodule/buttonpagewidget.ui:419
 #, kde-format
 msgid "Button 18"
-msgstr "बटनम् १८"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchStripGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:537
 #, kde-format
 msgid "Touch Strip"
-msgstr "स्पर्श पट्टी"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:555
 #, kde-format
 msgid "Left Strip Up"
-msgstr "वामपट्टिका उपरि"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:572
 #, kde-format
 msgid "Left Strip Down"
-msgstr "वामपट्टिका अधः"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, rightStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:620
 #, kde-format
 msgid "Right Strip Up"
-msgstr "राइट स्ट्रिप अप"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, rightStripDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:637
 #, kde-format
 msgid "Right Strip Down"
-msgstr "राइट स्ट्रिप् डाउन"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchRingGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:660
 #, kde-format
 msgid "Touch Ring"
-msgstr "स्पर्श रिंग"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, ringUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:671
 #, kde-format
 msgid "Ring Up"
-msgstr "रिंग अप"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, ringDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:711
 #, kde-format
 msgid "Ring Down"
-msgstr "रिंग डाउन"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, wheelGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:733
 #, kde-format
 msgid "Wheel"
-msgstr "चक्र"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, wheelUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:741
 #, kde-format
 msgid "Wheel Up"
-msgstr "चक्रं उपरि"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, wheelDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:778
 #, kde-format
 msgid "Wheel Down"
-msgstr "चक्रं अधः"
+msgstr ""
 
 #: src/kcmodule/calibrationdialog.cpp:62
 #, kde-format
@@ -413,20 +412,18 @@ msgid ""
 "Please tap into all four corners to calibrate the tablet.\n"
 "Press escape to cancel the process."
 msgstr ""
-"कृपया टैब्लेट् मापनार्थं चतुर्णां कोणानां मध्ये ट्याप् कुर्वन्तु ।\n"
-"प्रक्रियां रद्दीकर्तुं escape नुदन्तु ।"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ErrorWidget)
 #: src/kcmodule/errorwidget.ui:14
 #, kde-format
 msgid "No Tablet Found"
-msgstr "कोऽपि गोली न प्राप्ता"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCommandLinkButton, buttonRunTabletFinder)
 #: src/kcmodule/errorwidget.ui:107
 #, kde-format
 msgid "Manually register a tablet device"
-msgstr "टैब्लेट्-यन्त्रस्य मैन्युअल् रूपेण पञ्जीकरणं कुर्वन्तु"
+msgstr ""
 
 #. i18n: ectx: property (description), widget (QCommandLinkButton, buttonRunTabletFinder)
 #: src/kcmodule/errorwidget.ui:110
@@ -435,70 +432,68 @@ msgid ""
 "This will open another window, prompting you to describe your tablet device. "
 "After you're done, please restart your desktop session."
 msgstr ""
-"एतेन अन्यत् विण्डो उद्घाट्यते, यत् भवन्तः स्वस्य टैब्लेट्-यन्त्रस्य वर्णनं कर्तुं प्रेरयन्ति । भवता "
-"कृतस्य अनन्तरं कृपया स्वस्य डेस्कटॉप् सत्रं पुनः आरभत ।"
 
 #: src/kcmodule/generalpagewidget.cpp:56
 #, kde-format
 msgid "Wacom Tablet Settings"
-msgstr "Wacom टैबलेट सेटिंग्स्"
+msgstr ""
 
 #: src/kcmodule/generalpagewidget.cpp:146
 #, kde-format
 msgid "Profile List"
-msgstr "प्रोफाइल सूची"
+msgstr ""
 
 #: src/kcmodule/generalpagewidget.cpp:147
 #, kde-format
 msgid "Select the Profile you want to add:"
-msgstr "यत् Profile भवान् योजयितुम् इच्छति तत् चिनोतु:"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, GeneralPageWidget)
 #: src/kcmodule/generalpagewidget.ui:14
 #, kde-format
 msgid "General Hardware Overview"
-msgstr "सामान्य हार्डवेयर अवलोकन"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
 #: src/kcmodule/generalpagewidget.ui:35
 #, kde-format
 msgid "Profile rotation"
-msgstr "प्रोफाइल परिभ्रमण"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, pbDown)
 #: src/kcmodule/generalpagewidget.ui:80
 #, kde-format
 msgid "Down"
-msgstr "अधः"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, pbRemoveFromRotationList)
 #: src/kcmodule/generalpagewidget.ui:87
 #, kde-format
 msgid "Remove"
-msgstr "अपाकरोति"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, pbAddToRotationList)
 #: src/kcmodule/generalpagewidget.ui:94
 #, kde-format
 msgid "Add"
-msgstr "संयोजयति"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, pbUp)
 #: src/kcmodule/generalpagewidget.ui:101
 #, kde-format
 msgid "Up"
-msgstr "उपरि"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, shortcutGroupBox)
 #: src/kcmodule/generalpagewidget.ui:140
 #, kde-format
 msgid "Shortcuts"
-msgstr "शॉर्टकट"
+msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:168
 #, kde-format
 msgid "KDE tablet service not found"
-msgstr "KDE टैब्लेट् सेवा न प्राप्ता"
+msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
@@ -506,13 +501,11 @@ msgid ""
 "Please start the KDE wacom tablet service to use this configuration dialog.\n"
 "The service is required for tablet detection and profile support."
 msgstr ""
-"कृपया एतत् विन्याससंवादं उपयोक्तुं KDE wacom टैब्लेट् सेवां आरभत ।\n"
-"टैब्लेट्-परिचयस्य, प्रोफाइल-समर्थनस्य च कृते एषा सेवा आवश्यकी अस्ति ।"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:174
 #, kde-format
 msgid "No tablet device detected"
-msgstr "कोऽपि टैब्लेट्-यन्त्रः न ज्ञातः"
+msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:176
 #, kde-format
@@ -521,92 +514,90 @@ msgid ""
 "If your device is already connected, it is currently not in the device "
 "database."
 msgstr ""
-"कृपया निरन्तरं कर्तुं टैब्लेट्-यन्त्रं संयोजयन्तु।\n"
-"यदि भवतः यन्त्रं पूर्वमेव सम्बद्धम् अस्ति तर्हि सम्प्रति यन्त्रदत्तांशकोशे नास्ति ।"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Add new profile"
-msgstr "नूतनं प्रोफाइलं योजयन्तु"
+msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Profile name:"
-msgstr "प्रोफाइलनाम : १."
+msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:417
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
-msgstr "मूलभूतम्‌"
+msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:425
 #, kde-format
 msgctxt "Basic overview page for the tablet hardware"
 msgid "General"
-msgstr "सामान्य"
+msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:426
 #, kde-format
 msgid "Stylus"
-msgstr "स्टाइलस"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
 #: src/kcmodule/kcmwacomtabletwidget.cpp:434
 #: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
-msgstr "फलकम्"
+msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:437
 #, kde-format
 msgid "Touch"
-msgstr "स्पर्श"
+msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:462
 #, kde-format
 msgid "Save changes to the current profile?"
-msgstr "वर्तमानप्रोफाइले परिवर्तनं रक्षतु?"
+msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:463
 #, kde-format
 msgid "Save Profile"
-msgstr "प्रोफाइल रक्षतु"
+msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:476
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
-msgstr "Wacom tablet finder tool इत्यस्य प्रारम्भं कर्तुं असफलम्। स्वस्य संस्थापनं पश्यन्तु।"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
 #: src/kcmodule/kcmwacomtabletwidget.ui:14
 #, kde-format
 msgid "Graphic Tablet Settings"
-msgstr "ग्राफिक टैब्लेट् सेटिंग्स्"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, tabletListLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:25
 #, kde-format
 msgid "&Select Tablet:"
-msgstr "&टैब्लेट् चयनं कुर्वन्तु:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, profileLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:45
 #, kde-format
 msgid "Select &Profile:"
-msgstr "&Profile इत्यस्य चयनं कुर्वन्तु:"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:67
 #, kde-format
 msgid "Creates a new default profile"
-msgstr "नूतनं पूर्वनिर्धारितं प्रोफाइलं निर्माति"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, delProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:83
 #, kde-format
 msgid "Deletes the current profile"
-msgstr "वर्तमान प्रोफाइलं विलोपयति"
+msgstr ""
 
 #: src/kcmodule/keysequenceinputbutton.cpp:277
 #, kde-format
@@ -614,26 +605,24 @@ msgid ""
 "Click on the button, then enter the shortcut like you would in the program.\n"
 "Example for Ctrl+A: hold the Ctrl key and press A."
 msgstr ""
-"बटन् नुदन्तु, ततः कार्यक्रमे इव शॉर्टकट् प्रविशन्तु ।\n"
-"Ctrl+A कृते उदाहरणम् : Ctrl कीलं धारयित्वा A नुदन्तु ।"
 
 #: src/kcmodule/keysequenceinputbutton.cpp:310
 #, kde-format
 msgctxt "What the user inputs now will be taken as the new shortcut"
 msgid "Input"
-msgstr "निवेशः"
+msgstr ""
 
 #: src/kcmodule/keysequenceinputbutton.cpp:317
 #, kde-format
 msgctxt "No shortcut defined"
 msgid "None"
-msgstr "न कश्चित्"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, PressureCurveDialog)
 #: src/kcmodule/pressurecurvedialog.ui:23
 #, kde-format
 msgid "Press Curve Settings"
-msgstr "Curve Settings इति नुदन्तु"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, explaining_Label)
 #: src/kcmodule/pressurecurvedialog.ui:37
@@ -643,33 +632,30 @@ msgid ""
 "Drag around the dots to change the behavior\n"
 "Use the stylus inside the Widget to see the pressure changes."
 msgstr ""
-"प्रेसवक्रः पेनप्रेस् कथं नियन्त्रितः भवति इति परिभाषयति ।\n"
-"व्यवहारं परिवर्तयितुं बिन्दून् परितः कर्षन्तु\n"
-"दबावपरिवर्तनं द्रष्टुं Widget इत्यस्य अन्तः स्टाइलस् इत्यस्य उपयोगं कुर्वन्तु ।"
 
 #. i18n: ectx: property (text), widget (QLabel, pc_Label)
 #: src/kcmodule/pressurecurvedialog.ui:104
 #, kde-format
 msgid "Current Presscurve:"
-msgstr "वर्तमान प्रेसवक्र : १."
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, StylusPageWidget)
 #: src/kcmodule/styluspagewidget.ui:14
 #, kde-format
 msgid "Pen Settings"
-msgstr "पेन सेटिंग्स्"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:28
 #, kde-format
 msgid "Defines the button action on the stylus."
-msgstr "स्टाइलस् मध्ये बटन् क्रियां परिभाषयति ।"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:31
 #, kde-format
 msgid "Button Settings"
-msgstr "बटन सेटिंग्स्"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:113
@@ -680,28 +666,24 @@ msgid ""
 "If deselected, stylus buttons will work once the stylus is in proximity of "
 "the tablet."
 msgstr ""
-"यदि चयनितम् अस्ति तर्हि स्टाइलस् पार्श्वबटनस्य कार्यं कर्तुं स्टाइलस् टैब्लेट् इत्यस्य सम्पर्कं "
-"भवितव्यम् ।\n"
-"यदि अचयनं भवति तर्हि एकवारं स्टाइलस् टैब्लेट् इत्यस्य समीपे स्थित्वा स्टाइलस् बटन्स् कार्यं "
-"करिष्यन्ति ।"
 
 #. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:116
 #, kde-format
 msgid "Tap to execute action."
-msgstr "क्रियां निष्पादयितुं ट्याप् कुर्वन्तु ।"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:128
 #, kde-format
 msgid "Sets eraser pressure threshold."
-msgstr "इरेजर-दाब-दहलीजं सेट् करोति ।"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:131
 #, kde-format
 msgid "Eraser Feel"
-msgstr "इरेजर फील्"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QSlider, eraserSlider)
 #. i18n: ectx: property (toolTip), widget (QSlider, tipSlider)
@@ -714,11 +696,6 @@ msgid ""
 "irregardless of the actual hardware supported levels.\n"
 "This parameter is independent of the PressureCurve parameter."
 msgstr ""
-"स्टाइलस्/टिप्, इरेजर, अथवा स्पर्शस्य कृते Button इवेण्ट् जनयितुं आवश्यकं न्यूनतमं दबावं सेट् कुर्वन्तु "
-"।\n"
-" सर्वेषां टैब्लेटानां दबावस्तरः वास्तविकहार्डवेयरसमर्थितस्तरस्य परवाहं विना २०४८ स्तरं यावत् "
-"सामान्यीकृतः भवति ।\n"
-"इदं पैरामीटर् PressureCurve पैरामीटर् इत्यस्मात् स्वतन्त्रम् अस्ति ।"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_3)
@@ -726,7 +703,7 @@ msgstr ""
 #, kde-format
 msgctxt "slow movement of the cursor (minimal value)"
 msgid "Soft"
-msgstr "मृदु"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelFast_2)
 #. i18n: ectx: property (text), widget (QLabel, labelFast_3)
@@ -734,77 +711,77 @@ msgstr "मृदु"
 #, kde-format
 msgctxt "fast movement of the cursor (maximal value)"
 msgid "Firm"
-msgstr "प्रतिष्ठान"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, eraserPressureButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, tipPressureButton)
 #: src/kcmodule/styluspagewidget.ui:241 src/kcmodule/styluspagewidget.ui:391
 #, kde-format
 msgid "Defines the pressure sensitivity with a bezier curve"
-msgstr "बेजियर वक्रेण सह दाबसंवेदनशीलतां परिभाषयति"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, eraserPressureButton)
 #. i18n: ectx: property (text), widget (QPushButton, tipPressureButton)
 #: src/kcmodule/styluspagewidget.ui:244 src/kcmodule/styluspagewidget.ui:394
 #, kde-format
 msgid "Edit Pressure Curve..."
-msgstr "सम्पादन दबाव वक्र..."
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:272
 #, kde-format
 msgid "Sets stylus pressure threshold."
-msgstr "स्टाइलस-दाब-दहलीजं सेट् करोति ।"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:275
 #, kde-format
 msgid "Tip Feel"
-msgstr "टिप् फील्"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxRawSample)
 #. i18n: ectx: property (toolTip), widget (QSlider, horizontalSliderRawSample)
 #: src/kcmodule/styluspagewidget.ui:412 src/kcmodule/styluspagewidget.ui:421
 #, kde-format
 msgid "Number of raw data used to filter the points (default is 4)"
-msgstr "बिन्दून् छानयितुं प्रयुक्तानां कच्चानां दत्तांशस्य संख्या (पूर्वनिर्धारितं ४) ।"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxRawSample)
 #: src/kcmodule/styluspagewidget.ui:415
 #, kde-format
 msgid "Raw Sample Rate"
-msgstr "कच्चा नमूना दर"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelMinRawSample)
 #: src/kcmodule/styluspagewidget.ui:451
 #, kde-format
 msgid "1"
-msgstr "१"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelMaxRawSample)
 #. i18n: ectx: property (text), widget (QLabel, labelMaxSuppress)
 #: src/kcmodule/styluspagewidget.ui:471 src/kcmodule/styluspagewidget.ui:545
 #, kde-format
 msgid "20"
-msgstr "२०"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxSupress)
 #: src/kcmodule/styluspagewidget.ui:489
 #, kde-format
 msgid "Number of points trimmed (default is 2)"
-msgstr "छटाकृतानां बिन्दूनां संख्या (पूर्वनिर्धारितं २) ।"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
 #: src/kcmodule/styluspagewidget.ui:492
 #, kde-format
 msgid "Suppress Rate"
-msgstr "दर दमन"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelMinSuppress)
 #: src/kcmodule/styluspagewidget.ui:525
 #, kde-format
 msgid "0"
-msgstr "०"
+msgstr ""
 
 #: src/kcmodule/tabletareaselectiondialog.cpp:106
 #, kde-format
@@ -812,13 +789,13 @@ msgctxt ""
 "Dialog title from a dialog which lets the user select an area of the tablet "
 "where the screen space will be mapped to."
 msgid "Select a Tablet Area"
-msgstr "एकं Tablet Area चिनोतु"
+msgstr ""
 
 #: src/kcmodule/tabletareaselectionview.cpp:136
 #: src/kcmodule/tabletareaselectionview.cpp:163
 #, kde-format
 msgid "Internal Error"
-msgstr "आन्तरिकदोषः"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, infoLabel)
 #: src/kcmodule/tabletareaselectionview.ui:41
@@ -827,122 +804,120 @@ msgid ""
 "The tablet area defines how the screen space is mapped to your tablet. For "
 "each screen a different tablet area can be selected. "
 msgstr ""
-"टैब्लेट् क्षेत्रं भवतः टैब्लेट् मध्ये स्क्रीन स्पेस कथं मैप् भवति इति परिभाषयति । प्रत्येकं पटलस्य कृते "
-"भिन्नं टैब्लेट् क्षेत्रं चयनं कर्तुं शक्यते । "
 
 #. i18n: ectx: property (title), widget (QGroupBox, screenGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:57
 #, kde-format
 msgid "Screen"
-msgstr "पट"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, screenToggleButton)
 #: src/kcmodule/tabletareaselectionview.ui:83
 #, kde-format
 msgid "Toggle between fullscreen and each single screen."
-msgstr "पूर्णपर्दे प्रत्येकं एकपर्दे च मध्ये टॉगलं कुर्वन्तु।"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, screenToggleButton)
 #: src/kcmodule/tabletareaselectionview.ui:86
 #, kde-format
 msgid "Toggle Screen"
-msgstr "टॉगल स्क्रीन"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:96
 #, kde-format
 msgid "Select the valid tablet area used for the selected screen space."
-msgstr "चयनितस्य स्क्रीनस्थानस्य कृते उपयुज्यमानं वैधं टैब्लेट् क्षेत्रं चिनोतु ।"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:99
 #, kde-format
 msgid "Map Screen To"
-msgstr "नक्शा स्क्रीन To"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:105
 #, kde-format
 msgid "&Full Tablet"
-msgstr "&पूर्ण पटल"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, tabletAreaRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:115
 #, kde-format
 msgid "&Tablet Area"
-msgstr "&Tablet Area"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:122
 #, kde-format
 msgid "Set the tablet area proportional to the selected screen area."
-msgstr "चयनितस्य स्क्रीनक्षेत्रस्य आनुपातिकं टैब्लेट् क्षेत्रं सेट् कुर्वन्तु ।"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:125
 #, kde-format
 msgid "Set Screen Proportions"
-msgstr "स्क्रीन अनुपातं सेट् कुर्वन्तु"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, calibrateButton)
 #: src/kcmodule/tabletareaselectionview.ui:132
 #, kde-format
 msgid "Calibrate"
-msgstr "मापन करो"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, warningLabel)
 #: src/kcmodule/tabletareaselectionview.ui:204
 #, kde-format
 msgid "This mapping can only be applied in absolute tracking mode."
-msgstr "एतत् मानचित्रणं केवलं निरपेक्ष-अनुसरण-विधाने एव प्रयोक्तुं शक्यते ।"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
 #: src/kcmodule/tabletareaselectionview.ui:219
 #, kde-format
 msgid "Lock proportions"
-msgstr "तालानुपाताः"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:232
 #, kde-format
 msgid "Tablet area fine tuning"
-msgstr "टैबलेट क्षेत्र सूक्ष्म ट्यूनिंग"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
 #: src/kcmodule/tabletareaselectionview.ui:244
 #, kde-format
 msgid "Width"
-msgstr "विस्तार"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
 #: src/kcmodule/tabletareaselectionview.ui:254
 #, kde-format
 msgid "Horizontal"
-msgstr "क्षैतिज"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
 #: src/kcmodule/tabletareaselectionview.ui:267
 #, kde-format
 msgid "Left margin"
-msgstr "वामप्रान्तः"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
 #: src/kcmodule/tabletareaselectionview.ui:277
 #, kde-format
 msgid "Vertical"
-msgstr "ऊर्ध्वाधर"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
 #: src/kcmodule/tabletareaselectionview.ui:290
 #, kde-format
 msgid "Top margin"
-msgstr "शीर्ष मार्जिन"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
 #: src/kcmodule/tabletareaselectionview.ui:306
 #, kde-format
 msgid "Height"
-msgstr "औनत्यम्‌"
+msgstr ""
 
 #: src/kcmodule/tabletpagewidget.cpp:356
 #, kde-format
@@ -950,55 +925,55 @@ msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
 msgid "Default Orientation"
-msgstr "पूर्वनिर्धारित अभिविन्यास"
+msgstr ""
 
 #: src/kcmodule/tabletpagewidget.cpp:358
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
-msgstr "टैबलेटं घड़ीयानस्य दिशि परिभ्रमन्तु"
+msgstr ""
 
 #: src/kcmodule/tabletpagewidget.cpp:359
 #, kde-format
 msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
-msgstr "टैबलेटं घड़ीयाः विपरीतदिशायां परिभ्रमन्तु"
+msgstr ""
 
 #: src/kcmodule/tabletpagewidget.cpp:360
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
-msgstr "टैब्लेट् उल्टा-अधः परिभ्रमन्तु"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:25 src/kcmodule/touchpagewidget.ui:57
 #, kde-format
 msgid "Defines how the cursor movement mode will be used."
-msgstr "कर्सर-गतिविधिः कथं उपयुज्यते इति परिभाषयति ।"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:28
 #, kde-format
 msgid "Stylus Tracking Mode"
-msgstr "स्टाइलस ट्रैकिंग मोड"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:72
 #, kde-format
 msgid "&Map to Screen (Absolute Mode)"
-msgstr "&Map to Screen (Absolute Mode) इति ."
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackRelativeRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:56 src/kcmodule/touchpagewidget.ui:88
 #, kde-format
 msgid "Map &to Cursor (Relative Mode)"
-msgstr "नक्शा &to कर्सर (सापेक्ष मोड) ."
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, padMappingGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:88
 #, kde-format
 msgid "Tablet Mapping"
-msgstr "टैबलेट मानचित्रण"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, touchMappingTabletButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, padMappingTabletButton)
@@ -1008,44 +983,43 @@ msgid ""
 "Allows one to specify the tablet area for different screen selections in "
 "absolute cursor mode."
 msgstr ""
-"निरपेक्ष कर्सर मोड् मध्ये भिन्न-भिन्न-स्क्रीन्-चयनस्य कृते टैब्लेट्-क्षेत्रं निर्दिष्टुं शक्नोति ।"
 
 #. i18n: ectx: property (text), widget (QPushButton, padMappingTabletButton)
 #: src/kcmodule/tabletpagewidget.ui:103
 #, kde-format
 msgid "Map Tablet Area to Screen"
-msgstr "टैब्लेट् क्षेत्रं स्क्रीनपर्यन्तं नक्शाङ्कयन्तु"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, trackingWarningLabel)
 #: src/kcmodule/tabletpagewidget.ui:128 src/kcmodule/touchpagewidget.ui:166
 #, kde-format
 msgid ""
 "Your currently selected mapping can not be applied in relative tracking mode."
-msgstr "भवतः वर्तमानकाले चयनितं मानचित्रणं सापेक्षिकनिरीक्षणविधाने प्रयोक्तुं न शक्यते ।"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, rotationGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:169
 #, kde-format
 msgid "Changes the orientation of the tablet."
-msgstr "टैब्लेट् इत्यस्य अभिमुखीकरणं परिवर्तयति ।"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, rotationGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:172
 #, kde-format
 msgid "Orientation"
-msgstr "आभिमुख्य"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:181
 #, kde-format
 msgid "If enabled, the tablet rotates together with the screen."
-msgstr "यदि सक्षमं भवति तर्हि टैब्लेट् स्क्रीन सह मिलित्वा परिभ्रमति ।"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:184
 #, kde-format
 msgid "Auto-Rotate with Screen"
-msgstr "स्क्रीन सह स्वतः परिभ्रमन्तु"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenInvertCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:194
@@ -1054,339 +1028,337 @@ msgid ""
 "If enabled the automatic tablet rotation for clockwise and counterclockwise "
 "rotations will be inverted."
 msgstr ""
-"यदि सक्षमं भवति तर्हि घड़ीयानस्य प्रतिघटिकायाः प्रतिघटिकायाः च कृते स्वचालितं टैब्लेट् "
-"परिभ्रमणं विपर्यस्तं भविष्यति ।"
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenInvertCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:197
 #, kde-format
 msgid "Invert Auto-Rotation"
-msgstr "स्वतः-घूर्णन उल्टा करो"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (KMessageWidget, gesturesWarning)
 #: src/kcmodule/touchpagewidget.ui:17
 #, kde-format
 msgid "Enabling gestures may break touch input using a touchscreen."
-msgstr "इशाराणां सक्षमीकरणेन स्पर्शपटलस्य उपयोगेन स्पर्शनिवेशः भङ्गः भवितुम् अर्हति ।"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:36
 #, kde-format
 msgid "If enabled the tablet will emit touch events."
-msgstr "यदि सक्षमं भवति तर्हि टैब्लेट् स्पर्शघटनानि उत्सर्जयिष्यति ।"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:39
 #, kde-format
 msgid "Enable Touch"
-msgstr "स्पर्शं सक्षमं कुर्वन्तु"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/touchpagewidget.ui:60
 #, kde-format
 msgid "Touch Tracking Mode"
-msgstr "Tracking Mode इति स्पर्शं कुर्वन्तु"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchMappingGroupBox)
 #: src/kcmodule/touchpagewidget.ui:123
 #, kde-format
 msgid "Touch Mapping"
-msgstr "नक्शाङ्कनं स्पर्शं कुर्वन्तु"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, touchMappingTabletButton)
 #: src/kcmodule/touchpagewidget.ui:138
 #, kde-format
 msgid "Map Touch Area to Screen"
-msgstr "नक्शा स्पर्शक्षेत्रं स्क्रीनं प्रति"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:202
 #, kde-format
 msgid "If enabled the touch events can recognize gestures."
-msgstr "यदि सक्षमं भवति तर्हि स्पर्शघटनानि इशारान् ज्ञातुं शक्नुवन्ति ।"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:205
 #, kde-format
 msgid "Enable Gestures"
-msgstr "इशारान् सक्षमं कुर्वन्तु"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, gesturesGroupBox)
 #: src/kcmodule/touchpagewidget.ui:223
 #, kde-format
 msgid "Gestures"
-msgstr "हावभावाः"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLabel, scrollDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:235
 #, kde-format
 msgid "Minimum motion before sending a scroll gesture."
-msgstr "स्क्रॉल इशारं प्रेषयितुं पूर्वं न्यूनतमं गतिः।"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:238
 #, kde-format
 msgid "Scroll Distance"
-msgstr "स्क्रॉल दूरी"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, scrollDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:254
 #, kde-format
 msgid "The minimum motion in tablet units before sending a scroll event."
-msgstr "स्क्रॉल इवेण्ट् प्रेषणात् पूर्वं टैब्लेट् यूनिट् मध्ये न्यूनतमा गतिः ।"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:273
 #, kde-format
 msgid "Minimum distance for a zoom gesture is recognized."
-msgstr "जूम इशारस्य न्यूनतमं दूरं ज्ञायते ।"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:276
 #, kde-format
 msgid "Zoom Distance"
-msgstr "जूम दूरी"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, zoomDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:292
 #, kde-format
 msgid ""
 "The minimum distance in tablet units for a zoom gesture to be recognized."
-msgstr "ज्ञातव्यस्य जूम-इशारस्य कृते टैब्लेट्-एककेषु न्यूनतमं दूरम् ।"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLabel, tapTimeLabel)
 #: src/kcmodule/touchpagewidget.ui:311
 #, kde-format
 msgid "Minimum time between taps for a right click."
-msgstr "राइट् क्लिक् कृते ट्याप् मध्ये न्यूनतमः समयः ।"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, tapTimeLabel)
 #: src/kcmodule/touchpagewidget.ui:314
 #, kde-format
 msgid "Tap Time"
-msgstr "समयं ट्याप् कुर्वन्तु"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, tapTimeSpinBox)
 #: src/kcmodule/touchpagewidget.ui:324
 #, kde-format
 msgid "The minimum time in milliseconds between taps to trigger a right click."
-msgstr "राइट् क्लिक् कर्तुं ट्याप् मध्ये न्यूनतमः समयः मिलीसेकेण्ड् मध्ये ।"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, scrollInversionLabel)
 #: src/kcmodule/touchpagewidget.ui:337
 #, kde-format
 msgid "Invert Scroll Direction"
-msgstr "स्क्रॉल दिशा उल्टा करो"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, scrollInversionCheckBox)
 #: src/kcmodule/touchpagewidget.ui:344
 #, kde-format
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
-msgstr "यदि चयनितम् अस्ति तर्हि स्क्रॉल-इशारस्य कृते स्क्रॉल-दिशा विपर्यस्तं भवति ।"
+msgstr ""
 
 #: src/kded/tabletdaemon.cpp:111 src/kded/tabletdaemon.cpp:117
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
-msgstr "विन्यस्तं कुर्वन्तु"
+msgstr ""
 
 #: src/kded/tabletdaemon.cpp:170
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
-msgstr "ग्राफिक टैब्लेट् विन्यास डेमन"
+msgstr ""
 
 #: src/kded/tabletdaemon.cpp:172
 #, kde-format
 msgid "A Wacom tablet control daemon"
-msgstr "एकः Wacom टैब्लेट् नियन्त्रण-डेमनः"
+msgstr ""
 
 #: src/kded/tablethandler.cpp:134
 #, kde-format
 msgid "Tablet Connected"
-msgstr "टैब्लेट् संयोजितः"
+msgstr ""
 
 #: src/kded/tablethandler.cpp:134
 #, kde-format
 msgid "New tablet '%1' connected."
-msgstr "नूतनं टैब्लेट् '%1' सम्बद्धम्।"
+msgstr ""
 
 #: src/kded/tablethandler.cpp:160
 #, kde-format
 msgid "Tablet removed"
-msgstr "गोली निष्कासिता"
+msgstr ""
 
 #: src/kded/tablethandler.cpp:160
 #, kde-format
 msgid "Tablet %1 removed"
-msgstr "टैब्लेट् %1 निष्कासितम्"
+msgstr ""
 
 #: src/kded/tablethandler.cpp:427
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exists."
 msgid "Default"
-msgstr "मूलभूतम्‌"
+msgstr ""
 
 #: src/kded/tablethandler.cpp:437
 #, kde-format
 msgid "Graphic Tablet error"
-msgstr "ग्राफिक टैब्लेट् त्रुटि"
+msgstr ""
 
 #: src/kded/tablethandler.cpp:438
 #, kde-format
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
-msgstr "प्रोफाइल <b>%1</b> नास्ति । तस्य स्थाने <b>%2</b> प्रयोजयन्तु"
+msgstr ""
 
 #: src/tabletfinder/dialog.cpp:441
 #, kde-format
 msgid "Button %1 maps to Button %2"
-msgstr "%1 बटनं %2 बटनं प्रति मैप् करोति"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
 #: src/tabletfinder/dialog.ui:14
 #, kde-format
 msgid "Wacom Tablet detection"
-msgstr "वाकॉम टैबलेट डिटेक्शन"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/tabletfinder/dialog.ui:20
 #, kde-format
 msgid "Connect your Tablet and click on Refresh to detect it."
-msgstr "स्वस्य Tablet इत्येतत् संयोजयित्वा Refresh इत्यत्र क्लिक् कृत्वा तस्य अन्वेषणं कुर्वन्तु ।"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tabletfinder/dialog.ui:27
 #, kde-format
 msgid "Tablet Selection"
-msgstr "टैब्लेट् चयनम्"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/tabletfinder/dialog.ui:39
 #, kde-format
 msgid "Detected Tablets:"
-msgstr "ज्ञाताः गोलियाः : १."
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, refreshButton)
 #: src/tabletfinder/dialog.ui:51
 #, kde-format
 msgid "Refresh"
-msgstr "ताजगी"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/tabletfinder/dialog.ui:66
 #, kde-format
 msgid "Serial No.:"
-msgstr "क्रमाङ्कः : १."
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tabletfinder/dialog.ui:86
 #, kde-format
 msgid "Devices: "
-msgstr "यन्त्राणि : १. "
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: src/tabletfinder/dialog.ui:105
 #, kde-format
 msgid "Tablet Features"
-msgstr "टैब्लेट् विशेषताएँ"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchRing)
 #: src/tabletfinder/dialog.ui:111
 #, kde-format
 msgid "has TouchRing"
-msgstr "has TouchRing इति"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsRight)
 #: src/tabletfinder/dialog.ui:118
 #, kde-format
 msgid "has Status LEDs right"
-msgstr "has Status LEDs सम्यक् अस्ति"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripLeft)
 #: src/tabletfinder/dialog.ui:125
 #, kde-format
 msgid "has Touchstrip Left"
-msgstr "has Touchstrip Left इति"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripRight)
 #: src/tabletfinder/dialog.ui:132
 #, kde-format
 msgid "has Touchstrip Right"
-msgstr "has Touchstrip Right इति"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsLeft)
 #: src/tabletfinder/dialog.ui:139
 #, kde-format
 msgid "has Status LEDs left"
-msgstr "has Status LEDs अवशिष्टम् अस्ति"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasWheel)
 #: src/tabletfinder/dialog.ui:146
 #, kde-format
 msgid "has Wheel"
-msgstr "has Wheel इति"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: src/tabletfinder/dialog.ui:169
 #, kde-format
 msgid "Button mapping"
-msgstr "बटन मानचित्रणम्"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tabletfinder/dialog.ui:177
 #, kde-format
 msgid "Number of available Express Keys:"
-msgstr "उपलब्धानां एक्स्प्रेस् कीलानां संख्या : १."
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, mapButtons)
 #: src/tabletfinder/dialog.ui:189
 #, kde-format
 msgid "Map Hardware Buttons"
-msgstr "नक्शा हार्डवेयर बटन"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
 #: src/tabletfinder/dialog.ui:221
 #, kde-format
 msgid "Touch sensor"
-msgstr "स्पर्शसंवेदकम्"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
 #: src/tabletfinder/dialog.ui:227
 #, kde-format
 msgid "&Normal tablet"
-msgstr "&सामान्य गोली"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioParentTablet)
 #: src/tabletfinder/dialog.ui:239
 #, kde-format
 msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-msgstr "&बहु-उपकरण गोली, कलम संवेदक। स्पर्शसंवेदकः अस्ति : १."
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
 #: src/tabletfinder/dialog.ui:251
 #, kde-format
 msgid "Multi-&device tablet, touch sensor"
-msgstr "बहु-&यन्त्र गोली, स्पर्श संवेदक"
+msgstr ""
 
 #: src/tabletfinder/hwbuttondialog.cpp:66
 #, kde-format
 msgid "Please press Button %1 on the tablet now."
-msgstr "कृपया इदानीं टैब्लेट् मध्ये Button %1 नुदन्तु ।"
+msgstr ""
 
 #: src/tabletfinder/hwbuttondialog.cpp:90
 #, kde-format
 msgid "Hardware button %1 detected."
-msgstr "हार्डवेयर बटन %1 ज्ञातम् ।"
+msgstr ""
 
 #: src/tabletfinder/hwbuttondialog.cpp:102
 #, kde-format
 msgid "All buttons detected. Please close dialog"
-msgstr "सर्वे बटन् ज्ञायन्ते। कृपया संवादं बन्दं कुर्वन्तु"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, HWButtonDialog)
 #: src/tabletfinder/hwbuttondialog.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr "संवादः"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tabletfinder/hwbuttondialog.ui:26
@@ -1394,4 +1366,4 @@ msgstr "संवादः"
 msgid ""
 "Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
 "the mouse."
-msgstr "संवादस्य अन्तः मूषकस्य कर्सरं चालयन्तु परन्तु मूषकेन तस्मिन् क्लिक् <b>न कुर्वन्तु</b> ।"
+msgstr ""
