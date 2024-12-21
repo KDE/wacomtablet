@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-12-19 21:41+0530\n"
+"PO-Revision-Date: 2024-12-20 21:54+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -534,7 +534,7 @@ msgstr "नूतनं प्रोफाइलं योजयन्तु"
 #: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Profile name:"
-msgstr "प्रोफाइलनाम : १."
+msgstr "प्रोफाइलनाम :"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:417
 #, kde-format
@@ -653,7 +653,7 @@ msgstr ""
 #: src/kcmodule/pressurecurvedialog.ui:104
 #, kde-format
 msgid "Current Presscurve:"
-msgstr "वर्तमान प्रेसवक्र : १."
+msgstr "वर्तमान प्रेसवक्र :"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, StylusPageWidget)
 #: src/kcmodule/styluspagewidget.ui:14
@@ -1265,7 +1265,7 @@ msgstr "टैब्लेट् चयनम्"
 #: src/tabletfinder/dialog.ui:39
 #, kde-format
 msgid "Detected Tablets:"
-msgstr "ज्ञाताः गोलियाः : १."
+msgstr "ज्ञाताः गोलियाः :"
 
 #. i18n: ectx: property (text), widget (QPushButton, refreshButton)
 #: src/tabletfinder/dialog.ui:51
@@ -1277,7 +1277,7 @@ msgstr "ताजगी"
 #: src/tabletfinder/dialog.ui:66
 #, kde-format
 msgid "Serial No.:"
-msgstr "क्रमाङ्कः : १."
+msgstr "क्रमाङ्कः :"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tabletfinder/dialog.ui:86
@@ -1337,7 +1337,7 @@ msgstr "बटन मानचित्रणम्"
 #: src/tabletfinder/dialog.ui:177
 #, kde-format
 msgid "Number of available Express Keys:"
-msgstr "उपलब्धानां एक्स्प्रेस् कीलानां संख्या : १."
+msgstr "उपलब्धानां एक्स्प्रेस् कीलानां संख्या :"
 
 #. i18n: ectx: property (text), widget (QPushButton, mapButtons)
 #: src/tabletfinder/dialog.ui:189
@@ -1361,7 +1361,7 @@ msgstr "&सामान्य गोली"
 #: src/tabletfinder/dialog.ui:239
 #, kde-format
 msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-msgstr "&बहु-उपकरण गोली, कलम संवेदक। स्पर्शसंवेदकः अस्ति : १."
+msgstr "&बहु-उपकरण गोली, कलम संवेदक। स्पर्शसंवेदकः अस्ति :"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
 #: src/tabletfinder/dialog.ui:251
