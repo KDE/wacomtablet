@@ -30,7 +30,6 @@
 #include <QStringList>
 
 class KConfigGroup;
-class QDBusInterface;
 
 namespace Wacom
 {

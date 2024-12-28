@@ -28,13 +28,9 @@ namespace Ui
 class ButtonPageWidget;
 }
 
-class KComboBox;
-class QLabel;
-
 namespace Wacom
 {
 
-class ButtonShortcut;
 class ProfileManagementInterface;
 
 /**

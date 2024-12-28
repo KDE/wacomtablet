@@ -29,8 +29,6 @@ namespace Ui
 class PressureCurveDialog;
 }
 
-class QDBusInterface;
-
 namespace Wacom
 {
 class PressureCurveWidget;

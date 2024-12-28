@@ -27,12 +27,10 @@ namespace Ui
 class GeneralPageWidget;
 }
 
-class QDBusInterface;
 class KShortcutsEditor;
 
 namespace Wacom
 {
-class ProfileManagement;
 class GlobalActions;
 
 /**

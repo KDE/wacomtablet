@@ -29,7 +29,6 @@ namespace Wacom
 {
 
 // Forward Declarations
-class ProcSystemProperty;
 class ProcSystemAdaptorPrivate;
 
 /**

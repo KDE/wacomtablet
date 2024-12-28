@@ -26,7 +26,6 @@
 #include <QStringList>
 #include <QWidget>
 
-class QBrush;
 class QPainter;
 
 namespace Wacom

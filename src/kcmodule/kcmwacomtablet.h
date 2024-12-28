@@ -32,7 +32,6 @@ class QVBoxLayout;
 
 namespace Wacom
 {
-class AboutData;
 class KCMWacomTabletWidget;
 
 /**
