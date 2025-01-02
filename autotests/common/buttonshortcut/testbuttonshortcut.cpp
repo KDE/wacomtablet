@@ -19,7 +19,7 @@
 
 #include "common/buttonshortcut.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

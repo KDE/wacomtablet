@@ -29,7 +29,7 @@
 #include <KConfigGroup>
 #include <KSharedConfig>
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

@@ -19,7 +19,7 @@
 
 #include "commontestutils.h"
 
-#include <QtTest>
+#include <QTest>
 
 #include "common/deviceproperty.h"
 

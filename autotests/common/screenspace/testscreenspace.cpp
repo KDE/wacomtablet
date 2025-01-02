@@ -19,7 +19,7 @@
 
 #include "common/screenspace.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

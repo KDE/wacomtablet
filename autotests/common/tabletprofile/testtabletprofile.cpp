@@ -21,7 +21,7 @@
 #include "common/deviceprofile.h"
 #include "common/tabletprofile.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

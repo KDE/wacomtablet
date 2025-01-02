@@ -28,7 +28,7 @@
 #include <QString>
 #include <QTemporaryFile>
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

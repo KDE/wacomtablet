@@ -27,7 +27,7 @@
 
 #include "ui_styluspagewidget.h"
 
-#include <QtTest>
+#include <QTest>
 
 #include <QSlider>
 

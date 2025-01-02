@@ -19,7 +19,7 @@
 
 #include "kdedtestutils.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

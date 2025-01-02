@@ -27,7 +27,7 @@
 
 #include "ui_tabletpagewidget.h"
 
-#include <QtTest>
+#include <QTest>
 
 #include <QSlider>
 

@@ -20,7 +20,7 @@
 #include "../commontestutils.h"
 #include "common/deviceprofile.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

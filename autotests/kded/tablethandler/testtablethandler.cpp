@@ -25,7 +25,7 @@
 #include "kded/tabletbackendfactory.h"
 #include "kded/tablethandler.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

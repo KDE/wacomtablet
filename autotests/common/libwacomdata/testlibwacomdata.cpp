@@ -21,7 +21,7 @@
 #include "common/tabletdatabase.h"
 #include "common/tabletinformation.h"
 
-// #include <QtTest>
+// #include <QTest>
 #include <QDebug>
 #include <QString>
 

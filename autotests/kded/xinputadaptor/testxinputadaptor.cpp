@@ -22,7 +22,7 @@
 
 #include "../tabletdependenttest.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

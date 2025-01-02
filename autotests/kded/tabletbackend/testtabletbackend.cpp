@@ -28,7 +28,7 @@
 #include "kded/xinputproperty.h"
 #include "kded/xsetwacomproperty.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

@@ -19,7 +19,7 @@
 
 #include "profilemanagementmocks.h"
 
-#include <QtTest>
+#include <QTest>
 
 void Wacom::ProfileManagementIntegrityChecker::setTabletId(const QString &tabletId)
 {

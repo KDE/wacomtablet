@@ -22,7 +22,7 @@
 
 #include "common/tabletinformation.h"
 
-#include <QtTest>
+#include <QTest>
 
 namespace Wacom
 {

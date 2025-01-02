@@ -19,7 +19,7 @@
 
 #include "common/deviceproperty.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

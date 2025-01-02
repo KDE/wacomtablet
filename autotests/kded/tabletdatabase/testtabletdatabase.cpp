@@ -24,7 +24,7 @@
 #include <QList>
 #include <QMap>
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

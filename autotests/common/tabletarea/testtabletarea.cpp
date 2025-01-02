@@ -19,7 +19,7 @@
 
 #include "common/tabletarea.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 

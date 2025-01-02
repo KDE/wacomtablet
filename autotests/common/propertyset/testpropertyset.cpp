@@ -20,7 +20,7 @@
 #include "common/property.h"
 #include "common/propertyset.h"
 
-#include <QtTest>
+#include <QTest>
 
 using namespace Wacom;
 
