@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Paolo Zamponi <feus73@gmail.com>, 2016, 2018, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2016, 2018, 2020, 2021, 2022, 2023, 2025 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-03-28 13:55+0000\n"
-"PO-Revision-Date: 2023-08-31 11:55+0200\n"
+"PO-Revision-Date: 2025-01-05 19:04+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -115,7 +115,7 @@ msgstr "Abilita/disabilita lo strumento tattile"
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
-msgstr "Commuta il pennino da relativo ad assoluto"
+msgstr "Commuta lo stilo da relativo ad assoluto"
 
 #: src/common/globalactions.cpp:46
 #, kde-format
@@ -576,7 +576,7 @@ msgstr "Generale"
 #: src/kcmodule/kcmwacomtabletwidget.cpp:441
 #, kde-format
 msgid "Stylus"
-msgstr "Pennino"
+msgstr "Stilo"
 
 #. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
 #: src/kcmodule/kcmwacomtabletwidget.cpp:450
@@ -671,7 +671,7 @@ msgstr ""
 "La curva di pressione definisce come viene trattata la pressione sulla "
 "penna.\n"
 "Trascina i punti per cambiare il comportamento\n"
-"Usa il pennino all'interno della curva per vedere i cambiamenti della "
+"Utilizza lo stilo all'interno dell'oggetto per vedere i cambiamenti della "
 "pressione."
 
 #. i18n: ectx: property (text), widget (QLabel, pc_Label)
@@ -690,7 +690,7 @@ msgstr "Impostazioni della penna"
 #: src/kcmodule/styluspagewidget.ui:28
 #, kde-format
 msgid "Defines the button action on the stylus."
-msgstr "Definisce l'azione del pulsante sul pennino."
+msgstr "Definisce l'azione del pulsante sullo stilo."
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:31
@@ -707,10 +707,10 @@ msgid ""
 "If deselected, stylus buttons will work once the stylus is in proximity of "
 "the tablet."
 msgstr ""
-"Se è selezionato, il pennino deve essere in contatto con la tavoletta per "
-"far sì che i pulsanti sul suo lato funzionino.\n"
-"Se invece è deselezionato, questi pulsanti funzioneranno non appena il "
-"pennino si troverà in prossimità della tavoletta."
+"Se è selezionato, lo stilo deve essere in contatto con la tavoletta per far "
+"sì che i pulsanti sul suo lato funzionino.\n"
+"Se invece è deselezionato, questi pulsanti funzioneranno non appena lo stilo "
+"si troverà in prossimità della tavoletta."
 
 #. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:116
@@ -742,11 +742,10 @@ msgid ""
 "This parameter is independent of the PressureCurve parameter."
 msgstr ""
 "Imposta la pressione minima necessaria a generare un evento di pulsante per "
-"la punta del pennino, per la gomma o per il tocco.\n"
-"Il numero dei livelli di pressione è normalizzato a 2048 per tutte le "
-"tavolette, indipendentemente dai livelli attualmente supportati "
-"dall'hardware.\n"
-"Questo parametro è indipendente da quelli della curva di pressione."
+"la punta dello stilo, per la gomma o per il tocco.\n"
+"Il numero dei livelli di pressione è normalizzato per tutte le tavolette a "
+"2048, indipendentemente da quelli effettivamente supportati dall'hardware.\n"
+"Questo parametro è indipendente da PressureCurve."
 
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_3)
@@ -782,7 +781,7 @@ msgstr "Modifica la curva di pressione..."
 #: src/kcmodule/styluspagewidget.ui:272
 #, kde-format
 msgid "Sets stylus pressure threshold."
-msgstr "Imposta la soglia di pressione del pennino."
+msgstr "Imposta la soglia di pressione sullo stilo."
 
 #. i18n: ectx: property (title), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:275
@@ -1015,7 +1014,7 @@ msgstr "Definisce come sarà usato il modo di movimento del puntatore."
 #: src/kcmodule/tabletpagewidget.ui:28
 #, kde-format
 msgid "Stylus Tracking Mode"
-msgstr "Modalità di tracciamento del pennino"
+msgstr "Modalità di tracciamento dello stilo"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:53
