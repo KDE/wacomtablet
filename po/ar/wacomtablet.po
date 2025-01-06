@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2015, 2017.
-# SPDX-FileCopyrightText: 2021, 2022, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2021, 2022, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-02-23 21:50+0400\n"
+"PO-Revision-Date: 2025-01-05 21:06+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -17,16 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "صفا الفليج"
+msgstr "صفا الفليج,زايد السعيدي"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "safa1996alfulaij@gmail.com"
+msgstr "safa1996alfulaij@gmail.com,zayed.alsaidi@gmail.com"
 
 #: src/common/aboutdata.cpp:36
 #, kde-format
@@ -41,7 +42,7 @@ msgstr "يورغ إريشس"
 #: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Maintainer"
-msgstr "المصين"
+msgstr "الصائن"
 
 #: src/common/aboutdata.cpp:41
 #, kde-format
@@ -99,7 +100,7 @@ msgstr "عجلة الفأرة لليمين"
 #, kde-format
 msgctxt "Tablet button triggers a click of mouse button with number #"
 msgid "Mouse Button %1 Click"
-msgstr ""
+msgstr "نقرة زر الفأرة %1"
 
 #: src/common/globalactions.cpp:31
 #, kde-format
@@ -116,7 +117,7 @@ msgstr "فعّل/عطّل أداة اللمس"
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
-msgstr ""
+msgstr "تبديل أداة القلم النسبي/المطلق"
 
 #: src/common/globalactions.cpp:47
 #, kde-format
@@ -130,19 +131,19 @@ msgctxt ""
 "@action Maps the area of the tablet to all available screen space (space "
 "depends on connected monitors)"
 msgid "Map to fullscreen"
-msgstr ""
+msgstr "خريطة لملء الشاشة"
 
 #: src/common/globalactions.cpp:59
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 1"
-msgstr ""
+msgstr "عيين إلى شاشة 1"
 
 #: src/common/globalactions.cpp:65
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 2"
-msgstr ""
+msgstr "عيين إلى شاشة 2"
 
 #: src/common/globalactions.cpp:71
 #, kde-format
@@ -222,14 +223,14 @@ msgstr "انقر لإسناد إجراء."
 #: src/kcmodule/buttonpagewidget.ui:20
 #, kde-format
 msgid "Pad Buttons"
-msgstr ""
+msgstr "أزرار اللوحة"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
 #: src/kcmodule/kcmwacomtabletwidget.cpp:431
 #, kde-format
 msgid "Express Buttons"
-msgstr ""
+msgstr "الأزرار السريعة"
 
 #. i18n: ectx: property (text), widget (QLabel, button1Label)
 #. i18n: ectx: property (text), widget (QLabel, labelButton1)
@@ -346,49 +347,49 @@ msgstr "الزّرّ 18"
 #: src/kcmodule/buttonpagewidget.ui:537
 #, kde-format
 msgid "Touch Strip"
-msgstr ""
+msgstr "شريط اللمس"
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:555
 #, kde-format
 msgid "Left Strip Up"
-msgstr ""
+msgstr "الشريط الأيسر لأعلى"
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:572
 #, kde-format
 msgid "Left Strip Down"
-msgstr ""
+msgstr "الشريط الأيسر للأسفل"
 
 #. i18n: ectx: property (text), widget (QLabel, rightStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:620
 #, kde-format
 msgid "Right Strip Up"
-msgstr ""
+msgstr "الشريط الأيمن لأعلى"
 
 #. i18n: ectx: property (text), widget (QLabel, rightStripDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:637
 #, kde-format
 msgid "Right Strip Down"
-msgstr ""
+msgstr "الشريط الأيمن للأسفل"
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchRingGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:660
 #, kde-format
 msgid "Touch Ring"
-msgstr ""
+msgstr "حلقة اللمس"
 
 #. i18n: ectx: property (text), widget (QLabel, ringUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:671
 #, kde-format
 msgid "Ring Up"
-msgstr ""
+msgstr "حلقة الأعلى"
 
 #. i18n: ectx: property (text), widget (QLabel, ringDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:711
 #, kde-format
 msgid "Ring Down"
-msgstr ""
+msgstr "حلقة الأسفل"
 
 #. i18n: ectx: property (title), widget (QGroupBox, wheelGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:733
@@ -427,7 +428,7 @@ msgstr "لم توجد لوحيّات"
 #: src/kcmodule/errorwidget.ui:107
 #, kde-format
 msgid "Manually register a tablet device"
-msgstr ""
+msgstr "تسجيل جهاز لوحي يدويًا"
 
 #. i18n: ectx: property (description), widget (QCommandLinkButton, buttonRunTabletFinder)
 #: src/kcmodule/errorwidget.ui:110
@@ -435,7 +436,7 @@ msgstr ""
 msgid ""
 "This will open another window, prompting you to describe your tablet device. "
 "After you're done, please restart your desktop session."
-msgstr ""
+msgstr "سيؤدي هذا إلى فتح نافذة أخرى، تطالبك بوصف جهازك اللوحي."
 
 #: src/kcmodule/generalpagewidget.cpp:56
 #, kde-format
@@ -456,7 +457,7 @@ msgstr "اختر التّشكيلة التي تريد إضافتها:"
 #: src/kcmodule/generalpagewidget.ui:14
 #, kde-format
 msgid "General Hardware Overview"
-msgstr ""
+msgstr "نظرة عامة على الأجهزة"
 
 #. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
 #: src/kcmodule/generalpagewidget.ui:35
@@ -575,7 +576,7 @@ msgstr "احفظ التشكيلة"
 #: src/kcmodule/kcmwacomtabletwidget.cpp:476
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
-msgstr ""
+msgstr "فشل في تشغيل أداة البحث عن اللوحي Wacom."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
 #: src/kcmodule/kcmwacomtabletwidget.ui:14
@@ -632,7 +633,7 @@ msgstr "بلا"
 #: src/kcmodule/pressurecurvedialog.ui:23
 #, kde-format
 msgid "Press Curve Settings"
-msgstr ""
+msgstr "اضغط على إعدادات المنحنى"
 
 #. i18n: ectx: property (text), widget (QLabel, explaining_Label)
 #: src/kcmodule/pressurecurvedialog.ui:37
@@ -642,12 +643,15 @@ msgid ""
 "Drag around the dots to change the behavior\n"
 "Use the stylus inside the Widget to see the pressure changes."
 msgstr ""
+"يحدد منحنى الضغط كيفية التعامل مع الضغط بالقلم.\n"
+"اسحب حول النقاط لتغيير السلوك\n"
+"استخدم القلم الموجود داخل عنصر واجهة المستخدم لرؤية تغيرات الضغط."
 
 #. i18n: ectx: property (text), widget (QLabel, pc_Label)
 #: src/kcmodule/pressurecurvedialog.ui:104
 #, kde-format
 msgid "Current Presscurve:"
-msgstr ""
+msgstr "منحنى الضغط الحالي:"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, StylusPageWidget)
 #: src/kcmodule/styluspagewidget.ui:14
@@ -676,24 +680,28 @@ msgid ""
 "If deselected, stylus buttons will work once the stylus is in proximity of "
 "the tablet."
 msgstr ""
+"إذا تم تحديدها، فيجب أن يكون القلم على اتصال بالكمبيوتر اللوحي حتى يعمل الزر "
+"الجانبي للقلم.\n"
+"في حالة إلغاء التحديد، ستعمل أزرار القلم بمجرد أن يكون القلم على مقربة من "
+"اللوحي."
 
 #. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:116
 #, kde-format
 msgid "Tap to execute action."
-msgstr ""
+msgstr "اطرق لتنفيذ الإجراء."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:128
 #, kde-format
 msgid "Sets eraser pressure threshold."
-msgstr ""
+msgstr "تعيين عتبة ضغط الممحاة."
 
 #. i18n: ectx: property (title), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:131
 #, kde-format
 msgid "Eraser Feel"
-msgstr ""
+msgstr "حساسية الممحاة"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, eraserSlider)
 #. i18n: ectx: property (toolTip), widget (QSlider, tipSlider)
@@ -706,6 +714,10 @@ msgid ""
 "irregardless of the actual hardware supported levels.\n"
 "This parameter is independent of the PressureCurve parameter."
 msgstr ""
+"عيّن الحد الأدنى للضغط اللازم لإنشاء حدث زر للقلم/الطرف أو الممحاة أو اللمس.\n"
+"يتم تطبيع مستويات الضغط لجميع الأجهزة اللوحية إلى 2048 مستوى بغض النظر عن "
+"مستويات الأجهزة المدعومة فعليًا.\n"
+"هذه المعلمة مستقلة عن معلمة PressureCurve."
 
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_3)
@@ -721,7 +733,7 @@ msgstr "لين"
 #, kde-format
 msgctxt "fast movement of the cursor (maximal value)"
 msgid "Firm"
-msgstr ""
+msgstr "صلب"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, eraserPressureButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, tipPressureButton)
@@ -747,20 +759,20 @@ msgstr "يضبط عتبة ضغط قلم التّأشير."
 #: src/kcmodule/styluspagewidget.ui:275
 #, kde-format
 msgid "Tip Feel"
-msgstr ""
+msgstr "حساسية الطرف"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxRawSample)
 #. i18n: ectx: property (toolTip), widget (QSlider, horizontalSliderRawSample)
 #: src/kcmodule/styluspagewidget.ui:412 src/kcmodule/styluspagewidget.ui:421
 #, kde-format
 msgid "Number of raw data used to filter the points (default is 4)"
-msgstr ""
+msgstr "عدد البيانات الأولية المستخدمة لتصفية النقاط (المبدئي هو 4)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxRawSample)
 #: src/kcmodule/styluspagewidget.ui:415
 #, kde-format
 msgid "Raw Sample Rate"
-msgstr ""
+msgstr "معدل العينة الخام"
 
 #. i18n: ectx: property (text), widget (QLabel, labelMinRawSample)
 #: src/kcmodule/styluspagewidget.ui:451
@@ -779,13 +791,13 @@ msgstr "20"
 #: src/kcmodule/styluspagewidget.ui:489
 #, kde-format
 msgid "Number of points trimmed (default is 2)"
-msgstr ""
+msgstr "عدد النقاط التي تم اقتطاعها (المبدئي هو 2)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
 #: src/kcmodule/styluspagewidget.ui:492
 #, kde-format
 msgid "Suppress Rate"
-msgstr ""
+msgstr "معدل القمع"
 
 #. i18n: ectx: property (text), widget (QLabel, labelMinSuppress)
 #: src/kcmodule/styluspagewidget.ui:525
@@ -799,7 +811,7 @@ msgctxt ""
 "Dialog title from a dialog which lets the user select an area of the tablet "
 "where the screen space will be mapped to."
 msgid "Select a Tablet Area"
-msgstr ""
+msgstr "حدد منطقة اللوحي"
 
 #: src/kcmodule/tabletareaselectionview.cpp:136
 #: src/kcmodule/tabletareaselectionview.cpp:163
@@ -813,7 +825,7 @@ msgstr "خطأ داخليّ"
 msgid ""
 "The tablet area defines how the screen space is mapped to your tablet. For "
 "each screen a different tablet area can be selected. "
-msgstr ""
+msgstr "تحدد منطقة اللوحي كيفية تعيين مساحة الشاشة لجهازك اللوحي."
 
 #. i18n: ectx: property (title), widget (QGroupBox, screenGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:57
@@ -831,19 +843,19 @@ msgstr "بدّل بين ملء الشّاشة وكلّ شاشة منفصلة."
 #: src/kcmodule/tabletareaselectionview.ui:86
 #, kde-format
 msgid "Toggle Screen"
-msgstr ""
+msgstr "بدّل الشّاشة"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:96
 #, kde-format
 msgid "Select the valid tablet area used for the selected screen space."
-msgstr ""
+msgstr "حدد منطقة اللوحي الصالحة المستخدمة لمساحة الشاشة المحددة."
 
 #. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:99
 #, kde-format
 msgid "Map Screen To"
-msgstr ""
+msgstr "عيّن الشاشة إلى"
 
 #. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:105
@@ -861,7 +873,7 @@ msgstr "&منطقة اللوحيّ"
 #: src/kcmodule/tabletareaselectionview.ui:122
 #, kde-format
 msgid "Set the tablet area proportional to the selected screen area."
-msgstr ""
+msgstr "قم بتعيين مساحة الجهاز اللوحي بما يتناسب مع مساحة الشاشة المحددة."
 
 #. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:125
@@ -879,7 +891,7 @@ msgstr "عاير"
 #: src/kcmodule/tabletareaselectionview.ui:204
 #, kde-format
 msgid "This mapping can only be applied in absolute tracking mode."
-msgstr ""
+msgstr "لا يمكن تطبيق هذا التعيين إلا في وضع التتبع المطلق."
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
 #: src/kcmodule/tabletareaselectionview.ui:219
@@ -891,7 +903,7 @@ msgstr "اقفل نسب الشّاشة"
 #: src/kcmodule/tabletareaselectionview.ui:232
 #, kde-format
 msgid "Tablet area fine tuning"
-msgstr ""
+msgstr "الضبط الدقيق لمنطقة اللوحي"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
 #: src/kcmodule/tabletareaselectionview.ui:244
@@ -909,7 +921,7 @@ msgstr "أفقي"
 #: src/kcmodule/tabletareaselectionview.ui:267
 #, kde-format
 msgid "Left margin"
-msgstr ""
+msgstr "الهامش الأيسر"
 
 #. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
 #: src/kcmodule/tabletareaselectionview.ui:277
@@ -921,7 +933,7 @@ msgstr "رأسي"
 #: src/kcmodule/tabletareaselectionview.ui:290
 #, kde-format
 msgid "Top margin"
-msgstr ""
+msgstr "الهامش العلوي"
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
 #: src/kcmodule/tabletareaselectionview.ui:306
@@ -935,7 +947,7 @@ msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
 msgid "Default Orientation"
-msgstr "الاتّجاه الافتراضيّ"
+msgstr "الاتجاه المبدئيّ"
 
 #: src/kcmodule/tabletpagewidget.cpp:358
 #, kde-format
@@ -971,19 +983,19 @@ msgstr "وضع تعقّب قلم التّأشير"
 #: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:72
 #, kde-format
 msgid "&Map to Screen (Absolute Mode)"
-msgstr ""
+msgstr "&عيّن إلى الشاشة (الوضع المطلق)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackRelativeRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:56 src/kcmodule/touchpagewidget.ui:88
 #, kde-format
 msgid "Map &to Cursor (Relative Mode)"
-msgstr ""
+msgstr "عين إلى ال&مؤشر (الوضع النسبي)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, padMappingGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:88
 #, kde-format
 msgid "Tablet Mapping"
-msgstr ""
+msgstr "تعيين اللوحي إلى الشاشة"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, touchMappingTabletButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, padMappingTabletButton)
@@ -993,25 +1005,27 @@ msgid ""
 "Allows one to specify the tablet area for different screen selections in "
 "absolute cursor mode."
 msgstr ""
+"يسمح لك بتحديد منطقة الجهاز اللوحي لاختيارات الشاشة المختلفة في وضع المؤشر "
+"المطلق."
 
 #. i18n: ectx: property (text), widget (QPushButton, padMappingTabletButton)
 #: src/kcmodule/tabletpagewidget.ui:103
 #, kde-format
 msgid "Map Tablet Area to Screen"
-msgstr ""
+msgstr "تعيين منطقة في اللوحي إلى الشاشة"
 
 #. i18n: ectx: property (text), widget (QLabel, trackingWarningLabel)
 #: src/kcmodule/tabletpagewidget.ui:128 src/kcmodule/touchpagewidget.ui:166
 #, kde-format
 msgid ""
 "Your currently selected mapping can not be applied in relative tracking mode."
-msgstr ""
+msgstr "لا يمكن تطبيق التعيين المحدد حاليًا في وضع التتبع النسبي."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, rotationGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:169
 #, kde-format
 msgid "Changes the orientation of the tablet."
-msgstr ""
+msgstr "تغيير اتجاه اللوحي."
 
 #. i18n: ectx: property (title), widget (QGroupBox, rotationGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:172
@@ -1023,7 +1037,7 @@ msgstr "الاتّجاه"
 #: src/kcmodule/tabletpagewidget.ui:181
 #, kde-format
 msgid "If enabled, the tablet rotates together with the screen."
-msgstr ""
+msgstr "في حالة تمكينه، يدور الجهاز اللوحي مع الشاشة."
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:184
@@ -1038,6 +1052,8 @@ msgid ""
 "If enabled the automatic tablet rotation for clockwise and counterclockwise "
 "rotations will be inverted."
 msgstr ""
+"إذا تم تمكين التدوير التلقائي للوحي في اتجاه عقارب الساعة وعكس اتجاه عقارب "
+"الساعة، فسيتم عكسه."
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenInvertCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:197
@@ -1049,13 +1065,13 @@ msgstr "اعكس التّدوير الآليّ"
 #: src/kcmodule/touchpagewidget.ui:17
 #, kde-format
 msgid "Enabling gestures may break touch input using a touchscreen."
-msgstr ""
+msgstr "قد يؤدي تمكين الإيماءات إلى تعطيل الإدخال باللمس باستخدام شاشة اللمس."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:36
 #, kde-format
 msgid "If enabled the tablet will emit touch events."
-msgstr ""
+msgstr "في حالة التمكين، سيصدر الجهاز اللوحي أحداث اللمس."
 
 #. i18n: ectx: property (text), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:39
@@ -1073,19 +1089,19 @@ msgstr "وضع تعقّب اللمس"
 #: src/kcmodule/touchpagewidget.ui:123
 #, kde-format
 msgid "Touch Mapping"
-msgstr ""
+msgstr "تعّيين اللمس"
 
 #. i18n: ectx: property (text), widget (QPushButton, touchMappingTabletButton)
 #: src/kcmodule/touchpagewidget.ui:138
 #, kde-format
 msgid "Map Touch Area to Screen"
-msgstr ""
+msgstr "تعيين منطقة اللمس على الشاشة"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:202
 #, kde-format
 msgid "If enabled the touch events can recognize gestures."
-msgstr ""
+msgstr "في حالة التمكين، يمكن لأحداث اللمس التعرف على الإيماءات."
 
 #. i18n: ectx: property (text), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:205
@@ -1103,7 +1119,7 @@ msgstr "الإيماءات"
 #: src/kcmodule/touchpagewidget.ui:235
 #, kde-format
 msgid "Minimum motion before sending a scroll gesture."
-msgstr ""
+msgstr "الحد الأدنى من الحركة قبل إرسال إيماءة التمرير."
 
 #. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:238
@@ -1115,19 +1131,19 @@ msgstr "مسافة التّمرير"
 #: src/kcmodule/touchpagewidget.ui:254
 #, kde-format
 msgid "The minimum motion in tablet units before sending a scroll event."
-msgstr ""
+msgstr "الحد الأدنى للحركة في وحدات اللوحي قبل إرسال حدث التمرير."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:273
 #, kde-format
 msgid "Minimum distance for a zoom gesture is recognized."
-msgstr ""
+msgstr "تم التعرف على الحد الأدنى للمسافة لإيماءة التكبير/التصغير."
 
 #. i18n: ectx: property (text), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:276
 #, kde-format
 msgid "Zoom Distance"
-msgstr ""
+msgstr "مسافة التكبير"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, zoomDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:292
@@ -1135,12 +1151,14 @@ msgstr ""
 msgid ""
 "The minimum distance in tablet units for a zoom gesture to be recognized."
 msgstr ""
+"الحد الأدنى للمسافة في الوحدات اللوحية ليتم التعرف على إيماءة التكبير/"
+"التصغير."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, tapTimeLabel)
 #: src/kcmodule/touchpagewidget.ui:311
 #, kde-format
 msgid "Minimum time between taps for a right click."
-msgstr ""
+msgstr "الحد الأدنى للوقت بين النقرات للنقر بزر الفأرة الأيمن."
 
 #. i18n: ectx: property (text), widget (QLabel, tapTimeLabel)
 #: src/kcmodule/touchpagewidget.ui:314
@@ -1153,6 +1171,7 @@ msgstr "زمن النّقر"
 #, kde-format
 msgid "The minimum time in milliseconds between taps to trigger a right click."
 msgstr ""
+"الحد الأدنى للوقت بالمللي ثانية بين النقرات لتشغيل النقر بزر الفأرة الأيمن."
 
 #. i18n: ectx: property (text), widget (QLabel, scrollInversionLabel)
 #: src/kcmodule/touchpagewidget.ui:337
@@ -1164,7 +1183,7 @@ msgstr "اعكس اتّجاه التّمرير"
 #: src/kcmodule/touchpagewidget.ui:344
 #, kde-format
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
-msgstr ""
+msgstr "إذا حُدد فسيعكس اتجاه التمرير لإيماءة التمرير."
 
 #: src/kded/tabletdaemon.cpp:111 src/kded/tabletdaemon.cpp:117
 #, kde-format
@@ -1216,12 +1235,12 @@ msgstr "خطأ في لوحيّ الرّسم"
 #: src/kded/tablethandler.cpp:438
 #, kde-format
 msgid "Profile <b>%1</b> does not exist. Apply <b>%2</b> instead"
-msgstr ""
+msgstr "التشكيلة <b>%1</b> غير موجود. طبق <b>%2</b> عوضا عن ذلك"
 
 #: src/tabletfinder/dialog.cpp:441
 #, kde-format
 msgid "Button %1 maps to Button %2"
-msgstr ""
+msgstr "الزر %1 مربوط بالزر %2"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
 #: src/tabletfinder/dialog.ui:14
@@ -1233,13 +1252,13 @@ msgstr "اكتشاف لوحيّ واكُم"
 #: src/tabletfinder/dialog.ui:20
 #, kde-format
 msgid "Connect your Tablet and click on Refresh to detect it."
-msgstr ""
+msgstr "قم بتوصيل جهازك اللوحي وانقر فوق أنعش لاكتشافه."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tabletfinder/dialog.ui:27
 #, kde-format
 msgid "Tablet Selection"
-msgstr ""
+msgstr "تحديد اللوحي"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/tabletfinder/dialog.ui:39
@@ -1275,31 +1294,31 @@ msgstr "ميزات اللوحيّ"
 #: src/tabletfinder/dialog.ui:111
 #, kde-format
 msgid "has TouchRing"
-msgstr ""
+msgstr "لديه حلقة لمس"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsRight)
 #: src/tabletfinder/dialog.ui:118
 #, kde-format
 msgid "has Status LEDs right"
-msgstr ""
+msgstr "يحتوي على مصابيح LED الخاصة بالحالة بشكل صحيح"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripLeft)
 #: src/tabletfinder/dialog.ui:125
 #, kde-format
 msgid "has Touchstrip Left"
-msgstr ""
+msgstr "يحتوي على شريط لمس يسار"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripRight)
 #: src/tabletfinder/dialog.ui:132
 #, kde-format
 msgid "has Touchstrip Right"
-msgstr ""
+msgstr "لديه شريط اللمس الأيمن"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsLeft)
 #: src/tabletfinder/dialog.ui:139
 #, kde-format
 msgid "has Status LEDs left"
-msgstr ""
+msgstr "يوجد به مصابيح LED للحالة متبقية"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasWheel)
 #: src/tabletfinder/dialog.ui:146
@@ -1317,19 +1336,19 @@ msgstr "إعدادات الزّرّ"
 #: src/tabletfinder/dialog.ui:177
 #, kde-format
 msgid "Number of available Express Keys:"
-msgstr ""
+msgstr "عدد المفاتيح السريعة المتوفرة:"
 
 #. i18n: ectx: property (text), widget (QPushButton, mapButtons)
 #: src/tabletfinder/dialog.ui:189
 #, kde-format
 msgid "Map Hardware Buttons"
-msgstr ""
+msgstr "خريطة أزرار الأجهزة"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
 #: src/tabletfinder/dialog.ui:221
 #, kde-format
 msgid "Touch sensor"
-msgstr ""
+msgstr "مستشعر اللمس"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
 #: src/tabletfinder/dialog.ui:227
@@ -1341,13 +1360,13 @@ msgstr "لوحيّ &عادي"
 #: src/tabletfinder/dialog.ui:239
 #, kde-format
 msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-msgstr ""
+msgstr "لوحي &متعدد الأجهزة، ومستشعر القلم. مستشعر اللمس هو:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
 #: src/tabletfinder/dialog.ui:251
 #, kde-format
 msgid "Multi-&device tablet, touch sensor"
-msgstr ""
+msgstr "&لوحي متعدد الأجهزة، مستشعر اللمس"
 
 #: src/tabletfinder/hwbuttondialog.cpp:66
 #, kde-format
