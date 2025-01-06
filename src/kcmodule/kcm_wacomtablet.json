@@ -90,6 +90,7 @@
         "Name[zh_TW]": "圖形平板裝置"
     },
     "X-KDE-Keywords": "Tablet,Input Devices,Wacom,Stylus",
+    "X-KDE-Keywords[ar]": "Tablet,Input Devices,Wacom,Stylus,لوحي,أجهزة دخل,أجهزة إدخال,اجهزة ادخال,واكُم,واكم,واكوم,قلم تأشير,قلم تاشير",
     "X-KDE-Keywords[bs]": "Tablet,Ulazni uređaji,Wacom,Stylus",
     "X-KDE-Keywords[ca@valencia]": "Tauleta,Dispositius d'entrada,Wacom,Llapis",
     "X-KDE-Keywords[ca]": "Tauleta,Dispositius d'entrada,Wacom,Llapis",
@@ -108,7 +109,7 @@
     "X-KDE-Keywords[hu]": "Rajztábla,Beviteli eszközök,Wacom,Stylus",
     "X-KDE-Keywords[ia]": "Tabletta, Dispositivos de Entrata,Wacom,Stilo",
     "X-KDE-Keywords[id]": "Tablet,Peranti Input,Wacom,Stylus",
-    "X-KDE-Keywords[it]": "Tavoletta,Dispositivo d'ingresso,Wacom,Pennino",
+    "X-KDE-Keywords[it]": "Tavoletta,Dispositivo d'ingresso,Wacom,Stilo",
     "X-KDE-Keywords[ka]": "Tablet,Input Devices,Wacom,Stylus",
     "X-KDE-Keywords[kk]": "Tablet,Input Devices,Wacom,Stylus",
     "X-KDE-Keywords[km]": "Tablet,Input Devices,Wacom,Stylus",
