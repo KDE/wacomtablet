@@ -75,7 +75,7 @@
         <keyword
 >Wacom</keyword>
         <keyword
->Tablet</keyword>
+>Tavoletta</keyword>
     </keywordset>
 
     </bookinfo>
@@ -103,7 +103,7 @@
 >, <link linkend="tablet-general"
 >Informazioni generali</link
 >, <link linkend="stylus"
->Impostazioni del pennino</link
+>Impostazioni dello stilo</link
 >, <link linkend="pad-buttons"
 >Pulsanti rapidi</link
 >, <link linkend="pad-mapping"
@@ -155,10 +155,10 @@
 
     <sect1 id="stylus">
         <title
->Impostazioni del pennino</title>
+>Impostazioni dello stilo</title>
 
         <para
->La penna che viene usata insieme alla tavoletta ha due estremità diverse: la principale è chiamata pennino, mentre l'altra è detta gomma. In questa pagina puoi modificare ogni aspetto della penna, dall'assegnazione dei tasti alla curva di pressione, fino alla sua sensibilità. </para>
+>La penna che viene usata insieme alla tavoletta ha due estremità diverse: la principale è chiamata stilo, mentre l'altra è detta gomma. In questa scheda puoi modificare ogni aspetto della penna, dall'assegnazione dei tasti alla curva di pressione, fino alla sua sensibilità. </para>
 
         <sect2 id="eraser-settings">
             <title
@@ -177,21 +177,21 @@
             <para
 >La casella <guilabel
 >Impostazioni dei pulsanti</guilabel
-> permette di modificare le azioni eseguite alla pressione di ciascun tasto sulla penna. Un semplice clic nella casella di modifica apre una nuova finestra, nella quale si possono selezionare diverse combinazioni di tasti, i pulsanti modificatori e i tasti del mouse. </para>
+> permette di modificare le azioni eseguite alla pressione di ciascun pulsante sulla penna. Un semplice clic nella casella di modifica apre una nuova finestra, nella quale si possono selezionare diverse combinazioni di tasti, i pulsanti modificatori e i tasti del mouse. </para>
 
             <para
 >Se l'opzione <guilabel
 >Tocca per eseguire l'azione</guilabel
-> è abilitata, il pennino deve essere in contatto con la tavoletta affinché l'azione del pulsante possa essere eseguita. Se invece questa opzione è disabilitata, le azioni dei pulsanti vengono eseguite anche quando il pennino sorvola sopra la superficie della tavoletta. </para>
+> è abilitata, lo stilo deve essere in contatto con la tavoletta affinché l'azione del pulsante possa essere eseguita. Se invece questa opzione è disabilitata, le azioni dei pulsanti vengono eseguite anche quando lo stilo sorvola la superficie della tavoletta. </para>
         </sect2>
 
         <sect2 id="tip-settings">
             <title
 >Sensibilità della punta</title>
             <para
->Il cursore permette di modificare la sensibilità della punta del pennino. Per una regolazione più fine della pressione è possibile modificare l'intera curva di pressione, nella finestra <guilabel
+>Il cursore permette di modificare la sensibilità della punta dello stilo. Per una regolazione più fine della pressione è possibile modificare l'intera curva di pressione, nella finestra <guilabel
 >Modifica la curva di pressione</guilabel
->. Per ulteriori informazioni vai nella <link linkend="presscurve"
+>. Per ulteriori informazioni, vai nella <link linkend="presscurve"
 >Finestra della curva di pressione</link
 >. </para>
         </sect2>
@@ -202,7 +202,7 @@
 >Pulsanti rapidi</title>
 
         <para
->La pagina<guilabel
+>La scheda<guilabel
 >Pulsanti rapidi</guilabel
 > permette di impostare delle azioni particolari per tutti i pulsanti hardware presenti nella tavoletta. Per cambiare l'azione ad essi associata, fai clic nella casella di modifica e poi scegli l'azione nella nuova finestra. </para>
     </sect1>
@@ -213,19 +213,19 @@
 >Tavoletta</title>
 
        <para
->La pagina <guilabel
+>La scheda <guilabel
 >Tavoletta</guilabel
 > ti permette di impostare ulteriori proprietà dell'area della tavoletta nel suo funzionamento insieme alla penna. Qui possono essere specificati l'orientazione della tavoletta, lo spazio valido della tavoletta e la modalità di tracciamento del puntatore. </para>
        <sect2 id="tablet-tracking">
            <title
->Modalità di tracciamento del pennino</title>
+>Modalità di tracciamento dello stilo</title>
 
            <itemizedlist>
                <listitem>
                    <para
 ><guilabel
 >Associa allo schermo</guilabel
-> : questa modalità associa il puntatore con un movimento assoluto sulla tavoletta. I bordi della tavoletta rappresentano direttamente lo spazio dello schermo. </para>
+> : questa modalità associa il puntatore della penna con un movimento assoluto sulla tavoletta. I bordi della tavoletta rappresentano direttamente lo spazio dello schermo. </para>
                </listitem>
                <listitem>
                    <para
@@ -251,7 +251,7 @@
            <title
 >Mappatura della tavoletta</title>
            <para
->Questa associazione ti permette di specificare le proporzioni della tavoletta che saranno utilizzate per ciascuno schermo. Questo è necessario per mantenere l'area della tavoletta proporzionale allo spazio di schermo utilizzato nella modalità assoluta di tracciamento del pennino. Per maggiori informazioni controlla l'apposita sezione nella <link linkend="area-selection"
+>Questa associazione ti permette di specificare le proporzioni della tavoletta che saranno utilizzate per ciascuno schermo. Questo è necessario per mantenere l'area della tavoletta proporzionale allo spazio di schermo utilizzato nella modalità assoluta di tracciamento dello stilo. Per maggiori informazioni controlla l'apposita sezione nella <link linkend="area-selection"
 >Finestra di selezione dell'area</link
 >. </para>
            <note>
@@ -266,7 +266,7 @@
 >Tocco</title>
 
        <para
->La pagina <guilabel
+>La scheda <guilabel
 >Tocco</guilabel
 > permette di impostare ulteriori proprietà per la parte tattile della tavoletta (se esistente). È possibile disabilitare le funzionalità tattili dalla casella di selezione <guilabel
 >Abilita tocco</guilabel
@@ -327,7 +327,7 @@
            <title
 >Mappatura del tocco</title>
            <para
->Questa mappatura ti permette di specificare le proporzioni del dispositivo tattile che saranno usate per ciascun schermo. Questo è necessario per mantenere l'area della tavoletta proporzionale alla porzione di schermo usata nel modo di tracciamento assoluto del pennino. Per maggiori informazioni controlla la sezione nella <link linkend="area-selection"
+>Questa mappatura ti permette di specificare le proporzioni del dispositivo tattile che saranno usate per ciascun schermo. Questo è necessario per mantenere l'area della tavoletta proporzionale alla porzione di schermo usata nel modo di tracciamento assoluto dello stilo. Per maggiori informazioni controlla la sezione nella <link linkend="area-selection"
 >Finestra di selezione dell'area</link
 >. </para>
            <note>
@@ -360,10 +360,10 @@
         </para>
 
         <para
->La curva di pressione definisce come viene trasdotta la pressione del pennino. È definita da quattro punti su di una curva di Bézier: può essere modificata spostando questi punti e muovendoci la curva intorno. </para>
+>La curva di pressione definisce come viene trasdotta la pressione dello stilo. È definita da quattro punti su di una curva di Bézier: può essere modificata spostando questi punti e muovendo la curva. </para>
         <note>
             <para
->Si può utilizzare la penna all'interno della finestra della curva di pressione per vederne immediatamente i cambiamenti. L'area blu sotto la curva mostra la pressione applicata dalla penna. </para>
+>Puoi utilizzare la penna all'interno della finestra della curva di pressione per vederne immediatamente i cambiamenti. L'area blu sotto la curva mostra la pressione applicata dalla penna. </para>
         </note>
     </sect1>
 
@@ -417,7 +417,7 @@
 >. </para>
         <note>
             <para
->L'area della tavoletta funziona solamente in modalità di tracciamento assoluto del dispositivo tattile e del puntatore; nella modalità relativa viene invece utilizzata tutta la tavoletta. </para>
+>L'area della tavoletta funziona solamente in modalità di tracciamento assoluto del dispositivo tattile e del puntatore della penna; nella modalità relativa viene invece utilizzata tutta la tavoletta. </para>
         </note>
     </sect1>
     </chapter>
@@ -466,10 +466,10 @@
 >/etc/X11/xorg.conf.d/50-tablet.conf</filename
 > (crealo se non esiste), quindi riavvia il server X. </para>
         <para
->Nel caso ci siano più dispositivi (tavolette e simili), controlla che i dispositivi d'ingresso (pennino, gomma, tavoletta) vengano elencati con <command
+>Nel caso ci siano più dispositivi (tavolette e simili), controlla che i dispositivi d'ingresso (stilo, gomma, tavoletta) vengano elencati con <command
 >xinput --list</command
 >. Qualora questi dovessero essere elencati, dai un'occhiata all'id interno della tavoletta con <command
->xsetwacom get "Nome della tavoletta o pennino" TabletID</command
+>xsetwacom get "Nome della tavoletta o stilo" TabletID</command
 >. Se viene rilevato un id, per favore invia un'email all'autore con le informazioni necessarie. </para>
         <note>
         <para
@@ -504,7 +504,7 @@
     <title
 >Applet Tablet per Plasma</title>
     <para
->L'applet tablet rende possibile la modifica al volo dei profili disponibili. Inoltre puoi modificare la rotazione della tavoletta e passare dalla modalità da assoluta a quella relativa, sia del pennino che della gomma, indipendentemente dalle impostazioni attuali del profilo. </para>
+>L'applet tavoletta rende possibile la modifica al volo dei profili disponibili. Inoltre puoi modificare la rotazione della tavoletta e passare dalla modalità da assoluta a quella relativa, sia dello stilo che della gomma, indipendentemente dalle impostazioni attuali del profilo. </para>
     <para
 >Non è necessario aggiungere il plasmoide per far funzionare questo modulo. Il profilo predefinito sarà attivato dal <link linkend="kded"
 >demone tablet</link
