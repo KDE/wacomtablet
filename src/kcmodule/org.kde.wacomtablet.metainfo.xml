@@ -4,6 +4,7 @@
   <extends>org.kde.systemsettings</extends>
   <extends>org.kde.kded</extends>
   <name>KDE Wacom tablet module</name>
+  <name xml:lang="ar">وحدة كيدي واكوم اللوحية</name>
   <name xml:lang="ast">Módulu KDE de tabletes Wacom</name>
   <name xml:lang="ca">Mòdul del KDE de tauletes Wacom</name>
   <name xml:lang="ca-valencia">Mòdul de KDE de tauletes Wacom</name>
@@ -40,6 +41,7 @@
   <name xml:lang="zh-CN">KDE Wacom 数位板模块</name>
   <name xml:lang="zh-TW">KDE Wacom 平板模組</name>
   <summary>Configuration GUI for graphical tablets</summary>
+  <summary xml:lang="ar">واجهة المستخدم الرسومية لضبط الأجهزة اللوحية الرسومية</summary>
   <summary xml:lang="ca">IGU de configuració per a tauletes gràfiques</summary>
   <summary xml:lang="ca-valencia">IGU de configuració per a tauletes gràfiques</summary>
   <summary xml:lang="cs">Prostředí pro nastavení grafických tabletů</summary>
@@ -76,6 +78,7 @@
   <summary xml:lang="zh-TW">圖形化平板的設定 GUI 介面</summary>
   <description>
     <p>Wacom tablet module provides tablet section for System Settings and a background daemon that configures connected tablets.</p>
+    <p xml:lang="ar">توفر وحدة واكوم اللوحية قسمًا للأجهزة اللوحية في إعدادات النظام لضبط الأجهزة اللوحية المتصلة.</p>
     <p xml:lang="ca">El mòdul de tauletes Wacom proporciona la secció de tauletes per a l'Arranjament del sistema i un dimoni en segon pla que configura les tauletes connectades.</p>
     <p xml:lang="ca-valencia">El mòdul de tauletes Wacom proporciona la secció de tauletes per a Configuració del sistema i un dimoni en segon pla que configura les tauletes connectades.</p>
     <p xml:lang="da">Wacom-tablet-modulet giver en tablet-sektion i Systemindstillinger og en baggrundsdæmon som indstiller tilsluttede tablets.</p>
@@ -117,6 +120,7 @@
   <screenshots>
     <screenshot type="default">
       <caption>Settings window.</caption>
+      <caption xml:lang="ar">نافذة الإعدادات.</caption>
       <caption xml:lang="ca">Finestra de paràmetres.</caption>
       <caption xml:lang="ca-valencia">Finestra de paràmetres.</caption>
       <caption xml:lang="cs">Okno nastavení</caption>
