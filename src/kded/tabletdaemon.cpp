@@ -107,16 +107,11 @@ void TabletDaemon::onNotify(const QString &eventId, const QString &title, const 
     notification->setIconName(QLatin1String("preferences-desktop-tablet"));
 
     if (suggestConfigure) {
-#if QT_VERSION_MAJOR == 5
-        notification->setActions(QStringList{i18nc("Button that shows up in notification of a new tablet being connected", "Configure")});
-        connect(notification, &KNotification::action1Activated, this, [notification] {
-#else
         KNotificationAction *configureAction =
             notification->addAction(i18nc("Button that shows up in notification "
                                           "of a new tablet being connected",
                                           "Configure"));
         connect(configureAction, &KNotificationAction::activated, this, [notification] {
-#endif
             auto *job = new KIO::ApplicationLauncherJob(KService::serviceByDesktopName(QStringLiteral("kcm_wacomtablet")));
             job->setStartupId(notification->xdgActivationToken().toUtf8());
             job->start();
