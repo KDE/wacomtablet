@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 00:43+0000\n"
+"POT-Creation-Date: 2025-01-11 00:42+0000\n"
 "PO-Revision-Date: 2023-12-30 11:52+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1202,18 +1202,18 @@ msgstr "Görgetés irányának megfordítása"
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr "Ha bejelölte, a görgetés iránya megfordul a görgetés mozdulatnál."
 
-#: src/kded/tabletdaemon.cpp:111 src/kded/tabletdaemon.cpp:117
+#: src/kded/tabletdaemon.cpp:113
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Beállítás"
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:165
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Digitálisrajztábla-beállító szolgáltatás"
 
-#: src/kded/tabletdaemon.cpp:172
+#: src/kded/tabletdaemon.cpp:167
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Wacom rajztáblavezérlő szolgáltatás"

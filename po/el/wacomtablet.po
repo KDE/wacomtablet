@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 00:43+0000\n"
+"POT-Creation-Date: 2025-01-11 00:42+0000\n"
 "PO-Revision-Date: 2024-09-19 16:06+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1212,18 +1212,18 @@ msgstr "Αντιστροφή κατεύθυνσης κύλισης"
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr "Αν επιλεγεί, αντιστρέφεται η κατεύθυνση κύλισης στο σχετικό νεύμα."
 
-#: src/kded/tabletdaemon.cpp:111 src/kded/tabletdaemon.cpp:117
+#: src/kded/tabletdaemon.cpp:113
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Διαμόρφωση"
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:165
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Δαίμων διαμόρφωσης πινακίου"
 
-#: src/kded/tabletdaemon.cpp:172
+#: src/kded/tabletdaemon.cpp:167
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Δαίμων ελέγχου πινακίου Wacom"

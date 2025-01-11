@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 00:43+0000\n"
+"POT-Creation-Date: 2025-01-11 00:42+0000\n"
 "PO-Revision-Date: 2023-04-26 21:09+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1216,18 +1216,18 @@ msgstr ""
 "Ist diese Einstellung aktiv, wird die Scroll-Richtung der Scroll-Geste "
 "umgekehrt."
 
-#: src/kded/tabletdaemon.cpp:111 src/kded/tabletdaemon.cpp:117
+#: src/kded/tabletdaemon.cpp:113
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Einrichten"
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:165
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Einstellungen für Tablett-Hintergrundprozess"
 
-#: src/kded/tabletdaemon.cpp:172
+#: src/kded/tabletdaemon.cpp:167
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Hintergrundprozess für Wacom-Tabletts"

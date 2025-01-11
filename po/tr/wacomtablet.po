@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-base-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-13 00:43+0000\n"
+"POT-Creation-Date: 2025-01-11 00:42+0000\n"
 "PO-Revision-Date: 2024-08-06 11:37+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -1194,18 +1194,18 @@ msgstr "Sarma Yönünü Tersine Çevir"
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
 msgstr "Seçiliyse sarma hareketi için kaydırma yönü tersine çevrilir."
 
-#: src/kded/tabletdaemon.cpp:111 src/kded/tabletdaemon.cpp:117
+#: src/kded/tabletdaemon.cpp:113
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
 msgstr "Yapılandır"
 
-#: src/kded/tabletdaemon.cpp:170
+#: src/kded/tabletdaemon.cpp:165
 #, kde-format
 msgid "Graphic Tablet Configuration daemon"
 msgstr "Grafik Tablet Yapılandırma ardalan süreci"
 
-#: src/kded/tabletdaemon.cpp:172
+#: src/kded/tabletdaemon.cpp:167
 #, kde-format
 msgid "A Wacom tablet control daemon"
 msgstr "Wacom tablet denetim ardalan süreci"
