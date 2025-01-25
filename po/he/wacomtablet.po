@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-11 00:42+0000\n"
-"PO-Revision-Date: 2024-09-25 21:57+0300\n"
+"PO-Revision-Date: 2025-01-24 09:23+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1247,7 +1247,7 @@ msgstr "זיהוי לוח Wacom"
 #: src/tabletfinder/dialog.ui:20
 #, kde-format
 msgid "Connect your Tablet and click on Refresh to detect it."
-msgstr "נא לחבר את מחשב הלוח שלך וללחוץ על רענון כדי לזהות אותו."
+msgstr "נא לחבר את מחשב הלוח שלך וללחוץ על ריענון כדי לזהות אותו."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tabletfinder/dialog.ui:27
@@ -1265,7 +1265,7 @@ msgstr "לוחות מזוהים:"
 #: src/tabletfinder/dialog.ui:51
 #, kde-format
 msgid "Refresh"
-msgstr "רענון"
+msgstr "ריענון"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/tabletfinder/dialog.ui:66
