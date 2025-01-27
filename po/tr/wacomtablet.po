@@ -4,13 +4,13 @@
 # Translators:
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
 # Volkan Gezer <volkangezer@gmail.com>, 2017.
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: extragear-base-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-13 00:43+0000\n"
-"PO-Revision-Date: 2024-08-06 11:37+0300\n"
+"PO-Revision-Date: 2025-01-26 13:10+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 25.03.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -667,7 +667,7 @@ msgstr "Kalem Ayarları"
 #: src/kcmodule/styluspagewidget.ui:28
 #, kde-format
 msgid "Defines the button action on the stylus."
-msgstr "Stylus üstündeki düğme eylemini tanımlar."
+msgstr "Kalem üstündeki düğme eylemini tanımlar."
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:31
@@ -717,9 +717,9 @@ msgid ""
 "irregardless of the actual hardware supported levels.\n"
 "This parameter is independent of the PressureCurve parameter."
 msgstr ""
-"Stylus/uç, silgi, ya da dokunma için Düğme olayı üretmek için gerekli asgari "
+"Kalem, silgi veya dokunma için düğme olayı üretmek üzere gerekli en düşük "
 "basıncı ayarlayın.\n"
-" Tüm tabletlerin basınç düzeyleri donanımca desteklenen düzeylerden bağımsız "
+"Tüm tabletlerin basınç düzeyleri donanımca desteklenen düzeylerden bağımsız "
 "olarak 2048 düzeye normalleştirilir.\n"
 "Bu parametre BasınçEğrisi parametresinden bağımsızdır."
 
@@ -751,7 +751,7 @@ msgstr "Basınç eğrisini bezier eğrisiyle tanımlar"
 #: src/kcmodule/styluspagewidget.ui:244 src/kcmodule/styluspagewidget.ui:394
 #, kde-format
 msgid "Edit Pressure Curve..."
-msgstr "Basınç Eğrisini DÜzenle..."
+msgstr "Basınç Eğrisini Düzenle…"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:272
@@ -1127,7 +1127,7 @@ msgstr "Hareketler"
 #: src/kcmodule/touchpagewidget.ui:235
 #, kde-format
 msgid "Minimum motion before sending a scroll gesture."
-msgstr "Sarma hareketi göndermeden önce asgari hareket."
+msgstr "Sarma hareketi göndermeden önceki en az hareket."
 
 #. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:238
@@ -1139,13 +1139,14 @@ msgstr "Sarma Uzaklığı"
 #: src/kcmodule/touchpagewidget.ui:254
 #, kde-format
 msgid "The minimum motion in tablet units before sending a scroll event."
-msgstr "Sarma hareketi göndermeden önce tablet birimi olarak asgari hareket."
+msgstr "Sarma hareketi göndermeden önce tablet birimi olarak en az hareket."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:273
 #, kde-format
 msgid "Minimum distance for a zoom gesture is recognized."
-msgstr "Yakınlaştırma/uzaklaştırma hareketinin tanınması için asgari uzaklık."
+msgstr ""
+"Yakınlaştırma/uzaklaştırma hareketinin tanınması için en düşük uzaklık."
 
 #. i18n: ectx: property (text), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:276
@@ -1160,7 +1161,7 @@ msgid ""
 "The minimum distance in tablet units for a zoom gesture to be recognized."
 msgstr ""
 "Bir yakınlaştırma/uzaklaştırma hareketinin algılanması için gerekli tablet "
-"birimi olarak asgari uzaklık."
+"birimi olarak en düşük uzaklık."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, tapTimeLabel)
 #: src/kcmodule/touchpagewidget.ui:311
@@ -1179,7 +1180,7 @@ msgstr "Dokunma Süresi"
 #, kde-format
 msgid "The minimum time in milliseconds between taps to trigger a right click."
 msgstr ""
-"Bir sağ tıklama tetikleyecek dokunmalar arasındaki milisaniye olarak asgari "
+"Bir sağ tıklama tetikleyecek dokunmalar arasındaki milisaniye olarak en az "
 "süre."
 
 #. i18n: ectx: property (text), widget (QLabel, scrollInversionLabel)
