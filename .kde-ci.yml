@@ -1,6 +1,6 @@
 Dependencies:
-- 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
-  'require':
+ - 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
+   'require':
     'frameworks/extra-cmake-modules': '@latest-kf6'
     'frameworks/kcoreaddons': '@latest-kf6'
     'frameworks/ki18n': '@latest-kf6'
@@ -18,4 +18,4 @@ Dependencies:
     'plasma/plasma5support': '@same'
 
 Options:
-  require-passing-tests-on: [ '@all' ]
+ require-passing-tests-on: ['@all']
