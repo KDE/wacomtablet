@@ -1,15 +1,15 @@
-# Spanish translations for plasma_applet_org.kde.wacomtablet.po package.
-# Copyright (C) 2015 This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# Spanish translations for plasma_applet_wacomtablet.po package.
+# Copyright (C) 2015-2025 This_file_is_part_of_KDE
+# This file is distributed under the same license as the wacomtablet package.
 #
 # Automatically generated, 2015.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2015, 2023.
+# SPDX-FileCopyrightText: 2015, 2023, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
-"Project-Id-Version: plasma_applet_org\n"
+"Project-Id-Version: plasma_applet_wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-20 01:35+0000\n"
-"PO-Revision-Date: 2023-02-21 13:33+0100\n"
+"PO-Revision-Date: 2025-02-21 00:15+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:36
 #, kde-format
@@ -122,7 +122,7 @@ msgstr "Relativo"
 #: src/applet/package/contents/ui/main.qml:41
 #, kde-format
 msgid "&Configure Graphics Tablet..."
-msgstr "&Configurar la tableta gráfica..."
+msgstr "&Configurar la tableta gráfica…"
 
 #: src/applet/package/contents/ui/main.qml:53
 #, kde-format
