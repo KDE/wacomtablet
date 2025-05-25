@@ -60,19 +60,19 @@ msgstr "Desenvolupador"
 #, kde-format
 msgctxt "Tablet button triggers a left mouse button click."
 msgid "Left Mouse Button Click"
-msgstr "Feu clic amb el botó esquerre del ratolí"
+msgstr "Cliqueu amb el botó esquerre del ratolí"
 
 #: src/common/buttonshortcut.cpp:95
 #, kde-format
 msgctxt "Tablet button triggers a middle mouse button click."
 msgid "Middle Mouse Button Click"
-msgstr "Feu clic amb el botó central del ratolí"
+msgstr "Cliqueu amb el botó central del ratolí"
 
 #: src/common/buttonshortcut.cpp:97
 #, kde-format
 msgctxt "Tablet button triggers a right mouse button click."
 msgid "Right Mouse Button Click"
-msgstr "Feu clic amb el botó dret del ratolí"
+msgstr "Cliqueu amb el botó dret del ratolí"
 
 #: src/common/buttonshortcut.cpp:99
 #, kde-format
@@ -102,7 +102,7 @@ msgstr "Moveu cap a la dreta la roda del ratolí"
 #, kde-format
 msgctxt "Tablet button triggers a click of mouse button with number #"
 msgid "Mouse Button %1 Click"
-msgstr "Feu clic %1 amb el botó del ratolí"
+msgstr "Cliqueu %1 amb el botó del ratolí"
 
 #: src/common/globalactions.cpp:31
 #, kde-format
@@ -169,7 +169,7 @@ msgstr "Selecciona l'acció del botó"
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
-msgstr "Feu clic per a seleccionar…"
+msgstr "Cliqueu per a seleccionar…"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
 #: src/kcmodule/buttonactionselectionwidget.ui:14
@@ -219,7 +219,7 @@ msgstr "Seleccioneu una acció."
 #: src/kcmodule/buttonactionselectorwidget.ui:51
 #, kde-format
 msgid "Click to assign an action."
-msgstr "Feu clic per a assignar una acció."
+msgstr "Cliqueu per a assignar una acció."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonPageWidget)
 #: src/kcmodule/buttonpagewidget.ui:20
@@ -623,7 +623,7 @@ msgid ""
 "Click on the button, then enter the shortcut like you would in the program.\n"
 "Example for Ctrl+A: hold the Ctrl key and press A."
 msgstr ""
-"Cliqueu en el botó, llavors introduïu la drecera com ho faríeu en el "
+"Cliqueu damunt del botó, llavors introduïu la drecera com ho faríeu en el "
 "programa.\n"
 "Exemple per a «Ctrl+A»: manteniu premuda la tecla «Ctrl» mentre premeu la "
 "«a»."
@@ -1234,7 +1234,7 @@ msgstr "Hi ha una tauleta connectada"
 #: src/kded/tablethandler.cpp:134
 #, kde-format
 msgid "New tablet '%1' connected."
-msgstr "Hi ha una nova tauleta «%1» connectada."
+msgstr "Hi ha una tauleta nova «%1» connectada."
 
 #: src/kded/tablethandler.cpp:160
 #, kde-format
@@ -1265,7 +1265,7 @@ msgstr "El perfil <b>%1</b> no existix. En el seu lloc s'aplica <b>%2</b>"
 #: src/tabletfinder/dialog.cpp:441
 #, kde-format
 msgid "Button %1 maps to Button %2"
-msgstr "El botó %1 està associat amb el botó %2"
+msgstr "El botó «%1» està associat amb el botó «%2»"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
 #: src/tabletfinder/dialog.ui:14
@@ -1277,7 +1277,8 @@ msgstr "Detecció de tauletes Wacom"
 #: src/tabletfinder/dialog.ui:20
 #, kde-format
 msgid "Connect your Tablet and click on Refresh to detect it."
-msgstr "Connecteu la vostra tauleta i cliqueu «Actualitza» per a detectar-la."
+msgstr ""
+"Connecteu la vostra tauleta i cliqueu damunt «Actualitza» per a detectar-la."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tabletfinder/dialog.ui:27
@@ -1396,7 +1397,7 @@ msgstr "Tauleta multi&dispositiu, sensor tàctil"
 #: src/tabletfinder/hwbuttondialog.cpp:66
 #, kde-format
 msgid "Please press Button %1 on the tablet now."
-msgstr "Premeu ara el botó %1 a la tauleta."
+msgstr "Premeu ara el botó «%1» en la tauleta."
 
 #: src/tabletfinder/hwbuttondialog.cpp:90
 #, kde-format
