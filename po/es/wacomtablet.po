@@ -1,5 +1,5 @@
-# Translation of wacomtablet.po to Spanish
-# Copyright (C) 2025 This_file_is_part_of_KDE
+# Spanish translations for wacomtablet.po package.
+# Copyright (C) 2010-2025 This file is copyright:
 # This file is distributed under the same license as the wacomtablet package.
 #
 # SPDX-FileCopyrightText: 2010, 2011 Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-11 00:42+0000\n"
-"PO-Revision-Date: 2025-02-21 00:25+0100\n"
+"PO-Revision-Date: 2025-06-04 20:23+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1429,95 +1429,3 @@ msgid ""
 msgstr ""
 "Coloque el puntero del ratón dentro del diálogo, pero <b>no</b> haga clic en "
 "él."
-
-#~ msgid "Graphic Tablet Configuration"
-#~ msgstr "Configuración de la tableta gráfica"
-
-#~ msgid "A configurator for graphic tablets"
-#~ msgstr "Un configurador de tabletas gráficas"
-
-#~ msgid "In this module you can configure your Wacom tablet profiles"
-#~ msgstr "En este módulo puede configurar los perfiles de su tableta Wacom"
-
-#~ msgid "Unsupported platform detected"
-#~ msgstr "Se ha detectado una plataforma no permitida"
-
-#~ msgid "Currently only X11 is supported."
-#~ msgstr "En la actualidad, solo se permite el uso de X11."
-
-#~ msgid "document-new"
-#~ msgstr "documento-nuevo"
-
-#~ msgid "edit-delete-page"
-#~ msgstr "editar-eliminar-página"
-
-#~ msgid "Number of available buttons (including pen tip):"
-#~ msgstr "Número de botones disponibles (incluida la punta del lápiz):"
-
-#~ msgid "GroupBox"
-#~ msgstr "GroupBox"
-
-#~ msgctxt ""
-#~ "@action Maps the area of the tablet to all available screen space (space "
-#~ "depends on connected monitors)"
-#~ msgid "Map to all fullscreen"
-#~ msgstr "Correspondencia con todas las pantallas completas"
-
-#~ msgid "Company:"
-#~ msgstr "Empresa:"
-
-#~ msgid "Tablet:"
-#~ msgstr "Tableta:"
-
-#~ msgid "Error - Tablet service not available."
-#~ msgstr "Error - Servicio de tableta no disponible."
-
-#~ msgid ""
-#~ "Please start the KDE wacom tablet service.\n"
-#~ "The service is required for tablet detection and profile support."
-#~ msgstr ""
-#~ "Por favor, inicie el servicio de la tableta wacom para KDE.\n"
-#~ "El servicio es el encargado de detectar la tableta y gestionar los "
-#~ "perfiles."
-
-#~ msgctxt "Groupbox Settings for the applet to change some values on the fly"
-#~ msgid "Settings"
-#~ msgstr "Preferencias"
-
-#~ msgctxt "Toggle between touch on/off"
-#~ msgid "Touch:"
-#~ msgstr "Toques:"
-
-#~ msgctxt "Touch tool enabled"
-#~ msgid "On"
-#~ msgstr "Activado"
-
-#~ msgctxt "Touch tool disabled"
-#~ msgid "Off"
-#~ msgstr "Desactivado"
-
-#~ msgctxt "Rotation of the tablet pad"
-#~ msgid "Rotation:"
-#~ msgstr "Rotación:"
-
-#~ msgctxt "Toggle between absolute/relative penmode"
-#~ msgid "Mode:"
-#~ msgstr "Modo:"
-
-#~ msgctxt "absolute pen movement (pen mode)"
-#~ msgid "Absolute"
-#~ msgstr "Absoluto"
-
-#~ msgctxt "relative pen movement (mouse mode)"
-#~ msgid "Relative"
-#~ msgstr "Relativo"
-
-#~ msgid "Graphic Tablet - Device not detected."
-#~ msgstr "Tableta gráfica - No se ha detectado ningún dispositivo."
-
-#~ msgid ""
-#~ "This widget is inactive because your tablet device is not connected or "
-#~ "currently not supported."
-#~ msgstr ""
-#~ "Este widget está inactivo porque el dispositivo de tableta no está "
-#~ "conectado o no está admitido en la actualidad."
