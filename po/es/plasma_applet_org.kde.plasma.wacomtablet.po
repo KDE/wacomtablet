@@ -1,15 +1,15 @@
-# Spanish translations for plasma_applet_wacomtablet.po package.
-# Copyright (C) 2015-2025 This_file_is_part_of_KDE
+# Spanish translations for plasma_applet_org.kde.plasma.wacomtablet.po package.
+# Copyright (C) 2015-2025 This file is copyright:
 # This file is distributed under the same license as the wacomtablet package.
-#
 # Automatically generated, 2015.
+#
 # SPDX-FileCopyrightText: 2015, 2023, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
-"Project-Id-Version: plasma_applet_wacomtablet\n"
+"Project-Id-Version: plasma_applet_org.kde.plasma.wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-12-20 01:35+0000\n"
-"PO-Revision-Date: 2025-02-21 00:15+0100\n"
+"PO-Revision-Date: 2025-06-04 20:20+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
