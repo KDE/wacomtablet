@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2021-03-28 13:55+0000\n"
-"PO-Revision-Date: 2025-01-05 21:06+0400\n"
+"PO-Revision-Date: 2025-06-28 17:26+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1266,7 +1266,7 @@ msgstr "اكتشاف لوحيّ واكُم"
 #: src/tabletfinder/dialog.ui:20
 #, kde-format
 msgid "Connect your Tablet and click on Refresh to detect it."
-msgstr "قم بتوصيل جهازك اللوحي وانقر فوق أنعش لاكتشافه."
+msgstr "قم بتوصيل جهازك اللوحي وانقر فوق حدّث لاكتشافه."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tabletfinder/dialog.ui:27
@@ -1284,7 +1284,7 @@ msgstr "اللوحيّات المُكتشفة:"
 #: src/tabletfinder/dialog.ui:51
 #, kde-format
 msgid "Refresh"
-msgstr "أنعش"
+msgstr "حدّث"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/tabletfinder/dialog.ui:66
