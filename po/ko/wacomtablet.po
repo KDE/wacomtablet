@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-03-28 13:55+0000\n"
+"POT-Creation-Date: 2025-07-05 03:22+0000\n"
 "PO-Revision-Date: 2022-04-16 23:19+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -167,246 +167,6 @@ msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
 msgstr "클릭해서 선택..."
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
-#: src/kcmodule/buttonactionselectionwidget.ui:14
-#, kde-format
-msgid "Select Key Function"
-msgstr "키 기능 선택"
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: src/kcmodule/buttonactionselectionwidget.ui:35
-#, kde-format
-msgid "Select Button Action"
-msgstr "단추 동작 선택"
-
-#. i18n: ectx: property (text), widget (QCheckBox, ctrlModifierCheckBox)
-#: src/kcmodule/buttonactionselectionwidget.ui:46
-#, kde-format
-msgid "Ctrl"
-msgstr "Ctrl"
-
-#. i18n: ectx: property (text), widget (QCheckBox, altModifierCheckBox)
-#: src/kcmodule/buttonactionselectionwidget.ui:69
-#, kde-format
-msgid "Alt"
-msgstr "Alt"
-
-#. i18n: ectx: property (text), widget (QCheckBox, metaModifierCheckBox)
-#: src/kcmodule/buttonactionselectionwidget.ui:92
-#, kde-format
-msgid "Meta"
-msgstr "Meta"
-
-#. i18n: ectx: property (text), widget (QCheckBox, shiftModifierCheckBox)
-#: src/kcmodule/buttonactionselectionwidget.ui:115
-#, kde-format
-msgid "Shift"
-msgstr "Shift"
-
-#. i18n: Select an action which will be assigned to a tablet button.
-#. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameLineEdit)
-#: src/kcmodule/buttonactionselectionwidget.ui:159
-#, kde-format
-msgid "Please select an action."
-msgstr "동작을 선택하십시오."
-
-#. i18n: Click to assign an action (shortcut) to a tablet button.
-#. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameDisplayWidget)
-#: src/kcmodule/buttonactionselectorwidget.ui:51
-#, kde-format
-msgid "Click to assign an action."
-msgstr "동작을 할당하려면 클릭하십시오."
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, ButtonPageWidget)
-#: src/kcmodule/buttonpagewidget.ui:20
-#, kde-format
-msgid "Pad Buttons"
-msgstr "패드 단추"
-
-#. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
-#: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:447
-#, kde-format
-msgid "Express Buttons"
-msgstr "익스프레스 단추"
-
-#. i18n: ectx: property (text), widget (QLabel, button1Label)
-#. i18n: ectx: property (text), widget (QLabel, labelButton1)
-#: src/kcmodule/buttonpagewidget.ui:43 src/kcmodule/styluspagewidget.ui:81
-#, kde-format
-msgid "Button 1"
-msgstr "단추 1"
-
-#. i18n: ectx: property (text), widget (QLabel, button2Label)
-#. i18n: ectx: property (text), widget (QLabel, labelButton2)
-#: src/kcmodule/buttonpagewidget.ui:56 src/kcmodule/styluspagewidget.ui:62
-#, kde-format
-msgid "Button 2"
-msgstr "단추 2"
-
-#. i18n: ectx: property (text), widget (QLabel, button3Label)
-#. i18n: ectx: property (text), widget (QLabel, labelButton3)
-#: src/kcmodule/buttonpagewidget.ui:69 src/kcmodule/styluspagewidget.ui:43
-#, kde-format
-msgid "Button 3"
-msgstr "단추 3"
-
-#. i18n: ectx: property (text), widget (QLabel, button4Label)
-#: src/kcmodule/buttonpagewidget.ui:82
-#, kde-format
-msgid "Button 4"
-msgstr "단추 4"
-
-#. i18n: ectx: property (text), widget (QLabel, button5Label)
-#: src/kcmodule/buttonpagewidget.ui:95
-#, kde-format
-msgid "Button 5"
-msgstr "단추 5"
-
-#. i18n: ectx: property (text), widget (QLabel, button6Label)
-#: src/kcmodule/buttonpagewidget.ui:108
-#, kde-format
-msgid "Button 6"
-msgstr "단추 5"
-
-#. i18n: ectx: property (text), widget (QLabel, button7Label)
-#: src/kcmodule/buttonpagewidget.ui:121
-#, kde-format
-msgid "Button 7"
-msgstr "단추 6"
-
-#. i18n: ectx: property (text), widget (QLabel, button8Label)
-#: src/kcmodule/buttonpagewidget.ui:134
-#, kde-format
-msgid "Button 8"
-msgstr "단추 8"
-
-#. i18n: ectx: property (text), widget (QLabel, button9Label)
-#: src/kcmodule/buttonpagewidget.ui:147
-#, kde-format
-msgid "Button 9"
-msgstr "단추 8"
-
-#. i18n: ectx: property (text), widget (QLabel, button10Label)
-#: src/kcmodule/buttonpagewidget.ui:315
-#, kde-format
-msgid "Button 10"
-msgstr "단추 10"
-
-#. i18n: ectx: property (text), widget (QLabel, button11Label)
-#: src/kcmodule/buttonpagewidget.ui:328
-#, kde-format
-msgid "Button 11"
-msgstr "단추 11"
-
-#. i18n: ectx: property (text), widget (QLabel, button12Label)
-#: src/kcmodule/buttonpagewidget.ui:341
-#, kde-format
-msgid "Button 12"
-msgstr "단추 12"
-
-#. i18n: ectx: property (text), widget (QLabel, button13Label)
-#: src/kcmodule/buttonpagewidget.ui:354
-#, kde-format
-msgid "Button 13"
-msgstr "단추 13"
-
-#. i18n: ectx: property (text), widget (QLabel, button14Label)
-#: src/kcmodule/buttonpagewidget.ui:367
-#, kde-format
-msgid "Button 14"
-msgstr "단추 14"
-
-#. i18n: ectx: property (text), widget (QLabel, button15Label)
-#: src/kcmodule/buttonpagewidget.ui:380
-#, kde-format
-msgid "Button 15"
-msgstr "단추 15"
-
-#. i18n: ectx: property (text), widget (QLabel, button16Label)
-#: src/kcmodule/buttonpagewidget.ui:393
-#, kde-format
-msgid "Button 16"
-msgstr "단추 16"
-
-#. i18n: ectx: property (text), widget (QLabel, button17Label)
-#: src/kcmodule/buttonpagewidget.ui:406
-#, kde-format
-msgid "Button 17"
-msgstr "단추 17"
-
-#. i18n: ectx: property (text), widget (QLabel, button18Label)
-#: src/kcmodule/buttonpagewidget.ui:419
-#, kde-format
-msgid "Button 18"
-msgstr "단추 18"
-
-#. i18n: ectx: property (title), widget (QGroupBox, touchStripGroupBox)
-#: src/kcmodule/buttonpagewidget.ui:537
-#, kde-format
-msgid "Touch Strip"
-msgstr "터치 스트립"
-
-#. i18n: ectx: property (text), widget (QLabel, leftStripUpLabel)
-#: src/kcmodule/buttonpagewidget.ui:555
-#, kde-format
-msgid "Left Strip Up"
-msgstr "왼쪽 스트립 위로"
-
-#. i18n: ectx: property (text), widget (QLabel, leftStripDownLabel)
-#: src/kcmodule/buttonpagewidget.ui:572
-#, kde-format
-msgid "Left Strip Down"
-msgstr "왼쪽 스트립 아래로"
-
-#. i18n: ectx: property (text), widget (QLabel, rightStripUpLabel)
-#: src/kcmodule/buttonpagewidget.ui:620
-#, kde-format
-msgid "Right Strip Up"
-msgstr "오른쪽 스트립 위로"
-
-#. i18n: ectx: property (text), widget (QLabel, rightStripDownLabel)
-#: src/kcmodule/buttonpagewidget.ui:637
-#, kde-format
-msgid "Right Strip Down"
-msgstr "오른쪽 스트랩 아래로"
-
-#. i18n: ectx: property (title), widget (QGroupBox, touchRingGroupBox)
-#: src/kcmodule/buttonpagewidget.ui:660
-#, kde-format
-msgid "Touch Ring"
-msgstr "터치 링"
-
-#. i18n: ectx: property (text), widget (QLabel, ringUpLabel)
-#: src/kcmodule/buttonpagewidget.ui:671
-#, kde-format
-msgid "Ring Up"
-msgstr "링 위로"
-
-#. i18n: ectx: property (text), widget (QLabel, ringDownLabel)
-#: src/kcmodule/buttonpagewidget.ui:711
-#, kde-format
-msgid "Ring Down"
-msgstr "링 아래로"
-
-#. i18n: ectx: property (title), widget (QGroupBox, wheelGroupBox)
-#: src/kcmodule/buttonpagewidget.ui:733
-#, kde-format
-msgid "Wheel"
-msgstr "휠"
-
-#. i18n: ectx: property (text), widget (QLabel, wheelUpLabel)
-#: src/kcmodule/buttonpagewidget.ui:741
-#, kde-format
-msgid "Wheel Up"
-msgstr "휠 위로"
-
-#. i18n: ectx: property (text), widget (QLabel, wheelDownLabel)
-#: src/kcmodule/buttonpagewidget.ui:778
-#, kde-format
-msgid "Wheel Down"
-msgstr "휠 아래로"
-
 #: src/kcmodule/calibrationdialog.cpp:63
 #, kde-format
 msgid ""
@@ -415,28 +175,6 @@ msgid ""
 msgstr ""
 "태블릿을 조정하려면 네 모서리를 탭하십시오.\n"
 "과정을 취소하려면 Esc 키를 누르십시오."
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, ErrorWidget)
-#: src/kcmodule/errorwidget.ui:14
-#, kde-format
-msgid "No Tablet Found"
-msgstr "태블릿을 찾을 수 없음"
-
-#. i18n: ectx: property (text), widget (QCommandLinkButton, buttonRunTabletFinder)
-#: src/kcmodule/errorwidget.ui:107
-#, kde-format
-msgid "Manually register a tablet device"
-msgstr "수동으로 태블릿 장치 등록"
-
-#. i18n: ectx: property (description), widget (QCommandLinkButton, buttonRunTabletFinder)
-#: src/kcmodule/errorwidget.ui:110
-#, kde-format
-msgid ""
-"This will open another window, prompting you to describe your tablet device. "
-"After you're done, please restart your desktop session."
-msgstr ""
-"이 옵션을 선택하면 태블릿 장치를 등록하는 창을 엽니다. 등록이 완료된 후 데스"
-"크톱 세션을 다시 시작하십시오."
 
 #: src/kcmodule/generalpagewidget.cpp:57
 #, kde-format
@@ -452,48 +190,6 @@ msgstr "프로필 목록"
 #, kde-format
 msgid "Select the Profile you want to add:"
 msgstr "추가할 프로필을 선택하십시오:"
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, GeneralPageWidget)
-#: src/kcmodule/generalpagewidget.ui:14
-#, kde-format
-msgid "General Hardware Overview"
-msgstr "일반 하드웨어 미리 보기"
-
-#. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
-#: src/kcmodule/generalpagewidget.ui:35
-#, kde-format
-msgid "Profile rotation"
-msgstr "프로필 회전"
-
-#. i18n: ectx: property (text), widget (QPushButton, pbDown)
-#: src/kcmodule/generalpagewidget.ui:80
-#, kde-format
-msgid "Down"
-msgstr "아래로"
-
-#. i18n: ectx: property (text), widget (QPushButton, pbRemoveFromRotationList)
-#: src/kcmodule/generalpagewidget.ui:87
-#, kde-format
-msgid "Remove"
-msgstr "삭제"
-
-#. i18n: ectx: property (text), widget (QPushButton, pbAddToRotationList)
-#: src/kcmodule/generalpagewidget.ui:94
-#, kde-format
-msgid "Add"
-msgstr "추가"
-
-#. i18n: ectx: property (text), widget (QPushButton, pbUp)
-#: src/kcmodule/generalpagewidget.ui:101
-#, kde-format
-msgid "Up"
-msgstr "위로"
-
-#. i18n: ectx: property (title), widget (QGroupBox, shortcutGroupBox)
-#: src/kcmodule/generalpagewidget.ui:140
-#, kde-format
-msgid "Shortcuts"
-msgstr "바로 가기"
 
 #: src/kcmodule/kcmwacomtablet.cpp:72
 #, kde-format
@@ -576,9 +272,12 @@ msgstr "일반"
 msgid "Stylus"
 msgstr "스타일러스"
 
-#. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
+#: src/kcmodule/kcmwacomtabletwidget.cpp:447
+#, kde-format
+msgid "Express Buttons"
+msgstr "익스프레스 단추"
+
 #: src/kcmodule/kcmwacomtabletwidget.cpp:450
-#: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "태블릿"
@@ -597,36 +296,6 @@ msgstr "현재 프로필에 변경 사항을 저장하시겠습니까?"
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr "와콤 태블릿 발견 도구를 불러올 수 없습니다. 설치 상태를 확인하십시오."
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
-#: src/kcmodule/kcmwacomtabletwidget.ui:14
-#, kde-format
-msgid "Graphic Tablet Settings"
-msgstr "그래픽 태블릿 설정"
-
-#. i18n: ectx: property (text), widget (QLabel, tabletListLabel)
-#: src/kcmodule/kcmwacomtabletwidget.ui:25
-#, kde-format
-msgid "&Select Tablet:"
-msgstr "태블릿 선택(&S):"
-
-#. i18n: ectx: property (text), widget (QLabel, profileLabel)
-#: src/kcmodule/kcmwacomtabletwidget.ui:45
-#, kde-format
-msgid "Select &Profile:"
-msgstr "프로필 선택(&P):"
-
-#. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
-#: src/kcmodule/kcmwacomtabletwidget.ui:67
-#, kde-format
-msgid "Creates a new default profile"
-msgstr "새 기본 프로필 만들기"
-
-#. i18n: ectx: property (toolTip), widget (KAnimatedButton, delProfileButton)
-#: src/kcmodule/kcmwacomtabletwidget.ui:83
-#, kde-format
-msgid "Deletes the current profile"
-msgstr "현재 프로필 삭제"
 
 #: src/kcmodule/keysequenceinputbutton.cpp:287
 #, kde-format
@@ -649,182 +318,6 @@ msgctxt "No shortcut defined"
 msgid "None"
 msgstr "없음"
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, PressureCurveDialog)
-#: src/kcmodule/pressurecurvedialog.ui:23
-#, kde-format
-msgid "Press Curve Settings"
-msgstr "압력 커브 설정"
-
-#. i18n: ectx: property (text), widget (QLabel, explaining_Label)
-#: src/kcmodule/pressurecurvedialog.ui:37
-#, kde-format
-msgid ""
-"The presscurve defines how the pen press is handled.\n"
-"Drag around the dots to change the behavior\n"
-"Use the stylus inside the Widget to see the pressure changes."
-msgstr ""
-"압력 커브는 펜 누르기를 처리하는 방식을 설정합니다.\n"
-"점을 드래그하면 행동을 변경할 수 있으며\n"
-"위젯에서 스타일러스를 사용하여 압력 변경을 테스트하십시오."
-
-#. i18n: ectx: property (text), widget (QLabel, pc_Label)
-#: src/kcmodule/pressurecurvedialog.ui:104
-#, kde-format
-msgid "Current Presscurve:"
-msgstr "현재 압력 커브:"
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, StylusPageWidget)
-#: src/kcmodule/styluspagewidget.ui:14
-#, kde-format
-msgid "Pen Settings"
-msgstr "펜 설정"
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, buttonGroupBox)
-#: src/kcmodule/styluspagewidget.ui:28
-#, kde-format
-msgid "Defines the button action on the stylus."
-msgstr "스타일러스의 단추 동작을 지정합니다."
-
-#. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
-#: src/kcmodule/styluspagewidget.ui:31
-#, kde-format
-msgid "Button Settings"
-msgstr "단추 설정"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, tpcCheckBox)
-#: src/kcmodule/styluspagewidget.ui:113
-#, kde-format
-msgid ""
-"If selected, the stylus must be in contact with the tablet for a stylus side "
-"button to work.\n"
-"If deselected, stylus buttons will work once the stylus is in proximity of "
-"the tablet."
-msgstr ""
-"선택하면 스타일러스 펜의 측면 단추를 사용하려면 펜이 태블릿 위에 있어야 합니"
-"다.\n"
-"선택하지 않으면 펜이 태블릿 근처에 있어도 측면 단추를 사용할 수 있습니다."
-
-#. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
-#: src/kcmodule/styluspagewidget.ui:116
-#, kde-format
-msgid "Tap to execute action."
-msgstr "동작을 실행하려면 누르십시오."
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, eraserBox)
-#: src/kcmodule/styluspagewidget.ui:128
-#, kde-format
-msgid "Sets eraser pressure threshold."
-msgstr "지우개 압력 한도를 설정합니다."
-
-#. i18n: ectx: property (title), widget (QGroupBox, eraserBox)
-#: src/kcmodule/styluspagewidget.ui:131
-#, kde-format
-msgid "Eraser Feel"
-msgstr "지우개 느낌"
-
-#. i18n: ectx: property (toolTip), widget (QSlider, eraserSlider)
-#. i18n: ectx: property (toolTip), widget (QSlider, tipSlider)
-#: src/kcmodule/styluspagewidget.ui:153 src/kcmodule/styluspagewidget.ui:297
-#, kde-format
-msgid ""
-"Set the minimum pressure necessary to generate a Button event for the stylus/"
-"tip, eraser, or touch.\n"
-" The pressure levels of all tablets are normalized to 2048 levels "
-"irregardless of the actual hardware supported levels.\n"
-"This parameter is independent of the PressureCurve parameter."
-msgstr ""
-"스타일러스/팁, 지우개, 터치 시 단추 이벤트를 발생시킬 최소 압력을 설정하십시"
-"오.\n"
-" 모든 태블릿의 압력 단계는 하드웨어 지원과 관계 없이 2048 단계로 일반화됩니"
-"다.\n"
-"이 인자는 PressureCurve 인자와는 관계가 없습니다."
-
-#. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
-#. i18n: ectx: property (text), widget (QLabel, labelSlow_3)
-#: src/kcmodule/styluspagewidget.ui:183 src/kcmodule/styluspagewidget.ui:327
-#, kde-format
-msgctxt "slow movement of the cursor (minimal value)"
-msgid "Soft"
-msgstr "부드러움"
-
-#. i18n: ectx: property (text), widget (QLabel, labelFast_2)
-#. i18n: ectx: property (text), widget (QLabel, labelFast_3)
-#: src/kcmodule/styluspagewidget.ui:209 src/kcmodule/styluspagewidget.ui:353
-#, kde-format
-msgctxt "fast movement of the cursor (maximal value)"
-msgid "Firm"
-msgstr "단단함"
-
-#. i18n: ectx: property (toolTip), widget (QPushButton, eraserPressureButton)
-#. i18n: ectx: property (toolTip), widget (QPushButton, tipPressureButton)
-#: src/kcmodule/styluspagewidget.ui:241 src/kcmodule/styluspagewidget.ui:391
-#, kde-format
-msgid "Defines the pressure sensitivity with a bezier curve"
-msgstr "베지어 곡선으로 압력 감도 설정"
-
-#. i18n: ectx: property (text), widget (QPushButton, eraserPressureButton)
-#. i18n: ectx: property (text), widget (QPushButton, tipPressureButton)
-#: src/kcmodule/styluspagewidget.ui:244 src/kcmodule/styluspagewidget.ui:394
-#, kde-format
-msgid "Edit Pressure Curve..."
-msgstr "압력 곡선 편집..."
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, tipFeelGroupBox)
-#: src/kcmodule/styluspagewidget.ui:272
-#, kde-format
-msgid "Sets stylus pressure threshold."
-msgstr "스타일러스 압력 한도를 설정합니다."
-
-#. i18n: ectx: property (title), widget (QGroupBox, tipFeelGroupBox)
-#: src/kcmodule/styluspagewidget.ui:275
-#, kde-format
-msgid "Tip Feel"
-msgstr "팁 느낌"
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxRawSample)
-#. i18n: ectx: property (toolTip), widget (QSlider, horizontalSliderRawSample)
-#: src/kcmodule/styluspagewidget.ui:412 src/kcmodule/styluspagewidget.ui:421
-#, kde-format
-msgid "Number of raw data used to filter the points (default is 4)"
-msgstr "점을 필터링할 때 사용할 원본 데이터 수(기본값: 4)"
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBoxRawSample)
-#: src/kcmodule/styluspagewidget.ui:415
-#, kde-format
-msgid "Raw Sample Rate"
-msgstr "원본 데이터 샘플링 레이트"
-
-#. i18n: ectx: property (text), widget (QLabel, labelMinRawSample)
-#: src/kcmodule/styluspagewidget.ui:451
-#, kde-format
-msgid "1"
-msgstr "1"
-
-#. i18n: ectx: property (text), widget (QLabel, labelMaxRawSample)
-#. i18n: ectx: property (text), widget (QLabel, labelMaxSuppress)
-#: src/kcmodule/styluspagewidget.ui:471 src/kcmodule/styluspagewidget.ui:545
-#, kde-format
-msgid "20"
-msgstr "20"
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxSupress)
-#: src/kcmodule/styluspagewidget.ui:489
-#, kde-format
-msgid "Number of points trimmed (default is 2)"
-msgstr "잘라낼 점 수(기본값: 2)"
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
-#: src/kcmodule/styluspagewidget.ui:492
-#, kde-format
-msgid "Suppress Rate"
-msgstr "차단 비율"
-
-#. i18n: ectx: property (text), widget (QLabel, labelMinSuppress)
-#: src/kcmodule/styluspagewidget.ui:525
-#, kde-format
-msgid "0"
-msgstr "0"
-
 #: src/kcmodule/tabletareaselectiondialog.cpp:114
 #, kde-format
 msgctxt ""
@@ -838,130 +331,6 @@ msgstr "태블릿 영역 선택"
 #, kde-format
 msgid "Internal Error"
 msgstr "내부 오류"
-
-#. i18n: ectx: property (text), widget (QLabel, infoLabel)
-#: src/kcmodule/tabletareaselectionview.ui:41
-#, kde-format
-msgid ""
-"The tablet area defines how the screen space is mapped to your tablet. For "
-"each screen a different tablet area can be selected. "
-msgstr ""
-"태블릿 영역은 화면 공간을 태블릿에 대응하는 방법을 결정합니다. 각각의 화면에 "
-"대해서 태블릿 영역을 변경할 수 있습니다."
-
-#. i18n: ectx: property (title), widget (QGroupBox, screenGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:57
-#, kde-format
-msgid "Screen"
-msgstr "화면"
-
-#. i18n: ectx: property (toolTip), widget (QPushButton, screenToggleButton)
-#: src/kcmodule/tabletareaselectionview.ui:83
-#, kde-format
-msgid "Toggle between fullscreen and each single screen."
-msgstr "전체 화면과 개별 화면 사이를 전환합니다."
-
-#. i18n: ectx: property (text), widget (QPushButton, screenToggleButton)
-#: src/kcmodule/tabletareaselectionview.ui:86
-#, kde-format
-msgid "Toggle Screen"
-msgstr "화면 전환"
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, controlsGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:96
-#, kde-format
-msgid "Select the valid tablet area used for the selected screen space."
-msgstr "선택한 화면 공간에서 사용할 태블릿 영역을 선택하십시오."
-
-#. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:99
-#, kde-format
-msgid "Map Screen To"
-msgstr "다음으로 화면 대응"
-
-#. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
-#: src/kcmodule/tabletareaselectionview.ui:105
-#, kde-format
-msgid "&Full Tablet"
-msgstr "전체 태블릿(&F)"
-
-#. i18n: ectx: property (text), widget (QRadioButton, tabletAreaRadioButton)
-#: src/kcmodule/tabletareaselectionview.ui:115
-#, kde-format
-msgid "&Tablet Area"
-msgstr "태블릿 영역(&T)"
-
-#. i18n: ectx: property (toolTip), widget (QPushButton, forceProportionsButton)
-#: src/kcmodule/tabletareaselectionview.ui:122
-#, kde-format
-msgid "Set the tablet area proportional to the selected screen area."
-msgstr "선택한 화면 영역에 비례하도록 화면 영역을 설정합니다."
-
-#. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
-#: src/kcmodule/tabletareaselectionview.ui:125
-#, kde-format
-msgid "Set Screen Proportions"
-msgstr "화면 비율 설정"
-
-#. i18n: ectx: property (text), widget (QPushButton, calibrateButton)
-#: src/kcmodule/tabletareaselectionview.ui:132
-#, kde-format
-msgid "Calibrate"
-msgstr "미세 조정"
-
-#. i18n: ectx: property (text), widget (QLabel, warningLabel)
-#: src/kcmodule/tabletareaselectionview.ui:204
-#, kde-format
-msgid "This mapping can only be applied in absolute tracking mode."
-msgstr "이 대응은 절대 추적 모드에서만 사용 가능합니다."
-
-#. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
-#: src/kcmodule/tabletareaselectionview.ui:219
-#, kde-format
-msgid "Lock proportions"
-msgstr "종횡비 고정"
-
-#. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:233
-#, kde-format
-msgid "Tablet area fine tuning"
-msgstr "태블릿 영역 미세 조정"
-
-#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
-#: src/kcmodule/tabletareaselectionview.ui:245
-#, kde-format
-msgid "Width"
-msgstr "너비"
-
-#. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
-#: src/kcmodule/tabletareaselectionview.ui:255
-#, kde-format
-msgid "Horizontal"
-msgstr "수평"
-
-#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
-#: src/kcmodule/tabletareaselectionview.ui:268
-#, kde-format
-msgid "Left margin"
-msgstr "왼쪽 여백"
-
-#. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
-#: src/kcmodule/tabletareaselectionview.ui:278
-#, kde-format
-msgid "Vertical"
-msgstr "수직"
-
-#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
-#: src/kcmodule/tabletareaselectionview.ui:291
-#, kde-format
-msgid "Top margin"
-msgstr "위쪽 여백"
-
-#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
-#: src/kcmodule/tabletareaselectionview.ui:307
-#, kde-format
-msgid "Height"
-msgstr "높이"
 
 #: src/kcmodule/tabletpagewidget.cpp:384
 #, kde-format
@@ -988,211 +357,6 @@ msgstr "반시계 방향으로 태블릿 회전"
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
 msgstr "태블릿을 거꾸로 회전"
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, trackingModeGroupBox)
-#: src/kcmodule/tabletpagewidget.ui:25 src/kcmodule/touchpagewidget.ui:38
-#, kde-format
-msgid "Defines how the cursor movement mode will be used."
-msgstr "커서 이동 모드를 사용할지 여부입니다."
-
-#. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
-#: src/kcmodule/tabletpagewidget.ui:28
-#, kde-format
-msgid "Stylus Tracking Mode"
-msgstr "스타일러스 추적 모드"
-
-#. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
-#: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:53
-#, kde-format
-msgid "&Map to Screen (Absolute Mode)"
-msgstr "화면에 대응(절대 모드)(&M)"
-
-#. i18n: ectx: property (text), widget (QRadioButton, trackRelativeRadioButton)
-#: src/kcmodule/tabletpagewidget.ui:56 src/kcmodule/touchpagewidget.ui:69
-#, kde-format
-msgid "Map &to Cursor (Relative Mode)"
-msgstr "커서에 대응(상대 모드)(&T)"
-
-#. i18n: ectx: property (title), widget (QGroupBox, padMappingGroupBox)
-#: src/kcmodule/tabletpagewidget.ui:88
-#, kde-format
-msgid "Tablet Mapping"
-msgstr "태블릿 매핑"
-
-#. i18n: ectx: property (toolTip), widget (QPushButton, touchMappingTabletButton)
-#. i18n: ectx: property (toolTip), widget (QPushButton, padMappingTabletButton)
-#: src/kcmodule/tabletpagewidget.ui:100 src/kcmodule/touchpagewidget.ui:116
-#, kde-format
-msgid ""
-"Allows one to specify the tablet area for different screen selections in "
-"absolute cursor mode."
-msgstr "절대 커서 모드에서 화면의 영역에 태블릿 영역을 대응시킵니다."
-
-#. i18n: ectx: property (text), widget (QPushButton, padMappingTabletButton)
-#: src/kcmodule/tabletpagewidget.ui:103
-#, kde-format
-msgid "Map Tablet Area to Screen"
-msgstr "태블릿 영역을 화면에 대응"
-
-#. i18n: ectx: property (text), widget (QLabel, trackingWarningLabel)
-#: src/kcmodule/tabletpagewidget.ui:128 src/kcmodule/touchpagewidget.ui:147
-#, kde-format
-msgid ""
-"Your currently selected mapping can not be applied in relative tracking mode."
-msgstr "현재 선택한 대응 모드는 상대 추적 모드에서 사용할 수 없습니다."
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, rotationGroupBox)
-#: src/kcmodule/tabletpagewidget.ui:169
-#, kde-format
-msgid "Changes the orientation of the tablet."
-msgstr "태블릿의 방향을 변경합니다."
-
-#. i18n: ectx: property (title), widget (QGroupBox, rotationGroupBox)
-#: src/kcmodule/tabletpagewidget.ui:172
-#, kde-format
-msgid "Orientation"
-msgstr "방향"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenCheckBox)
-#: src/kcmodule/tabletpagewidget.ui:181
-#, kde-format
-msgid "If enabled, the tablet rotates together with the screen."
-msgstr "선택하면 태블릿과 화면을 함께 회전합니다."
-
-#. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenCheckBox)
-#: src/kcmodule/tabletpagewidget.ui:184
-#, kde-format
-msgid "Auto-Rotate with Screen"
-msgstr "화면과 함께 회전"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenInvertCheckBox)
-#: src/kcmodule/tabletpagewidget.ui:194
-#, kde-format
-msgid ""
-"If enabled the automatic tablet rotation for clockwise and counterclockwise "
-"rotations will be inverted."
-msgstr "활성화된 경우 시계 방향과 반시계 방향 회전은 반대 방향이 됩니다."
-
-#. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenInvertCheckBox)
-#: src/kcmodule/tabletpagewidget.ui:197
-#, kde-format
-msgid "Invert Auto-Rotation"
-msgstr "자동 회전 반전"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, touchCheckBox)
-#: src/kcmodule/touchpagewidget.ui:17
-#, kde-format
-msgid "If enabled the tablet will emit touch events."
-msgstr "활성화된 경우 태블릿에서 터치 이벤트를 보냅니다."
-
-#. i18n: ectx: property (text), widget (QCheckBox, touchCheckBox)
-#: src/kcmodule/touchpagewidget.ui:20
-#, kde-format
-msgid "Enable Touch"
-msgstr "터치 사용"
-
-#. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
-#: src/kcmodule/touchpagewidget.ui:41
-#, kde-format
-msgid "Touch Tracking Mode"
-msgstr "터치 추적 모드"
-
-#. i18n: ectx: property (title), widget (QGroupBox, touchMappingGroupBox)
-#: src/kcmodule/touchpagewidget.ui:104
-#, kde-format
-msgid "Touch Mapping"
-msgstr "터치 매핑"
-
-#. i18n: ectx: property (text), widget (QPushButton, touchMappingTabletButton)
-#: src/kcmodule/touchpagewidget.ui:119
-#, kde-format
-msgid "Map Touch Area to Screen"
-msgstr "터치 영역을 화면에 대응"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, gesturesCheckBox)
-#: src/kcmodule/touchpagewidget.ui:183
-#, kde-format
-msgid "If enabled the touch events can recognize gestures."
-msgstr "활성화된 경우 터치 이벤트에서 제스처를 인식합니다."
-
-#. i18n: ectx: property (text), widget (QCheckBox, gesturesCheckBox)
-#: src/kcmodule/touchpagewidget.ui:186
-#, kde-format
-msgid "Enable Gestures"
-msgstr "제스처 사용"
-
-#. i18n: ectx: property (title), widget (QGroupBox, gesturesGroupBox)
-#: src/kcmodule/touchpagewidget.ui:204
-#, kde-format
-msgid "Gestures"
-msgstr "제스처"
-
-#. i18n: ectx: property (toolTip), widget (QLabel, scrollDistanceLabel)
-#: src/kcmodule/touchpagewidget.ui:216
-#, kde-format
-msgid "Minimum motion before sending a scroll gesture."
-msgstr "스크롤 제스처를 보낼 최소 단위입니다."
-
-#. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
-#: src/kcmodule/touchpagewidget.ui:219
-#, kde-format
-msgid "Scroll Distance"
-msgstr "스크롤 거리"
-
-#. i18n: ectx: property (toolTip), widget (QSpinBox, scrollDistanceSpinBox)
-#: src/kcmodule/touchpagewidget.ui:235
-#, kde-format
-msgid "The minimum motion in tablet units before sending a scroll event."
-msgstr "태블릿 단위로 된 스크롤 이벤트를 보낼 최소 단위입니다."
-
-#. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
-#: src/kcmodule/touchpagewidget.ui:254
-#, kde-format
-msgid "Minimum distance for a zoom gesture is recognized."
-msgstr "크기 조정 제스처를 인식할 최소 거리입니다."
-
-#. i18n: ectx: property (text), widget (QLabel, zoomDistanceLabel)
-#: src/kcmodule/touchpagewidget.ui:257
-#, kde-format
-msgid "Zoom Distance"
-msgstr "크기 조정 거리"
-
-#. i18n: ectx: property (toolTip), widget (QSpinBox, zoomDistanceSpinBox)
-#: src/kcmodule/touchpagewidget.ui:273
-#, kde-format
-msgid ""
-"The minimum distance in tablet units for a zoom gesture to be recognized."
-msgstr "태블릿 단위로 된 크기 조정 제스처를 인식할 최소 거리입니다."
-
-#. i18n: ectx: property (toolTip), widget (QLabel, tapTimeLabel)
-#: src/kcmodule/touchpagewidget.ui:292
-#, kde-format
-msgid "Minimum time between taps for a right click."
-msgstr "오른쪽 클릭으로 인식할 최소 태핑 간격입니다."
-
-#. i18n: ectx: property (text), widget (QLabel, tapTimeLabel)
-#: src/kcmodule/touchpagewidget.ui:295
-#, kde-format
-msgid "Tap Time"
-msgstr "탭 시간"
-
-#. i18n: ectx: property (toolTip), widget (QSpinBox, tapTimeSpinBox)
-#: src/kcmodule/touchpagewidget.ui:305
-#, kde-format
-msgid "The minimum time in milliseconds between taps to trigger a right click."
-msgstr "오른쪽 클릭을 활성화할 밀리초 단위의 최소 시간입니다."
-
-#. i18n: ectx: property (text), widget (QLabel, scrollInversionLabel)
-#: src/kcmodule/touchpagewidget.ui:318
-#, kde-format
-msgid "Invert Scroll Direction"
-msgstr "스크롤 방향 반전"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, scrollInversionCheckBox)
-#: src/kcmodule/touchpagewidget.ui:325
-#, kde-format
-msgid "If selected, the scroll direction for the scroll gesture is inverted."
-msgstr "선택하면 스크롤 제스처의 방향을 뒤집습니다."
 
 #: src/kded/tabletdaemon.cpp:110
 #, kde-format
@@ -1251,132 +415,6 @@ msgstr "프로필 <b>%1</b>이(가) 없습니다. <b>%2</b>을(를) 대신 사�
 msgid "Button %1 maps to Button %2"
 msgstr "단추 %1이(가) 단추 %2에 연결됨"
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
-#: src/tabletfinder/dialog.ui:14
-#, kde-format
-msgid "Wacom Tablet detection"
-msgstr "와콤 태블릿 감지"
-
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#: src/tabletfinder/dialog.ui:20
-#, kde-format
-msgid "Connect your Tablet and click on Refresh to detect it."
-msgstr "태블릿을 연결한 후 새로 고침을 클릭해서 인식하십시오."
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: src/tabletfinder/dialog.ui:27
-#, kde-format
-msgid "Tablet Selection"
-msgstr "태블릿 선택"
-
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#: src/tabletfinder/dialog.ui:39
-#, kde-format
-msgid "Detected Tablets:"
-msgstr "감지된 태블릿:"
-
-#. i18n: ectx: property (text), widget (QPushButton, refreshButton)
-#: src/tabletfinder/dialog.ui:51
-#, kde-format
-msgid "Refresh"
-msgstr "새로 고침"
-
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#: src/tabletfinder/dialog.ui:66
-#, kde-format
-msgid "Serial No.:"
-msgstr "일련 번호:"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: src/tabletfinder/dialog.ui:86
-#, kde-format
-msgid "Devices: "
-msgstr "장치: "
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: src/tabletfinder/dialog.ui:105
-#, kde-format
-msgid "Tablet Features"
-msgstr "태블릿 기능"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasTouchRing)
-#: src/tabletfinder/dialog.ui:111
-#, kde-format
-msgid "has TouchRing"
-msgstr "터치 링 있음"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsRight)
-#: src/tabletfinder/dialog.ui:118
-#, kde-format
-msgid "has Status LEDs right"
-msgstr "오른쪽 상태 LED 있음"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripLeft)
-#: src/tabletfinder/dialog.ui:125
-#, kde-format
-msgid "has Touchstrip Left"
-msgstr "왼쪽 터치 스트립 있음"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripRight)
-#: src/tabletfinder/dialog.ui:132
-#, kde-format
-msgid "has Touchstrip Right"
-msgstr "오른쪽 터치 스트립 있음"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsLeft)
-#: src/tabletfinder/dialog.ui:139
-#, kde-format
-msgid "has Status LEDs left"
-msgstr "왼쪽 상태 LED 있음"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasWheel)
-#: src/tabletfinder/dialog.ui:146
-#, kde-format
-msgid "has Wheel"
-msgstr "휠 있음"
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
-#: src/tabletfinder/dialog.ui:169
-#, kde-format
-msgid "Button mapping"
-msgstr "단추 매핑"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: src/tabletfinder/dialog.ui:177
-#, kde-format
-msgid "Number of available Express Keys:"
-msgstr "사용 가능한 익스프레스 키 개수:"
-
-#. i18n: ectx: property (text), widget (QPushButton, mapButtons)
-#: src/tabletfinder/dialog.ui:189
-#, kde-format
-msgid "Map Hardware Buttons"
-msgstr "하드웨어 단추 매핑"
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
-#: src/tabletfinder/dialog.ui:221
-#, kde-format
-msgid "Touch sensor"
-msgstr "터치 센서"
-
-#. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
-#: src/tabletfinder/dialog.ui:227
-#, kde-format
-msgid "&Normal tablet"
-msgstr "일반 태블릿(&N)"
-
-#. i18n: ectx: property (text), widget (QRadioButton, radioParentTablet)
-#: src/tabletfinder/dialog.ui:239
-#, kde-format
-msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-msgstr "다중 장치 태블릿, 펜 센서. 터치 센서(&M):"
-
-#. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
-#: src/tabletfinder/dialog.ui:251
-#, kde-format
-msgid "Multi-&device tablet, touch sensor"
-msgstr "다중 장치 태블릿, 터치 센서(&D)"
-
 #: src/tabletfinder/hwbuttondialog.cpp:65
 #, kde-format
 msgid "Please press Button %1 on the tablet now."
@@ -1392,21 +430,510 @@ msgstr "하드웨어 단추 %1이(가) 감지되었습니다."
 msgid "All buttons detected. Please close dialog"
 msgstr "모든 단추를 감지했습니다. 대화 상자를 닫으십시오"
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, HWButtonDialog)
-#: src/tabletfinder/hwbuttondialog.ui:14
-#, kde-format
-msgid "Dialog"
-msgstr "대화 상자"
+#~ msgid "Select Key Function"
+#~ msgstr "키 기능 선택"
 
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: src/tabletfinder/hwbuttondialog.ui:26
-#, kde-format
-msgid ""
-"Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
-"the mouse."
-msgstr ""
-"마우스 커서를 대화 상자 안쪽으로 움직이되 마우스 단추를 <b>클릭하지 마십시오"
-"</b>."
+#~ msgid "Select Button Action"
+#~ msgstr "단추 동작 선택"
+
+#~ msgid "Ctrl"
+#~ msgstr "Ctrl"
+
+#~ msgid "Alt"
+#~ msgstr "Alt"
+
+#~ msgid "Meta"
+#~ msgstr "Meta"
+
+#~ msgid "Shift"
+#~ msgstr "Shift"
+
+#~ msgid "Please select an action."
+#~ msgstr "동작을 선택하십시오."
+
+#~ msgid "Click to assign an action."
+#~ msgstr "동작을 할당하려면 클릭하십시오."
+
+#~ msgid "Pad Buttons"
+#~ msgstr "패드 단추"
+
+#~ msgid "Button 1"
+#~ msgstr "단추 1"
+
+#~ msgid "Button 2"
+#~ msgstr "단추 2"
+
+#~ msgid "Button 3"
+#~ msgstr "단추 3"
+
+#~ msgid "Button 4"
+#~ msgstr "단추 4"
+
+#~ msgid "Button 5"
+#~ msgstr "단추 5"
+
+#~ msgid "Button 6"
+#~ msgstr "단추 5"
+
+#~ msgid "Button 7"
+#~ msgstr "단추 6"
+
+#~ msgid "Button 8"
+#~ msgstr "단추 8"
+
+#~ msgid "Button 9"
+#~ msgstr "단추 8"
+
+#~ msgid "Button 10"
+#~ msgstr "단추 10"
+
+#~ msgid "Button 11"
+#~ msgstr "단추 11"
+
+#~ msgid "Button 12"
+#~ msgstr "단추 12"
+
+#~ msgid "Button 13"
+#~ msgstr "단추 13"
+
+#~ msgid "Button 14"
+#~ msgstr "단추 14"
+
+#~ msgid "Button 15"
+#~ msgstr "단추 15"
+
+#~ msgid "Button 16"
+#~ msgstr "단추 16"
+
+#~ msgid "Button 17"
+#~ msgstr "단추 17"
+
+#~ msgid "Button 18"
+#~ msgstr "단추 18"
+
+#~ msgid "Touch Strip"
+#~ msgstr "터치 스트립"
+
+#~ msgid "Left Strip Up"
+#~ msgstr "왼쪽 스트립 위로"
+
+#~ msgid "Left Strip Down"
+#~ msgstr "왼쪽 스트립 아래로"
+
+#~ msgid "Right Strip Up"
+#~ msgstr "오른쪽 스트립 위로"
+
+#~ msgid "Right Strip Down"
+#~ msgstr "오른쪽 스트랩 아래로"
+
+#~ msgid "Touch Ring"
+#~ msgstr "터치 링"
+
+#~ msgid "Ring Up"
+#~ msgstr "링 위로"
+
+#~ msgid "Ring Down"
+#~ msgstr "링 아래로"
+
+#~ msgid "Wheel"
+#~ msgstr "휠"
+
+#~ msgid "Wheel Up"
+#~ msgstr "휠 위로"
+
+#~ msgid "Wheel Down"
+#~ msgstr "휠 아래로"
+
+#~ msgid "No Tablet Found"
+#~ msgstr "태블릿을 찾을 수 없음"
+
+#~ msgid "Manually register a tablet device"
+#~ msgstr "수동으로 태블릿 장치 등록"
+
+#~ msgid ""
+#~ "This will open another window, prompting you to describe your tablet "
+#~ "device. After you're done, please restart your desktop session."
+#~ msgstr ""
+#~ "이 옵션을 선택하면 태블릿 장치를 등록하는 창을 엽니다. 등록이 완료된 후 데"
+#~ "스크톱 세션을 다시 시작하십시오."
+
+#~ msgid "General Hardware Overview"
+#~ msgstr "일반 하드웨어 미리 보기"
+
+#~ msgid "Profile rotation"
+#~ msgstr "프로필 회전"
+
+#~ msgid "Down"
+#~ msgstr "아래로"
+
+#~ msgid "Remove"
+#~ msgstr "삭제"
+
+#~ msgid "Add"
+#~ msgstr "추가"
+
+#~ msgid "Up"
+#~ msgstr "위로"
+
+#~ msgid "Shortcuts"
+#~ msgstr "바로 가기"
+
+#~ msgid "Graphic Tablet Settings"
+#~ msgstr "그래픽 태블릿 설정"
+
+#~ msgid "&Select Tablet:"
+#~ msgstr "태블릿 선택(&S):"
+
+#~ msgid "Select &Profile:"
+#~ msgstr "프로필 선택(&P):"
+
+#~ msgid "Creates a new default profile"
+#~ msgstr "새 기본 프로필 만들기"
+
+#~ msgid "Deletes the current profile"
+#~ msgstr "현재 프로필 삭제"
+
+#~ msgid "Press Curve Settings"
+#~ msgstr "압력 커브 설정"
+
+#~ msgid ""
+#~ "The presscurve defines how the pen press is handled.\n"
+#~ "Drag around the dots to change the behavior\n"
+#~ "Use the stylus inside the Widget to see the pressure changes."
+#~ msgstr ""
+#~ "압력 커브는 펜 누르기를 처리하는 방식을 설정합니다.\n"
+#~ "점을 드래그하면 행동을 변경할 수 있으며\n"
+#~ "위젯에서 스타일러스를 사용하여 압력 변경을 테스트하십시오."
+
+#~ msgid "Current Presscurve:"
+#~ msgstr "현재 압력 커브:"
+
+#~ msgid "Pen Settings"
+#~ msgstr "펜 설정"
+
+#~ msgid "Defines the button action on the stylus."
+#~ msgstr "스타일러스의 단추 동작을 지정합니다."
+
+#~ msgid "Button Settings"
+#~ msgstr "단추 설정"
+
+#~ msgid ""
+#~ "If selected, the stylus must be in contact with the tablet for a stylus "
+#~ "side button to work.\n"
+#~ "If deselected, stylus buttons will work once the stylus is in proximity "
+#~ "of the tablet."
+#~ msgstr ""
+#~ "선택하면 스타일러스 펜의 측면 단추를 사용하려면 펜이 태블릿 위에 있어야 합"
+#~ "니다.\n"
+#~ "선택하지 않으면 펜이 태블릿 근처에 있어도 측면 단추를 사용할 수 있습니다."
+
+#~ msgid "Tap to execute action."
+#~ msgstr "동작을 실행하려면 누르십시오."
+
+#~ msgid "Sets eraser pressure threshold."
+#~ msgstr "지우개 압력 한도를 설정합니다."
+
+#~ msgid "Eraser Feel"
+#~ msgstr "지우개 느낌"
+
+#~ msgid ""
+#~ "Set the minimum pressure necessary to generate a Button event for the "
+#~ "stylus/tip, eraser, or touch.\n"
+#~ " The pressure levels of all tablets are normalized to 2048 levels "
+#~ "irregardless of the actual hardware supported levels.\n"
+#~ "This parameter is independent of the PressureCurve parameter."
+#~ msgstr ""
+#~ "스타일러스/팁, 지우개, 터치 시 단추 이벤트를 발생시킬 최소 압력을 설정하십"
+#~ "시오.\n"
+#~ " 모든 태블릿의 압력 단계는 하드웨어 지원과 관계 없이 2048 단계로 일반화됩"
+#~ "니다.\n"
+#~ "이 인자는 PressureCurve 인자와는 관계가 없습니다."
+
+#~ msgctxt "slow movement of the cursor (minimal value)"
+#~ msgid "Soft"
+#~ msgstr "부드러움"
+
+#~ msgctxt "fast movement of the cursor (maximal value)"
+#~ msgid "Firm"
+#~ msgstr "단단함"
+
+#~ msgid "Defines the pressure sensitivity with a bezier curve"
+#~ msgstr "베지어 곡선으로 압력 감도 설정"
+
+#~ msgid "Edit Pressure Curve..."
+#~ msgstr "압력 곡선 편집..."
+
+#~ msgid "Sets stylus pressure threshold."
+#~ msgstr "스타일러스 압력 한도를 설정합니다."
+
+#~ msgid "Tip Feel"
+#~ msgstr "팁 느낌"
+
+#~ msgid "Number of raw data used to filter the points (default is 4)"
+#~ msgstr "점을 필터링할 때 사용할 원본 데이터 수(기본값: 4)"
+
+#~ msgid "Raw Sample Rate"
+#~ msgstr "원본 데이터 샘플링 레이트"
+
+#~ msgid "1"
+#~ msgstr "1"
+
+#~ msgid "20"
+#~ msgstr "20"
+
+#~ msgid "Number of points trimmed (default is 2)"
+#~ msgstr "잘라낼 점 수(기본값: 2)"
+
+#~ msgid "Suppress Rate"
+#~ msgstr "차단 비율"
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid ""
+#~ "The tablet area defines how the screen space is mapped to your tablet. "
+#~ "For each screen a different tablet area can be selected. "
+#~ msgstr ""
+#~ "태블릿 영역은 화면 공간을 태블릿에 대응하는 방법을 결정합니다. 각각의 화면"
+#~ "에 대해서 태블릿 영역을 변경할 수 있습니다."
+
+#~ msgid "Screen"
+#~ msgstr "화면"
+
+#~ msgid "Toggle between fullscreen and each single screen."
+#~ msgstr "전체 화면과 개별 화면 사이를 전환합니다."
+
+#~ msgid "Toggle Screen"
+#~ msgstr "화면 전환"
+
+#~ msgid "Select the valid tablet area used for the selected screen space."
+#~ msgstr "선택한 화면 공간에서 사용할 태블릿 영역을 선택하십시오."
+
+#~ msgid "Map Screen To"
+#~ msgstr "다음으로 화면 대응"
+
+#~ msgid "&Full Tablet"
+#~ msgstr "전체 태블릿(&F)"
+
+#~ msgid "&Tablet Area"
+#~ msgstr "태블릿 영역(&T)"
+
+#~ msgid "Set the tablet area proportional to the selected screen area."
+#~ msgstr "선택한 화면 영역에 비례하도록 화면 영역을 설정합니다."
+
+#~ msgid "Set Screen Proportions"
+#~ msgstr "화면 비율 설정"
+
+#~ msgid "Calibrate"
+#~ msgstr "미세 조정"
+
+#~ msgid "This mapping can only be applied in absolute tracking mode."
+#~ msgstr "이 대응은 절대 추적 모드에서만 사용 가능합니다."
+
+#~ msgid "Lock proportions"
+#~ msgstr "종횡비 고정"
+
+#~ msgid "Tablet area fine tuning"
+#~ msgstr "태블릿 영역 미세 조정"
+
+#~ msgid "Width"
+#~ msgstr "너비"
+
+#~ msgid "Horizontal"
+#~ msgstr "수평"
+
+#~ msgid "Left margin"
+#~ msgstr "왼쪽 여백"
+
+#~ msgid "Vertical"
+#~ msgstr "수직"
+
+#~ msgid "Top margin"
+#~ msgstr "위쪽 여백"
+
+#~ msgid "Height"
+#~ msgstr "높이"
+
+#~ msgid "Defines how the cursor movement mode will be used."
+#~ msgstr "커서 이동 모드를 사용할지 여부입니다."
+
+#~ msgid "Stylus Tracking Mode"
+#~ msgstr "스타일러스 추적 모드"
+
+#~ msgid "&Map to Screen (Absolute Mode)"
+#~ msgstr "화면에 대응(절대 모드)(&M)"
+
+#~ msgid "Map &to Cursor (Relative Mode)"
+#~ msgstr "커서에 대응(상대 모드)(&T)"
+
+#~ msgid "Tablet Mapping"
+#~ msgstr "태블릿 매핑"
+
+#~ msgid ""
+#~ "Allows one to specify the tablet area for different screen selections in "
+#~ "absolute cursor mode."
+#~ msgstr "절대 커서 모드에서 화면의 영역에 태블릿 영역을 대응시킵니다."
+
+#~ msgid "Map Tablet Area to Screen"
+#~ msgstr "태블릿 영역을 화면에 대응"
+
+#~ msgid ""
+#~ "Your currently selected mapping can not be applied in relative tracking "
+#~ "mode."
+#~ msgstr "현재 선택한 대응 모드는 상대 추적 모드에서 사용할 수 없습니다."
+
+#~ msgid "Changes the orientation of the tablet."
+#~ msgstr "태블릿의 방향을 변경합니다."
+
+#~ msgid "Orientation"
+#~ msgstr "방향"
+
+#~ msgid "If enabled, the tablet rotates together with the screen."
+#~ msgstr "선택하면 태블릿과 화면을 함께 회전합니다."
+
+#~ msgid "Auto-Rotate with Screen"
+#~ msgstr "화면과 함께 회전"
+
+#~ msgid ""
+#~ "If enabled the automatic tablet rotation for clockwise and "
+#~ "counterclockwise rotations will be inverted."
+#~ msgstr "활성화된 경우 시계 방향과 반시계 방향 회전은 반대 방향이 됩니다."
+
+#~ msgid "Invert Auto-Rotation"
+#~ msgstr "자동 회전 반전"
+
+#~ msgid "If enabled the tablet will emit touch events."
+#~ msgstr "활성화된 경우 태블릿에서 터치 이벤트를 보냅니다."
+
+#~ msgid "Enable Touch"
+#~ msgstr "터치 사용"
+
+#~ msgid "Touch Tracking Mode"
+#~ msgstr "터치 추적 모드"
+
+#~ msgid "Touch Mapping"
+#~ msgstr "터치 매핑"
+
+#~ msgid "Map Touch Area to Screen"
+#~ msgstr "터치 영역을 화면에 대응"
+
+#~ msgid "If enabled the touch events can recognize gestures."
+#~ msgstr "활성화된 경우 터치 이벤트에서 제스처를 인식합니다."
+
+#~ msgid "Enable Gestures"
+#~ msgstr "제스처 사용"
+
+#~ msgid "Gestures"
+#~ msgstr "제스처"
+
+#~ msgid "Minimum motion before sending a scroll gesture."
+#~ msgstr "스크롤 제스처를 보낼 최소 단위입니다."
+
+#~ msgid "Scroll Distance"
+#~ msgstr "스크롤 거리"
+
+#~ msgid "The minimum motion in tablet units before sending a scroll event."
+#~ msgstr "태블릿 단위로 된 스크롤 이벤트를 보낼 최소 단위입니다."
+
+#~ msgid "Minimum distance for a zoom gesture is recognized."
+#~ msgstr "크기 조정 제스처를 인식할 최소 거리입니다."
+
+#~ msgid "Zoom Distance"
+#~ msgstr "크기 조정 거리"
+
+#~ msgid ""
+#~ "The minimum distance in tablet units for a zoom gesture to be recognized."
+#~ msgstr "태블릿 단위로 된 크기 조정 제스처를 인식할 최소 거리입니다."
+
+#~ msgid "Minimum time between taps for a right click."
+#~ msgstr "오른쪽 클릭으로 인식할 최소 태핑 간격입니다."
+
+#~ msgid "Tap Time"
+#~ msgstr "탭 시간"
+
+#~ msgid ""
+#~ "The minimum time in milliseconds between taps to trigger a right click."
+#~ msgstr "오른쪽 클릭을 활성화할 밀리초 단위의 최소 시간입니다."
+
+#~ msgid "Invert Scroll Direction"
+#~ msgstr "스크롤 방향 반전"
+
+#~ msgid ""
+#~ "If selected, the scroll direction for the scroll gesture is inverted."
+#~ msgstr "선택하면 스크롤 제스처의 방향을 뒤집습니다."
+
+#~ msgid "Wacom Tablet detection"
+#~ msgstr "와콤 태블릿 감지"
+
+#~ msgid "Connect your Tablet and click on Refresh to detect it."
+#~ msgstr "태블릿을 연결한 후 새로 고침을 클릭해서 인식하십시오."
+
+#~ msgid "Tablet Selection"
+#~ msgstr "태블릿 선택"
+
+#~ msgid "Detected Tablets:"
+#~ msgstr "감지된 태블릿:"
+
+#~ msgid "Refresh"
+#~ msgstr "새로 고침"
+
+#~ msgid "Serial No.:"
+#~ msgstr "일련 번호:"
+
+#~ msgid "Devices: "
+#~ msgstr "장치: "
+
+#~ msgid "Tablet Features"
+#~ msgstr "태블릿 기능"
+
+#~ msgid "has TouchRing"
+#~ msgstr "터치 링 있음"
+
+#~ msgid "has Status LEDs right"
+#~ msgstr "오른쪽 상태 LED 있음"
+
+#~ msgid "has Touchstrip Left"
+#~ msgstr "왼쪽 터치 스트립 있음"
+
+#~ msgid "has Touchstrip Right"
+#~ msgstr "오른쪽 터치 스트립 있음"
+
+#~ msgid "has Status LEDs left"
+#~ msgstr "왼쪽 상태 LED 있음"
+
+#~ msgid "has Wheel"
+#~ msgstr "휠 있음"
+
+#~ msgid "Button mapping"
+#~ msgstr "단추 매핑"
+
+#~ msgid "Number of available Express Keys:"
+#~ msgstr "사용 가능한 익스프레스 키 개수:"
+
+#~ msgid "Map Hardware Buttons"
+#~ msgstr "하드웨어 단추 매핑"
+
+#~ msgid "Touch sensor"
+#~ msgstr "터치 센서"
+
+#~ msgid "&Normal tablet"
+#~ msgstr "일반 태블릿(&N)"
+
+#~ msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
+#~ msgstr "다중 장치 태블릿, 펜 센서. 터치 센서(&M):"
+
+#~ msgid "Multi-&device tablet, touch sensor"
+#~ msgstr "다중 장치 태블릿, 터치 센서(&D)"
+
+#~ msgid "Dialog"
+#~ msgstr "대화 상자"
+
+#~ msgid ""
+#~ "Move the mouse cursor inside the dialog but <b>do not</b> click into it "
+#~ "with the mouse."
+#~ msgstr ""
+#~ "마우스 커서를 대화 상자 안쪽으로 움직이되 마우스 단추를 <b>클릭하지 마십시"
+#~ "오</b>."
 
 #~ msgid "document-new"
 #~ msgstr "document-new"

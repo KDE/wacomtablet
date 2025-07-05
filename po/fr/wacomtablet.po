@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-03-28 13:55+0000\n"
+"POT-Creation-Date: 2025-07-05 03:22+0000\n"
 "PO-Revision-Date: 2023-12-20 09:28+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -173,246 +173,6 @@ msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
 msgstr "Cliquez pour sélectionner..."
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
-#: src/kcmodule/buttonactionselectionwidget.ui:14
-#, kde-format
-msgid "Select Key Function"
-msgstr "Sélectionner une touche de fonction"
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: src/kcmodule/buttonactionselectionwidget.ui:35
-#, kde-format
-msgid "Select Button Action"
-msgstr "Sélectionner l'action d'un bouton"
-
-#. i18n: ectx: property (text), widget (QCheckBox, ctrlModifierCheckBox)
-#: src/kcmodule/buttonactionselectionwidget.ui:46
-#, kde-format
-msgid "Ctrl"
-msgstr "Ctrl"
-
-#. i18n: ectx: property (text), widget (QCheckBox, altModifierCheckBox)
-#: src/kcmodule/buttonactionselectionwidget.ui:69
-#, kde-format
-msgid "Alt"
-msgstr "Alt"
-
-#. i18n: ectx: property (text), widget (QCheckBox, metaModifierCheckBox)
-#: src/kcmodule/buttonactionselectionwidget.ui:92
-#, kde-format
-msgid "Meta"
-msgstr "Méta"
-
-#. i18n: ectx: property (text), widget (QCheckBox, shiftModifierCheckBox)
-#: src/kcmodule/buttonactionselectionwidget.ui:115
-#, kde-format
-msgid "Shift"
-msgstr "Maj"
-
-#. i18n: Select an action which will be assigned to a tablet button.
-#. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameLineEdit)
-#: src/kcmodule/buttonactionselectionwidget.ui:159
-#, kde-format
-msgid "Please select an action."
-msgstr "Veuillez sélectionner une action."
-
-#. i18n: Click to assign an action (shortcut) to a tablet button.
-#. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameDisplayWidget)
-#: src/kcmodule/buttonactionselectorwidget.ui:51
-#, kde-format
-msgid "Click to assign an action."
-msgstr "Cliquez pour affecter une action."
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, ButtonPageWidget)
-#: src/kcmodule/buttonpagewidget.ui:20
-#, kde-format
-msgid "Pad Buttons"
-msgstr "Boutons du pavé tactile"
-
-#. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
-#: src/kcmodule/buttonpagewidget.ui:29
-#: src/kcmodule/kcmwacomtabletwidget.cpp:447
-#, kde-format
-msgid "Express Buttons"
-msgstr "Boutons « Express »"
-
-#. i18n: ectx: property (text), widget (QLabel, button1Label)
-#. i18n: ectx: property (text), widget (QLabel, labelButton1)
-#: src/kcmodule/buttonpagewidget.ui:43 src/kcmodule/styluspagewidget.ui:81
-#, kde-format
-msgid "Button 1"
-msgstr "Bouton 1"
-
-#. i18n: ectx: property (text), widget (QLabel, button2Label)
-#. i18n: ectx: property (text), widget (QLabel, labelButton2)
-#: src/kcmodule/buttonpagewidget.ui:56 src/kcmodule/styluspagewidget.ui:62
-#, kde-format
-msgid "Button 2"
-msgstr "Bouton 2"
-
-#. i18n: ectx: property (text), widget (QLabel, button3Label)
-#. i18n: ectx: property (text), widget (QLabel, labelButton3)
-#: src/kcmodule/buttonpagewidget.ui:69 src/kcmodule/styluspagewidget.ui:43
-#, kde-format
-msgid "Button 3"
-msgstr "Bouton 3"
-
-#. i18n: ectx: property (text), widget (QLabel, button4Label)
-#: src/kcmodule/buttonpagewidget.ui:82
-#, kde-format
-msgid "Button 4"
-msgstr "Bouton 4"
-
-#. i18n: ectx: property (text), widget (QLabel, button5Label)
-#: src/kcmodule/buttonpagewidget.ui:95
-#, kde-format
-msgid "Button 5"
-msgstr "Bouton 5"
-
-#. i18n: ectx: property (text), widget (QLabel, button6Label)
-#: src/kcmodule/buttonpagewidget.ui:108
-#, kde-format
-msgid "Button 6"
-msgstr "Bouton 6"
-
-#. i18n: ectx: property (text), widget (QLabel, button7Label)
-#: src/kcmodule/buttonpagewidget.ui:121
-#, kde-format
-msgid "Button 7"
-msgstr "Bouton 7"
-
-#. i18n: ectx: property (text), widget (QLabel, button8Label)
-#: src/kcmodule/buttonpagewidget.ui:134
-#, kde-format
-msgid "Button 8"
-msgstr "Bouton 8"
-
-#. i18n: ectx: property (text), widget (QLabel, button9Label)
-#: src/kcmodule/buttonpagewidget.ui:147
-#, kde-format
-msgid "Button 9"
-msgstr "Bouton 9"
-
-#. i18n: ectx: property (text), widget (QLabel, button10Label)
-#: src/kcmodule/buttonpagewidget.ui:315
-#, kde-format
-msgid "Button 10"
-msgstr "Bouton 10"
-
-#. i18n: ectx: property (text), widget (QLabel, button11Label)
-#: src/kcmodule/buttonpagewidget.ui:328
-#, kde-format
-msgid "Button 11"
-msgstr "Bouton 11"
-
-#. i18n: ectx: property (text), widget (QLabel, button12Label)
-#: src/kcmodule/buttonpagewidget.ui:341
-#, kde-format
-msgid "Button 12"
-msgstr "Bouton 12"
-
-#. i18n: ectx: property (text), widget (QLabel, button13Label)
-#: src/kcmodule/buttonpagewidget.ui:354
-#, kde-format
-msgid "Button 13"
-msgstr "Bouton 13"
-
-#. i18n: ectx: property (text), widget (QLabel, button14Label)
-#: src/kcmodule/buttonpagewidget.ui:367
-#, kde-format
-msgid "Button 14"
-msgstr "Bouton 14"
-
-#. i18n: ectx: property (text), widget (QLabel, button15Label)
-#: src/kcmodule/buttonpagewidget.ui:380
-#, kde-format
-msgid "Button 15"
-msgstr "Bouton 15"
-
-#. i18n: ectx: property (text), widget (QLabel, button16Label)
-#: src/kcmodule/buttonpagewidget.ui:393
-#, kde-format
-msgid "Button 16"
-msgstr "Bouton 16"
-
-#. i18n: ectx: property (text), widget (QLabel, button17Label)
-#: src/kcmodule/buttonpagewidget.ui:406
-#, kde-format
-msgid "Button 17"
-msgstr "Bouton 17"
-
-#. i18n: ectx: property (text), widget (QLabel, button18Label)
-#: src/kcmodule/buttonpagewidget.ui:419
-#, kde-format
-msgid "Button 18"
-msgstr "Bouton 18"
-
-#. i18n: ectx: property (title), widget (QGroupBox, touchStripGroupBox)
-#: src/kcmodule/buttonpagewidget.ui:537
-#, kde-format
-msgid "Touch Strip"
-msgstr "Bande tactile"
-
-#. i18n: ectx: property (text), widget (QLabel, leftStripUpLabel)
-#: src/kcmodule/buttonpagewidget.ui:555
-#, kde-format
-msgid "Left Strip Up"
-msgstr "Déplacer la bande tactile vers le haut"
-
-#. i18n: ectx: property (text), widget (QLabel, leftStripDownLabel)
-#: src/kcmodule/buttonpagewidget.ui:572
-#, kde-format
-msgid "Left Strip Down"
-msgstr "Déplacer la bande tactile vers le bas"
-
-#. i18n: ectx: property (text), widget (QLabel, rightStripUpLabel)
-#: src/kcmodule/buttonpagewidget.ui:620
-#, kde-format
-msgid "Right Strip Up"
-msgstr "Déplacer la bande tactile vers la droite"
-
-#. i18n: ectx: property (text), widget (QLabel, rightStripDownLabel)
-#: src/kcmodule/buttonpagewidget.ui:637
-#, kde-format
-msgid "Right Strip Down"
-msgstr "Déplacer la bande tactile vers le bas"
-
-#. i18n: ectx: property (title), widget (QGroupBox, touchRingGroupBox)
-#: src/kcmodule/buttonpagewidget.ui:660
-#, kde-format
-msgid "Touch Ring"
-msgstr "Anneau tactile"
-
-#. i18n: ectx: property (text), widget (QLabel, ringUpLabel)
-#: src/kcmodule/buttonpagewidget.ui:671
-#, kde-format
-msgid "Ring Up"
-msgstr "Déplacer l'anneau vers le haut"
-
-#. i18n: ectx: property (text), widget (QLabel, ringDownLabel)
-#: src/kcmodule/buttonpagewidget.ui:711
-#, kde-format
-msgid "Ring Down"
-msgstr "Déplacer l'anneau vers le bas"
-
-#. i18n: ectx: property (title), widget (QGroupBox, wheelGroupBox)
-#: src/kcmodule/buttonpagewidget.ui:733
-#, kde-format
-msgid "Wheel"
-msgstr "Molette"
-
-#. i18n: ectx: property (text), widget (QLabel, wheelUpLabel)
-#: src/kcmodule/buttonpagewidget.ui:741
-#, kde-format
-msgid "Wheel Up"
-msgstr "Déplacer la molette vers le haut"
-
-#. i18n: ectx: property (text), widget (QLabel, wheelDownLabel)
-#: src/kcmodule/buttonpagewidget.ui:778
-#, kde-format
-msgid "Wheel Down"
-msgstr "Déplacer la molette vers le bas"
-
 #: src/kcmodule/calibrationdialog.cpp:63
 #, kde-format
 msgid ""
@@ -421,29 +181,6 @@ msgid ""
 msgstr ""
 "Veuillez toucher du doigt les quatre coins pour calibrer la tablette.\n"
 "Appuyez sur « Échap » pour annuler le processus."
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, ErrorWidget)
-#: src/kcmodule/errorwidget.ui:14
-#, kde-format
-msgid "No Tablet Found"
-msgstr "Aucune tablette trouvée"
-
-#. i18n: ectx: property (text), widget (QCommandLinkButton, buttonRunTabletFinder)
-#: src/kcmodule/errorwidget.ui:107
-#, kde-format
-msgid "Manually register a tablet device"
-msgstr "Enregistrer manuellement un périphérique de type tablette"
-
-#. i18n: ectx: property (description), widget (QCommandLinkButton, buttonRunTabletFinder)
-#: src/kcmodule/errorwidget.ui:110
-#, kde-format
-msgid ""
-"This will open another window, prompting you to describe your tablet device. "
-"After you're done, please restart your desktop session."
-msgstr ""
-"Ceci ouvrira une autre fenêtre, vous demandant de décrire votre périphérique "
-"de type tablette. Une fois réalisé, veuillez redémarrer votre session de "
-"bureau."
 
 #: src/kcmodule/generalpagewidget.cpp:57
 #, kde-format
@@ -459,48 +196,6 @@ msgstr "Liste des profils"
 #, kde-format
 msgid "Select the Profile you want to add:"
 msgstr "Sélectionnez le profil que vous souhaitez ajouter :"
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, GeneralPageWidget)
-#: src/kcmodule/generalpagewidget.ui:14
-#, kde-format
-msgid "General Hardware Overview"
-msgstr "Aperçu général du matériel"
-
-#. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
-#: src/kcmodule/generalpagewidget.ui:35
-#, kde-format
-msgid "Profile rotation"
-msgstr "Rotation des profils"
-
-#. i18n: ectx: property (text), widget (QPushButton, pbDown)
-#: src/kcmodule/generalpagewidget.ui:80
-#, kde-format
-msgid "Down"
-msgstr "Descendre"
-
-#. i18n: ectx: property (text), widget (QPushButton, pbRemoveFromRotationList)
-#: src/kcmodule/generalpagewidget.ui:87
-#, kde-format
-msgid "Remove"
-msgstr "Supprimer"
-
-#. i18n: ectx: property (text), widget (QPushButton, pbAddToRotationList)
-#: src/kcmodule/generalpagewidget.ui:94
-#, kde-format
-msgid "Add"
-msgstr "Ajouter"
-
-#. i18n: ectx: property (text), widget (QPushButton, pbUp)
-#: src/kcmodule/generalpagewidget.ui:101
-#, kde-format
-msgid "Up"
-msgstr "Monter"
-
-#. i18n: ectx: property (title), widget (QGroupBox, shortcutGroupBox)
-#: src/kcmodule/generalpagewidget.ui:140
-#, kde-format
-msgid "Shortcuts"
-msgstr "Raccourcis"
 
 #: src/kcmodule/kcmwacomtablet.cpp:72
 #, kde-format
@@ -586,9 +281,12 @@ msgstr "Général"
 msgid "Stylus"
 msgstr "Stylet"
 
-#. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
+#: src/kcmodule/kcmwacomtabletwidget.cpp:447
+#, kde-format
+msgid "Express Buttons"
+msgstr "Boutons « Express »"
+
 #: src/kcmodule/kcmwacomtabletwidget.cpp:450
-#: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "Tablette"
@@ -609,36 +307,6 @@ msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
 "Échec du lancement de l'outil de recherche de tablette « Wacom ». Veuillez "
 "vérifier votre installation."
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
-#: src/kcmodule/kcmwacomtabletwidget.ui:14
-#, kde-format
-msgid "Graphic Tablet Settings"
-msgstr "Configuration de la tablette graphique"
-
-#. i18n: ectx: property (text), widget (QLabel, tabletListLabel)
-#: src/kcmodule/kcmwacomtabletwidget.ui:25
-#, kde-format
-msgid "&Select Tablet:"
-msgstr "&Sélectionnez une tablette :"
-
-#. i18n: ectx: property (text), widget (QLabel, profileLabel)
-#: src/kcmodule/kcmwacomtabletwidget.ui:45
-#, kde-format
-msgid "Select &Profile:"
-msgstr "Sélectionnez un &profil :"
-
-#. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
-#: src/kcmodule/kcmwacomtabletwidget.ui:67
-#, kde-format
-msgid "Creates a new default profile"
-msgstr "Crée un nouveau profil par défaut"
-
-#. i18n: ectx: property (toolTip), widget (KAnimatedButton, delProfileButton)
-#: src/kcmodule/kcmwacomtabletwidget.ui:83
-#, kde-format
-msgid "Deletes the current profile"
-msgstr "Supprime le profil actuel"
 
 #: src/kcmodule/keysequenceinputbutton.cpp:287
 #, kde-format
@@ -662,186 +330,6 @@ msgctxt "No shortcut defined"
 msgid "None"
 msgstr "Aucun"
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, PressureCurveDialog)
-#: src/kcmodule/pressurecurvedialog.ui:23
-#, kde-format
-msgid "Press Curve Settings"
-msgstr "Paramètres de la courbe de pression"
-
-#. i18n: ectx: property (text), widget (QLabel, explaining_Label)
-#: src/kcmodule/pressurecurvedialog.ui:37
-#, kde-format
-msgid ""
-"The presscurve defines how the pen press is handled.\n"
-"Drag around the dots to change the behavior\n"
-"Use the stylus inside the Widget to see the pressure changes."
-msgstr ""
-"La courbe de pression définit comment gérer la pression du stylet.\n"
-"Déplacez-vous autour des points pour changer le comportement\n"
-"Utilisez le style à l'intérieur du composant graphique pour voir les "
-"changements de pression."
-
-#. i18n: ectx: property (text), widget (QLabel, pc_Label)
-#: src/kcmodule/pressurecurvedialog.ui:104
-#, kde-format
-msgid "Current Presscurve:"
-msgstr "Courbe de pression actuelle :"
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, StylusPageWidget)
-#: src/kcmodule/styluspagewidget.ui:14
-#, kde-format
-msgid "Pen Settings"
-msgstr "Réglages du stylet"
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, buttonGroupBox)
-#: src/kcmodule/styluspagewidget.ui:28
-#, kde-format
-msgid "Defines the button action on the stylus."
-msgstr "Définit l'action du bouton sur le stylet."
-
-#. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
-#: src/kcmodule/styluspagewidget.ui:31
-#, kde-format
-msgid "Button Settings"
-msgstr "Paramètres des boutons"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, tpcCheckBox)
-#: src/kcmodule/styluspagewidget.ui:113
-#, kde-format
-msgid ""
-"If selected, the stylus must be in contact with the tablet for a stylus side "
-"button to work.\n"
-"If deselected, stylus buttons will work once the stylus is in proximity of "
-"the tablet."
-msgstr ""
-"Si cette option est cochée, le stylet doit être en contact avec la tablette "
-"pour qu'un bouton latéral du stylet fonctionne.\n"
-"Si elle n'est pas cochée, les boutons du stylet fonctionneront une fois que "
-"le stylet sera à proximité de la tablette."
-
-#. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
-#: src/kcmodule/styluspagewidget.ui:116
-#, kde-format
-msgid "Tap to execute action."
-msgstr "Passez votre doigt pour exécuter une action."
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, eraserBox)
-#: src/kcmodule/styluspagewidget.ui:128
-#, kde-format
-msgid "Sets eraser pressure threshold."
-msgstr "Définit le seuil de pression de la gomme."
-
-#. i18n: ectx: property (title), widget (QGroupBox, eraserBox)
-#: src/kcmodule/styluspagewidget.ui:131
-#, kde-format
-msgid "Eraser Feel"
-msgstr "Sensibilité de la gomme"
-
-#. i18n: ectx: property (toolTip), widget (QSlider, eraserSlider)
-#. i18n: ectx: property (toolTip), widget (QSlider, tipSlider)
-#: src/kcmodule/styluspagewidget.ui:153 src/kcmodule/styluspagewidget.ui:297
-#, kde-format
-msgid ""
-"Set the minimum pressure necessary to generate a Button event for the stylus/"
-"tip, eraser, or touch.\n"
-" The pressure levels of all tablets are normalized to 2048 levels "
-"irregardless of the actual hardware supported levels.\n"
-"This parameter is independent of the PressureCurve parameter."
-msgstr ""
-"Définissez la pression minimale nécessaire pour générer un évènement "
-"« bouton » pour le stylet, la pointe, la gomme ou la saisie tactile.\n"
-" Les niveaux de pression de toutes les tablettes sont normalisées à "
-"2 048 niveaux, quels que soient les niveaux réellement pris en charge par le "
-"matériel. \n"
-"Ce paramètre est indépendant du réglage « Courbe de pression »."
-
-#. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
-#. i18n: ectx: property (text), widget (QLabel, labelSlow_3)
-#: src/kcmodule/styluspagewidget.ui:183 src/kcmodule/styluspagewidget.ui:327
-#, kde-format
-msgctxt "slow movement of the cursor (minimal value)"
-msgid "Soft"
-msgstr "Léger"
-
-#. i18n: ectx: property (text), widget (QLabel, labelFast_2)
-#. i18n: ectx: property (text), widget (QLabel, labelFast_3)
-#: src/kcmodule/styluspagewidget.ui:209 src/kcmodule/styluspagewidget.ui:353
-#, kde-format
-msgctxt "fast movement of the cursor (maximal value)"
-msgid "Firm"
-msgstr "Ferme"
-
-#. i18n: ectx: property (toolTip), widget (QPushButton, eraserPressureButton)
-#. i18n: ectx: property (toolTip), widget (QPushButton, tipPressureButton)
-#: src/kcmodule/styluspagewidget.ui:241 src/kcmodule/styluspagewidget.ui:391
-#, kde-format
-msgid "Defines the pressure sensitivity with a bezier curve"
-msgstr "Définit la sensibilité de la pression avec une courbe de Bézier"
-
-#. i18n: ectx: property (text), widget (QPushButton, eraserPressureButton)
-#. i18n: ectx: property (text), widget (QPushButton, tipPressureButton)
-#: src/kcmodule/styluspagewidget.ui:244 src/kcmodule/styluspagewidget.ui:394
-#, kde-format
-msgid "Edit Pressure Curve..."
-msgstr "Modifier la courbe de pression..."
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, tipFeelGroupBox)
-#: src/kcmodule/styluspagewidget.ui:272
-#, kde-format
-msgid "Sets stylus pressure threshold."
-msgstr "Définit le seuil de pression du stylet."
-
-#. i18n: ectx: property (title), widget (QGroupBox, tipFeelGroupBox)
-#: src/kcmodule/styluspagewidget.ui:275
-#, kde-format
-msgid "Tip Feel"
-msgstr "Sensibilité de la pointe"
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxRawSample)
-#. i18n: ectx: property (toolTip), widget (QSlider, horizontalSliderRawSample)
-#: src/kcmodule/styluspagewidget.ui:412 src/kcmodule/styluspagewidget.ui:421
-#, kde-format
-msgid "Number of raw data used to filter the points (default is 4)"
-msgstr ""
-"Quantité de données brutes utilisées pour filtrer les points (4 par défaut)"
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBoxRawSample)
-#: src/kcmodule/styluspagewidget.ui:415
-#, kde-format
-msgid "Raw Sample Rate"
-msgstr "Taux d'échantillonnage brut"
-
-#. i18n: ectx: property (text), widget (QLabel, labelMinRawSample)
-#: src/kcmodule/styluspagewidget.ui:451
-#, kde-format
-msgid "1"
-msgstr "1"
-
-#. i18n: ectx: property (text), widget (QLabel, labelMaxRawSample)
-#. i18n: ectx: property (text), widget (QLabel, labelMaxSuppress)
-#: src/kcmodule/styluspagewidget.ui:471 src/kcmodule/styluspagewidget.ui:545
-#, kde-format
-msgid "20"
-msgstr "20"
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxSupress)
-#: src/kcmodule/styluspagewidget.ui:489
-#, kde-format
-msgid "Number of points trimmed (default is 2)"
-msgstr "Nombre de points éliminés (2 par défaut)"
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
-#: src/kcmodule/styluspagewidget.ui:492
-#, kde-format
-msgid "Suppress Rate"
-msgstr "Taux de suppression"
-
-#. i18n: ectx: property (text), widget (QLabel, labelMinSuppress)
-#: src/kcmodule/styluspagewidget.ui:525
-#, kde-format
-msgid "0"
-msgstr "0"
-
 #: src/kcmodule/tabletareaselectiondialog.cpp:114
 #, kde-format
 msgctxt ""
@@ -855,136 +343,6 @@ msgstr "Sélectionner une zone de la tablette"
 #, kde-format
 msgid "Internal Error"
 msgstr "Erreur interne"
-
-#. i18n: ectx: property (text), widget (QLabel, infoLabel)
-#: src/kcmodule/tabletareaselectionview.ui:41
-#, kde-format
-msgid ""
-"The tablet area defines how the screen space is mapped to your tablet. For "
-"each screen a different tablet area can be selected. "
-msgstr ""
-"La zone de tablette définit comment l'espace de l'écran est mis en "
-"correspondance avec votre tablette. Pour chaque écran, on peut sélectionner "
-"une zone de tablette différente."
-
-#. i18n: ectx: property (title), widget (QGroupBox, screenGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:57
-#, kde-format
-msgid "Screen"
-msgstr "Écran"
-
-#. i18n: ectx: property (toolTip), widget (QPushButton, screenToggleButton)
-#: src/kcmodule/tabletareaselectionview.ui:83
-#, kde-format
-msgid "Toggle between fullscreen and each single screen."
-msgstr "Basculer vers le mode plein écran et chaque écran indépendant."
-
-#. i18n: ectx: property (text), widget (QPushButton, screenToggleButton)
-#: src/kcmodule/tabletareaselectionview.ui:86
-#, kde-format
-msgid "Toggle Screen"
-msgstr "Basculer vers l'écran"
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, controlsGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:96
-#, kde-format
-msgid "Select the valid tablet area used for the selected screen space."
-msgstr ""
-"Sélectionnez la zone de tablette valable utilisée pour l'espace d'écran "
-"choisi."
-
-#. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:99
-#, kde-format
-msgid "Map Screen To"
-msgstr "Faire correspondre l'écran avec"
-
-#. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
-#: src/kcmodule/tabletareaselectionview.ui:105
-#, kde-format
-msgid "&Full Tablet"
-msgstr "&Tablette complète"
-
-#. i18n: ectx: property (text), widget (QRadioButton, tabletAreaRadioButton)
-#: src/kcmodule/tabletareaselectionview.ui:115
-#, kde-format
-msgid "&Tablet Area"
-msgstr "Zone de &tablette"
-
-#. i18n: ectx: property (toolTip), widget (QPushButton, forceProportionsButton)
-#: src/kcmodule/tabletareaselectionview.ui:122
-#, kde-format
-msgid "Set the tablet area proportional to the selected screen area."
-msgstr ""
-"Fixez la zone de tablette proportionnellement à la zone d'écran sélectionnée."
-
-#. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
-#: src/kcmodule/tabletareaselectionview.ui:125
-#, kde-format
-msgid "Set Screen Proportions"
-msgstr "Définir les proportions de l'écran"
-
-#. i18n: ectx: property (text), widget (QPushButton, calibrateButton)
-#: src/kcmodule/tabletareaselectionview.ui:132
-#, kde-format
-msgid "Calibrate"
-msgstr "Calibrer"
-
-#. i18n: ectx: property (text), widget (QLabel, warningLabel)
-#: src/kcmodule/tabletareaselectionview.ui:204
-#, kde-format
-msgid "This mapping can only be applied in absolute tracking mode."
-msgstr ""
-"Cette mise en correspondance ne peut être appliquée qu'en mode de suivi "
-"absolu."
-
-#. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
-#: src/kcmodule/tabletareaselectionview.ui:219
-#, kde-format
-msgid "Lock proportions"
-msgstr "Verrouiller les proportions"
-
-#. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
-#: src/kcmodule/tabletareaselectionview.ui:233
-#, kde-format
-msgid "Tablet area fine tuning"
-msgstr "Configuration détaillée de la zone de la tablette"
-
-#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
-#: src/kcmodule/tabletareaselectionview.ui:245
-#, kde-format
-msgid "Width"
-msgstr "Largeur"
-
-#. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
-#: src/kcmodule/tabletareaselectionview.ui:255
-#, kde-format
-msgid "Horizontal"
-msgstr "Horizontal"
-
-#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
-#: src/kcmodule/tabletareaselectionview.ui:268
-#, kde-format
-msgid "Left margin"
-msgstr "Marge de gauche"
-
-#. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
-#: src/kcmodule/tabletareaselectionview.ui:278
-#, kde-format
-msgid "Vertical"
-msgstr "Vertical"
-
-#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
-#: src/kcmodule/tabletareaselectionview.ui:291
-#, kde-format
-msgid "Top margin"
-msgstr "Marge supérieure"
-
-#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
-#: src/kcmodule/tabletareaselectionview.ui:307
-#, kde-format
-msgid "Height"
-msgstr "Hauteur"
 
 #: src/kcmodule/tabletpagewidget.cpp:384
 #, kde-format
@@ -1011,229 +369,6 @@ msgstr "Faire pivoter la tablette dans le sens antihoraire"
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
 msgstr "Faire pivoter la tablette à l'envers"
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, trackingModeGroupBox)
-#: src/kcmodule/tabletpagewidget.ui:25 src/kcmodule/touchpagewidget.ui:38
-#, kde-format
-msgid "Defines how the cursor movement mode will be used."
-msgstr "Définit comment le mode de déplacement du curseur doit être utilisé."
-
-#. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
-#: src/kcmodule/tabletpagewidget.ui:28
-#, kde-format
-msgid "Stylus Tracking Mode"
-msgstr "Mode de suivi du stylet"
-
-#. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
-#: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:53
-#, kde-format
-msgid "&Map to Screen (Absolute Mode)"
-msgstr "&Faire correspondre à l'écran (mode absolu)"
-
-#. i18n: ectx: property (text), widget (QRadioButton, trackRelativeRadioButton)
-#: src/kcmodule/tabletpagewidget.ui:56 src/kcmodule/touchpagewidget.ui:69
-#, kde-format
-msgid "Map &to Cursor (Relative Mode)"
-msgstr "Faire correspondre avec le curseur (mode relatif)"
-
-#. i18n: ectx: property (title), widget (QGroupBox, padMappingGroupBox)
-#: src/kcmodule/tabletpagewidget.ui:88
-#, kde-format
-msgid "Tablet Mapping"
-msgstr "Mise en correspondance de la tablette"
-
-#. i18n: ectx: property (toolTip), widget (QPushButton, touchMappingTabletButton)
-#. i18n: ectx: property (toolTip), widget (QPushButton, padMappingTabletButton)
-#: src/kcmodule/tabletpagewidget.ui:100 src/kcmodule/touchpagewidget.ui:116
-#, kde-format
-msgid ""
-"Allows one to specify the tablet area for different screen selections in "
-"absolute cursor mode."
-msgstr ""
-"Permet de spécifier la zone de tablette pour différentes sélections d'écran "
-"en mode « curseur absolu »."
-
-#. i18n: ectx: property (text), widget (QPushButton, padMappingTabletButton)
-#: src/kcmodule/tabletpagewidget.ui:103
-#, kde-format
-msgid "Map Tablet Area to Screen"
-msgstr "Faire correspondre la zone de tablette avec l'écran"
-
-#. i18n: ectx: property (text), widget (QLabel, trackingWarningLabel)
-#: src/kcmodule/tabletpagewidget.ui:128 src/kcmodule/touchpagewidget.ui:147
-#, kde-format
-msgid ""
-"Your currently selected mapping can not be applied in relative tracking mode."
-msgstr ""
-"Il n'est pas possible d'appliquer votre mise en correspondance actuellement "
-"sélectionnée en mode suivi relatif."
-
-#. i18n: ectx: property (toolTip), widget (QGroupBox, rotationGroupBox)
-#: src/kcmodule/tabletpagewidget.ui:169
-#, kde-format
-msgid "Changes the orientation of the tablet."
-msgstr "Change l'orientation de la tablette."
-
-#. i18n: ectx: property (title), widget (QGroupBox, rotationGroupBox)
-#: src/kcmodule/tabletpagewidget.ui:172
-#, kde-format
-msgid "Orientation"
-msgstr "Orientation"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenCheckBox)
-#: src/kcmodule/tabletpagewidget.ui:181
-#, kde-format
-msgid "If enabled, the tablet rotates together with the screen."
-msgstr ""
-"Si cette option est cochée, la tablette pivote en même temps que l'écran."
-
-#. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenCheckBox)
-#: src/kcmodule/tabletpagewidget.ui:184
-#, kde-format
-msgid "Auto-Rotate with Screen"
-msgstr "Faire pivoter automatiquement avec l'écran"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenInvertCheckBox)
-#: src/kcmodule/tabletpagewidget.ui:194
-#, kde-format
-msgid ""
-"If enabled the automatic tablet rotation for clockwise and counterclockwise "
-"rotations will be inverted."
-msgstr ""
-"Si cette option est cochée, la rotation automatique de la tablette pour les "
-"rotations en sens horaire et antihoraire sera inversée."
-
-#. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenInvertCheckBox)
-#: src/kcmodule/tabletpagewidget.ui:197
-#, kde-format
-msgid "Invert Auto-Rotation"
-msgstr "Inverser la rotation automatique"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, touchCheckBox)
-#: src/kcmodule/touchpagewidget.ui:17
-#, kde-format
-msgid "If enabled the tablet will emit touch events."
-msgstr ""
-"Si cette option est cochée, la tablette émettra des évènements tactiles."
-
-#. i18n: ectx: property (text), widget (QCheckBox, touchCheckBox)
-#: src/kcmodule/touchpagewidget.ui:20
-#, kde-format
-msgid "Enable Touch"
-msgstr "Activer le pavé tactile"
-
-#. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
-#: src/kcmodule/touchpagewidget.ui:41
-#, kde-format
-msgid "Touch Tracking Mode"
-msgstr "Mode de suivi du pavé tactile"
-
-#. i18n: ectx: property (title), widget (QGroupBox, touchMappingGroupBox)
-#: src/kcmodule/touchpagewidget.ui:104
-#, kde-format
-msgid "Touch Mapping"
-msgstr "Mise en correspondance avec le pavé tactile"
-
-#. i18n: ectx: property (text), widget (QPushButton, touchMappingTabletButton)
-#: src/kcmodule/touchpagewidget.ui:119
-#, kde-format
-msgid "Map Touch Area to Screen"
-msgstr "Faire correspondre la zone de pavé tactile avec l'écran"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, gesturesCheckBox)
-#: src/kcmodule/touchpagewidget.ui:183
-#, kde-format
-msgid "If enabled the touch events can recognize gestures."
-msgstr ""
-"Si cette option est cochée, les évènements tactiles peuvent reconnaître des "
-"mouvements."
-
-#. i18n: ectx: property (text), widget (QCheckBox, gesturesCheckBox)
-#: src/kcmodule/touchpagewidget.ui:186
-#, kde-format
-msgid "Enable Gestures"
-msgstr "Activer les mouvements"
-
-#. i18n: ectx: property (title), widget (QGroupBox, gesturesGroupBox)
-#: src/kcmodule/touchpagewidget.ui:204
-#, kde-format
-msgid "Gestures"
-msgstr "Mouvements"
-
-#. i18n: ectx: property (toolTip), widget (QLabel, scrollDistanceLabel)
-#: src/kcmodule/touchpagewidget.ui:216
-#, kde-format
-msgid "Minimum motion before sending a scroll gesture."
-msgstr "Déplacement minimal avant d'envoyer un mouvement de défilement."
-
-#. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
-#: src/kcmodule/touchpagewidget.ui:219
-#, kde-format
-msgid "Scroll Distance"
-msgstr "Distance de défilement"
-
-#. i18n: ectx: property (toolTip), widget (QSpinBox, scrollDistanceSpinBox)
-#: src/kcmodule/touchpagewidget.ui:235
-#, kde-format
-msgid "The minimum motion in tablet units before sending a scroll event."
-msgstr ""
-"Le déplacement minimal dans les unités de la tablette avant d'envoyer un "
-"évènement défilement."
-
-#. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
-#: src/kcmodule/touchpagewidget.ui:254
-#, kde-format
-msgid "Minimum distance for a zoom gesture is recognized."
-msgstr "Distance minimale pour qu'un mouvement de zoom soit reconnu."
-
-#. i18n: ectx: property (text), widget (QLabel, zoomDistanceLabel)
-#: src/kcmodule/touchpagewidget.ui:257
-#, kde-format
-msgid "Zoom Distance"
-msgstr "Distance de zoom"
-
-#. i18n: ectx: property (toolTip), widget (QSpinBox, zoomDistanceSpinBox)
-#: src/kcmodule/touchpagewidget.ui:273
-#, kde-format
-msgid ""
-"The minimum distance in tablet units for a zoom gesture to be recognized."
-msgstr ""
-"La distance minimale dans les unités de la tablette pour qu'un mouvement de "
-"zoom soit reconnu."
-
-#. i18n: ectx: property (toolTip), widget (QLabel, tapTimeLabel)
-#: src/kcmodule/touchpagewidget.ui:292
-#, kde-format
-msgid "Minimum time between taps for a right click."
-msgstr "Temps minimal entre deux touchers du doigt pour un clic droit."
-
-#. i18n: ectx: property (text), widget (QLabel, tapTimeLabel)
-#: src/kcmodule/touchpagewidget.ui:295
-#, kde-format
-msgid "Tap Time"
-msgstr "Temps de toucher du doigt"
-
-#. i18n: ectx: property (toolTip), widget (QSpinBox, tapTimeSpinBox)
-#: src/kcmodule/touchpagewidget.ui:305
-#, kde-format
-msgid "The minimum time in milliseconds between taps to trigger a right click."
-msgstr ""
-"Le temps minimal en millisecondes entre deux touchers du doigt pour "
-"déclencher un clic droit."
-
-#. i18n: ectx: property (text), widget (QLabel, scrollInversionLabel)
-#: src/kcmodule/touchpagewidget.ui:318
-#, kde-format
-msgid "Invert Scroll Direction"
-msgstr "Inverser la direction de défilement"
-
-#. i18n: ectx: property (toolTip), widget (QCheckBox, scrollInversionCheckBox)
-#: src/kcmodule/touchpagewidget.ui:325
-#, kde-format
-msgid "If selected, the scroll direction for the scroll gesture is inverted."
-msgstr ""
-"Si cette option est cochée, la direction de défilement pour le mouvement de "
-"défilement est inversée."
 
 #: src/kded/tabletdaemon.cpp:110
 #, kde-format
@@ -1292,133 +427,6 @@ msgstr "Le profil <b>%1</b> n'existe pas. Utiliser <b>%2</b> à la place."
 msgid "Button %1 maps to Button %2"
 msgstr "Le bouton %1 correspond au bouton %2"
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
-#: src/tabletfinder/dialog.ui:14
-#, kde-format
-msgid "Wacom Tablet detection"
-msgstr "Détection de la tablette « Wacom »"
-
-#. i18n: ectx: property (text), widget (QLabel, label_3)
-#: src/tabletfinder/dialog.ui:20
-#, kde-format
-msgid "Connect your Tablet and click on Refresh to detect it."
-msgstr ""
-"Branchez votre tablette et cliquez sur « Rafraîchir » pour la détecter."
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: src/tabletfinder/dialog.ui:27
-#, kde-format
-msgid "Tablet Selection"
-msgstr "Sélection de la tablette"
-
-#. i18n: ectx: property (text), widget (QLabel, label_5)
-#: src/tabletfinder/dialog.ui:39
-#, kde-format
-msgid "Detected Tablets:"
-msgstr "Tablettes détectées : "
-
-#. i18n: ectx: property (text), widget (QPushButton, refreshButton)
-#: src/tabletfinder/dialog.ui:51
-#, kde-format
-msgid "Refresh"
-msgstr "Recharger"
-
-#. i18n: ectx: property (text), widget (QLabel, label_4)
-#: src/tabletfinder/dialog.ui:66
-#, kde-format
-msgid "Serial No.:"
-msgstr "Numéro de série :"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: src/tabletfinder/dialog.ui:86
-#, kde-format
-msgid "Devices: "
-msgstr "Périphériques :"
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: src/tabletfinder/dialog.ui:105
-#, kde-format
-msgid "Tablet Features"
-msgstr "Fonctionnalités de la tablette"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasTouchRing)
-#: src/tabletfinder/dialog.ui:111
-#, kde-format
-msgid "has TouchRing"
-msgstr "dispose d'un anneau tactile"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsRight)
-#: src/tabletfinder/dialog.ui:118
-#, kde-format
-msgid "has Status LEDs right"
-msgstr "dispose de voyants témoins sur la droite"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripLeft)
-#: src/tabletfinder/dialog.ui:125
-#, kde-format
-msgid "has Touchstrip Left"
-msgstr "dispose d'une bande tactile sur la gauche"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripRight)
-#: src/tabletfinder/dialog.ui:132
-#, kde-format
-msgid "has Touchstrip Right"
-msgstr "dispose d'une bande tactile sur la droite"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsLeft)
-#: src/tabletfinder/dialog.ui:139
-#, kde-format
-msgid "has Status LEDs left"
-msgstr "dispose de voyants témoins sur la gauche"
-
-#. i18n: ectx: property (text), widget (QCheckBox, hasWheel)
-#: src/tabletfinder/dialog.ui:146
-#, kde-format
-msgid "has Wheel"
-msgstr "dispose d'une molette"
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
-#: src/tabletfinder/dialog.ui:169
-#, kde-format
-msgid "Button mapping"
-msgstr "Affectation des boutons"
-
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: src/tabletfinder/dialog.ui:177
-#, kde-format
-msgid "Number of available Express Keys:"
-msgstr "Nombre de touches Express disponibles :"
-
-#. i18n: ectx: property (text), widget (QPushButton, mapButtons)
-#: src/tabletfinder/dialog.ui:189
-#, kde-format
-msgid "Map Hardware Buttons"
-msgstr "Cartographier les boutons matériels"
-
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
-#: src/tabletfinder/dialog.ui:221
-#, kde-format
-msgid "Touch sensor"
-msgstr "Capteur tactile"
-
-#. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
-#: src/tabletfinder/dialog.ui:227
-#, kde-format
-msgid "&Normal tablet"
-msgstr "&Tablette standard"
-
-#. i18n: ectx: property (text), widget (QRadioButton, radioParentTablet)
-#: src/tabletfinder/dialog.ui:239
-#, kde-format
-msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-msgstr "Tablette multi-périphérique, stylet. Senseur tactile :"
-
-#. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
-#: src/tabletfinder/dialog.ui:251
-#, kde-format
-msgid "Multi-&device tablet, touch sensor"
-msgstr "Tablette multi-périphérique. Senseur tactile"
-
 #: src/tabletfinder/hwbuttondialog.cpp:65
 #, kde-format
 msgid "Please press Button %1 on the tablet now."
@@ -1435,21 +443,543 @@ msgid "All buttons detected. Please close dialog"
 msgstr ""
 "Tous les boutons ont été détectés. Veuillez refermer cette boîte de dialogue"
 
-#. i18n: ectx: property (windowTitle), widget (QDialog, HWButtonDialog)
-#: src/tabletfinder/hwbuttondialog.ui:14
-#, kde-format
-msgid "Dialog"
-msgstr "Boîte de dialogue"
+#~ msgid "Select Key Function"
+#~ msgstr "Sélectionner une touche de fonction"
 
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: src/tabletfinder/hwbuttondialog.ui:26
-#, kde-format
-msgid ""
-"Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
-"the mouse."
-msgstr ""
-"Déplacez le pointeur de la souris au sein de la boîte de dialogue mais ne "
-"cliquez <b>pas</b> dessus avec votre souris."
+#~ msgid "Select Button Action"
+#~ msgstr "Sélectionner l'action d'un bouton"
+
+#~ msgid "Ctrl"
+#~ msgstr "Ctrl"
+
+#~ msgid "Alt"
+#~ msgstr "Alt"
+
+#~ msgid "Meta"
+#~ msgstr "Méta"
+
+#~ msgid "Shift"
+#~ msgstr "Maj"
+
+#~ msgid "Please select an action."
+#~ msgstr "Veuillez sélectionner une action."
+
+#~ msgid "Click to assign an action."
+#~ msgstr "Cliquez pour affecter une action."
+
+#~ msgid "Pad Buttons"
+#~ msgstr "Boutons du pavé tactile"
+
+#~ msgid "Button 1"
+#~ msgstr "Bouton 1"
+
+#~ msgid "Button 2"
+#~ msgstr "Bouton 2"
+
+#~ msgid "Button 3"
+#~ msgstr "Bouton 3"
+
+#~ msgid "Button 4"
+#~ msgstr "Bouton 4"
+
+#~ msgid "Button 5"
+#~ msgstr "Bouton 5"
+
+#~ msgid "Button 6"
+#~ msgstr "Bouton 6"
+
+#~ msgid "Button 7"
+#~ msgstr "Bouton 7"
+
+#~ msgid "Button 8"
+#~ msgstr "Bouton 8"
+
+#~ msgid "Button 9"
+#~ msgstr "Bouton 9"
+
+#~ msgid "Button 10"
+#~ msgstr "Bouton 10"
+
+#~ msgid "Button 11"
+#~ msgstr "Bouton 11"
+
+#~ msgid "Button 12"
+#~ msgstr "Bouton 12"
+
+#~ msgid "Button 13"
+#~ msgstr "Bouton 13"
+
+#~ msgid "Button 14"
+#~ msgstr "Bouton 14"
+
+#~ msgid "Button 15"
+#~ msgstr "Bouton 15"
+
+#~ msgid "Button 16"
+#~ msgstr "Bouton 16"
+
+#~ msgid "Button 17"
+#~ msgstr "Bouton 17"
+
+#~ msgid "Button 18"
+#~ msgstr "Bouton 18"
+
+#~ msgid "Touch Strip"
+#~ msgstr "Bande tactile"
+
+#~ msgid "Left Strip Up"
+#~ msgstr "Déplacer la bande tactile vers le haut"
+
+#~ msgid "Left Strip Down"
+#~ msgstr "Déplacer la bande tactile vers le bas"
+
+#~ msgid "Right Strip Up"
+#~ msgstr "Déplacer la bande tactile vers la droite"
+
+#~ msgid "Right Strip Down"
+#~ msgstr "Déplacer la bande tactile vers le bas"
+
+#~ msgid "Touch Ring"
+#~ msgstr "Anneau tactile"
+
+#~ msgid "Ring Up"
+#~ msgstr "Déplacer l'anneau vers le haut"
+
+#~ msgid "Ring Down"
+#~ msgstr "Déplacer l'anneau vers le bas"
+
+#~ msgid "Wheel"
+#~ msgstr "Molette"
+
+#~ msgid "Wheel Up"
+#~ msgstr "Déplacer la molette vers le haut"
+
+#~ msgid "Wheel Down"
+#~ msgstr "Déplacer la molette vers le bas"
+
+#~ msgid "No Tablet Found"
+#~ msgstr "Aucune tablette trouvée"
+
+#~ msgid "Manually register a tablet device"
+#~ msgstr "Enregistrer manuellement un périphérique de type tablette"
+
+#~ msgid ""
+#~ "This will open another window, prompting you to describe your tablet "
+#~ "device. After you're done, please restart your desktop session."
+#~ msgstr ""
+#~ "Ceci ouvrira une autre fenêtre, vous demandant de décrire votre "
+#~ "périphérique de type tablette. Une fois réalisé, veuillez redémarrer "
+#~ "votre session de bureau."
+
+#~ msgid "General Hardware Overview"
+#~ msgstr "Aperçu général du matériel"
+
+#~ msgid "Profile rotation"
+#~ msgstr "Rotation des profils"
+
+#~ msgid "Down"
+#~ msgstr "Descendre"
+
+#~ msgid "Remove"
+#~ msgstr "Supprimer"
+
+#~ msgid "Add"
+#~ msgstr "Ajouter"
+
+#~ msgid "Up"
+#~ msgstr "Monter"
+
+#~ msgid "Shortcuts"
+#~ msgstr "Raccourcis"
+
+#~ msgid "Graphic Tablet Settings"
+#~ msgstr "Configuration de la tablette graphique"
+
+#~ msgid "&Select Tablet:"
+#~ msgstr "&Sélectionnez une tablette :"
+
+#~ msgid "Select &Profile:"
+#~ msgstr "Sélectionnez un &profil :"
+
+#~ msgid "Creates a new default profile"
+#~ msgstr "Crée un nouveau profil par défaut"
+
+#~ msgid "Deletes the current profile"
+#~ msgstr "Supprime le profil actuel"
+
+#~ msgid "Press Curve Settings"
+#~ msgstr "Paramètres de la courbe de pression"
+
+#~ msgid ""
+#~ "The presscurve defines how the pen press is handled.\n"
+#~ "Drag around the dots to change the behavior\n"
+#~ "Use the stylus inside the Widget to see the pressure changes."
+#~ msgstr ""
+#~ "La courbe de pression définit comment gérer la pression du stylet.\n"
+#~ "Déplacez-vous autour des points pour changer le comportement\n"
+#~ "Utilisez le style à l'intérieur du composant graphique pour voir les "
+#~ "changements de pression."
+
+#~ msgid "Current Presscurve:"
+#~ msgstr "Courbe de pression actuelle :"
+
+#~ msgid "Pen Settings"
+#~ msgstr "Réglages du stylet"
+
+#~ msgid "Defines the button action on the stylus."
+#~ msgstr "Définit l'action du bouton sur le stylet."
+
+#~ msgid "Button Settings"
+#~ msgstr "Paramètres des boutons"
+
+#~ msgid ""
+#~ "If selected, the stylus must be in contact with the tablet for a stylus "
+#~ "side button to work.\n"
+#~ "If deselected, stylus buttons will work once the stylus is in proximity "
+#~ "of the tablet."
+#~ msgstr ""
+#~ "Si cette option est cochée, le stylet doit être en contact avec la "
+#~ "tablette pour qu'un bouton latéral du stylet fonctionne.\n"
+#~ "Si elle n'est pas cochée, les boutons du stylet fonctionneront une fois "
+#~ "que le stylet sera à proximité de la tablette."
+
+#~ msgid "Tap to execute action."
+#~ msgstr "Passez votre doigt pour exécuter une action."
+
+#~ msgid "Sets eraser pressure threshold."
+#~ msgstr "Définit le seuil de pression de la gomme."
+
+#~ msgid "Eraser Feel"
+#~ msgstr "Sensibilité de la gomme"
+
+#~ msgid ""
+#~ "Set the minimum pressure necessary to generate a Button event for the "
+#~ "stylus/tip, eraser, or touch.\n"
+#~ " The pressure levels of all tablets are normalized to 2048 levels "
+#~ "irregardless of the actual hardware supported levels.\n"
+#~ "This parameter is independent of the PressureCurve parameter."
+#~ msgstr ""
+#~ "Définissez la pression minimale nécessaire pour générer un évènement "
+#~ "« bouton » pour le stylet, la pointe, la gomme ou la saisie tactile.\n"
+#~ " Les niveaux de pression de toutes les tablettes sont normalisées à "
+#~ "2 048 niveaux, quels que soient les niveaux réellement pris en charge par "
+#~ "le matériel. \n"
+#~ "Ce paramètre est indépendant du réglage « Courbe de pression »."
+
+#~ msgctxt "slow movement of the cursor (minimal value)"
+#~ msgid "Soft"
+#~ msgstr "Léger"
+
+#~ msgctxt "fast movement of the cursor (maximal value)"
+#~ msgid "Firm"
+#~ msgstr "Ferme"
+
+#~ msgid "Defines the pressure sensitivity with a bezier curve"
+#~ msgstr "Définit la sensibilité de la pression avec une courbe de Bézier"
+
+#~ msgid "Edit Pressure Curve..."
+#~ msgstr "Modifier la courbe de pression..."
+
+#~ msgid "Sets stylus pressure threshold."
+#~ msgstr "Définit le seuil de pression du stylet."
+
+#~ msgid "Tip Feel"
+#~ msgstr "Sensibilité de la pointe"
+
+#~ msgid "Number of raw data used to filter the points (default is 4)"
+#~ msgstr ""
+#~ "Quantité de données brutes utilisées pour filtrer les points (4 par "
+#~ "défaut)"
+
+#~ msgid "Raw Sample Rate"
+#~ msgstr "Taux d'échantillonnage brut"
+
+#~ msgid "1"
+#~ msgstr "1"
+
+#~ msgid "20"
+#~ msgstr "20"
+
+#~ msgid "Number of points trimmed (default is 2)"
+#~ msgstr "Nombre de points éliminés (2 par défaut)"
+
+#~ msgid "Suppress Rate"
+#~ msgstr "Taux de suppression"
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid ""
+#~ "The tablet area defines how the screen space is mapped to your tablet. "
+#~ "For each screen a different tablet area can be selected. "
+#~ msgstr ""
+#~ "La zone de tablette définit comment l'espace de l'écran est mis en "
+#~ "correspondance avec votre tablette. Pour chaque écran, on peut "
+#~ "sélectionner une zone de tablette différente."
+
+#~ msgid "Screen"
+#~ msgstr "Écran"
+
+#~ msgid "Toggle between fullscreen and each single screen."
+#~ msgstr "Basculer vers le mode plein écran et chaque écran indépendant."
+
+#~ msgid "Toggle Screen"
+#~ msgstr "Basculer vers l'écran"
+
+#~ msgid "Select the valid tablet area used for the selected screen space."
+#~ msgstr ""
+#~ "Sélectionnez la zone de tablette valable utilisée pour l'espace d'écran "
+#~ "choisi."
+
+#~ msgid "Map Screen To"
+#~ msgstr "Faire correspondre l'écran avec"
+
+#~ msgid "&Full Tablet"
+#~ msgstr "&Tablette complète"
+
+#~ msgid "&Tablet Area"
+#~ msgstr "Zone de &tablette"
+
+#~ msgid "Set the tablet area proportional to the selected screen area."
+#~ msgstr ""
+#~ "Fixez la zone de tablette proportionnellement à la zone d'écran "
+#~ "sélectionnée."
+
+#~ msgid "Set Screen Proportions"
+#~ msgstr "Définir les proportions de l'écran"
+
+#~ msgid "Calibrate"
+#~ msgstr "Calibrer"
+
+#~ msgid "This mapping can only be applied in absolute tracking mode."
+#~ msgstr ""
+#~ "Cette mise en correspondance ne peut être appliquée qu'en mode de suivi "
+#~ "absolu."
+
+#~ msgid "Lock proportions"
+#~ msgstr "Verrouiller les proportions"
+
+#~ msgid "Tablet area fine tuning"
+#~ msgstr "Configuration détaillée de la zone de la tablette"
+
+#~ msgid "Width"
+#~ msgstr "Largeur"
+
+#~ msgid "Horizontal"
+#~ msgstr "Horizontal"
+
+#~ msgid "Left margin"
+#~ msgstr "Marge de gauche"
+
+#~ msgid "Vertical"
+#~ msgstr "Vertical"
+
+#~ msgid "Top margin"
+#~ msgstr "Marge supérieure"
+
+#~ msgid "Height"
+#~ msgstr "Hauteur"
+
+#~ msgid "Defines how the cursor movement mode will be used."
+#~ msgstr ""
+#~ "Définit comment le mode de déplacement du curseur doit être utilisé."
+
+#~ msgid "Stylus Tracking Mode"
+#~ msgstr "Mode de suivi du stylet"
+
+#~ msgid "&Map to Screen (Absolute Mode)"
+#~ msgstr "&Faire correspondre à l'écran (mode absolu)"
+
+#~ msgid "Map &to Cursor (Relative Mode)"
+#~ msgstr "Faire correspondre avec le curseur (mode relatif)"
+
+#~ msgid "Tablet Mapping"
+#~ msgstr "Mise en correspondance de la tablette"
+
+#~ msgid ""
+#~ "Allows one to specify the tablet area for different screen selections in "
+#~ "absolute cursor mode."
+#~ msgstr ""
+#~ "Permet de spécifier la zone de tablette pour différentes sélections "
+#~ "d'écran en mode « curseur absolu »."
+
+#~ msgid "Map Tablet Area to Screen"
+#~ msgstr "Faire correspondre la zone de tablette avec l'écran"
+
+#~ msgid ""
+#~ "Your currently selected mapping can not be applied in relative tracking "
+#~ "mode."
+#~ msgstr ""
+#~ "Il n'est pas possible d'appliquer votre mise en correspondance "
+#~ "actuellement sélectionnée en mode suivi relatif."
+
+#~ msgid "Changes the orientation of the tablet."
+#~ msgstr "Change l'orientation de la tablette."
+
+#~ msgid "Orientation"
+#~ msgstr "Orientation"
+
+#~ msgid "If enabled, the tablet rotates together with the screen."
+#~ msgstr ""
+#~ "Si cette option est cochée, la tablette pivote en même temps que l'écran."
+
+#~ msgid "Auto-Rotate with Screen"
+#~ msgstr "Faire pivoter automatiquement avec l'écran"
+
+#~ msgid ""
+#~ "If enabled the automatic tablet rotation for clockwise and "
+#~ "counterclockwise rotations will be inverted."
+#~ msgstr ""
+#~ "Si cette option est cochée, la rotation automatique de la tablette pour "
+#~ "les rotations en sens horaire et antihoraire sera inversée."
+
+#~ msgid "Invert Auto-Rotation"
+#~ msgstr "Inverser la rotation automatique"
+
+#~ msgid "If enabled the tablet will emit touch events."
+#~ msgstr ""
+#~ "Si cette option est cochée, la tablette émettra des évènements tactiles."
+
+#~ msgid "Enable Touch"
+#~ msgstr "Activer le pavé tactile"
+
+#~ msgid "Touch Tracking Mode"
+#~ msgstr "Mode de suivi du pavé tactile"
+
+#~ msgid "Touch Mapping"
+#~ msgstr "Mise en correspondance avec le pavé tactile"
+
+#~ msgid "Map Touch Area to Screen"
+#~ msgstr "Faire correspondre la zone de pavé tactile avec l'écran"
+
+#~ msgid "If enabled the touch events can recognize gestures."
+#~ msgstr ""
+#~ "Si cette option est cochée, les évènements tactiles peuvent reconnaître "
+#~ "des mouvements."
+
+#~ msgid "Enable Gestures"
+#~ msgstr "Activer les mouvements"
+
+#~ msgid "Gestures"
+#~ msgstr "Mouvements"
+
+#~ msgid "Minimum motion before sending a scroll gesture."
+#~ msgstr "Déplacement minimal avant d'envoyer un mouvement de défilement."
+
+#~ msgid "Scroll Distance"
+#~ msgstr "Distance de défilement"
+
+#~ msgid "The minimum motion in tablet units before sending a scroll event."
+#~ msgstr ""
+#~ "Le déplacement minimal dans les unités de la tablette avant d'envoyer un "
+#~ "évènement défilement."
+
+#~ msgid "Minimum distance for a zoom gesture is recognized."
+#~ msgstr "Distance minimale pour qu'un mouvement de zoom soit reconnu."
+
+#~ msgid "Zoom Distance"
+#~ msgstr "Distance de zoom"
+
+#~ msgid ""
+#~ "The minimum distance in tablet units for a zoom gesture to be recognized."
+#~ msgstr ""
+#~ "La distance minimale dans les unités de la tablette pour qu'un mouvement "
+#~ "de zoom soit reconnu."
+
+#~ msgid "Minimum time between taps for a right click."
+#~ msgstr "Temps minimal entre deux touchers du doigt pour un clic droit."
+
+#~ msgid "Tap Time"
+#~ msgstr "Temps de toucher du doigt"
+
+#~ msgid ""
+#~ "The minimum time in milliseconds between taps to trigger a right click."
+#~ msgstr ""
+#~ "Le temps minimal en millisecondes entre deux touchers du doigt pour "
+#~ "déclencher un clic droit."
+
+#~ msgid "Invert Scroll Direction"
+#~ msgstr "Inverser la direction de défilement"
+
+#~ msgid ""
+#~ "If selected, the scroll direction for the scroll gesture is inverted."
+#~ msgstr ""
+#~ "Si cette option est cochée, la direction de défilement pour le mouvement "
+#~ "de défilement est inversée."
+
+#~ msgid "Wacom Tablet detection"
+#~ msgstr "Détection de la tablette « Wacom »"
+
+#~ msgid "Connect your Tablet and click on Refresh to detect it."
+#~ msgstr ""
+#~ "Branchez votre tablette et cliquez sur « Rafraîchir » pour la détecter."
+
+#~ msgid "Tablet Selection"
+#~ msgstr "Sélection de la tablette"
+
+#~ msgid "Detected Tablets:"
+#~ msgstr "Tablettes détectées : "
+
+#~ msgid "Refresh"
+#~ msgstr "Recharger"
+
+#~ msgid "Serial No.:"
+#~ msgstr "Numéro de série :"
+
+#~ msgid "Devices: "
+#~ msgstr "Périphériques :"
+
+#~ msgid "Tablet Features"
+#~ msgstr "Fonctionnalités de la tablette"
+
+#~ msgid "has TouchRing"
+#~ msgstr "dispose d'un anneau tactile"
+
+#~ msgid "has Status LEDs right"
+#~ msgstr "dispose de voyants témoins sur la droite"
+
+#~ msgid "has Touchstrip Left"
+#~ msgstr "dispose d'une bande tactile sur la gauche"
+
+#~ msgid "has Touchstrip Right"
+#~ msgstr "dispose d'une bande tactile sur la droite"
+
+#~ msgid "has Status LEDs left"
+#~ msgstr "dispose de voyants témoins sur la gauche"
+
+#~ msgid "has Wheel"
+#~ msgstr "dispose d'une molette"
+
+#~ msgid "Button mapping"
+#~ msgstr "Affectation des boutons"
+
+#~ msgid "Number of available Express Keys:"
+#~ msgstr "Nombre de touches Express disponibles :"
+
+#~ msgid "Map Hardware Buttons"
+#~ msgstr "Cartographier les boutons matériels"
+
+#~ msgid "Touch sensor"
+#~ msgstr "Capteur tactile"
+
+#~ msgid "&Normal tablet"
+#~ msgstr "&Tablette standard"
+
+#~ msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
+#~ msgstr "Tablette multi-périphérique, stylet. Senseur tactile :"
+
+#~ msgid "Multi-&device tablet, touch sensor"
+#~ msgstr "Tablette multi-périphérique. Senseur tactile"
+
+#~ msgid "Dialog"
+#~ msgstr "Boîte de dialogue"
+
+#~ msgid ""
+#~ "Move the mouse cursor inside the dialog but <b>do not</b> click into it "
+#~ "with the mouse."
+#~ msgstr ""
+#~ "Déplacez le pointeur de la souris au sein de la boîte de dialogue mais ne "
+#~ "cliquez <b>pas</b> dessus avec votre souris."
 
 #~ msgid "document-new"
 #~ msgstr "document-nouveau"
