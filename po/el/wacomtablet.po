@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-05 03:22+0000\n"
+"POT-Creation-Date: 2025-07-05 05:55+0000\n"
 "PO-Revision-Date: 2020-09-24 12:38+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -170,6 +170,246 @@ msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
 msgstr "Κλικ για επιλογή..."
 
+#. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
+#: src/kcmodule/buttonactionselectionwidget.ui:14
+#, kde-format
+msgid "Select Key Function"
+msgstr "Επιλογή λειτουργίας πλήκτρου"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/kcmodule/buttonactionselectionwidget.ui:35
+#, kde-format
+msgid "Select Button Action"
+msgstr "Επιλογή ενέργειας κουμπιού"
+
+#. i18n: ectx: property (text), widget (QCheckBox, ctrlModifierCheckBox)
+#: src/kcmodule/buttonactionselectionwidget.ui:46
+#, kde-format
+msgid "Ctrl"
+msgstr "Ctrl"
+
+#. i18n: ectx: property (text), widget (QCheckBox, altModifierCheckBox)
+#: src/kcmodule/buttonactionselectionwidget.ui:69
+#, kde-format
+msgid "Alt"
+msgstr "Alt"
+
+#. i18n: ectx: property (text), widget (QCheckBox, metaModifierCheckBox)
+#: src/kcmodule/buttonactionselectionwidget.ui:92
+#, kde-format
+msgid "Meta"
+msgstr "Meta"
+
+#. i18n: ectx: property (text), widget (QCheckBox, shiftModifierCheckBox)
+#: src/kcmodule/buttonactionselectionwidget.ui:115
+#, kde-format
+msgid "Shift"
+msgstr "Shift"
+
+#. i18n: Select an action which will be assigned to a tablet button.
+#. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameLineEdit)
+#: src/kcmodule/buttonactionselectionwidget.ui:159
+#, kde-format
+msgid "Please select an action."
+msgstr "Επιλέξτε ενέργεια."
+
+#. i18n: Click to assign an action (shortcut) to a tablet button.
+#. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameDisplayWidget)
+#: src/kcmodule/buttonactionselectorwidget.ui:51
+#, kde-format
+msgid "Click to assign an action."
+msgstr "Κλικ για ανάθεση ενέργειας."
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ButtonPageWidget)
+#: src/kcmodule/buttonpagewidget.ui:20
+#, kde-format
+msgid "Pad Buttons"
+msgstr "Κουμπιά επιφάνειας"
+
+#. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
+#: src/kcmodule/buttonpagewidget.ui:29
+#: src/kcmodule/kcmwacomtabletwidget.cpp:447
+#, kde-format
+msgid "Express Buttons"
+msgstr "Κουμπιά συντόμευσης"
+
+#. i18n: ectx: property (text), widget (QLabel, button1Label)
+#. i18n: ectx: property (text), widget (QLabel, labelButton1)
+#: src/kcmodule/buttonpagewidget.ui:43 src/kcmodule/styluspagewidget.ui:81
+#, kde-format
+msgid "Button 1"
+msgstr "Κουμπί 1"
+
+#. i18n: ectx: property (text), widget (QLabel, button2Label)
+#. i18n: ectx: property (text), widget (QLabel, labelButton2)
+#: src/kcmodule/buttonpagewidget.ui:56 src/kcmodule/styluspagewidget.ui:62
+#, kde-format
+msgid "Button 2"
+msgstr "Κουμπί 2"
+
+#. i18n: ectx: property (text), widget (QLabel, button3Label)
+#. i18n: ectx: property (text), widget (QLabel, labelButton3)
+#: src/kcmodule/buttonpagewidget.ui:69 src/kcmodule/styluspagewidget.ui:43
+#, kde-format
+msgid "Button 3"
+msgstr "Κουμπί 3"
+
+#. i18n: ectx: property (text), widget (QLabel, button4Label)
+#: src/kcmodule/buttonpagewidget.ui:82
+#, kde-format
+msgid "Button 4"
+msgstr "Κουμπί 4"
+
+#. i18n: ectx: property (text), widget (QLabel, button5Label)
+#: src/kcmodule/buttonpagewidget.ui:95
+#, kde-format
+msgid "Button 5"
+msgstr "Κουμπί 5"
+
+#. i18n: ectx: property (text), widget (QLabel, button6Label)
+#: src/kcmodule/buttonpagewidget.ui:108
+#, kde-format
+msgid "Button 6"
+msgstr "Κουμπί 6"
+
+#. i18n: ectx: property (text), widget (QLabel, button7Label)
+#: src/kcmodule/buttonpagewidget.ui:121
+#, kde-format
+msgid "Button 7"
+msgstr "Κουμπί 7"
+
+#. i18n: ectx: property (text), widget (QLabel, button8Label)
+#: src/kcmodule/buttonpagewidget.ui:134
+#, kde-format
+msgid "Button 8"
+msgstr "Κουμπί 8"
+
+#. i18n: ectx: property (text), widget (QLabel, button9Label)
+#: src/kcmodule/buttonpagewidget.ui:147
+#, kde-format
+msgid "Button 9"
+msgstr "Κουμπί 9"
+
+#. i18n: ectx: property (text), widget (QLabel, button10Label)
+#: src/kcmodule/buttonpagewidget.ui:315
+#, kde-format
+msgid "Button 10"
+msgstr "Κουμπί 10"
+
+#. i18n: ectx: property (text), widget (QLabel, button11Label)
+#: src/kcmodule/buttonpagewidget.ui:328
+#, kde-format
+msgid "Button 11"
+msgstr "Κουμπί 11"
+
+#. i18n: ectx: property (text), widget (QLabel, button12Label)
+#: src/kcmodule/buttonpagewidget.ui:341
+#, kde-format
+msgid "Button 12"
+msgstr "Κουμπί 12"
+
+#. i18n: ectx: property (text), widget (QLabel, button13Label)
+#: src/kcmodule/buttonpagewidget.ui:354
+#, kde-format
+msgid "Button 13"
+msgstr "Κουμπί 13"
+
+#. i18n: ectx: property (text), widget (QLabel, button14Label)
+#: src/kcmodule/buttonpagewidget.ui:367
+#, kde-format
+msgid "Button 14"
+msgstr "Κουμπί 14"
+
+#. i18n: ectx: property (text), widget (QLabel, button15Label)
+#: src/kcmodule/buttonpagewidget.ui:380
+#, kde-format
+msgid "Button 15"
+msgstr "Κουμπί 15"
+
+#. i18n: ectx: property (text), widget (QLabel, button16Label)
+#: src/kcmodule/buttonpagewidget.ui:393
+#, kde-format
+msgid "Button 16"
+msgstr "Κουμπί 16"
+
+#. i18n: ectx: property (text), widget (QLabel, button17Label)
+#: src/kcmodule/buttonpagewidget.ui:406
+#, kde-format
+msgid "Button 17"
+msgstr "Κουμπί 17"
+
+#. i18n: ectx: property (text), widget (QLabel, button18Label)
+#: src/kcmodule/buttonpagewidget.ui:419
+#, kde-format
+msgid "Button 18"
+msgstr "Κουμπί 18"
+
+#. i18n: ectx: property (title), widget (QGroupBox, touchStripGroupBox)
+#: src/kcmodule/buttonpagewidget.ui:537
+#, kde-format
+msgid "Touch Strip"
+msgstr "Διάδρομος επαφής"
+
+#. i18n: ectx: property (text), widget (QLabel, leftStripUpLabel)
+#: src/kcmodule/buttonpagewidget.ui:555
+#, kde-format
+msgid "Left Strip Up"
+msgstr "Αριστερός διάδρομος προς τα πάνω"
+
+#. i18n: ectx: property (text), widget (QLabel, leftStripDownLabel)
+#: src/kcmodule/buttonpagewidget.ui:572
+#, kde-format
+msgid "Left Strip Down"
+msgstr "Αριστερός διάδρομος προς τα κάτω"
+
+#. i18n: ectx: property (text), widget (QLabel, rightStripUpLabel)
+#: src/kcmodule/buttonpagewidget.ui:620
+#, kde-format
+msgid "Right Strip Up"
+msgstr "Δεξιός διάδρομος προς τα πάνω"
+
+#. i18n: ectx: property (text), widget (QLabel, rightStripDownLabel)
+#: src/kcmodule/buttonpagewidget.ui:637
+#, kde-format
+msgid "Right Strip Down"
+msgstr "Δεξιός διάδρομος προς τα κάτω"
+
+#. i18n: ectx: property (title), widget (QGroupBox, touchRingGroupBox)
+#: src/kcmodule/buttonpagewidget.ui:660
+#, kde-format
+msgid "Touch Ring"
+msgstr "Δακτύλιος επαφής"
+
+#. i18n: ectx: property (text), widget (QLabel, ringUpLabel)
+#: src/kcmodule/buttonpagewidget.ui:671
+#, kde-format
+msgid "Ring Up"
+msgstr "Δακτύλιος κίνηση επάνω"
+
+#. i18n: ectx: property (text), widget (QLabel, ringDownLabel)
+#: src/kcmodule/buttonpagewidget.ui:711
+#, kde-format
+msgid "Ring Down"
+msgstr "Δακτύλιος κίνηση κάτω"
+
+#. i18n: ectx: property (title), widget (QGroupBox, wheelGroupBox)
+#: src/kcmodule/buttonpagewidget.ui:733
+#, kde-format
+msgid "Wheel"
+msgstr "Τροχός"
+
+#. i18n: ectx: property (text), widget (QLabel, wheelUpLabel)
+#: src/kcmodule/buttonpagewidget.ui:741
+#, kde-format
+msgid "Wheel Up"
+msgstr "Τροχός προς τα πάνω"
+
+#. i18n: ectx: property (text), widget (QLabel, wheelDownLabel)
+#: src/kcmodule/buttonpagewidget.ui:778
+#, kde-format
+msgid "Wheel Down"
+msgstr "Τροχός προς τα κάτω"
+
 #: src/kcmodule/calibrationdialog.cpp:63
 #, kde-format
 msgid ""
@@ -178,6 +418,28 @@ msgid ""
 msgstr ""
 "Αγγίξτε τις τέσσερις γωνίες για να βαθμονομήσετε το πινάκιο.\n"
 "Πατήστε escape για ακύρωση της διεργασίας."
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ErrorWidget)
+#: src/kcmodule/errorwidget.ui:14
+#, kde-format
+msgid "No Tablet Found"
+msgstr "Δεν βρέθηκε πινάκιο"
+
+#. i18n: ectx: property (text), widget (QCommandLinkButton, buttonRunTabletFinder)
+#: src/kcmodule/errorwidget.ui:107
+#, kde-format
+msgid "Manually register a tablet device"
+msgstr "Χειροκίνητη καταχώρηση πινακίου"
+
+#. i18n: ectx: property (description), widget (QCommandLinkButton, buttonRunTabletFinder)
+#: src/kcmodule/errorwidget.ui:110
+#, kde-format
+msgid ""
+"This will open another window, prompting you to describe your tablet device. "
+"After you're done, please restart your desktop session."
+msgstr ""
+"Αυτό θα ανοίξει ένα άλλο παράθυρο, με προτροπή να περιγράψετε το πινάκιό "
+"σας. Αφού τελειώσετε, επανεκκινήστε τη συνεδρία της επιφάνειας εργασίας."
 
 #: src/kcmodule/generalpagewidget.cpp:57
 #, kde-format
@@ -193,6 +455,48 @@ msgstr "Λίστα με προφίλ"
 #, kde-format
 msgid "Select the Profile you want to add:"
 msgstr "Επιλέξτε το προφίλ που θέλετε να προσθέσετε:"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, GeneralPageWidget)
+#: src/kcmodule/generalpagewidget.ui:14
+#, kde-format
+msgid "General Hardware Overview"
+msgstr "Γενική επισκόπηση υλικού"
+
+#. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
+#: src/kcmodule/generalpagewidget.ui:35
+#, kde-format
+msgid "Profile rotation"
+msgstr "Περιστροφή προφίλ"
+
+#. i18n: ectx: property (text), widget (QPushButton, pbDown)
+#: src/kcmodule/generalpagewidget.ui:80
+#, kde-format
+msgid "Down"
+msgstr "Κάτω"
+
+#. i18n: ectx: property (text), widget (QPushButton, pbRemoveFromRotationList)
+#: src/kcmodule/generalpagewidget.ui:87
+#, kde-format
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#. i18n: ectx: property (text), widget (QPushButton, pbAddToRotationList)
+#: src/kcmodule/generalpagewidget.ui:94
+#, kde-format
+msgid "Add"
+msgstr "Προσθήκη"
+
+#. i18n: ectx: property (text), widget (QPushButton, pbUp)
+#: src/kcmodule/generalpagewidget.ui:101
+#, kde-format
+msgid "Up"
+msgstr "Επάνω"
+
+#. i18n: ectx: property (title), widget (QGroupBox, shortcutGroupBox)
+#: src/kcmodule/generalpagewidget.ui:140
+#, kde-format
+msgid "Shortcuts"
+msgstr "Συντομεύσεις"
 
 #: src/kcmodule/kcmwacomtablet.cpp:72
 #, kde-format
@@ -279,12 +583,9 @@ msgstr "Γενικά"
 msgid "Stylus"
 msgstr "Γραφίδα"
 
-#: src/kcmodule/kcmwacomtabletwidget.cpp:447
-#, kde-format
-msgid "Express Buttons"
-msgstr "Κουμπιά συντόμευσης"
-
+#. i18n: ectx: property (title), widget (QGroupBox, tabletGroupBox)
 #: src/kcmodule/kcmwacomtabletwidget.cpp:450
+#: src/kcmodule/tabletareaselectionview.ui:157
 #, kde-format
 msgid "Tablet"
 msgstr "Πινάκιο"
@@ -305,6 +606,36 @@ msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
 "Αποτυχία εκτέλεσης του εργαλείου εύρεσης πινακίvn Wacom. Ελέγξτε την "
 "εγκατάστασή σας."
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
+#: src/kcmodule/kcmwacomtabletwidget.ui:14
+#, kde-format
+msgid "Graphic Tablet Settings"
+msgstr "Ρυθμίσεις πινακίου"
+
+#. i18n: ectx: property (text), widget (QLabel, tabletListLabel)
+#: src/kcmodule/kcmwacomtabletwidget.ui:25
+#, kde-format
+msgid "&Select Tablet:"
+msgstr "&Επιλογή πινακίου:"
+
+#. i18n: ectx: property (text), widget (QLabel, profileLabel)
+#: src/kcmodule/kcmwacomtabletwidget.ui:45
+#, kde-format
+msgid "Select &Profile:"
+msgstr "Επιλογή &προφίλ:"
+
+#. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
+#: src/kcmodule/kcmwacomtabletwidget.ui:67
+#, kde-format
+msgid "Creates a new default profile"
+msgstr "Δημιουργεί ένα νέο προεπιλεγμένο προφίλ"
+
+#. i18n: ectx: property (toolTip), widget (KAnimatedButton, delProfileButton)
+#: src/kcmodule/kcmwacomtabletwidget.ui:83
+#, kde-format
+msgid "Deletes the current profile"
+msgstr "Διαγράφει το τρέχον προφίλ"
 
 #: src/kcmodule/keysequenceinputbutton.cpp:287
 #, kde-format
@@ -328,6 +659,186 @@ msgctxt "No shortcut defined"
 msgid "None"
 msgstr "Καμία"
 
+#. i18n: ectx: property (windowTitle), widget (QDialog, PressureCurveDialog)
+#: src/kcmodule/pressurecurvedialog.ui:23
+#, kde-format
+msgid "Press Curve Settings"
+msgstr "Ρυθμίσεις καμπύλης πίεσης"
+
+#. i18n: ectx: property (text), widget (QLabel, explaining_Label)
+#: src/kcmodule/pressurecurvedialog.ui:37
+#, kde-format
+msgid ""
+"The presscurve defines how the pen press is handled.\n"
+"Drag around the dots to change the behavior\n"
+"Use the stylus inside the Widget to see the pressure changes."
+msgstr ""
+"Η καμπύλη πίεσης (presscurve) ρυθμίζει την πίεση της γραφίδας.\n"
+"Για αλλαγή ρύθμισης, αλλάξτε θέση στις κουκίδες\n"
+"Χρησιμοποιήστε την άκρη της γραφίδας μέσα στο γραφικό συστατικό για να δείτε "
+"τις αλλαγές στην πίεση."
+
+#. i18n: ectx: property (text), widget (QLabel, pc_Label)
+#: src/kcmodule/pressurecurvedialog.ui:104
+#, kde-format
+msgid "Current Presscurve:"
+msgstr "Τρέχουσα Presscurve:"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, StylusPageWidget)
+#: src/kcmodule/styluspagewidget.ui:14
+#, kde-format
+msgid "Pen Settings"
+msgstr "Ρυθμίσεις γραφίδας"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, buttonGroupBox)
+#: src/kcmodule/styluspagewidget.ui:28
+#, kde-format
+msgid "Defines the button action on the stylus."
+msgstr "Ρυθμίζει την ενέργεια του κουμπιού πάνω στη γραφίδα"
+
+#. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
+#: src/kcmodule/styluspagewidget.ui:31
+#, kde-format
+msgid "Button Settings"
+msgstr "Ρυθμίσεις κουμπιών"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, tpcCheckBox)
+#: src/kcmodule/styluspagewidget.ui:113
+#, kde-format
+msgid ""
+"If selected, the stylus must be in contact with the tablet for a stylus side "
+"button to work.\n"
+"If deselected, stylus buttons will work once the stylus is in proximity of "
+"the tablet."
+msgstr ""
+"Αν επιλεγεί, η γραφίδα πρέπει να είναι σε επαφή με το πινάκιο για να "
+"λειτουργήσει το πλάγιο κουμπί της γραφίδας.\n"
+"Αν αναιρεθεί η επιλογή, τα κουμπιά της γραφίδας θα λειτουργήσουν όταν η "
+"γραφίδα είναι πλησίον του πινακίου."
+
+#. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
+#: src/kcmodule/styluspagewidget.ui:116
+#, kde-format
+msgid "Tap to execute action."
+msgstr "Χτυπήστε για να εκτελεστεί η ενέργεια."
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, eraserBox)
+#: src/kcmodule/styluspagewidget.ui:128
+#, kde-format
+msgid "Sets eraser pressure threshold."
+msgstr "Ρυθμίζει το κατώφλι πίεσης του διαγραφέα."
+
+#. i18n: ectx: property (title), widget (QGroupBox, eraserBox)
+#: src/kcmodule/styluspagewidget.ui:131
+#, kde-format
+msgid "Eraser Feel"
+msgstr "Αίσθηση διαγραφέα"
+
+#. i18n: ectx: property (toolTip), widget (QSlider, eraserSlider)
+#. i18n: ectx: property (toolTip), widget (QSlider, tipSlider)
+#: src/kcmodule/styluspagewidget.ui:153 src/kcmodule/styluspagewidget.ui:297
+#, kde-format
+msgid ""
+"Set the minimum pressure necessary to generate a Button event for the stylus/"
+"tip, eraser, or touch.\n"
+" The pressure levels of all tablets are normalized to 2048 levels "
+"irregardless of the actual hardware supported levels.\n"
+"This parameter is independent of the PressureCurve parameter."
+msgstr ""
+"Ρυθμίστε την ελάχιστη απαραίτητη πίεση για να δημιουργηθεί ένα γεγονός για "
+"το πλαίσιο σχολιασμού, το διαγραφέα ή την αίσθηση αφής της γραφίδας.\n"
+" Τα επίπεδα πίεσης για όλα τα πινάκια εξομαλύνονται σε 2048 ανεξάρτητα από "
+"τα πραγματικά επίπεδα του υλικού.\n"
+"Αυτή η παράμετρος είναι ανεξάρτητη από την παράμετρο PressureCurve."
+
+#. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
+#. i18n: ectx: property (text), widget (QLabel, labelSlow_3)
+#: src/kcmodule/styluspagewidget.ui:183 src/kcmodule/styluspagewidget.ui:327
+#, kde-format
+msgctxt "slow movement of the cursor (minimal value)"
+msgid "Soft"
+msgstr "Αργό"
+
+#. i18n: ectx: property (text), widget (QLabel, labelFast_2)
+#. i18n: ectx: property (text), widget (QLabel, labelFast_3)
+#: src/kcmodule/styluspagewidget.ui:209 src/kcmodule/styluspagewidget.ui:353
+#, kde-format
+msgctxt "fast movement of the cursor (maximal value)"
+msgid "Firm"
+msgstr "Γρήγορο"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, eraserPressureButton)
+#. i18n: ectx: property (toolTip), widget (QPushButton, tipPressureButton)
+#: src/kcmodule/styluspagewidget.ui:241 src/kcmodule/styluspagewidget.ui:391
+#, kde-format
+msgid "Defines the pressure sensitivity with a bezier curve"
+msgstr "Προσδιορίζει την ευαισθησία πίεσης για καμπύλες bezier"
+
+#. i18n: ectx: property (text), widget (QPushButton, eraserPressureButton)
+#. i18n: ectx: property (text), widget (QPushButton, tipPressureButton)
+#: src/kcmodule/styluspagewidget.ui:244 src/kcmodule/styluspagewidget.ui:394
+#, kde-format
+msgid "Edit Pressure Curve..."
+msgstr "Επεξεργασία καμπύλης πίεσης..."
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, tipFeelGroupBox)
+#: src/kcmodule/styluspagewidget.ui:272
+#, kde-format
+msgid "Sets stylus pressure threshold."
+msgstr "Ρυθμίζει το κατώφλι πίεσης στην άκρη της γραφίδας."
+
+#. i18n: ectx: property (title), widget (QGroupBox, tipFeelGroupBox)
+#: src/kcmodule/styluspagewidget.ui:275
+#, kde-format
+msgid "Tip Feel"
+msgstr "Αίσθηση σχολιασμού"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxRawSample)
+#. i18n: ectx: property (toolTip), widget (QSlider, horizontalSliderRawSample)
+#: src/kcmodule/styluspagewidget.ui:412 src/kcmodule/styluspagewidget.ui:421
+#, kde-format
+msgid "Number of raw data used to filter the points (default is 4)"
+msgstr ""
+"Πλήθος ακατέργαστων δεδομένων για το φιλτράρισμα των σημείων (προκαθορισμένο "
+"4)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBoxRawSample)
+#: src/kcmodule/styluspagewidget.ui:415
+#, kde-format
+msgid "Raw Sample Rate"
+msgstr "Ρυθμός ακατέργαστων δειγμάτων"
+
+#. i18n: ectx: property (text), widget (QLabel, labelMinRawSample)
+#: src/kcmodule/styluspagewidget.ui:451
+#, kde-format
+msgid "1"
+msgstr "1"
+
+#. i18n: ectx: property (text), widget (QLabel, labelMaxRawSample)
+#. i18n: ectx: property (text), widget (QLabel, labelMaxSuppress)
+#: src/kcmodule/styluspagewidget.ui:471 src/kcmodule/styluspagewidget.ui:545
+#, kde-format
+msgid "20"
+msgstr "20"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxSupress)
+#: src/kcmodule/styluspagewidget.ui:489
+#, kde-format
+msgid "Number of points trimmed (default is 2)"
+msgstr "Πλήθος αφαιρεθέντων σημείων (προκαθορισμένο 2)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
+#: src/kcmodule/styluspagewidget.ui:492
+#, kde-format
+msgid "Suppress Rate"
+msgstr "Καταστολή ρυθμού"
+
+#. i18n: ectx: property (text), widget (QLabel, labelMinSuppress)
+#: src/kcmodule/styluspagewidget.ui:525
+#, kde-format
+msgid "0"
+msgstr "0"
+
 #: src/kcmodule/tabletareaselectiondialog.cpp:114
 #, kde-format
 msgctxt ""
@@ -341,6 +852,135 @@ msgstr "Επιλογή περιοχής πινακίου"
 #, kde-format
 msgid "Internal Error"
 msgstr "Εσωτερικό σφάλμα"
+
+#. i18n: ectx: property (text), widget (QLabel, infoLabel)
+#: src/kcmodule/tabletareaselectionview.ui:41
+#, kde-format
+msgid ""
+"The tablet area defines how the screen space is mapped to your tablet. For "
+"each screen a different tablet area can be selected. "
+msgstr ""
+"Η επιφάνεια της γραφίδας καθορίζει πώς ο χώρος της οθόνης χαρτογραφείται στο "
+"πινάκιο. Μπορεί να επιλεγεί διαφορετική επιφάνεια πινακίου για κάθε οθόνη."
+
+#. i18n: ectx: property (title), widget (QGroupBox, screenGroupBox)
+#: src/kcmodule/tabletareaselectionview.ui:57
+#, kde-format
+msgid "Screen"
+msgstr "Οθόνη"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, screenToggleButton)
+#: src/kcmodule/tabletareaselectionview.ui:83
+#, kde-format
+msgid "Toggle between fullscreen and each single screen."
+msgstr "Εναλλαγή ανάμεσα σε πλήρη και κάθε άλλη οθόνη"
+
+#. i18n: ectx: property (text), widget (QPushButton, screenToggleButton)
+#: src/kcmodule/tabletareaselectionview.ui:86
+#, kde-format
+msgid "Toggle Screen"
+msgstr "Εναλλαγή οθόνης"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, controlsGroupBox)
+#: src/kcmodule/tabletareaselectionview.ui:96
+#, kde-format
+msgid "Select the valid tablet area used for the selected screen space."
+msgstr ""
+"Επιλέξτε τη σωστή επιφάνεια στο πινάκιο που κάνει χρήση του επιλεγμένου "
+"χώρου στην οθόνη."
+
+#. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
+#: src/kcmodule/tabletareaselectionview.ui:99
+#, kde-format
+msgid "Map Screen To"
+msgstr "αντιστοίχηση οθόνης σε"
+
+#. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
+#: src/kcmodule/tabletareaselectionview.ui:105
+#, kde-format
+msgid "&Full Tablet"
+msgstr "&Πλήρες πινάκιο"
+
+#. i18n: ectx: property (text), widget (QRadioButton, tabletAreaRadioButton)
+#: src/kcmodule/tabletareaselectionview.ui:115
+#, kde-format
+msgid "&Tablet Area"
+msgstr "&Επιφάνεια πινακίου"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, forceProportionsButton)
+#: src/kcmodule/tabletareaselectionview.ui:122
+#, kde-format
+msgid "Set the tablet area proportional to the selected screen area."
+msgstr ""
+"Ρυθμίστε την επιφάνεια του πινακίου σε αναλογία με την επιλεγμένη επιφάνεια "
+"οθόνης."
+
+#. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
+#: src/kcmodule/tabletareaselectionview.ui:125
+#, kde-format
+msgid "Set Screen Proportions"
+msgstr "Ορισμός αναλογιών οθόνης"
+
+#. i18n: ectx: property (text), widget (QPushButton, calibrateButton)
+#: src/kcmodule/tabletareaselectionview.ui:132
+#, kde-format
+msgid "Calibrate"
+msgstr "Βαθμονόμηση"
+
+#. i18n: ectx: property (text), widget (QLabel, warningLabel)
+#: src/kcmodule/tabletareaselectionview.ui:204
+#, kde-format
+msgid "This mapping can only be applied in absolute tracking mode."
+msgstr ""
+"Η χαρτογράφηση αυτή μπορεί να εφαρμοστεί μόνο στη λειτουργία ιχνηλάτησης."
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
+#: src/kcmodule/tabletareaselectionview.ui:219
+#, kde-format
+msgid "Lock proportions"
+msgstr "Κλείδωμα αναλογιών"
+
+#. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
+#: src/kcmodule/tabletareaselectionview.ui:233
+#, kde-format
+msgid "Tablet area fine tuning"
+msgstr "Ακριβής προσαρμογή περιοχής πινακίου"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
+#: src/kcmodule/tabletareaselectionview.ui:245
+#, kde-format
+msgid "Width"
+msgstr "Πλάτος"
+
+#. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
+#: src/kcmodule/tabletareaselectionview.ui:255
+#, kde-format
+msgid "Horizontal"
+msgstr "οριζόντια"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditX)
+#: src/kcmodule/tabletareaselectionview.ui:268
+#, kde-format
+msgid "Left margin"
+msgstr "Αριστερό περιθώριο"
+
+#. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
+#: src/kcmodule/tabletareaselectionview.ui:278
+#, kde-format
+msgid "Vertical"
+msgstr "Κατακόρυφα"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditY)
+#: src/kcmodule/tabletareaselectionview.ui:291
+#, kde-format
+msgid "Top margin"
+msgstr "Περιθώριο κορυφής"
+
+#. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditHeight)
+#: src/kcmodule/tabletareaselectionview.ui:307
+#, kde-format
+msgid "Height"
+msgstr "Ύψος"
 
 #: src/kcmodule/tabletpagewidget.cpp:384
 #, kde-format
@@ -367,6 +1007,221 @@ msgstr "Περιστροφή πινακίου προς τα αριστερά"
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
 msgstr "Περιστροφή πινακίου ανάποδα"
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, trackingModeGroupBox)
+#: src/kcmodule/tabletpagewidget.ui:25 src/kcmodule/touchpagewidget.ui:38
+#, kde-format
+msgid "Defines how the cursor movement mode will be used."
+msgstr "Καθορίζει πώς θα γίνει χρήση της λειτουργίας κίνησης του δρομέα."
+
+#. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
+#: src/kcmodule/tabletpagewidget.ui:28
+#, kde-format
+msgid "Stylus Tracking Mode"
+msgstr "Λειτουργία ιχνηλάτησης γραφίδας"
+
+#. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
+#: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:53
+#, kde-format
+msgid "&Map to Screen (Absolute Mode)"
+msgstr "Αντιστοίχηση &με την οθόνη (απόλυτη λειτουργία)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, trackRelativeRadioButton)
+#: src/kcmodule/tabletpagewidget.ui:56 src/kcmodule/touchpagewidget.ui:69
+#, kde-format
+msgid "Map &to Cursor (Relative Mode)"
+msgstr "Αντιστοίχηση με &τον δρομέα (σχετική λειτουργία)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, padMappingGroupBox)
+#: src/kcmodule/tabletpagewidget.ui:88
+#, kde-format
+msgid "Tablet Mapping"
+msgstr "Χαρτογράφηση πινακίου"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, touchMappingTabletButton)
+#. i18n: ectx: property (toolTip), widget (QPushButton, padMappingTabletButton)
+#: src/kcmodule/tabletpagewidget.ui:100 src/kcmodule/touchpagewidget.ui:116
+#, kde-format
+msgid ""
+"Allows one to specify the tablet area for different screen selections in "
+"absolute cursor mode."
+msgstr ""
+"Επιτρέπει τον προσδιορισμό της επιφάνειας του πινακίου για διαφορετικές "
+"επιλογές οθόνης σε απόλυτη λειτουργία δρομέα."
+
+#. i18n: ectx: property (text), widget (QPushButton, padMappingTabletButton)
+#: src/kcmodule/tabletpagewidget.ui:103
+#, kde-format
+msgid "Map Tablet Area to Screen"
+msgstr "Αντιστοίχηση της επιφάνειας πινακίου στην οθόνη"
+
+#. i18n: ectx: property (text), widget (QLabel, trackingWarningLabel)
+#: src/kcmodule/tabletpagewidget.ui:128 src/kcmodule/touchpagewidget.ui:147
+#, kde-format
+msgid ""
+"Your currently selected mapping can not be applied in relative tracking mode."
+msgstr ""
+"Η τρέχουσα χαρτογράφηση της επιλογής σας μπορεί να εφαρμοστεί μόνο στη "
+"λειτουργία ιχνηλάτησης."
+
+#. i18n: ectx: property (toolTip), widget (QGroupBox, rotationGroupBox)
+#: src/kcmodule/tabletpagewidget.ui:169
+#, kde-format
+msgid "Changes the orientation of the tablet."
+msgstr "Αλλάζει τον προσανατολισμό του πινακίου."
+
+#. i18n: ectx: property (title), widget (QGroupBox, rotationGroupBox)
+#: src/kcmodule/tabletpagewidget.ui:172
+#, kde-format
+msgid "Orientation"
+msgstr "Προσανατολισμός"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenCheckBox)
+#: src/kcmodule/tabletpagewidget.ui:181
+#, kde-format
+msgid "If enabled, the tablet rotates together with the screen."
+msgstr "Αν είναι ενεργό, το πινάκιο περιστρέφεται μαζί με την οθόνη."
+
+#. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenCheckBox)
+#: src/kcmodule/tabletpagewidget.ui:184
+#, kde-format
+msgid "Auto-Rotate with Screen"
+msgstr "Αυτόματη περιστροφή με την οθόνη"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, rotateWithScreenInvertCheckBox)
+#: src/kcmodule/tabletpagewidget.ui:194
+#, kde-format
+msgid ""
+"If enabled the automatic tablet rotation for clockwise and counterclockwise "
+"rotations will be inverted."
+msgstr ""
+"Αν είναι ενεργό, θα αντιστραφεί η αυτόματη περιστροφή προς τα δεξιά ή προς "
+"τα αριστερά."
+
+#. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenInvertCheckBox)
+#: src/kcmodule/tabletpagewidget.ui:197
+#, kde-format
+msgid "Invert Auto-Rotation"
+msgstr "Αναστροφή αυτόματης περιστροφής"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, touchCheckBox)
+#: src/kcmodule/touchpagewidget.ui:17
+#, kde-format
+msgid "If enabled the tablet will emit touch events."
+msgstr "Αν είναι ενεργό, το πινάκιο θα αναφέρει περιπτώσεις επαφής."
+
+#. i18n: ectx: property (text), widget (QCheckBox, touchCheckBox)
+#: src/kcmodule/touchpagewidget.ui:20
+#, kde-format
+msgid "Enable Touch"
+msgstr "Ενεργοποίηση αφής"
+
+#. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
+#: src/kcmodule/touchpagewidget.ui:41
+#, kde-format
+msgid "Touch Tracking Mode"
+msgstr "Λειτουργία ιχνηλάτησης αφής"
+
+#. i18n: ectx: property (title), widget (QGroupBox, touchMappingGroupBox)
+#: src/kcmodule/touchpagewidget.ui:104
+#, kde-format
+msgid "Touch Mapping"
+msgstr "Χαρτογράφηση αφής"
+
+#. i18n: ectx: property (text), widget (QPushButton, touchMappingTabletButton)
+#: src/kcmodule/touchpagewidget.ui:119
+#, kde-format
+msgid "Map Touch Area to Screen"
+msgstr "Αντιστοίχηση της επιφάνειας αφής με την οθόνη"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, gesturesCheckBox)
+#: src/kcmodule/touchpagewidget.ui:183
+#, kde-format
+msgid "If enabled the touch events can recognize gestures."
+msgstr "Αν είναι ενεργό, θα γίνεται αναγνώριση νευμάτων με την αφή."
+
+#. i18n: ectx: property (text), widget (QCheckBox, gesturesCheckBox)
+#: src/kcmodule/touchpagewidget.ui:186
+#, kde-format
+msgid "Enable Gestures"
+msgstr "Ενεργοποίηση νευμάτων"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gesturesGroupBox)
+#: src/kcmodule/touchpagewidget.ui:204
+#, kde-format
+msgid "Gestures"
+msgstr "Νεύματα"
+
+#. i18n: ectx: property (toolTip), widget (QLabel, scrollDistanceLabel)
+#: src/kcmodule/touchpagewidget.ui:216
+#, kde-format
+msgid "Minimum motion before sending a scroll gesture."
+msgstr "Ελάχιστη κίνηση πριν την αποστολή νεύματος κύλησης."
+
+#. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
+#: src/kcmodule/touchpagewidget.ui:219
+#, kde-format
+msgid "Scroll Distance"
+msgstr "Απόσταση κύλησης"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, scrollDistanceSpinBox)
+#: src/kcmodule/touchpagewidget.ui:235
+#, kde-format
+msgid "The minimum motion in tablet units before sending a scroll event."
+msgstr ""
+"Η ελάχιστη κίνηση σε μονάδες πινακίου πριν την αποστολή γεγονότος κύλησης."
+
+#. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
+#: src/kcmodule/touchpagewidget.ui:254
+#, kde-format
+msgid "Minimum distance for a zoom gesture is recognized."
+msgstr "Ελάχιστη απόσταση για την αναγνώριση νεύματος εστίασης."
+
+#. i18n: ectx: property (text), widget (QLabel, zoomDistanceLabel)
+#: src/kcmodule/touchpagewidget.ui:257
+#, kde-format
+msgid "Zoom Distance"
+msgstr "Απόσταση εστίασης"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, zoomDistanceSpinBox)
+#: src/kcmodule/touchpagewidget.ui:273
+#, kde-format
+msgid ""
+"The minimum distance in tablet units for a zoom gesture to be recognized."
+msgstr ""
+"Η ελάχιστη απόσταση σε μονάδες πινακίου για την αναγνώριση νεύματος εστίασης."
+
+#. i18n: ectx: property (toolTip), widget (QLabel, tapTimeLabel)
+#: src/kcmodule/touchpagewidget.ui:292
+#, kde-format
+msgid "Minimum time between taps for a right click."
+msgstr "Ελάχιστος χρόνος ανάμεσα σε αγγίγματα για δεξί κλικ."
+
+#. i18n: ectx: property (text), widget (QLabel, tapTimeLabel)
+#: src/kcmodule/touchpagewidget.ui:295
+#, kde-format
+msgid "Tap Time"
+msgstr "Χρόνος αγγίγματος"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, tapTimeSpinBox)
+#: src/kcmodule/touchpagewidget.ui:305
+#, kde-format
+msgid "The minimum time in milliseconds between taps to trigger a right click."
+msgstr ""
+"Ο ελάχιστος χρόνος σε χιλιοστά δευτερολέπτου ανάμεσα σε αγγίγματα για να "
+"εφαρμοστεί το δεξί κλικ"
+
+#. i18n: ectx: property (text), widget (QLabel, scrollInversionLabel)
+#: src/kcmodule/touchpagewidget.ui:318
+#, kde-format
+msgid "Invert Scroll Direction"
+msgstr "Αντιστροφή κατεύθυνσης κύλησης"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, scrollInversionCheckBox)
+#: src/kcmodule/touchpagewidget.ui:325
+#, kde-format
+msgid "If selected, the scroll direction for the scroll gesture is inverted."
+msgstr "Αν επιλεγεί, αντιστρέφεται η κατεύθυνση κύλησης στο σχετικό νεύμα."
 
 #: src/kded/tabletdaemon.cpp:110
 #, kde-format
@@ -425,6 +1280,132 @@ msgstr "Το προφίλ <b>%1</b> δεν υπάρχει. Αντί αυτού �
 msgid "Button %1 maps to Button %2"
 msgstr "Το κουμπί %1 αντιστοιχεί στο κουμπί %2"
 
+#. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
+#: src/tabletfinder/dialog.ui:14
+#, kde-format
+msgid "Wacom Tablet detection"
+msgstr "Εντοπισμός πινακίου Wacom"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: src/tabletfinder/dialog.ui:20
+#, kde-format
+msgid "Connect your Tablet and click on Refresh to detect it."
+msgstr "Συνδέστε το πινάκιο και με κλικ στο Ανανέωση θα εντοπιστεί."
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: src/tabletfinder/dialog.ui:27
+#, kde-format
+msgid "Tablet Selection"
+msgstr "Επιλογή πινακίου"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: src/tabletfinder/dialog.ui:39
+#, kde-format
+msgid "Detected Tablets:"
+msgstr "Εντοπισμένα πινάκια:"
+
+#. i18n: ectx: property (text), widget (QPushButton, refreshButton)
+#: src/tabletfinder/dialog.ui:51
+#, kde-format
+msgid "Refresh"
+msgstr "Ανανέωση"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: src/tabletfinder/dialog.ui:66
+#, kde-format
+msgid "Serial No.:"
+msgstr "Σειραϊκός αρ.:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tabletfinder/dialog.ui:86
+#, kde-format
+msgid "Devices: "
+msgstr "Συσκευές: "
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: src/tabletfinder/dialog.ui:105
+#, kde-format
+msgid "Tablet Features"
+msgstr "Χαρακτηριστικά πινακίου"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasTouchRing)
+#: src/tabletfinder/dialog.ui:111
+#, kde-format
+msgid "has TouchRing"
+msgstr "έχει Δακτύλιο επαφής"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsRight)
+#: src/tabletfinder/dialog.ui:118
+#, kde-format
+msgid "has Status LEDs right"
+msgstr "έχει LED καταστάσεων δεξιά"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripLeft)
+#: src/tabletfinder/dialog.ui:125
+#, kde-format
+msgid "has Touchstrip Left"
+msgstr "έχει Touchstrip Left"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripRight)
+#: src/tabletfinder/dialog.ui:132
+#, kde-format
+msgid "has Touchstrip Right"
+msgstr "έχει Touchstrip Right"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsLeft)
+#: src/tabletfinder/dialog.ui:139
+#, kde-format
+msgid "has Status LEDs left"
+msgstr "έχει κατάσταση LEDs left"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hasWheel)
+#: src/tabletfinder/dialog.ui:146
+#, kde-format
+msgid "has Wheel"
+msgstr "έχει τροχό"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: src/tabletfinder/dialog.ui:169
+#, kde-format
+msgid "Button mapping"
+msgstr "Αντιστοίχιση κουμπιών"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: src/tabletfinder/dialog.ui:177
+#, kde-format
+msgid "Number of available Express Keys:"
+msgstr "Πλήθος διαθέσιμων Express Keys:"
+
+#. i18n: ectx: property (text), widget (QPushButton, mapButtons)
+#: src/tabletfinder/dialog.ui:189
+#, kde-format
+msgid "Map Hardware Buttons"
+msgstr "Αντιστοίχιση κουμπιών υλικού"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
+#: src/tabletfinder/dialog.ui:221
+#, kde-format
+msgid "Touch sensor"
+msgstr "Αισθητήρας αφής"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
+#: src/tabletfinder/dialog.ui:227
+#, kde-format
+msgid "&Normal tablet"
+msgstr "Κα&νονικό πινάκιο"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioParentTablet)
+#: src/tabletfinder/dialog.ui:239
+#, kde-format
+msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
+msgstr "&Πινάκιο πολυ-συσκευή, ασθητήρας γραφίδας. Ο αισθητήρας αφής είναι:"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
+#: src/tabletfinder/dialog.ui:251
+#, kde-format
+msgid "Multi-&device tablet, touch sensor"
+msgstr "Πινάκιο πολυ-&συσκευή, ασθητήρας αφής"
+
 #: src/tabletfinder/hwbuttondialog.cpp:65
 #, kde-format
 msgid "Please press Button %1 on the tablet now."
@@ -440,531 +1421,21 @@ msgstr "Εντοπίστηκε κουμπί υλικού %1."
 msgid "All buttons detected. Please close dialog"
 msgstr "Όλα τα κουμπιά εντοπίστηκαν. Κλείστε το διάλογο"
 
-#~ msgid "Select Key Function"
-#~ msgstr "Επιλογή λειτουργίας πλήκτρου"
-
-#~ msgid "Select Button Action"
-#~ msgstr "Επιλογή ενέργειας κουμπιού"
-
-#~ msgid "Ctrl"
-#~ msgstr "Ctrl"
-
-#~ msgid "Alt"
-#~ msgstr "Alt"
-
-#~ msgid "Meta"
-#~ msgstr "Meta"
-
-#~ msgid "Shift"
-#~ msgstr "Shift"
-
-#~ msgid "Please select an action."
-#~ msgstr "Επιλέξτε ενέργεια."
-
-#~ msgid "Click to assign an action."
-#~ msgstr "Κλικ για ανάθεση ενέργειας."
-
-#~ msgid "Pad Buttons"
-#~ msgstr "Κουμπιά επιφάνειας"
-
-#~ msgid "Button 1"
-#~ msgstr "Κουμπί 1"
-
-#~ msgid "Button 2"
-#~ msgstr "Κουμπί 2"
-
-#~ msgid "Button 3"
-#~ msgstr "Κουμπί 3"
-
-#~ msgid "Button 4"
-#~ msgstr "Κουμπί 4"
-
-#~ msgid "Button 5"
-#~ msgstr "Κουμπί 5"
-
-#~ msgid "Button 6"
-#~ msgstr "Κουμπί 6"
-
-#~ msgid "Button 7"
-#~ msgstr "Κουμπί 7"
-
-#~ msgid "Button 8"
-#~ msgstr "Κουμπί 8"
-
-#~ msgid "Button 9"
-#~ msgstr "Κουμπί 9"
-
-#~ msgid "Button 10"
-#~ msgstr "Κουμπί 10"
-
-#~ msgid "Button 11"
-#~ msgstr "Κουμπί 11"
-
-#~ msgid "Button 12"
-#~ msgstr "Κουμπί 12"
-
-#~ msgid "Button 13"
-#~ msgstr "Κουμπί 13"
-
-#~ msgid "Button 14"
-#~ msgstr "Κουμπί 14"
-
-#~ msgid "Button 15"
-#~ msgstr "Κουμπί 15"
-
-#~ msgid "Button 16"
-#~ msgstr "Κουμπί 16"
-
-#~ msgid "Button 17"
-#~ msgstr "Κουμπί 17"
-
-#~ msgid "Button 18"
-#~ msgstr "Κουμπί 18"
-
-#~ msgid "Touch Strip"
-#~ msgstr "Διάδρομος επαφής"
-
-#~ msgid "Left Strip Up"
-#~ msgstr "Αριστερός διάδρομος προς τα πάνω"
-
-#~ msgid "Left Strip Down"
-#~ msgstr "Αριστερός διάδρομος προς τα κάτω"
-
-#~ msgid "Right Strip Up"
-#~ msgstr "Δεξιός διάδρομος προς τα πάνω"
-
-#~ msgid "Right Strip Down"
-#~ msgstr "Δεξιός διάδρομος προς τα κάτω"
-
-#~ msgid "Touch Ring"
-#~ msgstr "Δακτύλιος επαφής"
-
-#~ msgid "Ring Up"
-#~ msgstr "Δακτύλιος κίνηση επάνω"
-
-#~ msgid "Ring Down"
-#~ msgstr "Δακτύλιος κίνηση κάτω"
-
-#~ msgid "Wheel"
-#~ msgstr "Τροχός"
-
-#~ msgid "Wheel Up"
-#~ msgstr "Τροχός προς τα πάνω"
-
-#~ msgid "Wheel Down"
-#~ msgstr "Τροχός προς τα κάτω"
-
-#~ msgid "No Tablet Found"
-#~ msgstr "Δεν βρέθηκε πινάκιο"
-
-#~ msgid "Manually register a tablet device"
-#~ msgstr "Χειροκίνητη καταχώρηση πινακίου"
-
-#~ msgid ""
-#~ "This will open another window, prompting you to describe your tablet "
-#~ "device. After you're done, please restart your desktop session."
-#~ msgstr ""
-#~ "Αυτό θα ανοίξει ένα άλλο παράθυρο, με προτροπή να περιγράψετε το πινάκιό "
-#~ "σας. Αφού τελειώσετε, επανεκκινήστε τη συνεδρία της επιφάνειας εργασίας."
-
-#~ msgid "General Hardware Overview"
-#~ msgstr "Γενική επισκόπηση υλικού"
-
-#~ msgid "Profile rotation"
-#~ msgstr "Περιστροφή προφίλ"
-
-#~ msgid "Down"
-#~ msgstr "Κάτω"
-
-#~ msgid "Remove"
-#~ msgstr "Αφαίρεση"
-
-#~ msgid "Add"
-#~ msgstr "Προσθήκη"
-
-#~ msgid "Up"
-#~ msgstr "Επάνω"
-
-#~ msgid "Shortcuts"
-#~ msgstr "Συντομεύσεις"
-
-#~ msgid "Graphic Tablet Settings"
-#~ msgstr "Ρυθμίσεις πινακίου"
-
-#~ msgid "&Select Tablet:"
-#~ msgstr "&Επιλογή πινακίου:"
-
-#~ msgid "Select &Profile:"
-#~ msgstr "Επιλογή &προφίλ:"
-
-#~ msgid "Creates a new default profile"
-#~ msgstr "Δημιουργεί ένα νέο προεπιλεγμένο προφίλ"
-
-#~ msgid "Deletes the current profile"
-#~ msgstr "Διαγράφει το τρέχον προφίλ"
-
-#~ msgid "Press Curve Settings"
-#~ msgstr "Ρυθμίσεις καμπύλης πίεσης"
-
-#~ msgid ""
-#~ "The presscurve defines how the pen press is handled.\n"
-#~ "Drag around the dots to change the behavior\n"
-#~ "Use the stylus inside the Widget to see the pressure changes."
-#~ msgstr ""
-#~ "Η καμπύλη πίεσης (presscurve) ρυθμίζει την πίεση της γραφίδας.\n"
-#~ "Για αλλαγή ρύθμισης, αλλάξτε θέση στις κουκίδες\n"
-#~ "Χρησιμοποιήστε την άκρη της γραφίδας μέσα στο γραφικό συστατικό για να "
-#~ "δείτε τις αλλαγές στην πίεση."
-
-#~ msgid "Current Presscurve:"
-#~ msgstr "Τρέχουσα Presscurve:"
-
-#~ msgid "Pen Settings"
-#~ msgstr "Ρυθμίσεις γραφίδας"
-
-#~ msgid "Defines the button action on the stylus."
-#~ msgstr "Ρυθμίζει την ενέργεια του κουμπιού πάνω στη γραφίδα"
-
-#~ msgid "Button Settings"
-#~ msgstr "Ρυθμίσεις κουμπιών"
-
-#~ msgid ""
-#~ "If selected, the stylus must be in contact with the tablet for a stylus "
-#~ "side button to work.\n"
-#~ "If deselected, stylus buttons will work once the stylus is in proximity "
-#~ "of the tablet."
-#~ msgstr ""
-#~ "Αν επιλεγεί, η γραφίδα πρέπει να είναι σε επαφή με το πινάκιο για να "
-#~ "λειτουργήσει το πλάγιο κουμπί της γραφίδας.\n"
-#~ "Αν αναιρεθεί η επιλογή, τα κουμπιά της γραφίδας θα λειτουργήσουν όταν η "
-#~ "γραφίδα είναι πλησίον του πινακίου."
-
-#~ msgid "Tap to execute action."
-#~ msgstr "Χτυπήστε για να εκτελεστεί η ενέργεια."
-
-#~ msgid "Sets eraser pressure threshold."
-#~ msgstr "Ρυθμίζει το κατώφλι πίεσης του διαγραφέα."
-
-#~ msgid "Eraser Feel"
-#~ msgstr "Αίσθηση διαγραφέα"
-
-#~ msgid ""
-#~ "Set the minimum pressure necessary to generate a Button event for the "
-#~ "stylus/tip, eraser, or touch.\n"
-#~ " The pressure levels of all tablets are normalized to 2048 levels "
-#~ "irregardless of the actual hardware supported levels.\n"
-#~ "This parameter is independent of the PressureCurve parameter."
-#~ msgstr ""
-#~ "Ρυθμίστε την ελάχιστη απαραίτητη πίεση για να δημιουργηθεί ένα γεγονός "
-#~ "για το πλαίσιο σχολιασμού, το διαγραφέα ή την αίσθηση αφής της γραφίδας.\n"
-#~ " Τα επίπεδα πίεσης για όλα τα πινάκια εξομαλύνονται σε 2048 ανεξάρτητα "
-#~ "από τα πραγματικά επίπεδα του υλικού.\n"
-#~ "Αυτή η παράμετρος είναι ανεξάρτητη από την παράμετρο PressureCurve."
-
-#~ msgctxt "slow movement of the cursor (minimal value)"
-#~ msgid "Soft"
-#~ msgstr "Αργό"
-
-#~ msgctxt "fast movement of the cursor (maximal value)"
-#~ msgid "Firm"
-#~ msgstr "Γρήγορο"
-
-#~ msgid "Defines the pressure sensitivity with a bezier curve"
-#~ msgstr "Προσδιορίζει την ευαισθησία πίεσης για καμπύλες bezier"
-
-#~ msgid "Edit Pressure Curve..."
-#~ msgstr "Επεξεργασία καμπύλης πίεσης..."
-
-#~ msgid "Sets stylus pressure threshold."
-#~ msgstr "Ρυθμίζει το κατώφλι πίεσης στην άκρη της γραφίδας."
-
-#~ msgid "Tip Feel"
-#~ msgstr "Αίσθηση σχολιασμού"
-
-#~ msgid "Number of raw data used to filter the points (default is 4)"
-#~ msgstr ""
-#~ "Πλήθος ακατέργαστων δεδομένων για το φιλτράρισμα των σημείων "
-#~ "(προκαθορισμένο 4)"
-
-#~ msgid "Raw Sample Rate"
-#~ msgstr "Ρυθμός ακατέργαστων δειγμάτων"
-
-#~ msgid "1"
-#~ msgstr "1"
-
-#~ msgid "20"
-#~ msgstr "20"
-
-#~ msgid "Number of points trimmed (default is 2)"
-#~ msgstr "Πλήθος αφαιρεθέντων σημείων (προκαθορισμένο 2)"
-
-#~ msgid "Suppress Rate"
-#~ msgstr "Καταστολή ρυθμού"
-
-#~ msgid "0"
-#~ msgstr "0"
-
-#~ msgid ""
-#~ "The tablet area defines how the screen space is mapped to your tablet. "
-#~ "For each screen a different tablet area can be selected. "
-#~ msgstr ""
-#~ "Η επιφάνεια της γραφίδας καθορίζει πώς ο χώρος της οθόνης χαρτογραφείται "
-#~ "στο πινάκιο. Μπορεί να επιλεγεί διαφορετική επιφάνεια πινακίου για κάθε "
-#~ "οθόνη."
-
-#~ msgid "Screen"
-#~ msgstr "Οθόνη"
-
-#~ msgid "Toggle between fullscreen and each single screen."
-#~ msgstr "Εναλλαγή ανάμεσα σε πλήρη και κάθε άλλη οθόνη"
-
-#~ msgid "Toggle Screen"
-#~ msgstr "Εναλλαγή οθόνης"
-
-#~ msgid "Select the valid tablet area used for the selected screen space."
-#~ msgstr ""
-#~ "Επιλέξτε τη σωστή επιφάνεια στο πινάκιο που κάνει χρήση του επιλεγμένου "
-#~ "χώρου στην οθόνη."
-
-#~ msgid "Map Screen To"
-#~ msgstr "αντιστοίχηση οθόνης σε"
-
-#~ msgid "&Full Tablet"
-#~ msgstr "&Πλήρες πινάκιο"
-
-#~ msgid "&Tablet Area"
-#~ msgstr "&Επιφάνεια πινακίου"
-
-#~ msgid "Set the tablet area proportional to the selected screen area."
-#~ msgstr ""
-#~ "Ρυθμίστε την επιφάνεια του πινακίου σε αναλογία με την επιλεγμένη "
-#~ "επιφάνεια οθόνης."
-
-#~ msgid "Set Screen Proportions"
-#~ msgstr "Ορισμός αναλογιών οθόνης"
-
-#~ msgid "Calibrate"
-#~ msgstr "Βαθμονόμηση"
-
-#~ msgid "This mapping can only be applied in absolute tracking mode."
-#~ msgstr ""
-#~ "Η χαρτογράφηση αυτή μπορεί να εφαρμοστεί μόνο στη λειτουργία ιχνηλάτησης."
-
-#~ msgid "Lock proportions"
-#~ msgstr "Κλείδωμα αναλογιών"
-
-#~ msgid "Tablet area fine tuning"
-#~ msgstr "Ακριβής προσαρμογή περιοχής πινακίου"
-
-#~ msgid "Width"
-#~ msgstr "Πλάτος"
-
-#~ msgid "Horizontal"
-#~ msgstr "οριζόντια"
-
-#~ msgid "Left margin"
-#~ msgstr "Αριστερό περιθώριο"
-
-#~ msgid "Vertical"
-#~ msgstr "Κατακόρυφα"
-
-#~ msgid "Top margin"
-#~ msgstr "Περιθώριο κορυφής"
-
-#~ msgid "Height"
-#~ msgstr "Ύψος"
-
-#~ msgid "Defines how the cursor movement mode will be used."
-#~ msgstr "Καθορίζει πώς θα γίνει χρήση της λειτουργίας κίνησης του δρομέα."
-
-#~ msgid "Stylus Tracking Mode"
-#~ msgstr "Λειτουργία ιχνηλάτησης γραφίδας"
-
-#~ msgid "&Map to Screen (Absolute Mode)"
-#~ msgstr "Αντιστοίχηση &με την οθόνη (απόλυτη λειτουργία)"
-
-#~ msgid "Map &to Cursor (Relative Mode)"
-#~ msgstr "Αντιστοίχηση με &τον δρομέα (σχετική λειτουργία)"
-
-#~ msgid "Tablet Mapping"
-#~ msgstr "Χαρτογράφηση πινακίου"
-
-#~ msgid ""
-#~ "Allows one to specify the tablet area for different screen selections in "
-#~ "absolute cursor mode."
-#~ msgstr ""
-#~ "Επιτρέπει τον προσδιορισμό της επιφάνειας του πινακίου για διαφορετικές "
-#~ "επιλογές οθόνης σε απόλυτη λειτουργία δρομέα."
-
-#~ msgid "Map Tablet Area to Screen"
-#~ msgstr "Αντιστοίχηση της επιφάνειας πινακίου στην οθόνη"
-
-#~ msgid ""
-#~ "Your currently selected mapping can not be applied in relative tracking "
-#~ "mode."
-#~ msgstr ""
-#~ "Η τρέχουσα χαρτογράφηση της επιλογής σας μπορεί να εφαρμοστεί μόνο στη "
-#~ "λειτουργία ιχνηλάτησης."
-
-#~ msgid "Changes the orientation of the tablet."
-#~ msgstr "Αλλάζει τον προσανατολισμό του πινακίου."
-
-#~ msgid "Orientation"
-#~ msgstr "Προσανατολισμός"
-
-#~ msgid "If enabled, the tablet rotates together with the screen."
-#~ msgstr "Αν είναι ενεργό, το πινάκιο περιστρέφεται μαζί με την οθόνη."
-
-#~ msgid "Auto-Rotate with Screen"
-#~ msgstr "Αυτόματη περιστροφή με την οθόνη"
-
-#~ msgid ""
-#~ "If enabled the automatic tablet rotation for clockwise and "
-#~ "counterclockwise rotations will be inverted."
-#~ msgstr ""
-#~ "Αν είναι ενεργό, θα αντιστραφεί η αυτόματη περιστροφή προς τα δεξιά ή "
-#~ "προς τα αριστερά."
-
-#~ msgid "Invert Auto-Rotation"
-#~ msgstr "Αναστροφή αυτόματης περιστροφής"
-
-#~ msgid "If enabled the tablet will emit touch events."
-#~ msgstr "Αν είναι ενεργό, το πινάκιο θα αναφέρει περιπτώσεις επαφής."
-
-#~ msgid "Enable Touch"
-#~ msgstr "Ενεργοποίηση αφής"
-
-#~ msgid "Touch Tracking Mode"
-#~ msgstr "Λειτουργία ιχνηλάτησης αφής"
-
-#~ msgid "Touch Mapping"
-#~ msgstr "Χαρτογράφηση αφής"
-
-#~ msgid "Map Touch Area to Screen"
-#~ msgstr "Αντιστοίχηση της επιφάνειας αφής με την οθόνη"
-
-#~ msgid "If enabled the touch events can recognize gestures."
-#~ msgstr "Αν είναι ενεργό, θα γίνεται αναγνώριση νευμάτων με την αφή."
-
-#~ msgid "Enable Gestures"
-#~ msgstr "Ενεργοποίηση νευμάτων"
-
-#~ msgid "Gestures"
-#~ msgstr "Νεύματα"
-
-#~ msgid "Minimum motion before sending a scroll gesture."
-#~ msgstr "Ελάχιστη κίνηση πριν την αποστολή νεύματος κύλησης."
-
-#~ msgid "Scroll Distance"
-#~ msgstr "Απόσταση κύλησης"
-
-#~ msgid "The minimum motion in tablet units before sending a scroll event."
-#~ msgstr ""
-#~ "Η ελάχιστη κίνηση σε μονάδες πινακίου πριν την αποστολή γεγονότος κύλησης."
-
-#~ msgid "Minimum distance for a zoom gesture is recognized."
-#~ msgstr "Ελάχιστη απόσταση για την αναγνώριση νεύματος εστίασης."
-
-#~ msgid "Zoom Distance"
-#~ msgstr "Απόσταση εστίασης"
-
-#~ msgid ""
-#~ "The minimum distance in tablet units for a zoom gesture to be recognized."
-#~ msgstr ""
-#~ "Η ελάχιστη απόσταση σε μονάδες πινακίου για την αναγνώριση νεύματος "
-#~ "εστίασης."
-
-#~ msgid "Minimum time between taps for a right click."
-#~ msgstr "Ελάχιστος χρόνος ανάμεσα σε αγγίγματα για δεξί κλικ."
-
-#~ msgid "Tap Time"
-#~ msgstr "Χρόνος αγγίγματος"
-
-#~ msgid ""
-#~ "The minimum time in milliseconds between taps to trigger a right click."
-#~ msgstr ""
-#~ "Ο ελάχιστος χρόνος σε χιλιοστά δευτερολέπτου ανάμεσα σε αγγίγματα για να "
-#~ "εφαρμοστεί το δεξί κλικ"
-
-#~ msgid "Invert Scroll Direction"
-#~ msgstr "Αντιστροφή κατεύθυνσης κύλησης"
-
-#~ msgid ""
-#~ "If selected, the scroll direction for the scroll gesture is inverted."
-#~ msgstr "Αν επιλεγεί, αντιστρέφεται η κατεύθυνση κύλησης στο σχετικό νεύμα."
-
-#~ msgid "Wacom Tablet detection"
-#~ msgstr "Εντοπισμός πινακίου Wacom"
-
-#~ msgid "Connect your Tablet and click on Refresh to detect it."
-#~ msgstr "Συνδέστε το πινάκιο και με κλικ στο Ανανέωση θα εντοπιστεί."
-
-#~ msgid "Tablet Selection"
-#~ msgstr "Επιλογή πινακίου"
-
-#~ msgid "Detected Tablets:"
-#~ msgstr "Εντοπισμένα πινάκια:"
-
-#~ msgid "Refresh"
-#~ msgstr "Ανανέωση"
-
-#~ msgid "Serial No.:"
-#~ msgstr "Σειραϊκός αρ.:"
-
-#~ msgid "Devices: "
-#~ msgstr "Συσκευές: "
-
-#~ msgid "Tablet Features"
-#~ msgstr "Χαρακτηριστικά πινακίου"
-
-#~ msgid "has TouchRing"
-#~ msgstr "έχει Δακτύλιο επαφής"
-
-#~ msgid "has Status LEDs right"
-#~ msgstr "έχει LED καταστάσεων δεξιά"
-
-#~ msgid "has Touchstrip Left"
-#~ msgstr "έχει Touchstrip Left"
-
-#~ msgid "has Touchstrip Right"
-#~ msgstr "έχει Touchstrip Right"
-
-#~ msgid "has Status LEDs left"
-#~ msgstr "έχει κατάσταση LEDs left"
-
-#~ msgid "has Wheel"
-#~ msgstr "έχει τροχό"
-
-#~ msgid "Button mapping"
-#~ msgstr "Αντιστοίχιση κουμπιών"
-
-#~ msgid "Number of available Express Keys:"
-#~ msgstr "Πλήθος διαθέσιμων Express Keys:"
-
-#~ msgid "Map Hardware Buttons"
-#~ msgstr "Αντιστοίχιση κουμπιών υλικού"
-
-#~ msgid "Touch sensor"
-#~ msgstr "Αισθητήρας αφής"
-
-#~ msgid "&Normal tablet"
-#~ msgstr "Κα&νονικό πινάκιο"
-
-#~ msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-#~ msgstr "&Πινάκιο πολυ-συσκευή, ασθητήρας γραφίδας. Ο αισθητήρας αφής είναι:"
-
-#~ msgid "Multi-&device tablet, touch sensor"
-#~ msgstr "Πινάκιο πολυ-&συσκευή, ασθητήρας αφής"
-
-#~ msgid "Dialog"
-#~ msgstr "Διάλογος"
-
-#~ msgid ""
-#~ "Move the mouse cursor inside the dialog but <b>do not</b> click into it "
-#~ "with the mouse."
-#~ msgstr ""
-#~ "Μετακινήστε το δρομέα του ποντικιού μέσα στο διάλογο αλλά <b>μην</b> "
-#~ "κάνετε κλικ πάνω σε αυτό με το ποντίκι."
+#. i18n: ectx: property (windowTitle), widget (QDialog, HWButtonDialog)
+#: src/tabletfinder/hwbuttondialog.ui:14
+#, kde-format
+msgid "Dialog"
+msgstr "Διάλογος"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: src/tabletfinder/hwbuttondialog.ui:26
+#, kde-format
+msgid ""
+"Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
+"the mouse."
+msgstr ""
+"Μετακινήστε το δρομέα του ποντικιού μέσα στο διάλογο αλλά <b>μην</b> κάνετε "
+"κλικ πάνω σε αυτό με το ποντίκι."
 
 #~ msgid "document-new"
 #~ msgstr "έγγραφο-νέο"
