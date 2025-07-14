@@ -80,7 +80,7 @@ msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
 msgid "Default Orientation"
-msgstr "ნაგულისხმები ორიენტაცია"
+msgstr "ნაგულისხმევი ორიენტაცია"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:240
 #, kde-format
