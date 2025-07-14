@@ -539,7 +539,7 @@ msgstr "პროფილის სახელი:"
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
-msgstr "ნაგულისხმები"
+msgstr "ნაგულისხმევი"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:425
 #, kde-format
@@ -603,7 +603,7 @@ msgstr "აირჩიეთ &პროფილი:"
 #: src/kcmodule/kcmwacomtabletwidget.ui:67
 #, kde-format
 msgid "Creates a new default profile"
-msgstr "ახალი ნაგულისხმები პროფილის შექმნა"
+msgstr "ახალი ნაგულისხმევი პროფილის შექმნა"
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, delProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:83
@@ -769,7 +769,7 @@ msgstr "თავაკის შეგრძლება"
 #, kde-format
 msgid "Number of raw data used to filter the points (default is 4)"
 msgstr ""
-"წერტილების გასაფილტრად გამოყენებული დაუმუშავებელი მონაცემები (ნაგულისხმები: "
+"წერტილების გასაფილტრად გამოყენებული დაუმუშავებელი მონაცემები (ნაგულისხმევი: "
 "4)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxRawSample)
@@ -795,7 +795,7 @@ msgstr "20"
 #: src/kcmodule/styluspagewidget.ui:489
 #, kde-format
 msgid "Number of points trimmed (default is 2)"
-msgstr "წაკვეთილი წერტილების რაოდენობა (ნაგულისხმები: 2)"
+msgstr "წაკვეთილი წერტილების რაოდენობა (ნაგულისხმევი: 2)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
 #: src/kcmodule/styluspagewidget.ui:492
@@ -953,7 +953,7 @@ msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
 msgid "Default Orientation"
-msgstr "ნაგულისხმები ორიენტაცია"
+msgstr "ნაგულისხმევი ორიენტაცია"
 
 #: src/kcmodule/tabletpagewidget.cpp:358
 #, kde-format
@@ -1228,7 +1228,7 @@ msgstr "ტაბლეტი %1 ამოღებულია"
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exists."
 msgid "Default"
-msgstr "ნაგულისხმები"
+msgstr "ნაგულისხმევი"
 
 #: src/kded/tablethandler.cpp:437
 #, kde-format
