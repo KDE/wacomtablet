@@ -1,38 +1,38 @@
-# Copyright (C) YEAR This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the wacomtablet package.
 #
-# Safa Alfulaij <safa1996alfulaij@gmail.com>, 2017.
+# SPDX-FileCopyrightText: 2025 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-08-30 07:38+0200\n"
-"PO-Revision-Date: 2017-01-24 23:24+0300\n"
-"Last-Translator: Safa Alfulaij <safa1996alfulaij@gmail.com>\n"
-"Language-Team: Arabic <doc@arabeyes.org>\n"
-"Language: ar\n"
+"PO-Revision-Date: 2025-07-13 10:38+0300\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
+"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:36
 #, kde-format
 msgid "Graphic Tablet - Device not detected."
-msgstr "لوحيّ الرّسم - لم يُكتشف الجهاز."
+msgstr "לוח ציור - לא זוהה התקן."
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:45
 #, kde-format
 msgid "Error - Tablet service not available."
-msgstr "خطأ - خدمة اللوحيّات غير متوفّرة."
+msgstr "שגיאה - שירות הלוחות לא זמין."
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:108
 #, kde-format
 msgid ""
 "This widget is inactive because your tablet device is not connected or "
 "currently not supported."
-msgstr "هذه الودجة غير نشطة لأنّ لا جهاز لوحيّ متّصل أو أنّ المتصّل غير مدعوم."
+msgstr "הווידג׳ט הזה לא פעיל כי התקן הלוח שלך לא מחובר או שלא נתמך כרגע."
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:109
 #, kde-format
@@ -40,36 +40,36 @@ msgid ""
 "Please start the KDE wacom tablet service.\n"
 "The service is required for tablet detection and profile support."
 msgstr ""
-"رجاء ابدأ خدمة كِيدِي للّوحيّات واكُم.\n"
-"هذه الخدمة مطلوبة لاكتشاف اللوحيّات ودعم التّشكيلات."
+"נא להפעיל את שירות לוחות ה־Wacom של KDE.\n"
+"השירות נחוץ לאיתור לוחות ולתמיכה בפרופילים."
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:129
 #, kde-format
 msgid "Select Tablet:"
-msgstr "اختر لوحيًّا:"
+msgstr "בחירת לוח:"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:157
 #, kde-format
 msgid "Select Profile:"
-msgstr "اختر تشكيلة:"
+msgstr "בחירת פרופיל:"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:213
 #, kde-format
 msgctxt "Groupbox Settings for the applet to change some values on the fly"
 msgid "Settings"
-msgstr "إعدادات"
+msgstr "הגדרות"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:218
 #, kde-format
 msgctxt "Toggle between touch on/off"
 msgid "Touch:"
-msgstr "اللمس:"
+msgstr "מגע:"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:228
 #, kde-format
 msgctxt "Rotation of the tablet pad"
 msgid "Rotation:"
-msgstr "التّدوير:"
+msgstr "כיוון:"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:235
 #, kde-format
@@ -77,50 +77,50 @@ msgctxt ""
 "Either no orientation or the current screen orientation is applied to the "
 "tablet."
 msgid "Default Orientation"
-msgstr "الاتّجاه الافتراضيّ"
+msgstr "כיוון ברירת המחדל"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:240
 #, kde-format
 msgctxt "The tablet will be rotated clockwise."
 msgid "Rotate Tablet Clockwise"
-msgstr "دوّر اللوحيّ مع عقارب السّاعة"
+msgstr "הטיית הלוח עם כיוון השעון"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:245
 #, kde-format
 msgctxt "The tablet will be rotated counterclockwise."
 msgid "Rotate Tablet Counterclockwise"
-msgstr "دوّر اللوحيّ عكس عقارب السّاعة"
+msgstr "הטיית הלוח נגד כיוון השעון"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:250
 #, kde-format
 msgctxt "The tablet will be rotated up side down."
 msgid "Rotate Tablet Upside-Down"
-msgstr "دوّر اللوحيّ رأسًا على عقب"
+msgstr "היפוך הלוח"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:254
 #, kde-format
 msgctxt "Toggle between absolute/relative penmode"
 msgid "Mode:"
-msgstr "الوضع:"
+msgstr "מצב:"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:259
 #, kde-format
 msgctxt "absolute pen movement (pen mode)"
 msgid "Absolute"
-msgstr "مطلق"
+msgstr "מוחלט"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:274
 #, kde-format
 msgctxt "relative pen movement (mouse mode)"
 msgid "Relative"
-msgstr "نسبيّ"
+msgstr "יחסי"
 
 #: src/applet/package/contents/ui/main.qml:39
 #, kde-format
 msgid "&Configure Graphics Tablet..."
-msgstr "ا&ضبط لوحيّ الرّسم..."
+msgstr "ה&גדרת לוח ציור…"
 
 #: src/applet/package/contents/ui/main.qml:44
 #, kde-format
 msgid "Wacom Tablet"
-msgstr "لوحيّّ واكُم"
+msgstr "לוח Wacom"
