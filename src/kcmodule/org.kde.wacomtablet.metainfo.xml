@@ -20,6 +20,7 @@
   <name xml:lang="fi">KDE:n Wacom-piirtoalustamoduuli</name>
   <name xml:lang="fr">Module KDE pour tablette « Wacom »</name>
   <name xml:lang="gl">Módulo de tabletas de Wacom de KDE</name>
+  <name xml:lang="he">מודול לוח Wacom מבית KDE</name>
   <name xml:lang="hu">KDE Wacom beállítómodul</name>
   <name xml:lang="ia">Modulo de tabletta Wacom de KDE</name>
   <name xml:lang="id">Modul tablet Wacom KDE</name>
@@ -56,6 +57,7 @@
   <summary xml:lang="fi">Piirtoalustojen asetuskäyttöliittymä</summary>
   <summary xml:lang="fr">Un outil de configuration pour les tablettes graphiques</summary>
   <summary xml:lang="gl">Interface gráfica de usuario para a configuración de tabletas gráficas</summary>
+  <summary xml:lang="he">ממשק הגדרות ללוחות ציור</summary>
   <summary xml:lang="hu">Grafikus beállítófelület digitális rajztáblákhoz</summary>
   <summary xml:lang="ia">GUI de configuration per tablettas graphic</summary>
   <summary xml:lang="id">Konfigurasi GUI untuk tablet grafikal</summary>
@@ -92,6 +94,7 @@
     <p xml:lang="fi">Ohjelma tarjoaa piirtoalustojen järjestelmäasetusmoduulin ja yhdistettyjen piirtoalustojen taustapalvelun.</p>
     <p xml:lang="fr">Le module pour les tablettes « Wacom » fournit une section tablette au sein de la « Configuration du Système » et un démon qui configure les tablettes connectées en arrière plan.</p>
     <p xml:lang="gl">O módulo de tabletas de Wacom fornece unha sección de tabletas para a configuración do sistema e un servizo en segundo plano que configura as tabletas conectadas.</p>
+    <p xml:lang="he">מודול לוחות Wacom מספק סעיף לוחות להגדרות המערכת וסוכן רקע שמגדיר את לוחות הציור המחוברים.</p>
     <p xml:lang="hu">A Wacom beállítómodul biztosítja felületet a csatlakoztatott rajztáblákhoz a Rendszerbeállításokban, és egy háttérben futó folyamatot azok beállításához.</p>
     <p xml:lang="ia">Modulo de tabletta Wacom forni section per Preferentias de Systema e un demone de fundo que configura tablettas connectite.</p>
     <p xml:lang="id">Modul tablet Wacom menyediakan bagian tablet untuk System Settings dan daemon latarbelakang yang mengkonfigurasi tablet-tablet yang terkoneksi.</p>
@@ -135,6 +138,7 @@
       <caption xml:lang="fi">Asetusikkuna.</caption>
       <caption xml:lang="fr">Fenêtre de configuration.</caption>
       <caption xml:lang="gl">Xanela de configuración.</caption>
+      <caption xml:lang="he">חלון הגדרות.</caption>
       <caption xml:lang="hu">Beállítások ablak.</caption>
       <caption xml:lang="ia">Fenestra de preferentia.</caption>
       <caption xml:lang="id">Jendela pengaturan.</caption>
