@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-11 00:42+0000\n"
-"PO-Revision-Date: 2025-08-04 15:05+0400\n"
+"PO-Revision-Date: 2025-08-05 21:06+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -680,8 +680,8 @@ msgid ""
 "If deselected, stylus buttons will work once the stylus is in proximity of "
 "the tablet."
 msgstr ""
-"إذا تم تحديدها، فيجب أن يكون القلم على اتصال بالكمبيوتر اللوحي حتى يعمل الزر "
-"الجانبي للقلم.\n"
+"إذا حُددت، فيجب أن يكون القلم على اتصال بالحاسوب اللوحي حتى يعمل الزر الجانبي "
+"للقلم.\n"
 "في حالة إلغاء التحديد، ستعمل أزرار القلم بمجرد أن يكون القلم على مقربة من "
 "اللوحي."
 
@@ -715,8 +715,8 @@ msgid ""
 "This parameter is independent of the PressureCurve parameter."
 msgstr ""
 "عيّن الحد الأدنى للضغط اللازم لإنشاء حدث زر للقلم/الطرف أو الممحاة أو اللمس.\n"
-"يتم تطبيع مستويات الضغط لجميع الأجهزة اللوحية إلى 2048 مستوى بغض النظر عن "
-"مستويات الأجهزة المدعومة فعليًا.\n"
+"تُطبع مستويات الضغط لجميع الأجهزة اللوحية إلى 2048 مستوى بغض النظر عن مستويات "
+"الأجهزة المدعومة فعليًا.\n"
 "هذه المعلمة مستقلة عن معلمة PressureCurve."
 
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
@@ -791,7 +791,7 @@ msgstr "20"
 #: src/kcmodule/styluspagewidget.ui:489
 #, kde-format
 msgid "Number of points trimmed (default is 2)"
-msgstr "عدد النقاط التي تم اقتطاعها (المبدئي هو 2)"
+msgstr "عدد النقاط المقتطعة (المبدئي هو 2)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
 #: src/kcmodule/styluspagewidget.ui:492
@@ -1052,8 +1052,8 @@ msgid ""
 "If enabled the automatic tablet rotation for clockwise and counterclockwise "
 "rotations will be inverted."
 msgstr ""
-"إذا تم تمكين التدوير الآليّ للوحي في اتجاه عقارب الساعة وعكس اتجاه عقارب "
-"الساعة، فسيتم عكسه."
+"إذا مُكّن التدوير الآليّ للوحي في اتجاه عقارب الساعة وعكس اتجاه عقارب الساعة، "
+"فسيُعكس."
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenInvertCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:197
@@ -1137,7 +1137,7 @@ msgstr "الحد الأدنى للحركة في وحدات اللوحي قبل �
 #: src/kcmodule/touchpagewidget.ui:273
 #, kde-format
 msgid "Minimum distance for a zoom gesture is recognized."
-msgstr "تم التعرف على الحد الأدنى للمسافة لإيماءة التكبير/التصغير."
+msgstr "تُعرِف على الحد الأدنى للمسافة لإيماءة التكبير/التصغير."
 
 #. i18n: ectx: property (text), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:276
@@ -1151,8 +1151,7 @@ msgstr "مسافة التكبير"
 msgid ""
 "The minimum distance in tablet units for a zoom gesture to be recognized."
 msgstr ""
-"الحد الأدنى للمسافة في الوحدات اللوحية ليتم التعرف على إيماءة التكبير/"
-"التصغير."
+"الحد الأدنى للمسافة في الوحدات اللوحية ليُتعرَف على إيماءة التكبير/التصغير."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, tapTimeLabel)
 #: src/kcmodule/touchpagewidget.ui:311
