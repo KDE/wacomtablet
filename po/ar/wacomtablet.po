@@ -547,7 +547,7 @@ msgid ""
 "database."
 msgstr ""
 "رجاء أوصل جهازًا لوحيًّا للمتابعة.\n"
-"إن كان الجهاز موصل بالفعل، فهو غير موجود في قاعد بيانات الأجهزة حاليًّا."
+"إن كان الجهاز موصل فعلًا، فهو غير موجود في قاعد بيانات الأجهزة حاليًّا."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
@@ -893,7 +893,7 @@ msgstr "&منطقة اللوحيّ"
 #: src/kcmodule/tabletareaselectionview.ui:122
 #, kde-format
 msgid "Set the tablet area proportional to the selected screen area."
-msgstr "قم بتعيين مساحة الجهاز اللوحي بما يتناسب مع مساحة الشاشة المحددة."
+msgstr "عيّن مساحة الجهاز اللوحي بما يتناسب مع مساحة الشاشة المحددة."
 
 #. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:125
@@ -1265,7 +1265,7 @@ msgstr "اكتشاف لوحيّ واكُم"
 #: src/tabletfinder/dialog.ui:20
 #, kde-format
 msgid "Connect your Tablet and click on Refresh to detect it."
-msgstr "قم بتوصيل جهازك اللوحي وانقر فوق حدّث لاكتشافه."
+msgstr "صِل جهازك اللوحي وانقر فوق حدّث لاكتشافه."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tabletfinder/dialog.ui:27
