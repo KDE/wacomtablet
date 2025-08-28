@@ -171,10 +171,9 @@ msgstr "Klikněte pro výběr..."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
 #: src/kcmodule/buttonactionselectionwidget.ui:14
-#, fuzzy, kde-format
-#| msgid "Select Button Action"
+#, kde-format
 msgid "Select Key Function"
-msgstr "Vybrat činnost tlačítka"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:35
@@ -216,17 +215,15 @@ msgstr "Prosím, vyberte činnost."
 #. i18n: Click to assign an action (shortcut) to a tablet button.
 #. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameDisplayWidget)
 #: src/kcmodule/buttonactionselectorwidget.ui:51
-#, fuzzy, kde-format
-#| msgid "Please select an action."
+#, kde-format
 msgid "Click to assign an action."
-msgstr "Prosím, vyberte činnost."
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonPageWidget)
 #: src/kcmodule/buttonpagewidget.ui:20
-#, fuzzy, kde-format
-#| msgid "Button 1"
+#, kde-format
 msgid "Pad Buttons"
-msgstr "Tlačítko 1"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
@@ -348,10 +345,9 @@ msgstr "Tlačítko 18"
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchStripGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:537
-#, fuzzy, kde-format
-#| msgid "Touch"
+#, kde-format
 msgid "Touch Strip"
-msgstr "Dotek"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:555
@@ -361,10 +357,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:572
-#, fuzzy, kde-format
-#| msgid "Left margin"
+#, kde-format
 msgid "Left Strip Down"
-msgstr "Levý okraj"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, rightStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:620
@@ -380,10 +375,9 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchRingGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:660
-#, fuzzy, kde-format
-#| msgid "Touch"
+#, kde-format
 msgid "Touch Ring"
-msgstr "Dotek"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, ringUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:671
@@ -393,10 +387,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, ringDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:711
-#, fuzzy, kde-format
-#| msgid "Down"
+#, kde-format
 msgid "Ring Down"
-msgstr "Dolů"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, wheelGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:733
@@ -470,10 +463,9 @@ msgstr "Obecný přehled hardware"
 
 #. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
 #: src/kcmodule/generalpagewidget.ui:35
-#, fuzzy, kde-format
-#| msgid "Orientation"
+#, kde-format
 msgid "Profile rotation"
-msgstr "Orientace"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, pbDown)
 #: src/kcmodule/generalpagewidget.ui:80
@@ -688,10 +680,9 @@ msgstr "Nastavení pera"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:28
-#, fuzzy, kde-format
-#| msgid "Changes the orientation of the tablet."
+#, kde-format
 msgid "Defines the button action on the stylus."
-msgstr "Změny v orientaci tabletu.tablet."
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:31
@@ -711,10 +702,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:116
-#, fuzzy, kde-format
-#| msgid "Please select an action."
+#, kde-format
 msgid "Tap to execute action."
-msgstr "Prosím, vyberte činnost."
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:128
@@ -856,11 +846,9 @@ msgstr "Obrazovka"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, screenToggleButton)
 #: src/kcmodule/tabletareaselectionview.ui:83
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Toggle between all screens"
+#, kde-format
 msgid "Toggle between fullscreen and each single screen."
-msgstr "Přepnout mezi obrazovkami"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, screenToggleButton)
 #: src/kcmodule/tabletareaselectionview.ui:86
@@ -876,11 +864,9 @@ msgstr "Vyberte platnou oblast tabletu pro vybranou plochu na obrazovce"
 
 #. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:99
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "Map to screen 1"
+#, kde-format
 msgid "Map Screen To"
-msgstr "Připojit na obrazovku 1"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:105
@@ -896,10 +882,9 @@ msgstr "Oblast &tabletu"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:122
-#, fuzzy, kde-format
-#| msgid "Select the valid tablet area used for the selected screen space."
+#, kde-format
 msgid "Set the tablet area proportional to the selected screen area."
-msgstr "Vyberte platnou oblast tabletu pro vybranou plochu na obrazovce"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:125
@@ -1105,10 +1090,9 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchMappingGroupBox)
 #: src/kcmodule/touchpagewidget.ui:104
-#, fuzzy, kde-format
-#| msgid "Tablet Mapping"
+#, kde-format
 msgid "Touch Mapping"
-msgstr "Mapování tabletu"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, touchMappingTabletButton)
 #: src/kcmodule/touchpagewidget.ui:119
@@ -1142,10 +1126,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:219
-#, fuzzy, kde-format
-#| msgid "Zoom Distance"
+#, kde-format
 msgid "Scroll Distance"
-msgstr "Vzdálenost přiblížení"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, scrollDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:235
