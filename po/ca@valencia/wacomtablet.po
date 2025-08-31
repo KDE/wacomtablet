@@ -163,7 +163,7 @@ msgstr "Perfil anterior"
 #, kde-format
 msgctxt "The action that will be assigned to a tablet button."
 msgid "Select Button Action"
-msgstr "Selecciona l'acció del botó"
+msgstr "Tria l'acció del botó"
 
 #: src/kcmodule/buttonactionselectionwidget.cpp:150
 #, kde-format
@@ -175,13 +175,13 @@ msgstr "Cliqueu per a seleccionar…"
 #: src/kcmodule/buttonactionselectionwidget.ui:14
 #, kde-format
 msgid "Select Key Function"
-msgstr "Selecciona la tecla de funció"
+msgstr "Tria la tecla de funció"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:35
 #, kde-format
 msgid "Select Button Action"
-msgstr "Selecciona l'acció del botó"
+msgstr "Tria l'acció del botó"
 
 #. i18n: ectx: property (text), widget (QCheckBox, ctrlModifierCheckBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:46
@@ -212,7 +212,7 @@ msgstr "Majúscules"
 #: src/kcmodule/buttonactionselectionwidget.ui:159
 #, kde-format
 msgid "Please select an action."
-msgstr "Seleccioneu una acció."
+msgstr "Trieu una acció."
 
 #. i18n: Click to assign an action (shortcut) to a tablet button.
 #. i18n: ectx: property (placeholderText), widget (Wacom::ButtonActionDisplayWidget, actionNameDisplayWidget)
@@ -455,7 +455,7 @@ msgstr "Llista de perfils"
 #: src/kcmodule/generalpagewidget.cpp:151
 #, kde-format
 msgid "Select the Profile you want to add:"
-msgstr "Seleccioneu el perfil que voleu afegir:"
+msgstr "Trieu el perfil que voleu afegir:"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, GeneralPageWidget)
 #: src/kcmodule/generalpagewidget.ui:14
@@ -617,13 +617,13 @@ msgstr "Configuració de tauleta gràfica"
 #: src/kcmodule/kcmwacomtabletwidget.ui:25
 #, kde-format
 msgid "&Select Tablet:"
-msgstr "&Seleccioneu una tauleta:"
+msgstr "&Trieu una tauleta:"
 
 #. i18n: ectx: property (text), widget (QLabel, profileLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:45
 #, kde-format
 msgid "Select &Profile:"
-msgstr "Seleccioneu un &perfil:"
+msgstr "Trieu un &perfil:"
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:67
@@ -711,7 +711,7 @@ msgid ""
 "If deselected, stylus buttons will work once the stylus is in proximity of "
 "the tablet."
 msgstr ""
-"Si se selecciona, el llapis haurà d'estar en contacte amb la tauleta perquè "
+"Si es tria, el llapis haurà d'estar en contacte amb la tauleta perquè "
 "funcione el botó lateral.\n"
 "Si està sense seleccionar, els botons del llapis funcionaran una vegada el "
 "llapis reste a prop de la tauleta."
@@ -887,8 +887,8 @@ msgstr "Canvia a pantalla"
 #, kde-format
 msgid "Select the valid tablet area used for the selected screen space."
 msgstr ""
-"Seleccioneu l'àrea vàlida de la tauleta emprada per a l'espai seleccionat de "
-"la pantalla."
+"Trieu l'àrea vàlida de la tauleta emprada per a l'espai seleccionat de la "
+"pantalla."
 
 #. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:99
@@ -1220,7 +1220,7 @@ msgstr "Invertix la direcció de desplaçament"
 #: src/kcmodule/touchpagewidget.ui:325
 #, kde-format
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
-msgstr "Si se selecciona, s'invertirà la direcció del gest de desplaçament."
+msgstr "Si es tria, s'invertirà la direcció del gest de desplaçament."
 
 #: src/kded/tabletdaemon.cpp:110
 #, kde-format
@@ -1296,7 +1296,7 @@ msgstr ""
 #: src/tabletfinder/dialog.ui:27
 #, kde-format
 msgid "Tablet Selection"
-msgstr "Seleccioneu la tauleta"
+msgstr "Trieu la tauleta"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/tabletfinder/dialog.ui:39
