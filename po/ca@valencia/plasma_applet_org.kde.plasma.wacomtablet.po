@@ -53,12 +53,12 @@ msgstr ""
 #: src/applet/package/contents/ui/FullRepresentation.qml:127
 #, kde-format
 msgid "Select Tablet:"
-msgstr "Seleccioneu una tauleta:"
+msgstr "Trieu una tauleta:"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:155
 #, kde-format
 msgid "Select Profile:"
-msgstr "Seleccioneu un perfil:"
+msgstr "Trieu un perfil:"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:211
 #, kde-format
