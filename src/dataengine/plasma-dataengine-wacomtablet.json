@@ -35,7 +35,6 @@
                 "Name[sv]": "Weng Xuetian",
                 "Name[tr]": "Weng Şüetien",
                 "Name[uk]": "Weng Xuetian",
-                "Name[x-test]": "xxWeng Xuetianxx",
                 "Name[zh_CN]": "Weng Xuetian",
                 "Name[zh_TW]": "Weng Xuetian"
             }
@@ -80,7 +79,6 @@
         "Name[sv]": "Datagränssnitt för Wacom ritplatta",
         "Name[tr]": "Wacom Tablet Veri İşletkesi",
         "Name[uk]": "Рушій даних планшета Wacom",
-        "Name[x-test]": "xxWacom Tablet DataEnginexx",
         "Name[zh_CN]": "Wacom 数位板数据引擎",
         "Name[zh_TW]": "Wacom 平板裝置資料引擎",
         "Version": "1.0",

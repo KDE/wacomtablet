@@ -34,7 +34,6 @@
         "Description[sv]": "Inställningar av Wacom ritplatta",
         "Description[tr]": "Wacom Tablet Ayarları",
         "Description[uk]": "Параметри планшетів Wacom",
-        "Description[x-test]": "xxWacom Tablet Settingsxx",
         "Description[zh_CN]": "Wacom 数位板设置",
         "Description[zh_TW]": "Wacom 繪圖版設定",
         "Icon": "preferences-desktop-tablet",
@@ -85,7 +84,6 @@
         "Name[tr]": "Grafik Tablet",
         "Name[ug]": "گرافىكىلىق سەزگۈر تاختا",
         "Name[uk]": "Графічний планшет",
-        "Name[x-test]": "xxGraphic Tabletxx",
         "Name[zh_CN]": "数位板",
         "Name[zh_TW]": "圖形平板裝置"
     },
@@ -130,7 +128,6 @@
     "X-KDE-Keywords[sv]": "Ritplatta,Inmatning,Enheter,Wacom,Penna",
     "X-KDE-Keywords[tr]": "Tablet,Girdi Aygıtları,Wacom,Stylus",
     "X-KDE-Keywords[uk]": "Tablet,Input Devices,Wacom,Stylus,планшет,введення,малювання,стило,перо",
-    "X-KDE-Keywords[x-test]": "xxTabletxx,xxInput Devicesxx,xxWacomxx,xxStylusxx",
     "X-KDE-Keywords[zh_CN]": "Tablet,Input Devices,Wacom,Stylus,shuweiban,shurushebei,yaganbi,shuweiping,heguan,huion,数位板,数位屏,输入设备,压感笔,和冠",
     "X-KDE-Keywords[zh_TW]": "Tablet,Input Devices,Wacom,Stylus",
     "X-KDE-OnlyShowOnQtPlatforms": [
