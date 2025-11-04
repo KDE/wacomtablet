@@ -1420,7 +1420,7 @@ msgstr "Bouton matériel %1 détecté."
 #, kde-format
 msgid "All buttons detected. Please close dialog"
 msgstr ""
-"Tous les boutons ont été détectés. Veuillez refermer cette boîte de dialogue"
+"Tous les boutons ont été détectés. Veuillez refermer cette boite de dialogue"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, HWButtonDialog)
 #: src/tabletfinder/hwbuttondialog.ui:14
@@ -1435,7 +1435,7 @@ msgid ""
 "Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
 "the mouse."
 msgstr ""
-"Déplacez le pointeur de la souris au sein de la boîte de dialogue mais ne "
+"Déplacez le pointeur de la souris au sein de la boite de dialogue mais ne "
 "cliquez <b>pas</b> dessus avec votre souris."
 
 #~ msgid "Graphic Tablet Configuration"
