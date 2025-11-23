@@ -33,7 +33,7 @@ msgstr "错误 - 数位板服务不可用。"
 msgid ""
 "This widget is inactive because your tablet device is not connected or "
 "currently not supported."
-msgstr "由于你的数位板尚未连接或者不受支持，此挂件不可用。"
+msgstr "由于你的数位板尚未连接或者不受支持，此小部件不可用。"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:107
 #, kde-format
