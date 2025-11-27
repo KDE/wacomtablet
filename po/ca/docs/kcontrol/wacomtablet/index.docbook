@@ -488,7 +488,7 @@
     <title
 >Miniaplicació de la tauleta del Plasma</title>
     <para
->La miniaplicació de tauleta fa possible canviar els perfils disponibles sobre la marxa. A més podreu canviar el gir del teclat i canviar entre el mode absolut/relatiu del llapis/goma d'esborrar, independentment del perfil de configuració actual. </para>
+>La miniaplicació de tauleta fa possible canviar els perfils disponibles sobre la marxa. A més podreu canviar el gir del plafó i canviar entre el mode absolut/relatiu del llapis/goma d'esborrar, independentment del perfil de configuració actual. </para>
     <para
 >No cal afegir el plasmoide perquè funcioni aquest mòdul. El perfil predeterminat serà activat pel <link linkend="kded"
 >dimoni de la tauleta</link
