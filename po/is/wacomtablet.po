@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2025-12-04 14:52+0000\n"
+"PO-Revision-Date: 2025-12-05 14:56+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
@@ -520,6 +520,9 @@ msgid ""
 "If your device is already connected, it is currently not in the device "
 "database."
 msgstr ""
+"Tengdu teiknitöflu til að halda áfram.\n"
+"Ef tækið þitt er þegar tengt, þá er það ekki í gagnagrunninum yfir studd "
+"tæki."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
@@ -574,6 +577,8 @@ msgstr "Vista notkunarsnið"
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
+"Mistókst að fæsa verkfærið til að finna Wacom-teiknitöflur. Athugaðu "
+"uppsetninguna þína."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
 #: src/kcmodule/kcmwacomtabletwidget.ui:14
@@ -816,6 +821,9 @@ msgid ""
 "The tablet area defines how the screen space is mapped to your tablet. For "
 "each screen a different tablet area can be selected. "
 msgstr ""
+"Svæðið á teiknitöflunni skilgreinir hvernig skjáflöturinn samsvarar "
+"teiknitöflunni. Hægt er að velja mismunandi svæði á teiknitöflunni fyrir "
+"hvern einstakan skjá."
 
 #. i18n: ectx: property (title), widget (QGroupBox, screenGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:57
@@ -827,7 +835,7 @@ msgstr "Skjár"
 #: src/kcmodule/tabletareaselectionview.ui:83
 #, kde-format
 msgid "Toggle between fullscreen and each single screen."
-msgstr ""
+msgstr "Víxla á milli skjáfyllihams og hvers staks skjás."
 
 #. i18n: ectx: property (text), widget (QPushButton, screenToggleButton)
 #: src/kcmodule/tabletareaselectionview.ui:86
@@ -839,7 +847,7 @@ msgstr "Víxla skjá"
 #: src/kcmodule/tabletareaselectionview.ui:96
 #, kde-format
 msgid "Select the valid tablet area used for the selected screen space."
-msgstr ""
+msgstr "Veldu teiknisvæðið sem notað er fyrir valinn skjáflöt."
 
 #. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:99
@@ -863,7 +871,7 @@ msgstr "&Teiknisvæði"
 #: src/kcmodule/tabletareaselectionview.ui:122
 #, kde-format
 msgid "Set the tablet area proportional to the selected screen area."
-msgstr ""
+msgstr "Stilltu hlutfallslegt teiknisvæði fyrir valinn skjáflöt."
 
 #. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:125
@@ -1043,6 +1051,7 @@ msgid ""
 "If enabled the automatic tablet rotation for clockwise and counterclockwise "
 "rotations will be inverted."
 msgstr ""
+"Ef þetta er virkt verður sjálfvirkum snúningi réttsælis og rangsælis umsnúið."
 
 #. i18n: ectx: property (text), widget (QCheckBox, rotateWithScreenInvertCheckBox)
 #: src/kcmodule/tabletpagewidget.ui:197
@@ -1175,7 +1184,7 @@ msgstr "Snúa við skrunstefnu"
 #: src/kcmodule/touchpagewidget.ui:344
 #, kde-format
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
-msgstr ""
+msgstr "Ef þetta er virkt verður stefnu skruns með skrunbendingu umsnúið."
 
 #: src/kded/tabletdaemon.cpp:113
 #, kde-format
@@ -1328,7 +1337,7 @@ msgstr "Vörpun hnappa"
 #: src/tabletfinder/dialog.ui:177
 #, kde-format
 msgid "Number of available Express Keys:"
-msgstr ""
+msgstr "Fjöldi tiltækra hraðhnappa:"
 
 #. i18n: ectx: property (text), widget (QPushButton, mapButtons)
 #: src/tabletfinder/dialog.ui:189
@@ -1388,3 +1397,5 @@ msgid ""
 "Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
 "the mouse."
 msgstr ""
+"Færðu músarbendilinn inn í gluggann en <b>þú skalt ekki</b> smella inn í "
+"hann með músarbendlinum."
