@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2025-12-05 14:56+0000\n"
+"PO-Revision-Date: 2025-12-06 08:17+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -683,6 +683,10 @@ msgid ""
 "If deselected, stylus buttons will work once the stylus is in proximity of "
 "the tablet."
 msgstr ""
+"Ef þetta er valið, verður teiknipenninn að snerta teiknitöfluna til að "
+"hnappur á hlið pennans virki.\n"
+"Ef þetta er ekki valið, munu hnappar teiknipennans virka nálægt "
+"teiknitöflunni."
 
 #. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:116
@@ -713,6 +717,11 @@ msgid ""
 "irregardless of the actual hardware supported levels.\n"
 "This parameter is independent of the PressureCurve parameter."
 msgstr ""
+"Stilltu lágmarksþrýsting sem þarf til að setja í gang hnappsatvik frá "
+"pennaoddi, útþurrkara eða snertingu.\n"
+"Þrýstingsstig allra teiknitaflna eru normalíseruð í 2048 þrep, burtséð frá "
+"hve mörg stig er studd af vélbúnaðnum. Þessi færibreyta er óháð "
+"PressureCurve-færibreytunni."
 
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_3)
