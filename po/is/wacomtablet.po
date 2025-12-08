@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:42+0000\n"
-"PO-Revision-Date: 2025-12-06 08:17+0000\n"
+"PO-Revision-Date: 2025-12-07 10:32+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -435,6 +435,8 @@ msgid ""
 "This will open another window, prompting you to describe your tablet device. "
 "After you're done, please restart your desktop session."
 msgstr ""
+"Þetta mun opna annan glugga og biðja þig um að lýsa teiknitöflunni þinni. "
+"Þegar þú hefur lokið því skaltu endurræsa skjáborðssetuna þína."
 
 #: src/kcmodule/generalpagewidget.cpp:56
 #, kde-format
