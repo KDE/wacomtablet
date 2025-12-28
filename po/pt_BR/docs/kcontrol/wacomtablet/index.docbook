@@ -408,7 +408,7 @@
         <para
 >Use o botão <guilabel
 >Alternar tela</guilabel
-> para alternar entre o modo de tela inteira (todos os monitores ligados) e cada monitor individual. As configurações serão salvas para cada definição de tela e será aplicada à mesa digitalizadora sempre que a seleção da tela é alterada pela ação do atalho global. </para>
+> para alternar entre o modo de tela cheia (todos os monitores ligados) e cada monitor individual. As configurações serão salvas para cada definição de tela e será aplicada à mesa digitalizadora sempre que a seleção da tela é alterada pela ação do atalho global. </para>
         <para
 >Se quiser manter as proporções da mesa digitalizadora com a seleção da tela atual, você pode clicar no botão <guilabel
 >Definir as proporções da tela</guilabel
