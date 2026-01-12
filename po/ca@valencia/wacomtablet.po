@@ -604,8 +604,8 @@ msgstr "Guardar els canvis al perfil actual?"
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
-"No s'ha pogut iniciar l'eina de busca de la tauleta Wacom. Comproveu la "
-"instal·lació."
+"Ha fallat mentre s'iniciava l'eina de busca de la tauleta Wacom. Comproveu "
+"la instal·lació."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
 #: src/kcmodule/kcmwacomtabletwidget.ui:14
