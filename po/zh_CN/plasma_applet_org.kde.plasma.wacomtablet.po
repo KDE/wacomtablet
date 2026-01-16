@@ -14,9 +14,9 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/wacomtablet/plasma_applet_org.kde.plasma."
-"wacomtablet.pot\n"
-"X-Crowdin-File-ID: 48842\n"
+"X-Crowdin-File: /kf6-stable/messages/wacomtablet/plasma_applet_org.kde."
+"plasma.wacomtablet.pot\n"
+"X-Crowdin-File-ID: 52576\n"
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:36
 #, kde-format
