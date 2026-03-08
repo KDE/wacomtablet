@@ -1,0 +1,521 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY tablet "<application
+>KCM Tablet</application
+>">
+  <!ENTITY kappname "&tablet;">
+  <!ENTITY package "kcontrol">
+  <!ENTITY kappversion "2.0"
+><!--Application version. Use this variable everywhere it's needed.-->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Arabic "INCLUDE">
+]>
+<book id="wacomtablet" lang="&language;">
+    <bookinfo>
+    <title
+>دليل اللوحي</title>
+
+    <authorgroup>
+        <author
+><firstname
+>Jörg</firstname
+> <surname
+>Ehrichs</surname
+> <affiliation
+> <address
+><email
+>joerg.ehrichs@gmx.de</email
+></address>
+            </affiliation>
+        </author>
+        <othercredit role="translator"
+><firstname
+>زايد</firstname
+><surname
+>السعيدي</surname
+><affiliation
+><address
+><email
+>zayed.alsaidi@gmail.com</email
+></address
+></affiliation
+><contrib
+>التّرجمة العربيّة</contrib
+></othercredit
+> 
+    </authorgroup>
+    <copyright>
+        <year
+>2013</year>
+        <holder
+>يورغ إريشس</holder>
+    </copyright>
+
+    <legalnotice
+>&FDLNotice;</legalnotice>
+
+    <date
+>2020-10-17</date
+><!-- Date of (re)writing, or update.-->
+    <releaseinfo
+>&kappversion;</releaseinfo
+><!-- Application version number. Use the variable definitions within header to change this value.-->
+
+    <abstract>
+        <para
+>هذا هو توثيق وحدة إعدادات نظام كيدي التي تضبط الأجهزة اللوحية الرسومية.</para>
+    </abstract>
+
+    <keywordset>
+        <keyword
+>كيدي</keyword
+><!-- do not change this! -->
+        <keyword
+>إعدادات النّظام</keyword>
+        <keyword
+>واكُم</keyword>
+        <keyword
+>لوحي</keyword>
+    </keywordset>
+
+    </bookinfo>
+
+    <chapter id="introduction">
+    <title
+>إعدادات لوحيّ واكُم</title>
+    <para
+>تتعامل وحدة إعدادات نظام الجهاز اللوحي مع جميع إعدادات جهازك اللوحي الرسومي. تُدار جميع الأجهزة اللوحية المدعومة من مشروع <ulink url="https://linuxwacom.github.io"
+>مشغل واكُم للينكس</ulink
+> من خلال واجهة الإعدادات هذه. تأكد من اكتشاف جهازك اللوحي إما عبر xorg.conf أو udev وأنه يعمل بشكل عام. ارجع إلى قسم <link linkend="detection"
+>اكتشاف اللوحي</link
+> لمزيد من المعلومات. </para>
+    <important>
+        <para
+>يجب تثبيت المشغل <application
+>xf86-input-wacom</application
+> على حاسوبك ويجب توفر الأمر <command
+>xsetwacom</command
+> لكي تعمل هذه الوحدة بشكل صحيح. </para>
+    </important>
+    <para
+>تُقسم الوحدة إلى صفحات تبويب متنوعة تعالج جميع جوانب جهازك اللوحي والقلم: <link linkend="tablet-profiles"
+>التشكيلات</link
+>، <link linkend="tablet-general"
+>معلومات عامة</link
+>، <link linkend="stylus"
+>إعدادات قلم التأشير</link
+>، <link linkend="pad-buttons"
+>الأزرار السريعة</link
+>، <link linkend="pad-mapping"
+>تعيين اللوحة</link
+> و <link linkend="touch-mapping"
+>تعيين اللمس</link
+>. </para>
+    <sect1 id="tablet-profiles">
+        <title
+>إدارة التشكيلات</title>
+
+        <para
+>هذا هو المربع المنسدل الصغير مع الزرين المجاورين له. يمكنك إنشاء تشكيلات جديدة وحذف التشكيلات الموجودة بالفعل. تُحفظ كل تشكيلة وتُحدد للجهاز اللوحي المتصل حالياً. إذا أنشأت تشكيلة جديدة، فستُنشأ آلياً واحدة بالإعدادات المبدئية كما يعيدها المشغل. </para>
+
+        <para
+>هنا يمكنك تحديد تشكيلات مختلفة لإعداداتك. على سبيل المثال، إذا كنت ترغب في سلوك مختلف للقلم عند استخدامه كبديل للفأرة لعملك اليومي أو استخدامه كقلم للرسم. </para>
+        <para
+>يمكن تغيير كل تشكيلة فورياً، مما يغير سلوك مدخلات جهازك اللوحي مباشرة. </para>
+        <note>
+            <para
+>يجب أن يكون <link linkend="kded"
+>عفريت لوحي kded</link
+> قيد التشغيل في الخلفية لتتمكن من تغيير التشكيلات وتطبيقها على الجهاز اللوحي. يقوم العفريت بكل العمل؛ بينما تقوم وحدة إعدادات النظام فقط بتغيير إعدادات التشكيلة له. </para>
+        </note>
+    </sect1>
+
+    <sect1 id="tablet-general">
+        <title
+>معلومات وإعدادات اللوحي العامة</title>
+
+        <para
+>يعرض بعض المعلومات العامة حول اللوحي المكتشف. بجانب اسم وشركة جهازك اللوحي، تُعرض صورة وتُدرج جميع أجهزة الإدخال المكتشفة. </para>
+
+        <note>
+            <para
+>يجب أن يكون الجهاز اللوحي متصلاً ويجب أن يكون <link linkend="kded"
+>kded</link
+> قيد التشغيل للسماح للوحدة بالعمل بشكل صحيح. </para>
+            <para
+>راجع قسم <link linkend="troubles"
+>مشاكل الاكتشاف</link
+> لمزيد من المساعدة بشأن اكتشاف الجهاز اللوحي. </para>
+        </note>
+
+        <para
+>بالإضافة إلى معلومات اللوحي، تتيح علامة التبويب العامة ضبط اختصارات عالمية متنوعة. يسمح كل اختصار بتغيير خيارات اللوحي المتصل حالياً ديناميكياً. </para>
+
+    </sect1>
+
+    <sect1 id="stylus">
+        <title
+>إعدادات قلم التّأشير</title>
+
+        <para
+>القلم المستخدم مع الجهاز اللوحي له جانبان مختلفان، الجانب الرئيسي يسمى قلم التأشير والطرف الآخر هو الممحاة. في علامة التبويب هذه، يمكنك تغيير أي جانب من جوانب القلم بدءاً من تعيين الأزرار وصولاً إلى منحنى الضغط والعتبة. </para>
+
+        <sect2 id="eraser-settings">
+            <title
+>حساسية الممحاة</title>
+            <para
+>يسمح المنزلق بتعديل عتبة الممحاة. لإعداد أكثر دقة للضغط، يمكن تعديل منحنى الضغط الكامل في حوار <guilabel
+>حرر منحنى الضغط</guilabel
+>. راجع <link linkend="presscurve"
+>حوار منحنى الضغط</link
+> لمزيد من المعلومات. </para>
+        </sect2>
+
+        <sect2 id="pen-button-settings">
+            <title
+>إعدادات الزّرّ</title>
+            <para
+>يسمح مربع <guilabel
+>إعدادات الزر</guilabel
+> بتعديل الإجراء المنفذ المخصص لكل زر من أزرار القلم. نقرة بسيطة داخل مربع التحرير تفتح حواراً جديداً حيث يمكن اختيار تركيبات مفاتيح ومفاتيح تعديل وأزرار فأرة مختلفة. </para>
+
+            <para
+>إذا تم تمكين <guilabel
+>النقر لتنفيذ الإجراء</guilabel
+>، فيجب أن يكون قلم التأشير ملامساً للجهاز اللوحي للسماح بتنفيذ إجراء الزر. إذا عُطّل هذا الخيار، سيعمل إجراء كل زر أيضاً عندما يحوم القلم فوق الجهاز اللوحي. </para>
+        </sect2>
+
+        <sect2 id="tip-settings">
+            <title
+>حساسية الطرف</title>
+            <para
+>يسمح المنزلق بتعديل عتبة طرف قلم التأشير. لإعداد أكثر دقة للضغط، يمكن تعديل منحنى الضغط الكامل في حوار <guilabel
+>حرر منحنى الضغط</guilabel
+>. راجع <link linkend="presscurve"
+>حوار منحنى الضغط</link
+> لمزيد من المعلومات. </para>
+        </sect2>
+    </sect1>
+
+    <sect1 id="pad-buttons">
+        <title
+>الأزرار السريعة</title>
+
+        <para
+>تتيح علامة تبويب <guilabel
+>الأزرار السريعة</guilabel
+> ضبط إجراءات أزرار معينة لجميع الأزرار العتادية للجهاز اللوحي. لتغيير الإجراء المستخدم، تحتاج إلى النقر داخل مربع التحرير واختيار الإجراء في الحوار الجديد. </para>
+    </sect1>
+
+
+   <sect1 id="pad-mapping">
+       <title
+>اللوحي</title>
+
+       <para
+>تتيح علامة تبويب <guilabel
+>اللوحي</guilabel
+> ضبط خصائص إضافية لمساحة اللوحي عند استخدامه مع قلم. يمكن هنا تحديد اتجاه مساحة اللوحي، والمساحة الصالحة للوحي المستخدم، ووضع تتبع المؤشر. </para>
+       <sect2 id="tablet-tracking">
+           <title
+>وضع تعقّب قلم التّأشير</title>
+
+           <itemizedlist>
+               <listitem>
+                   <para
+><guilabel
+>عينه على الشاشة</guilabel
+>: يعين هذا الوضع مؤشر القلم بحركة مطلقة على الجهاز اللوحي. تمثل حواف الجهاز اللوحي مباشرة مساحة الشاشة. </para>
+               </listitem>
+               <listitem>
+                   <para
+><guilabel
+>عينه على المؤشر</guilabel
+>: يعين هذا الوضع مؤشر القلم بحركة نسبية على الجهاز اللوحي. </para>
+               </listitem>
+           </itemizedlist>
+       </sect2>
+       <sect2 id="tablet-orientation">
+           <title
+>الاتّجاه</title>
+           <para
+>يحدد مربع الاتجاه كيفية تدوير مساحة اللوحي. يمكنك ضبط تدوير محدد بنفسك في المربع المنسدل، أو إذا مكّنت خيار <guilabel
+>تدوير آلي مع الشاشة</guilabel
+>، فسيتم تدوير اللوحي آلياً مع الشاشة. يتم ذلك من خلال الإنصات لأحداث xrandr عند تدوير الشاشة. </para>
+           <para
+>إذا واجهت مشاكل مع خيار التدوير الآلي وكان اللوحي يدوّر دائماً في الاتجاه الخاطئ، فمكّن خيار <guilabel
+>اعكس التدوير الآلي</guilabel
+> لعكس ذلك. </para>
+       </sect2>
+       <sect2 id="tablet-area-mapping">
+           <title
+>تعيين اللوحي إلى الشاشة</title>
+           <para
+>يسمح هذا التعيين بتحديد أجزاء اللوحي التي ستستخدم لكل شاشة. هذا ضروري للحفاظ على تناسب مساحة اللوحي مع مساحة الشاشة المستخدمة في وضع تتبع القلم المطلق. لمزيد من المعلومات، راجع قسم <link linkend="area-selection"
+>حوار اختيار المساحة</link
+>. </para>
+           <note>
+               <para
+>هذا الخيار لا يعمل في وضع المؤشر النسبي. </para>
+           </note>
+       </sect2>
+   </sect1>
+
+   <sect1 id="touch-mapping">
+       <title
+>اللمس</title>
+
+       <para
+>تتيح علامة تبويب <guilabel
+>اللمس</guilabel
+> ضبط خصائص إضافية لجزء اللمس في الجهاز اللوحي (إذا كان متوفراً). من الممكن تعطيل ميزة اللمس عبر مربع الاختيار <guilabel
+>مكّن اللمس</guilabel
+>. كما يوجد اختصار عالمي يسمح بتمكين/تعطيل ميزة اللمس. </para>
+
+       <sect2 id="touch-tracking">
+           <title
+>وضع تعقّب اللمس</title>
+
+           <itemizedlist>
+               <listitem>
+                   <para
+><guilabel
+>عينه على الشاشة</guilabel
+>: يعين هذا الوضع مؤشر اللمس بحركة مطلقة على الجهاز اللوحي. تمثل حواف الجهاز اللوحي مباشرة مساحة الشاشة. </para>
+               </listitem>
+               <listitem>
+                   <para
+><guilabel
+>عينه على المؤشر</guilabel
+>: يعين هذا الوضع مؤشر اللمس بحركة نسبية على الجهاز اللوحي. </para>
+               </listitem>
+           </itemizedlist>
+       </sect2>
+
+       <sect2 id="touch-gestures">
+           <title
+>الإيماءات</title>
+
+           <para
+>إذا تم تمكين <guilabel
+>مكّن الإيماءات</guilabel
+>، فيمكن للجهاز اللوحي توليد أحداث إيماءات لجهاز اللمس. </para>
+
+           <itemizedlist>
+               <listitem>
+                   <para
+><guilabel
+>مسافة التمرير</guilabel
+>: تسمح بالتمرير عبر النوافذ عند وضع إصبعين على اللوحي، وتحريكهما لأعلى/لأسفل يولد حدث تمرير. المسافة معطاة بوحدات اللوحي. </para>
+               </listitem>
+               <listitem>
+                   <para
+><guilabel
+>مسافة التقريب</guilabel
+>: تسمح بالتقريب/التبعيد عن طريق تحريك إصبعين معاً أو بعيداً عن بعضهما. المسافة معطاة بوحدات اللوحي. </para>
+               </listitem>
+               <listitem>
+                   <para
+><guilabel
+>وقت النقر</guilabel
+>: هذا الوقت بالملي ثانية يحدد متى يتم التعرف على نقرة مزدوجة على الجهاز كـ نقرة يمين. </para>
+               </listitem>
+           </itemizedlist>
+       </sect2>
+
+       <sect2 id="touch-area-mapping">
+           <title
+>تعّيين اللمس</title>
+           <para
+>يسمح هذا التعيين بتحديد أجزاء جهاز اللمس التي ستستخدم لكل شاشة. هذا ضروري للحفاظ على تناسب مساحة اللوحي مع مساحة الشاشة المستخدمة في وضع تتبع القلم المطلق. لمزيد من المعلومات، راجع قسم <link linkend="area-selection"
+>حوار اختيار المساحة</link
+>. </para>
+           <note>
+               <para
+>هذا الخيار لا يعمل في وضع المؤشر النسبي. </para>
+           </note>
+       </sect2>
+
+    </sect1>
+
+
+    <sect1 id="presscurve">
+        <title
+>حوار منحنى الضغط</title>
+
+        <para>
+            <screenshot>
+                <screeninfo
+>إليك لقطة شاشة لحوار منحنى الضغط</screeninfo>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="presscurve.png" format="PNG"/>
+                    </imageobject>
+                    <textobject>
+                        <phrase
+>تغيير منحنى الضغط</phrase>
+                    </textobject>
+                </mediaobject>
+            </screenshot>
+        </para>
+
+        <para
+>يحدد منحنى الضغط كيفية ترجمة ضغط قلم التأشير. يتم تعريف منحنى الضغط عبر أربع نقاط من منحنى بيزييه. لتغيير هذا المنحنى، يمكنك تعديل النقاط الحمراء وتحريك المنحنى. </para>
+        <note>
+            <para
+>استخدم قلمك داخل حوار منحنى الضغط لمشاهدة التغييرات في المنحنى مباشرة. تظهر منطقة زرقاء أسفل المنحنى الضغط المطبق بالقلم. </para>
+        </note>
+    </sect1>
+
+    <sect1 id="area-selection">
+        <title
+>حوار اختيار المساحة</title>
+
+        <para>
+            <screenshot>
+                <screeninfo
+>إليك لقطة شاشة لحوار مساحة اللوحي</screeninfo>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="tabletarea.png" format="PNG"/>
+                    </imageobject>
+                    <textobject>
+                        <phrase
+>تعريف مساحة اللوحي</phrase>
+                    </textobject>
+                </mediaobject>
+            </screenshot>
+        </para>
+
+        <para
+>يسمح هذا الحوار بتحديد مساحة اللوحي المتاحة لكل مساحة شاشة مختارة. من أجل الحفاظ على نسبة العرض إلى الارتفاع للوحي، من الضروري تقليل مساحة اللوحي اعتماداً على دقة الشاشة. يسمح هذا الحوار بتحديدها لكل شاشة بشكل فردي. </para>
+        <para
+>استخدم زر <guilabel
+>بدل الشاشة</guilabel
+> للتبديل بين ملء الشاشة (جميع الشاشات المتصلة) وكل شاشة على حدة. سيتم حفظ الإعدادات لكل تهيئة شاشة وتطبيقها على اللوحي كلما تم تبديل اختيار الشاشة بواسطة إجراء الاختصار العالمي. </para>
+        <para
+>من الممكن تعيين الشاشة مع مساحة <guimenuitem
+>كامل اللوحي</guimenuitem
+> أو فقط <guimenuitem
+>مساحة اللوحي</guimenuitem
+> المعرفة في لوحة <guilabel
+>اللوحي</guilabel
+> جهة اليمين. يمكن قفل أو فك قفل أبعاد المساحة باستخدام زر التبديل <guibutton
+>اقفل الأبعاد</guibutton
+>. </para>
+        <para
+>إذا كنت ترغب في الحفاظ على نسبة العرض إلى الارتفاع للوحي مع اختيار الشاشة الحالي، يمكنك الضغط على زر <guilabel
+>اضبط أبعاد الشاشة</guilabel
+>. سيتم حساب مساحة اللوحي وتغييرها آلياً. </para>
+        <para
+>بالإضافة إلى ذلك، يمكنك فتح حوار <guilabel
+>عاير</guilabel
+> لمعايرة جهازك اللوحي بمساعدة أربع نقاط على الشاشة. </para>
+        <para
+>عند إغلاق الحوار، ستُستخدم آخر شاشة مختارة. إذا كنت ترغب في تبديل الشاشة لاحقاً، يمكنك استخدام <link linkend="tablet-general"
+>الاختصار العالمي</link
+>. </para>
+        <note>
+            <para
+>مساحة اللوحي تعمل فقط في وضع التتبع المطلق لأجهزة اللمس ومؤشر القلم. في الوضع النسبي، يُستخدم كامل اللوحي. </para>
+        </note>
+    </sect1>
+    </chapter>
+
+
+
+
+
+    <chapter id="kded">
+    <title
+>عفريت اللوحي</title>
+    <para
+>يعمل عفريت اللوحي في الخلفية ويقوم بالعمل الأساسي؛ اكتشاف اللوحي وضبطه مع التشكيلات المختارة. إذا لم يكن العفريت قيد التشغيل، فلن تعمل وحدة إعدادات النظام وعنصر بلازما بشكل صحيح ولن يمكن استخدام اللوحي مع التشكيلات. </para>
+
+    <sect1 id="detection">
+        <title
+>اكتشاف اللوحي</title>
+        <para
+>يتم اكتشاف <hardware
+>جهاز اللوحي</hardware
+> بعدة طرق. يُستخدم <application
+>Solid</application
+> في الخطوة الأولى ويدعم التوصيل أثناء التشغيل. إذا فشل Solid، فإن الخطوات التالية هي <command
+>xsetwacom list dev</command
+>، و <command
+>lsusb</command
+> و <command
+>xinput --list</command
+>. </para>
+        <para
+>إذا لم تعِد أي من الأوامر أعلاه اسم الجهاز اللوحي، فهو غير مدعوم ولا يمكن استخدامه بواسطة هذه الوحدة. </para>
+    </sect1>
+    <sect1 id="troubles">
+        <title
+>مشاكل الاكتشاف</title>
+        <para
+>إذا لم يتم اكتشاف اللوحي، فتحقق من صفحة <ulink url="https://linuxwacom.github.io"
+>مشغل واكُم للينكس</ulink
+> أو صفحة <ulink url="https://digimend.github.io"
+>مشغل DIGImend</ulink
+> لمعرفة ما إذا كان جهازك اللوحي مدعوماً. علاوة على ذلك، تحقق عبر <command
+>lsusb</command
+> إذا كان بإمكانك العثور على جهازك اللوحي. </para>
+        <para
+>إذا لم يتعامل udev مع الاكتشاف، فأضف اللوحي إلى ملف <filename
+>/etc/X11/xorg.conf.d/50-tablet.conf</filename
+> (أنشئه إذا لم يكن موجوداً) وأعد تشغيل خادوم إكس (x-server). </para>
+        <para
+>في حالة وجود جهاز تسلسلي (حاسوب لوحي وما شابه)، تحقق مما إذا كان <command
+>xinput --list</command
+> يدرج أجهزة الإدخال الخاصة بك (قلم التأشير/الممحاة/اللوحة). إذا كانت مدرجة، فقم بإلقاء نظرة على معرف جهاز اللوحي الداخلي عبر <command
+>xsetwacom get "اسم اللوحة أو القلم الخاص بك" TabletID</command
+>. إذا تمت إعادة معرف، فيرجى إرسال جميع المعلومات اللازمة بالبريد الإلكتروني إلى المؤلف. </para>
+        <note>
+        <para
+>دعم التوصيل أثناء التشغيل متاح فقط إذا تم العثور على اللوحي عبر <application
+>Solid</application
+> وواجهة برمجة تطبيقات الإشعارات الخاصة به. </para>
+        <para
+>يتحقق <application
+>Solid</application
+> ما إذا كانت قيمة الإدخال <command
+>input.x11_options.Type</command
+> هي <command
+>pen</command
+>، أو <command
+>stylus</command
+>، أو <command
+>eraser</command
+> أو <command
+>cursor</command
+> أو إذا كانت قيمة الإدخال <command
+>input.x11_driver</command
+> هي <command
+>wacom</command
+>. </para>
+        <para
+>يرجى مراسلة المؤلف بالبريد الإلكتروني إذا تم اكتشاف جهازك اللوحي بواسطة Solid ولكن بقيم أخرى لتعزيز دعم الأجهزة اللوحية. </para>
+        </note>
+    </sect1>
+    </chapter>
+
+    <chapter id="applet">
+    <title
+>عنصر بلازما للوحي</title>
+    <para
+>يجعل عنصر اللوحي من الممكن تغيير التشكيلات المتاحة فورياً. علاوة على ذلك، يمكنك تغيير تدوير اللوحة والتبديل بين الوضع المطلق/النسبي لقلم التأشير/الممحاة بغض النظر عن إعدادات التشكيلة الحالية. </para>
+    <para
+>ليس من الضروري إضافة الـ plasmoid لتعمل هذه الوحدة. سيتم تنشيط التشكيلة المبدئية بواسطة <link linkend="kded"
+>عفريت اللوحي</link
+> بمجرد اكتشاف جهازك اللوحي حتى لو لم يتم استخدام الـ plasmoid. الـ plasmoid هو مجرد مساعد مرئي للتبديل بسهولة بين التشكيلات. </para>
+    </chapter>
+    <chapter id="credits"
+><title
+>الحقوق والترخيص</title>
+    <para
+>الترجمة: زايد السعيدي <email
+>zayed.alsaidi@gmail.com</email
+></para
+> &underFDL; &underGPL; </chapter>
+</book>
