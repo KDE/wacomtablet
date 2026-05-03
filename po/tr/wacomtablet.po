@@ -4,13 +4,13 @@
 # Translators:
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
 # Volkan Gezer <volkangezer@gmail.com>, 2017.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: extragear-base-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2025-12-23 11:36+0300\n"
+"PO-Revision-Date: 2026-05-02 19:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "H. İbrahim Güngör, Emir SARI"
+msgstr "H. İbrahim GÜNGÖR, Emir SARI"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -526,7 +526,7 @@ msgid ""
 "database."
 msgstr ""
 "Sürdürmek için bir tablet aygıtı bağlayın.\n"
-"Aygıtınız halihazırda bağlıysa şu anda aygıt veri tabanında gözükmüyor."
+"Aygıtınız hâlihazırda bağlıysa şu anda aygıt veri tabanında gözükmüyor."
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
