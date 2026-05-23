@@ -1,22 +1,23 @@
 # SPDX-FileCopyrightText: 2010 Jörg Ehrichs <Joerg.Ehrichs@gmx.de>
-# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2016, 2018, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
 # SPDX-FileCopyrightText: 2010 Panagiotis Papadopoulos <pano_90@gmx.net>
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2018, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2010-2013, 2016, 2018, 2022-2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2011-2014, 2018, 2020-2021 Burkhard Lück <lueck@hube-lueck.de>
 # SPDX-FileCopyrightText: 2012 Rolf Eike Beer <kde@opensource.sf-tec.de>
+# SPDX-FileCopyrightText: 2026 Philipp Kiemle <l10n.daphipz@fastmail.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 16:19+0000\n"
-"PO-Revision-Date: 2023-04-26 21:09+0200\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"PO-Revision-Date: 2026-05-21 16:55+0200\n"
+"Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.07.70\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -31,7 +32,7 @@ msgstr "kde-i18n-de@kde.org"
 #: src/common/aboutdata.cpp:33
 #, kde-format
 msgid "(c), 2009,2010 Jörg Ehrichs"
-msgstr "Copyright ©, 2009,2010 Jörg Ehrichs"
+msgstr "© 2009–2010 Jörg Ehrichs"
 
 #: src/common/aboutdata.cpp:37
 #, kde-format
@@ -166,7 +167,7 @@ msgstr "Knopfaktion auswählen"
 #, kde-format
 msgctxt "Select a mouse button from a dropwdown."
 msgid "Click to select..."
-msgstr "Klicken Sie zur Auswahl ..."
+msgstr "Klicken, um auszuwählen …"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonActionSelectionWidget)
 #: src/kcmodule/buttonactionselectionwidget.ui:14
@@ -779,7 +780,7 @@ msgstr "Definiert die Druck-Sensitivität mit einer Bezier-Kurve"
 #: src/kcmodule/styluspagewidget.ui:244 src/kcmodule/styluspagewidget.ui:394
 #, kde-format
 msgid "Edit Pressure Curve..."
-msgstr "Druckkurve bearbeiten ..."
+msgstr "Druckkurve bearbeiten …"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:272
@@ -834,7 +835,7 @@ msgstr ""
 #: src/kcmodule/styluspagewidget.ui:492
 #, kde-format
 msgid "Suppress Rate"
-msgstr ""
+msgstr "Unterdrückungsrate"
 
 #. i18n: ectx: property (text), widget (QLabel, labelMinSuppress)
 #: src/kcmodule/styluspagewidget.ui:525
@@ -1175,7 +1176,7 @@ msgstr "Scroll-Distanz"
 #, kde-format
 msgid "The minimum motion in tablet units before sending a scroll event."
 msgstr ""
-"Die minimale Bewegung in Einheiten auf dem Tablett bevor ein Scroll-Ereignis "
+"Die minimale Bewegung in Tablett-Einheiten, bevor ein Scroll-Ereignis "
 "gesendet wird."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
