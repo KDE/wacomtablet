@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2016, 2018, 2020, 2021, 2022, 2023, 2025 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2016, 2018, 2020-2023, 2025-2026 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2025-01-05 19:04+0100\n"
+"PO-Revision-Date: 2026-05-22 07:51+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 26.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -115,13 +115,13 @@ msgstr "Abilita/disabilita lo strumento tattile"
 #, kde-format
 msgctxt "@action"
 msgid "Toggle the Stylus Tool Relative/Absolute"
-msgstr "Commuta lo stilo da relativo ad assoluto"
+msgstr "Attiva/disattiva la modalità relativa/assoluta dello stilo"
 
 #: src/common/globalactions.cpp:47
 #, kde-format
 msgctxt "@action"
 msgid "Toggle between all screens"
-msgstr "Commuta tra tutti gli schermi"
+msgstr "Passa da uno schermo all'altro"
 
 #: src/common/globalactions.cpp:53
 #, kde-format
@@ -848,13 +848,13 @@ msgstr "Schermo"
 #: src/kcmodule/tabletareaselectionview.ui:83
 #, kde-format
 msgid "Toggle between fullscreen and each single screen."
-msgstr "Passa da schermo intero a singolo."
+msgstr "Passa dalla modalità a schermo intero alla modalità a schermo singolo."
 
 #. i18n: ectx: property (text), widget (QPushButton, screenToggleButton)
 #: src/kcmodule/tabletareaselectionview.ui:86
 #, kde-format
 msgid "Toggle Screen"
-msgstr "Commuta lo schermo"
+msgstr "Attiva/disattiva lo schermo"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:96
