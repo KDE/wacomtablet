@@ -8,24 +8,25 @@ msgstr ""
 "Project-Id-Version: wacomtablet\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:54+0000\n"
-"PO-Revision-Date: 2013-09-08 07:04+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-06-01 18:58-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ئابدۇقادىر ئابلىز, غەيرەت كەنجى"
+msgstr "ئابدۇقادىر ئابلىز، غەيرەت كەنجى"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
+msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 
 #: src/common/aboutdata.cpp:36
 #, kde-format
@@ -35,12 +36,12 @@ msgstr ""
 #: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Jörg Ehrichs"
-msgstr "Jörg Ehrichs"
+msgstr ""
 
 #: src/common/aboutdata.cpp:40
 #, kde-format
 msgid "Maintainer"
-msgstr "مەسئۇل كىشى"
+msgstr "ئاسرىغۇچى"
 
 #: src/common/aboutdata.cpp:41
 #, kde-format
@@ -50,7 +51,7 @@ msgstr ""
 #: src/common/aboutdata.cpp:41
 #, kde-format
 msgid "Developer"
-msgstr "ئىجادىيەتچى"
+msgstr "ئىجادكار"
 
 #: src/common/buttonshortcut.cpp:93
 #, kde-format
@@ -101,10 +102,9 @@ msgid "Mouse Button %1 Click"
 msgstr ""
 
 #: src/common/globalactions.cpp:31
-#, fuzzy, kde-format
-#| msgid "Wacom Tablet Settings"
+#, kde-format
 msgid "Wacom Tablet"
-msgstr "Wacom سەزگۈر تاختا تەڭشەكلىرى"
+msgstr "Wacom سەزگۈر تاختا"
 
 #: src/common/globalactions.cpp:35
 #, kde-format
@@ -154,7 +154,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action Switch to the previous profile in the rotation"
 msgid "Previous Profile"
-msgstr ""
+msgstr "ئالدىنقى سەپلىمە ھۆججەت"
 
 #: src/kcmodule/buttonactionselectiondialog.cpp:58
 #, kde-format
@@ -236,119 +236,111 @@ msgstr ""
 #: src/kcmodule/buttonpagewidget.ui:43 src/kcmodule/styluspagewidget.ui:81
 #, kde-format
 msgid "Button 1"
-msgstr "توپچا 1"
+msgstr "1-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button2Label)
 #. i18n: ectx: property (text), widget (QLabel, labelButton2)
 #: src/kcmodule/buttonpagewidget.ui:56 src/kcmodule/styluspagewidget.ui:62
 #, kde-format
 msgid "Button 2"
-msgstr "توپچا 2"
+msgstr "2-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button3Label)
 #. i18n: ectx: property (text), widget (QLabel, labelButton3)
 #: src/kcmodule/buttonpagewidget.ui:69 src/kcmodule/styluspagewidget.ui:43
 #, kde-format
 msgid "Button 3"
-msgstr "توپچا 3"
+msgstr "3-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button4Label)
 #: src/kcmodule/buttonpagewidget.ui:82
 #, kde-format
 msgid "Button 4"
-msgstr "ØªÛÚ¯"
+msgstr "4-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button5Label)
 #: src/kcmodule/buttonpagewidget.ui:95
 #, kde-format
 msgid "Button 5"
-msgstr "ØªÛÚ¯"
+msgstr "5-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button6Label)
 #: src/kcmodule/buttonpagewidget.ui:108
 #, kde-format
 msgid "Button 6"
-msgstr "ØªÛÚ¯"
+msgstr "6-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button7Label)
 #: src/kcmodule/buttonpagewidget.ui:121
 #, kde-format
 msgid "Button 7"
-msgstr "ØªÛÚ¯"
+msgstr "7-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button8Label)
 #: src/kcmodule/buttonpagewidget.ui:134
 #, kde-format
 msgid "Button 8"
-msgstr "تۈگمە 8"
+msgstr "8-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button9Label)
 #: src/kcmodule/buttonpagewidget.ui:147
 #, kde-format
 msgid "Button 9"
-msgstr "تۈگمە 9"
+msgstr "9-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button10Label)
 #: src/kcmodule/buttonpagewidget.ui:315
 #, kde-format
 msgid "Button 10"
-msgstr ""
+msgstr "10-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button11Label)
 #: src/kcmodule/buttonpagewidget.ui:328
-#, fuzzy, kde-format
-#| msgid "Button 1"
+#, kde-format
 msgid "Button 11"
-msgstr "توپچا 1"
+msgstr "11-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button12Label)
 #: src/kcmodule/buttonpagewidget.ui:341
-#, fuzzy, kde-format
-#| msgid "Button 1"
+#, kde-format
 msgid "Button 12"
-msgstr "توپچا 1"
+msgstr "12-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button13Label)
 #: src/kcmodule/buttonpagewidget.ui:354
-#, fuzzy, kde-format
-#| msgid "Button 1"
+#, kde-format
 msgid "Button 13"
-msgstr "توپچا 1"
+msgstr "13-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button14Label)
 #: src/kcmodule/buttonpagewidget.ui:367
-#, fuzzy, kde-format
-#| msgid "Button 1"
+#, kde-format
 msgid "Button 14"
-msgstr "توپچا 1"
+msgstr "14-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button15Label)
 #: src/kcmodule/buttonpagewidget.ui:380
-#, fuzzy, kde-format
-#| msgid "Button 1"
+#, kde-format
 msgid "Button 15"
-msgstr "توپچا 1"
+msgstr "15-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button16Label)
 #: src/kcmodule/buttonpagewidget.ui:393
-#, fuzzy, kde-format
-#| msgid "Button 1"
+#, kde-format
 msgid "Button 16"
-msgstr "توپچا 1"
+msgstr "16-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button17Label)
 #: src/kcmodule/buttonpagewidget.ui:406
-#, fuzzy, kde-format
-#| msgid "Button 1"
+#, kde-format
 msgid "Button 17"
-msgstr "توپچا 1"
+msgstr "17-توپچە"
 
 #. i18n: ectx: property (text), widget (QLabel, button18Label)
 #: src/kcmodule/buttonpagewidget.ui:419
-#, fuzzy, kde-format
-#| msgid "Button 1"
+#, kde-format
 msgid "Button 18"
-msgstr "توپچا 1"
+msgstr "18-توپچە"
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchStripGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:537
@@ -446,13 +438,12 @@ msgstr ""
 #: src/kcmodule/generalpagewidget.cpp:56
 #, kde-format
 msgid "Wacom Tablet Settings"
-msgstr "Wacom سەزگۈر تاختا تەڭشەكلىرى"
+msgstr "Wacom سەزگۈر تاختا تەڭشىكى"
 
 #: src/kcmodule/generalpagewidget.cpp:146
-#, fuzzy, kde-format
-#| msgid "Profile name:"
+#, kde-format
 msgid "Profile List"
-msgstr "Profile نامى:"
+msgstr ""
 
 #: src/kcmodule/generalpagewidget.cpp:147
 #, kde-format
@@ -467,40 +458,39 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
 #: src/kcmodule/generalpagewidget.ui:35
-#, fuzzy, kde-format
-#| msgid "Rotation"
+#, kde-format
 msgid "Profile rotation"
-msgstr "چۆرگىلىتىش:"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, pbDown)
 #: src/kcmodule/generalpagewidget.ui:80
 #, kde-format
 msgid "Down"
-msgstr ""
+msgstr "ئاستى"
 
 #. i18n: ectx: property (text), widget (QPushButton, pbRemoveFromRotationList)
 #: src/kcmodule/generalpagewidget.ui:87
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "چىقىرىۋەت"
 
 #. i18n: ectx: property (text), widget (QPushButton, pbAddToRotationList)
 #: src/kcmodule/generalpagewidget.ui:94
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "قوش"
 
 #. i18n: ectx: property (text), widget (QPushButton, pbUp)
 #: src/kcmodule/generalpagewidget.ui:101
 #, kde-format
 msgid "Up"
-msgstr ""
+msgstr "ئۈستى"
 
 #. i18n: ectx: property (title), widget (QGroupBox, shortcutGroupBox)
 #: src/kcmodule/generalpagewidget.ui:140
 #, kde-format
 msgid "Shortcuts"
-msgstr "تېزلەتمىلەر"
+msgstr "تېزلەتمە"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:168
 #, kde-format
@@ -535,13 +525,13 @@ msgstr ""
 #: src/kcmodule/kcmwacomtabletwidget.cpp:220
 #, kde-format
 msgid "Profile name:"
-msgstr "Profile نامى:"
+msgstr "سەپلىمە ھۆججەت ئاتى:"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:417
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exist."
 msgid "Default"
-msgstr ""
+msgstr "كۆڭۈلدىكى"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:425
 #, kde-format
@@ -572,10 +562,9 @@ msgid "Save changes to the current profile?"
 msgstr ""
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:463
-#, fuzzy, kde-format
-#| msgid "Tablet"
+#, kde-format
 msgid "Save Profile"
-msgstr "سەزگۈر تاختا"
+msgstr "سەپلىمە ھۆججەتنى ساقلا"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:476
 #, kde-format
@@ -590,17 +579,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, tabletListLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:25
-#, fuzzy, kde-format
-#| msgid "Tablet"
+#, kde-format
 msgid "&Select Tablet:"
-msgstr "سەزگۈر تاختا"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, profileLabel)
 #: src/kcmodule/kcmwacomtabletwidget.ui:45
-#, fuzzy, kde-format
-#| msgid "Tablet"
+#, kde-format
 msgid "Select &Profile:"
-msgstr "سەزگۈر تاختا"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (KAnimatedButton, addProfileButton)
 #: src/kcmodule/kcmwacomtabletwidget.ui:67
@@ -620,6 +607,8 @@ msgid ""
 "Click on the button, then enter the shortcut like you would in the program.\n"
 "Example for Ctrl+A: hold the Ctrl key and press A."
 msgstr ""
+"توپچىنى چېكىپ، ئاندىن بۇ پىروگراممىغا تېزلەتمە كىرگۈزۈلىدۇ.\n"
+"مەسىلەن، Ctrl+A يەنى Ctrl كۇنۇپكىسىنى بېسىپ تۇرۇپ ئاندىن A كۇنۇپكا بېسىلىدۇ."
 
 #: src/kcmodule/keysequenceinputbutton.cpp:310
 #, kde-format
@@ -771,7 +760,7 @@ msgstr ""
 #: src/kcmodule/styluspagewidget.ui:451
 #, kde-format
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #. i18n: ectx: property (text), widget (QLabel, labelMaxRawSample)
 #. i18n: ectx: property (text), widget (QLabel, labelMaxSuppress)
@@ -796,7 +785,7 @@ msgstr ""
 #: src/kcmodule/styluspagewidget.ui:525
 #, kde-format
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: src/kcmodule/tabletareaselectiondialog.cpp:106
 #, kde-format
@@ -852,17 +841,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:105
-#, fuzzy, kde-format
-#| msgid "Fullscreen TabletArea"
+#, kde-format
 msgid "&Full Tablet"
-msgstr "پۈتۈن ئېكران"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, tabletAreaRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:115
-#, fuzzy, kde-format
-#| msgid "Tablet"
+#, kde-format
 msgid "&Tablet Area"
-msgstr "سەزگۈر تاختا"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:122
@@ -896,22 +883,19 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, fineTuneGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:232
-#, fuzzy, kde-format
-#| msgid "Wacom Tablet Settings"
+#, kde-format
 msgid "Tablet area fine tuning"
-msgstr "Wacom سەزگۈر تاختا تەڭشەكلىرى"
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QLineEdit, lineEditWidth)
 #: src/kcmodule/tabletareaselectionview.ui:244
 #, kde-format
 msgid "Width"
-msgstr ""
+msgstr "كەڭلىك"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHorizontalTune)
 #: src/kcmodule/tabletareaselectionview.ui:254
-#, fuzzy, kde-format
-#| msgctxt "monitors are horizontal aligned"
-#| msgid "horizontal"
+#, kde-format
 msgid "Horizontal"
 msgstr "توغرىسىغا"
 
@@ -923,9 +907,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelVerticalTune)
 #: src/kcmodule/tabletareaselectionview.ui:277
-#, fuzzy, kde-format
-#| msgctxt "monitors are vertical aligned"
-#| msgid "vertical"
+#, kde-format
 msgid "Vertical"
 msgstr "بويىغا"
 
@@ -939,7 +921,7 @@ msgstr ""
 #: src/kcmodule/tabletareaselectionview.ui:306
 #, kde-format
 msgid "Height"
-msgstr ""
+msgstr "ئېگىزلىك"
 
 #: src/kcmodule/tabletpagewidget.cpp:356
 #, kde-format
@@ -1182,7 +1164,7 @@ msgstr ""
 #, kde-format
 msgctxt "Button that shows up in notification of a new tablet being connected"
 msgid "Configure"
-msgstr ""
+msgstr "سەپلە"
 
 #: src/kded/tabletdaemon.cpp:165
 #, kde-format
@@ -1218,7 +1200,7 @@ msgstr ""
 #, kde-format
 msgctxt "Name of the default profile that will be created if none exists."
 msgid "Default"
-msgstr ""
+msgstr "كۆڭۈلدىكى"
 
 #: src/kded/tablethandler.cpp:437
 #, kde-format
@@ -1237,10 +1219,9 @@ msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
 #: src/tabletfinder/dialog.ui:14
-#, fuzzy, kde-format
-#| msgid "Wacom Tablet Settings"
+#, kde-format
 msgid "Wacom Tablet detection"
-msgstr "Wacom سەزگۈر تاختا تەڭشەكلىرى"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: src/tabletfinder/dialog.ui:20
@@ -1250,23 +1231,21 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tabletfinder/dialog.ui:27
-#, fuzzy, kde-format
-#| msgid "Wacom Tablet Settings"
+#, kde-format
 msgid "Tablet Selection"
-msgstr "Wacom سەزگۈر تاختا تەڭشەكلىرى"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: src/tabletfinder/dialog.ui:39
-#, fuzzy, kde-format
-#| msgid "Tablet"
+#, kde-format
 msgid "Detected Tablets:"
-msgstr "سەزگۈر تاختا"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, refreshButton)
 #: src/tabletfinder/dialog.ui:51
 #, kde-format
 msgid "Refresh"
-msgstr ""
+msgstr "يېڭىلا"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: src/tabletfinder/dialog.ui:66
@@ -1318,17 +1297,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasWheel)
 #: src/tabletfinder/dialog.ui:146
-#, fuzzy, kde-format
-#| msgid "Wheel"
+#, kde-format
 msgid "has Wheel"
-msgstr "غالتەك"
+msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
 #: src/tabletfinder/dialog.ui:169
-#, fuzzy, kde-format
-#| msgid "Button 1"
+#, kde-format
 msgid "Button mapping"
-msgstr "توپچا 1"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: src/tabletfinder/dialog.ui:177
@@ -1344,17 +1321,15 @@ msgstr ""
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
 #: src/tabletfinder/dialog.ui:221
-#, fuzzy, kde-format
-#| msgid "Touch Settings"
+#, kde-format
 msgid "Touch sensor"
-msgstr "تەڭشەكلەر"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioNormalTablet)
 #: src/tabletfinder/dialog.ui:227
-#, fuzzy, kde-format
-#| msgid "Wacom Tablet Settings"
+#, kde-format
 msgid "&Normal tablet"
-msgstr "Wacom سەزگۈر تاختا تەڭشەكلىرى"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioParentTablet)
 #: src/tabletfinder/dialog.ui:239
@@ -1387,7 +1362,7 @@ msgstr ""
 #: src/tabletfinder/hwbuttondialog.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr ""
+msgstr "سۆزلەشكۈ"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: src/tabletfinder/hwbuttondialog.ui:26
