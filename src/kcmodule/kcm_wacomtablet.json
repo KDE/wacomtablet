@@ -35,6 +35,7 @@
         "Description[sl]": "Nastavitve tablice Wacom",
         "Description[sv]": "Inställningar av Wacom ritplatta",
         "Description[tr]": "Wacom Tablet Ayarları",
+        "Description[ug]": "Wacom سەزگۈر تاختا تەڭشىكى",
         "Description[uk]": "Параметри планшетів Wacom",
         "Description[zh_CN]": "Wacom 数位板设置",
         "Description[zh_TW]": "Wacom 繪圖版設定",
@@ -85,7 +86,7 @@
         "Name[sv]": "Grafisk ritplatta",
         "Name[th]": "แท็บเล็ตกราฟิก",
         "Name[tr]": "Grafik Tablet",
-        "Name[ug]": "گرافىكىلىق سەزگۈر تاختا",
+        "Name[ug]": "گىرافىكىلىق سەزگۈر تاختا",
         "Name[uk]": "Графічний планшет",
         "Name[zh_CN]": "数位板",
         "Name[zh_TW]": "圖形平板裝置"
