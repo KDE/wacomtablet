@@ -24,7 +24,7 @@ msgstr ""
 #: src/applet/package/contents/ui/FullRepresentation.qml:36
 #, kde-format
 msgid "Graphic Tablet - Device not detected."
-msgstr "Tauleta gràfica - Dispositiu no detectat."
+msgstr "Tauleta gràfica – Dispositiu no detectat."
 
 #: src/applet/package/contents/ui/FullRepresentation.qml:45
 #, kde-format
