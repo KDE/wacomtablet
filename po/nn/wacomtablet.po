@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 16:19+0000\n"
-"PO-Revision-Date: 2025-10-26 13:43+0100\n"
+"PO-Revision-Date: 2026-07-05 16:08+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@nuug.no>\n"
 "Language: nn\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.08.2\n"
+"X-Generator: Lokalize 26.04.3\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -922,7 +922,7 @@ msgstr "Kalibrer"
 #: src/kcmodule/tabletareaselectionview.ui:204
 #, kde-format
 msgid "This mapping can only be applied in absolute tracking mode."
-msgstr "Denne avbildninga kan berre brukast i absolutt sporingsmodus."
+msgstr "Denne avbildinga kan berre brukast i absolutt sporingsmodus."
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
 #: src/kcmodule/tabletareaselectionview.ui:219
@@ -1049,7 +1049,7 @@ msgstr "Avbild plateområdet til skjermen"
 #, kde-format
 msgid ""
 "Your currently selected mapping can not be applied in relative tracking mode."
-msgstr "Denne avbildninga kan ikkje brukast i relativ sporingsmodus."
+msgstr "Denne avbildinga kan ikkje brukast i relativ sporingsmodus."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, rotationGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:169
