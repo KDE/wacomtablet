@@ -119,7 +119,7 @@
 >Im Auswahlfeld können Sie bereits definierte Profile auswählen. Mit den Köpfen rechts daneben können Sie neue Profile erstellen und vorhandene löschen. Jedes Profil wird für das gerade angeschlossene Tablett definiert und gespeichert. Erstellen Sie ein neues Profil, erhält es automatisch die vom Treiber zurückgegebenen Standardeinstellungen. </para>
 
         <para
->Hier können Sie verschiedene Profile für Ihre Einstellungen festlegen. Sie möchten zum Beispiel ein verschiedenes Verhalten des Stifts, wenn Sie ihn als Mausersatz für die normale Bedienung oder als Stift zum Zeichnen benutzen. </para>
+>Hier können Sie verschiedene Profile für Ihre Einstellungen festlegen. Sie möchten zum Beispiel ein verschiedenes Verhalten des Stifts, wenn Sie ihn als Mausersatz für die normale Bedienung oder als Stift zum Zeichnen verwenden. </para>
         <para
 >Sie können das Profil im laufenden Betrieb wechseln und das Verhalten der Tabletteingabe direkt ändern. </para>
         <note>
@@ -363,7 +363,7 @@
 >Die Druckkurve definiert, wie der Druck des Stifts umgesetzt wird. Die Druckkurve ist durch 4 Punkte einer Bézier-Kurve definiert. Zur Änderung der Kurve die roten Punkte verändern und damit die Kurve umher schieben. </para>
         <note>
             <para
->Benutzen Sie den Stift im Druckkurven-Dialog, um die Änderungen in der Druckkurve direkt zu sehen. Ein blauer Bereich unter der Kurve zeigt den angewandten Druck des Stifts. </para>
+>Verwenden Sie den Stift im Druckkurven-Dialog, um die Änderungen in der Druckkurve direkt zu sehen. Ein blauer Bereich unter der Kurve zeigt den angewandten Druck des Stifts. </para>
         </note>
     </sect1>
 
@@ -390,7 +390,7 @@
         <para
 >In diesem Dialog können Sie den verfügbaren Tablettbereich für jede ausgewählten Bildschirm festlegen. Um das Seitenverhältnis des Tabletts beizubehalten, ist es erforderlich, den Tablettbereich abhängig von der Bildschirmauflösung zur verringern. In diesem Dialog kann der Bereich für jeden einzelnen Bildschirm festgelegt werden. </para>
         <para
->Benutzen Sie den Knopf <guibutton
+>Verwenden Sie den Knopf <guibutton
 >Bildschirm umschalten</guibutton
 >, um zwischen Vollbild mit allen verbundenen Monitoren jedem einzelnen Monitor zu wechseln. Die Einstellungen werden für jede einzelne Bildschirmeinrichtung gespeichert und auf das Tablett angewendet, wenn die Bildschirmauswahl durch den globalen Kurzbefehl gewechselt wird. </para>
         <para
@@ -412,12 +412,12 @@
 >Kalibrieren</guilabel
 > öffnen, um mit Hilfe von vier Punkten auf dem Bildschirm Ihr Tablett zu kalibrieren. </para>
         <para
->Wird der Dialog geschlossen, wird der zuletzt ausgewählte Bildschirm verwendet. Möchten Sie zum nächsten Bildschirm wechseln, benutzen Sie die <link linkend="tablet-general"
+>Wird der Dialog geschlossen, wird der zuletzt ausgewählte Bildschirm verwendet. Möchten Sie zum nächsten Bildschirm wechseln, verwenden Sie die <link linkend="tablet-general"
 >Globalen Kurzbefehle</link
 >. </para>
         <note>
             <para
->Der Tablettbereich funktioniert nur für den absoluten Verfolgungsmodus des Cursors von Touch- und Stiftgerät. Im relativen Modus wird das gesamte Tablett benutzt. </para>
+>Der Tablettbereich funktioniert nur für den absoluten Verfolgungsmodus des Cursors von Touch- und Stiftgerät. Im relativen Modus wird das gesamte Tablett verwendet. </para>
         </note>
     </sect1>
     </chapter>
@@ -430,7 +430,7 @@
     <title
 >Tablett-Hintergrundprozess</title>
     <para
->Der Tablett-Dienst läuft im Hintergrund und führt die grundlegenden Funktionen aus, Wie die Erkennung eines Tabletts und dessen Einrichtung mit den vorhandenen Profilen. Läuft der Dienst nicht, dann können das &systemsettings;-Modul und das Plasma-Miniprogramm nicht richtig funktionieren und das Tablett kann mit den Profilen nicht benutzt werden. </para>
+>Der Tablett-Dienst läuft im Hintergrund und führt die grundlegenden Funktionen aus, Wie die Erkennung eines Tabletts und dessen Einrichtung mit den vorhandenen Profilen. Läuft der Dienst nicht, dann können das &systemsettings;-Modul und das Plasma-Miniprogramm nicht richtig funktionieren und das Tablett kann mit den Profilen nicht verwendet werden. </para>
 
     <sect1 id="detection">
         <title
@@ -446,7 +446,7 @@
 >lsusb</command
 > and <command
 >xinput --list</command
-> benutzt. </para>
+> verwendet. </para>
         <para
 >Gibt keiner der oben genannten Befehle des Namen des Tabletts zurück, wird es nicht unterstützt und kann mit diesem Modul nicht verwendet werden. </para>
     </sect1>
