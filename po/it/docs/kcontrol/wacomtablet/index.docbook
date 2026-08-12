@@ -390,9 +390,9 @@
         <para
 >Questa finestra permette di specificare l'area disponibile della tavoletta per ciascun spazio dello schermo selezionato. Per mantenere le giuste proporzioni è necessario ridurre l'area della tavoletta a seconda della risoluzione dello schermo. Questa finestra permette di specificare individualmente queste aree per ciascuno schermo selezionato. </para>
         <para
->Viene utilizzato il pulsante <guilabel
->Commuta lo schermo</guilabel
-> per cambiare la visualizzazione da schermo intero (tutti i monitor connessi) a quella su ciascun monitor. L'impostazione viene salvata per ciascuna configurazione di schermo, e applicata alla tavoletta ogni volta che la selezione dello schermo viene cambiata da un'azione scorciatoia globale. </para>
+>Usa il pulsante <guilabel
+>Attiva/disattiva lo schermo</guilabel
+> per passare dalla visualizzazione a schermo intero (in tutti i monitor connessi) a quella su ciascun monitor. L'impostazione viene salvata per ciascuna configurazione di schermo, e viene applicata alla tavoletta ogni volta che la selezione dello schermo viene cambiata dall'azione della scorciatoia globale. </para>
         <para
 >È possibile associare lo schermo con l'area di <guimenuitem
 >Tutta la tavoletta</guimenuitem
