@@ -3,31 +3,32 @@
 # SPDX-FileCopyrightText: 2010-2011, 2013-2015, 2026 Vít Pelčák <vit@pelcak.org>
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2013.
 # Vit Pelcak <vit@pelcak.org>, 2015, 2018, 2023.
+# SPDX-FileCopyrightText: 2026 Libor Filipek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 16:19+0000\n"
-"PO-Revision-Date: 2026-09-03 13:43+0200\n"
-"Last-Translator: Vít Pelčák <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-09-05 11:58+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.08.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Vít Pelčák, Tomáš Chvátal"
+msgstr "Vít Pelčák,Tomáš Chvátal,Libor Filípek"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "vit@pelcak.org, tomas.chvatal@gmail.com"
+msgstr "vit@pelcak.org,tomas.chvatal@gmail.com,libor.filipek@gmail.com"
 
 #: src/common/aboutdata.cpp:33
 #, kde-format
@@ -100,7 +101,7 @@ msgstr "Kolečko myši doprava"
 #, kde-format
 msgctxt "Tablet button triggers a click of mouse button with number #"
 msgid "Mouse Button %1 Click"
-msgstr ""
+msgstr "Kliknutí %1 tlačítkem myši"
 
 #: src/common/globalactions.cpp:30
 #, kde-format
@@ -131,19 +132,19 @@ msgctxt ""
 "@action Maps the area of the tablet to all available screen space (space "
 "depends on connected monitors)"
 msgid "Map to fullscreen"
-msgstr "Připojit na celou obrazovku:"
+msgstr "Mapovat na celou obrazovku"
 
 #: src/common/globalactions.cpp:58
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 1"
-msgstr "Připojit na obrazovku 1"
+msgstr "Mapovat na obrazovku 1"
 
 #: src/common/globalactions.cpp:64
 #, kde-format
 msgctxt "@action"
 msgid "Map to screen 2"
-msgstr "Připojit na obrazovku 2"
+msgstr "Mapovat na obrazovku 2"
 
 #: src/common/globalactions.cpp:70
 #, kde-format
@@ -173,7 +174,7 @@ msgstr "Klikněte pro výběr..."
 #: src/kcmodule/buttonactionselectionwidget.ui:14
 #, kde-format
 msgid "Select Key Function"
-msgstr ""
+msgstr "Vyberte funkci klávesy"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/kcmodule/buttonactionselectionwidget.ui:35
@@ -217,20 +218,20 @@ msgstr "Prosím, vyberte činnost."
 #: src/kcmodule/buttonactionselectorwidget.ui:51
 #, kde-format
 msgid "Click to assign an action."
-msgstr ""
+msgstr "Kliknutím přiřaďte akci."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ButtonPageWidget)
 #: src/kcmodule/buttonpagewidget.ui:20
 #, kde-format
 msgid "Pad Buttons"
-msgstr ""
+msgstr "Tlačítka na podložce"
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:29
 #: src/kcmodule/kcmwacomtabletwidget.cpp:447
 #, kde-format
 msgid "Express Buttons"
-msgstr ""
+msgstr "Rychlá tlačítka"
 
 #. i18n: ectx: property (text), widget (QLabel, button1Label)
 #. i18n: ectx: property (text), widget (QLabel, labelButton1)
@@ -347,49 +348,49 @@ msgstr "Tlačítko 18"
 #: src/kcmodule/buttonpagewidget.ui:537
 #, kde-format
 msgid "Touch Strip"
-msgstr ""
+msgstr "Dotykový pruh"
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:555
 #, kde-format
 msgid "Left Strip Up"
-msgstr ""
+msgstr "Levý pruh nahoru"
 
 #. i18n: ectx: property (text), widget (QLabel, leftStripDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:572
 #, kde-format
 msgid "Left Strip Down"
-msgstr ""
+msgstr "Levý pruh dolů"
 
 #. i18n: ectx: property (text), widget (QLabel, rightStripUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:620
 #, kde-format
 msgid "Right Strip Up"
-msgstr ""
+msgstr "Pravý pruh nahoru"
 
 #. i18n: ectx: property (text), widget (QLabel, rightStripDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:637
 #, kde-format
 msgid "Right Strip Down"
-msgstr ""
+msgstr "Pravý pruh dolů"
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchRingGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:660
 #, kde-format
 msgid "Touch Ring"
-msgstr ""
+msgstr "Dotykový kruh"
 
 #. i18n: ectx: property (text), widget (QLabel, ringUpLabel)
 #: src/kcmodule/buttonpagewidget.ui:671
 #, kde-format
 msgid "Ring Up"
-msgstr ""
+msgstr "Kruh nahoru"
 
 #. i18n: ectx: property (text), widget (QLabel, ringDownLabel)
 #: src/kcmodule/buttonpagewidget.ui:711
 #, kde-format
 msgid "Ring Down"
-msgstr ""
+msgstr "Kruh dolů"
 
 #. i18n: ectx: property (title), widget (QGroupBox, wheelGroupBox)
 #: src/kcmodule/buttonpagewidget.ui:733
@@ -461,11 +462,12 @@ msgstr "Vyberte profil jenž chcete přidat:"
 msgid "General Hardware Overview"
 msgstr "Obecný přehled hardware"
 
+# 62783 AttribValues/label
 #. i18n: ectx: property (title), widget (QGroupBox, profileRotationBox)
 #: src/kcmodule/generalpagewidget.ui:35
 #, kde-format
 msgid "Profile rotation"
-msgstr ""
+msgstr "Rotace profilu"
 
 #. i18n: ectx: property (text), widget (QPushButton, pbDown)
 #: src/kcmodule/generalpagewidget.ui:80
@@ -515,7 +517,7 @@ msgstr "V tomto modulu můžete nastavit profily vašeho tabletu Wacom"
 #: src/kcmodule/kcmwacomtabletwidget.cpp:165
 #, kde-format
 msgid "KDE tablet service not found"
-msgstr ""
+msgstr "Služba KDE pro tablety nebyla nalezena"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:166
 #, kde-format
@@ -529,7 +531,7 @@ msgstr ""
 #: src/kcmodule/kcmwacomtabletwidget.cpp:170
 #, kde-format
 msgid "Unsupported platform detected"
-msgstr ""
+msgstr "Zjištěna nepodporovaná platforma"
 
 #: src/kcmodule/kcmwacomtabletwidget.cpp:171
 #, kde-format
@@ -599,6 +601,8 @@ msgstr "Uložit změny do současného profilu?"
 #, kde-format
 msgid "Failed to launch Wacom tablet finder tool. Check your installation."
 msgstr ""
+"Spuštění nástroje pro vyhledávání tabletů Wacom se nezdařilo. Zkontrolujte "
+"instalaci."
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, KCMWacomTabletWidget)
 #: src/kcmodule/kcmwacomtabletwidget.ui:14
@@ -665,6 +669,9 @@ msgid ""
 "Drag around the dots to change the behavior\n"
 "Use the stylus inside the Widget to see the pressure changes."
 msgstr ""
+"Křivka tlaku určuje, jak se ovládá tlakové pero.\n"
+"Přetažením kolem bodů můžete změnit chování.\n"
+"Použijte stylus uvnitř widgetu, abyste viděli změny tlaku."
 
 #. i18n: ectx: property (text), widget (QLabel, pc_Label)
 #: src/kcmodule/pressurecurvedialog.ui:104
@@ -682,7 +689,7 @@ msgstr "Nastavení pera"
 #: src/kcmodule/styluspagewidget.ui:28
 #, kde-format
 msgid "Defines the button action on the stylus."
-msgstr ""
+msgstr "Definuje akci tlačítka na stylusu."
 
 #. i18n: ectx: property (title), widget (QGroupBox, buttonGroupBox)
 #: src/kcmodule/styluspagewidget.ui:31
@@ -699,24 +706,28 @@ msgid ""
 "If deselected, stylus buttons will work once the stylus is in proximity of "
 "the tablet."
 msgstr ""
+"Je-li zaškrtnuto, musí být stylus v kontaktu s tabletem, aby fungovalo boční "
+"tlačítko stylusu.\n"
+"Je-li zaškrtnutí zrušeno, budou tlačítka stylusu fungovat, jakmile se stylus "
+"ocitne v blízkosti tabletu."
 
 #. i18n: ectx: property (text), widget (QCheckBox, tpcCheckBox)
 #: src/kcmodule/styluspagewidget.ui:116
 #, kde-format
 msgid "Tap to execute action."
-msgstr ""
+msgstr "Klepnutím akci spustíte."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:128
 #, kde-format
 msgid "Sets eraser pressure threshold."
-msgstr ""
+msgstr "Nastaví prahovou hodnotu tlaku na gumu."
 
 #. i18n: ectx: property (title), widget (QGroupBox, eraserBox)
 #: src/kcmodule/styluspagewidget.ui:131
 #, kde-format
 msgid "Eraser Feel"
-msgstr ""
+msgstr "Chování gumy"
 
 #. i18n: ectx: property (toolTip), widget (QSlider, eraserSlider)
 #. i18n: ectx: property (toolTip), widget (QSlider, tipSlider)
@@ -729,6 +740,11 @@ msgid ""
 "irregardless of the actual hardware supported levels.\n"
 "This parameter is independent of the PressureCurve parameter."
 msgstr ""
+"Nastavit minimální tlak potřebný k vyvolání události tlačítka pro stylus/"
+"hrot, gumu nebo dotyk.\n"
+"Úrovně tlaku u všech tabletů jsou normalizovány na 2048 úrovní, a to bez "
+"ohledu na skutečný počet úrovní podporovaných hardwarem.\n"
+"Tento parametr je nezávislý na parametru PressureCurve."
 
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_2)
 #. i18n: ectx: property (text), widget (QLabel, labelSlow_3)
@@ -744,46 +760,46 @@ msgstr "Jemně"
 #, kde-format
 msgctxt "fast movement of the cursor (maximal value)"
 msgid "Firm"
-msgstr ""
+msgstr "Tvrdě"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, eraserPressureButton)
 #. i18n: ectx: property (toolTip), widget (QPushButton, tipPressureButton)
 #: src/kcmodule/styluspagewidget.ui:241 src/kcmodule/styluspagewidget.ui:391
 #, kde-format
 msgid "Defines the pressure sensitivity with a bezier curve"
-msgstr ""
+msgstr "Definuje citlivost na tlak pomocí Bézierovy křivky"
 
 #. i18n: ectx: property (text), widget (QPushButton, eraserPressureButton)
 #. i18n: ectx: property (text), widget (QPushButton, tipPressureButton)
 #: src/kcmodule/styluspagewidget.ui:244 src/kcmodule/styluspagewidget.ui:394
 #, kde-format
 msgid "Edit Pressure Curve..."
-msgstr "Upravit křivku přítlaku..."
+msgstr "Upravit tlakovou křivku..."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:272
 #, kde-format
 msgid "Sets stylus pressure threshold."
-msgstr ""
+msgstr "Nastaví prahovou hodnotu tlaku na stylus."
 
 #. i18n: ectx: property (title), widget (QGroupBox, tipFeelGroupBox)
 #: src/kcmodule/styluspagewidget.ui:275
 #, kde-format
 msgid "Tip Feel"
-msgstr "Chování špičky"
+msgstr "Chování hrotu"
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, groupBoxRawSample)
 #. i18n: ectx: property (toolTip), widget (QSlider, horizontalSliderRawSample)
 #: src/kcmodule/styluspagewidget.ui:412 src/kcmodule/styluspagewidget.ui:421
 #, kde-format
 msgid "Number of raw data used to filter the points (default is 4)"
-msgstr ""
+msgstr "Počet surových dat použitých k filtrování bodů (výchozí hodnota je 4)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxRawSample)
 #: src/kcmodule/styluspagewidget.ui:415
 #, kde-format
 msgid "Raw Sample Rate"
-msgstr ""
+msgstr "Surová vzorkovací frekvence"
 
 #. i18n: ectx: property (text), widget (QLabel, labelMinRawSample)
 #: src/kcmodule/styluspagewidget.ui:451
@@ -802,13 +818,13 @@ msgstr "20"
 #: src/kcmodule/styluspagewidget.ui:489
 #, kde-format
 msgid "Number of points trimmed (default is 2)"
-msgstr ""
+msgstr "Počet oříznutých bodů (výchozí hodnota je 2)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBoxSupress)
 #: src/kcmodule/styluspagewidget.ui:492
 #, kde-format
 msgid "Suppress Rate"
-msgstr ""
+msgstr "Míra potlačení"
 
 #. i18n: ectx: property (text), widget (QLabel, labelMinSuppress)
 #: src/kcmodule/styluspagewidget.ui:525
@@ -837,6 +853,8 @@ msgid ""
 "The tablet area defines how the screen space is mapped to your tablet. For "
 "each screen a different tablet area can be selected. "
 msgstr ""
+"Oblast tabletu určuje, jak je prostor obrazovky namapován na váš tablet. Pro "
+"každou obrazovku lze vybrat jinou oblast tabletu. "
 
 #. i18n: ectx: property (title), widget (QGroupBox, screenGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:57
@@ -848,7 +866,7 @@ msgstr "Obrazovka"
 #: src/kcmodule/tabletareaselectionview.ui:83
 #, kde-format
 msgid "Toggle between fullscreen and each single screen."
-msgstr ""
+msgstr "Přepínání mezi režimem celé obrazovky a jednotlivými obrazovkami."
 
 #. i18n: ectx: property (text), widget (QPushButton, screenToggleButton)
 #: src/kcmodule/tabletareaselectionview.ui:86
@@ -860,13 +878,13 @@ msgstr "Přepnout obrazovku"
 #: src/kcmodule/tabletareaselectionview.ui:96
 #, kde-format
 msgid "Select the valid tablet area used for the selected screen space."
-msgstr "Vyberte platnou oblast tabletu pro vybranou plochu na obrazovce"
+msgstr "Vyberte platnou oblast tabletu pro vybranou plochu na obrazovce."
 
 #. i18n: ectx: property (title), widget (QGroupBox, controlsGroupBox)
 #: src/kcmodule/tabletareaselectionview.ui:99
 #, kde-format
 msgid "Map Screen To"
-msgstr ""
+msgstr "Mapovat obrazovku na"
 
 #. i18n: ectx: property (text), widget (QRadioButton, fullTabletRadioButton)
 #: src/kcmodule/tabletareaselectionview.ui:105
@@ -884,7 +902,7 @@ msgstr "Oblast &tabletu"
 #: src/kcmodule/tabletareaselectionview.ui:122
 #, kde-format
 msgid "Set the tablet area proportional to the selected screen area."
-msgstr ""
+msgstr "Nastavit plochu tabletu tak, aby byla úměrná vybrané části obrazovky."
 
 #. i18n: ectx: property (text), widget (QPushButton, forceProportionsButton)
 #: src/kcmodule/tabletareaselectionview.ui:125
@@ -902,7 +920,7 @@ msgstr "Kalibrovat"
 #: src/kcmodule/tabletareaselectionview.ui:204
 #, kde-format
 msgid "This mapping can only be applied in absolute tracking mode."
-msgstr ""
+msgstr "Toto mapování lze použít pouze v režimu absolutního sledování."
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonLockProportions)
 #: src/kcmodule/tabletareaselectionview.ui:219
@@ -982,25 +1000,25 @@ msgstr "Otočit tablet vzhůru nohama"
 #: src/kcmodule/tabletpagewidget.ui:25 src/kcmodule/touchpagewidget.ui:38
 #, kde-format
 msgid "Defines how the cursor movement mode will be used."
-msgstr ""
+msgstr "Určuje, jakým způsobem bude použit režim pohybu kurzoru."
 
 #. i18n: ectx: property (title), widget (QGroupBox, trackingModeGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:28
 #, kde-format
 msgid "Stylus Tracking Mode"
-msgstr ""
+msgstr "Režim sledování stylusu"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackAbsoluteRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:40 src/kcmodule/touchpagewidget.ui:53
 #, kde-format
 msgid "&Map to Screen (Absolute Mode)"
-msgstr ""
+msgstr "&Mapovat na obrazovku (absolutní režim)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, trackRelativeRadioButton)
 #: src/kcmodule/tabletpagewidget.ui:56 src/kcmodule/touchpagewidget.ui:69
 #, kde-format
 msgid "Map &to Cursor (Relative Mode)"
-msgstr ""
+msgstr "&Mapovat na kurzor (relativní režim)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, padMappingGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:88
@@ -1016,19 +1034,21 @@ msgid ""
 "Allows one to specify the tablet area for different screen selections in "
 "absolute cursor mode."
 msgstr ""
+"Umožňuje nastavit oblast tabletu pro různé volby obrazovky v režimu "
+"absolutního kurzoru."
 
 #. i18n: ectx: property (text), widget (QPushButton, padMappingTabletButton)
 #: src/kcmodule/tabletpagewidget.ui:103
 #, kde-format
 msgid "Map Tablet Area to Screen"
-msgstr "Připojit oblast tabletu k obrazovce"
+msgstr "Mapovat oblast tabletu na obrazovku"
 
 #. i18n: ectx: property (text), widget (QLabel, trackingWarningLabel)
 #: src/kcmodule/tabletpagewidget.ui:128 src/kcmodule/touchpagewidget.ui:147
 #, kde-format
 msgid ""
 "Your currently selected mapping can not be applied in relative tracking mode."
-msgstr ""
+msgstr "Aktuálně vybrané mapování nelze použít v režimu relativního sledování."
 
 #. i18n: ectx: property (toolTip), widget (QGroupBox, rotationGroupBox)
 #: src/kcmodule/tabletpagewidget.ui:169
@@ -1068,7 +1088,7 @@ msgstr ""
 #: src/kcmodule/tabletpagewidget.ui:197
 #, kde-format
 msgid "Invert Auto-Rotation"
-msgstr ""
+msgstr "Obrátit automatickou rotaci"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, touchCheckBox)
 #: src/kcmodule/touchpagewidget.ui:17
@@ -1086,25 +1106,25 @@ msgstr "Povolit dotyk"
 #: src/kcmodule/touchpagewidget.ui:41
 #, kde-format
 msgid "Touch Tracking Mode"
-msgstr ""
+msgstr "Režim sledování dotyku"
 
 #. i18n: ectx: property (title), widget (QGroupBox, touchMappingGroupBox)
 #: src/kcmodule/touchpagewidget.ui:104
 #, kde-format
 msgid "Touch Mapping"
-msgstr ""
+msgstr "Mapování dotyku"
 
 #. i18n: ectx: property (text), widget (QPushButton, touchMappingTabletButton)
 #: src/kcmodule/touchpagewidget.ui:119
 #, kde-format
 msgid "Map Touch Area to Screen"
-msgstr "Připojit oblast doteku na obrazovku"
+msgstr "Mapovat dotykovou oblast na obrazovku"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:183
 #, kde-format
 msgid "If enabled the touch events can recognize gestures."
-msgstr ""
+msgstr "Je-li povoleno, dotykové události mohou rozpoznávat gesta."
 
 #. i18n: ectx: property (text), widget (QCheckBox, gesturesCheckBox)
 #: src/kcmodule/touchpagewidget.ui:186
@@ -1122,25 +1142,26 @@ msgstr "Gesta"
 #: src/kcmodule/touchpagewidget.ui:216
 #, kde-format
 msgid "Minimum motion before sending a scroll gesture."
-msgstr ""
+msgstr "Minimální pohyb před provedením gesta posouvání."
 
 #. i18n: ectx: property (text), widget (QLabel, scrollDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:219
 #, kde-format
 msgid "Scroll Distance"
-msgstr ""
+msgstr "Vzdálenost posouvání"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, scrollDistanceSpinBox)
 #: src/kcmodule/touchpagewidget.ui:235
 #, kde-format
 msgid "The minimum motion in tablet units before sending a scroll event."
 msgstr ""
+"Minimální pohyb v jednotkách tabletu před odesláním události posouvání."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:254
 #, kde-format
 msgid "Minimum distance for a zoom gesture is recognized."
-msgstr ""
+msgstr "Je rozpoznána minimální vzdálenost pro gesto přiblížení."
 
 #. i18n: ectx: property (text), widget (QLabel, zoomDistanceLabel)
 #: src/kcmodule/touchpagewidget.ui:257
@@ -1154,36 +1175,41 @@ msgstr "Vzdálenost přiblížení"
 msgid ""
 "The minimum distance in tablet units for a zoom gesture to be recognized."
 msgstr ""
+"Minimální vzdálenost v jednotkách tabletu, při které je gesto přiblížení "
+"rozpoznáno."
 
 #. i18n: ectx: property (toolTip), widget (QLabel, tapTimeLabel)
 #: src/kcmodule/touchpagewidget.ui:292
 #, kde-format
 msgid "Minimum time between taps for a right click."
 msgstr ""
+"Minimální doba mezi jednotlivými klepnutími při kliknutí pravým tlačítkem."
 
 #. i18n: ectx: property (text), widget (QLabel, tapTimeLabel)
 #: src/kcmodule/touchpagewidget.ui:295
 #, kde-format
 msgid "Tap Time"
-msgstr "Čas poklepání"
+msgstr "Čas klepnutí"
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, tapTimeSpinBox)
 #: src/kcmodule/touchpagewidget.ui:305
 #, kde-format
 msgid "The minimum time in milliseconds between taps to trigger a right click."
 msgstr ""
+"Minimální doba v milisekundách mezi klepnutími potřebná k vyvolání kliknutí "
+"pravým tlačítkem."
 
 #. i18n: ectx: property (text), widget (QLabel, scrollInversionLabel)
 #: src/kcmodule/touchpagewidget.ui:318
 #, kde-format
 msgid "Invert Scroll Direction"
-msgstr ""
+msgstr "Obrátit směr posouvání"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, scrollInversionCheckBox)
 #: src/kcmodule/touchpagewidget.ui:325
 #, kde-format
 msgid "If selected, the scroll direction for the scroll gesture is inverted."
-msgstr ""
+msgstr "Je-li vybráno, směr posouvání při gestu posouvání se obrátí."
 
 #: src/kded/tabletdaemon.cpp:110
 #, kde-format
@@ -1209,7 +1235,7 @@ msgstr "Tablet připojen"
 #: src/kded/tablethandler.cpp:144
 #, kde-format
 msgid "New tablet '%1' connected."
-msgstr ""
+msgstr "Připojen nový tablet '%1'."
 
 #: src/kded/tablethandler.cpp:174
 #, kde-format
@@ -1240,7 +1266,7 @@ msgstr "Profil <b>%1</b> neexistuje. Namísto něj použijte <b>%2</b>"
 #: src/tabletfinder/dialog.cpp:453
 #, kde-format
 msgid "Button %1 maps to Button %2"
-msgstr ""
+msgstr "Tlačítko %1 je namapováno na tlačítko %2"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, Dialog)
 #: src/tabletfinder/dialog.ui:14
@@ -1253,6 +1279,7 @@ msgstr "Detekce tabletu Wacom"
 #, kde-format
 msgid "Connect your Tablet and click on Refresh to detect it."
 msgstr ""
+"Připojte svůj tablet a klikněte na tlačítko Obnovit, aby byl rozpoznán."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: src/tabletfinder/dialog.ui:27
@@ -1294,31 +1321,31 @@ msgstr "Vlastnosti tabletu"
 #: src/tabletfinder/dialog.ui:111
 #, kde-format
 msgid "has TouchRing"
-msgstr ""
+msgstr "má dotykový kruh"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsRight)
 #: src/tabletfinder/dialog.ui:118
 #, kde-format
 msgid "has Status LEDs right"
-msgstr ""
+msgstr "má vpravo stavovou LED diodu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripLeft)
 #: src/tabletfinder/dialog.ui:125
 #, kde-format
 msgid "has Touchstrip Left"
-msgstr ""
+msgstr "má vlevo dotykový pruh"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasTouchStripRight)
 #: src/tabletfinder/dialog.ui:132
 #, kde-format
 msgid "has Touchstrip Right"
-msgstr ""
+msgstr "má vpravo dotykový pruh"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasStatusLEDsLeft)
 #: src/tabletfinder/dialog.ui:139
 #, kde-format
 msgid "has Status LEDs left"
-msgstr ""
+msgstr "má vlevo stavovou LED diodu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hasWheel)
 #: src/tabletfinder/dialog.ui:146
@@ -1336,13 +1363,13 @@ msgstr "Mapování tlačítek"
 #: src/tabletfinder/dialog.ui:177
 #, kde-format
 msgid "Number of available Express Keys:"
-msgstr ""
+msgstr "Počet dostupných rychlých kláves:"
 
 #. i18n: ectx: property (text), widget (QPushButton, mapButtons)
 #: src/tabletfinder/dialog.ui:189
 #, kde-format
 msgid "Map Hardware Buttons"
-msgstr ""
+msgstr "Mapovat hardwarová tlačítka"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
 #: src/tabletfinder/dialog.ui:221
@@ -1360,13 +1387,13 @@ msgstr "&Normální tablet"
 #: src/tabletfinder/dialog.ui:239
 #, kde-format
 msgid "&Multi-device tablet, pen sensor. Touch sensor is:"
-msgstr ""
+msgstr "&Tablet pro více zařízení, senzor pro pero. Dotykový senzor je:"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioTouchSensor)
 #: src/tabletfinder/dialog.ui:251
 #, kde-format
 msgid "Multi-&device tablet, touch sensor"
-msgstr ""
+msgstr "Tablet &pro více zařízení, dotykový senzor"
 
 #: src/tabletfinder/hwbuttondialog.cpp:65
 #, kde-format
@@ -1376,12 +1403,12 @@ msgstr "Nyní prosím na tabletu stiskněte tlačítko %1."
 #: src/tabletfinder/hwbuttondialog.cpp:89
 #, kde-format
 msgid "Hardware button %1 detected."
-msgstr ""
+msgstr "Zjistěno hardwarové tlačítko %1."
 
 #: src/tabletfinder/hwbuttondialog.cpp:101
 #, kde-format
 msgid "All buttons detected. Please close dialog"
-msgstr ""
+msgstr "Zjištěna všechna tlačítka. Zavřete prosím dialogové okno"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, HWButtonDialog)
 #: src/tabletfinder/hwbuttondialog.ui:14
@@ -1396,3 +1423,5 @@ msgid ""
 "Move the mouse cursor inside the dialog but <b>do not</b> click into it with "
 "the mouse."
 msgstr ""
+"Přesuňte kurzor myši dovnitř dialogového okna, ale <b>neklikejte</b> na něj "
+"myší."
