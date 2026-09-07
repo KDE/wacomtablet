@@ -81,6 +81,7 @@
     <p xml:lang="ar">توفر وحدة واكوم اللوحية قسمًا للأجهزة اللوحية في إعدادات النظام لضبط الأجهزة اللوحية المتصلة.</p>
     <p xml:lang="ca">El mòdul de tauletes Wacom proporciona la secció de tauletes per a l'Arranjament del sistema i un dimoni en segon pla que configura les tauletes connectades.</p>
     <p xml:lang="ca-valencia">El mòdul de tauletes Wacom proporciona la secció de tauletes per a Configuració del sistema i un dimoni en segon pla que configura les tauletes connectades.</p>
+    <p xml:lang="cs">Modul tabletu Wacom poskytuje sekci věnovanou tabletům v nastavení systému a službu běžící na pozadí, která konfiguruje připojené tablety.</p>
     <p xml:lang="da">Wacom-tablet-modulet giver en tablet-sektion i Systemindstillinger og en baggrundsdæmon som indstiller tilsluttede tablets.</p>
     <p xml:lang="de">Wacom-Tablett ist ein Modul für die Systemeinstellungen und ein Hintergrunddienst zur Einrichtung angeschlossener Tabletts.</p>
     <p xml:lang="el">Το άρθρωμα πινακίου Wacom παρέχει μια ενότητα για πινάκια για τις ρυθμίσεις συστήματος και έναν δαίμονα παρασκηνίου που διαμορφώνει συνδεδεμένα πινάκια.</p>
@@ -123,7 +124,7 @@
       <caption xml:lang="ar">نافذة الإعدادات.</caption>
       <caption xml:lang="ca">Finestra de paràmetres.</caption>
       <caption xml:lang="ca-valencia">Finestra de paràmetres.</caption>
-      <caption xml:lang="cs">Okno nastavení</caption>
+      <caption xml:lang="cs">Okno nastavení.</caption>
       <caption xml:lang="da">Indstillingsvindue.</caption>
       <caption xml:lang="de">Einrichtungsfenster.</caption>
       <caption xml:lang="el">Παράθυρο ρυθμίσεων.</caption>
